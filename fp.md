@@ -57,13 +57,13 @@
 
 5.  **Which of the following options apply to referentially transparent code:(can select multiple)**
 
-    a. It can not throw an Exception
+    a. It can throw an Exception
 
     b. It does not depend on external world like files, database, console
 
     c. It will always return the same value for the same argument
 
-    d. It uses mutable state outside the function
+    d. It mutates the state outside the function
 
     > answers : b, c
 
