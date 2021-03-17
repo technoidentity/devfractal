@@ -7,6 +7,8 @@ b) adds the value to the beginning of the list
 c) at the most appropriate position, based on performance
 d) ArrayList doesn't have `add` method
 
+answer: a
+
 2. It's okay to store mutable objects(for eg. objects with setter methods) as keys in Hashmap. True?
 
 Answer: False
