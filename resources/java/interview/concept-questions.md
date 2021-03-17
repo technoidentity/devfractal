@@ -117,7 +117,9 @@ b) set1.retainAll(set2) is intersection of two sets
 c) `addAll` or `retainAll` is not provided on sets
 d) values in a Treeset need not support Comparable interface
 
-29. What are the advantages of return an object representing an error like Result/Either/Try/Option instead of exceptions?
+answer: a,b
+
+29. What are the advantages of returning an object representing an error like Result/Either/Try/Option instead of exceptions?
 
 a. Is more type safe.
 b. Is more composable.
@@ -178,7 +180,7 @@ foos[0] = new Buzz();
 ```
 
 a) compiles fine in Java
-b) throw an exception at runtime
+b) throws an exception at runtime
 c) does not compile
 d) compiles and runs fine
 
