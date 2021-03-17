@@ -53,7 +53,7 @@ Which of the following are true.
 
 a) if `f` throws, output will be 'first second '
 b) if `f` throws, output will be 'second third'
-b) if `f` doesn't throw output will be 'first third'
+c) if `f` doesn't throw output will be 'first third'
 d) if `f` doesn't throw output will be 'first'
 
 Answer b, c
