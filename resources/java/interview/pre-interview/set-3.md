@@ -1,4 +1,12 @@
-1. Assuming `createArray` is implemented the following way
+1. Generally `HashMap::get` is faster than `TreeMap::get`. True?
+
+Answer: True
+
+2. In Java, is it possible to allocate objects on the stack?
+
+Answer: No
+
+3. Assuming `createArray` is implemented the following way
 
 ```
 public static void createArray(Integer[] arr, int size) {
@@ -23,49 +31,36 @@ d) none of the above
 
 Answer: a
 
-2. Does the following code fragment legal(compiles fine if part of a method)?
+4. Assuming the following code
 
 ```
-Integer[] ints = new Integer[3];
-Object[] objs = ints;
+class Foo {
+  public void f() {}
+}
+
+class Bar extends Foo {
+  public void g() {}
+}
+
+// code fragment in a method
+Bar bar = new Bar();
+Foo foo = bar;
 ```
 
-Answer: yes
+Select all the statements that are legal
 
-3. Does the following code
+a) `foo.f()`
+b) `foo.g()`
+c) `bar.f()`
+d) `bar.g()`
 
-```
-class Foo {}
-class Bar extends Foo {}
-class Buzz extends Foo{}
-// within some method
+Answer: a, c, d
 
-Bar[] bars = new Bar[3];
-Foo[] foos = bars;
+5. Which of the following is true
 
-foos[0] = new Buzz();
-
-```
-
-a) compiles fine in Java
-b) throw an exception at runtime
-c) does not compile
-d) compiles and runs fine
-
-Answer: b (of course, this implies a too)
-
-4. Which of the following are some of the advantages of exceptions over returning an error value?
-
-a) Separates error handling code from program logic(business logic)
-b) is more type safe.
-c) Handling errors becomes necessary.
-d) All of the above.
-
-Answer: d
-
-5. A stream in Java can be traversed/iterated
-
-a) only once
-b) any number of times
+a) ArrayList::get is faster than LinkedList::get
+b) LinkedList::get is faster than ArrayList::get
+c) LinkedList::get and ArrayList::get both fast
+d) It depends on the values they contain
 
 Answer: a

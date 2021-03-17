@@ -1,10 +1,20 @@
-1. After the execution of following statements
+1. Is it possible to use Java 5 for loop `for(int e : coll)` with an array too not just collections. True?
+
+Answer: Yes
+
+2. If we need to call `Collections.sort(coll)`, then the collection element type must support Comparable interface. True?
+
+Answer: Yes
+
+3. After the execution of following statements
+
 ```
-Point pt = new Point(1, 2);
-Point pt2 = pt;
-pt.setX(100);
+Point first = new Point(1, 2);
+Point second = first;
+first.setX(100);
 ```
-What will be the value of `pt2.getX()`?
+
+What will be the value of `second.getX()`?
 
 a) 0
 b) 1
@@ -13,51 +23,37 @@ d) none of the above
 
 Answer: c
 
-2. Java has
-
-a) pass by value only
-b) pass by reference only
-c) both pass by value and pass by reference
-d) pass by value for primitive types and pass by reference for object types
-
-Answer: a
-
-3. Which of the following is true
-
-a) A generic class has only one class definition
-b) a separate class is generated for each parameterized object
-c) a separate class is generated for each primitive but shares the same class for all Objects.
-d) All the code is inlined and no class is generated.
-
-Answer: a
-
-4. If an interface inherits two or more constants with the same name
+4. Calling the following function CANNOT throw `NullPointerException`. True?
 
 ```
-public interface X {
-  int val=1;
-}
-public interface Y {
-  int val=2;
-}
-public interface Z extends X,Y {
+public static int foo(Integer arg) {
+  int x = arg;
+  return x;
 }
 ```
 
-What happens if we reference Z.val
+Answer: False
 
-a) it refers to X.val
-b) it refers to Y.val
-c) compiler error because of ambiguity
-d) it refers to X.val + Y.val
+5. Assuming the following code
 
-Answer: c
+```
+try {
+  f();
+  System.out.print("first ");
+}
+catch(Exception e) {
+  System.out.print("second ");
+}
+finally(Exception e) {
+  System.out.print("third")
+}
+```
 
-5. **A terminal stream operation**
+Which of the following are true.
 
-a) returns another stream
-b) executes the stream pipeline and produces a non stream result
-c) displays the stream elements
-d) closes the stream
+a) if `f` throws, output will be 'first second '
+b) if `f` throws, output will be 'second third'
+b) if `f` doesn't throw output will be 'first third'
+d) if `f` doesn't throw output will be 'first'
 
-Answer: b
+Answer b, c

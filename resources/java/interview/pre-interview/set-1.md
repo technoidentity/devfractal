@@ -1,40 +1,22 @@
-1. After the execution of the statement `Integer[] arr = new Integer[10];`, what is the value of arr[0]?
+# Pre Interview test 1
 
-a) new Integer()
-b) null
-c) 0
-d) none of the above
+1. For the following code `ArrayList::add(e)` method
 
-Answer: b
+a) adds the value to the end of the list
+b) adds the value to the beginning of the list
+c) at the most appropriate position, based on performance
+d) ArrayList doesn't have `add` method
 
-2. Expressions in Java
+2. It's okay to store mutable objects(for eg. objects with setter methods) as keys in Hashmap. True?
 
-a) always produce a value
-b) almost always produce a value
-c) never produce a value
-d) depends on the program
+Answer: False
 
-Answer: a
+3. Array `length` is fixed. Once array is created it's length cannot be changed. True?
 
-3. Which of the following is true
+Answer: Yes
 
-a) ArrayList::get is faster than LinkedList::get
-b) LinkedList::get is faster than ArrayList::get
-c) LinkedList::get and ArrayList::get both fast
-d) It depends on the values they contain
+4. Assuming the following code
 
-Answer: a
-
-4. java 5 for loop(also sometimes called foreach) can be used with
-
-a) collections
-b) arrays and collections
-c) arrays and iterables
-d) file readers, arrays and iterables
-
-Answer: c
-
-5. Assuming the following code
 ```
 public static void foo(Point pt) {
   pt.setX(100);
@@ -43,6 +25,7 @@ public static void foo(Point pt) {
 ```
 
 Code below produces the output
+
 ```
 Point pt = new Point(1, 2);
 Point other = pt;
@@ -55,5 +38,36 @@ a) 1
 b) 10
 c) 100
 d) null
+
+Answer: c
+
+4. The following code fragment is illegal,you cannot assign `int` to `Object`. True?
+
+```
+int x = 10;
+Object o = x;
+```
+
+Answer: False
+
+5. If an interface inherits two or more constants with the same name
+
+```
+public interface X {
+  int val=1;
+}
+public interface Y {
+  int val=2;
+}
+public interface Z extends X,Y {
+}
+```
+
+What happens if we reference Z.val
+
+a) it refers to X.val
+b) it refers to Y.val
+c) compiler error because of ambiguity
+d) it refers to X.val + Y.val
 
 Answer: c
