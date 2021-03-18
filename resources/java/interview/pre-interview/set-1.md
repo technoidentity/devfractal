@@ -7,8 +7,6 @@ b) adds the value to the beginning of the list
 c) at the most appropriate position, based on performance
 d) ArrayList doesn't have `add` method
 
-answer: a
-
 2. It's okay to store mutable objects(for eg. objects with setter methods) as keys in Hashmap. True?
 
 Answer: False
@@ -43,7 +41,7 @@ d) null
 
 Answer: c
 
-4. The following code fragment is illegal,you cannot assign `int` to `Object`. True?
+5. The following code fragment is illegal,you cannot assign `int` to `Object`. True?
 
 ```
 int x = 10;
@@ -51,25 +49,3 @@ Object o = x;
 ```
 
 Answer: False
-
-5. If an interface inherits two or more constants with the same name
-
-```
-public interface X {
-  int val=1;
-}
-public interface Y {
-  int val=2;
-}
-public interface Z extends X,Y {
-}
-```
-
-What happens if we reference Z.val
-
-a) it refers to X.val
-b) it refers to Y.val
-c) compiler error because of ambiguity
-d) it refers to X.val + Y.val
-
-Answer: c
