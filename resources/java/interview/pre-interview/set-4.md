@@ -1,42 +1,38 @@
-1. If you need to store values in a Hashmap, these values must support Comparable interface. True?
+# Pre Interview test 4
 
-Answer: False
-
-2. Lambda expression in Java, can only access final and effective final variables from the outer method. True?
-
-Answer: True
-
-3. `finally` block is always called, even when exception is not thrown. True?
-
-Answer: True
-
-4. Abstract classes cannot define constructors. True?
-
-Answer: False
-
-5. Assuming `swap` is implemented the following way.
+1. What is the output of the following program
 
 ```
-public static void swap(Object x, Object y) {
-  Object t = x;
-  x = y;
-  y = t;
+int result = 0;
+for(int i = 0; i < 20; ++i) {
+  if(i % 5 == 0 || i % 7 == 0)
+    result += i;
 }
+System.out.println(result);
 ```
 
-After execution of the following statements
+a) 31
+b) 45
+c) 51
+d) 55
 
-```
-Point x = new Point(1, 2);
-Point y = new Point(3, 4);
-swap(x, y);
-```
+2. If we define `x` with the statement `var x = 100;`, can we assign "hello" string to `x` later?
 
-`x` and `y` will be
+Answer: No
 
-a) (1, 2) and (3, 4)
-b) (3, 4) and (1, 2)
-c) (2, 1) and (4, 3)
-d) (1, 3) and (2, 4)
+3. If you need to store values in a Hashmap, these values must support Comparable interface. True?
+
+Answer: False
+
+4. `finally` block is always called, even when exception is not thrown. True?
+
+Answer: True
+
+5. Which of the following is true
+
+a) ArrayList::get is faster than LinkedList::get
+b) LinkedList::get is faster than ArrayList::get
+c) LinkedList::get and ArrayList::get both fast
+d) It depends on the values they contain
 
 Answer: a

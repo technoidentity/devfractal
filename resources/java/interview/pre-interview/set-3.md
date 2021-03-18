@@ -1,35 +1,40 @@
-1. Generally `HashMap::get` is faster than `TreeMap::get`. True?
+# Pre Interview test 3
+
+1. What is the output of the following program
+
+```
+int result = 0;
+for(int i = 0; i < 10; ++i) {
+  if(i % 2 != 0)
+    result += i;
+}
+System.out.println(result);
+```
+
+a) 15
+b) 20
+c) 25
+d) 30
+
+2. We can create an array of ints in Java using
+
+a) new Array<int>(10)
+b) new Array<Integer>(10)
+c) new int[10]
+d) new [10]int
+
+3. If we define `x` with the statement `var x = 100;`, what is the type of x?
+
+a) anything can be assigned to `x`, including string or boolean
+b) int
+c) Object
+d) Var
+
+Answer: b
+
+3. Generally `HashMap::get` is faster than `TreeMap::get`. True?
 
 Answer: True
-
-2. In Java, is it possible to allocate objects on the stack?
-
-Answer: No
-
-3. Assuming `createArray` is implemented the following way
-
-```
-public static void createArray(Integer[] arr, int size) {
-  arr = new Integer[size];
-}
-```
-
-After the execution of the following statements
-
-```
-  Integer[] ints = null;
-  createArray(ints, 2);
-
-```
-
-`ints` will be
-
-a) null
-b) array of three values 0, 0, 0
-c) array of three values null, null, null
-d) none of the above
-
-Answer: a
 
 4. Assuming the following code
 
@@ -56,11 +61,6 @@ d) `bar.g()`
 
 Answer: a, c, d
 
-5. Which of the following is true
+45. Abstract classes cannot define constructors. True?
 
-a) ArrayList::get is faster than LinkedList::get
-b) LinkedList::get is faster than ArrayList::get
-c) LinkedList::get and ArrayList::get both fast
-d) It depends on the values they contain
-
-Answer: a
+Answer: False

@@ -210,3 +210,112 @@ c) 0
 d) none of the above
 
 Answer: b
+
+38. Assuming the following code
+
+```
+public static void foo(Point pt) {
+  pt.setX(100);
+}
+
+```
+
+Code below produces the output
+
+```
+Point pt = new Point(1, 2);
+Point other = pt;
+pt.setX(10);
+foo(pt);
+System.out.print(other.getX());
+```
+
+a) 1
+b) 10
+c) 100
+d) null
+
+Answer: c
+
+39. After the execution of following statements
+
+```
+Point first = new Point(1, 2);
+Point second = first;
+first.setX(100);
+```
+
+40. Assuming `swap` is implemented the following way.
+
+```
+public static void swap(Object x, Object y) {
+  Object t = x;
+  x = y;
+  y = t;
+}
+```
+
+After execution of the following statements
+
+```
+Point x = new Point(1, 2);
+Point y = new Point(3, 4);
+swap(x, y);
+```
+
+`x` and `y` will be
+
+a) (1, 2) and (3, 4)
+b) (3, 4) and (1, 2)
+c) (2, 1) and (4, 3)
+d) (1, 3) and (2, 4)
+
+Answer: a
+
+41. It's okay to store mutable objects(for eg. objects with setter methods) as keys in Hashmap. True?
+
+Answer: False
+
+42. Calling the following function CANNOT throw `NullPointerException`. True?
+
+```
+public static int foo(Integer arg) {
+  int x = arg;
+  return x;
+}
+```
+
+Answer: False
+
+43. Assuming `createArray` is implemented the following way
+
+```
+public static void createArray(Integer[] arr, int size) {
+  arr = new Integer[size];
+}
+```
+
+After the execution of the following statements
+
+```
+  Integer[] ints = null;
+  createArray(ints, 2);
+
+```
+
+`ints` will be
+
+a) null
+b) array of three values 0, 0, 0
+c) array of three values null, null, null
+d) none of the above
+
+Answer: a
+
+44. In Java, is it possible to allocate objects on the stack?
+
+Answer: No
+
+45. Lambda expression in Java, can only access final and effective final variables from the outer method. True?
+
+Answer: True

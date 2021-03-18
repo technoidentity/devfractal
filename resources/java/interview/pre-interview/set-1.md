@@ -1,47 +1,42 @@
 # Pre Interview test 1
 
-1. For the following code `ArrayList::add(e)` method
+1. What is the output of the following code fragment
+
+```
+int result = 0;
+for(int i = 0; i < 5; i++)
+  result += i;
+System.out.println(result)
+```
+
+a) 10
+b) 15
+c) 20
+d) 25
+
+Answer: a
+
+2. How do you get the number of elements in an array?
+
+a) arr.length()
+b) arr.length
+c) arr.size()
+d) arr.getLength()
+
+Answer: b
+
+3. For the following code `ArrayList::add(e)` method
 
 a) adds the value to the end of the list
 b) adds the value to the beginning of the list
 c) at the most appropriate position, based on performance
 d) ArrayList doesn't have `add` method
 
-2. It's okay to store mutable objects(for eg. objects with setter methods) as keys in Hashmap. True?
-
-Answer: False
-
-3. Array `length` is fixed. Once array is created it's length cannot be changed. True?
+4. Array `length` is fixed. Once array is created it's length cannot be changed. True?
 
 Answer: Yes
 
-4. Assuming the following code
-
-```
-public static void foo(Point pt) {
-  pt.setX(100);
-}
-
-```
-
-Code below produces the output
-
-```
-Point pt = new Point(1, 2);
-Point other = pt;
-pt.setX(10);
-foo(pt);
-System.out.print(other.getX());
-```
-
-a) 1
-b) 10
-c) 100
-d) null
-
-Answer: c
-
-5. The following code fragment is illegal,you cannot assign `int` to `Object`. True?
+5. The following code fragment is illegal, as you cannot assign `int` to `Object`. True?
 
 ```
 int x = 10;

@@ -1,38 +1,37 @@
-1. Is it possible to use Java 5 for loop `for(int e : coll)` with an array too not just collections. True?
+# Pre Interview test 2
 
-Answer: Yes
-
-2. If we need to call `Collections.sort(coll)`, then the collection element type must support Comparable interface. True?
-
-Answer: Yes
-
-3. After the execution of following statements
+1. What is the output of the following program
 
 ```
-Point first = new Point(1, 2);
-Point second = first;
-first.setX(100);
+int result = 0;
+for(int i = 0; i < 10; ++i) {
+  if(i % 2 == 0)
+    result += i;
+}
+System.out.println(result);
 ```
 
-What will be the value of `second.getX()`?
+a) 15
+b) 20
+c) 25
+d) 30
 
-a) 0
-b) 1
-c) 100
-d) none of the above
+2. How do you get the number of elements in a collection in Java?
+
+a) coll.length()
+b) coll.length
+c) arr.size()
+d) arr.size
 
 Answer: c
 
-4. Calling the following function CANNOT throw `NullPointerException`. True?
+3. Is it possible to use Java 5 for loop `for(int e : coll)` with an array too not just collections. True?
 
-```
-public static int foo(Integer arg) {
-  int x = arg;
-  return x;
-}
-```
+Answer: Yes
 
-Answer: False
+4. If we need to call `Collections.sort(coll)`, then the collection element type must support Comparable interface. True?
+
+Answer: Yes
 
 5. Assuming the following code
 
@@ -53,7 +52,7 @@ Which of the following are true.
 
 a) if `f` throws, output will be 'first second '
 b) if `f` throws, output will be 'second third'
-c) if `f` doesn't throw output will be 'first third'
+b) if `f` doesn't throw output will be 'first third'
 d) if `f` doesn't throw output will be 'first'
 
 Answer b, c
