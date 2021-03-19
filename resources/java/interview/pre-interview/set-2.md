@@ -16,6 +16,8 @@ b) 20
 c) 25
 d) 30
 
+Answer: b
+
 2. How do you get the number of elements in a collection in Java?
 
 a) coll.length()
@@ -52,7 +54,7 @@ Which of the following are true.
 
 a) if `f` throws, output will be 'first second '
 b) if `f` throws, output will be 'second third'
-b) if `f` doesn't throw output will be 'first third'
+c) if `f` doesn't throw output will be 'first third'
 d) if `f` doesn't throw output will be 'first'
 
 Answer b, c
