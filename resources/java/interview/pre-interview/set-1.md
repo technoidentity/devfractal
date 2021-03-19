@@ -32,6 +32,8 @@ b) adds the value to the beginning of the list
 c) at the most appropriate position, based on performance
 d) ArrayList doesn't have `add` method
 
+Answer: a
+
 4. Array `length` is fixed. Once array is created it's length cannot be changed. True?
 
 Answer: Yes
