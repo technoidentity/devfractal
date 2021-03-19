@@ -16,12 +16,16 @@ b) 20
 c) 25
 d) 30
 
+   Answer: c
+
 2. We can create an array of ints in Java using
 
 a) new Array<int>(10)
 b) new Array<Integer>(10)
 c) new int[10]
 d) new [10]int
+  
+  Answer: c
 
 3. If we define `x` with the statement `var x = 100;`, what is the type of x?
 
@@ -32,11 +36,11 @@ d) Var
 
 Answer: b
 
-3. Generally `HashMap::get` is faster than `TreeMap::get`. True?
+4. Generally `HashMap::get` is faster than `TreeMap::get`. True?
 
 Answer: True
 
-4. Assuming the following code
+5. Assuming the following code
 
 ```
 class Foo {
@@ -61,6 +65,5 @@ d) `bar.g()`
 
 Answer: a, c, d
 
-45. Abstract classes cannot define constructors. True?
 
-Answer: False
+
