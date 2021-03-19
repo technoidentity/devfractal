@@ -16,6 +16,8 @@ b) 45
 c) 51
 d) 55
 
+Answer:c
+
 2. If we define `x` with the statement `var x = 100;`, can we assign "hello" string to `x` later?
 
 Answer: No
