@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "fp-ts-local-storage": "1.0.3",
+    "logging-ts": "0.3.4",
+    "rxjs": "6.6.7",
+    "fp-ts-rxjs": "0.6.13"
+  }
+}

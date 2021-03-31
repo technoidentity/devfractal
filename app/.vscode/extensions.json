@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "msjsdiag.debugger-for-chrome",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "coenraads.bracket-pair-colorizer",
+    "vincaslt.highlight-matching-tag"
+  ]
+}

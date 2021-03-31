@@ -1,0 +1,23 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "emmet.syntaxProfiles": {
+    "javascript": "html"
+  },
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  },
+  "files.autoSave": "onWindowChange",
+  "files.insertFinalNewline": true,
+  "js/ts.implicitProjectConfig.checkJs": false,
+  "javascript.validate.enable": false,
+  "typescript.surveys.enabled": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "files.watcherExclude": {
+    "**/target": true
+  }
+}
