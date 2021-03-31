@@ -19,5 +19,12 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "files.watcherExclude": {
     "**/target": true
-  }
+  },
+  "cSpell.words": [
+    "browserslist",
+    "chakra",
+    "formik",
+    "jotai",
+    "newtype"
+  ]
 }
