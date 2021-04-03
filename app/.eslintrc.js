@@ -211,7 +211,7 @@ module.exports = {
     'react/jsx-curly-spacing': 'off',
     'react/jsx-equals-spacing': 'off',
     'react/jsx-key': 'error',
-    'react/jsx-no-bind': 'error',
+    'react/jsx-no-bind': 'off',
     'react/jsx-no-comment-textnodes': 'error',
     'react/jsx-no-duplicate-props': 'error',
     'react/jsx-no-target-blank': 'error',

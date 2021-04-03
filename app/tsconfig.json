@@ -30,6 +30,13 @@
     // "paths": {
     // },
   },
-  "include": ["pages", "safe", "components", "next.config.js", "next-env.d.ts"],
+  "include": [
+    "pages",
+    "safe",
+    "components",
+    "common",
+    "next.config.js",
+    "next-env.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
