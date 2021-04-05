@@ -1,6 +1,6 @@
 import React from 'react'
 import useSWR from 'swr'
-import type { TaskType } from '../common'
+import type { Task } from '../common'
 import { TaskList } from '../components/TaskList'
 
 const fetcher = async (url: string) => fetch(url).then(async res => res.json())
@@ -13,9 +13,9 @@ const ListOfTasks = () => {
     return <div>failed to load</div>
   }
   if (!data) {
-    return <div>loading...</div>
+    return <div>Loading...</div>
   }
-  return <TaskList list={data as readonly TaskType[]} />
+  return <TaskList list={data as readonly Task[]} />
 }
 
 export default ListOfTasks

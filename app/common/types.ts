@@ -4,7 +4,7 @@ export interface Video {
   readonly title: string
   readonly duration: string
 }
-export interface TaskType {
+export interface Task {
   readonly id: number
   readonly title: string
   readonly description: string

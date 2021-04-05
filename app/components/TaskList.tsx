@@ -1,10 +1,10 @@
 import { Stack, Heading, Center } from '@chakra-ui/layout'
 import React from 'react'
-import type { TaskType } from '../common'
-import { Task } from './Task'
+import type { Task } from '../common'
+import { TaskItem } from './TaskItem'
 
 export interface TaskListProps {
-  readonly list: readonly TaskType[]
+  readonly list: readonly Task[]
 }
 
 export const TaskList: React.FC<TaskListProps> = ({ list }) => (
@@ -14,7 +14,7 @@ export const TaskList: React.FC<TaskListProps> = ({ list }) => (
     </Center>
     <Stack margin={10}>
       {list.map(listItem => (
-        <Task
+        <TaskItem
           key={listItem.id}
           id={listItem.id}
           title={listItem.title}
