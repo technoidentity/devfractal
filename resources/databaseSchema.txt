@@ -1,0 +1,97 @@
+
+
+model User {
+
+  id             Int    @default(autoincrement()) @id
+  email          String @unique
+  firstName      String
+  lastName       String
+  //group might represent project team
+  group          String?
+  role           UserRole
+
+  //relation fields
+  //list of super tasks or courses assigned to this user
+  courses        CourseEnrollment[]
+  //tasks assigned to user as student
+  AssignedTasks  TaskAssignment[]       @relation(name: "assignee")
+  //tasks being tracked by user as trainer
+  TrackingTasks TaskAssignment[]       @relation(name: "trainer")
+}
+
+
+//can be named SuperTask also
+model Course {
+  id            Int     @default(autoincrement()) @id
+  title         String
+  description   String?
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime? @updatedAt
+
+  //relation fields
+  members       CourseEnrollment[]
+  listOfTasks   Task[]
+}
+
+
+//this table represents many to many relationship between User and Course models
+//can also be named as CourseEnrollment
+model CourseAssignment {
+
+  createdAt DateTime @default(now())
+
+  //user is student or trainer
+  role      UserRole
+
+  // Relation Fields
+  userId   Int
+  user     User   @relation(fields: [userId], references: [id])
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@id([userId, courseId])
+  @@index([userId, role])
+}
+
+
+enum UserRole {
+  STUDENT
+  TRAINER
+  ADMIN
+}
+
+
+
+
+
+model Task {
+  id        Int      @default(autoincrement()) @id
+  title         String
+  description   String?
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime? @updatedAt
+
+  //relation fields
+  courseId      Int
+  course        Course @relation(fields:[courseId],references[id])
+  assignees     TaskAssignment[]
+}
+
+
+//this table represents many to many relationship between User and Task models
+model TaskAssignment {
+
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  activeStatus    boolean //active or completed
+
+  // Relation Fields
+  studentId Int
+  student   User @relation(name: "assignee", fields: [studentId], references: [id])
+  trainerId  Int
+  trackedBy  User @relation(name: "trainer", fields: [trainerId], references: [id])
+  taskId    Int
+  task      Task @relation(fields: [taskId], references: [id])
+
+}
+
