@@ -46,6 +46,8 @@
     "eslint-plugin-prettier": "3.3.1",
     "eslint-plugin-react": "7.23.1",
     "eslint-plugin-unicorn": "29.0.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
     "npm-check-updates": "11.3.0",
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
@@ -59,12 +61,18 @@
     "lint:fix": "yarn lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:watch": "yarn types --watch",
-    "validate": "yarn lint && yarn types"
+    "validate": "yarn lint && yarn types",
+    "prepare": "cd .. && husky install"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "lint-staged": {
+    "./pages/**/*.{js,ts,tsx}": [
+      "eslint"
+    ]
+  }
 }
