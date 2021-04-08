@@ -7,8 +7,8 @@ import {
   InputGroup,
 } from '@chakra-ui/react'
 
-import { EmailIcon } from '@chakra-ui/icons'
-
+import { Icon } from '@chakra-ui/react'
+import { MdEmail } from 'react-icons/md'
 export interface EmailInputFieldProps {
   setEmail(email: string): void
 }
@@ -20,7 +20,7 @@ const EmailInputField: React.FC<EmailInputFieldProps> = ({ setEmail }) => (
     <InputGroup>
       <InputLeftElement
         pointerEvents="none"
-        children={<EmailIcon color="gray.300" />}
+        children={<Icon as={MdEmail} color="gray.300" />}
       />
       <Input
         bg="white"
