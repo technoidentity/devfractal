@@ -1,6 +1,6 @@
 import { Stack, Heading, Center } from '@chakra-ui/layout'
 import React from 'react'
-import type { Task } from '../common'
+import type { Task } from '../../common'
 import { TaskItem } from './TaskItem'
 
 export interface TaskListProps {

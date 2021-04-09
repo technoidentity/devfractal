@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
-import type { Task } from '../common'
+import type { Task } from '../../common'
 
 export const TaskItem: React.FC<Task> = ({ title, description }) => (
   <Box
