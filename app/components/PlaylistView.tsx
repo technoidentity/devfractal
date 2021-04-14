@@ -1,19 +1,15 @@
-/* eslint-disable react/jsx-no-bind */
-import { Box, Stack, Text } from '@chakra-ui/layout'
+import { Link, Stack, Text } from '@chakra-ui/layout'
+import { Box } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import React from 'react'
 import type { Video } from '../common'
 
-export interface PlaylistItemProps {
+interface PlaylistItemProps {
   readonly video: Video
   readonly active?: boolean
-  onClick(video: Video): void
 }
 
-export const PlaylistItem: React.FC<PlaylistItemProps> = ({
-  video,
-  active,
-  onClick,
-}) => {
+const PlaylistItem: React.FC<PlaylistItemProps> = ({ video, active }) => {
   const activeFeature = active ? { bg: '#e5d7bf' } : {}
   return (
     <Box
@@ -22,10 +18,11 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({
       color="#4c473f"
       borderRadius="10px"
       _hover={{ bg: '#e5d7bf' }}
-      onClick={() => onClick(video)}
     >
-      <Text fontSize="x-large">{video.title}</Text>
-      <Text mt={4}>{video.duration}</Text>
+      <NextLink href={`/playlist/${video.id}`}>
+        <Link fontSize={['md', 'lg', 'xl']}>{video.title}</Link>
+      </NextLink>
+      <Text fontSize={['md', 'lg', 'xl']}>{video.duration}</Text>
     </Box>
   )
 }
@@ -33,22 +30,15 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({
 export interface PlaylistViewProps {
   readonly playlist: readonly Video[]
   readonly selected?: Video
-  onSelected(video: Video): void
 }
 
 export const PlaylistView: React.FC<PlaylistViewProps> = ({
-  playlist: videoFeatureList,
+  playlist,
   selected,
-  onSelected,
 }) => (
   <Stack margin={6}>
-    {videoFeatureList.map((video, index) => (
-      <PlaylistItem
-        key={index}
-        video={video}
-        active={video === selected}
-        onClick={() => onSelected(video)}
-      />
+    {playlist.map((video, index) => (
+      <PlaylistItem key={index} video={video} active={video === selected} />
     ))}
   </Stack>
 )
