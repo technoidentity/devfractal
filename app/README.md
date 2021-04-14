@@ -27,5 +27,7 @@
 
 ```
   git rebase master
+  yarn
+  yarn validate
   git push
 ```
