@@ -1,4 +1,4 @@
-import { supabase } from '/home/farheen/ILM/app/common/initSupabase'
+import { supabase } from '../../common/initSupabase'
 import React, { useState } from 'react'
 
 import { Flex, Box, Heading } from '@chakra-ui/react'

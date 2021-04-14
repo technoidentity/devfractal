@@ -3,6 +3,7 @@ import { Box, Flex, Heading, Spacer, Button } from '@chakra-ui/react'
 import { supabase } from '../../common/initSupabase'
 import { Auth } from '@supabase/ui'
 import LoginForm from '../../components/pre-interview/LoginForm'
+import Questions from '../../components/pre-interview/Questions'
 
 export default function IndexPage() {
   const { user } = Auth.useUser()
@@ -37,7 +38,7 @@ export default function IndexPage() {
           )}
         </Box>
       </Flex>
-      {!user && <LoginForm />}{' '}
+      {user ? <Questions /> : <LoginForm />}
     </>
   )
 }
