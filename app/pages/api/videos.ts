@@ -11,18 +11,20 @@ const videos = [
     id: 1,
     src:
       'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',
-    title: 'React components',
+    title: 'Styled components',
     duration: '10s',
   },
   {
     id: 2,
     src:
       'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
-    title: 'React components',
+    title: 'React Hooks',
     duration: '17s',
   },
 ]
 
-export default function getVideos(_: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json(videos)
+export default function getVideos(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'GET') {
+    res.status(200).json(videos)
+  }
 }
