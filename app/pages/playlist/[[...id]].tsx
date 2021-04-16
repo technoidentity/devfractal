@@ -75,7 +75,7 @@ interface PlaylistPageProps {
 
 export const getServerSideProps: GetServerSideProps<PlaylistPageProps> = async () => {
   // Fetch data from external API
-  const res = await fetch('http://localhost:3000/api/videos')
+  const res = await fetch('http://localhost:3000/api/videos/videos')
   const playlist = await res.json()
   // Pass data to the page via props
   return { props: { playlist } }

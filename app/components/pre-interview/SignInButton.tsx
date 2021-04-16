@@ -5,7 +5,7 @@ import { BiMailSend } from 'react-icons/bi'
 export interface SignInButtonProps {
   handleSubmit(): void
 }
-const SignInButton: React.FC<SignInButtonProps> = ({ handleSubmit }) => (
+export const SignInButton: React.FC<SignInButtonProps> = ({ handleSubmit }) => (
   <Button
     type="submit"
     leftIcon={<Icon as={BiMailSend} />}
@@ -19,5 +19,3 @@ const SignInButton: React.FC<SignInButtonProps> = ({ handleSubmit }) => (
     Send Magic Link
   </Button>
 )
-
-export default SignInButton

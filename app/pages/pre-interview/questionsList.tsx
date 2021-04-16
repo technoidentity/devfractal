@@ -1,8 +1,8 @@
 import React from 'react'
-import { supabase } from '../../common/initSupabase'
-import QuestionsForm from '../../components/pre-interview/QuestionsForm'
+import { supabase } from '../../common'
 import { Heading } from '@chakra-ui/react'
 import questions from '../../common/questions.json'
+import { QuestionsForm } from '../../components/pre-interview'
 
 const QuestionsList = () => {
   const user = supabase.auth.user()

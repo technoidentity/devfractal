@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@chakra-ui/react'
 
-const LoadingButton = () => (
+export const LoadingButton = () => (
   <Button
     isLoading
     loadingText="Send Magic Link"
@@ -15,5 +15,3 @@ const LoadingButton = () => (
     Send Magic Link
   </Button>
 )
-
-export default LoadingButton

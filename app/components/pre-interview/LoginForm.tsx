@@ -2,13 +2,13 @@ import { supabase } from '../../common/initSupabase'
 import React, { useState } from 'react'
 
 import { Flex, Box, Heading } from '@chakra-ui/react'
-import LoadingButton from './LoadingButton'
-import SendLinkButton from './SignInButton'
-import ErrorMessage from './ErrorMessage'
-import SuccessMessage from './SuccessMessage'
-import EmailInputField from './EmailInputField'
+import { LoadingButton } from './LoadingButton'
+import { SignInButton } from './SignInButton'
+import { ErrorMessage } from './ErrorMessage'
+import { SuccessMessage } from './SuccessMessage'
+import { EmailInputField } from './EmailInputField'
 
-export default function LoginForm() {
+export const LoginForm = () => {
   const [email, setEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -54,7 +54,7 @@ export default function LoginForm() {
             {isLoading ? (
               <LoadingButton />
             ) : (
-              <SendLinkButton handleSubmit={handleSubmit} />
+              <SignInButton handleSubmit={handleSubmit} />
             )}
             {errorMessage && <ErrorMessage message={errorMessage} />}
             {success && <SuccessMessage />}

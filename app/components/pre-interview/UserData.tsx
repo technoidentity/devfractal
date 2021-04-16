@@ -1,27 +1,24 @@
-import React from 'react'
-
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Flex,
   Box,
+  Flex,
   Heading,
-  VStack,
   StackDivider,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  VStack,
 } from '@chakra-ui/react'
-
-import type { User } from '../../common'
-import isAdmin from '../../common/isAdmin'
+import React from 'react'
+import { isAdmin, User } from '../../common'
 
 interface UserDataProps {
   readonly userDetails: readonly User[]
 }
 
-const UserData: React.FC<UserDataProps> = ({ userDetails }) => {
+export const UserData: React.FC<UserDataProps> = ({ userDetails }) => {
   if (!isAdmin()) {
     return <Heading>Permission Denied</Heading>
   }
@@ -58,4 +55,3 @@ const UserData: React.FC<UserDataProps> = ({ userDetails }) => {
     </Flex>
   )
 }
-export default UserData
