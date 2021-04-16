@@ -9,3 +9,10 @@ export interface Task {
   readonly title: string
   readonly description: string
 }
+
+export interface Question {
+  readonly id: number
+  readonly text: string
+  readonly option: readonly string[]
+  readonly correctAnswer: number
+}
