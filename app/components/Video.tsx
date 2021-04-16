@@ -17,11 +17,13 @@ import {
 import React from 'react'
 import { FaChevronDown, FaFastBackward, FaFastForward } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
-import { usePlaylist } from '../pages/playlist/[[...id]]'
+import type { Video } from '../common'
 
 const playbackRates = [0.5, 1, 1.5, 2]
 
 export interface VideoViewProps {
+  readonly selectedIndex: number
+  readonly playlist: readonly Video[]
   onPlayNext(): void
 }
 
@@ -39,11 +41,14 @@ const defaultState: VideoViewState = {
   ended: false,
 }
 
-export const VideoView: React.FC<VideoViewProps> = ({ onPlayNext }) => {
+export const VideoView: React.FC<VideoViewProps> = ({
+  playlist,
+  selectedIndex,
+  onPlayNext,
+}) => {
   const [state, set] = React.useState(defaultState)
   const { autoPlay, ended, playbackRate, playing } = state
   const playerRef = React.useRef<ReactPlayer | null>(null)
-  const { playlist, selectedIndex } = usePlaylist()
 
   const video = playlist[selectedIndex]!
   const bg = ended ? { opacity: '0.5' } : {}
