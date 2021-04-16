@@ -1,2 +1,2 @@
 export * from './PlaylistView'
-export * from './VideoView'
+export * from './Video'

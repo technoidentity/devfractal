@@ -2,7 +2,7 @@ import { Link, Stack, Text } from '@chakra-ui/layout'
 import { Box } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import React from 'react'
-import type { Video } from '../common'
+import type { Video } from '../../common'
 
 interface PlaylistItemProps {
   readonly video: Video

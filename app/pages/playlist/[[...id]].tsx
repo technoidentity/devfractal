@@ -1,11 +1,73 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Grid, GridItem, Text } from '@chakra-ui/react'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import type { Video } from '../../common'
-import { PlaylistView } from '../../components/PlaylistView'
-import { VideoView } from '../../components/VideoView'
+import { PlaylistView, VideoView } from '../../components/playlist'
+
+interface PlaylistContext {
+  readonly selectedIndex: number
+  readonly playlist: readonly Video[]
+}
+
+// eslint-disable-next-line no-redeclare
+const PlaylistContext = React.createContext<PlaylistContext | undefined>(
+  undefined,
+)
+
+export const usePlaylist = () => {
+  const ctx = React.useContext(PlaylistContext)
+  if (ctx === undefined) {
+    throw new Error(`use PlaylistContext.Provider somewhere as an ancestor`)
+  }
+
+  return ctx
+}
+
+export const PlaylistPageView: React.FC = () => {
+  const router = useRouter()
+  const { selectedIndex, playlist } = usePlaylist()
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      const vid = playlist[selectedIndex]
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      if (vid) {
+        router
+          .push(`/playlist/${vid?.id}`)
+          .catch(err => <Text>{err.message}</Text>)
+      }
+    }, 2000)
+  }, [selectedIndex])
+
+  const selected = playlist[selectedIndex]
+
+  const handlePlayNext = () => {
+    router.push(
+      `/playlist/${playlist[
+        (selectedIndex + 1) % playlist.length
+      ]!.id.toString()}`,
+    )
+  }
+  return (
+    <Grid h="100vh" templateColumns="repeat(3, 1fr)" gap={2}>
+      <GridItem colSpan={2} bg="#ffefd5" borderRadius="5px">
+        {selected && (
+          <VideoView
+            onPlayNext={handlePlayNext}
+            selectedIndex={selectedIndex}
+            playlist={playlist}
+          />
+        )}
+      </GridItem>
+
+      <GridItem colSpan={1} bg="papayawhip">
+        <PlaylistView playlist={playlist} />
+      </GridItem>
+    </Grid>
+  )
+}
 
 interface PlaylistPageProps {
   readonly playlist: readonly Video[]
@@ -23,11 +85,8 @@ const PlaylistPage: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ playlist }) => {
   const router = useRouter()
-  const { query } = useRouter()
+  const { query } = router
   const id = query.id?.[0]
-  const play = query.play === 'true'
-
-  const [autoPlay, setAutoPlay] = React.useState(!!query.play)
 
   const selectedIndex = React.useMemo(() => {
     if (id === undefined) {
@@ -38,49 +97,10 @@ const PlaylistPage: React.FC<
     return si >= 0 ? si : 0
   }, [id])
 
-  const selected = playlist[selectedIndex]
-
-  const handlePlayNext = () => {
-    const currentIndex = selectedIndex + 1
-    if (currentIndex < playlist.length) {
-      setTimeout(() => {
-        const vid = playlist[currentIndex]
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        router.push(`/playlist/${vid?.id}?play=${autoPlay}`)
-      }, 2000)
-    } else {
-      router.push('playlist/0')
-    }
-  }
-
-  const handleEnded = () => {
-    if (autoPlay) {
-      handlePlayNext()
-    }
-  }
-
   return (
-    <Grid h="100vh" templateColumns="repeat(3, 1fr)" gap={2}>
-      <GridItem colSpan={2} bg="#ffefd5" borderRadius="5px">
-        {selected && (
-          <VideoView
-            initialPlay={play}
-            key={selected.id}
-            video={selected}
-            onWatchAgain={async id => router.push(`/playlist/${id}?play=true`)}
-            onPlayNext={handlePlayNext}
-            index={selectedIndex}
-            onEnded={handleEnded}
-            autoPlay={autoPlay}
-            onAutoPlay={() => setAutoPlay(!autoPlay)}
-          />
-        )}
-      </GridItem>
-
-      <GridItem colSpan={1} bg="papayawhip">
-        <PlaylistView playlist={playlist} selected={selected} />
-      </GridItem>
-    </Grid>
+    <PlaylistContext.Provider value={{ playlist, selectedIndex }}>
+      <PlaylistPageView />
+    </PlaylistContext.Provider>
   )
 }
 
