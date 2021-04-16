@@ -4,9 +4,11 @@ import { supabase } from '../../common/initSupabase'
 import { Auth } from '@supabase/ui'
 import LoginForm from '../../components/pre-interview/LoginForm'
 import Link from 'next/link'
+import isAdmin from '../../common/isAdmin'
 
 export default function IndexPage() {
   const { user } = Auth.useUser()
+  console.log(user)
 
   return (
     <>
@@ -42,6 +44,11 @@ export default function IndexPage() {
       {user && (
         <Link href="/pre-interview/questionsList">
           <a>Go to Questions Page</a>
+        </Link>
+      )}
+      {isAdmin() && (
+        <Link href="/pre-interview/userList/">
+          <a>Go to Users Details Page</a>
         </Link>
       )}
     </>

@@ -16,3 +16,8 @@ export interface Question {
   readonly option: readonly string[]
   readonly correctAnswer: number
 }
+export interface User {
+  readonly id?: string
+  readonly email: string
+  readonly score: number
+}
