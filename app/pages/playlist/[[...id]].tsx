@@ -4,7 +4,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import React from 'react'
 import type { Video } from '../../common'
-import { PlaylistView, VideoView } from '../../components'
+import { PlaylistView, VideoView } from '../../components/playlist'
 
 interface PlaylistContext {
   readonly selectedIndex: number

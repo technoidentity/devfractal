@@ -17,7 +17,7 @@ import {
 import React from 'react'
 import { FaChevronDown, FaFastBackward, FaFastForward } from 'react-icons/fa'
 import ReactPlayer from 'react-player'
-import type { Video } from '../common'
+import type { Video } from '../../common'
 
 const playbackRates = [0.5, 1, 1.5, 2]
 
