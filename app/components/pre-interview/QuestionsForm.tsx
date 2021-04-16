@@ -1,26 +1,25 @@
 // this is dummy question form. actual one to be taken from quiz branch
 
-import React from 'react'
-
 import {
-  Flex,
   Box,
-  Heading,
-  Text,
-  Stack,
-  VStack,
-  StackDivider,
   Button,
+  Flex,
+  Heading,
+  Stack,
+  StackDivider,
+  Text,
   useToast,
+  VStack,
 } from '@chakra-ui/react'
-import type { Question, User } from '../../common/types'
 import { Auth } from '@supabase/ui'
+import React from 'react'
+import type { Question, User } from '../../common'
 
-interface QuestionsFormProps {
+export interface QuestionsFormProps {
   readonly questions: readonly Question[]
 }
 
-const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
+export const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
   const user = Auth.useUser()
   const id = user?.user?.id
   const email = user?.user?.email ?? ''
@@ -105,4 +104,3 @@ const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
     </Flex>
   )
 }
-export default QuestionsForm

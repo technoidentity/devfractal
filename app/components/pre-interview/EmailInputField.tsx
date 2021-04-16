@@ -13,7 +13,9 @@ export interface EmailInputFieldProps {
   setEmail(email: string): void
 }
 
-const EmailInputField: React.FC<EmailInputFieldProps> = ({ setEmail }) => (
+export const EmailInputField: React.FC<EmailInputFieldProps> = ({
+  setEmail,
+}) => (
   <FormControl isRequired>
     <FormLabel>Email address</FormLabel>
 
@@ -32,5 +34,3 @@ const EmailInputField: React.FC<EmailInputFieldProps> = ({ setEmail }) => (
     </InputGroup>
   </FormControl>
 )
-
-export default EmailInputField

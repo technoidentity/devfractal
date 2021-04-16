@@ -1,7 +1,7 @@
 import React from 'react'
 import useSWR from 'swr'
 import type { Task } from '../../common'
-import { TaskList } from '../../components/tasks/TaskList'
+import { TaskList } from '../../components/tasks'
 
 const fetcher = async (url: string) => fetch(url).then(async res => res.json())
 

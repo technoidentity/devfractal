@@ -1,14 +1,12 @@
 import React from 'react'
 import { Box, Flex, Heading, Spacer, Button } from '@chakra-ui/react'
-import { supabase } from '../../common/initSupabase'
+import { isAdmin, supabase } from '../../common'
 import { Auth } from '@supabase/ui'
-import LoginForm from '../../components/pre-interview/LoginForm'
 import Link from 'next/link'
-import isAdmin from '../../common/isAdmin'
+import { LoginForm } from '../../components/pre-interview'
 
 export default function IndexPage() {
   const { user } = Auth.useUser()
-  console.log(user)
 
   return (
     <>

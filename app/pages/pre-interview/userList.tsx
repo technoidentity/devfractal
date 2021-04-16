@@ -1,10 +1,9 @@
+import { Heading } from '@chakra-ui/react'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import React from 'react'
-import { supabase } from '../../common/initSupabase'
-import type { User } from '../../common/types'
-import UserData from '../../components/pre-interview/UserData'
-import { Heading } from '@chakra-ui/react'
-import isAdmin from '../../common/isAdmin'
+import type { User } from '../../common'
+import { isAdmin, supabase } from '../../common'
+import { UserData } from '../../components/pre-interview'
 
 interface UserListProps {
   readonly userDetails: readonly User[]
