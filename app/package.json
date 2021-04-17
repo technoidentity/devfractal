@@ -72,7 +72,8 @@
   ],
   "lint-staged": {
     "./pages/**/*.{js,ts,tsx}": [
-      "eslint"
+      "eslint --fix",
+      "prettier --write"
     ]
   }
 }
