@@ -21,3 +21,10 @@ export interface User {
   readonly email: string
   readonly score: number
 }
+
+export interface QuestionValue {
+  readonly question?: string | undefined
+  readonly correctAnswer?: string | undefined
+  readonly answer?: string | undefined
+  readonly isCorrect?: boolean
+}
