@@ -1,6 +1,9 @@
 const restrictedGlobals = require('confusing-browser-globals')
 
 module.exports = {
+  globals: {
+    JSX: true,
+  },
   env: {
     browser: true,
     node: true,
