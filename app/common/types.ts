@@ -26,6 +26,4 @@ export interface QuestionValue {
   readonly question?: string | undefined
   readonly correctAnswer?: string | undefined
   readonly answer?: string | undefined
-  // eslint-disable-next-line functional/prefer-readonly-type
-  isCorrect?: boolean
 }
