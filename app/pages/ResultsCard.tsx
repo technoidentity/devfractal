@@ -42,52 +42,37 @@ const ResultsCard: React.FC<Props> = ({
       <Box mt="5">
         {testResult.map((res, index) => (
           <Box key={index}>
-            {res.isCorrect ? (
-              <Box fontWeight="bold" fontSize="xl" letterSpacing="wide">
-                {index + 1} .
-                {(res.question as string).split('"')[1]
-                  ? displayCodeSnippet(res.question as string)
-                  : res.question}
-              </Box>
-            ) : (
-              <Box
-                fontWeight="bold"
-                fontSize="xl"
-                letterSpacing="wide"
-                color="red.800"
-              >
-                {index + 1} . {res.question}
-              </Box>
-            )}
-            {res.isCorrect ? (
+            <Box
+              fontWeight="bold"
+              fontSize="xl"
+              letterSpacing="wide"
+              color="red.800"
+            >
+              {/* Display code snippet on the result card */}
+              {index + 1} .
+              {(res.question as string).split('"')[1]
+                ? displayCodeSnippet(res.question as string)
+                : res.question}
+            </Box>
+
+            <>
               <Box
                 my="4"
                 fontWeight="semibold"
                 fontSize="md"
                 letterSpacing="wide"
               >
-                Selected Answer : {res.answer}
+                Selected answer : {res.answer}
               </Box>
-            ) : (
-              <>
-                <Box
-                  my="4"
-                  fontWeight="semibold"
-                  fontSize="md"
-                  letterSpacing="wide"
-                >
-                  Selected answer : {res.answer}
-                </Box>
-                <Box
-                  my="4"
-                  fontWeight="semibold"
-                  fontSize="md"
-                  letterSpacing="wide"
-                >
-                  Correct Answer : {res.correctAnswer}
-                </Box>
-              </>
-            )}
+              <Box
+                my="4"
+                fontWeight="semibold"
+                fontSize="md"
+                letterSpacing="wide"
+              >
+                Correct Answer : {res.correctAnswer}
+              </Box>
+            </>
           </Box>
         ))}
       </Box>
