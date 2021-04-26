@@ -8,6 +8,7 @@ import type { QuestionValue } from '../common/types'
 import { CodeBlock, atomOneDark } from 'react-code-blocks'
 
 const quiz: React.FC = () => {
+  //  define variables
   const [showScore, setShowScore] = useState<Boolean>(false)
   const [questionNum, setQuestionNum] = useState(0)
   const [score, setScore] = useState<number>(0)
@@ -17,16 +18,19 @@ const quiz: React.FC = () => {
     readonly QuestionValue[]
   >([])
 
+  // get the  Option
   const getOption: () => (
     e: React.MouseEvent<HTMLDivElement> & React.MouseEvent<HTMLButtonElement>,
   ) => void = () => e => {
     setOption(e.currentTarget.innerText)
   }
 
+  //  if the user change the prev page option
   const prevPageOptionChange: (question: string) => boolean = (
     question: string | undefined,
   ) => questionsDetails.some(el => el.question === question)
 
+  // Next Question function
   const nextQuestion: () => () => void = () => () => {
     const nextQuestion = questionNum + 1
     const currentQuestion: string | undefined =
@@ -38,14 +42,15 @@ const quiz: React.FC = () => {
     if (prevPageOptionChange(currentQuestion as string) && option) {
       const tempState = [...questionsDetails]
       const tempElement = { ...tempState[questionNum] }
-      tempElement.answer = option
+      const modifiedElement = { ...tempElement, answer: option }
 
-      // const transformedPoint = { ...tempElement, answer: option }
-      // const newObj = { ...tempState, tempElement: transformedPoint }
-      tempState[questionNum] = tempElement
-      setQuestionsDetails(tempState)
+      setQuestionsDetails([
+        ...questionsDetails.slice(0, questionNum),
+        modifiedElement,
+        ...questionsDetails.slice(questionNum + 1),
+      ])
+
       setOption('')
-      // console.log('new obj  :', transformedPoint)
     } else if (
       prevPageOptionChange(currentQuestion as string) &&
       (questionsDetails[questionNum]?.answer as string)
@@ -54,15 +59,12 @@ const quiz: React.FC = () => {
     } else {
       setQuestionsDetails([
         ...questionsDetails,
-
         {
           question: questionsList.questions[questionNum]?.question,
           answer: option,
           correctAnswer: questionsList.questions[questionNum]?.choices[
-            answer as any
+            answer
           ] as string,
-
-          isCorrect: false,
         },
       ])
       setOption('')
@@ -83,16 +85,16 @@ const quiz: React.FC = () => {
     }
   }
 
+  //  check the user option correct or not
   const cA = (answer: String | undefined) =>
     questionsDetails.some(el => el.correctAnswer === answer)
 
+  // Calculating the score
   const checkAnswer = () => {
-    // eslint-disable-next-line functional/no-let
-    let scoreNum = 0
+    let scoreNum: number = 0
     questionsDetails.forEach(q => {
       if (cA(q.answer)) {
         scoreNum = scoreNum + 1
-        q.isCorrect = true
         setScore(scoreNum)
       }
     })
