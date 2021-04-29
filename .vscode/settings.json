@@ -27,5 +27,6 @@
     "ints",
     "jotai",
     "newtype"
-  ]
+  ],
+  "git.ignoreLimitWarning": true
 }
