@@ -1,7 +1,7 @@
 import type { PreInterviewQuiz } from '../../../common/IotsTypes'
 import type { TypeOf } from 'io-ts'
 
-enum Answer {
+export enum Answer {
   a = '0',
   b = '1',
   c = '2',
