@@ -10,7 +10,7 @@ import {
   useToast,
 } from '@chakra-ui/react'
 
-import type { Task } from '../../common'
+import { postTask } from '../../common'
 import { SubmitButton } from '../pre-interview'
 
 export const TaskForm: React.FC = () => {
@@ -41,17 +41,7 @@ export const TaskForm: React.FC = () => {
       })
       return
     }
-    const data: Task = { title, description }
-    const res = await fetch('/api/tasks/postTask', {
-      body: JSON.stringify(data),
-      headers: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-
-    const { error } = await res.json()
+    const error = await postTask(title, description)
 
     setTitle('')
     setDescription('')
