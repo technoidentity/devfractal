@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { supabase, Task } from '../../common'
+import { supabase, updateTask } from '../../common'
 import {
   Box,
   Flex,
@@ -12,7 +12,7 @@ import {
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { SubmitButton } from '../../components/pre-interview'
-
+import type { Task } from '../../common'
 const EditTask = () => {
   const user = supabase.auth.user()
 
@@ -45,21 +45,8 @@ const EditTask = () => {
     if (!id) {
       return
     }
-    const data: Task = {
-      id,
-      title: editedTitle,
-      description: editedDescription,
-    }
-    const res = await fetch('/api/tasks/updateTask', {
-      body: JSON.stringify(data),
-      headers: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'Content-Type': 'application/json',
-      },
-      method: 'PUT',
-    })
 
-    const { error } = await res.json()
+    const error = await updateTask(id, editedTitle, editedDescription)
 
     if (!error) {
       toast({

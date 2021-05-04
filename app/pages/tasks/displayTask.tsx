@@ -12,6 +12,7 @@ import React from 'react'
 import { SubmitButton } from '../../components/pre-interview'
 import { useRouter } from 'next/router'
 import type { Task } from '../../common'
+import { deleteTask } from '../../common'
 import Link from 'next/link'
 
 const DisplayTask = () => {
@@ -29,16 +30,7 @@ const DisplayTask = () => {
     if (!id) {
       return
     }
-    const res = await fetch('/api/tasks/deleteTask', {
-      body: JSON.stringify(id),
-      headers: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'Content-Type': 'application/json',
-      },
-      method: 'DELETE',
-    })
-
-    const { error } = await res.json()
+    const error = await deleteTask(id)
 
     if (!error) {
       toast({
