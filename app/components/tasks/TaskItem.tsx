@@ -1,18 +1,30 @@
-import { Box, Heading, Text } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
+import Link from 'next/link'
 import React from 'react'
 import type { Task } from '../../common'
 
-export const TaskItem: React.FC<Task> = ({ title, description }) => (
+interface TaskItemProps {
+  readonly taskDetails: Task
+}
+export const TaskItem: React.FC<TaskItemProps> = ({ taskDetails }) => (
   <Box
     color="#4c473f"
     bg="#ffefd5"
     borderRadius="10px"
-    p={7}
+    p={5}
     shadow="md"
     borderWidth="1px"
     _hover={{ bg: '#e5d7bf' }}
   >
-    <Heading>{title}</Heading>
-    <Text mt={4}>{description}</Text>
+    <Link
+      href={{
+        pathname: '/tasks/displayTask',
+        query: { data: JSON.stringify(taskDetails) },
+      }}
+    >
+      <a>
+        <Heading>{taskDetails.title}</Heading>
+      </a>
+    </Link>
   </Box>
 )

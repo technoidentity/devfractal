@@ -28,12 +28,12 @@ export const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
   const score = 3
 
   const data: User = { id, email, score }
-
+  const toast = useToast()
   const handleSubmit = async (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
-    const toast = useToast()
+
     const res = await fetch('/api/pre-interview/postUserAnswers', {
       body: JSON.stringify(data),
       headers: {

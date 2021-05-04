@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import { Flex, Box, Heading } from '@chakra-ui/react'
 import { LoadingButton } from './LoadingButton'
-import { SignInButton } from './SignInButton'
+import { SubmitButton } from './SubmitButton'
 import { ErrorMessage } from './ErrorMessage'
 import { SuccessMessage } from './SuccessMessage'
 import { EmailInputField } from './EmailInputField'
@@ -14,7 +14,10 @@ export const LoginForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault()
     setIsLoading(true)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { error } = await supabase.auth.signIn(
@@ -54,7 +57,10 @@ export const LoginForm = () => {
             {isLoading ? (
               <LoadingButton />
             ) : (
-              <SignInButton handleSubmit={handleSubmit} />
+              <SubmitButton
+                handleSubmit={handleSubmit}
+                title="Send Magic Link"
+              />
             )}
             {errorMessage && <ErrorMessage message={errorMessage} />}
             {success && <SuccessMessage />}

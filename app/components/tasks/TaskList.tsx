@@ -14,12 +14,7 @@ export const TaskList: React.FC<TaskListProps> = ({ list }) => (
     </Center>
     <Stack margin={10}>
       {list.map(listItem => (
-        <TaskItem
-          key={listItem.id}
-          id={listItem.id}
-          title={listItem.title}
-          description={listItem.description}
-        />
+        <TaskItem key={listItem.id} taskDetails={listItem} />
       ))}
     </Stack>
   </>
