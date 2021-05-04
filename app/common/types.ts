@@ -5,9 +5,9 @@ export interface Video {
   readonly duration: string
 }
 export interface Task {
-  readonly id: number
+  readonly id?: number
   readonly title: string
-  readonly description: string
+  readonly description?: string
 }
 
 export interface Question {
