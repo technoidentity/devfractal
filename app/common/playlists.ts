@@ -126,3 +126,29 @@ export async function deletePlaylistVideo(
 
   return error
 }
+
+export async function getPlaylistVideos(playlistName: string) {
+  const {
+    data: { playlist_id },
+  } = await supabase
+    .from('playlists')
+    .select('playlist_id')
+    .eq('name', playlistName)
+    .single()
+
+  const { data: videos } = await supabase
+    .from('playlist_videos')
+    .select('video_id')
+    .eq('playlist_id', playlist_id)
+
+  if (videos) {
+    const pArray = videos.map(async item => {
+      const response = await getVideo(item.video_id)
+      return response
+    })
+    const data = await Promise.all(pArray)
+
+    return data
+  }
+  return
+}
