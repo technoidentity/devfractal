@@ -3,7 +3,7 @@ import { Grid, GridItem, Text } from '@chakra-ui/react'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/dist/client/router'
 import React from 'react'
-import type { Video } from '../../common'
+import { getPlaylistVideos, Video } from '../../common'
 import { PlaylistView, VideoView } from '../../components/playlist'
 
 interface PlaylistContext {
@@ -75,9 +75,14 @@ interface PlaylistPageProps {
 
 export const getServerSideProps: GetServerSideProps<PlaylistPageProps> = async () => {
   // Fetch data from external API
-  const res = await fetch('http://localhost:3000/api/videos/videos')
-  const playlist = await res.json()
+  // const res = await fetch('http://localhost:3000/api/videos/videos')
+  // const playlist = await res.json()
   // Pass data to the page via props
+
+  const playlist = await getPlaylistVideos('hello')
+  if (!playlist) {
+    return { notFound: true }
+  }
   return { props: { playlist } }
 }
 

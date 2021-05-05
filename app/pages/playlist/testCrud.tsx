@@ -7,6 +7,7 @@ import {
   deletePlaylist,
   deletePlaylistVideo,
   deleteVideo,
+  getPlaylistVideos,
   getVideo,
   postVideo,
   updateVideo,
@@ -63,6 +64,11 @@ const testCrud = () => {
 
     console.log(video)
   }
+  const onGetPlaylistVideos = async () => {
+    const video = await getPlaylistVideos('hello')
+
+    console.log(video)
+  }
 
   return (
     <>
@@ -74,6 +80,7 @@ const testCrud = () => {
       <Button onClick={onDeleteVideo}>deleteVideo</Button>
       <Button onClick={onDeletePlaylist}>deletePlaylist</Button>
       <Button onClick={onGetVideo}>getVideo</Button>
+      <Button onClick={onGetPlaylistVideos}>getPlaylistVideo</Button>
     </>
   )
 }
