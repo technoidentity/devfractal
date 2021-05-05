@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import { supabase } from './initSupabase'
 
 export async function userAnswers(id: number, email: string, score: number) {

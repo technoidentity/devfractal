@@ -23,6 +23,7 @@ export const TaskForm: React.FC = () => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
+
     if (!title) {
       toast({
         title: 'Please enter title',

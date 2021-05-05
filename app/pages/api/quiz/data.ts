@@ -1,4 +1,4 @@
-import type { PreInterviewQuiz } from '../../../common/IotsTypes'
+import type { PreInterviewQuiz } from '../../../common/iotsTypes'
 import type { TypeOf } from 'io-ts'
 
 export enum Answer {
