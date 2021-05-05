@@ -1,4 +1,4 @@
-import { Stack, Heading, Center } from '@chakra-ui/react'
+import { Center, Heading, Stack } from '@chakra-ui/react'
 import React from 'react'
 import type { Task } from '../../common'
 import { TaskItem } from './TaskItem'

@@ -13,8 +13,8 @@ import {
 } from '@chakra-ui/react'
 import { Auth } from '@supabase/ui'
 import React from 'react'
-import type { Question, User } from '../../common'
-
+import type { Question } from '../../common'
+import { postUserAnswers } from '../../common'
 export interface QuestionsFormProps {
   readonly questions: readonly Question[]
 }
@@ -27,40 +27,29 @@ export const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
   // dummy score
   const score = 3
 
-  const data: User = { id, email, score }
   const toast = useToast()
-  const handleSubmit = async (
+  const handleSubmit = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
 
-    const res = await fetch('/api/pre-interview/postUserAnswers', {
-      body: JSON.stringify(data),
-      headers: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-    })
-
-    const { error } = await res.json()
-    if (!error) {
-      toast({
-        title: 'Your answers are submitted',
-        description: 'Thank you',
-        status: 'success',
-        duration: 9000,
-        isClosable: true,
+    postUserAnswers(id, email, score)
+      .then(() => {
+        toast({
+          title: 'Your answers are submitted',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    } else {
-      toast({
-        title: 'Failed to save the answers',
-        description: 'Try again',
-        status: 'error',
-        duration: 9000,
-        isClosable: true,
+      .catch(() => {
+        toast({
+          title: 'Failed to save the answers',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    }
   }
 
   return (
@@ -96,7 +85,7 @@ export const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
           variant="outline"
           width="full"
           mt={4}
-          onClick={async event => handleSubmit(event)}
+          onClick={event => handleSubmit(event)}
         >
           Submit Answers
         </Button>

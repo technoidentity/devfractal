@@ -1,14 +1,14 @@
-import React from 'react'
 import {
   FormControl,
   FormLabel,
+  Icon,
   Input,
-  InputLeftElement,
   InputGroup,
+  InputLeftElement,
 } from '@chakra-ui/react'
-
-import { Icon } from '@chakra-ui/react'
+import React from 'react'
 import { MdEmail } from 'react-icons/md'
+
 export interface EmailInputFieldProps {
   setEmail(email: string): void
 }

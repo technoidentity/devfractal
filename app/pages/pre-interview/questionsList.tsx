@@ -1,6 +1,6 @@
+import { Heading } from '@chakra-ui/react'
 import React from 'react'
 import { supabase } from '../../common'
-import { Heading } from '@chakra-ui/react'
 import questions from '../../common/questions.json'
 import { QuestionsForm } from '../../components/pre-interview'
 

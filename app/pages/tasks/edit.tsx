@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-import { supabase, updateTask } from '../../common'
 import {
   Box,
   Flex,
@@ -9,10 +7,12 @@ import {
   Input,
   useToast,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { SubmitButton } from '../../components/pre-interview'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
 import type { Task } from '../../common'
+import { supabase, updateTask } from '../../common'
+import { SubmitButton } from '../../components/pre-interview'
 const EditTask = () => {
   const user = supabase.auth.user()
 
@@ -38,7 +38,7 @@ const EditTask = () => {
     description ?? '',
   )
 
-  const handleEdit = async (
+  const handleEdit = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
@@ -46,26 +46,28 @@ const EditTask = () => {
       return
     }
 
-    const error = await updateTask(id, editedTitle, editedDescription)
-
-    if (!error) {
-      toast({
-        title: 'Task updated',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
+    updateTask(id, editedTitle, editedDescription)
+      .then(() => {
+        toast({
+          title: 'Task updated',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    } else {
-      toast({
-        title: 'Failed to update task',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
+      .catch(() => {
+        toast({
+          title: 'Failed to update task',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    }
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push('/tasks/displayTaskList')
+    router
+      .push('/tasks/displayTaskList')
+      .catch(error => <Heading>{error.message}</Heading>)
   }
 
   return (

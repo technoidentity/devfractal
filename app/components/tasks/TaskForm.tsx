@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-
 import {
   Box,
   Flex,
@@ -9,7 +7,7 @@ import {
   Input,
   useToast,
 } from '@chakra-ui/react'
-
+import React, { useState } from 'react'
 import { postTask } from '../../common'
 import { SubmitButton } from '../pre-interview'
 
@@ -19,7 +17,7 @@ export const TaskForm: React.FC = () => {
 
   const toast = useToast()
 
-  const handleSubmit = async (
+  const handleSubmit = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
@@ -42,28 +40,28 @@ export const TaskForm: React.FC = () => {
       })
       return
     }
-    const error = await postTask(title, description)
+    postTask(title, description)
+      .then(() => {
+        toast({
+          title: 'Task created',
+          description: 'Thank you',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+      })
+      .catch(() => {
+        toast({
+          title: 'Failed to create task',
+          description: 'Try again',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
+      })
 
     setTitle('')
     setDescription('')
-
-    if (!error) {
-      toast({
-        title: 'Task created',
-        description: 'Thank you',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
-      })
-    } else {
-      toast({
-        title: 'Failed to create task',
-        description: 'Try again',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
-      })
-    }
   }
   return (
     <Flex alignItems="center" justifyContent="center" m="20">

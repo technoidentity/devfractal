@@ -1,8 +1,8 @@
-import React from 'react'
-import { Box, Flex, Heading, Spacer, Button } from '@chakra-ui/react'
-import { isAdmin, supabase } from '../../common'
+import { Box, Button, Flex, Heading, Spacer } from '@chakra-ui/react'
 import { Auth } from '@supabase/ui'
 import Link from 'next/link'
+import React from 'react'
+import { isAdmin, supabase } from '../../common'
 import { LoginForm } from '../../components/pre-interview'
 
 export default function IndexPage() {
