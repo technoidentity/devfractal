@@ -162,7 +162,7 @@ module.exports = {
     'no-octal-escape': 'error',
     'no-octal': 'error',
     'no-param-reassign': 'error',
-    'no-redeclare': 'error',
+    'no-redeclare': 'off',
     'no-regex-spaces': 'error',
     'no-restricted-syntax': ['error', 'WithStatement'],
     'no-return-await': 'error',
@@ -265,12 +265,12 @@ module.exports = {
       { selector: 'typeLike', format: ['PascalCase'] },
       {
         selector: 'variableLike',
-        format: ['camelCase', 'PascalCase'],
+        format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
         leadingUnderscore: 'allow',
       },
       {
         selector: 'memberLike',
-        format: ['camelCase'],
+        format: ['camelCase', 'snake_case'],
         leadingUnderscore: 'allow',
       },
     ],
