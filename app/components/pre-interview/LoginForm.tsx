@@ -1,12 +1,11 @@
-import { supabase } from '../../common/initSupabase'
+import { Box, Flex, Heading } from '@chakra-ui/react'
 import React, { useState } from 'react'
-
-import { Flex, Box, Heading } from '@chakra-ui/react'
-import { LoadingButton } from './LoadingButton'
-import { SubmitButton } from './SubmitButton'
-import { ErrorMessage } from './ErrorMessage'
-import { SuccessMessage } from './SuccessMessage'
+import { supabase } from '../../common/initSupabase'
+import { SubmitButton } from '../common/SubmitButton'
 import { EmailInputField } from './EmailInputField'
+import { ErrorMessage } from './ErrorMessage'
+import { LoadingButton } from './LoadingButton'
+import { SuccessMessage } from './SuccessMessage'
 
 export const LoginForm = () => {
   const [email, setEmail] = useState<string>('')

@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
-import React from 'react'
-
 import { Button } from '@chakra-ui/react'
-
+import React from 'react'
 import {
-  createPlaylist,
-  postVideo,
   addPlaylistVideo,
-  updateVideo,
-  deleteVideo,
-  deletePlaylistVideo,
+  createPlaylist,
   deletePlaylist,
+  deletePlaylistVideo,
+  deleteVideo,
+  getVideo,
+  postVideo,
+  updateVideo,
 } from '../../common'
 
 const testCrud = () => {
@@ -59,6 +58,12 @@ const testCrud = () => {
     console.log(error)
   }
 
+  const onGetVideo = async () => {
+    const video = await getVideo(3)
+
+    console.log(video)
+  }
+
   return (
     <>
       <Button onClick={onCreatePlaylist}>createPlaylist</Button>
@@ -68,6 +73,7 @@ const testCrud = () => {
       <Button onClick={onDeletePlaylistVideo}>deletePlaylistVideo</Button>
       <Button onClick={onDeleteVideo}>deleteVideo</Button>
       <Button onClick={onDeletePlaylist}>deletePlaylist</Button>
+      <Button onClick={onGetVideo}>getVideo</Button>
     </>
   )
 }
