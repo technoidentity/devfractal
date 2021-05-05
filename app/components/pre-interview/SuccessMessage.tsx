@@ -1,5 +1,5 @@
+import { Alert, AlertDescription, AlertIcon, Box } from '@chakra-ui/react'
 import React from 'react'
-import { Box, Alert, AlertIcon, AlertDescription } from '@chakra-ui/react'
 
 export const SuccessMessage: React.FC = () => (
   <Box my={4}>

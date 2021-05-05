@@ -1,9 +1,8 @@
+import { Heading } from '@chakra-ui/react'
+import Link from 'next/link'
 import React from 'react'
 import { supabase } from '../../common'
-import { Heading } from '@chakra-ui/react'
-
-import { TaskForm } from '../../components/tasks/TaskForm'
-import Link from 'next/link'
+import { TaskForm } from '../../components/tasks'
 
 const createTask = () => {
   const user = supabase.auth.user()

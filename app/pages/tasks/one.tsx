@@ -7,13 +7,12 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-
-import React from 'react'
-import { SubmitButton } from '../../components/pre-interview'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React from 'react'
 import type { Task } from '../../common'
 import { deleteTask } from '../../common'
-import Link from 'next/link'
+import { SubmitButton } from '../../components/pre-interview'
 
 const DisplayTask = () => {
   const toast = useToast()
@@ -23,33 +22,35 @@ const DisplayTask = () => {
     (router.query.data as any) as string,
   )
 
-  const handleDelete = async (
+  const handleDelete = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
     if (!id) {
       return
     }
-    const error = await deleteTask(id)
 
-    if (!error) {
-      toast({
-        title: 'Task deleted',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
+    deleteTask(id)
+      .then(() => {
+        toast({
+          title: 'Task deleted',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    } else {
-      toast({
-        title: 'Failed to delete task',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
+      .catch(() => {
+        toast({
+          title: 'Failed to delete task',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    }
 
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    router.push('/tasks/displayTaskList')
+    router
+      .push('/tasks/displayTaskList')
+      .catch(error => <Heading>{error.message}</Heading>)
   }
 
   return (

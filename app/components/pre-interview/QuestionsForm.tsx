@@ -28,27 +28,28 @@ export const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
   const score = 3
 
   const toast = useToast()
-  const handleSubmit = async (
+  const handleSubmit = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
 
-    const error = await postUserAnswers(id, email, score)
-    if (!error) {
-      toast({
-        title: 'Your answers are submitted',
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
+    postUserAnswers(id, email, score)
+      .then(() => {
+        toast({
+          title: 'Your answers are submitted',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    } else {
-      toast({
-        title: 'Failed to save the answers',
-        status: 'error',
-        duration: 2000,
-        isClosable: true,
+      .catch(() => {
+        toast({
+          title: 'Failed to save the answers',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
       })
-    }
   }
 
   return (
@@ -84,7 +85,7 @@ export const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
           variant="outline"
           width="full"
           mt={4}
-          onClick={async event => handleSubmit(event)}
+          onClick={event => handleSubmit(event)}
         >
           Submit Answers
         </Button>

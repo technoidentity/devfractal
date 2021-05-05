@@ -2,8 +2,8 @@ import { Heading } from '@chakra-ui/react'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import React from 'react'
 import type { Task } from '../../common'
-import { TaskList } from '../../components/tasks'
 import { supabase } from '../../common'
+import { TaskList } from '../../components/tasks'
 
 interface DisplayTaskListProps {
   readonly taskList: readonly Task[]

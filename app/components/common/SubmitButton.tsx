@@ -1,11 +1,8 @@
+import { Button, Icon } from '@chakra-ui/react'
 import React from 'react'
-import { Button } from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/react'
 import { BiMailSend } from 'react-icons/bi'
 export interface SubmitButtonProps {
-  handleSubmit(
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ): Promise<void>
+  handleSubmit(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void
   readonly title: string
 }
 export const SubmitButton: React.FC<SubmitButtonProps> = ({
