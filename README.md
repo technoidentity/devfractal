@@ -19,9 +19,10 @@ git clone git@github.com:pervezfunctor/ILM.git
 
 ```bash
   cd ILM/app
-  git checkout -b <YOUR_BRANCH_NAME_HERE>
-  yarn
-  yarn validate
+  npm run prepare
+  rush update
+  rushx validate
+  git checkout -b <YOUR_BRANCH_NAME_HERE> # e.g. git checkout -b add-playlist
 ```
 
 ## Open code in VS Code
@@ -31,8 +32,11 @@ You can now open VS Code and start the https/development server
 ```bash
   code .
   # you can run this command in the terminal inside VS Code
-  yarn start
+  rushx dev
 ```
+
+The app should be running on port 3000.
+E.g. http://localhost:3000/tasks/list
 
 ## Pushing your changes
 
@@ -40,24 +44,25 @@ After you make commits and are ready to send pull request, please do the
 following:
 
 ```bash
-  yarn && yarn validate  # fix any validation errors
+  rush update 
+  rushx validate  # fix any validation errors
   # git add ...
   # git commit ...
   git checkout master
   git pull
-  git checkout <YOUR_BRANCH_NAME_HERE>
+  git checkout <YOUR_BRANCH_NAME_HERE> # e.g. git checkout add-playlist
   git rebase master
 ```
 
 If you get any merge conflicts, fix them and then run `git add .` &  
 `git rebase --continue` to proceed. You can undo the rebase process using  
-`git rebase --abort` if you don't know how to fix the conflicts.  
+`git rebase --abort` if you're not sure how to fix the conflicts.  
 
 Once the conflicts have been resolved and rebase is complete, you can push the  
-branch to Github:
+branch to Github.
 
 ```bash
- git push -u origin <YOUR_BRANCH_NAME_HERE>
+ git push -u origin <YOUR_BRANCH_NAME_HERE>  # e.g. git push -u origin add-playlist
 ```
 
 Go to ILM project on Github to create a pull request.
@@ -65,13 +70,13 @@ Go to ILM project on Github to create a pull request.
 ## Clean up merged branches
 
 Let us say your branch that got merged with `master` on Github is called  
-`12-add-greet`. You can clean it up using the following commands.
+`add-playlist`. You can clean it up using the following commands.
 
 ```bash
 git checkout master
-# deletes your branch from your computer; if you an error here, it's probably
-# not safe to delete the branch yet
-git branch -d 12-add-greet
+# deletes your branch from your computer; if you get an error here, it's
+# probably not safe to delete the branch yet
+git branch -d add-playlist
 # deletes your branch from Github
-git push origin --delete 12-add-greet
+git push origin --delete add-playlist
 ```
