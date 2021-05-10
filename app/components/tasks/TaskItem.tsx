@@ -18,7 +18,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ taskDetails }) => (
   >
     <Link
       href={{
-        pathname: '/tasks/displayTask',
+        pathname: '/tasks/one',
         query: { data: JSON.stringify(taskDetails) },
       }}
     >
