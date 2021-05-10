@@ -1,15 +1,16 @@
 import { Heading } from '@chakra-ui/react'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import Link from 'next/link'
 import React from 'react'
 import type { Task } from '../../common'
 import { supabase } from '../../common'
-import { TaskList } from '../../components/tasks'
+import { Header, TaskList } from '../../components/tasks'
 
-interface DisplayTaskListProps {
+interface ListProps {
   readonly taskList: readonly Task[]
 }
 
-export const getServerSideProps: GetServerSideProps<DisplayTaskListProps> = async () => {
+export const getServerSideProps: GetServerSideProps<ListProps> = async () => {
   const { data: taskList } = await supabase
     .from('tasks')
     .select(`id,title,description`)
@@ -22,14 +23,27 @@ export const getServerSideProps: GetServerSideProps<DisplayTaskListProps> = asyn
   return { props: { taskList } }
 }
 
-const DisplayTaskList: React.FC<
+const List: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ taskList }) => {
-  if (taskList) {
-    return <TaskList list={taskList} />
+  const user = supabase.auth.user()
+
+  if (user && taskList) {
+    return (
+      <>
+        <Header />
+        <TaskList list={taskList} />
+      </>
+    )
   } else {
-    return <Heading> Permission Denied</Heading>
+    return (
+      <Heading>
+        <Link href="/tasks">
+          <a>Login to continue</a>
+        </Link>
+      </Heading>
+    )
   }
 }
 
-export default DisplayTaskList
+export default List
