@@ -1,6 +1,4 @@
-import { Heading } from '@chakra-ui/react'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import Link from 'next/link'
 import React from 'react'
 import type { Task } from '../../common'
 import { supabase } from '../../common'
@@ -28,22 +26,11 @@ const List: React.FC<
 > = ({ taskList }) => {
   const user = supabase.auth.user()
 
-  if (user && taskList) {
-    return (
-      <>
-        <Header />
-        <TaskList list={taskList} />
-      </>
-    )
-  } else {
-    return (
-      <Heading>
-        <Link href="/tasks">
-          <a>Login to continue</a>
-        </Link>
-      </Heading>
-    )
-  }
+  return (
+    <>
+      <Header />
+      {user && taskList && <TaskList list={taskList} />}
+    </>
+  )
 }
-
 export default List

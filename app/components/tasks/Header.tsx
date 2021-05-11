@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import { MdClose, MdMenu } from 'react-icons/md'
 import { supabase } from '../../common'
+import { LinkButton } from './LinkButton'
 
 export interface MenuItemsProps {
   readonly title: string
@@ -60,38 +61,8 @@ export const Header = () => {
 
           {!user ? (
             <>
-              <Link href="/tasks/signin">
-                <a>
-                  {' '}
-                  <Button
-                    size="sm"
-                    rounded="md"
-                    color={['teal.200', 'teal.200', 'teal.900', 'teal.900']}
-                    bg={['teal.900', 'teal.900', 'teal.200', 'teal.200']}
-                    _hover={{
-                      bg: ['teal.600', 'teal.600', 'teal.600', 'teal.600'],
-                    }}
-                  >
-                    {' '}
-                    Sign In
-                  </Button>{' '}
-                </a>
-              </Link>
-              <Link href="/tasks/signup">
-                <a>
-                  <Button
-                    size="sm"
-                    rounded="md"
-                    color={['teal.200', 'teal.200', 'teal.900', 'teal.900']}
-                    bg={['teal.900', 'teal.900', 'teal.200', 'teal.200']}
-                    _hover={{
-                      bg: ['teal.600', 'teal.600', 'teal.600', 'teal.600'],
-                    }}
-                  >
-                    Create Account
-                  </Button>
-                </a>
-              </Link>
+              <LinkButton href="/tasks/signin" title="Sign In" />
+              <LinkButton href="/tasks/signup" title="Sign Up" />
             </>
           ) : (
             <>
