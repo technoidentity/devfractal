@@ -7,44 +7,36 @@ import {
   Input,
   useToast,
 } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { postTask } from '../../common'
-import { SubmitButton } from '../pre-interview'
+import type { Task } from '../../common'
+import { updateTask } from '../../common'
+import { SubmitButton } from '../common'
+import { Error } from './Error'
 
-export const TaskForm: React.FC = () => {
-  const [title, setTitle] = useState<string>('')
-  const [description, setDescription] = useState<string>('')
-
+export interface EditFormProps {
+  readonly taskDetails: Task
+}
+export const EditForm: React.FC<EditFormProps> = ({ taskDetails }) => {
   const toast = useToast()
+  const router = useRouter()
+  const [editedTitle, setEditedTitle] = useState<string>(taskDetails.title)
+  const [editedDescription, setEditedDescription] = useState<string>(
+    taskDetails.description ?? '',
+  )
 
-  const handleSubmit = (
+  const handleEdit = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault()
+    if (!taskDetails.id) {
+      return
+    }
 
-    if (!title) {
-      toast({
-        title: 'Please enter title',
-        status: 'error',
-        duration: 1000,
-        isClosable: true,
-      })
-      return
-    }
-    if (!description) {
-      toast({
-        title: 'Please enter description',
-        status: 'error',
-        duration: 1000,
-        isClosable: true,
-      })
-      return
-    }
-    postTask(title, description)
+    updateTask(taskDetails.id, editedTitle, editedDescription)
       .then(() => {
         toast({
-          title: 'Task created',
-          description: 'Thank you',
+          title: 'Task updated',
           status: 'success',
           duration: 2000,
           isClosable: true,
@@ -52,17 +44,16 @@ export const TaskForm: React.FC = () => {
       })
       .catch(() => {
         toast({
-          title: 'Failed to create task',
-          description: 'Try again',
+          title: 'Failed to update task',
           status: 'error',
           duration: 2000,
           isClosable: true,
         })
       })
 
-    setTitle('')
-    setDescription('')
+    router.push('/tasks/list').catch(error => <Error message={error.message} />)
   }
+
   return (
     <Flex alignItems="center" justifyContent="center" m="20">
       <Box
@@ -87,8 +78,8 @@ export const TaskForm: React.FC = () => {
                 type="text"
                 placeholder="enter title here"
                 width="md"
-                value={title}
-                onChange={event => setTitle(event.currentTarget.value)}
+                value={editedTitle}
+                onChange={event => setEditedTitle(event.currentTarget.value)}
               />
             </FormControl>
             <FormControl isRequired>
@@ -99,11 +90,13 @@ export const TaskForm: React.FC = () => {
                 type="text"
                 placeholder="enter description here"
                 width="md"
-                value={description}
-                onChange={event => setDescription(event.currentTarget.value)}
+                value={editedDescription}
+                onChange={event =>
+                  setEditedDescription(event.currentTarget.value)
+                }
               />
             </FormControl>
-            <SubmitButton handleSubmit={handleSubmit} title="Submit" />
+            <SubmitButton handleSubmit={handleEdit} title="Submit" />
           </form>
         </Box>
       </Box>

@@ -1,4 +1,3 @@
-export * from '../common/SubmitButton'
 export * from './EmailInputField'
 export * from './ErrorMessage'
 export * from './LoadingButton'
