@@ -1,11 +1,11 @@
-import { Box } from '@chakra-ui/layout'
+import { Box } from '@chakra-ui/react'
+import produce from 'immer'
 import React from 'react'
 import { AddPlaylistForm } from './AddPlaylistForm'
 import type { CreateVideo } from './AddPlaylistVideoForm'
 import { AddPlaylistVideoForm } from './AddPlaylistVideoForm'
 import { CreateVideoViewList } from './CreateVideoView'
 import { PlaylistNameHeader } from './PlaylistNameHeader'
-import produce from 'immer'
 
 // export function removeAt<T>(arr: readonly T[], idx: number): readonly T[] {
 //   return [...arr.slice(0, idx), ...arr.slice(idx + 1)]

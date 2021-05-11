@@ -66,10 +66,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint \"./pages/**/*.{js,ts,tsx}\"",
-    "lint:fix": "yarn lint --quiet --fix",
+    "lint:fix": "rushx lint --quiet --fix",
     "types": "tsc --noEmit -p .",
-    "types:watch": "yarn types --watch",
-    "validate": "yarn lint && yarn types",
+    "types:watch": "rushx types --watch",
+    "validate": "rushx lint && rushx types",
     "prepare": "cd .. && husky install"
   },
   "browserslist": [

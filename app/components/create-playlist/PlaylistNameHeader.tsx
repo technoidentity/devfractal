@@ -1,7 +1,6 @@
-import { IconButton } from '@chakra-ui/button'
-import { Container, Flex, Heading } from '@chakra-ui/layout'
+import { Container, Flex, Heading, IconButton } from '@chakra-ui/react'
 import React from 'react'
-import { FaPlus,FaAngleDown } from 'react-icons/fa'
+import { FaAngleDown, FaPlus } from 'react-icons/fa'
 
 interface PlaylistNameHeaderProps {
   readonly playlistName: string
@@ -21,7 +20,7 @@ export const PlaylistNameHeader: React.FC<PlaylistNameHeaderProps> = ({
         colorScheme="teal"
         aria-label="Add Playlist Name"
         size="md"
-        icon={!add ? <FaPlus /> : <FaAngleDown/>}
+        icon={!add ? <FaPlus /> : <FaAngleDown />}
         onClick={() => onClick(add)}
       />
     </Flex>
