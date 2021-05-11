@@ -1,5 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
+import 'react-base-table/styles.css'
 import React from 'react'
 import { Auth } from '@supabase/ui'
 import { supabase } from '../common/initSupabase'
