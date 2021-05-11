@@ -185,6 +185,9 @@ module.exports = {
     'no-unsafe-finally': 'error',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-unsafe-return': 'off',
+    'prefer-arrow/prefer-arrow-functions': 'off',
     'no-unused-labels': 'error',
     'no-use-before-define': 'off',
     'no-useless-computed-key': 'error',
@@ -196,15 +199,7 @@ module.exports = {
     'no-whitespace-before-property': 'error',
     'no-with': 'error',
     'object-shorthand': 'error',
-    'prefer-arrow/prefer-arrow-functions': [
-      'error',
-      {
-        disallowPrototype: true,
-        singleReturnOnly: true,
-        classPropertiesAllowed: true,
-        allowStandaloneDeclarations: true,
-      },
-    ],
+
     'prefer-const': 'error',
     'prefer-object-spread': 'error',
     'prefer-template': 'error',
