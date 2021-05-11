@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import { Auth } from '@supabase/ui'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -14,7 +13,7 @@ export default function IndexPage() {
   }
   return (
     <Flex alignItems="center" justifyContent="center" m="20">
-      {!user ? (
+      {!user && (
         <Box
           m="auto"
           p={8}
@@ -38,32 +37,6 @@ export default function IndexPage() {
             socialLayout="horizontal"
             socialButtonSize="xlarge"
           />
-        </Box>
-      ) : (
-        <Box
-          m="auto"
-          p={8}
-          bg="beige"
-          maxWidth="600px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-        >
-          <Heading>Welcome {user.email}</Heading>
-          <Button
-            w="full"
-            mt={12}
-            bg="black.100"
-            color="black.900"
-            onClick={async () => {
-              const { error } = await supabase.auth.signOut()
-              if (error) {
-                console.log('Error logging out:', error.message)
-              }
-            }}
-          >
-            Logout
-          </Button>
         </Box>
       )}
     </Flex>
