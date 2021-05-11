@@ -27,15 +27,15 @@ export const AddPlaylistVideoForm: React.FC<AddPlaylistVideoFormProps> = ({
   initialValues,
   onSubmit,
 }) => {
-  const [createVideo, setCreateVideo] = React.useState<CreateVideo>(
+  const [video, setVideo] = React.useState<CreateVideo>(
     initialValues || initial,
   )
 
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     evt.preventDefault()
-    onSubmit(createVideo)
-    setCreateVideo(initial)
+    onSubmit(video)
+    setVideo(initial)
   }
 
   return (
@@ -47,9 +47,9 @@ export const AddPlaylistVideoForm: React.FC<AddPlaylistVideoFormProps> = ({
             <Input
               type="text"
               placeholder="Enter Title..."
-              value={createVideo.title}
+              value={video.title}
               onChange={evt =>
-                setCreateVideo(state => ({ ...state, title: evt.target.value }))
+                setVideo(state => ({ ...state, title: evt.target.value }))
               }
             />
           </FormControl>
@@ -58,9 +58,9 @@ export const AddPlaylistVideoForm: React.FC<AddPlaylistVideoFormProps> = ({
             <Input
               type="url"
               placeholder="Enter url..."
-              value={createVideo.url}
+              value={video.url}
               onChange={evt =>
-                setCreateVideo(state => ({ ...state, url: evt.target.value }))
+                setVideo(state => ({ ...state, url: evt.target.value }))
               }
             />
           </FormControl>
@@ -69,9 +69,9 @@ export const AddPlaylistVideoForm: React.FC<AddPlaylistVideoFormProps> = ({
             <Textarea
               type="text"
               placeholder="description..."
-              value={createVideo.description}
+              value={video.description}
               onChange={evt =>
-                setCreateVideo(state => ({
+                setVideo(state => ({
                   ...state,
                   description: evt.target.value,
                 }))
