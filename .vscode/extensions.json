@@ -1,7 +1,6 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
-    "msjsdiag.debugger-for-chrome",
     "dbaeumer.vscode-eslint",
     "streetsidesoftware.code-spell-checker",
     "formulahendry.auto-close-tag",
