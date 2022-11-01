@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "vincaslt.highlight-matching-tag",
+    "wayou.vscode-todo-highlight",
+    "ms-vscode-remote.remote-containers",
+    "visualstudioexptteam.vscodeintellicode",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "github.vscode-pull-request-github",
+    "github.github-vscode-theme",
+    "mtxr.sqltools",
+    "mtxr.sqltools-driver-pg",
+    "prisma.prisma",
+    "rikurouvila.typehole",
+    "rangav.vscode-thunder-client",
+    "ms-edgedevtools.vscode-edge-devtools",
+    "pomdtr.excalidraw-editor"
+  ]
+}
