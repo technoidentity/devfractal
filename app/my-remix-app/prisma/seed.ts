@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, User } from '@prisma/client'
 import { range } from 'lodash'
+import { db } from '~/utils/db.server'
 const prisma = new PrismaClient()
 
 function createVideos(n: number) {
@@ -8,6 +9,13 @@ function createVideos(n: number) {
     title: faker.name.fullName(),
     description: faker.lorem.sentences(2),
     url: 'xGCm_cLxets',
+  }))
+}
+
+function createUsers(n: number): Pick<User, 'username' | 'passwordHash'>[] {
+  return range(1, n).map(_ => ({
+    username: faker.name.firstName(),
+    passwordHash: 'secret',
   }))
 }
 
@@ -22,6 +30,17 @@ async function main() {
         },
       },
     })
+
+    await Promise.all(
+      createUsers(6).map(user => {
+        return db.user.create({
+          data: {
+            username: user.username,
+            passwordHash: user.passwordHash,
+          },
+        })
+      }),
+    )
   }
 }
 

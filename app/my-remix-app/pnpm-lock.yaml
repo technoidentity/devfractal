@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@chakra-ui/icons': ^2.0.11
   '@chakra-ui/react': ^2.3.7
   '@emotion/react': ^11
   '@emotion/server': ^11
@@ -12,10 +13,12 @@ specifiers:
   '@remix-run/node': ^1.7.4
   '@remix-run/react': ^1.7.4
   '@remix-run/serve': ^1.7.4
+  '@types/bcryptjs': ^2.4.2
   '@types/node': ^18.11.9
   '@types/react': ^18.0.15
   '@types/react-dom': ^18.0.6
   Faker: ^0.7.2
+  bcryptjs: ^2.4.3
   esbuild: ^0.15.13
   esbuild-register: ^3.3.3
   eslint: ^8.23.1
@@ -23,14 +26,18 @@ specifiers:
   framer-motion: ^6
   isbot: ^3.5.4
   lodash: ^4.17.21
+  prettier: ^2.7.1
   prisma: ^4.5.0
   react: ^18.2.0
   react-dom: ^18.2.0
+  remix-auth: ^3.3.0
+  remix-auth-form: ^1.2.0
   tiny-invariant: ^1.3.1
   ts-node: ^10.9.1
   typescript: ^4.8.4
 
 dependencies:
+  '@chakra-ui/icons': 2.0.11_react@18.2.0
   '@chakra-ui/react': 2.3.7_4hhzl37apollvxcsczsxiqg5ni
   '@emotion/react': 11.10.5_bbvjflvjoibwhtpmedigb26h6y
   '@emotion/server': 11.10.0
@@ -39,17 +46,21 @@ dependencies:
   '@remix-run/node': 1.7.5_biqbaboplfbrettd7655fr4n2y
   '@remix-run/react': 1.7.5_biqbaboplfbrettd7655fr4n2y
   '@remix-run/serve': 1.7.5_biqbaboplfbrettd7655fr4n2y
+  bcryptjs: 2.4.3
   faker: 6.6.6
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   isbot: 3.6.3
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  remix-auth: 3.3.0_@remix-run+react@1.7.5
+  remix-auth-form: 1.2.0_@remix-run+react@1.7.5
   tiny-invariant: 1.3.1
 
 devDependencies:
   '@faker-js/faker': 7.6.0
   '@remix-run/dev': 1.7.5_67odqug3q6zvwws4422s5yrks4
   '@remix-run/eslint-config': 1.7.5_lmezopescv3nnfjcfgbaewnf6i
+  '@types/bcryptjs': 2.4.2
   '@types/node': 18.11.9
   '@types/react': 18.0.24
   '@types/react-dom': 18.0.8
@@ -58,6 +69,7 @@ devDependencies:
   esbuild-register: 3.3.3_esbuild@0.15.13
   eslint: 8.26.0
   lodash: 4.17.21
+  prettier: 2.7.1
   prisma: 4.5.0
   ts-node: 10.9.1_cbe7ovvae6zqfnmtgctpgpys54
   typescript: 4.8.4
@@ -1629,6 +1641,26 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@chakra-ui/icon/3.0.11_react@18.2.0:
+    resolution: {integrity: sha512-RG4jf/XmBdaxOYI5J5QstEtTCPoVlmrQ/XiWhvN0LTgAnmZIqVwFl3Uw+satArdStHAs0GmJZg/E/soFTWuFmw==}
+    peerDependencies:
+      '@chakra-ui/system': '>=2.0.0'
+      react: '>=18'
+    dependencies:
+      '@chakra-ui/shared-utils': 2.0.2
+      react: 18.2.0
+    dev: false
+
+  /@chakra-ui/icons/2.0.11_react@18.2.0:
+    resolution: {integrity: sha512-WjxrFMt9hHpuZlnBh4fhtGOkIVlwYwHNmwq4sJGxYWlg8UnEhVJMoOojheJDy/d3Gp9+ApetlK3vt8fV/rZamg==}
+    peerDependencies:
+      '@chakra-ui/system': '>=2.0.0'
+      react: '>=18'
+    dependencies:
+      '@chakra-ui/icon': 3.0.11_react@18.2.0
+      react: 18.2.0
+    dev: false
+
   /@chakra-ui/image/2.0.11_5t7bkk6q574vskeot6qtu5gahi:
     resolution: {integrity: sha512-S6NqAprPcbHnck/J+2wg06r9SSol62v5A01O8Kke2PnAyjalMcS+6P59lDRO7wvPqsdxq4PPbSTZP6Dww2CvcA==}
     peerDependencies:
@@ -3087,6 +3119,10 @@ packages:
     resolution: {integrity: sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig==}
     dev: true
 
+  /@types/bcryptjs/2.4.2:
+    resolution: {integrity: sha512-LiMQ6EOPob/4yUL66SZzu6Yh77cbzJFYll+ZfaPiPPFswtIlA/Fs1MzdKYA7JApHU49zQTbJGX3PDmCpIdDBRQ==}
+    dev: true
+
   /@types/cacheable-request/6.0.2:
     resolution: {integrity: sha512-B3xVo+dlKM6nnKTcmm5ZtY/OL8bOAOd2Olee9M1zft65ox50OzjEHW91sDiU9j6cvW8Ejg1/Qkf4xd2kugApUA==}
     dependencies:
@@ -3708,6 +3744,10 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       safe-buffer: 5.1.2
+
+  /bcryptjs/2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
+    dev: false
 
   /big.js/5.2.2:
     resolution: {integrity: sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==}
@@ -8273,6 +8313,26 @@ packages:
       unified: 10.1.2
     dev: true
 
+  /remix-auth-form/1.2.0_@remix-run+react@1.7.5:
+    resolution: {integrity: sha512-iJyDhvRBctP9cJBTsU54X9K+E03XzPCVxtXRCq/+Fd4A+yqSKPAfmnSP5MnIHOnjlCGwOino8XQcj5m+UFN7QQ==}
+    peerDependencies:
+      '@remix-run/server-runtime': ^1.0.0
+    dependencies:
+      remix-auth: 3.3.0_@remix-run+react@1.7.5
+    transitivePeerDependencies:
+      - '@remix-run/react'
+    dev: false
+
+  /remix-auth/3.3.0_@remix-run+react@1.7.5:
+    resolution: {integrity: sha512-sLY5s6DQF4OJp03HM/dIEw3tLfSOIowerS2QDTuvEVXoEA3IHVmk7QkvOKosWdVPbcnlRfwF6PbeBLKgo6vqsg==}
+    peerDependencies:
+      '@remix-run/react': ^1.0.0
+      '@remix-run/server-runtime': ^1.0.0
+    dependencies:
+      '@remix-run/react': 1.7.5_biqbaboplfbrettd7655fr4n2y
+      uuid: 8.3.2
+    dev: false
+
   /repeat-element/1.1.4:
     resolution: {integrity: sha512-LFiNfRcSu7KK3evMyYOuCzv3L10TW7yC1G2/+StMjK8Y6Vqd2MG7r/Qjw4ghtuCOjFvlnms/iMmLqpvW/ES/WQ==}
     engines: {node: '>=0.10.0'}
@@ -9256,6 +9316,11 @@ packages:
   /utils-merge/1.0.1:
     resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=}
     engines: {node: '>= 0.4.0'}
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
 
   /uvu/0.5.6:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}

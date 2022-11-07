@@ -15,8 +15,9 @@ module.exports = {
     project: 'tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'import', 'unicorn', 'prettier'],
+  plugins: ['@typescript-eslint', 'import', 'unicorn', 'prettier', 'vitest'],
   rules: {
+    'vitest/no-skipped-tests': 2,
     '@typescript-eslint/restrict-plus-operands': 'off',
     'no-case-declarations': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',

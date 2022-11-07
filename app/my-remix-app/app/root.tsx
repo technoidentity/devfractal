@@ -1,7 +1,7 @@
 // root.tsx
-import React, { useContext, useEffect } from 'react'
-import { withEmotionCache } from '@emotion/react'
 import { ChakraProvider } from '@chakra-ui/react'
+import { withEmotionCache } from '@emotion/react'
+import { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node' // Depends on the runtime you choose
 import {
   Links,
   LiveReload,
@@ -9,16 +9,19 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from '@remix-run/react'
-import { MetaFunction, LinksFunction } from '@remix-run/node' // Depends on the runtime you choose
+import React, { useContext, useEffect } from 'react'
 
-import { ServerStyleContext, ClientStyleContext } from './context'
+import { Nav } from './components/Navbar'
+import { ClientStyleContext, ServerStyleContext } from './context'
+import { authenticator } from './services/auth.server'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   title: 'New Remix App',
   viewport: 'width=device-width,initial-scale=1',
-});
+})
 
 export let links: LinksFunction = () => {
   return [
@@ -26,33 +29,33 @@ export let links: LinksFunction = () => {
     { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap'
+      href: 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap',
     },
   ]
 }
 
 interface DocumentProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const Document = withEmotionCache(
   ({ children }: DocumentProps, emotionCache) => {
-    const serverStyleData = useContext(ServerStyleContext);
-    const clientStyleData = useContext(ClientStyleContext);
+    const serverStyleData = useContext(ServerStyleContext)
+    const clientStyleData = useContext(ClientStyleContext)
 
     // Only executed on client
     useEffect(() => {
       // re-link sheet container
-      emotionCache.sheet.container = document.head;
+      emotionCache.sheet.container = document.head
       // re-inject tags
-      const tags = emotionCache.sheet.tags;
-      emotionCache.sheet.flush();
-      tags.forEach((tag) => {
-        (emotionCache.sheet as any)._insertTag(tag);
-      });
+      const tags = emotionCache.sheet.tags
+      emotionCache.sheet.flush()
+      tags.forEach(tag => {
+        ;(emotionCache.sheet as any)._insertTag(tag)
+      })
       // reset cache to reapply global styles
-      clientStyleData?.reset();
-    }, []);
+      clientStyleData?.reset()
+    }, [])
 
     return (
       <html lang="en">
@@ -74,14 +77,21 @@ const Document = withEmotionCache(
           <LiveReload />
         </body>
       </html>
-    );
-  }
-);
+    )
+  },
+)
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await authenticator.isAuthenticated(request)
+  return { user }
+}
 
 export default function App() {
+  const { user } = useLoaderData()
   return (
     <Document>
       <ChakraProvider>
+        <Nav user={user} />
         <Outlet />
       </ChakraProvider>
     </Document>
