@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/prefer-string-starts-ends-with */
+/* eslint-disable @typescript-eslint/prefer-for-of */
+/* eslint-disable no-undef */
+/* eslint-disable prefer-template */
+
 // problem 2
 export const convertToCelsius = (temp: number): number => (temp - 32) * (5 / 9)
 export const convertToFahrenheit = (temp: number): number => temp * (9 / 5) + 32
@@ -38,7 +43,7 @@ export const rectangle = (
 // Problem 5
 
 export const FizzBuzz = (num: number): any => {
-  let arr = []
+  const arr = []
   for (let i = 1; i <= num; i += 1) {
     if (i % 3 === 0 && i % 5 === 0) {
       arr.push('FizzBuzz')
@@ -56,8 +61,8 @@ export const FizzBuzz = (num: number): any => {
 // Problem 6
 
 export const ordinalSuffix = (num: number): any => {
-  let last = num % 10
-  let secondLast = num % 100
+  const last = num % 10
+  const secondLast = num % 100
   if (last === 1 && secondLast !== 11) {
     return num + 'st'
   } else if (last === 2 && secondLast !== 12) {
@@ -72,9 +77,163 @@ export const ordinalSuffix = (num: number): any => {
 // Problem 7
 
 export const printAsciiTable = (start: number, stop: number) => {
-  let arr = []
+  const arr = []
   for (let i = start; i <= stop; i++) {
     arr.push(String.fromCharCode(i))
   }
   return arr
 }
+
+// Problem 9
+
+export const getChessSquareColor = (column: number, row: number) => {
+  // invariant(column >= 0 && column < 8, '')
+  if ((row + column) % 2 === 0) {
+    return 'white'
+  } else {
+    return 'black'
+  }
+}
+
+// Problem 10
+
+export const indexOf = (text: string, word: string) => {
+  for (let i = 0; i < text.length; i += 1) {
+    let j = 0
+    for (j = 0; j < word.length; j += 1) {
+      if (text[i + j] !== word[j]) {
+        break
+      }
+    }
+    if (j === word.length) {
+      return i
+    }
+  }
+  return -1
+}
+
+export const findAndReplaceOne = (
+  text: string,
+  oldStr: string,
+  matchStr: string,
+) => {
+  const idx = indexOf(text, oldStr)
+
+  return text.slice(0, idx) + matchStr + text.slice(idx + matchStr.length)
+}
+
+export const stringEquality = (str1: string, str2: string) => {
+  for (let i = 0; i < str1.length; i += 1) {
+    if (str1[i] !== str2[i]) {
+      return false
+    }
+  }
+  return true
+}
+
+export const subStr = (text: string, idx1: number, idx2: number) => {
+  let result = ''
+  for (let i = idx1; i < idx2; i += 1) {
+    result += text[i]
+  }
+  return result
+}
+
+export const getSubStr = (
+  text: string,
+  idx1: number,
+  idx2: number,
+  idx3: number,
+) => {
+  let word1 = ''
+  let word2 = ''
+  for (let i = idx1; i < idx2; i += 1) {
+    word1 += text[i]
+  }
+  for (let j = idx2; j < idx3; j += 1) {
+    word2 += text[j]
+  }
+  return [word1, word2]
+}
+
+export const getSubStrNew = (
+  text: string,
+  idx1: number,
+  idx2: number,
+  idx3: number,
+) => {
+  const word1 = subStr(text, idx1, idx2)
+  const word2 = subStr(text, idx2, idx3)
+  return [word1, word2]
+}
+
+export const partition = (text: string, num: number) => {
+  const result = []
+  for (let i = 0; i < text.length; i += num) {
+    result.push(text.slice(i, i + num))
+  }
+  return result
+}
+
+export const subStrAll = (text: string, indices: number[]) => {
+  const result = []
+  let j = 0
+  for (let i = 0; i < text.length && j < indices.length; i += indices[i]) {
+    result.push(subStr(text, i, indices[j]))
+    j++
+  }
+  return result
+}
+
+export const findAndReplaceAll = (
+  text: string,
+  oldStr: string,
+  matchStr: string,
+) => {
+  let result = ''
+  let i = 0
+  while (i < text.length) {
+    let j = 0
+    for (j = 0; j < oldStr.length; j += 1) {
+      if (text[i + j] !== oldStr[j]) {
+        result += text[i]
+        break
+      }
+    }
+    if (j === oldStr.length) {
+      result += matchStr
+      i = i + j - 1
+    }
+    i++
+  }
+  return result
+}
+
+console.log(findAndReplaceAll('foofoxbarfoxfizzfox', 'fox', 'dog'))
+console.log(findAndReplaceAll('foxfox', 'fox', 'dog'))
+// console.log(stringEquality('dogg', 'dogg'), 'fn')
+// console.log(subStr('hello world new', 4, 9))
+// console.log(getSubStr('hello world new', 2, 5, 8))
+// console.log(partition('helloworldnew', 4))
+// console.log(subStrAll('helloworldfrom', [1, 5, 9]), 'hello')
+
+// Problem 11
+
+// export const getHoursMinutesSeconds = (seconds: number) => {
+//   if (seconds < 60) {
+//     return `${seconds}s`
+//   }
+
+//   const hrs = Math.floor(seconds / (60 * 60))
+//   const mins = hrs % 60
+//   const secs = mins % 60
+
+//   if (hrs !== 0) {
+//     const mins = hrs % 60
+//     if (mins !== 0) {
+//       if (secs !== 0) {
+//         return `${hrs}s ${mins}m ${secs}s`
+//       }
+//     }
+//   }
+// }

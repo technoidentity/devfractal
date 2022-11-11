@@ -2,7 +2,10 @@ import { expect, test } from 'vitest'
 import {
   convertToCelsius,
   convertToFahrenheit,
+  findAndReplaceOne,
   FizzBuzz,
+  getChessSquareColor,
+  getHoursMinutesSeconds,
   isEven,
   isOdd,
   ordinalSuffix,
@@ -204,4 +207,34 @@ test('print ascii table', () => {
     '}',
     '~',
   ])
+})
+
+test('getChessSquareColor', () => {
+  expect(getChessSquareColor(1, 1)).toEqual('white')
+  expect(getChessSquareColor(2, 1)).toEqual('black')
+  expect(getChessSquareColor(1, 2)).toEqual('black')
+  expect(getChessSquareColor(8, 8)).toEqual('white')
+  // expect(getChessSquareColor(0, 8)).toEqual('')
+  // expect(getChessSquareColor(2, 9)).toEqual('')
+})
+
+test('findAndReplace', () => {
+  expect(findAndReplaceOne('The fee fox', 'fox', 'dog')).toEqual('The fee dog')
+  expect(findAndReplaceOne('fox', 'fox', 'dog')).toEqual('dog')
+  expect(findAndReplaceOne('Firefox', 'fox', 'dog')).toEqual('Firedog')
+  // expect(findAndReplace('foxfox', 'fox', 'dog')).toEqual('dogdog')
+  expect(findAndReplaceOne('The Fox and fox.', 'fox', 'dog')).toEqual(
+    'The Fox and dog.',
+  )
+})
+
+test('getHoursMinutesSeconds', () => {
+  expect(getHoursMinutesSeconds(30)).toEqual('30s')
+  expect(getHoursMinutesSeconds(60)).toEqual('1m')
+  // expect(getHoursMinutesSeconds(90)).toEqual('1m 30s')
+  // expect(getHoursMinutesSeconds(3600)).toEqual('1h')
+  // expect(getHoursMinutesSeconds(3601)).toEqual('1h 1s')
+  // expect(getHoursMinutesSeconds(3661)).toEqual('1h 1m 1s')
+  // expect(getHoursMinutesSeconds(90042)).toEqual('25h 42s')
+  // expect(getHoursMinutesSeconds(0)).toEqual('0s')
 })
