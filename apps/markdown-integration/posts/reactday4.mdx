@@ -1,0 +1,50 @@
+---
+title: Principles of React
+tags:
+  - react
+  - javasscript
+  - HTML
+excerpt: UI is constructed by invoking a function which return a value(vdom) and the value which is returned is based on props that are passed to function.
+---
+
+**_Principles of React:_**
+
+UI is constructed by invoking a function which return a value(vdom) and the value
+which is returned is based on props that are passed to function.
+
+props -> function/pure function -> vdom
+
+Function repesents props in the form of vdom by doing data transformation. Imagine if the function is pure function then props will not change so does vdom.
+
+Everytime props changes function will returns a differnt view(vdom) where we can say that the function is not pure and does the side effect.
+
+**_Disadvantages of manipulating DOM directly:_**
+
+> - Imagine there is no react and we have to change the DOM directly to mutate ui being DOM as mutative library changing multiple things will lead to difficulty in managing state.
+> - mutating one thing at one place may lead to mutation in another place which leads to difficulty keeping synchronization between UI and program logic.There is no easy way changing HTML and CSS without effecting the programmer.
+> - Make sure that the query selectors are as general as possible and do not break easily.
+> - Imagine there are lot of DOM objects as well as functions for manipulating DOM and each object is maintaining its own state.State is distributed among the objects and each object is pointing to another object and each object accessing a global variable then state would be unpredictable.
+
+**_How React solves the problem:_**
+
+- A single page can be divided into multiple components.Props can be distributed to these multiple components eventually lead to building VDOM.
+- Imagine each component is a pure function being fed with props each function render a VDOM which leads to more predictable code. Even if a bug occurs we can easily identify the respective component and debug it.
+- This mental model is so unrealistic where as keeping every component is pure in order to change UI we need to change the props.
+- React solves this by keeping rendering components pure at the same time keeping state explicitly.
+
+<Youtube id="oWVW8IqpQ-A" />
+
+## **Reactive Programming:**
+
+**_Reactive variables:_**
+
+> - variables contains a reference to immutable values. we can always get a current value from the variable and also can provide with previous value if its been stored might get a next value.Each one of these values are immutable. Anybody accessing these immutable values cant change these values.
+> - Whenever the variable value changes there should a mechanism that we can poll the that change.
+> - Those variables which always refers to a value which have an identity which can tell others change in their value with their time are called Reactive variables.
+
+**_Derived values:_**
+
+- Derived values are values which are dependent on reactive variable.
+- Derived values can be obtaining a value from providing reactive variable to a pure function.
+- Reactive variable can not contain another reactive variable but derived variable can be derived from another derived variable or reactive variable.
+- By keeping reactive variables as minimal as possible and independent with each other and make it as a seperate layer with derived variables to extent solve the problem of inconsistency.
