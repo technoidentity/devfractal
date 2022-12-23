@@ -5,11 +5,32 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Edge",
+      "request": "launch",
+      "type": "msedge",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Attach to Chrome",
+      "port": 3000,
+      "request": "attach",
+      "type": "chrome",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "type": "firefox",
       "request": "launch",
       "reAttach": true,
       "name": "Launch firefox",
-      "url": "http://localhost:3000",
+      "url": "http://localhost:5173",
       "webRoot": "${workspaceFolder}"
     }
   ]
