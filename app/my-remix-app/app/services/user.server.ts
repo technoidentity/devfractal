@@ -1,5 +1,7 @@
 import { db } from '~/utils/db.server'
 import bcrypt from 'bcryptjs'
+import { getSession, getUserSession, sessionStorage } from './session.server'
+import { redirect } from '@remix-run/node'
 
 type LoginArgs = {
   username: string
@@ -21,5 +23,21 @@ export const login = async ({ username, password }: LoginArgs) => {
     throw new Error('Password incorrect')
   }
 
-  return user
+  return { id: user.id, username }
+}
+export async function register({ username, password }: LoginArgs) {
+  const passwordHash = await bcrypt.hash(password, 10)
+  const user = await db.user.create({
+    data: { username, passwordHash },
+  })
+  return { id: user.id, username }
+}
+
+export async function logout(request: Request) {
+  const session = await getUserSession(request)
+  return redirect('/', {
+    headers: {
+      'Set-Cookie': await sessionStorage.destroySession(session),
+    },
+  })
 }

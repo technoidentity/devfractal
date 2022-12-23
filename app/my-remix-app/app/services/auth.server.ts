@@ -1,13 +1,15 @@
-import { User } from '@prisma/client'
-import { hash } from 'bcryptjs'
 import { Authenticator } from 'remix-auth'
 import { FormStrategy } from 'remix-auth-form'
 import invariant from 'tiny-invariant'
 import { sessionStorage } from '~/services/session.server'
-import { db } from '~/utils/db.server'
 import { login } from './user.server'
 
-export let authenticator = new Authenticator<User>(sessionStorage, {
+type LoginUser = {
+  username: string
+  id: string
+}
+
+export let authenticator = new Authenticator<LoginUser>(sessionStorage, {
   throwOnError: true,
 })
 

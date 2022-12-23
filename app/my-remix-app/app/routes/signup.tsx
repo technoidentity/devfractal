@@ -1,29 +1,49 @@
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
-  Center,
   Flex,
   FormControl,
   FormLabel,
   Heading,
   Input,
+  InputGroup,
+  InputRightElement,
+  Link,
+  Stack,
   Text,
+  useColorModeValue,
 } from '@chakra-ui/react'
-import { ActionFunction, redirect } from '@remix-run/node'
-import { Form, Link, useActionData } from '@remix-run/react'
-import invariant from 'tiny-invariant'
-import { db } from '~/utils/db.server'
+import { ActionFunction } from '@remix-run/node'
+import { Form, useActionData } from '@remix-run/react'
 import bcrypt from 'bcryptjs'
+import { useState } from 'react'
+import invariant from 'tiny-invariant'
+import { Signup } from '~/components/Signup'
+import { createUserSession } from '~/services/session.server'
+import { register } from '~/services/user.server'
+import { db } from '~/utils/db.server'
 
 type ActionData = { error: string } | undefined
+
+export function validateUrl(url: any) {
+  console.log(url)
+  let urls = ['/', '/courses']
+  if (urls.includes(url)) {
+    return url
+  }
+  return '/courses'
+}
 
 export const action: ActionFunction = async ({ request }) => {
   const data = await request.formData()
   const username = data.get('username')
   const password = data.get('password')
+  const redirectTo = validateUrl(data.get('redirectTo') || '/courses')
 
   invariant(typeof username === 'string', 'username must be a string')
   invariant(typeof password === 'string', 'password must be a string')
+  invariant(typeof redirectTo === 'string', 'redirectTo must be a string')
 
   const isUsernameExists =
     (await db.user.count({
@@ -38,57 +58,20 @@ export const action: ActionFunction = async ({ request }) => {
     return { error: 'username already exists' }
   }
 
-  await db.user.create({
-    data: {
-      username,
-      passwordHash: hashedPassword,
-    },
-  })
-  return redirect('/login')
+  const user = await register({ username, password: hashedPassword })
+  if (!user) return null
+  return createUserSession(user.id, redirectTo)
 }
 
-export const SignupForm = () => {
+export default function signup() {
   const data = useActionData<ActionData>()
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleShowPassword = (password: boolean) => {
+    setShowPassword(!password)
+  }
+
   return (
-    <>
-      <Flex alignItems="center" justifyContent="center" mt="20px">
-        <Box
-          w="600px"
-          boxShadow="  inset 0 -3em 3em rgba(0,0,0,0.1),
-               0 0  0 2px rgb(255,255,255),
-               0.3em 0.3em 1em rgba(0,0,0,0.3);"
-          p="30px"
-        >
-          <Center>
-            <Heading>Register</Heading>
-          </Center>
-          <Form method="post">
-            <FormControl>
-              <FormLabel htmlFor="title">Username</FormLabel>
-              <Input type="text" name="username" />
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="title">Password</FormLabel>
-              <Input type="password" name="password" />
-            </FormControl>
-            {data?.error && <Text color="red">{data.error}</Text>}
-            <Button colorScheme="blue" type="submit" mt="10px">
-              Signup
-            </Button>
-            <Text mt="20px">
-              Already a user{' '}
-              <Link
-                to="/login"
-                style={{ textDecoration: 'underline', color: 'blue' }}
-              >
-                Login
-              </Link>
-            </Text>
-          </Form>
-        </Box>
-      </Flex>
-    </>
+    <Signup showPassword={showPassword} setShowPassword={handleShowPassword} />
   )
 }
-
-export default SignupForm
