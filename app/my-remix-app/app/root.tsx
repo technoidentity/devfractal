@@ -1,7 +1,7 @@
 // root.tsx
 import { ChakraProvider } from '@chakra-ui/react'
 import { withEmotionCache } from '@emotion/react'
-import { LinksFunction, LoaderFunction, MetaFunction } from '@remix-run/node' // Depends on the runtime you choose
+import { ActionArgs, json, LinksFunction, MetaFunction } from '@remix-run/node' // Depends on the runtime you choose
 import {
   Links,
   LiveReload,
@@ -12,10 +12,9 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import React, { useContext, useEffect } from 'react'
-
-import { Nav } from './components/Navbar'
+import NavbarUI from './components/NavbarUI'
 import { ClientStyleContext, ServerStyleContext } from './context'
-import { authenticator } from './services/auth.server'
+import { getUser } from './services/session.server'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
@@ -81,17 +80,17 @@ const Document = withEmotionCache(
   },
 )
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const user = await authenticator.isAuthenticated(request)
-  return { user }
+export const loader = async ({ request }: ActionArgs) => {
+  const user = await getUser(request)
+  return json(user)
 }
-
 export default function App() {
-  const { user } = useLoaderData()
+  const user = useLoaderData()
+
   return (
     <Document>
       <ChakraProvider>
-        <Nav user={user} />
+        <NavbarUI user={user} />
         <Outlet />
       </ChakraProvider>
     </Document>
