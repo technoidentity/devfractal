@@ -1,14 +1,12 @@
-import { Heading } from '@chakra-ui/react'
 import { Outlet } from '@remix-run/react'
 
 export const CoursePage = () => {
   return (
-    <>
-      <Heading>Welcome</Heading>
+    <div>
       <div>
         <Outlet />
       </div>
-    </>
+    </div>
   )
 }
 

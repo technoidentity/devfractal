@@ -1,17 +1,12 @@
-import { Container, Flex, Heading } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+import FrontPage from '~/components/FrontPage'
 
 export default function IndexRoute() {
   return (
-    <Container>
-      <Flex
-        h="80vh"
-        justifyContent="center"
-        alignItems="center"
-        direction="column"
-      >
-        <Heading>Interactive Learning Program</Heading>
-        <p>Explore Courses</p>
-      </Flex>
-    </Container>
+    <>
+      <Box minH="100vh" bg="gray.100" mr="20px" ml="20px">
+        <FrontPage />
+      </Box>
+    </>
   )
 }
