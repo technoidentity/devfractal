@@ -1,8 +1,11 @@
-import { Box, Container, Flex, Text } from '@chakra-ui/react'
+import { Box, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
 import type { Course, Video } from '@prisma/client'
 import { json, LoaderFunction } from '@remix-run/node'
 import { NavLink, Outlet, useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
+import Footer from '~/components/Footer'
+import Transcript from '~/components/Transcript'
+import { VideoGrid } from '~/components/VideoGrid'
 import { db } from '~/utils/db.server'
 
 type LoaderData = Course & {
@@ -25,41 +28,15 @@ export const loader: LoaderFunction = async ({ params }) => {
 export const VideoList = () => {
   const { id, videos } = useLoaderData<LoaderData>()
 
-  const activeStyle = {
-    color: 'red',
-  }
-
-  const style = {
-    color: 'blue',
-    textDecoration: 'underline',
-  }
-
   return (
-    <Flex>
-      <Container>
-        {videos.map((video, idx) => {
-          return (
-            <Box
-              bg="green.200"
-              p="4"
-              boxSizing="content-box"
-              maxW="250px"
-              mb="4px"
-              key={video.id}
-            >
-              <NavLink
-                to={`/course/${id}/video/${video.id}`}
-                style={({ isActive }) => (isActive ? activeStyle : style)}
-              >
-                {video.title}
-              </NavLink>
-              <Text>{video.description}</Text>
-            </Box>
-          )
-        })}
-      </Container>
-      <Outlet />
-    </Flex>
+    <>
+      <Stack maxH={'70vh'} direction={{ base: 'column', md: 'row' }}>
+        <Outlet />
+        <VideoGrid id={id} videos={videos} />
+      </Stack>
+      <Transcript />
+      <Footer />
+    </>
   )
 }
 
