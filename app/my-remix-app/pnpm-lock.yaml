@@ -13,6 +13,7 @@ specifiers:
   '@remix-run/node': ^1.7.4
   '@remix-run/react': ^1.7.4
   '@remix-run/serve': ^1.7.4
+  '@tailwindcss/typography': ^0.5.8
   '@types/bcryptjs': ^2.4.2
   '@types/node': ^18.11.9
   '@types/react': ^18.0.15
@@ -23,13 +24,14 @@ specifiers:
   esbuild-register: ^3.3.3
   eslint: ^8.23.1
   faker: ^6.6.6
-  framer-motion: ^6
+  framer-motion: ^6.5.1
   isbot: ^3.5.4
   lodash: ^4.17.21
   prettier: ^2.7.1
   prisma: ^4.5.0
   react: ^18.2.0
   react-dom: ^18.2.0
+  react-icons: ^4.7.1
   remix-auth: ^3.3.0
   remix-auth-form: ^1.2.0
   tiny-invariant: ^1.3.1
@@ -52,6 +54,7 @@ dependencies:
   isbot: 3.6.3
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-icons: 4.7.1_react@18.2.0
   remix-auth: 3.3.0_@remix-run+react@1.7.5
   remix-auth-form: 1.2.0_@remix-run+react@1.7.5
   tiny-invariant: 1.3.1
@@ -60,6 +63,7 @@ devDependencies:
   '@faker-js/faker': 7.6.0
   '@remix-run/dev': 1.7.5_67odqug3q6zvwws4422s5yrks4
   '@remix-run/eslint-config': 1.7.5_lmezopescv3nnfjcfgbaewnf6i
+  '@tailwindcss/typography': 0.5.8
   '@types/bcryptjs': 2.4.2
   '@types/node': 18.11.9
   '@types/react': 18.0.24
@@ -3074,6 +3078,17 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
+  /@tailwindcss/typography/0.5.8:
+    resolution: {integrity: sha512-xGQEp8KXN8Sd8m6R4xYmwxghmswrd0cPnNI2Lc6fmrC3OojysTBJJGSIVwPV56q4t6THFUK3HJ0EaWwpglSxWw==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+    dev: true
+
   /@testing-library/dom/8.19.0:
     resolution: {integrity: sha512-6YWYPPpxG3e/xOo6HIWwB/58HukkwIVTOaZ0VwdMVjhRUX/01E4FtQbck9GazOOj7MXHc5RBzMrU86iBJHbI+A==}
     engines: {node: '>=12'}
@@ -4197,6 +4212,12 @@ packages:
     dependencies:
       tiny-invariant: 1.3.1
     dev: false
+
+  /cssesc/3.0.0:
+    resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
+    engines: {node: '>=4'}
+    hasBin: true
+    dev: true
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
@@ -6778,8 +6799,16 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash.castarray/4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+    dev: true
+
   /lodash.debounce/4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+    dev: true
+
+  /lodash.isplainobject/4.0.6:
+    resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
     dev: true
 
   /lodash.merge/4.6.2:
@@ -7885,6 +7914,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /postcss-selector-parser/6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+    dev: true
+
   /prelude-ls/1.1.2:
     resolution: {integrity: sha512-ESF23V4SKG6lVSGZgYNpbsiaAkdab6ZgOxe52p7+Kid3W3u3bxR4Vfd/o21dmN7jSt0IwgZ4v5MUd26FEtXE9w==}
     engines: {node: '>= 0.8.0'}
@@ -8069,6 +8106,14 @@ packages:
       react-clientside-effect: 1.2.6_react@18.2.0
       use-callback-ref: 1.3.0_bbvjflvjoibwhtpmedigb26h6y
       use-sidecar: 1.1.2_bbvjflvjoibwhtpmedigb26h6y
+    dev: false
+
+  /react-icons/4.7.1_react@18.2.0:
+    resolution: {integrity: sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:
