@@ -112,6 +112,7 @@ export default function NavbarUI({ user }: { user?: User }) {
                 _hover={{
                   bg: 'pink.300',
                 }}
+                type="submit"
               >
                 Sign up
               </Button>
