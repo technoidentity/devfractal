@@ -12,8 +12,9 @@ import {
   Text,
   InputRightElement,
   Button,
+  Link,
 } from '@chakra-ui/react'
-import { Form, Link } from '@remix-run/react'
+import { Form } from '@remix-run/react'
 
 interface SignupProps {
   showPassword: boolean
