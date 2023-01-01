@@ -18,7 +18,6 @@ type LoaderData = {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request)
-  console.log(userId)
   if (!userId) {
     return null
   } else {
@@ -29,7 +28,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const CourseList = () => {
   const data = useLoaderData<LoaderData>()
-  console.log('unauth')
 
   return data !== null ? <Dashboard courses={data.courses} /> : <Unauthorized />
 }
