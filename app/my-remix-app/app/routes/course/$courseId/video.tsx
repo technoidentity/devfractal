@@ -1,15 +1,25 @@
-import { Box, Flex, SimpleGrid, Stack } from '@chakra-ui/react'
+import { ChakraProvider, Stack } from '@chakra-ui/react'
 import type { Course, Video } from '@prisma/client'
 import { json, LoaderFunction } from '@remix-run/node'
-import { NavLink, Outlet, useLoaderData } from '@remix-run/react'
+import { Outlet, useLoaderData } from '@remix-run/react'
 import invariant from 'tiny-invariant'
 import Footer from '~/components/Footer'
 import Transcript from '~/components/Transcript'
 import { VideoGrid } from '~/components/VideoGrid'
 import { db } from '~/utils/db.server'
+import { example } from '~/utils/fs.server'
+import { toHtml } from '~/utils/mdx.server'
+import { getMDXComponent } from 'mdx-bundler/client'
+import React from 'react'
+import { MDXComponents } from '~/utils/components'
 
-type LoaderData = Course & {
+type CourseVideo = Course & {
   videos: Video[]
+}
+
+type LoaderData = {
+  courseVideos: CourseVideo
+  html: string
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -21,20 +31,26 @@ export const loader: LoaderFunction = async ({ params }) => {
       videos: true,
     },
   })
-  invariant(courseVideos, `videos related to ${params.courseId} has not found`)
-  return json<LoaderData>(courseVideos)
+  const data = await example()
+  const html = await toHtml(data)
+
+  invariant(courseVideos != null, 'videos with the courseId has not found')
+  return json<LoaderData>({ html, courseVideos })
 }
 
 export const VideoList = () => {
-  const { id, videos } = useLoaderData<LoaderData>()
+  const { courseVideos, html } = useLoaderData<LoaderData>()
+  const Component = React.useMemo(() => getMDXComponent(html), [html])
 
   return (
     <>
       <Stack maxH={'70vh'} direction={{ base: 'column', md: 'row' }}>
         <Outlet />
-        <VideoGrid id={id} videos={videos} />
+        <VideoGrid id={courseVideos.id} videos={courseVideos.videos} />
       </Stack>
-      <Transcript />
+      <Transcript>
+        <Component components={MDXComponents as any} />
+      </Transcript>
       <Footer />
     </>
   )

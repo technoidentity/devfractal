@@ -51,7 +51,11 @@ export const BlogAuthor: React.FC<BlogAuthorProps> = props => {
   )
 }
 
-const Transcript = () => {
+interface TranscriptProps {
+  children: React.ReactNode
+}
+
+const Transcript = ({ children }: TranscriptProps) => {
   return (
     <Container maxW={'7xl'}>
       <Divider marginTop="5" />
@@ -65,7 +69,18 @@ const Transcript = () => {
         alignItems="flex-start"
       >
         <Heading as="h2">What we write about</Heading>
+
         <Text as="p" fontSize="lg">
+          {children}
+        </Text>
+
+        {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+          condimentum quam arcu, eu tempus tortor molestie at. Vestibulum
+          pretium condimentum dignissim. Vestibulum ultrices vitae nisi sed
+          imperdiet. Mauris quis erat consequat, commodo massa quis, feugiat
+          sapien. Suspendisse placerat vulputate posuere. Curabitur neque
+          tortor, mattis nec lacus non, placerat congue elit. */}
+        {/* <Text as="p" fontSize="lg">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
           condimentum quam arcu, eu tempus tortor molestie at. Vestibulum
           pretium condimentum dignissim. Vestibulum ultrices vitae nisi sed
@@ -80,15 +95,7 @@ const Transcript = () => {
           imperdiet. Mauris quis erat consequat, commodo massa quis, feugiat
           sapien. Suspendisse placerat vulputate posuere. Curabitur neque
           tortor, mattis nec lacus non, placerat congue elit.
-        </Text>
-        <Text as="p" fontSize="lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-          condimentum quam arcu, eu tempus tortor molestie at. Vestibulum
-          pretium condimentum dignissim. Vestibulum ultrices vitae nisi sed
-          imperdiet. Mauris quis erat consequat, commodo massa quis, feugiat
-          sapien. Suspendisse placerat vulputate posuere. Curabitur neque
-          tortor, mattis nec lacus non, placerat congue elit.
-        </Text>
+        </Text> */}
       </VStack>
     </Container>
   )
