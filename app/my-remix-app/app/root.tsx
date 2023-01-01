@@ -15,6 +15,7 @@ import React, { useContext, useEffect } from 'react'
 import NavbarUI from './components/NavbarUI'
 import { ClientStyleContext, ServerStyleContext } from './context'
 import { getUser } from './services/session.server'
+import customTheme from './utils/theme'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
@@ -24,6 +25,10 @@ export const meta: MetaFunction = () => ({
 
 export let links: LinksFunction = () => {
   return [
+    {
+      rel: 'stylesheet',
+      href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css',
+    },
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
     {
@@ -89,7 +94,7 @@ export default function App() {
 
   return (
     <Document>
-      <ChakraProvider>
+      <ChakraProvider theme={customTheme}>
         <NavbarUI user={user} />
         <Outlet />
       </ChakraProvider>
