@@ -39,7 +39,7 @@ export const Dashboard = ({ courses }: DashboardProps) => {
                 src={
                   'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
                 }
-                alt={'Avatar Alt'}
+                // alt={'Avatar Alt'}
                 mb={4}
                 pos={'relative'}
                 _after={{
@@ -96,24 +96,28 @@ export const Dashboard = ({ courses }: DashboardProps) => {
                   #javascript
                 </Badge>
               </Stack>
-              <Button
-                flex={1}
-                mt="10px"
-                fontSize={'sm'}
-                bg={'blue.400'}
-                color={'white'}
-                boxShadow={
-                  '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-                }
-                _hover={{
-                  bg: 'blue.500',
-                }}
-                _focus={{
-                  bg: 'blue.500',
-                }}
-              >
-                <Link to={`/course/${course.id}/video`}>View</Link>
-              </Button>
+
+              <Link to={`/course/${course.id}/video`}>
+                {' '}
+                <Button
+                  flex={1}
+                  mt="10px"
+                  fontSize={'sm'}
+                  bg={'blue.400'}
+                  color={'white'}
+                  boxShadow={
+                    '0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+                  }
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                  _focus={{
+                    bg: 'blue.500',
+                  }}
+                >
+                  View
+                </Button>
+              </Link>
             </Box>
           </Center>
         ))}
