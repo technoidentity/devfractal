@@ -1,9 +1,6 @@
-import { faker } from '@faker-js/faker'
-import { PrismaClient, User } from '@prisma/client'
-import { range } from 'lodash'
-import { db } from '~/utils/db.server'
+import { PrismaClient } from '@prisma/client'
+import { reactCourse, reactVideos } from '~/data/data'
 const prisma = new PrismaClient()
-import { courseList, reactCourse, reactVideos } from '~/data/data'
 
 // function createVideos(n: number) {
 //   return range(1, n).map(_ => ({
