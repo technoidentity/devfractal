@@ -16,6 +16,7 @@ export const VideoGrid = ({ id, videos }: VideoGridProps) => {
           {videos.map(video => {
             return (
               <NavLink
+                key={video.id}
                 style={({ isActive }) =>
                   isActive
                     ? {
