@@ -1,50 +1,38 @@
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Link,
-  Stack,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react'
-import { ActionFunction } from '@remix-run/node'
-import { Form, useActionData } from '@remix-run/react'
-import bcrypt from 'bcryptjs'
+import { ActionFunction, json } from '@remix-run/node'
+import { useActionData } from '@remix-run/react'
 import { useState } from 'react'
 import invariant from 'tiny-invariant'
 import { Signup } from '~/components/Signup'
+import {
+  badRequest,
+  validatePassword,
+  validateUsername,
+} from '~/utils/validate.server'
 import { createUserSession } from '~/services/session.server'
 import { register } from '~/services/user.server'
 import { db } from '~/utils/db.server'
 
-type ActionData = { error: string } | undefined
-
 export function validateUrl(url: any) {
-  console.log(url)
   let urls = ['/', '/courses']
   if (urls.includes(url)) {
     return url
   }
-  return '/courses'
+  return '/signin'
 }
 
 export const action: ActionFunction = async ({ request }) => {
   const data = await request.formData()
   const username = data.get('username')
   const password = data.get('password')
-  const redirectTo = validateUrl(data.get('redirectTo') || '/courses')
+  const redirectTo = validateUrl(data.get('redirectTo') || '/signin')
 
-  invariant(typeof username === 'string', 'username must be a string')
-  invariant(typeof password === 'string', 'password must be a string')
-  invariant(typeof redirectTo === 'string', 'redirectTo must be a string')
-
+  if (
+    typeof username !== 'string' ||
+    typeof password !== 'string' ||
+    typeof redirectTo !== 'string'
+  ) {
+    return badRequest({ formError: 'Form not submitted correctly' })
+  }
   const isUsernameExists =
     (await db.user.count({
       where: {
@@ -52,19 +40,29 @@ export const action: ActionFunction = async ({ request }) => {
       },
     })) > 0
 
-  const hashedPassword = await bcrypt.hash(password, 10)
-
   if (isUsernameExists) {
-    return { error: 'username already exists' }
+    return badRequest({ formError: 'username already exists' })
   }
 
-  const user = await register({ username, password: hashedPassword })
+  const fieldErrors = {
+    username: validateUsername(username),
+    password: validatePassword(password),
+  }
+
+  if (Object.values(fieldErrors).some(Boolean)) {
+    return json({ fieldErrors })
+  }
+  const user = await register({ username, password })
+
+  console.log(user)
+
   if (!user) return null
   return createUserSession(user.id, redirectTo)
 }
 
 export default function signup() {
-  const data = useActionData<ActionData>()
+  const data = useActionData()
+  console.log(data)
   const [showPassword, setShowPassword] = useState(false)
 
   const handleShowPassword = (password: boolean) => {
@@ -72,6 +70,10 @@ export default function signup() {
   }
 
   return (
-    <Signup showPassword={showPassword} setShowPassword={handleShowPassword} />
+    <Signup
+      showPassword={showPassword}
+      setShowPassword={handleShowPassword}
+      actionData={data}
+    />
   )
 }

@@ -15,13 +15,25 @@ import {
   Link,
 } from '@chakra-ui/react'
 import { Form } from '@remix-run/react'
+import { LoginArgs } from '~/services/user.server'
+
+type ActionData = {
+  fieldErrors?: LoginArgs
+  fields?: LoginArgs
+  formError?: string
+}
 
 interface SignupProps {
   showPassword: boolean
   setShowPassword(showPassword: boolean): void
+  actionData: ActionData
 }
 
-export const Signup = ({ showPassword, setShowPassword }: SignupProps) => {
+export const Signup = ({
+  actionData,
+  showPassword,
+  setShowPassword,
+}: SignupProps) => {
   return (
     <Flex
       minH={'100vh'}
@@ -45,10 +57,29 @@ export const Signup = ({ showPassword, setShowPassword }: SignupProps) => {
           p={8}
         >
           <Stack spacing={4}>
+            {actionData?.formError ? (
+              <Text color="red.500" role="alert" id="password-error">
+                {actionData.formError}
+              </Text>
+            ) : null}
             <Form method="post">
-              <FormControl isRequired>
+              <FormControl id="title" isRequired>
                 <FormLabel htmlFor="title">Username</FormLabel>
-                <Input type="text" name="username" />
+                <Input
+                  type="text"
+                  name="username"
+                  aria-invalid={Boolean(actionData?.fieldErrors?.username)}
+                  aria-errormessage={
+                    actionData?.fieldErrors?.username
+                      ? 'username-error'
+                      : undefined
+                  }
+                />
+                {actionData?.fieldErrors?.username ? (
+                  <Text color="red.500" role="alert" id="username-error">
+                    {actionData.fieldErrors.username}
+                  </Text>
+                ) : null}
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel htmlFor="password">Password</FormLabel>
@@ -56,16 +87,31 @@ export const Signup = ({ showPassword, setShowPassword }: SignupProps) => {
                   <Input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
+                    aria-invalid={
+                      Boolean(actionData?.fieldErrors?.password) || undefined
+                    }
+                    aria-errormessage={
+                      actionData?.fieldErrors?.password
+                        ? 'password-error'
+                        : undefined
+                    }
                   />
                   <InputRightElement h={'full'}>
                     <Button
                       variant={'ghost'}
-                      onClick={() => setShowPassword(showPassword)}
+                      onClick={() => {
+                        setShowPassword(showPassword)
+                      }}
                     >
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                {actionData?.fieldErrors?.password ? (
+                  <Text color="red.500" role="alert" id="password-error">
+                    {actionData.fieldErrors.password}
+                  </Text>
+                ) : null}
               </FormControl>
               <Stack spacing={10} pt={2}>
                 <Button
