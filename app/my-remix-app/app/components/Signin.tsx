@@ -12,12 +12,20 @@ import {
   Button,
 } from '@chakra-ui/react'
 import { Link, Form } from '@remix-run/react'
+import { LoginArgs } from '~/services/user.server'
+
+type ActionData = {
+  fieldErrors?: LoginArgs
+  fields?: LoginArgs
+  formError?: string
+}
 
 interface SigninProps {
   searchParams: URLSearchParams
+  actionData: ActionData
 }
 
-export const Signin = ({ searchParams }: SigninProps) => {
+export const Signin = ({ actionData, searchParams }: SigninProps) => {
   return (
     <Flex
       minH={'100vh'}
@@ -43,6 +51,11 @@ export const Signin = ({ searchParams }: SigninProps) => {
           p={8}
         >
           <Stack spacing={4}>
+            {actionData?.formError ? (
+              <Text color="red.500" role="alert" id="password-error">
+                {actionData.formError}
+              </Text>
+            ) : null}
             <Form method="post">
               <input
                 type="hidden"
@@ -51,11 +64,42 @@ export const Signin = ({ searchParams }: SigninProps) => {
               />
               <FormControl>
                 <FormLabel htmlFor="title">Username</FormLabel>
-                <Input name="username" required />
+                <Input
+                  name="username"
+                  aria-invalid={Boolean(actionData?.fieldErrors?.username)}
+                  aria-errormessage={
+                    actionData?.fieldErrors?.username
+                      ? 'username-error'
+                      : undefined
+                  }
+                  required
+                />
+                {actionData?.fieldErrors?.username ? (
+                  <Text color="red.500" role="alert" id="username-error">
+                    {actionData.fieldErrors.username}
+                  </Text>
+                ) : null}
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="title">Password</FormLabel>
-                <Input type="password" name="password" required />
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <Input
+                  type="password"
+                  name="password"
+                  aria-invalid={
+                    Boolean(actionData?.fieldErrors?.password) || undefined
+                  }
+                  aria-errormessage={
+                    actionData?.fieldErrors?.password
+                      ? 'password-error'
+                      : undefined
+                  }
+                  required
+                />
+                {actionData?.fieldErrors?.password ? (
+                  <Text color="red.500" role="alert" id="password-error">
+                    {actionData.fieldErrors.password}
+                  </Text>
+                ) : null}
               </FormControl>
               <Stack spacing={10}>
                 <Stack
