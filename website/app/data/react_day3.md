@@ -1,0 +1,94 @@
+  # Fundamentals
+  React allows to represent a view as data. React has ability to treat a view as a function which takes props as data and returns data as value.
+
+
+>A web page is nothing but collection of react components. Each component is nothing but a function which takes data and  returns a view.
+>
+
+**Component:** <br/>
+A React component can be described as a function which takes a value(props) and returns a value(jsx Element).
+
+JSX Element can be created using React.createElement.
+```JS
+const HelloWorld = () => React.createElement('div',{style:{color:'red'}},"Hello world")
+```
+>Above is a react component is nothing but a pure function where does not have any side effects and returns a JSX element
+
+React.createElement() takes three arguments. They are:
+
+**type**: the type of the HTML element (h1,p,button).<br/>
+**props**: properties of the object or Eventhandlers, classNames,etc).<br/>
+**children**: anything that need to be displayed on the screen.
+
+```JS
+const root = createRoot(document.getElementById('root'))
+root.render(React.createElement(HelloWorld))
+```
+
+>document.getElementById will give a DOM Object.That DOM object will be passed to createRoot which is a react function. As we can see we dont have to invoke HelloWorld all by ourself where react will take care of rendering it by itself.
+
+JSX Element is nothing but a javascript object which consists of *tags*, *attributes* and *children*. 
+
+React component always take one parameter which is a prop object.For example
+```JS
+const HelloWorld = ({message}) => React.createElement('div',{style:{color:'red'}},message)
+
+const root = createRoot(document.getElementById('root'))
+root.render(React.createElement(HelloWorld,{message:"hello"}))
+```
+React enables XML like syntax in order to create JSX Elements in simpler syntax.
+```JS
+const HelloWorld = () => <div>Hello world</div>
+```
+ > ```<div>Hello world</div>``` This would internally converted into ```React.createElement('div',{},"Hello world")```
+We can write any javascript expression with in our JSX by using {}
+```JS
+const HelloWorld = ({message}) => <div>{message}</div>
+```
+React component with proper naming conventions and props followed by types is as follows
+
+```JS 
+type HelloWorldProps = Readonly<{
+    message:string
+    }>
+
+const HelloWorld = ({message}:HelloWorldProps) => <div>{message.toUpperCase().trim()}</div>
+
+const root = createRoot(document.getElementById('root'))
+root.render(<HelloWorld message=" hello world "/>)
+```
+
+**Counter**
+
+Before writing any React component steps that are need to be followed:
+
+***Step 1:*** Make sure to write a static structure of the component at first.
+
+~~~ JS
+const Counter = () => (
+    <div>+</div>
+    <div>count</div>
+    <div>-</div>
+)
+~~~
+
+***Step 2:*** Make sure component allows props as data.
+
+~~~ JS
+type CounterProps = {
+    count:number
+}
+
+const Counter = ({count}:CounterProps) => {
+return (
+    <div>+</div>
+    <div>{count}</div>
+    <div>-</div>
+)
+}
+
+const root = createRoot(document.getElementById('root'))
+root.render(<Counter count={10}/>)
+~~~
+
+>The above Counter component takes a value as prop returns a JSX Element and does not do anything else such as changing a value or changing a view is referred as a **Stateless Component**. A Stateless component always referred as a **Pure Function**.
