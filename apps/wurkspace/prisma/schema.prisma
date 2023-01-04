@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("account")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtoken")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  name          String?
+  // email should null for next-auth?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  profile       Employee? @relation("userEmployee")
+
+  @@map("user")
+}
+
+model Employee {
+  email              String          @id @unique
+  mobile             String
+  aboutMe            String
+  photo              String
+  firstName          String
+  lastName           String
+  // @TODO: This need to be a relationship in future?
+  managerFirstName   String?
+  managerLastName    String?
+  managerEmail       String?
+  user               User?           @relation(name: "userEmployee", fields: [userId], references: [id])
+  userId             String?         @unique
+  discussionsAddedBy Discussion[]    @relation("discussionAddedByEmployee")
+  actionsAddedBy     Action[]        @relation("actionAddedByEmployee")
+  actionsAssignedTo  Action[]        @relation("actionAssignedToEmployee")
+  attendee1Events    CalendarEvent[] @relation("attendee1Events")
+  attendee2Events    CalendarEvent[] @relation("attendee2Events")
+
+  @@map("Profile")
+}
+
+enum Category {
+  topOfMind
+  wentWell
+  learnings
+  priorities
+  challenges
+  feedback
+
+  @@map("category")
+}
+
+enum CardSelection {
+  action
+  discussion
+  open
+  close
+
+  @@map("cardselection")
+}
+
+enum MeetingState {
+  scheduled
+  started
+  completed
+  delayed
+
+  @@map("meetingstate")
+}
+
+enum ResponseStatus {
+  needsAction
+  declined
+  tentative
+  accepted
+
+  @@map("attendeeresponsestate")
+}
+
+model Meeting {
+  // eventId from google
+  id            String        @id
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  startTime     DateTime?     @map("startTime")
+  endTime       DateTime?     @map("endTime")
+  currentState  MeetingState?
+  discussions   Discussion[]
+  actions       Action[]
+  calendarEvent CalendarEvent @relation(name: "eventMeeting", fields: [id], references: [id])
+
+
+  @@map("meeting")
+}
+
+model CalendarEvent {
+  // foreign key and primary key are the same!!!
+  id                      String         @id // eventId
+  startTime               DateTime
+  endTime                 DateTime
+  attendee1ResponseStatus ResponseStatus
+  attendee2ResponseStatus ResponseStatus
+  attendee1Email          String
+  attendee2Email          String
+  attendee1               Employee       @relation(name: "attendee1Events", fields: [attendee1Email], references: [email])
+  attendee2               Employee       @relation(name: "attendee2Events", fields: [attendee2Email], references: [email])
+  meeting                 Meeting?       @relation("eventMeeting")
+
+  @@map("calendarevent")
+}
+
+model Discussion {
+  id         Int           @id @default(autoincrement())
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  forwarded  Boolean
+  discussion String
+  notes      String?
+  select     CardSelection
+  date       DateTime
+  category   Category
+  addedBy    Employee      @relation(name: "discussionAddedByEmployee", fields: [addedById], references: [email])
+  addedById  String
+  meeting    Meeting       @relation(fields: [meetingId], references: [id])
+  meetingId  String
+
+  @@map("discussion")
+}
+
+model Action {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  completed    Boolean
+  description  String
+  progress     String?
+  select       CardSelection
+  dueDate      DateTime
+  category     Category
+  addedBy      Employee      @relation(name: "actionAddedByEmployee", fields: [addedById], references: [email])
+  addedById    String
+  assignedTo   Employee      @relation(name: "actionAssignedToEmployee", fields: [assignedToId], references: [email])
+  assignedToId String
+  meeting      Meeting       @relation(fields: [meetingId], references: [id])
+  meetingId    String
+
+  @@map("action")
+}
+
+model Faq {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
+
+  @@map("faq")
+}

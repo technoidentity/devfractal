@@ -1,0 +1,56 @@
+{
+  "editor.bracketPairColorization.enabled": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.guides.bracketPairs": true,
+  "editor.matchBrackets": "always",
+  "editor.renderWhitespace": "boundary",
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+
+  "[typescript][javascript][typescriptreact][javascriptreact][json][jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "terminal.integrated.fontFamily": "'Cascadia Mono PL', consolas, 'monaco', 'ubuntu mono', monospace",
+
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "emmet.syntaxProfiles": {
+    "javascript": "html"
+  },
+
+  "search.exclude": {
+    "**/.build": true,
+    "**/.cache": true,
+    "**/.gh-pages": true,
+    "**/.next": true,
+    "**/*.yaml": true,
+    "**/bower_components": true,
+    "**/common/temp": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/node_modules": true
+  },
+
+  "javascript.format.semicolons": "remove",
+  "javascript.suggest.completeFunctionCalls": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.validate.enable": false,
+
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.format.semicolons": "remove",
+  "typescript.suggest.completeFunctionCalls": false,
+  "typescript.surveys.enabled": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  "files.autoSave": "onFocusChange",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+
+  "js/ts.implicitProjectConfig.checkJs": false
+}
