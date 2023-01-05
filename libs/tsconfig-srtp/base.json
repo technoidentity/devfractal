@@ -23,6 +23,8 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "checkJs": false,
+    "importHelpers": true,
+    "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "strictPropertyInitialization": true,

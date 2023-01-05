@@ -10,7 +10,9 @@
     "lint": {
       "outputs": []
     },
-
+    "clean": {
+      "outputs": []
+    },
     "update": {
       "outputs": []
     },

@@ -65,7 +65,7 @@ export const MeetingButton = ({
         }
         break
       default:
-        return ''
+        throw new Error('unknown meeting state')
     }
   }
 
