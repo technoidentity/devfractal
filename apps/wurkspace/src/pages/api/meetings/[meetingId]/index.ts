@@ -1,4 +1,4 @@
-import { api } from '@core/handler'
+import { api } from '@srtp/next'
 import { getMeeting, updateMeeting } from '@db/meetings'
 
 export default api()

@@ -13,6 +13,14 @@
     },
     "target": "ESNext"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "../../libs/next/src/handler.ts",
+    "../../libs/next/src/response.ts",
+    "../../libs/next/src/getAuth.ts",
+    "../../libs/next/src/prisma.ts"
+  ],
   "exclude": ["node_modules", ".next"]
 }

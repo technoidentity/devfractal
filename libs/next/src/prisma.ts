@@ -12,7 +12,7 @@ declare global {
 // create a new connection to the DB with every change either.
 if (process.env.NODE_ENV === 'production') {
   db = new PrismaClient()
-  db.$connect().catch(err => console.error(err))
+  db.$connect().catch((err: unknown) => console.error(err))
 } else {
   if (!global.prismaDb) {
     const debugPrismaDb = new PrismaClient({
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'production') {
     //   console.log(`Duration:  ${e.duration} ms`)
     // })
 
-    debugPrismaDb.$connect().catch(err => console.error(err))
+    debugPrismaDb.$connect().catch((err: unknown) => console.error(err))
     global.prismaDb = debugPrismaDb
   }
   db = global.prismaDb

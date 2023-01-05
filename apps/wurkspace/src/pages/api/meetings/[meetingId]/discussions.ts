@@ -1,4 +1,4 @@
-import { api } from '@core/handler'
+import { api } from '@srtp/next'
 import { getDiscussions, postDiscussion } from '@db/discussions'
 
 export default api()

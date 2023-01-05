@@ -1,4 +1,4 @@
-import { prisma } from '@core/prisma'
+import { prisma } from '@srtp/next'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(

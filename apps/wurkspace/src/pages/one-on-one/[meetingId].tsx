@@ -1,4 +1,4 @@
-import { str } from '@core/casts'
+import { str } from '@srtp/core'
 import { OneOnOne } from '@ui/one-on-one'
 import { useRouter } from 'next/router'
 

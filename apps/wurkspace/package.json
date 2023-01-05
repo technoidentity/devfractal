@@ -40,6 +40,8 @@
     "@next-auth/prisma-adapter": "1.0.5",
     "@prisma/client": "4.8.0",
     "@srtp/fn": "workspace:*",
+    "@srtp/core": "workspace:*",
+    "@srtp/next": "workspace:*",
     "@supabase/supabase-js": "2.2.3",
     "date-fns": "2.29.3",
     "framer-motion": "8.1.1",

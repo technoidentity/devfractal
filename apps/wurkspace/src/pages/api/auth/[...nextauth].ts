@@ -1,4 +1,4 @@
-import { prisma } from '@core/prisma'
+import { prisma } from '@srtp/next'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'

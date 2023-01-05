@@ -1,5 +1,5 @@
-import { str, toInt } from '@core/casts'
-import { prisma } from '@core/prisma'
+import { str, toInt } from '@srtp/core'
+import { prisma } from '@srtp/next'
 import { omit } from '@srtp/fn'
 import { Action } from '@prisma/client'
 import { PendingActionsResponse } from '@ui/responses'

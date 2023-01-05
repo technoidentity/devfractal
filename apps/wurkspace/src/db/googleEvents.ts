@@ -1,6 +1,6 @@
 import { sget } from '@core/api'
-import { str } from '@core/casts'
-import { prisma } from '@core/prisma'
+import { str } from '@srtp/core'
+import { prisma } from '@srtp/next'
 import { setDifference } from '@srtp/fn'
 import { CalendarEvent } from '@prisma/client'
 import { Employee } from '@specs/employee'

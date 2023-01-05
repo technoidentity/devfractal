@@ -1,5 +1,5 @@
 import { post, sget } from '@core/api'
-import { prisma } from '@core/prisma'
+import { prisma } from '@srtp/next'
 import { Employee } from '@prisma/client'
 import { EmployeeResponse } from '@ui/responses'
 import qs from 'query-string'

@@ -1,6 +1,6 @@
 import { Action } from '@specs/action'
 import { ErrorMessage } from '@ui/core'
-import { getAuth } from '@ui/core/getAuth'
+import { getAuth } from '@srtp/next'
 import { useSafeQuery } from '@ui/core/useApi'
 import { useAuth } from '@ui/core/useAuth'
 import { GetServerSideProps } from 'next'

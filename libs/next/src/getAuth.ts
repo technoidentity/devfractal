@@ -1,5 +1,5 @@
-import { isEmail } from '@core/casts'
-import { prisma } from '@core/prisma'
+import { isEmail } from '@srtp/core'
+import { prisma } from './prisma'
 import { pick } from '@srtp/fn'
 import { addDays } from 'date-fns'
 import { GetServerSidePropsContext, NextApiRequest, PreviewData } from 'next'
@@ -10,7 +10,7 @@ import { ParsedUrlQuery } from 'querystring'
 
 interface CtxOrReq {
   req?: NextApiRequest
-  ctx?: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+  ctx?: GetServerSidePropsContext
 }
 
 export const getAuth = async (ctx: CtxOrReq): Promise<Session | null> => {

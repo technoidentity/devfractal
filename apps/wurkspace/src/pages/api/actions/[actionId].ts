@@ -1,5 +1,5 @@
 import { getAction, removeAction, updateAction } from '@db/actions'
-import { api } from '@core/handler'
+import { api } from '@srtp/next'
 
 export default api()
   .get(req => getAction({ id: req.query.actionId }))

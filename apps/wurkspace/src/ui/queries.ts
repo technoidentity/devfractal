@@ -1,5 +1,5 @@
 import { put } from '@core/api'
-import { cast } from '@core/casts'
+import { cast } from '@srtp/core'
 import { supabase } from '@core/supabase'
 import { Action } from '@specs/action'
 import { Discussion } from '@specs/discussion'

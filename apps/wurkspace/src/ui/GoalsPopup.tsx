@@ -1,6 +1,6 @@
 import { useSafeQuery } from '@ui/core/useApi'
 
-import { jstr } from '@core/casts'
+import { jstr } from '@srtp/core'
 import { Goals } from '@ui/profile/Goals'
 import { IntelligentLables, TextBox } from '@ui/profile/Util'
 import React from 'react'

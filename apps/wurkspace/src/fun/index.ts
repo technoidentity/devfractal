@@ -1,5 +1,0 @@
-export * from './array'
-export * from './function'
-export * from './object'
-export * from './set'
-export * from './string'

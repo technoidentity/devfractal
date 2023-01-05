@@ -1,4 +1,4 @@
-import { jstr } from '@core/casts'
+import { jstr } from '@srtp/core'
 import { useProfile } from '@ui/queries'
 import { Notification } from './Notifications'
 import { PersonalInformationTable } from './PersonalInformationTable'

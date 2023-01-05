@@ -1,4 +1,4 @@
-import { jstr } from '@core/casts'
+import { jstr } from '@srtp/core'
 import React from 'react'
 
 export function useLocalStorage<T>(key: string, initialValue: T) {

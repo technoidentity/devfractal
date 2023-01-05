@@ -1,5 +1,5 @@
-import { str } from '@core/casts'
-import { prisma } from '@core/prisma'
+import { str } from '@srtp/core'
+import { prisma } from '@srtp/next'
 import type { CalendarEvent, Meeting } from '@prisma/client'
 import {
   CardsResponse,

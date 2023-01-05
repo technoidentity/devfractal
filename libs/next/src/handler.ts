@@ -1,7 +1,7 @@
-import { getAuth } from '@ui/core/getAuth'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'next-auth'
 import { z } from 'zod'
+import { getAuth } from './getAuth'
 import { Response, response } from './response'
 
 type Result<T> = Promise<T>
@@ -67,7 +67,7 @@ class Handler {
       ? await response(() => method(req, res, session))
       : {
           status: 400,
-          json: { error: `Unsupported method: ${req.method}` },
+          json: { error: `Unsupported method: ${req.method ?? 'unknown'}` },
         }
 
     return res.status(result.status).send(result.json)

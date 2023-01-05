@@ -1,7 +1,7 @@
 import type { StatusCodes } from 'http-status-codes'
 import { getReasonPhrase } from 'http-status-codes'
-import { isStr, jstr } from './casts'
-import { jlog } from './jlog'
+import { isStr, jstr } from '@srtp/core'
+import { jlog } from '@srtp/core'
 
 export class HTTPError extends Error {
   readonly status: StatusCodes
@@ -39,7 +39,8 @@ export const failure = (err: any): FailureResponse => {
     console.trace(err)
   }
 
-  jlog({ 'server-error': err }) // log all server errors
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  jlog({ 'server-error': err })
   if (err instanceof HTTPError) {
     return {
       status: err.status,
