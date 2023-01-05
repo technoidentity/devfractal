@@ -10,7 +10,7 @@
     "update": "pnpm add -g @pnpm/exe; pnpm turbo update",
     "types": "pnpm turbo types",
     "lint": "pnpm turbo lint",
-    "build": "pnpm turbo build",
+    "build": "pnpm turbo build  --filter=!@srtp/wurkspace",
     "test": "pnpm turbo test",
     "dev": "pnpm turbo dev",
     "clean": "pnpm turbo clean",

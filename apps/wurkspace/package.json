@@ -1,5 +1,5 @@
 {
-  "name": "wurkspace",
+  "name": "@srtp/wurkspace",
   "private": true,
   "scripts": {
     "dev": "dotenv -e .env.development -- next dev",
