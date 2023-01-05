@@ -1,4 +1,4 @@
-import { capitalize } from '@fun'
+import { capitalize } from '@srtp/fn'
 import { useInterval } from '@ui/core/useInterval'
 import { EndMeetAlert } from '@ui/alerts/EndMeetAlert'
 import { StartMeetAlert } from '@ui/alerts/StartMeetAlert'

@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest'
 import {
   camelCaseToPascalCase,
   camelCaseToSnakeCase,
@@ -6,7 +7,7 @@ import {
   pascalCaseToSnakeCase,
   snakeCaseToCamelCase,
   snakeCaseToPascalCase,
-} from '@fun'
+} from '../string'
 
 test('capitalize', () => {
   expect(capitalize('')).toEqual('')

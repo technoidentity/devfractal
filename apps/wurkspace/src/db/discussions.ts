@@ -1,6 +1,6 @@
 import { str, toInt } from '@core/casts'
 import { prisma } from '@core/prisma'
-import { omit } from '@fun'
+import { omit } from '@srtp/fn'
 import { Discussion } from '@prisma/client'
 import { array, number } from 'zod'
 import { Args } from './utils'

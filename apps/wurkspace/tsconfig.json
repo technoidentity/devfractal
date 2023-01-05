@@ -8,8 +8,7 @@
       "@core/*": ["src/core/*"],
       "@db/*": ["src/db/*"],
       "@fake/*": ["src/fake/*"],
-      "@specs/*": ["src/specs/*"],
-      "@fun": ["src/fun"]
+      "@specs/*": ["src/specs/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

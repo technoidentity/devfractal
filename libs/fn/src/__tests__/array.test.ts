@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+/* eslint-disable @typescript-eslint/naming-convention */
 import {
   assignWith,
   drop,
@@ -9,7 +11,6 @@ import {
   max,
   maxBy,
   maxIndex,
-  mergeWith,
   min,
   minBy,
   minIndex,
@@ -24,7 +25,9 @@ import {
   uniq,
   zip,
   zipWith,
-} from '@fun'
+} from '../array'
+
+import { expect, it, test } from 'vitest'
 
 test('take', () => {
   expect(uniq([2, 1, 2])).toEqual([2, 1])
@@ -207,41 +210,6 @@ test('assignWith', () => {
       b: [2, 98],
     },
   )
-})
-
-test('mergeWith', () => {
-  expect(mergeWith({ a: 1, b: 2 }, { a: 9, b: 98 }, (x, y) => x + y)).toEqual({
-    a: 10,
-    b: 100,
-  })
-  expect(
-    mergeWith({ a: 1, b: 2 }, { a: 3, b: 5, c: 0 }, (x, y) => x + y),
-  ).toEqual({
-    a: 4,
-    b: 7,
-    c: 0,
-  })
-  expect(
-    mergeWith({ a: 1, b: 2, c: 3 }, { a: 3, b: 5 }, (x, y) => x + y),
-  ).toEqual({
-    a: 4,
-    b: 7,
-    c: 3,
-  })
-  expect(mergeWith({ a: 1, d: 2 }, { a: 3, c: 5 }, (x, y) => x + y)).toEqual({
-    a: 4,
-    c: 5,
-    d: 2,
-  })
-  expect(mergeWith({ a: 1, d: 2 }, { a: 3, c: 5 }, (x, y) => [x, y])).toEqual({
-    a: [1, 3],
-    c: 5,
-    d: 2,
-  })
-  expect(mergeWith({}, {}, (x, y) => x + y)).toEqual({})
-  expect(mergeWith({ a: 1 }, { b: 2 }, (x, y) => x + y)).toEqual({ a: 1, b: 2 })
-  expect(mergeWith({ a: 1 }, {}, (x, y) => x + y)).toEqual({ a: 1 })
-  expect(mergeWith({}, { b: 2 }, (x, y) => x + y)).toEqual({ b: 2 })
 })
 
 test('range', () => {
@@ -500,4 +468,11 @@ test('replaceAt', () => {
 
   replaceAt(arr, arr.length - 1, 0)
   expect(arr).toEqual([2, 10, 4, 0])
+})
+
+test('groupBy', () => {
+  expect(groupBy([6.1, 4.2, 6.3], Math.floor)).toEqual({
+    '6': [6.1, 6.3],
+    '4': [4.2],
+  })
 })

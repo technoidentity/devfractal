@@ -1,38 +1,56 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.163.1/containers/typescript-node
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/typescript-node
 {
-	"name": "Node.js & TypeScript",
-	"build": {
-		"dockerfile": "Dockerfile",
-		// Update 'VARIANT' to pick a Node version: 10, 12, 14
-		"args": {
-			"VARIANT": "14"
-		}
-	},
+  "name": "Node.js & TypeScript",
+  "build": {
+    "dockerfile": "Dockerfile",
+    // Update 'VARIANT' to pick a Node version: 16, 14, 12.
+    // Append -bullseye or -buster to pin to an OS version.
+    // Use -bullseye variants on local on arm64/Apple Silicon.
+    "args": {
+      "VARIANT": "16-bullseye"
+    }
+  },
 
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"terminal.integrated.shell.linux": "/bin/bash"
-	},
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "bash",
+        "icon": "terminal-bash"
+      },
+      "zsh": {
+        "path": "zsh",
+        "icon": "terminal-ubuntu"
+      }
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "dotfiles.repository": "pervezfunctor/mini-dotfiles",
+    "dotfiles.targetPath": "~/.config/mini-seartipy",
+    "dotfiles.installCommand": "~/.config/mini-seartipy/setup"
+  },
 
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"esbenp.prettier-vscode",
-    "msjsdiag.debugger-for-chrome",
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
     "dbaeumer.vscode-eslint",
-    "streetsidesoftware.code-spell-checker",
+    "donjayamanne.githistory",
+    "esbenp.prettier-vscode",
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
-    "coenraads.bracket-pair-colorizer",
-    "vincaslt.highlight-matching-tag"
-	],
+    "streetsidesoftware.code-spell-checker",
+    "vincaslt.highlight-matching-tag",
+    "wayou.vscode-todo-highlight",
+    "zenclabs.previewjs"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [3000, 5173],
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "node",
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
-
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "node"
+  "postCreateCommand": "pnpm i",
+  "features": {
+    "git": "os-provided",
+    "github-cli": "latest"
+  }
 }

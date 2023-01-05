@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { omit, range } from '@fun'
+import { omit, range } from '@srtp/fn'
 import Chance from 'chance'
 import { v4 as uuidv4 } from 'uuid'
 import { z, ZodTypeAny } from 'zod'

@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import { groupBy } from '@fun'
+import { groupBy } from '@srtp/fn'
 import { Category } from '@specs/enums'
 import { Card } from '@specs/oneOnOne'
 import React, { useMemo } from 'react'

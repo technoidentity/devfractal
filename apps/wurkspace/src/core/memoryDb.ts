@@ -1,5 +1,5 @@
 import { Draft, produce } from 'immer'
-import { pick as pickFn, orderBy as orderByFn } from '@fun'
+import { pick as pickFn, orderBy as orderByFn } from '@srtp/fn'
 
 type ManyParams<ID extends string | number, T extends { id: ID }> = Partial<{
   pick: readonly (keyof T)[]

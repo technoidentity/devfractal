@@ -1,6 +1,6 @@
 import { str } from '@core/casts'
 import { prisma } from '@core/prisma'
-import { pick } from '@fun'
+import { pick } from '@srtp/fn'
 import { addDays } from 'date-fns'
 import { Session } from 'next-auth'
 import invariant from 'tiny-invariant'

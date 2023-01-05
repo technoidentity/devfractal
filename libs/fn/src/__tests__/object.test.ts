@@ -1,4 +1,41 @@
-import { omit, omitBy, pick, pickBy, pluck } from '@fun'
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+import { expect, test } from 'vitest'
+import { mergeWith, omit, omitBy, pick, pickBy, pluck } from '../object'
+
+test('mergeWith', () => {
+  expect(mergeWith({ a: 1, b: 2 }, { a: 9, b: 98 }, (x, y) => x + y)).toEqual({
+    a: 10,
+    b: 100,
+  })
+  expect(
+    mergeWith({ a: 1, b: 2 }, { a: 3, b: 5, c: 0 }, (x, y) => x + y),
+  ).toEqual({
+    a: 4,
+    b: 7,
+    c: 0,
+  })
+  expect(
+    mergeWith({ a: 1, b: 2, c: 3 }, { a: 3, b: 5 }, (x, y) => x + y),
+  ).toEqual({
+    a: 4,
+    b: 7,
+    c: 3,
+  })
+  expect(mergeWith({ a: 1, d: 2 }, { a: 3, c: 5 }, (x, y) => x + y)).toEqual({
+    a: 4,
+    c: 5,
+    d: 2,
+  })
+  expect(mergeWith({ a: 1, d: 2 }, { a: 3, c: 5 }, (x, y) => [x, y])).toEqual({
+    a: [1, 3],
+    c: 5,
+    d: 2,
+  })
+  expect(mergeWith({}, {}, (x, y) => x + y)).toEqual({})
+  expect(mergeWith({ a: 1 }, { b: 2 }, (x, y) => x + y)).toEqual({ a: 1, b: 2 })
+  expect(mergeWith({ a: 1 }, {}, (x, y) => x + y)).toEqual({ a: 1 })
+  expect(mergeWith({}, { b: 2 }, (x, y) => x + y)).toEqual({ b: 2 })
+})
 
 const obj = { a: 1, b: '2', c: 3, d: 'hello', e: null }
 const emptyObj = {}

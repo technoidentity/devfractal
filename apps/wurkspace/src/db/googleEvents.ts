@@ -1,7 +1,7 @@
 import { sget } from '@core/api'
 import { str } from '@core/casts'
 import { prisma } from '@core/prisma'
-import { setDifference } from '@fun'
+import { setDifference } from '@srtp/fn'
 import { CalendarEvent } from '@prisma/client'
 import { Employee } from '@specs/employee'
 import { addDays, subDays } from 'date-fns'

@@ -22,7 +22,6 @@ module.exports = {
     '^@db/(.*)$': '<rootDir>/src/db/$1',
     '^@fake/(.*)$': '<rootDir>/src/fake/$1',
     '^@specs/(.*)$': '<rootDir>/src/specs/$1',
-    '^@fun$': '<rootDir>/src/fun',
     '^@examples/(.*)$': '<rootDir>/src/examples/$1',
     '^@ui/(.*)$': '<rootDir>/src/ui/$1',
   },

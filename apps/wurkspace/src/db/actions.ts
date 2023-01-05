@@ -1,6 +1,6 @@
 import { str, toInt } from '@core/casts'
 import { prisma } from '@core/prisma'
-import { omit } from '@fun'
+import { omit } from '@srtp/fn'
 import { Action } from '@prisma/client'
 import { PendingActionsResponse } from '@ui/responses'
 import { Args } from './utils'
