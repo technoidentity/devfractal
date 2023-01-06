@@ -11,6 +11,7 @@ import {
 } from '@srtp/jotai'
 
 const countAtom = signal(0)
+
 const countryAtom = signal('Japan')
 const citiesAtom = signal(['Tokyo', 'Kyoto', 'Osaka'])
 const mangaAtom = signal({

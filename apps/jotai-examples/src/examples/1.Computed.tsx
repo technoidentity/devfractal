@@ -25,7 +25,7 @@ const Uppercase = () => {
   return <Text>Uppercase: {uppercase}</Text>
 }
 
-export const App = () => (
+export const Computed = () => (
   <Provider>
     <Input />
     <CharCount />

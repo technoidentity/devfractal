@@ -46,7 +46,7 @@ const Header = () => {
   return <Heading textAlign="center">Jotai Course</Heading>
 }
 
-export const JotaiCounter = () => (
+export const Counter = () => (
   <Box>
     <Header />
     <CounterView />

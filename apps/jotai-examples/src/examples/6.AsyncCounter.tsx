@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { Text } from '@chakra-ui/react'
+import { Box, Button, Text } from '@chakra-ui/react'
 import { delay } from '@srtp/core'
 import {
-  action,
   asyncSignal,
   computed,
   derived,
@@ -16,9 +15,8 @@ import { Suspense } from 'react'
 const countAtom = signal(1)
 
 const asyncAtom = asyncSignal(async get => {
-  const cnt = get(countAtom)
-
-  return cnt * 2
+  await delay(300)
+  return get(countAtom) * 2
 })
 
 const asyncIncrementAtom = derived(
@@ -30,29 +28,29 @@ const asyncIncrementAtom = derived(
   },
 )
 
-export const ComponentUsingAsyncAtoms = () => {
-  const num = useValue(asyncAtom)
-
-  return <Text>{num}</Text>
-}
-
-const App = () => {
-  return (
-    <Suspense fallback={<Text>Loading...</Text>}>
-      <ComponentUsingAsyncAtoms />
-    </Suspense>
-  )
-}
-
 const anotherAtom = computed(get => get(asyncAtom) / 2)
 
 const Component = () => {
   const count = useValue(asyncIncrementAtom)
   const increment = useAction(asyncIncrementAtom)
-
+  const another = useValue(anotherAtom)
   const handleClick = () => {
     increment()
   }
 
-  return <Text>{count}</Text>
+  return (
+    <Box>
+      <Text>doubled: {count}</Text>
+      <Text>another: {another}</Text>
+      <Button onClick={handleClick}>Increment</Button>
+    </Box>
+  )
+}
+
+export const AysncCounter = () => {
+  return (
+    <Suspense fallback={<Text>Loading...</Text>}>
+      <Component />
+    </Suspense>
+  )
 }

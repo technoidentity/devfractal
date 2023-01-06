@@ -6,12 +6,14 @@ import { PrimitiveAtom, useAtom } from 'jotai'
 import { Provider } from 'jotai'
 import { focusAtom } from 'jotai-optics'
 import { splitAtom, useAtomCallback } from 'jotai/utils'
-import { useCallback, useMemo } from 'react'
+import React from 'react'
 import { initialValue } from './initialValue'
 
 function useAtomSlice<Item>(arrAtom: PrimitiveAtom<Item[]>) {
-  const [atoms, remove] = useAtom(useMemo(() => splitAtom(arrAtom), [arrAtom]))
-  return useMemo(
+  const [atoms, remove] = useAtom(
+    React.useMemo(() => splitAtom(arrAtom), [arrAtom]),
+  )
+  return React.useMemo(
     () => atoms.map(itemAtom => [itemAtom, () => remove(itemAtom)] as const),
     [atoms, remove],
   )
@@ -24,11 +26,12 @@ const Field = ({
   fieldAtom: PrimitiveAtom<{ name: string; value: string }>
   removeField: () => void
 }) => {
-  const nameAtom = useMemo(
+  const nameAtom = React.useMemo(
     () => focusAtom(fieldAtom, o => o.prop('name')),
     [fieldAtom],
   )
-  const valueAtom = useMemo(
+
+  const valueAtom = React.useMemo(
     () => focusAtom(fieldAtom, o => o.prop('value')),
     [fieldAtom],
   )
@@ -59,7 +62,7 @@ const Form = ({
   nameAtom: PrimitiveAtom<string>
   remove: () => void
 }) => {
-  const objectsAtom = useMemo(
+  const objectsAtom = React.useMemo(
     () =>
       focusAtom(formAtom, o =>
         o.iso(
@@ -82,7 +85,7 @@ const Form = ({
   const setName = useAction(nameAtom)
 
   const addField = useAtomCallback(
-    useCallback(
+    React.useCallback(
       (get, set) => {
         const id = Math.floor(Math.random() * 1000)
         set(objectsAtom, oldValue => [
@@ -118,7 +121,7 @@ const FormList = ({
 }: {
   formListAtom: PrimitiveAtom<Record<string, Record<string, string>>>
 }) => {
-  const entriesAtom = useMemo(
+  const entriesAtom = React.useMemo(
     () =>
       focusAtom(formListAtom, o =>
         o.iso(
@@ -131,7 +134,7 @@ const FormList = ({
   const formAtoms = useAtomSlice(entriesAtom)
 
   const addForm = useAtomCallback(
-    useCallback(
+    React.useCallback(
       (get, set) => {
         const id = Math.floor(Math.random() * 1000)
         set(entriesAtom, oldValue => [...oldValue, [`new form ${id}`, {}]])
@@ -140,7 +143,7 @@ const FormList = ({
     ),
   )
 
-  const formValues = useMemo(() => {
+  const formValues = React.useMemo(() => {
     return formAtoms.map(([formEntryAtom, remove]) => ({
       nameAtom: focusAtom(formEntryAtom, o => o.nth(0)),
       formAtom: focusAtom(formEntryAtom, o => o.nth(1)),

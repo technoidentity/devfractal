@@ -21,24 +21,23 @@ const todosAtom = signals<Todo>()
 const filteredAtom = computed(get => {
   const filter = get(filterAtom)
   const todos = get(todosAtom)
-  if (filter === 'all') {
-    return todos
-  }
-  if (filter === 'completed') {
-    return todos.filter(atom => get(atom).completed)
-  }
-  return todos.filter(atom => !get(atom).completed)
+
+  return filter === 'all'
+    ? todos
+    : filter === 'completed'
+    ? todos.filter(atom => get(atom).completed)
+    : todos.filter(atom => !get(atom).completed)
 })
 
 type RemoveFn = (item: PrimitiveAtom<Todo>) => void
 type TodoItemProps = {
-  atom: PrimitiveAtom<Todo>
+  signal: PrimitiveAtom<Todo>
   remove: RemoveFn
 }
 
-const TodoItem = ({ atom, remove }: TodoItemProps) => {
-  const item = useValue(atom)
-  const setItem = useAction(atom)
+const TodoItem = ({ signal, remove }: TodoItemProps) => {
+  const item = useValue(signal)
+  const setItem = useAction(signal)
 
   const toggleCompleted = () =>
     setItem(props => ({ ...props, completed: !props.completed }))
@@ -50,7 +49,7 @@ const TodoItem = ({ atom, remove }: TodoItemProps) => {
           {item.title}
         </span>
       </Checkbox>
-      <CloseButton onClick={() => remove(atom)} />
+      <CloseButton onClick={() => remove(signal)} />
     </HStack>
   )
 }
@@ -70,6 +69,7 @@ const Filter = () => {
 type FilteredType = {
   remove: RemoveFn
 }
+
 const Filtered = (props: FilteredType) => {
   const todos = useValue(filteredAtom)
 
@@ -82,7 +82,7 @@ const Filtered = (props: FilteredType) => {
 
   return transitions((style, atom) => (
     <a.div className="item" style={style}>
-      <TodoItem atom={atom} {...props} />
+      <TodoItem signal={atom} {...props} />
     </a.div>
   ))
 }
@@ -95,27 +95,25 @@ const TodoList = () => {
 
   const add = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
     const title = e.currentTarget.inputTitle.value
     e.currentTarget.inputTitle.value = ''
+
     setTodos(prev => [...prev, signal<Todo>({ title, completed: false })])
   }
 
   return (
-    <>
-      <form onSubmit={add}>
-        <Filter />
-        <Input name="inputTitle" placeholder="Type ..." />
-        <Filtered remove={remove} />
-      </form>
-    </>
+    <form onSubmit={add}>
+      <Filter />
+      <Input name="inputTitle" placeholder="Type ..." />
+      <Filtered remove={remove} />
+    </form>
   )
 }
 
-export function JotaiTodoApp() {
-  return (
-    <VStack>
-      <Heading as="h1">Jōtai</Heading>
-      <TodoList />
-    </VStack>
-  )
-}
+export const JotaiTodoApp = () => (
+  <VStack>
+    <Heading as="h1">Jōtai</Heading>
+    <TodoList />
+  </VStack>
+)

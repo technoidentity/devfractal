@@ -12,7 +12,7 @@ import Parser from 'html-react-parser'
 import { Suspense } from 'react'
 import { computed, signal, useAction, useValue } from '@srtp/jotai'
 
-type PostData = {
+type PostData = Readonly<{
   by: string
   descendants?: number
   id: number
@@ -24,7 +24,7 @@ type PostData = {
   title?: string
   type: 'comment' | 'story'
   url?: string
-}
+}>
 
 const postId = signal(9001)
 const postData = computed(async get => {
