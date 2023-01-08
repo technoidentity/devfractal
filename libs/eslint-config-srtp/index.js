@@ -256,7 +256,10 @@ module.exports = {
 
     'unicorn/filename-case': [
       'error',
-      { cases: { camelCase: true, pascalCase: true } },
+      {
+        cases: { camelCase: true, pascalCase: true },
+        ignore: ['next-env.d.ts'],
+      },
     ],
   },
 }

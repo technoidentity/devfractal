@@ -1,12 +1,11 @@
 import { isEmail } from '@srtp/core'
-import { prisma } from './prisma'
 import { pick } from '@srtp/fn'
 import { addDays } from 'date-fns'
-import { GetServerSidePropsContext, NextApiRequest, PreviewData } from 'next'
+import { GetServerSidePropsContext, NextApiRequest } from 'next'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
 import { parseCookies } from 'nookies'
-import { ParsedUrlQuery } from 'querystring'
+import { prisma } from './prisma'
 
 interface CtxOrReq {
   req?: NextApiRequest

@@ -11,7 +11,6 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { Todo } from '@srtp/todo'
-import React from 'react'
 import { deleteTodo, state, toggleTodo } from './state'
 
 export type TodoItemProps = Readonly<{ todo: Todo }>

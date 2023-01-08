@@ -1,3 +1,2 @@
-export * from './provider'
-export * from './reducerUtils'
+export * from './sslice'
 export * from './slice'

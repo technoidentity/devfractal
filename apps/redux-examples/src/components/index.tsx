@@ -1,4 +1,3 @@
-import React from 'react'
 import { ReducerProvider } from './Context'
 import { TodoList } from './TodoList'
 

@@ -107,6 +107,7 @@ importers:
       '@emotion/react': 11.10.5
       '@emotion/styled': 11.10.5
       '@next/eslint-plugin-next': 13.1.1
+      '@srtp/core': workspace:*
       '@srtp/reducer': workspace:*
       '@srtp/todo': workspace:*
       '@srtp/tsconfig': workspace:*
@@ -161,6 +162,7 @@ importers:
       '@chakra-ui/styled-system': 2.5.1
       '@emotion/react': 11.10.5_3grbeiqrb6djg67fiejiqngkdi
       '@emotion/styled': 11.10.5_pwtpayi7py7ecifctvjbac33ee
+      '@srtp/core': link:../../libs/core
       '@srtp/reducer': link:../../libs/reducer
       '@srtp/todo': link:../../packages/todo
       core-js: 3.27.1

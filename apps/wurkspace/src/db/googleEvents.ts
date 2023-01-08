@@ -1,14 +1,14 @@
 import { sget } from '@core/api'
-import { str } from '@srtp/core'
-import { prisma } from '@srtp/next'
-import { setDifference } from '@srtp/fn'
 import { CalendarEvent } from '@prisma/client'
 import { Employee } from '@specs/employee'
+import { str } from '@srtp/core'
+import { setDifference } from '@srtp/fn'
+import { prisma } from '@srtp/next'
 import { addDays, subDays } from 'date-fns'
 import invariant from 'tiny-invariant'
 import { any, z } from 'zod'
 import { Args } from './utils'
-import { getProfile, getProfileFromZoho } from './zohoProfile'
+import { getProfileFromZoho } from './zohoProfile'
 
 // const meetings: UpcomingReturnValues = {
 //   upComingMeetData: [],

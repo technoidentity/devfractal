@@ -1,7 +1,7 @@
 {
   "name": "@srtp/reducer",
   "version": "1.0.0",
-  "description": "",
+  "description": "reducer utilities for local state management",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

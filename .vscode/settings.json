@@ -13,6 +13,12 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
+  "eslint.workingDirectories": [
+    { "pattern": "./packages/*" },
+    { "pattern": "./libs/*" },
+    { "pattern": "./apps/*" }
+  ],
+
   "terminal.integrated.fontFamily": "'Cascadia Mono PL', consolas, 'monaco', 'ubuntu mono', monospace",
 
   "emmet.triggerExpansionOnTab": true,

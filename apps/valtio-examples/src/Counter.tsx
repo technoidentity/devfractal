@@ -1,5 +1,4 @@
 import { Box, Button, Text } from '@chakra-ui/react'
-import React from 'react'
 import { proxy, useSnapshot } from 'valtio'
 
 const state = proxy({ count: 0 })

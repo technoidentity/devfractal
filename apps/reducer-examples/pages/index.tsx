@@ -1,3 +1,3 @@
-import { TodoApp } from '../components/TodoApp'
+import { Counters as App } from '@components'
 
-export default TodoApp
+export default App

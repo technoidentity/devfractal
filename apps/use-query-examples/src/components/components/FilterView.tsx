@@ -1,6 +1,5 @@
 import { Flex, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import { Filter } from '@srtp/todo'
-import React from 'react'
 
 export type FilterViewProps = Readonly<{
   filter: Filter

@@ -1,8 +1,9 @@
-import { providerHook } from '@srtp/reducer'
+import { provider } from '@srtp/reducer'
 import { createTodo, Filter, initialState, Todo } from '@srtp/todo'
 
-export const { Provider, actions, useAction, useValue, useSelect } =
-  providerHook(initialState, {
+export const { Provider, actions, useAction, useValue, useSelect } = provider(
+  initialState,
+  {
     createTodo(draft, payload: Todo) {
       const created = createTodo(payload)
       draft.todos.set(created.id, created)
@@ -26,4 +27,5 @@ export const { Provider, actions, useAction, useValue, useSelect } =
     setFilter(draft, payload: Filter) {
       draft.filter = payload
     },
-  })
+  },
+)

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { signal, useAction, useValue } from '@srtp/jotai'
 import { PrimitiveAtom, useAtom } from 'jotai'
@@ -86,7 +85,7 @@ const Form = ({
 
   const addField = useAtomCallback(
     React.useCallback(
-      (get, set) => {
+      (_, set) => {
         const id = Math.floor(Math.random() * 1000)
         set(objectsAtom, oldValue => [
           ...oldValue,
@@ -135,7 +134,7 @@ const FormList = ({
 
   const addForm = useAtomCallback(
     React.useCallback(
-      (get, set) => {
+      (_, set) => {
         const id = Math.floor(Math.random() * 1000)
         set(entriesAtom, oldValue => [...oldValue, [`new form ${id}`, {}]])
       },

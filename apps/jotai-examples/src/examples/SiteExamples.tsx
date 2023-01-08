@@ -12,9 +12,9 @@ import {
 
 const countAtom = signal(0)
 
-const countryAtom = signal('Japan')
-const citiesAtom = signal(['Tokyo', 'Kyoto', 'Osaka'])
-const mangaAtom = signal({
+export const countryAtom = signal('Japan')
+export const citiesAtom = signal(['Tokyo', 'Kyoto', 'Osaka'])
+export const mangaAtom = signal({
   'Dragon Ball': 1984,
   'One Piece': 1997,
   Naruto: 1999,
@@ -42,7 +42,7 @@ const count1 = signal(1)
 const count2 = signal(2)
 const count3 = signal(3)
 
-const sum = computed(get => get(count1) + get(count2) + get(count3))
+export const sum = computed(get => get(count1) + get(count2) + get(count3))
 
 const decrementCountAtom = derived(
   get => get(countAtom),
@@ -76,7 +76,7 @@ const fetchUrlAtom = computed(async get => {
   return await response.json()
 })
 
-function Status() {
+export function Status() {
   const json = useValue(fetchUrlAtom)
   return <pre>{JSON.stringify(json, null, 2)}</pre>
 }

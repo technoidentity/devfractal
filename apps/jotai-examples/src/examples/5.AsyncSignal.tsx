@@ -1,4 +1,3 @@
-import { delay } from '@srtp/core'
 import { computed, signal, useValue } from '@srtp/jotai'
 
 const urlSignal = signal('https://jsonplaceholder.typicode.com/posts/1')

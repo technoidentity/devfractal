@@ -1,4 +1,4 @@
-import { action, actions, reducerProvider, sslice } from '@srtp/reducer'
+import { action, actions, sliceProvider, sslice } from '@srtp/reducer'
 import { createTodo, CreateTodo, initialState, State, Todo } from '@srtp/todo'
 import { z } from 'zod'
 
@@ -15,29 +15,29 @@ export const todoReducer = sslice(
   State,
   TodoAction,
 )({
-  createTodo(draft, payload) {
+  createTodo(state, payload) {
     const created = createTodo(payload)
-    draft.todos.set(created.id, created)
+    state.todos.set(created.id, created)
   },
 
-  deleteTodo(draft, payload) {
-    draft.todos.delete(payload)
+  deleteTodo(state, payload) {
+    state.todos.delete(payload)
   },
 
-  editTodo(draft, payload) {
-    const editTodo = draft.todos.get(payload.id)
-    draft.todos.set(payload.id, { ...editTodo, ...payload })
+  editTodo(state, payload) {
+    const editTodo = state.todos.get(payload.id)
+    state.todos.set(payload.id, { ...editTodo, ...payload })
   },
 
-  toggleTodo(draft, payload) {
-    const toggleTodo = draft.todos.get(payload)
+  toggleTodo(state, payload) {
+    const toggleTodo = state.todos.get(payload)
     if (toggleTodo) {
       toggleTodo.completed = !toggleTodo.completed
     }
   },
 })
 
-export const { Provider, useDispatch, useSelect, useValue } = reducerProvider(
+export const { Provider, useDispatch, useSelect, useValue } = sliceProvider(
   todoReducer,
   initialState,
 )

@@ -19,6 +19,7 @@
     "@chakra-ui/styled-system": "2.5.1",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
+    "@srtp/core": "workspace:*",
     "@srtp/reducer": "workspace:*",
     "@srtp/todo": "workspace:*",
     "core-js": "3.27.1",

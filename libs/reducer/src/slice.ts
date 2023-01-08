@@ -1,119 +1,156 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { castDraft, Draft } from 'immer'
 import React from 'react'
 import { useImmerReducer } from 'use-immer'
-import { reducerProvider } from './provider'
+import { sliceProvider } from './sliceProvider'
 
-export type SliceActions<State> = Record<
+export type Handlers<State> = Record<
   string,
   (state: Draft<State>, payload: any) => void
 >
 
-type Payload<S extends SliceActions<any>, A extends keyof S> = Parameters<
-  S[A]
->[1]
+type Payload<S extends Handlers<any>, A extends keyof S> = Parameters<S[A]>[1]
 
-export type ActionResult<
-  S extends SliceActions<any>,
-  A extends keyof S,
-> = Payload<S, A> extends undefined
-  ? { type: A }
-  : { type: A; payload: Payload<S, A> }
+export type Action<S extends Handlers<any>, A extends keyof S> = Payload<
+  S,
+  A
+> extends undefined
+  ? Readonly<{ type: A }>
+  : Readonly<{ type: A; payload: Payload<S, A> }>
 
-export type ActionsFrom<State, S extends SliceActions<State>> = {
-  [Action in keyof S]: ActionResult<S, Action>
-}[keyof S]
+export type ActionsFrom<State, Hs extends Handlers<State>> = {
+  [A in keyof Hs]: Action<Hs, A>
+}[keyof Hs]
 
-type ActionsCreators<State, S extends SliceActions<State>> = {
-  [A in keyof S]: Payload<S, A> extends undefined
-    ? () => ActionResult<S, A>
-    : (payload: Payload<S, A>) => ActionResult<S, A>
+type ActionCreators<State, Hs extends Handlers<State>> = {
+  [A in keyof Hs]: Payload<Hs, A> extends undefined
+    ? () => Action<Hs, A>
+    : (payload: Payload<Hs, A>) => Action<Hs, A>
 }
 
-type Actions<State, S extends SliceActions<State>> = {
-  [A in keyof S]: Payload<S, A> extends undefined
+type Actions<State, Hs extends Handlers<State>> = {
+  [A in keyof Hs]: Payload<Hs, A> extends undefined
     ? () => void
-    : (payload: Payload<S, A>) => void
+    : (payload: Payload<Hs, A>) => void
 }
 
-type Slice<State, S extends SliceActions<State>> = (
+type SliceReducer<State, Hs extends Handlers<State>> = (
   state: Draft<State>,
-  action: ActionsFrom<State, S>,
+  action: ActionsFrom<State, Hs>,
 ) => void
 
-export function sliceReducer<State>() {
-  return function <S extends SliceActions<any>>(slices: S) {
-    return (state: Draft<State>, action: ActionsFrom<State, S>): void => {
-      slices[action.type](
-        state,
-        'payload' in action ? action.payload : undefined,
-      )
-    }
+export function getActionCreators<State, Hs extends Handlers<State>>(
+  slices: Hs,
+) {
+  const actionCreators: any = {}
+  for (const type of Object.keys(slices)) {
+    actionCreators[type] = (payload: any) => ({ type, payload })
   }
+
+  return actionCreators as ActionCreators<State, Hs>
 }
 
-export function slice<State, S extends SliceActions<State>>(
-  initialState: State,
-  slices: S,
+function getActions<State, Hs extends Handlers<State>>(
+  actionCreators: ActionCreators<State, Hs>,
+  dispatch: React.Dispatch<ActionsFrom<State, Hs>>,
 ) {
-  const fn: Slice<State, S> = (state, action) => {
+  const result = {} as any
+  for (const type of Object.keys(actionCreators)) {
+    result[type] = (...args: any[]) => {
+      dispatch((actionCreators[type] as any)(...args))
+    }
+  }
+  return result
+}
+
+export function getReducer<State, Hs extends Handlers<State>>(
+  slices: Hs,
+): SliceReducer<State, Hs> {
+  return (state, action) => {
     slices[action.type](state, 'payload' in action ? action.payload : undefined)
   }
-
-  const actions: ActionsCreators<State, S> = {} as any
-  for (const type of Object.keys(slices)) {
-    ;(actions as any)[type] = (payload: any) => ({ type, payload })
-  }
-
-  return [fn, actions, initialState] as const
 }
 
-export function useSlice<State, S extends SliceActions<State>>(
-  args: readonly [
-    reducer: Slice<State, S>,
-    actionCreators: ActionsCreators<State, S>,
-    initialState: State,
-  ],
+export function slice$<State, Hs extends Handlers<State>>(
+  initialState: State,
+  handlers: Hs,
 ) {
-  const [reducer, actionCreators, initialState] = args
+  return {
+    reducer: getReducer<State, Hs>(handlers),
+    actionCreators: getActionCreators<State, Hs>(handlers),
+    initialState,
+  } as const
+}
+
+export function useSlice$<State, Hs extends Handlers<State>>(
+  args: Readonly<{
+    reducer: SliceReducer<State, Hs>
+    actionCreators: ActionCreators<State, Hs>
+    initialState: State
+  }>,
+) {
+  const { reducer, actionCreators, initialState } = args
   const [state, dispatch] = useImmerReducer(reducer, initialState)
 
-  const actions: Actions<State, S> = React.useMemo(() => {
-    const result = {} as any
-    for (const type of Object.keys(actionCreators)) {
-      result[type] = (...args: any[]) => {
-        dispatch((actionCreators[type] as any)(...args))
-      }
-    }
-    return result
-  }, [actionCreators, dispatch])
+  const actions: Actions<State, Hs> = React.useMemo(
+    getActions(actionCreators, dispatch),
+    [actionCreators, dispatch], // None should change
+  )
 
   return [state, actions] as const
 }
 
-export function sliceHook<State, S extends SliceActions<State>>(
+// returns a react hook
+export function slice<State, Hs extends Handlers<State>>(
   initialState: State,
-  slices: S,
+  handlers: Hs,
 ) {
-  return () => useSlice(React.useMemo(() => slice(initialState, slices), []))
+  return () =>
+    useSlice$(
+      React.useMemo(
+        () => slice$(initialState, handlers),
+        [initialState, handlers],
+      ),
+    )
 }
 
-export function providerHook<State, S extends SliceActions<State>>(
+export function provider$<State, Hs extends Handlers<State>>(
   initialState: State,
-  slices: S,
+  handlers: Hs,
 ) {
-  const [fn, actions] = slice<State, S>(initialState, slices)
+  const { reducer, actionCreators } = slice$<State, Hs>(initialState, handlers)
 
-  const { useValue, ...rest } = reducerProvider(fn, castDraft(initialState))
+  return {
+    actions: actionCreators,
+    ...sliceProvider(reducer, castDraft(initialState)),
+  } as const
+}
 
-  const useSlice = () => {
-    return [useValue(), actions] as const
+export function provider<State, Hs extends Handlers<State>>(
+  initialState: State,
+  handlers: Hs,
+) {
+  const { reducer, actionCreators } = slice$<State, Hs>(initialState, handlers)
+  const { useDispatch, ...rest } = sliceProvider(
+    reducer,
+    castDraft(initialState),
+  )
+
+  const useActions = (): Actions<State, Hs> => {
+    const dispatch = useDispatch()
+
+    return React.useMemo(
+      () => getActions(actionCreators, dispatch),
+      [actionCreators, dispatch], // None should change
+    )
   }
 
   return {
-    actions,
-    useSlice,
-    useValue,
+    actions: actionCreators,
+    useActions,
+    useDispatch,
     ...rest,
-  }
+  } as const
 }

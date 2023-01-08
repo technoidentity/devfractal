@@ -119,7 +119,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({ count }))
   }),
 
-  rest.post('/login', (req, res, ctx) => {
+  rest.post('/login', (_, res, ctx) => {
     // Persist user's authentication in the session
     sessionStorage.setItem('is-authenticated', 'true')
     return res(
@@ -128,7 +128,7 @@ export const handlers = [
     )
   }),
 
-  rest.get('/user', (req, res, ctx) => {
+  rest.get('/user', (_, res, ctx) => {
     // Check if the user is authenticated in this session
     const isAuthenticated = sessionStorage.getItem('is-authenticated')
     if (!isAuthenticated) {
@@ -149,7 +149,7 @@ export const handlers = [
     )
   }),
 
-  rest.get('/my.backend/book', (req, res, ctx) => {
+  rest.get('/my.backend/book', (_, res, ctx) => {
     return res(
       ctx.json({
         title: 'Lord of the Rings',
@@ -159,7 +159,7 @@ export const handlers = [
       }),
     )
   }),
-  rest.get('/reviews', (req, res, ctx) => {
+  rest.get('/reviews', (_, res, ctx) => {
     return res(
       ctx.json([
         {

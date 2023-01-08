@@ -320,6 +320,7 @@ module.exports = {
           camelCase: true,
           pascalCase: true,
         },
+        ignore: ['next-env.d.ts'],
       },
     ],
   },

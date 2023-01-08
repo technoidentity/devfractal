@@ -5,28 +5,26 @@ import { useImmerReducer } from 'use-immer'
 export const useIsomorphicEffect =
   typeof document !== 'undefined' ? React.useLayoutEffect : React.useEffect
 
-type Reducer<S, A> = (prevState: S, action: A) => void
+type Actions<S, A> = (prevState: S, action: A) => void
 
-type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any>
+type State<R extends Actions<any, any>> = R extends Actions<infer S, any>
   ? S
   : never
 
-type Selector<R extends Reducer<any, any>, A> = (snapshot: ReducerState<R>) => A
+type Selector<R extends Actions<any, any>, A> = (snapshot: State<R>) => A
 
-export function reducerProvider<R extends Reducer<any, any>>(
-  reducer: R,
-  initialState: ReducerState<R>,
+export function sliceProvider<R extends Actions<any, any>>(
+  actions: R,
+  initialState: State<R>,
 ) {
-  const StateContext = React.createContext<ReducerState<R> | undefined>(
-    undefined,
-  )
+  const StateContext = React.createContext<State<R> | undefined>(undefined)
 
   const DispatchContext = React.createContext<
     Dispatch<ReducerAction<R>> | undefined
   >(undefined)
 
   const Provider = ({ children }: { children: React.ReactNode }) => {
-    const [state, dispatch] = useImmerReducer(reducer, initialState)
+    const [state, dispatch] = useImmerReducer(actions, initialState)
 
     return (
       <StateContext.Provider value={state}>
@@ -39,13 +37,13 @@ export function reducerProvider<R extends Reducer<any, any>>(
 
   const useValue = () => {
     const ctx = React.useContext(StateContext)
-    invariant(ctx !== undefined, 'Need ReducerProvider')
+    invariant(ctx !== undefined, 'Need slice Provider')
     return ctx
   }
 
   const useDispatch = () => {
     const ctx = React.useContext(DispatchContext)
-    invariant(ctx !== undefined, 'Need ReducerProvider')
+    invariant(ctx !== undefined, 'Need slice Provider')
 
     return ctx
   }

@@ -1,4 +1,4 @@
-import { SliceActions, sliceReducer } from '@srtp/reducer'
+import { Handlers, getReducer } from '@srtp/reducer'
 import produce, { Draft } from 'immer'
 import { useSetAtom } from 'jotai'
 import { atomWithReducer } from 'jotai/utils'
@@ -12,11 +12,11 @@ export function signalWithReducer<State, Action>(
   return atomWithReducer(initial, r)
 }
 
-export function signalSlice<State, S extends SliceActions<State>>(
+export function signalSlice<State, Hs extends Handlers<State>>(
   initial: State,
-  slices: S,
+  slices: Hs,
 ) {
-  return signalWithReducer(initial, sliceReducer<State>()(slices))
+  return signalWithReducer(initial, getReducer<State, Hs>(slices))
 }
 
 export const useDispatch = useSetAtom

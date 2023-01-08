@@ -1,5 +1,4 @@
 import { Button, ButtonGroup, Center, Text } from '@chakra-ui/react'
-import React from 'react'
 
 export type PaginationProps = Readonly<{
   // first page is 1
