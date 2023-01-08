@@ -15,11 +15,11 @@
     "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
-    "lint:dev": "pnpm lint --quiet --fix",
     "test": "vitest run",
     "test:dev": "vitest dev",
     "coverage": "vitest run --coverage",
-    "lint": "cross-env TIMING=1 eslint \"src/**/*.ts*\"",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {

@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
-    "lint:fix": "pnpm lint --quiet --fix",
+    "lint:fix": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types:ci": "tsc --noEmit -p .",
     "types": "tsc --noEmit -p . --watch",
     "ci": "pnpm types:ci && pnpm lint:fix && vitest run",
