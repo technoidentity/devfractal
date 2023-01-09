@@ -1,0 +1,13 @@
+{
+  "extends": "@srtp/tsconfig/next.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["components"]
+    },
+    "target": "es5",
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
