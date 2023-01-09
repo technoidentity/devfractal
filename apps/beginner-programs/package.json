@@ -29,7 +29,7 @@
   ],
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@vitejs/plugin-react": "3.0.0",
+    "@vitejs/plugin-react": "3.0.1",
     "@types/node": "18.11.18",
     "cross-env": "7.0.3",
     "eslint": "8.26.0",

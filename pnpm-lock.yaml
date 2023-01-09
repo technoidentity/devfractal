@@ -20,7 +20,7 @@ importers:
     specifiers:
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.11.18
-      '@vitejs/plugin-react': 3.0.0
+      '@vitejs/plugin-react': 3.0.1
       cross-env: 7.0.3
       eslint: 8.26.0
       eslint-config-srtp: workspace:*
@@ -46,7 +46,7 @@ importers:
     devDependencies:
       '@srtp/tsconfig': link:../../libs/tsconfig-srtp
       '@types/node': 18.11.18
-      '@vitejs/plugin-react': 3.0.0_vite@3.2.2
+      '@vitejs/plugin-react': 3.0.1_vite@3.2.2
       cross-env: 7.0.3
       eslint: 8.26.0
       eslint-config-srtp: link:../../libs/eslint-config-srtp
@@ -73,7 +73,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0
+      '@vitejs/plugin-react': 3.0.1
       cross-env: 7.0.3
       eslint: 8.31.0
       eslint-config-srtp: workspace:*
@@ -129,7 +129,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0_vite@4.0.3
+      '@vitejs/plugin-react': 3.0.1_vite@4.0.3
       cross-env: 7.0.3
       eslint: 8.31.0
       eslint-config-srtp: link:../../libs/eslint-config-srtp
@@ -323,7 +323,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0
+      '@vitejs/plugin-react': 3.0.1
       confusing-browser-globals: 1.0.11
       cross-env: 7.0.3
       eslint: 8.31.0
@@ -367,7 +367,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0_vite@4.0.3
+      '@vitejs/plugin-react': 3.0.1_vite@4.0.3
       confusing-browser-globals: 1.0.11
       cross-env: 7.0.3
       eslint: 8.31.0
@@ -400,7 +400,7 @@ importers:
       '@types/react-virtualized-auto-sizer': 1.0.1
       '@types/react-window': 1.8.5
       '@types/react-window-infinite-loader': 1.0.6
-      '@vitejs/plugin-react': 3.0.0
+      '@vitejs/plugin-react': 3.0.1
       concurrently: 7.6.0
       cross-env: 7.0.3
       eslint: 8.31.0
@@ -440,7 +440,7 @@ importers:
       '@srtp/todo': link:../../packages/todo
       '@srtp/ui': link:../../libs/ui
       '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
-      '@vitejs/plugin-react': 3.0.0_vite@4.0.3
+      '@vitejs/plugin-react': 3.0.1_vite@4.0.3
       framer-motion: 8.0.2_biqbaboplfbrettd7655fr4n2y
       immer: 9.0.16
       jotai: 1.12.1_ir62pzpkgzxbvpb4feygpmpq5y
@@ -496,7 +496,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0
+      '@vitejs/plugin-react': 3.0.1
       cross-env: 7.0.3
       eslint: 8.31.0
       eslint-config-srtp: workspace:*
@@ -544,7 +544,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0_vite@4.0.3
+      '@vitejs/plugin-react': 3.0.1_vite@4.0.3
       cross-env: 7.0.3
       eslint: 8.31.0
       eslint-config-srtp: link:../../libs/eslint-config-srtp
@@ -568,7 +568,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0
+      '@vitejs/plugin-react': 3.0.1
       cross-env: 7.0.3
       eslint-config-srtp: workspace:*
       framer-motion: 8.0.2
@@ -618,7 +618,7 @@ importers:
       '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react': 3.0.0_vite@4.0.3
+      '@vitejs/plugin-react': 3.0.1_vite@4.0.3
       cross-env: 7.0.3
       eslint-config-srtp: link:../../libs/eslint-config-srtp
       npm-check-updates: 16.6.2
@@ -6638,7 +6638,7 @@ packages:
     resolution: {integrity: sha512-E9JjhUgNzvuQ+vVAL21vlyfy12gP0GhazGgJC4h6qUt1jSdUXGWJ1wfu/X7Sd8etSgxV4ovT1pb9v5D6QW4XgA==}
     engines: {node: '>= 10.14.2'}
     dependencies:
-      '@babel/core': 7.20.7
+      '@babel/core': 7.20.12
       '@jest/types': 26.6.2
       babel-plugin-istanbul: 6.1.1
       chalk: 4.1.2
@@ -8071,7 +8071,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@babel/core': 7.20.7
+      '@babel/core': 7.20.12
       '@storybook/addons': 6.5.15_biqbaboplfbrettd7655fr4n2y
       '@storybook/api': 6.5.15_biqbaboplfbrettd7655fr4n2y
       '@storybook/channel-postmessage': 6.5.15
@@ -8091,7 +8091,7 @@ packages:
       '@types/node': 16.18.11
       '@types/webpack': 4.41.33
       autoprefixer: 9.8.8
-      babel-loader: 8.3.0_56iglfotwsmz3lyjkiqdlpwsai
+      babel-loader: 8.3.0_nwtvwtk5tmh22l2urnqucz7kqu
       case-sensitive-paths-webpack-plugin: 2.4.0
       core-js: 3.27.1
       css-loader: 3.6.0_webpack@4.46.0
@@ -8553,15 +8553,15 @@ packages:
       '@storybook/mdx2-csf':
         optional: true
     dependencies:
-      '@babel/core': 7.20.7
+      '@babel/core': 7.20.12
       '@babel/generator': 7.20.7
       '@babel/parser': 7.20.7
-      '@babel/plugin-transform-react-jsx': 7.20.7_@babel+core@7.20.7
-      '@babel/preset-env': 7.20.2_@babel+core@7.20.7
+      '@babel/plugin-transform-react-jsx': 7.20.7_@babel+core@7.20.12
+      '@babel/preset-env': 7.20.2_@babel+core@7.20.12
       '@babel/traverse': 7.20.12
       '@babel/types': 7.20.7
       '@storybook/csf': 0.0.2--canary.4566f4d.1
-      '@storybook/mdx1-csf': 0.0.1_@babel+core@7.20.7
+      '@storybook/mdx1-csf': 0.0.1_@babel+core@7.20.12
       core-js: 3.27.1
       fs-extra: 9.1.0
       global: 4.4.0
@@ -8609,9 +8609,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@babel/core': 7.20.7
-      '@babel/plugin-transform-template-literals': 7.18.9_@babel+core@7.20.7
-      '@babel/preset-react': 7.18.6_@babel+core@7.20.7
+      '@babel/core': 7.20.12
+      '@babel/plugin-transform-template-literals': 7.18.9_@babel+core@7.20.12
+      '@babel/preset-react': 7.18.6_@babel+core@7.20.12
       '@storybook/addons': 6.5.15_biqbaboplfbrettd7655fr4n2y
       '@storybook/core-client': 6.5.15_o3ten7nsuz3dqqktls46i6uq3y
       '@storybook/core-common': 6.5.15_ezwbcwsuf2bqvxzlg3s7mwruqi
@@ -8620,7 +8620,7 @@ packages:
       '@storybook/ui': 6.5.15_biqbaboplfbrettd7655fr4n2y
       '@types/node': 16.18.11
       '@types/webpack': 4.41.33
-      babel-loader: 8.3.0_56iglfotwsmz3lyjkiqdlpwsai
+      babel-loader: 8.3.0_nwtvwtk5tmh22l2urnqucz7kqu
       case-sensitive-paths-webpack-plugin: 2.4.0
       chalk: 4.1.2
       core-js: 3.27.1
@@ -8712,6 +8712,25 @@ packages:
       - vue-template-compiler
       - webpack-cli
       - webpack-command
+    dev: true
+
+  /@storybook/mdx1-csf/0.0.1_@babel+core@7.20.12:
+    resolution: {integrity: sha512-4biZIWWzoWlCarMZmTpqcJNgo/RBesYZwGFbQeXiGYsswuvfWARZnW9RE9aUEMZ4XPn7B1N3EKkWcdcWe/K2tg==}
+    dependencies:
+      '@babel/generator': 7.20.7
+      '@babel/parser': 7.20.7
+      '@babel/preset-env': 7.20.2_@babel+core@7.20.12
+      '@babel/types': 7.20.7
+      '@mdx-js/mdx': 1.6.22
+      '@types/lodash': 4.14.191
+      js-string-escape: 1.0.1
+      loader-utils: 2.0.4
+      lodash: 4.17.21
+      prettier: 2.3.0
+      ts-dedent: 2.2.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
     dev: true
 
   /@storybook/mdx1-csf/0.0.1_@babel+core@7.20.7:
@@ -10141,8 +10160,8 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@vitejs/plugin-react/3.0.0_vite@3.2.2:
-    resolution: {integrity: sha512-1mvyPc0xYW5G8CHQvJIJXLoMjl5Ct3q2g5Y2s6Ccfgwm45y48LBvsla7az+GkkAtYikWQ4Lxqcsq5RHLcZgtNQ==}
+  /@vitejs/plugin-react/3.0.1_vite@3.2.2:
+    resolution: {integrity: sha512-mx+QvYwIbbpOIJw+hypjnW1lAbKDHtWK5ibkF/V1/oMBu8HU/chb+SnqJDAsLq1+7rGqjktCEomMTM5KShzUKQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
@@ -10157,8 +10176,8 @@ packages:
       - supports-color
     dev: true
 
-  /@vitejs/plugin-react/3.0.0_vite@4.0.3:
-    resolution: {integrity: sha512-1mvyPc0xYW5G8CHQvJIJXLoMjl5Ct3q2g5Y2s6Ccfgwm45y48LBvsla7az+GkkAtYikWQ4Lxqcsq5RHLcZgtNQ==}
+  /@vitejs/plugin-react/3.0.1_vite@4.0.3:
+    resolution: {integrity: sha512-mx+QvYwIbbpOIJw+hypjnW1lAbKDHtWK5ibkF/V1/oMBu8HU/chb+SnqJDAsLq1+7rGqjktCEomMTM5KShzUKQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
@@ -11095,6 +11114,21 @@ packages:
       make-dir: 3.1.0
       schema-utils: 2.7.1
       webpack: 5.75.0
+    dev: true
+
+  /babel-loader/8.3.0_nwtvwtk5tmh22l2urnqucz7kqu:
+    resolution: {integrity: sha512-H8SvsMF+m9t15HNLMipppzkC+Y2Yq+v3SonZyU70RBL/h1gxPkH08Ot8pEE9Z4Kd+czyWJClmFS8qzIP9OZ04Q==}
+    engines: {node: '>= 8.9'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+      webpack: '>=2'
+    dependencies:
+      '@babel/core': 7.20.12
+      find-cache-dir: 3.3.2
+      loader-utils: 2.0.4
+      make-dir: 3.1.0
+      schema-utils: 2.7.1
+      webpack: 4.46.0
     dev: true
 
   /babel-loader/9.1.0_lkd654lvpl423ugsqn5olungie:
@@ -22104,7 +22138,7 @@ packages:
     engines: {node: '>=8.10.0'}
     hasBin: true
     dependencies:
-      '@babel/core': 7.20.7
+      '@babel/core': 7.20.12
       '@babel/generator': 7.20.7
       '@babel/runtime': 7.20.7
       ast-types: 0.14.2

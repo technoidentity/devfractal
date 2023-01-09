@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-string-starts-ends-with */
-/* eslint-disable @typescript-eslint/prefer-for-of */
-/* eslint-disable no-undef */
-/* eslint-disable prefer-template */
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
-
 // problem 2
 export const convertToCelsius = (temp: number): number => (temp - 32) * (5 / 9)
 export const convertToFahrenheit = (temp: number): number => temp * (9 / 5) + 32
