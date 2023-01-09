@@ -11,7 +11,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:storybook/recommended',
-    'plugin:@next/next/recommended',
+    'next/core-web-vitals',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

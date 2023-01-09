@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint \"./**/*.{ts,tsx}\"",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "pnpm types --watch"
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
+    "eslint-config-srtp": "workspace:*",
     "@types/node": "18.11.18",
     "npm-check-updates": "16.6.2",
     "cross-env": "7.0.3",

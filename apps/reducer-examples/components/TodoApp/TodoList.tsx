@@ -22,29 +22,31 @@ import { TodoForm } from './TodoForm'
 
 export type TodoItemProps = Readonly<Todo>
 
-export const TodoItem = React.memo(
-  ({ completed, id, title }: TodoItemProps) => {
-    const { deleteTodo, toggleTodo } = actions
+export const TodoItem = React.memo(function TodoItem({
+  completed,
+  id,
+  title,
+}: TodoItemProps) {
+  const { deleteTodo, toggleTodo } = actions
 
-    const onDelete = useAction(() => deleteTodo(id))
-    const onToggle = useAction(() => toggleTodo(id))
+  const onDelete = useAction(() => deleteTodo(id))
+  const onToggle = useAction(() => toggleTodo(id))
 
-    return (
-      <Tr>
-        <Td>{title}</Td>
-        <Td>
-          <Checkbox isChecked={completed} onChange={onToggle} />
-        </Td>
-        <Td>
-          <ButtonGroup>
-            <Button>Edit</Button>
-            <Button onClick={onDelete}>Delete</Button>
-          </ButtonGroup>
-        </Td>
-      </Tr>
-    )
-  },
-)
+  return (
+    <Tr>
+      <Td>{title}</Td>
+      <Td>
+        <Checkbox isChecked={completed} onChange={onToggle} />
+      </Td>
+      <Td>
+        <ButtonGroup>
+          <Button>Edit</Button>
+          <Button onClick={onDelete}>Delete</Button>
+        </ButtonGroup>
+      </Td>
+    </Tr>
+  )
+})
 
 export const TodoList = () => {
   const [show, set] = React.useState(false)
