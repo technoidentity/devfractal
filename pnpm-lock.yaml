@@ -912,6 +912,7 @@ importers:
     specifiers:
       '@typescript-eslint/eslint-plugin': 5.46.1
       '@typescript-eslint/parser': 5.46.1
+      confusing-browser-globals: ^1.0.11
       eslint: 8.29.0
       eslint-config-next: 13.0.7
       eslint-config-prettier: 8.5.0
@@ -927,6 +928,7 @@ importers:
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.46.1_imrg37k3svwu377c6q7gkarwmi
       '@typescript-eslint/parser': 5.46.1_ha6vam6werchizxrnqvarmz2zu
+      confusing-browser-globals: 1.0.11
       eslint: 8.29.0
       eslint-config-next: 13.0.7_ha6vam6werchizxrnqvarmz2zu
       eslint-config-prettier: 8.5.0_eslint@8.29.0
@@ -12302,7 +12304,6 @@ packages:
 
   /confusing-browser-globals/1.0.11:
     resolution: {integrity: sha512-JsPKdmh8ZkmnHxDk55FZ1TqVLvEQTvoByJZRN9jzI0UjxK/QgAmsphz7PGtqgPieQZ/CQcHWXCR7ATDNhGe+YA==}
-    dev: true
 
   /connect-pause/0.1.1:
     resolution: {integrity: sha512-a1gSWQBQD73krFXdUEYJom2RTFrWUL3YvXDCRkyv//GVXc79cdW9MngtRuN9ih4FDKBtfJAJId+BbDuX+1rh2w==}
