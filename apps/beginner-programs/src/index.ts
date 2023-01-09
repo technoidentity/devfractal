@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable no-undef */
 /* eslint-disable prefer-template */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 
 // problem 2
 export const convertToCelsius = (temp: number): number => (temp - 32) * (5 / 9)
@@ -219,21 +220,22 @@ console.log(findAndReplaceAll('foxfox', 'fox', 'dog'))
 
 // Problem 11
 
-// export const getHoursMinutesSeconds = (seconds: number) => {
-//   if (seconds < 60) {
-//     return `${seconds}s`
-//   }
+export const getHoursMinutesSeconds = (seconds: number) => {
+  if (seconds < 60) {
+    return `${seconds}s`
+  }
 
-//   const hrs = Math.floor(seconds / (60 * 60))
-//   const mins = hrs % 60
-//   const secs = mins % 60
+  const hrs = Math.floor(seconds / (60 * 60))
+  const mins = hrs % 60
+  const secs = mins % 60
 
-//   if (hrs !== 0) {
-//     const mins = hrs % 60
-//     if (mins !== 0) {
-//       if (secs !== 0) {
-//         return `${hrs}s ${mins}m ${secs}s`
-//       }
-//     }
-//   }
-// }
+  if (hrs !== 0) {
+    const mins = hrs % 60
+    if (mins !== 0) {
+      if (secs !== 0) {
+        return `${hrs}s ${mins}m ${secs}s`
+      }
+    }
+  }
+  return ''
+}

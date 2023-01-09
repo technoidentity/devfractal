@@ -12,14 +12,12 @@ export default {
 const Template: ComponentStory<typeof Page> = args => <Page {...args} />
 
 export const LoggedIn = Template.bind({})
-// eslint-disable-next-line functional/immutable-data
 LoggedIn.args = {
   // More on composing args: https://storybook.js.org/docs/react/writing-stories/args#args-composition
   ...HeaderStories.LoggedIn.args,
 }
 
 export const LoggedOut = Template.bind({})
-// eslint-disable-next-line functional/immutable-data
 LoggedOut.args = {
   ...HeaderStories.LoggedOut.args,
 }
