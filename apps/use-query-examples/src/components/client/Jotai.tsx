@@ -2,7 +2,7 @@ import { Box, Flex, Heading, Spinner } from '@chakra-ui/react'
 import { paged } from '@srtp/core'
 import { Filter, Todo } from '@srtp/todo'
 import { atom, useAtom, useAtomValue } from 'jotai'
-import { atomWithQuery } from 'jotai/query'
+import { atomsWithQuery } from 'jotai-tanstack-query'
 import { Suspense, useTransition } from 'react'
 import axios from 'redaxios'
 import { filteredTodos, pageCount } from '../common'
@@ -13,12 +13,13 @@ const pageAtom = atom(1)
 
 const filterAtom = atom<Filter, Filter>('All', (get, set, _: Filter) => {
   set(filterAtom, _)
+
   if (get(pageAtom) > get(pageCountAtom)) {
     set(pageAtom, get(pageCountAtom))
   }
 })
 
-const todosAtom = atomWithQuery(() => {
+const [todosAtom] = atomsWithQuery(() => {
   return {
     queryKey: ['todos'],
     queryFn: async () =>
@@ -66,9 +67,7 @@ export const TodoList = () => {
       <Pagination
         current={page}
         pageCount={pageCount}
-        onPageChange={page => {
-          startTransition(() => setPage(page))
-        }}
+        onPageChange={page => startTransition(() => setPage(page))}
       />
     </Flex>
   )

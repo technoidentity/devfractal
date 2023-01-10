@@ -5,8 +5,7 @@ import invariant from 'tiny-invariant'
 import { filteredTodos } from '../common'
 import { useTodoMutations, useTodos } from '../hooks'
 
-import { FilterView } from '../components'
-import { VirtualTodoListView } from '../components/VirtualTodoListView'
+import { FilterView, VirtualTodoListView } from '../components'
 
 const useTodoList = () => {
   const [filter, setFilter] = React.useState<Filter>('All')

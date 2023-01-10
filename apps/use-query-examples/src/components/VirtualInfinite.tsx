@@ -40,8 +40,16 @@ const useTodoList = () => {
   }
 }
 
-const TodoItem = ({ data: todoList, index, style }: any) =>
-  todoList === undefined ? null : index < todoList.length ? (
+const TodoItem = ({ data: todoList, index, style }: any) => {
+  if (todoList === undefined) {
+    return null
+  }
+
+  if (index >= todoList.length) {
+    return <div style={style}>loading...</div>
+  }
+
+  return (
     <div style={style}>
       <HStack p={1}>
         <Checkbox isChecked={todoList[index].completed} />
@@ -49,9 +57,8 @@ const TodoItem = ({ data: todoList, index, style }: any) =>
         <Text p="2">{todoList[index].title}</Text>
       </HStack>
     </div>
-  ) : (
-    <div style={style}>loading...</div>
   )
+}
 
 export const TodoList = () => {
   const { todoList, isItemLoaded, itemCount, loadMoreItems } = useTodoList()

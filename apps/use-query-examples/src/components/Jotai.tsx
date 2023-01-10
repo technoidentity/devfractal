@@ -16,8 +16,7 @@ const [resAtom] = atomsWithQuery(get => ({
   queryKey: ['todos', get(pageAtom), get(limitAtom), get(filterAtom)],
 
   queryFn: async ({ queryKey: [, page, limit, filter] }) => {
-    const completed =
-      filter === 'All' ? undefined : filter === 'Completed' ? true : false
+    const completed = filter === 'All' ? undefined : filter === 'Completed'
     const q = qs.stringify({ _limit: limit, _page: page, completed })
 
     const res = await axios.get(`api/todos?${q}`)
