@@ -1,17 +1,33 @@
 {
   "extends": "@srtp/tsconfig/next.json",
   "compilerOptions": {
-    "types": ["node", "jest"],
+    "types": [
+      "node",
+      "jest"
+    ],
     "baseUrl": ".",
     "paths": {
-      "@examples/*": ["src/examples/*"],
-      "@ui/*": ["src/ui/*"],
-      "@core/*": ["src/core/*"],
-      "@db/*": ["src/db/*"],
-      "@fake/*": ["src/fake/*"],
-      "@specs/*": ["src/specs/*"]
+      "@examples/*": [
+        "src/examples/*"
+      ],
+      "@ui/*": [
+        "src/ui/*"
+      ],
+      "@core/*": [
+        "src/core/*"
+      ],
+      "@db/*": [
+        "src/db/*"
+      ],
+      "@fake/*": [
+        "src/fake/*"
+      ],
+      "@specs/*": [
+        "src/specs/*"
+      ]
     },
-    "target": "ESNext"
+    "target": "ESNext",
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
@@ -22,5 +38,8 @@
     "../../libs/next/src/getAuth.ts",
     "../../libs/next/src/prisma.ts"
   ],
-  "exclude": ["node_modules", ".next"]
+  "exclude": [
+    "node_modules",
+    ".next"
+  ]
 }

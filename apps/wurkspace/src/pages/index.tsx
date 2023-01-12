@@ -10,12 +10,16 @@ const LoginPage = () => {
   const [session] = useAuth()
   const router = useRouter()
 
+  React.useEffect(() => {
+    if (session) {
+      router.push('/dashboard').catch(err => console.error(err))
+    }
+  }, [router, session])
+
   if (session) {
-    router.push('/dashboard').catch(err => console.error(err))
     return null
-  } else {
-    return isTestMode() ? <TestLogin /> : <Login />
   }
+  return isTestMode() ? <TestLogin /> : <Login />
 }
 
 LoginPage.isPublic = true

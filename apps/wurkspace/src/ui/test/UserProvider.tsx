@@ -49,10 +49,17 @@ const TestUserProviderView = ({ children }: { children: React.ReactNode }) => {
     })
   }, [router])
 
+  const contextValue = React.useMemo(
+    () => ({
+      email: email ?? undefined,
+      signIn,
+      signOut,
+    }),
+    [email, signIn, signOut],
+  )
+
   return (
-    <TestUserContext.Provider
-      value={{ email: email ?? undefined, signIn, signOut }}
-    >
+    <TestUserContext.Provider value={contextValue}>
       {children}
     </TestUserContext.Provider>
   )
