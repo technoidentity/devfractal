@@ -13,9 +13,7 @@ const PageNotFoundPage = () => {
           We can’t find the page what you are looking for
         </h1>
         <button className="w-[143px] h-[35px] bg-[#605BFF] rounded-md text-white text-[16px] mt-[21px]">
-          <Link href="/">
-            <a>Back to Home</a>
-          </Link>{' '}
+          <Link href="/">Back to Home</Link>
         </button>
       </div>
     </div>

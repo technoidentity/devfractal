@@ -82,7 +82,7 @@ export const EndMeetAlert = ({
                 setIsMeetStart(!isMeetStart)
               }}
             >
-              <a>Continue</a>
+              Continue
             </div>
           </Link>
         </div>

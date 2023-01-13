@@ -16,49 +16,45 @@ export const MobileMenu = () => {
             pathname: '/allActionItems',
           }}
         >
-          <a>
-            <div className="pt-4 pl-3.5 inline-flex cursor-pointer -ml-px">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 stroke-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <h1 className="text-sm font-semibold pl-2.7 pt-px text-white">
-                Action Items
-              </h1>
-            </div>
-          </a>
+          <div className="pt-4 pl-3.5 inline-flex cursor-pointer -ml-px">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 stroke-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <h1 className="text-sm font-semibold pl-2.7 pt-px text-white">
+              Action Items
+            </h1>
+          </div>
         </Link>
 
         <Link href="/profile">
-          <a>
-            <div className="pt-2 pl-3.5  inline-flex cursor-pointer">
-              {session && session.user && (
-                // @TODO: fix this
-                <Image
-                  loader={() => userImageSrc}
-                  unoptimized
-                  src={userImageSrc}
-                  alt="profile"
-                  width={20}
-                  height={20}
-                  className="rounded-full cursor-pointer"
-                />
-              )}
-              <h1 className="text-sm font-semibold pl-2.7 pt-px text-white">
-                My Profile
-              </h1>
-            </div>
-          </a>
+          <div className="pt-2 pl-3.5  inline-flex cursor-pointer">
+            {session && session.user && (
+              // @TODO: fix this
+              <Image
+                loader={() => userImageSrc}
+                unoptimized
+                src={userImageSrc}
+                alt="profile"
+                width={20}
+                height={20}
+                className="rounded-full cursor-pointer"
+              />
+            )}
+            <h1 className="text-sm font-semibold pl-2.7 pt-px text-white">
+              My Profile
+            </h1>
+          </div>
         </Link>
         {/* </div> */}
 

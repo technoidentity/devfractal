@@ -50,7 +50,7 @@ export const GoogleLogin = () => {
       </div>
       {/* </div> */}
       <div className="text-blue-700 font-bold font-nunito text-sm mt-4 ml-px">
-        <Link href={'/help'}> Need Help?</Link>
+        <Link href="/help"> Need Help?</Link>
       </div>
     </div>
   )

@@ -75,9 +75,7 @@ export const ManagerProfile = () => {
                 </h1>
 
                 <div className="text-base font-bold text-blue-600">
-                  <Link href="/manager-profile">
-                    <a>{manager.firstName}</a>
-                  </Link>
+                  <Link href="/manager-profile">{manager.firstName}</Link>
                 </div>
               </div>
             </div>

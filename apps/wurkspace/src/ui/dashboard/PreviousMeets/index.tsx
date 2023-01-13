@@ -132,15 +132,13 @@ const Card = ({ userEmail, meeting }: CardProps) => {
         </div>
         {/* TODO: change url params and keywords after dynamic data */}
         <Link href={`/one-on-one/${encodeURIComponent(meeting.id)}`}>
-          <a>
-            <h1
-              className={`text-base font-bold pt-3 pb-3.5 pl-4 ${
-                isManager ? 'text-green-550' : 'text-yellow-550'
-              }`}
-            >
-              {me} - {you}
-            </h1>
-          </a>
+          <h1
+            className={`text-base font-bold pt-3 pb-3.5 pl-4 ${
+              isManager ? 'text-green-550' : 'text-yellow-550'
+            }`}
+          >
+            {me} - {you}
+          </h1>
         </Link>
       </div>
     </div>

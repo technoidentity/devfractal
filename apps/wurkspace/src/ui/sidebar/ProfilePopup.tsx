@@ -16,9 +16,7 @@ export const ProfilePopup = () => {
             height={16}
           />
           <Link href="/profile">
-            <a>
-              <h1 className="text-sm font-semibold pl-2.7 pt-px">My Profile</h1>
-            </a>
+            <h1 className="text-sm font-semibold pl-2.7 pt-px">My Profile</h1>
           </Link>
         </div>
         <div className="pt-4 pl-3.5 inline-flex cursor-pointer">
