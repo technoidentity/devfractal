@@ -24,7 +24,7 @@
     "db:repl": "dotenv -e .env.development pnpm exec prisma-repl",
     "studio": "pnpm db:studio",
     "ci": "pnpm types && pnpm lint",
-    "postinstall": "dotenv -e .env.development -- npx prisma generate; pnpm install -g pnpm",
+    "postinstall": "dotenv -e .env.development -- npx prisma generate",
     "supabase:up": "docker-compose --env-file supabase/docker/.env.dev -f supabase/docker/docker-compose.yml up -d",
     "supabase:logs": "docker-compose --env-file supabase/docker/.env.dev -f supabase/docker/docker-compose.yml logs",
     "supabase:down": "docker-compose --env-file supabase/docker/.env.dev -f supabase/docker/docker-compose.yml down",
