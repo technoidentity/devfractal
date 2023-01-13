@@ -2,7 +2,7 @@
   "name": "use-query-examples",
   "version": "0.0.1",
   "scripts": {
-    "update": "pnpm ncu -u",
+    "upd": "pnpm ncu -u",
     "build": "vite build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "coverage": "vitest run --coverage",
@@ -19,7 +19,7 @@
     "web:dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.4.6",
+    "@chakra-ui/react": "2.4.8",
     "@chakra-ui/styled-system": "2.5.1",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
@@ -27,11 +27,11 @@
     "@srtp/core": "workspace:*",
     "@srtp/todo": "workspace:*",
     "@srtp/ui": "workspace:*",
-    "@tanstack/react-query": "4.20.4",
+    "@tanstack/react-query": "4.22.0",
     "@vitejs/plugin-react": "3.0.1",
-    "framer-motion": "8.0.2",
-    "immer": "9.0.16",
-    "jotai": "1.12.1",
+    "framer-motion": "8.4.3",
+    "immer": "9.0.17",
+    "jotai": "1.13.0",
     "jotai-tanstack-query": "0.4.0",
     "query-string": "8.1.0",
     "react": "18.2.0",
@@ -66,10 +66,10 @@
     "eslint-config-srtp": "workspace:*",
     "json-server": "0.17.1",
     "npm-check-updates": "16.6.2",
-    "prettier": "2.8.1",
-    "rimraf": "3.0.2",
+    "prettier": "2.8.2",
+    "rimraf": "4.0.4",
     "typescript": "4.9.4",
-    "vite": "4.0.3",
-    "vitest": "0.26.2"
+    "vite": "4.0.4",
+    "vitest": "0.27.1"
   }
 }

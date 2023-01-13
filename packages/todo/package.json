@@ -13,7 +13,7 @@
   "author": "Pervez Iqbal",
   "license": "MIT",
   "scripts": {
-    "update": "pnpm ncu -u",
+    "upd": "pnpm ncu -u",
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "types:dev": "tsc --noEmit -p . --watch",
@@ -36,10 +36,10 @@
     "@types/node": "18.11.18",
     "eslint": "8.31.0",
     "eslint-config-srtp": "workspace:*",
-    "prettier": "2.8.1",
-    "rimraf": "3.0.2",
+    "prettier": "2.8.2",
+    "rimraf": "4.0.4",
     "tsup": " 6.5.0",
     "typescript": "4.9.4",
-    "vitest": "0.26.2"
+    "vitest": "0.27.1"
   }
 }

@@ -1,17 +1,17 @@
 import {
-  Flex,
-  useColorModeValue,
-  Stack,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Checkbox,
-  Text,
   Box,
   Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  useColorModeValue,
 } from '@chakra-ui/react'
-import { Link, Form } from '@remix-run/react'
+import { Form, Link } from '@remix-run/react'
 import { LoginArgs } from '~/services/user.server'
 
 type ActionData = {
@@ -40,7 +40,7 @@ export const Signin = ({ actionData, searchParams }: SigninProps) => {
             to enjoy all of our cool{' '}
             <Link to="/https://beta.reactjs.org" color={'blue.400'}>
               features
-            </Link>{' '}
+            </Link>
             ✌️
           </Text>
         </Stack>

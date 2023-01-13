@@ -2,7 +2,7 @@
   "name": "@srtp/web",
   "version": "0.0.1",
   "scripts": {
-    "update": "pnpm ncu -u",
+    "upd": "pnpm ncu -u",
     "build": "vite build",
     "web:dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false",
     "dev": "concurrently pnpm:web:dev pnpm:db",
@@ -19,13 +19,13 @@
     "db": "json-server ./db.js"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.4.6",
+    "@chakra-ui/react": "2.4.8",
     "@chakra-ui/styled-system": "2.5.1",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@srtp/core": "workspace:*",
-    "framer-motion": "8.0.2",
-    "immer": "9.0.16",
+    "framer-motion": "8.4.3",
+    "immer": "9.0.17",
     "prop-types": "15.8.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -35,12 +35,12 @@
     "tiny-warning": "1.0.3",
     "ts-essentials": "9.3.0",
     "tslib": "2.4.1",
-    "type-fest": "3.5.0",
+    "type-fest": "3.5.1",
     "use-immer": "0.8.1",
     "zod": "3.20.2"
   },
   "devDependencies": {
-    "@babel/core": "7.20.7",
+    "@babel/core": "7.20.12",
     "@srtp/tsconfig": "workspace:*",
     "@testing-library/react": "13.4.0",
     "@types/node": "18.11.18",
@@ -50,10 +50,10 @@
     "cross-env": "7.0.3",
     "eslint-config-srtp": "workspace:*",
     "npm-check-updates": "16.6.2",
-    "prettier": "2.8.1",
-    "rimraf": "3.0.2",
+    "prettier": "2.8.2",
+    "rimraf": "4.0.4",
     "typescript": "4.9.4",
-    "vite": "4.0.3",
-    "vitest": "0.26.2"
+    "vite": "4.0.4",
+    "vitest": "0.27.1"
   }
 }
