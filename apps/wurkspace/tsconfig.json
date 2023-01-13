@@ -1,45 +1,19 @@
 {
   "extends": "@srtp/tsconfig/next.json",
   "compilerOptions": {
-    "types": [
-      "node",
-      "jest"
-    ],
+    "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {
-      "@examples/*": [
-        "src/examples/*"
-      ],
-      "@ui/*": [
-        "src/ui/*"
-      ],
-      "@core/*": [
-        "src/core/*"
-      ],
-      "@db/*": [
-        "src/db/*"
-      ],
-      "@fake/*": [
-        "src/fake/*"
-      ],
-      "@specs/*": [
-        "src/specs/*"
-      ]
+      "@examples/*": ["src/examples/*"],
+      "@ui/*": ["src/ui/*"],
+      "@core/*": ["src/core/*"],
+      "@db/*": ["src/db/*"],
+      "@fake/*": ["src/fake/*"],
+      "@specs/*": ["src/specs/*"]
     },
     "target": "ESNext",
     "incremental": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "../../libs/next/src/handler.ts",
-    "../../libs/next/src/response.ts",
-    "../../libs/next/src/getAuth.ts",
-    "../../libs/next/src/prisma.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    ".next"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "mocks", "__previewjs__"],
+  "exclude": ["node_modules", ".next"]
 }
