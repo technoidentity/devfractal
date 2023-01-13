@@ -10,7 +10,7 @@ module.exports = {
       'src/fun',
       'src/core',
       'src/fake',
-      'src/mocks',
+      // 'src/mocks',
       'src/specs',
     ],
   },

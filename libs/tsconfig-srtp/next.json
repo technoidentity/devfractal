@@ -9,6 +9,6 @@
     "resolveJsonModule": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "mocks", "__previewjs__"],
   "exclude": ["node_modules", ".next"]
 }
