@@ -13,7 +13,7 @@ services:
         VARIANT: 16-bullseye
 
     volumes:
-      - :/devcon/apps/wurkspace:cached
+      - /devcon/apps/wurkspace:cached
     # environment:
     #   DATABASE_URL: postgresql://postgres:postgres@localhost:5432/posgres
 
