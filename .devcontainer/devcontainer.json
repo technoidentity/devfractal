@@ -1,19 +1,33 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/typescript-node
 {
-  "name": "Node.js & TypeScript",
-  "build": {
-    "dockerfile": "Dockerfile",
-    // Update 'VARIANT' to pick a Node version: 16, 14, 12.
-    // Append -bullseye or -buster to pin to an OS version.
-    // Use -bullseye variants on local on arm64/Apple Silicon.
-    "args": {
-      "VARIANT": "16-bullseye"
-    }
-  },
+  "name": "Node.js & PostgreSQL",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/wurkspace",
+
+  // "build": {
+  //   "dockerfile": "Dockerfile",
+  //   // Update 'VARIANT' to pick a Node version: 16, 14, 12.
+  //   // Append -bullseye or -buster to pin to an OS version.
+  //   // Use -bullseye variants on local on arm64/Apple Silicon.
+  //   "args": {
+  //     "VARIANT": "16-bullseye"
+  //   }
+  // },
 
   // Set *default* container specific settings.json values on container create.
   "settings": {
+    "sqltools.connections": [
+      {
+        "name": "Container database",
+        "driver": "PostgreSQL",
+        "previewLimit": 50,
+        "server": "localhost",
+        "port": 5432,
+        "database": "postgres",
+        "username": "postgres",
+        "password": "postgres"
+      }
+    ],
     "terminal.integrated.profiles.linux": {
       "bash": {
         "path": "bash",
@@ -37,18 +51,22 @@
     "esbenp.prettier-vscode",
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
+    "mhutchie.git-graph",
+    "mtxr.sqltools-driver-pg",
+    "mtxr.sqltools",
+    "prisma.prisma",
     "streetsidesoftware.code-spell-checker",
     "vincaslt.highlight-matching-tag",
     "wayou.vscode-todo-highlight",
     "zenclabs.previewjs"
   ],
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000, 5173],
+  "forwardPorts": [3000, 5173, 5432],
 
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "node",
 
-  "postCreateCommand": "pnpm i",
+  "postCreateCommand": "pnpm install; pnpm build; cd apps/wurkspace; pnpm db:reset; pnpm db; git config pull.rebase true; mv ~/.zshrc ~/.zshrc-backup && cp zshrc ~/.zshrc",
   "features": {
     "git": "os-provided",
     "github-cli": "latest"
