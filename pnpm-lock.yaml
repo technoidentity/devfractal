@@ -641,7 +641,7 @@ importers:
       '@emotion/server': '11'
       '@emotion/styled': '11'
       '@faker-js/faker': 7.6.0
-      '@prisma/client': 4.8.0
+      '@prisma/client': 4.8.1
       '@remix-run/dev': 1.9.0
       '@remix-run/eslint-config': 1.9.0
       '@remix-run/node': 1.9.0
@@ -685,7 +685,7 @@ importers:
       '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
       '@emotion/server': 11.10.0
       '@emotion/styled': 11.10.5_qvatmowesywn4ye42qoh247szu
-      '@prisma/client': 4.8.0_prisma@4.8.1
+      '@prisma/client': 4.8.1_prisma@4.8.1
       '@remix-run/node': 1.9.0_biqbaboplfbrettd7655fr4n2y
       '@remix-run/react': 1.9.0_biqbaboplfbrettd7655fr4n2y
       '@remix-run/serve': 1.9.0_biqbaboplfbrettd7655fr4n2y
@@ -6572,20 +6572,6 @@ packages:
       next: 13.1.2_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
     dev: true
-
-  /@prisma/client/4.8.0_prisma@4.8.1:
-    resolution: {integrity: sha512-Y1riB0p2W52kh3zgssP/YAhln3RjBFcJy3uwEiyjmU+TQYh6QTZDRFBo3JtBWuq2FyMOl1Rye8jxzUP+n0l5Cg==}
-    engines: {node: '>=14.17'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dependencies:
-      '@prisma/engines-version': 4.8.0-61.d6e67a83f971b175a593ccc12e15c4a757f93ffe
-      prisma: 4.8.1
-    dev: false
 
   /@prisma/client/4.8.1:
     resolution: {integrity: sha512-d4xhZhETmeXK/yZ7K0KcVOzEfI5YKGGEr4F5SBV04/MU4ncN/HcE28sy3e4Yt8UFW0ZuImKFQJE+9rWt9WbGSQ==}
