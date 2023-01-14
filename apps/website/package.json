@@ -31,7 +31,7 @@
     "@emotion/react": "11",
     "@emotion/server": "11",
     "@emotion/styled": "11",
-    "@prisma/client": "4.8.1",
+    "@prisma/client": "4.8.0",
     "@remix-run/node": "1.9.0",
     "@remix-run/react": "1.9.0",
     "@remix-run/serve": "1.9.0",
@@ -71,7 +71,7 @@
     "eslint": "8.30.0",
     "lodash": "4.17.21",
     "prettier": "2.8.1",
-    "prisma": "4.8.1",
+    "prisma": "4.8.0",
     "ts-node": "10.9.1",
     "typescript": "4.9.4"
   },

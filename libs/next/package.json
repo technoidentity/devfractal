@@ -23,7 +23,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@prisma/client": "4.8.1",
+    "@prisma/client": "4.8.0",
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@tanstack/react-query": "4.22.0",

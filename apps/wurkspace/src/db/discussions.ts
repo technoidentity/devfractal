@@ -1,5 +1,5 @@
 import { str, toInt } from '@srtp/core'
-import { prisma } from '@srtp/next'
+import { prisma } from '@core/prisma'
 import { omit } from '@srtp/fn'
 import { Discussion } from '@prisma/client'
 import { array, number } from 'zod'

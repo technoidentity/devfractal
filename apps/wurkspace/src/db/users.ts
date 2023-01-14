@@ -1,5 +1,5 @@
 import { str } from '@srtp/core'
-import { prisma } from '@srtp/next'
+import { prisma } from '@core/prisma'
 import { pick } from '@srtp/fn'
 import { addDays } from 'date-fns'
 import { Session } from 'next-auth'

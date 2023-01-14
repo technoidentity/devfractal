@@ -1,4 +1,4 @@
-import { prisma } from '@srtp/next'
+import { prisma } from '@core/prisma'
 import { ErrorMessage } from '@ui/core'
 import { Help } from '@ui/help'
 import { InferGetStaticPropsType } from 'next'
