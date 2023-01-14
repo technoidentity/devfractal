@@ -15,6 +15,7 @@
     "vincaslt.highlight-matching-tag",
     "wayou.vscode-todo-highlight",
     "zenclabs.previewjs",
-    "ms-vscode-remote.remote-wsl-recommender"
+    "ms-vscode-remote.remote-wsl-recommender",
+    "ms-azuretools.vscode-docker"
   ]
 }
