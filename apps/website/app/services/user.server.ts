@@ -1,7 +1,7 @@
-import { db } from '~/utils/db.server'
-import bcrypt from 'bcryptjs'
-import { getSession, getUserSession, sessionStorage } from './session.server'
 import { redirect } from '@remix-run/node'
+import bcrypt from 'bcryptjs'
+import { db } from '~/utils/db.server'
+import { getUserSession, sessionStorage } from './session.server'
 
 export type LoginArgs = {
   username: string

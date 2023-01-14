@@ -1,12 +1,12 @@
+import type { IconProps } from '@chakra-ui/react'
 import {
-  Flex,
+  Button,
   Container,
+  Flex,
   Heading,
+  Icon,
   Stack,
   Text,
-  Button,
-  Icon,
-  IconProps,
 } from '@chakra-ui/react'
 
 export default function FrontPage() {

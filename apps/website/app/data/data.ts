@@ -1,4 +1,4 @@
-import { Course, Video } from '@prisma/client'
+import type { Course, Video } from '@prisma/client'
 import { v4 as uuid } from 'uuid'
 
 export const reactCourse: Course = {

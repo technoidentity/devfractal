@@ -6,7 +6,7 @@
     "dev": "dotenv -e .env.development -- next dev",
     "cdev": "pnpm db:seed && pnpm dev",
     "dev!": "pnpm db! && pnpm dev",
-    "build": "next build",
+    "build": "dotenv -e .env.development -- next build",
     "start": "dotenv -e .env.development -- next start",
     "lint": "next lint --max-warnings=0",
     "types": "pnpm db:types && tsc --noEmit -p .",

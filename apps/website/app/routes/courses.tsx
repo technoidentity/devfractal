@@ -1,15 +1,12 @@
 import type { Course } from '@prisma/client'
-import { json, LoaderFunction, redirect } from '@remix-run/node'
+import type { LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import { db } from '~/utils/db.server'
 
 import { Dashboard } from '~/components/Dashboard'
-import {
-  getUserId,
-  getUserSession,
-  requireUserId,
-} from '~/services/session.server'
 import Unauthorized from '~/components/UnAuthorized'
+import { getUserId } from '~/services/session.server'
 
 type LoaderData = {
   courses: Course[]

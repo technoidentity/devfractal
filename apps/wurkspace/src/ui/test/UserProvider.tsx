@@ -70,6 +70,8 @@ export const TestUserProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  console.log({ testMode: isTestMode() })
+
   if (isTestMode()) {
     return <TestUserProviderView>{children}</TestUserProviderView>
   }

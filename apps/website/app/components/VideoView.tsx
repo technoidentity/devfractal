@@ -1,5 +1,5 @@
 import { Flex, Stack } from '@chakra-ui/react'
-import { Video } from '@prisma/client'
+import type { Video } from '@prisma/client'
 
 interface VideoProps {
   video: Video

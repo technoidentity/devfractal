@@ -1,19 +1,18 @@
 import {
   Box,
   chakra,
-  Container,
+  IconButton,
+  Input,
   Link,
   SimpleGrid,
   Stack,
   Text,
-  VisuallyHidden,
-  Input,
-  IconButton,
   useColorModeValue,
+  VisuallyHidden,
 } from '@chakra-ui/react'
-import { ReactNode } from 'react'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import type { ReactNode } from 'react'
 import { BiMailSend } from 'react-icons/bi'
+import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 const Logo = (props: any) => {
   return (

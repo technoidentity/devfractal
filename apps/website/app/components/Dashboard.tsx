@@ -1,16 +1,16 @@
 import {
-  Flex,
-  Center,
-  useColorModeValue,
   Avatar,
+  Badge,
+  Box,
+  Button,
+  Center,
+  Flex,
   Heading,
   Stack,
-  Badge,
-  Button,
   Text,
-  Box,
+  useColorModeValue,
 } from '@chakra-ui/react'
-import { Course, User } from '@prisma/client'
+import type { Course } from '@prisma/client'
 import { Link, Outlet } from '@remix-run/react'
 import FeatureVideo from './FeatureVideo'
 
@@ -19,6 +19,9 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({ courses }: DashboardProps) => {
+  const bg = useColorModeValue('white', 'gray.900')
+  const color = useColorModeValue('gray.700', 'gray.400')
+  const bg2 = useColorModeValue('gray.50', 'gray.800')
   return (
     <>
       <FeatureVideo />
@@ -28,7 +31,7 @@ export const Dashboard = ({ courses }: DashboardProps) => {
             <Box
               maxW={'300px'}
               w={'full'}
-              bg={useColorModeValue('white', 'gray.900')}
+              bg={bg}
               boxShadow={'2xl'}
               rounded={'lg'}
               p={6}
@@ -57,11 +60,7 @@ export const Dashboard = ({ courses }: DashboardProps) => {
               <Heading fontSize={'2xl'} fontFamily={'body'}>
                 {course.title}
               </Heading>
-              <Text
-                textAlign={'center'}
-                color={useColorModeValue('gray.700', 'gray.400')}
-                px={3}
-              >
+              <Text textAlign={'center'} color={color} px={3}>
                 {course.description}
               </Text>
 
@@ -71,28 +70,13 @@ export const Dashboard = ({ courses }: DashboardProps) => {
                 direction={'row'}
                 mt={6}
               >
-                <Badge
-                  px={2}
-                  py={1}
-                  bg={useColorModeValue('gray.50', 'gray.800')}
-                  fontWeight={'400'}
-                >
+                <Badge px={2} py={1} bg={bg2} fontWeight={'400'}>
                   #react
                 </Badge>
-                <Badge
-                  px={2}
-                  py={1}
-                  bg={useColorModeValue('gray.50', 'gray.800')}
-                  fontWeight={'400'}
-                >
+                <Badge px={2} py={1} bg={bg2} fontWeight={'400'}>
                   #typescript
                 </Badge>
-                <Badge
-                  px={2}
-                  py={1}
-                  bg={useColorModeValue('gray.50', 'gray.800')}
-                  fontWeight={'400'}
-                >
+                <Badge px={2} py={1} bg={bg2} fontWeight={'400'}>
                   #javascript
                 </Badge>
               </Stack>

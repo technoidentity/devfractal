@@ -1,16 +1,16 @@
-import { ActionFunction, json } from '@remix-run/node'
+import type { ActionFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { useActionData } from '@remix-run/react'
 import { useState } from 'react'
-import invariant from 'tiny-invariant'
 import { Signup } from '~/components/Signup'
+import { createUserSession } from '~/services/session.server'
+import { register } from '~/services/user.server'
+import { db } from '~/utils/db.server'
 import {
   badRequest,
   validatePassword,
   validateUsername,
 } from '~/utils/validate.server'
-import { createUserSession } from '~/services/session.server'
-import { register } from '~/services/user.server'
-import { db } from '~/utils/db.server'
 
 export function validateUrl(url: any) {
   let urls = ['/', '/courses']
@@ -60,7 +60,7 @@ export const action: ActionFunction = async ({ request }) => {
   return createUserSession(user.id, redirectTo)
 }
 
-export default function signup() {
+export default function useSignup() {
   const data = useActionData()
   console.log(data)
   const [showPassword, setShowPassword] = useState(false)

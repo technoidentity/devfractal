@@ -154,8 +154,6 @@ export const usePreviousMeetings = () => {
 
 export const useUpcomingMeets = () => {
   const [session] = useAuth()
-  console.error({ session })
-  console.error({ hello: 'hello world' })
   const { data, error } = useSafeQuery(
     queries.upcomingMeetings(session.user?.email),
   )

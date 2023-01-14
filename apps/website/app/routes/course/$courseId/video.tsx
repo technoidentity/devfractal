@@ -1,17 +1,18 @@
-import { ChakraProvider, Stack } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import type { Course, Video } from '@prisma/client'
-import { json, LoaderFunction } from '@remix-run/node'
+import type { LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
+import { getMDXComponent } from 'mdx-bundler/client'
+import React from 'react'
 import invariant from 'tiny-invariant'
 import Footer from '~/components/Footer'
 import Transcript from '~/components/Transcript'
 import { VideoGrid } from '~/components/VideoGrid'
+import { MDXComponents } from '~/utils/components'
 import { db } from '~/utils/db.server'
 import { example } from '~/utils/fs.server'
 import { toHtml } from '~/utils/mdx.server'
-import { getMDXComponent } from 'mdx-bundler/client'
-import React from 'react'
-import { MDXComponents } from '~/utils/components'
 
 type CourseVideo = Course & {
   videos: Video[]

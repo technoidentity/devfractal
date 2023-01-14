@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/react'
-import { Video } from '@prisma/client'
+import type { Video } from '@prisma/client'
 
 interface VideoCardProps {
   video: Video

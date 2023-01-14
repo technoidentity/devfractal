@@ -21,7 +21,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
-import { User } from '@prisma/client'
+import type { User } from '@prisma/client'
 
 export default function NavbarUI({ user }: { user?: User }) {
   const { isOpen, onToggle } = useDisclosure()

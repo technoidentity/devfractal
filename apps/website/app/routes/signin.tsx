@@ -1,4 +1,4 @@
-import { ActionArgs } from '@remix-run/node'
+import type { ActionArgs } from '@remix-run/node'
 import { useActionData, useSearchParams } from '@remix-run/react'
 import { Signin } from '~/components/Signin'
 import { createUserSession } from '~/services/session.server'
@@ -33,7 +33,7 @@ export async function action({ request }: ActionArgs) {
   return createUserSession(user.id, redirectTo)
 }
 
-export default function loginPage() {
+export default function useLoginPage() {
   const actionData = useActionData()
   const [searchParams] = useSearchParams()
   return <Signin searchParams={searchParams} actionData={actionData} />

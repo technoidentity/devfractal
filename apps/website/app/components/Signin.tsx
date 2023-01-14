@@ -12,7 +12,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { Form, Link } from '@remix-run/react'
-import { LoginArgs } from '~/services/user.server'
+import type { LoginArgs } from '~/services/user.server'
 
 type ActionData = {
   fieldErrors?: LoginArgs

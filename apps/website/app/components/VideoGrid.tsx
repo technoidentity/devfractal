@@ -1,5 +1,5 @@
 import { Flex, SimpleGrid, Box } from '@chakra-ui/react'
-import { Video } from '@prisma/client'
+import type { Video } from '@prisma/client'
 import { NavLink } from '@remix-run/react'
 import { VideoCard } from './VideoCard'
 

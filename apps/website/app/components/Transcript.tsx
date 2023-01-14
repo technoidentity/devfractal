@@ -1,10 +1,10 @@
+import type { SpaceProps } from '@chakra-ui/react'
 import {
   Container,
   Divider,
   Heading,
   HStack,
   Image,
-  SpaceProps,
   Tag,
   Text,
   VStack,
@@ -16,7 +16,7 @@ interface IBlogTags {
   marginTop?: SpaceProps['marginTop']
 }
 
-const BlogTags: React.FC<IBlogTags> = props => {
+export const BlogTags: React.FC<IBlogTags> = props => {
   return (
     <HStack spacing={2} marginTop={props.marginTop}>
       {props.tags.map(tag => {

@@ -1,7 +1,8 @@
 // root.tsx
 import { ChakraProvider } from '@chakra-ui/react'
 import { withEmotionCache } from '@emotion/react'
-import { ActionArgs, json, LinksFunction, MetaFunction } from '@remix-run/node' // Depends on the runtime you choose
+import type { ActionArgs, LinksFunction, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node' // Depends on the runtime you choose
 import {
   Links,
   LiveReload,
@@ -59,7 +60,7 @@ const Document = withEmotionCache(
       })
       // reset cache to reapply global styles
       clientStyleData?.reset()
-    }, [])
+    }, [clientStyleData, emotionCache.sheet])
 
     return (
       <html lang="en">
