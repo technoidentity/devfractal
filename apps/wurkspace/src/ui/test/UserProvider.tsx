@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { del, post } from '@core/api'
-import { isEmail } from '@srtp/core'
 import { isTestMode } from '@core/isTestMode'
+import { isEmail } from '@srtp/core'
+import { Loading } from '@ui/core'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import React from 'react'
@@ -50,18 +51,16 @@ const TestUserProviderView = ({ children }: { children: React.ReactNode }) => {
   }, [router])
 
   const contextValue = React.useMemo(
-    () => ({
-      email: email ?? undefined,
-      signIn,
-      signOut,
-    }),
+    () => ({ email, signIn, signOut }),
     [email, signIn, signOut],
   )
 
-  return (
+  return email ? (
     <TestUserContext.Provider value={contextValue}>
       {children}
     </TestUserContext.Provider>
+  ) : (
+    <Loading />
   )
 }
 
@@ -73,5 +72,5 @@ export const TestUserProvider = ({
   if (isTestMode()) {
     return <TestUserProviderView>{children}</TestUserProviderView>
   }
-  return <>{children}</>
+  return <>children</>
 }
