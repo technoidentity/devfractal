@@ -15,13 +15,13 @@
     "postinstall": "pnpm db:types",
     "build": "remix build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "remix dev",
+    "dev": "pnpm db:types && remix dev",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "lint": "eslint \"app/**/*.ts*\"",
     "rs": "node -r esbuild-register",
     "start": "remix-serve build",
-    "types:dev": "tsc --noEmit -p . --watch",
-    "types": "tsc --noEmit -p .",
+    "types:dev": "pnpm db:types && tsc --noEmit -p . --watch",
+    "types": "pnpm db:types && tsc --noEmit -p .",
     "upd": "pnpm ncu -u"
   },
   "dependencies": {
