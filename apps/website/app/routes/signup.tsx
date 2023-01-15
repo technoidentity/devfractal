@@ -54,7 +54,6 @@ export const action: ActionFunction = async ({ request }) => {
   }
   const user = await register({ username, password })
 
-  console.log(user)
 
   if (!user) return null
   return createUserSession(user.id, redirectTo)
@@ -62,7 +61,6 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function useSignup() {
   const data = useActionData()
-  console.log(data)
   const [showPassword, setShowPassword] = useState(false)
 
   const handleShowPassword = (password: boolean) => {

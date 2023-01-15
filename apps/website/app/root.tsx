@@ -39,9 +39,9 @@ export let links: LinksFunction = () => {
   ]
 }
 
-interface DocumentProps {
+type DocumentProps =  Readonly<{
   children: React.ReactNode
-}
+}>
 
 const Document = withEmotionCache(
   ({ children }: DocumentProps, emotionCache) => {
@@ -60,7 +60,9 @@ const Document = withEmotionCache(
       })
       // reset cache to reapply global styles
       clientStyleData?.reset()
-    }, [clientStyleData, emotionCache.sheet])
+      // This is how it's in chakra-ui docs
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
       <html lang="en">
@@ -90,6 +92,7 @@ export const loader = async ({ request }: ActionArgs) => {
   const user = await getUser(request)
   return json(user)
 }
+
 export default function App() {
   const user = useLoaderData()
 

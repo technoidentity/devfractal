@@ -1,20 +1,20 @@
 // context.tsx
 import { createContext } from 'react'
 
-export interface ServerStyleContextData {
+export type ServerStyleContextData = Readonly<{
   key: string
-  ids: Array<string>
+  ids: readonly string[]
   css: string
-}
+}>
 
 export const ServerStyleContext = createContext<
-  ServerStyleContextData[] | null
->(null)
+  ServerStyleContextData[] | undefined
+>(undefined)
 
-export interface ClientStyleContextData {
-  reset: () => void
-}
+export type ClientStyleContextData = Readonly<{
+  reset(): void
+}>
 
-export const ClientStyleContext = createContext<ClientStyleContextData | null>(
-  null,
+export const ClientStyleContext = createContext<ClientStyleContextData | undefined>(
+  undefined,
 )

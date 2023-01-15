@@ -18,7 +18,7 @@ export default function handleRequest(
   const { extractCriticalToChunks } = createEmotionServer(cache)
 
   const html = renderToString(
-    <ServerStyleContext.Provider value={null}>
+    <ServerStyleContext.Provider value={undefined}>
       <CacheProvider value={cache}>
         <RemixServer context={remixContext} url={request.url} />
       </CacheProvider>
