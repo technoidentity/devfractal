@@ -35,7 +35,7 @@
     "tiny-warning": "1.0.3",
     "ts-essentials": "9.3.0",
     "tslib": "2.4.1",
-    "type-fest": "3.5.1",
+    "type-fest": "3.5.2",
     "use-immer": "0.8.1",
     "zod": "3.20.2"
   },
@@ -50,8 +50,8 @@
     "cross-env": "7.0.3",
     "eslint-config-srtp": "workspace:*",
     "npm-check-updates": "16.6.2",
-    "prettier": "2.8.2",
-    "rimraf": "4.0.4",
+    "prettier": "2.8.3",
+    "rimraf": "4.0.5",
     "typescript": "4.9.4",
     "vite": "4.0.4",
     "vitest": "0.27.1"

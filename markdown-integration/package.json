@@ -6,9 +6,11 @@
     "os": false
   },
   "scripts": {
+    "upd": "pnpm ncu -u",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "fs": "^0.0.1-security",

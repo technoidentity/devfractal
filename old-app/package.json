@@ -68,6 +68,7 @@
     "@types/jest": "~29.0.3"
   },
   "scripts": {
+    "upd": "pnpm ncu -u",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -77,7 +78,8 @@
     "types:watch": "rushx types --watch",
     "validate": "rushx lint && rushx types",
     "prepare": "cd .. && husky install",
-    "test": "jest --config ./jest.config.json"
+    "test": "jest --config ./jest.config.json",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "browserslist": [
     ">0.2%",

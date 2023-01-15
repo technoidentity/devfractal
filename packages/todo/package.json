@@ -23,7 +23,7 @@
     "test": "vitest run",
     "test:dev": "vitest dev",
     "coverage": "vitest run --coverage",
-    "clean": "rimraf dist node_modules"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "@srtp/core": "workspace:*",
@@ -34,10 +34,10 @@
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "18.11.18",
-    "eslint": "8.31.0",
+    "eslint": "8.32.0",
     "eslint-config-srtp": "workspace:*",
-    "prettier": "2.8.2",
-    "rimraf": "4.0.4",
+    "prettier": "2.8.3",
+    "rimraf": "4.0.5",
     "tsup": " 6.5.0",
     "typescript": "4.9.4",
     "vitest": "0.27.1"
