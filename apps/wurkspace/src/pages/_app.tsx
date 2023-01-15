@@ -9,6 +9,7 @@ import { queryFn } from '@core/api'
 import { useAuth } from '@ui/core/useAuth'
 import { Layout } from '@ui/Layout'
 import { TestUserProvider } from '@ui/test'
+import { NextComponentType } from 'next'
 import type { AppProps } from 'next/app'
 // Page Loading Indicator
 import Router from 'next/router'
@@ -57,7 +58,7 @@ if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
 const Auth = ({ children }: { children: React.ReactNode }) => {
   const [session] = useAuth()
 
-  if (!!session?.user) {
+  if (session?.user) {
     return <>{children}</>
   }
 
@@ -67,6 +68,9 @@ const Auth = ({ children }: { children: React.ReactNode }) => {
     </Center>
   )
 }
+
+const isPublicComponent = (Component: NextComponentType<any, any, any>) =>
+  'isPublic' in Component && Component.isPublic
 
 function MyApp({ Component, pageProps }: AppProps) {
   // const getLayout = Component.getLayout || (page => page)
@@ -80,15 +84,17 @@ function MyApp({ Component, pageProps }: AppProps) {
           }}
         >
           <QueryClientProvider client={queryClient}>
-            {(Component as any)['isPublic'] ? (
-              <Component {...pageProps} />
-            ) : (
-              <Auth>
-                <Layout>
+            <Layout>
+              {isPublicComponent(Component) ? (
+                <>
                   <Component {...pageProps} />
-                </Layout>
-              </Auth>
-            )}
+                </>
+              ) : (
+                <Auth>
+                  <Component {...pageProps} />
+                </Auth>
+              )}
+            </Layout>
           </QueryClientProvider>
         </ColorModeProvider>
       </ChakraProvider>
