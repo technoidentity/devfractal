@@ -1,7 +1,7 @@
 {
   "name": "@srtp/next",
   "version": "1.0.0",
-  "description": "",
+  "description": "convenient utility functions for defining next api",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

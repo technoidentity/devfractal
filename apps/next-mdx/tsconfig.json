@@ -1,0 +1,14 @@
+{
+  "extends": "@srtp/tsconfig/next.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["components"]
+    },
+    "jsx": "preserve",
+    "target": "es5",
+    "incremental": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "mocks", "__previewjs__"],
+  "exclude": ["node_modules"]
+}

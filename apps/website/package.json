@@ -1,4 +1,5 @@
 {
+  "name": "@srtp/website",
   "private": true,
   "sideEffects": false,
   "scripts": {

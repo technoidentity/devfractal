@@ -1,6 +1,7 @@
 {
   "name": "use-query-examples",
   "version": "0.0.1",
+  "private": true,
   "scripts": {
     "upd": "pnpm ncu -u",
     "build": "vite build",
@@ -28,7 +29,6 @@
     "@srtp/todo": "workspace:*",
     "@srtp/ui": "workspace:*",
     "@tanstack/react-query": "4.22.0",
-    "@vitejs/plugin-react": "3.0.1",
     "framer-motion": "8.4.3",
     "immer": "9.0.17",
     "jotai": "1.13.0",
@@ -59,7 +59,7 @@
     "@types/react-virtualized-auto-sizer": "1.0.1",
     "@types/react-window": "1.8.5",
     "@types/react-window-infinite-loader": "1.0.6",
-    "@vitejs/plugin-react": "3.0.1",
+    "@vitejs/plugin-react-swc": "3.0.1",
     "concurrently": "7.6.0",
     "cross-env": "7.0.3",
     "eslint": "8.32.0",

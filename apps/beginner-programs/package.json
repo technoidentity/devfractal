@@ -1,5 +1,6 @@
 {
   "name": "beginner-programs",
+  "private": true,
   "version": "0.0.1",
   "scripts": {
     "upd": "pnpm ncu -u",
@@ -29,14 +30,14 @@
   ],
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@vitejs/plugin-react": "3.0.1",
     "@types/node": "18.11.18",
+    "@vitejs/plugin-react-swc": "^3.0.1",
     "cross-env": "7.0.3",
     "eslint": "8.32.0",
+    "eslint-config-srtp": "workspace:*",
     "npm-check-updates": "16.6.2",
     "prettier": "2.8.3",
     "rimraf": "4.0.5",
-    "eslint-config-srtp": "workspace:*",
     "typescript": "4.9.4",
     "vite": "4.0.4",
     "vitest": "0.27.1"

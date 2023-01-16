@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { PostMeta } from "../pages/src/api";
+import Link from 'next/link'
+import { PostMeta } from '../pages/src/api'
 
 interface ArticlesProps {
-  posts: PostMeta[];
+  posts: PostMeta[]
 }
 
 export const Articles = ({ posts }: ArticlesProps) => {
@@ -16,13 +16,13 @@ export const Articles = ({ posts }: ArticlesProps) => {
             </div>
             <p>{post.excerpt}</p>
             <p>
-              {post.tags.map((tag) => (
-                <Link href={`/tags/${tag}`}>{`     ${tag}`}</Link>
+              {post.tags.map(tag => (
+                <Link key={tag} href={`/tags/${tag}`}>{`     ${tag}`}</Link>
               ))}
             </p>
           </li>
-        );
+        )
       })}
     </ul>
-  );
-};
+  )
+}

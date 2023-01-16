@@ -1,6 +1,7 @@
 {
   "name": "valtio-examples",
   "version": "0.0.1",
+  "private": true,
   "scripts": {
     "upd": "pnpm ncu -u",
     "preinstall": "npx only-allow pnpm",
