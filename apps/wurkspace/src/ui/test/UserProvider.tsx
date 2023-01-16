@@ -2,7 +2,6 @@
 import { del, post } from '@core/api'
 import { isTestMode } from '@core/isTestMode'
 import { isEmail } from '@srtp/core'
-import { Loading } from '@ui/core'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import React from 'react'
@@ -26,6 +25,7 @@ export const useTestUser = (): TestUserContext | undefined => {
 
 const TestUserProviderView = ({ children }: { children: React.ReactNode }) => {
   invariant(isTestMode())
+
   const [email, set] = React.useState<string | undefined>(undefined)
 
   React.useEffect(() => {
@@ -55,12 +55,10 @@ const TestUserProviderView = ({ children }: { children: React.ReactNode }) => {
     [email, signIn, signOut],
   )
 
-  return email ? (
+  return (
     <TestUserContext.Provider value={contextValue}>
       {children}
     </TestUserContext.Provider>
-  ) : (
-    <Loading />
   )
 }
 

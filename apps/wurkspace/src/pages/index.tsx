@@ -7,6 +7,8 @@ import React from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 
 const LoginPage = () => {
+  console.log({ isTestMode: isTestMode() })
+
   const [session] = useAuth()
   const router = useRouter()
 
