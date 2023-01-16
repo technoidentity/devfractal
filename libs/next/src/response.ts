@@ -1,7 +1,6 @@
+import { isStr, jlog, jstr } from '@srtp/core'
 import type { StatusCodes } from 'http-status-codes'
 import { getReasonPhrase } from 'http-status-codes'
-import { isStr, jstr } from '@srtp/core'
-import { jlog } from '@srtp/core'
 
 export class HTTPError extends Error {
   readonly status: StatusCodes

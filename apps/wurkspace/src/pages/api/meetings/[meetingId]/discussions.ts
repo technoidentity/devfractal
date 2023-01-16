@@ -1,4 +1,4 @@
-import { api } from '@srtp/next'
+import { api } from '@core/server'
 import { getDiscussions, postDiscussion } from '@db/discussions'
 
 export default api()

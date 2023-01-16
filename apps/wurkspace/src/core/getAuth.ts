@@ -1,16 +1,11 @@
 import { isEmail } from '@srtp/core'
 import { pick } from '@srtp/fn'
+import { CtxOrReq } from '@srtp/next'
 import { addDays } from 'date-fns'
-import { GetServerSidePropsContext, NextApiRequest } from 'next'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
 import { parseCookies } from 'nookies'
 import { prisma } from './prisma'
-
-interface CtxOrReq {
-  req?: NextApiRequest
-  ctx?: GetServerSidePropsContext
-}
 
 export const getAuth = async (ctx: CtxOrReq): Promise<Session | null> => {
   const session = await getSession(ctx)

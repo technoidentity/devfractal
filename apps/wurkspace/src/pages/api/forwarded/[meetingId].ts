@@ -1,5 +1,5 @@
 import { forwardDiscussions } from '@db/discussions'
-import { api } from '@srtp/next'
+import { api } from '@core/server'
 
 export default api().put(req =>
   forwardDiscussions({

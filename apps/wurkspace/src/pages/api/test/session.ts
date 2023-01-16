@@ -1,5 +1,5 @@
 import { isEmail, str } from '@srtp/core'
-import { api } from '@srtp/next'
+import { api } from '@core/server'
 import { destroyCookie, setCookie } from 'nookies'
 import invariant from 'tiny-invariant'
 

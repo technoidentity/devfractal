@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { reactCourse, reactVideos } from '~/data/data'
+
 const prisma = new PrismaClient()
 
 // function createVideos(n: number) {

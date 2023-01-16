@@ -1,8 +1,16 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from 'next'
 import { Session } from 'next-auth'
 import { z } from 'zod'
-import { getAuth } from './getAuth'
 import { Response, response } from './response'
+
+export interface CtxOrReq {
+  req?: NextApiRequest
+  ctx?: GetServerSidePropsContext
+}
 
 type Result<T> = Promise<T>
 
@@ -25,12 +33,17 @@ interface Http extends HTTPRoutes {
   (req: NextApiRequest, res: NextApiResponse): Promise<void>
 }
 
+type GetSession = (this: void, ctx: CtxOrReq) => Promise<Session | null>
 class Handler {
   private readonly methods: Partial<Record<HTTPMethods, HandlerFn<any>>> = {}
   private readonly protect: boolean
-
-  constructor({ protect }: Protected = { protect: false }) {
+  private readonly getSession: GetSession
+  constructor(
+    getSession: GetSession,
+    { protect }: Protected = { protect: false },
+  ) {
     this.protect = protect
+    this.getSession = getSession
     this.ctor()
   }
 
@@ -51,7 +64,7 @@ class Handler {
     let session: Session
 
     if (this.protect) {
-      const s = await getAuth({ req })
+      const s = await this.getSession({ req })
 
       if (s) {
         session = s
@@ -78,10 +91,9 @@ class Handler {
   }
 }
 
-export const api = (): Http => {
-  return new Handler().handler() as any
-}
+export const fns = (getSession: GetSession) => {
+  const api = (): Http => new Handler(getSession).handler() as any
+  const secured = (): Http => new Handler(getSession, { protect: true }) as any
 
-export const secured = (): Http => {
-  return new Handler({ protect: true }) as any
+  return { api, secured }
 }

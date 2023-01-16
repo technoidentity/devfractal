@@ -3,7 +3,7 @@ import {
   removeDiscussion,
   updateDiscussion,
 } from '@db/discussions'
-import { api } from '@srtp/next'
+import { api } from '@core/server'
 
 export default api()
   .get(req => getDiscussion({ id: req.query.discussionId }))

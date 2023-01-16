@@ -1,10 +1,10 @@
-import { api } from '@srtp/next'
+import { api } from '@core/server'
+import { getAuth } from '@core/getAuth'
 import { isTestMode } from '@core/isTestMode'
-import { HTTPError } from '@srtp/next'
 import { getGoogleEvent } from '@db/googleEvents'
 import { getMeeting } from '@db/meetings'
 import { jstr } from '@srtp/core'
-import { getAuth } from '@srtp/next'
+import { HTTPError } from '@srtp/next'
 
 export default api().get(async req => {
   const session = await getAuth({ req })

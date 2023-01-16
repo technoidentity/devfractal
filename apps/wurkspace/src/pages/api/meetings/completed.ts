@@ -1,5 +1,5 @@
 import { getCompletedMeetings } from '@db/meetings'
-import { api } from '@srtp/next'
+import { api } from '@core/server'
 
 export default api().get(req =>
   getCompletedMeetings({ email: req.query.email }),

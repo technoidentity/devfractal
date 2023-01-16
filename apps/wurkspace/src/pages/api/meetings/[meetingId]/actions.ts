@@ -1,5 +1,5 @@
 import { getActions, postAction } from '@db/actions'
-import { api } from '@srtp/next'
+import { api } from '@core/server'
 
 export default api()
   .get(req => getActions({ meetingId: req.query.meetingId }))
