@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { Articles } from '../../components/Articles'
-import { getAllPosts, PostMeta } from '../src/api'
+import { getAllPosts, PostMeta } from '../../src/api'
 
 // eslint-disable-next-line import/no-default-export
 export default function TagPage({

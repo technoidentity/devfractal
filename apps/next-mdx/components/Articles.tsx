@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { PostMeta } from '../pages/src/api'
+import { PostMeta } from '../src/api'
 
 interface ArticlesProps {
   posts: PostMeta[]

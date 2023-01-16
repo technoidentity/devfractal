@@ -2,7 +2,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { getPostFromSlug, getSlugs, PostMeta } from '../src/api'
+import { getPostFromSlug, getSlugs, PostMeta } from '../../src/api'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Youtube from '../../components/Youtube'
