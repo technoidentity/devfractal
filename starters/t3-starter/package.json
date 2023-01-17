@@ -9,7 +9,7 @@
     "dev": "next dev",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "lint": "next lint",
-    "postinstall": "prisma generate",
+    "postinstall": "pnpm exec prisma generate",
     "start": "next start",
     "test:dev": "vitest dev",
     "test": "vitest run",
