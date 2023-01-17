@@ -9,7 +9,9 @@ export default function IndexPage() {
 
   const router = useRouter()
   if (user) {
-    router.push('/tasks').catch(error => <Heading>{error.message}</Heading>)
+    router
+      .push('/tasks')
+      .catch((error: Error) => <Heading>{error.message}</Heading>)
   }
   return (
     <Flex alignItems="center" justifyContent="center" m="20">
