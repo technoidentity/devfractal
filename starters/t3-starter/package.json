@@ -13,8 +13,8 @@
     "start": "next start",
     "test:dev": "vitest dev",
     "test": "vitest run",
-    "types:dev": "tsc --noEmit -p . --watch",
-    "types": "tsc --noEmit -p .",
+    "types:dev": "pnpm prisma generate && tsc --noEmit -p . --watch",
+    "types": "pnpm prisma generate && tsc --noEmit -p .",
     "upd": "pnpm ncu -u"
   },
   "dependencies": {

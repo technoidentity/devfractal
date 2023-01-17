@@ -3,12 +3,15 @@ import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify'
 import closeWithGrace from 'close-with-grace'
 import { config } from 'dotenv'
 import fastify from 'fastify'
+import { getFastifyPlugin } from 'trpc-playground/handlers/fastify'
 import { createContext } from './context'
 import { appRouter } from './router'
 require('make-promises-safe') // installs an 'unhandledRejection' handler
 // import autoload from '@fastify/autoload'
 
 config()
+const trpcEndpoint = '/trpc'
+const playgroundEndpoint = '/trpc-playground'
 
 const server = fastify({
   maxParamLength: 5000,
@@ -37,11 +40,22 @@ server.addHook('onClose', (_, done) => {
 //   dir: join(__dirname, 'routes'),
 // })
 
-server.register(fastifyTRPCPlugin, {
-  useWSS: true,
-  prefix: '/trpc',
-  trpcOptions: { router: appRouter, createContext },
-})
+getFastifyPlugin({
+  trpcApiEndpoint: trpcEndpoint,
+  playgroundEndpoint,
+  router: appRouter,
+}).then(plugin =>
+  server
+    .register(fastifyTRPCPlugin, {
+      prefix: trpcEndpoint,
+      trpcOptions: {
+        router: appRouter,
+        context: createContext,
+      },
+    })
+
+    .register(plugin, { prefix: playgroundEndpoint }),
+)
 ;(async () => {
   try {
     await server.listen({ port: 3005 })
