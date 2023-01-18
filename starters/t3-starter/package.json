@@ -22,8 +22,8 @@
     "start": "next start",
     "test:dev": "vitest dev",
     "test": "vitest run",
-    "types:dev": "pnpm prisma generate && tsc --noEmit -p . --watch",
-    "types": "pnpm prisma generate && tsc --noEmit -p .",
+    "types:dev": "pnpm db:types && tsc --noEmit -p . --watch",
+    "types": "pnpm db:types && tsc --noEmit -p .",
     "upd": "pnpm ncu -u"
   },
   "dependencies": {
