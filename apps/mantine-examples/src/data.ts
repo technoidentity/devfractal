@@ -69,13 +69,13 @@ export const rows: Row[] = [
 
 type Label = 'Name' | 'Age' | 'Manager' | 'Start Date'
 
-export type Column = {
-  accessor: keyof Row
+export type Column<T> = {
+  accessor: keyof T & string
   label: Label
   format?: (val: boolean) => void
 }
 
-export const columns: Column[] = [
+export const columns: Column<Row>[] = [
   { accessor: 'name', label: 'Name' },
   { accessor: 'age', label: 'Age' },
   {

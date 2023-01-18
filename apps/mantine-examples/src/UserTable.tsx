@@ -1,24 +1,30 @@
-import { Table, Input } from '@mantine/core'
-import { Column, Row } from './data'
+import { Input, Table } from '@mantine/core'
+import { omit } from 'lodash'
+import React from 'react'
+import { Column } from './data'
 import { Sort } from './utils'
 
-interface TableProps {
-  columns: Column[]
-  rows: Row[]
-  filters: any
+export type Filters<T extends object> = Partial<Record<keyof T, string>>
+
+interface TableProps<T extends object> {
+  columns: Column<T>[]
+  rows: T[]
+  filters: Filters<T>
   handleSearch(val: string, searchVal: string): void
   sort: Sort
-  handleSort(val: keyof Row): void
+  renderColumn: (key: keyof T, row: T) => React.ReactNode
+  handleSort(val: keyof T): void
 }
 
-export const UserTable = ({
+export function UserTable<T extends { id: number | string } & object>({
   columns,
   rows,
   sort,
   filters,
+  renderColumn,
   handleSearch,
   handleSort,
-}: TableProps) => {
+}: TableProps<T>) {
   return (
     <Table mih={'300px'}>
       <thead>
@@ -62,10 +68,7 @@ export const UserTable = ({
       <tbody>
         {rows.map(r => (
           <tr key={r.id}>
-            <td>{r.name}</td>
-            <td>{r.age}</td>
-            <td>{r.is_manager ? '✔️' : '✖️'}</td>
-            <td>{r.start_date}</td>
+            {Object.keys(omit(r, 'id')).map(k => renderColumn(k as keyof T, r))}
           </tr>
         ))}
       </tbody>

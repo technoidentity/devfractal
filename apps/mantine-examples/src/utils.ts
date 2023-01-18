@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { isBoolean, isEmpty, isNumber, isString, isNil } from 'lodash'
 import { Row } from './data'
 
-export function filterRows(rows: Row[], filters: any) {
+export function filterRows(rows: Row[], filters: Record<string, string>) {
   if (isEmpty(filters)) {
     return rows
   }
@@ -13,6 +11,9 @@ export function filterRows(rows: Row[], filters: any) {
       const value = (row as any)[accessor]
       const searchValue = filters[accessor]
 
+      if (searchValue.trim() === '') {
+        return true
+      }
       if (isString(value)) {
         return value.toLowerCase().includes(searchValue.toLowerCase())
       }
@@ -25,7 +26,7 @@ export function filterRows(rows: Row[], filters: any) {
       }
 
       if (isNumber(value)) {
-        return value === searchValue
+        return value === Number(searchValue)
       }
 
       return false
@@ -38,19 +39,19 @@ export type Sort = {
   orderBy: keyof Row
 }
 
-export function isDateString(value: unknown) {
+export function isDateString(value: unknown): value is string {
   if (!isString(value)) {
     return false
   }
 
-  return value.match(/^\d{2}-\d{2}-\d{4}$/)
+  return value.match(/^\d{2}-\d{2}-\d{4}$/) !== null
 }
 
-export function convertDateString(value: any) {
-  return value.substr(6, 4) + value.substr(3, 2) + value.substr(0, 2)
+export function convertDateString(value: string) {
+  return value.slice(6, 4) + value.slice(3, 2) + value.slice(0, 2)
 }
 
-export function convertType(value: unknown) {
+export function convertType(value: unknown): string {
   if (isNumber(value)) {
     return value.toString()
   }
@@ -63,7 +64,7 @@ export function convertType(value: unknown) {
     return value ? '1' : '-1'
   }
 
-  return value
+  throw new Error(`{value} not a number or date or boolean`)
 }
 
 export function sortRows(rows: Row[], sort: Sort) {
