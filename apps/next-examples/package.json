@@ -14,13 +14,13 @@
     "types:dev": "pnpm types --watch"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.4.8",
+    "@chakra-ui/react": "2.4.9",
     "@chakra-ui/styled-system": "2.5.1",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@next/font": "13.1.2",
-    "framer-motion": "8.4.3",
-    "immer": "9.0.17",
+    "framer-motion": "8.4.6",
+    "immer": "9.0.18",
     "next": "13.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

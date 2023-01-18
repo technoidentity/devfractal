@@ -20,16 +20,16 @@
     "dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.4.8",
+    "@chakra-ui/react": "2.4.9",
     "@chakra-ui/styled-system": "2.5.1",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@srtp/core": "workspace:*",
     "@srtp/reducer": "workspace:*",
     "@srtp/todo": "workspace:*",
-    "framer-motion": "8.4.3",
-    "immer": "9.0.17",
-    "jotai": "1.13.0",
+    "framer-motion": "8.4.6",
+    "immer": "9.0.18",
+    "jotai": "1.13.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "3.1.4",
@@ -53,9 +53,9 @@
     "eslint-config-srtp": "workspace:*",
     "npm-check-updates": "16.6.2",
     "prettier": "2.8.3",
-    "rimraf": "4.0.5",
+    "rimraf": "4.1.1",
     "typescript": "4.9.4",
     "vite": "4.0.4",
-    "vitest": "0.27.1"
+    "vitest": "0.27.2"
   }
 }
