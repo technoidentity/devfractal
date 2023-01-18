@@ -1,7 +1,10 @@
-import { Draft, produce } from 'immer'
-import { pick as pickFn, orderBy as orderByFn } from '@srtp/fn'
+import { orderBy as orderByFn, pick as pickFn } from '@srtp/fn'
+import { produce } from 'immer'
 
-type ManyParams<ID extends string | number, T extends { id: ID }> = Partial<{
+type ManyParams<
+  ID extends string | number,
+  T extends { id: ID } & object,
+> = Partial<{
   pick: readonly (keyof T)[]
   orderBy: keyof T
   order: 'asc' | 'desc'
@@ -71,13 +74,13 @@ export function db<ID extends string | number, T extends { id: ID }>(
   }
 
   const add = (row: Omit<T, 'id'>) => {
-    const newTodo = { id: nextID(), ...row } as T
+    const newTodo = { id: nextID(), ...row }
 
     db = produce(db, draft => {
-      draft.push(newTodo as Draft<T>)
+      draft.push(newTodo as any)
     })
 
-    return newTodo
+    return newTodo as T
   }
 
   const update = (id: ID, row: Partial<Omit<T, 'id'>>) => {
@@ -89,7 +92,7 @@ export function db<ID extends string | number, T extends { id: ID }>(
     const updated = { ...db[idx], ...row }
 
     db = produce(db, draft => {
-      draft[idx] = updated as Draft<T>
+      draft[idx] = updated as any
     })
 
     return updated
@@ -106,7 +109,7 @@ export function db<ID extends string | number, T extends { id: ID }>(
     }
 
     db = produce(db, draft => {
-      draft[idx] = todo as Draft<T>
+      draft[idx] = todo as any
     })
 
     return todo
