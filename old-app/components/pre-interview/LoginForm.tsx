@@ -19,12 +19,13 @@ export const LoginForm = () => {
     event.preventDefault()
     setIsLoading(true)
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const { error } = await supabase.auth.signIn(
-      { email },
-      {
-        redirectTo: 'http://localhost:3000/pre-interview/',
-      },
-    )
+    // const { error } = await supabase.auth.signIn(
+    //   { email },
+    //   {
+    //     redirectTo: 'http://localhost:3000/pre-interview/',
+    //   },
+    // )
+    const { error } = await supabase.auth.signInWithOtp({ email })
 
     if (error) {
       setErrorMessage(error.message)

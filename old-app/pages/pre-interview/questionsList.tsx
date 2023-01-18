@@ -1,11 +1,10 @@
 import { Heading } from '@chakra-ui/react'
-import React from 'react'
-import { supabase } from '../../common'
+import { useUser } from '@supabase/auth-helpers-react'
 import questions from '../../common/questions.json'
 import { QuestionsForm } from '../../components/pre-interview'
 
 const QuestionsList = () => {
-  const user = supabase.auth.user()
+  const user = useUser()
 
   if (user) {
     return <QuestionsForm questions={questions} />

@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Flex, Heading, Spacer } from '@chakra-ui/react'
-import { Auth } from '@supabase/ui'
+import { useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
-import React from 'react'
-import { isAdmin, supabase } from '../../common'
+import { supabase, useIsAdmin } from '../../common'
 import { LoginForm } from '../../components/pre-interview'
 
 export default function IndexPage() {
-  const { user } = Auth.useUser()
-
+  const user = useUser()
+  const isAdmin = useIsAdmin()
   return (
     <>
       <Flex
@@ -30,7 +30,10 @@ export default function IndexPage() {
               colorScheme="teal"
               mr="4"
               onClick={async () => {
-                await supabase.auth.signOut()
+                const { error } = await supabase.auth.signOut()
+                if (error) {
+                  console.log('Error logging out:', error.message)
+                }
               }}
             >
               Sign Out
@@ -44,7 +47,7 @@ export default function IndexPage() {
           <a>Go to Questions Page</a>
         </Link>
       )}
-      {isAdmin() && (
+      {isAdmin && (
         <Link href="/pre-interview/userList/">
           <a>Go to Users Details Page</a>
         </Link>

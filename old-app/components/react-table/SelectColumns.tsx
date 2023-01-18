@@ -35,7 +35,6 @@ export const CheckboxList: React.FC<CheckboxListProps> = ({
     <VStack align="flex-start" overflowY="scroll">
       <CheckboxGroup
         colorScheme="green"
-        // eslint-disable-next-line functional/prefer-readonly-type
         value={options as string[]}
         onChange={values => onSelectionChange(values.map(v => v.toString()))}
       >
@@ -58,14 +57,12 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   defaultValues,
   onSubmit,
 }) => {
-  // eslint-disable-next-line functional/prefer-readonly-type
-  const [checkedValues, setCheckedValues] = React.useState<readonly string[]>(
-    defaultValues,
-  )
+  const [checkedValues, setCheckedValues] =
+    React.useState<readonly string[]>(defaultValues)
 
   return (
     <>
-      <Box d="inline-block" fontWeight="bold" mr={3}>
+      <Box display="inline-block" fontWeight="bold" mr={3}>
         Select Column
       </Box>
       <Popover placement="right">
@@ -94,7 +91,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
                   onSelectionChange={setCheckedValues}
                 />
               </PopoverBody>
-              <PopoverFooter d="flex" justifyContent="flex-end">
+              <PopoverFooter display="flex" justifyContent="flex-end">
                 <ButtonGroup size="sm">
                   <Button variant="outline" onClick={onClose}>
                     Cancel

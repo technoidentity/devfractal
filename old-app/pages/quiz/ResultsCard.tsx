@@ -8,11 +8,7 @@ interface Props {
   readonly displayCodeSnippet: (data: string) => JSX.Element
 }
 
-const ResultsCard: React.FC<Props> = ({
-  score,
-  testResult,
-  displayCodeSnippet,
-}) => (
+const ResultsCard: React.FC<Props> = ({ testResult, displayCodeSnippet }) => (
   <>
     <Box>
       <Text
@@ -29,7 +25,7 @@ const ResultsCard: React.FC<Props> = ({
         bgGradient="linear(to-l, cyan.700,teal.700)"
         bgClip="text"
       >
-        You scored {score} out of {testResult.length}
+        <Text>{`You scored {score} out of {testResult.length}`}</Text>
       </Box>
       <Text
         fontSize={['sm', 'md', 'xl', '2xl']}

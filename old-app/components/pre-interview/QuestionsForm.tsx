@@ -81,7 +81,7 @@ export const QuestionsForm: React.FC<QuestionsFormProps> = ({ questions }) => {
         <Button
           type="submit"
           bg="lightgreen"
-          variantcolor="teal.300"
+          colorScheme="teal.300"
           variant="outline"
           width="full"
           mt={4}

@@ -74,7 +74,7 @@ export const OneTaskForm: React.FC<OneTaskFormProps> = ({ taskDetails }) => {
         <Button
           type="submit"
           bg="lightgreen"
-          variantcolor="teal"
+          colorScheme="teal"
           variant="outline"
           width="full"
           mt={4}

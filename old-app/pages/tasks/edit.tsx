@@ -1,11 +1,10 @@
+import { useUser } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
-import React from 'react'
 import type { Task } from '../../common'
-import { supabase } from '../../common'
 import { EditForm, Error, Header } from '../../components/tasks'
 
 const Edit = () => {
-  const user = supabase.auth.user()
+  const user = useUser()
 
   const router = useRouter()
 
@@ -13,7 +12,7 @@ const Edit = () => {
     return <Error message="parameters missing" />
   }
   const { id, title, description }: Task = JSON.parse(
-    (router.query.data as any) as string,
+    router.query.data as any as string,
   )
 
   const taskDetails: Task = { id, title, description }

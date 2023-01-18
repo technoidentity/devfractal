@@ -12,14 +12,15 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import React from 'react'
-import { isAdmin, User } from '../../common'
+import { useIsAdmin, User } from '../../common'
 
 interface UserDataProps {
   readonly userDetails: readonly User[]
 }
 
 export const UserData: React.FC<UserDataProps> = ({ userDetails }) => {
-  if (!isAdmin()) {
+  const isAdmin = useIsAdmin()
+  if (!isAdmin) {
     return <Heading>Permission Denied</Heading>
   }
   return (

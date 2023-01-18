@@ -1,9 +1,8 @@
-import React from 'react'
-import { supabase } from '../../common'
+import { useUser } from '@supabase/auth-helpers-react'
 import { CreateTaskForm, Header } from '../../components/tasks'
 
 const Create = () => {
-  const user = supabase.auth.user()
+  const user = useUser()
 
   return (
     <>

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable no-console */
 import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react'
+import { useUser } from '@supabase/auth-helpers-react'
 import Link from 'next/link'
 import React from 'react'
 import { MdClose, MdMenu } from 'react-icons/md'
@@ -22,7 +24,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({ title, to }) => (
 export const Header = () => {
   const [show, setShow] = React.useState(false)
   const toggleMenu = () => setShow(!show)
-  const user = supabase.auth.user()
+  const user = useUser()
   return (
     <Flex
       as="nav"

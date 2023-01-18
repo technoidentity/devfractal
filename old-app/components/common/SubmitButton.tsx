@@ -13,7 +13,7 @@ export const SubmitButton: React.FC<SubmitButtonProps> = ({
     type="submit"
     leftIcon={<Icon as={BiMailSend} />}
     bg="lightgreen"
-    variantcolor="teal"
+    color="teal"
     variant="outline"
     width="full"
     mt={4}

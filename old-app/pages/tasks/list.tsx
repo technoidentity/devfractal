@@ -1,3 +1,4 @@
+import { useUser } from '@supabase/auth-helpers-react'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import React from 'react'
 import type { Task } from '../../common'
@@ -24,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<ListProps> = async () => {
 const List: React.FC<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ taskList }) => {
-  const user = supabase.auth.user()
+  const user = useUser()
 
   return (
     <>

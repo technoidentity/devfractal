@@ -1,5 +1,3 @@
-/* eslint-disable prefer-arrow/prefer-arrow-functions */
-
 export function insertAt<T>(
   arr: readonly T[],
   idx: number,

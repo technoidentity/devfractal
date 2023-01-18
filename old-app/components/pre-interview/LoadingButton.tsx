@@ -7,7 +7,7 @@ export const LoadingButton = () => (
     loadingText="Send Magic Link"
     type="submit"
     bg="lightgreen"
-    variantcolor="teal"
+    color="teal"
     variant="outline"
     width="full"
     mt={4}

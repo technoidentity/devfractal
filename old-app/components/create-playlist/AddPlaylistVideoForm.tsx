@@ -67,7 +67,6 @@ export const AddPlaylistVideoForm: React.FC<AddPlaylistVideoFormProps> = ({
           <FormControl id="playlist" mr={6} isRequired>
             <FormLabel mt={4}>Description</FormLabel>
             <Textarea
-              type="text"
               placeholder="description..."
               value={video.description}
               onChange={evt =>
