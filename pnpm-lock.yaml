@@ -1685,6 +1685,9 @@ importers:
       '@typescript-eslint/parser': 5.48.2
       eslint: 8.32.0
       eslint-config-next: 13.1.2
+      eslint-config-prettier: ^8.6.0
+      eslint-config-react: ^1.1.7
+      eslint-plugin-prettier: 4.2.1
       next: 13.1.2
       next-auth: 4.18.8
       prisma: 4.9.0
@@ -1716,6 +1719,9 @@ importers:
       '@typescript-eslint/parser': 5.48.2_7uibuqfxkfaozanbtbziikiqje
       eslint: 8.32.0
       eslint-config-next: 13.1.2_7uibuqfxkfaozanbtbziikiqje
+      eslint-config-prettier: 8.6.0_eslint@8.32.0
+      eslint-config-react: 1.1.7
+      eslint-plugin-prettier: 4.2.1_th6pcbf3nm4pj75asb7sqi32zq
       prisma: 4.9.0
       typescript: 4.9.4
       vitest: 0.27.2
@@ -13920,6 +13926,10 @@ packages:
       eslint: 8.32.0
     dev: true
 
+  /eslint-config-react/1.1.7:
+    resolution: {integrity: sha512-P4Z6u68wf0BvIvZNu+U8uQsk3DcZ1CcCI1XpUkJlG6vOa+iVcSQLgE01f2DB2kXlKRcT8/3dsH+wveLgvEgbkQ==}
+    dev: true
+
   /eslint-config-turbo/0.0.7_eslint@8.29.0:
     resolution: {integrity: sha512-WbrGlyfs94rOXrhombi1wjIAYGdV2iosgJRndOZtmDQeq5GLTzYmBUCJQZWtLBEBUPCj96RxZ2OL7Cn+xv/Azg==}
     peerDependencies:
@@ -14672,6 +14682,22 @@ packages:
       eslint: 8.32.0
       eslint-config-prettier: 8.6.0_eslint@8.32.0
       prettier: 2.8.3
+      prettier-linter-helpers: 1.0.0
+    dev: true
+
+  /eslint-plugin-prettier/4.2.1_th6pcbf3nm4pj75asb7sqi32zq:
+    resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      eslint: '>=7.28.0'
+      eslint-config-prettier: '*'
+      prettier: '>=2.0.0'
+    peerDependenciesMeta:
+      eslint-config-prettier:
+        optional: true
+    dependencies:
+      eslint: 8.32.0
+      eslint-config-prettier: 8.6.0_eslint@8.32.0
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -20658,7 +20684,7 @@ packages:
       '@panva/hkdf': 1.0.2
       cookie: 0.5.0
       jose: 4.11.2
-      next: 13.1.2_pjwopsidmaokadturxaafygjp4
+      next: 13.1.2_biqbaboplfbrettd7655fr4n2y
       oauth: 0.9.15
       openid-client: 5.3.1
       preact: 10.11.3
