@@ -10,7 +10,7 @@ export function filterRows(rows: Row[], filters: any) {
 
   return rows.filter(row => {
     return Object.keys(filters).every(accessor => {
-      const value = row[accessor]
+      const value = (row as any)[accessor]
       const searchValue = filters[accessor]
 
       if (isString(value)) {

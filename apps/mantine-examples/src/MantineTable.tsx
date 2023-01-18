@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable array-callback-return */
 import { Flex } from '@mantine/core'
 import React, { useState, useMemo } from 'react'
 import { columns, Row, rows } from './data'
@@ -25,7 +22,7 @@ export const MantineTable = () => {
     } else {
       setFilters(prevFilters => {
         const updatedFilters = { ...prevFilters }
-        delete updatedFilters[accessor]
+        delete (updatedFilters as any)[accessor]
 
         return updatedFilters
       })
@@ -41,7 +38,7 @@ export const MantineTable = () => {
       orderBy: accessor,
     }))
   }
-  const filteredRows = useMemo(() => filterRows(rows, filters), [rows, filters])
+  const filteredRows = useMemo(() => filterRows(rows, filters), [filters])
 
   const sortedRows = useMemo(
     () => sortRows(filteredRows, sort),
