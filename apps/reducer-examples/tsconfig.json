@@ -1,14 +1,6 @@
 {
   "extends": "@srtp/tsconfig/next.json",
-  "include": [
-    "pages",
-    "components",
-    "next.config.js",
-    "next-env.d.ts",
-    "stories",
-    "mocks",
-    "__previewjs__"
-  ],
+
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -16,5 +8,13 @@
     },
     "incremental": true
   },
+
+  "include": [
+    "pages",
+    "components",
+    "next.config.js",
+    "next-env.d.ts",
+    "__previewjs__"
+  ],
   "exclude": ["node_modules"]
 }
