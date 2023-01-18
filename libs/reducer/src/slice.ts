@@ -69,7 +69,10 @@ export function getReducer<State, Hs extends Handlers<State>>(
   slices: Hs,
 ): SliceReducer<State, Hs> {
   return (state, action) => {
-    slices[action.type](state, 'payload' in action ? action.payload : undefined)
+    return slices[action.type](
+      state,
+      'payload' in action ? action.payload : undefined,
+    )
   }
 }
 
@@ -95,7 +98,7 @@ export function useSlice$<State, Hs extends Handlers<State>>(
   const [state, dispatch] = useImmerReducer(reducer, initialState)
 
   const actions: Actions<State, Hs> = React.useMemo(
-    getActions(actionCreators, dispatch),
+    () => getActions(actionCreators, dispatch),
     [actionCreators, dispatch], // None should change
   )
 
