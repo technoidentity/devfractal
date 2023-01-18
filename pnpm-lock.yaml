@@ -77,8 +77,10 @@ importers:
       '@mantine/form': 5.10.1
       '@mantine/hooks': 5.10.1
       '@mantine/notifications': 5.10.1
+      '@srtp/tsconfig': workspace:*
       '@tanstack/react-query': 4.22.0
       '@testing-library/react': 13.4.0
+      '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
       '@typescript-eslint/eslint-plugin': 5.48.2
@@ -88,13 +90,7 @@ importers:
       cross-env: 7.0.3
       dayjs: 1.11.7
       eslint: 8.32.0
-      eslint-config-prettier: 8.6.0
-      eslint-plugin-import: 2.27.5
-      eslint-plugin-jsx-a11y: 6.7.1
-      eslint-plugin-prettier: 4.2.1
-      eslint-plugin-react: 7.32.1
-      eslint-plugin-react-hooks: 4.6.0
-      eslint-plugin-unicorn: 45.0.2
+      eslint-config-srtp: workspace:*
       immer: 9.0.18
       jotai: 1.13.1
       jotai-tanstack-query: 0.4.0
@@ -140,7 +136,9 @@ importers:
       use-immer: 0.8.1_immer@9.0.18+react@18.2.0
       zod: 3.20.2
     devDependencies:
+      '@srtp/tsconfig': link:../../libs/tsconfig-srtp
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
+      '@types/node': 18.11.18
       '@types/react': 18.0.26
       '@types/react-dom': 18.0.10
       '@typescript-eslint/eslint-plugin': 5.48.2_caon6io6stgpr7lz2rtbhekxqy
@@ -149,19 +147,13 @@ importers:
       confusing-browser-globals: 1.0.11
       cross-env: 7.0.3
       eslint: 8.32.0
-      eslint-config-prettier: 8.6.0_eslint@8.32.0
-      eslint-plugin-import: 2.27.5_2l6piu6guil2f63lj3qmhzbnn4
-      eslint-plugin-jsx-a11y: 6.7.1_eslint@8.32.0
-      eslint-plugin-prettier: 4.2.1_cn4lalcyadplruoxa5mhp7j3dq
-      eslint-plugin-react: 7.32.1_eslint@8.32.0
-      eslint-plugin-react-hooks: 4.6.0_eslint@8.32.0
-      eslint-plugin-unicorn: 45.0.2_eslint@8.32.0
+      eslint-config-srtp: link:../../libs/eslint-config-srtp
       npm-check-updates: 16.6.2
       prettier: 2.8.3
       rimraf: 4.1.0
       turbo: 1.7.0
       typescript: 4.9.4
-      vite: 4.0.4
+      vite: 4.0.4_@types+node@18.11.18
       vitest: 0.27.2
 
   apps/fastify-trpc:
