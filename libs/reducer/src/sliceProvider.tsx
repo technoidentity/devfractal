@@ -1,3 +1,4 @@
+import { Draft } from 'immer'
 import React, { Dispatch, ReducerAction } from 'react'
 import invariant from 'tiny-invariant'
 import { useImmerReducer } from 'use-immer'
@@ -5,7 +6,7 @@ import { useImmerReducer } from 'use-immer'
 export const useIsomorphicEffect =
   typeof document !== 'undefined' ? React.useLayoutEffect : React.useEffect
 
-type Actions<S, A> = (prevState: S, action: A) => void
+type Actions<S, A> = (prevState: Draft<S>, action: A) => void
 
 type State<R extends Actions<any, any>> = R extends Actions<infer S, any>
   ? S
@@ -58,10 +59,12 @@ export function sliceProvider<R extends Actions<any, any>>(
       ref.current = handler
     })
 
-    return React.useCallback((...args: Args) => {
-      dispatch(ref.current(...args))
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    return React.useCallback(
+      (...args: Args) => {
+        dispatch(ref.current(...args))
+      },
+      [dispatch],
+    )
   }
 
   function useSelect<A>(select: Selector<R, A>): A {

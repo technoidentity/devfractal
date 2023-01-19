@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { castDraft, Draft } from 'immer'
+import { Draft } from 'immer'
 import React from 'react'
 import { useImmerReducer } from 'use-immer'
 import { sliceProvider } from './sliceProvider'
@@ -127,7 +127,7 @@ export function provider$<State, Hs extends Handlers<State>>(
 
   return {
     actions: actionCreators,
-    ...sliceProvider(reducer, castDraft(initialState)),
+    ...sliceProvider(reducer, initialState),
   } as const
 }
 
@@ -136,9 +136,9 @@ export function provider<State, Hs extends Handlers<State>>(
   handlers: Hs,
 ) {
   const { reducer, actionCreators } = slice$<State, Hs>(initialState, handlers)
-  const { useDispatch, ...rest } = sliceProvider(
+  const { useValue, useDispatch, ...rest } = sliceProvider(
     reducer,
-    castDraft(initialState),
+    initialState,
   )
 
   const useActions = (): Actions<State, Hs> => {
@@ -150,10 +150,14 @@ export function provider<State, Hs extends Handlers<State>>(
     )
   }
 
+  const useSlice = () => [useValue(), useActions()] as const
+
   return {
-    actions: actionCreators,
+    useSlice,
+    useValue,
     useActions,
     useDispatch,
+    actions: actionCreators,
     ...rest,
   } as const
 }

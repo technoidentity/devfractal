@@ -24,6 +24,7 @@
     "build:libs": "pnpm turbo build --filter=./libs/*",
     "test:libs": "pnpm turbo test --filter=./libs/*",
     "dev:libs": "pnpm turbo dev --filter=./libs/*",
+    "libs": "pnpm turbo build:libs type:libs lint:libs",
     "clean": "pnpm turbo clean",
     "ci": "pnpm turbo types lint",
     "prepare": "husky install"

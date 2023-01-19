@@ -15,11 +15,10 @@ const handlers = {
   },
 } as const satisfies Handlers<typeof initialState>
 
-const { Provider, useValue, useActions } = provider(initialState, handlers)
+const { Provider, useSlice, useActions } = provider(initialState, handlers)
 
 const Counter = () => {
-  const { count } = useValue()
-  const { inc, dec } = useActions()
+  const [{ count }, { inc, dec }] = useSlice()
 
   return (
     <HStack>
