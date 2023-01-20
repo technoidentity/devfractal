@@ -40,7 +40,7 @@
     "@types/node": "18.11.18",
     "@types/qs": "^6.9.7",
     "@types/tap": "15.0.7",
-    "esbuild": "0.17.2",
+    "esbuild": "0.17.3",
     "esbuild-register": "3.4.2",
     "eslint": "8.32.0",
     "nodemon": "2.0.20",

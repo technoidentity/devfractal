@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/jest": "^29.2.5",
+    "@types/jest": "^29.2.6",
     "@types/node": "18.11.18",
     "cross-env": "7.0.3",
     "eslint": "8.32.0",
