@@ -42,8 +42,10 @@
     "zod": "3.20.2"
   },
   "devDependencies": {
+    "@srtp/tsconfig": "workspace:*",
     "@testing-library/react": "13.4.0",
     "@types/lodash": "4.14.191",
+    "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
     "@typescript-eslint/eslint-plugin": "5.48.2",
@@ -53,6 +55,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.32.0",
     "eslint-config-prettier": "8.6.0",
+    "eslint-config-srtp": "workspace:*",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-prettier": "4.2.1",

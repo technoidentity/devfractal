@@ -25,9 +25,6 @@
     "tslib": "2.4.1",
     "zod": "3.20.2"
   },
-  "exclude": [
-    "**/tests/*.test.ts"
-  ],
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "18.11.18",
