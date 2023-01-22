@@ -8,5 +8,6 @@
   "jsxSingleQuote": false,
   "printWidth": 80,
   "trailingComma": "all",
-  "proseWrap": "always"
+  "proseWrap": "always",
+  "endOfLine": "auto"
 }

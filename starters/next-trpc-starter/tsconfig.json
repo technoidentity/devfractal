@@ -1,10 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@utils/*": ["src/utils/*"],
-      "@server/*": ["src/server/*"],
-      "@env/*": ["src/env/*"]
+      "@/*": ["./src/*"]
     },
     "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -13,6 +11,15 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "suppressImplicitAnyIndexErrors": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -22,6 +29,13 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.cjs",
+    "**/*.mjs",
+    "__preview__js"
+  ],
   "exclude": ["node_modules"]
 }

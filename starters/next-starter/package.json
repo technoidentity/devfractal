@@ -23,7 +23,6 @@
     "react-dom": "18.2.0",
     "react-error-boundary": "3.1.4",
     "react-icons": "4.7.1",
-    "react-query": "3.39.2",
     "react-virtualized-auto-sizer": "1.0.7",
     "react-window": "1.8.8",
     "react-window-infinite-loader": "1.0.8",
