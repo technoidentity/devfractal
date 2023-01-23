@@ -12,11 +12,11 @@
     "tcd": "npx tsc -p . --watch",
     "build": "npx tsc -p .",
     "test": "npx tap --node-arg='--require=esbuild-register'",
-    "test:dev": "npm run test:ci -- --watch",
+    "test:dev": "pnpm test -- --watch",
     "rs": "node -r esbuild-register",
     "ro": "node -r esbuild-register src/index.ts",
     "dev": "nodemon -x node -r esbuild-register src/index.ts",
-    "ci": "npm run build && npm run test:ci"
+    "ci": "pnpm turbo build test"
   },
   "author": "Pervez Iqbal",
   "license": "ISC",
@@ -52,6 +52,7 @@
     "trpc-panel": "1.2.6",
     "trpc-playground": "1.0.4",
     "tsx": "3.12.2",
+    "turbo": "1.7.0",
     "typescript": "4.9.4",
     "vitest": "0.27.3",
     "wait-port": "1.0.4"

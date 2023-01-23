@@ -22,7 +22,7 @@
     "db:sql": "pnpm exec prisma migrate dev --create-only",
     "db:studio": "pnpm exec prisma studio",
     "db:repl": "pnpm exec prisma-repl",
-    "ci": "pnpm types && pnpm lint"
+    "ci": "pnpm turbo types lint"
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
@@ -74,6 +74,7 @@
     "prettier": "2.8.3",
     "prisma": "4.9.0",
     "rimraf": "4.1.1",
+    "turbo": "1.7.0",
     "typescript": "4.9.4"
   },
   "ct3aMetadata": {
