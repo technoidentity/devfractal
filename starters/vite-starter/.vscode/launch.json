@@ -5,12 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "firefox",
+      "name": "Launch Edge",
+      "type": "msedge",
       "request": "launch",
-      "reAttach": true,
-      "name": "Launch firefox",
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}"
+      "url": "http://localhost:5173"
     }
   ]
 }
