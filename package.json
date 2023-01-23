@@ -15,9 +15,9 @@
   "scripts": {
     "upd": "pnpm add -g @pnpm/exe; pnpm turbo upd",
     "types": "pnpm turbo types",
-    "lint": "pnpm turbo lint",
+    "lint": "pnpm turbo lint --filter=!next-trpc-starter",
     "build": "pnpm turbo build --filter=!@srtp/wurkspace",
-    "test": "pnpm turbo test --filter=!@srtp/wurkspace ",
+    "test": "pnpm turbo test --filter=!@srtp/wurkspace",
     "dev": "pnpm turbo dev --filter=!@srtp/wurkspace",
     "types:libs": "pnpm turbo types --filter=./libs/* --filter=./packages/*",
     "lint:libs": "pnpm turbo lint --filter=./libs/* --filter=./packages/*",

@@ -1,0 +1,6 @@
+{
+  "recommendations": [
+    "ms-ossdata.vscode-postgresql",
+    "ms-playwright.playwright"
+  ]
+}
