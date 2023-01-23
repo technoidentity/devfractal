@@ -24,7 +24,9 @@
     "@mantine/form": "5.10.1",
     "@mantine/hooks": "5.10.1",
     "@mantine/notifications": "5.10.1",
-    "@tanstack/react-query": "4.22.0",
+    "@srtp/core": "workspace:^1.0.0",
+    "@tanstack/query-core": "^4.22.4",
+    "@tanstack/react-query": "4.22.4",
     "dayjs": "1.11.7",
     "immer": "9.0.18",
     "jotai": "1.13.1",
@@ -43,6 +45,7 @@
     "zod": "3.20.2"
   },
   "devDependencies": {
+    "@babel/core": "7.20.12",
     "@srtp/tsconfig": "workspace:*",
     "@testing-library/react": "13.4.0",
     "@types/lodash": "4.14.191",
@@ -52,11 +55,12 @@
     "@vitejs/plugin-react-swc": "3.0.1",
     "cross-env": "7.0.3",
     "eslint": "8.32.0",
+    "eslint-config-srtp": "workspace:^0.0.0",
     "npm-check-updates": "16.6.2",
     "prettier": "2.8.3",
     "rimraf": "4.1.1",
     "typescript": "4.9.4",
     "vite": "4.0.4",
-    "vitest": "0.27.2"
+    "vitest": "0.27.3"
   }
 }

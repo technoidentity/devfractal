@@ -28,7 +28,7 @@
     "@srtp/core": "workspace:*",
     "@srtp/todo": "workspace:*",
     "@srtp/ui": "workspace:*",
-    "@tanstack/react-query": "4.22.0",
+    "@tanstack/react-query": "4.22.4",
     "framer-motion": "8.5.0",
     "immer": "9.0.18",
     "jotai": "1.13.1",
@@ -69,6 +69,6 @@
     "rimraf": "4.1.1",
     "typescript": "4.9.4",
     "vite": "4.0.4",
-    "vitest": "0.27.2"
+    "vitest": "0.27.3"
   }
 }
