@@ -1,5 +1,26 @@
-import { isBoolean, isEmpty, isNumber, isString, isNil } from 'lodash'
+import { debugCast, isBool, isNil, isNum, isStr } from '@srtp/core'
+import { isEmpty } from 'lodash'
+import { z } from 'zod'
 import { Row } from './data'
+
+const Primitive = z.union([z.number(), z.boolean(), z.string()]) // z.date()])
+type Primitive = z.infer<typeof Primitive>
+
+const seq = (search: string, value: Primitive): boolean => {
+  if (isStr(value)) {
+    return value.toLowerCase().includes(search.toLowerCase())
+  }
+
+  if (isBool(value)) {
+    return (search === 'true' && value) || (search === 'false' && !value)
+  }
+
+  if (isNum(value)) {
+    return value === Number(search)
+  }
+
+  return false
+}
 
 export function filterRows(rows: Row[], filters: Record<string, string>) {
   if (isEmpty(filters)) {
@@ -8,28 +29,14 @@ export function filterRows(rows: Row[], filters: Record<string, string>) {
 
   return rows.filter(row => {
     return Object.keys(filters).every(accessor => {
-      const value = (row as any)[accessor]
-      const searchValue = filters[accessor]
+      const value = debugCast(Primitive, (row as any)[accessor])
+      const searchValue = debugCast(z.string(), filters[accessor])
 
-      if (searchValue.trim() === '') {
+      if (isNil(searchValue) || searchValue.trim() === '') {
         return true
       }
-      if (isString(value)) {
-        return value.toLowerCase().includes(searchValue.toLowerCase())
-      }
 
-      if (isBoolean(value)) {
-        return (
-          (searchValue === 'true' && value) ||
-          (searchValue === 'false' && !value)
-        )
-      }
-
-      if (isNumber(value)) {
-        return value === Number(searchValue)
-      }
-
-      return false
+      return seq(searchValue, value)
     })
   })
 }
@@ -40,7 +47,7 @@ export type Sort = {
 }
 
 export function isDateString(value: unknown): value is string {
-  if (!isString(value)) {
+  if (!isStr(value)) {
     return false
   }
 
@@ -52,7 +59,7 @@ export function convertDateString(value: string) {
 }
 
 export function convertType(value: unknown): string {
-  if (isNumber(value)) {
+  if (isNum(value)) {
     return value.toString()
   }
 
@@ -60,7 +67,7 @@ export function convertType(value: unknown): string {
     return convertDateString(value)
   }
 
-  if (isBoolean(value)) {
+  if (isBool(value)) {
     return value ? '1' : '-1'
   }
 
@@ -82,12 +89,11 @@ export function sortRows(rows: Row[], sort: Sort) {
 
     if (order === 'asc') {
       return aLocale.localeCompare(bLocale, 'en', {
-        numeric: isNumber(b[orderBy]),
-      })
-    } else {
-      return bLocale.localeCompare(aLocale, 'en', {
-        numeric: isNumber(a[orderBy]),
+        numeric: isNum(b[orderBy]),
       })
     }
+    return bLocale.localeCompare(aLocale, 'en', {
+      numeric: isNum(a[orderBy]),
+    })
   })
 }

@@ -38,7 +38,8 @@
     "components",
     "next.config.js",
     "next-env.d.ts",
-    "__previewjs__"
+    "__previewjs__",
+    "../next-trpc-starter/src/pages/_document.tsx"
   ],
   "exclude": ["node_modules"]
 }
