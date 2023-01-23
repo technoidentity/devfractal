@@ -3530,7 +3530,7 @@ packages:
       '@emotion/react': '>=10.0.35'
       react: '>=18'
     dependencies:
-      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
+      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
       react: 18.2.0
     dev: false
 
@@ -3966,8 +3966,8 @@ packages:
       '@chakra-ui/react-env': 3.0.0_react@18.2.0
       '@chakra-ui/system': 2.4.0_dovxhg2tvkkxkdnqyoum6wzcxm
       '@chakra-ui/utils': 2.0.15
-      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
-      '@emotion/styled': 11.10.5_jrh5enlbqfbnumycmktdqgd6se
+      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
+      '@emotion/styled': 11.10.5_qvatmowesywn4ye42qoh247szu
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
@@ -4453,8 +4453,8 @@ packages:
       '@chakra-ui/styled-system': 2.5.2
       '@chakra-ui/theme-utils': 2.0.9
       '@chakra-ui/utils': 2.0.15
-      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
-      '@emotion/styled': 11.10.5_jrh5enlbqfbnumycmktdqgd6se
+      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
+      '@emotion/styled': 11.10.5_qvatmowesywn4ye42qoh247szu
       react: 18.2.0
       react-fast-compare: 3.2.0
     dev: false
