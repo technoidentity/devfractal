@@ -9,11 +9,11 @@ importers:
       eslint: 8.31.0
       husky: 8.0.2
       npm-check-updates: 16.6.2
-      npm-run-all: ^4.1.5
-      start-server-and-test: ^1.15.2
+      npm-run-all: 4.1.5
+      start-server-and-test: 1.15.2
       turbo: 1.6.3
       typescript: 4.9.4
-      vite-node: ^0.27.1
+      vite-node: 0.27.1
       zx: 7.1.1
     devDependencies:
       '@reactpreview/cli': 0.7.2
@@ -32,7 +32,7 @@ importers:
     specifiers:
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.11.18
-      '@vitejs/plugin-react-swc': ^3.0.1
+      '@vitejs/plugin-react-swc': 3.0.1
       cross-env: 7.0.3
       eslint: 8.32.0
       eslint-config-srtp: workspace:*
@@ -189,8 +189,8 @@ importers:
       tap: 16.3.4
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
-      trpc-openapi: ^1.1.1
-      trpc-playground: ^1.0.4
+      trpc-openapi: 1.1.1
+      trpc-playground: 1.0.4
       ts-node: 10.9.1
       typescript: 4.9.4
       wait-port: 1.0.4
@@ -327,9 +327,9 @@ importers:
       '@mantine/form': 5.10.1
       '@mantine/hooks': 5.10.1
       '@mantine/notifications': 5.10.1
-      '@srtp/core': workspace:^1.0.0
+      '@srtp/core': workspace:*
       '@srtp/tsconfig': workspace:*
-      '@tanstack/query-core': ^4.22.4
+      '@tanstack/query-core': 4.22.4
       '@tanstack/react-query': 4.22.4
       '@testing-library/react': 13.4.0
       '@types/lodash': 4.14.191
@@ -340,7 +340,7 @@ importers:
       cross-env: 7.0.3
       dayjs: 1.11.7
       eslint: 8.32.0
-      eslint-config-srtp: workspace:^0.0.0
+      eslint-config-srtp: workspace:*
       immer: 9.0.18
       jotai: 1.13.1
       jotai-tanstack-query: 0.4.0
@@ -414,7 +414,7 @@ importers:
       '@emotion/react': 11.10.5
       '@emotion/styled': 11.10.5
       '@next/font': 13.1.4
-      '@previewjs/config-helper-nextjs': ^1.0.5
+      '@previewjs/config-helper-nextjs': 1.0.5
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.11.18
       '@types/react': 18.0.27
@@ -462,9 +462,9 @@ importers:
 
   apps/next-mdx:
     specifiers:
-      '@previewjs/config-helper-nextjs': ^1.0.5
+      '@previewjs/config-helper-nextjs': 1.0.5
       '@srtp/tsconfig': workspace:*
-      '@types/glob': ^8.0.1
+      '@types/glob': 8.0.1
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -904,7 +904,7 @@ importers:
     specifiers:
       '@chakra-ui/icons': 2.0.17
       '@chakra-ui/react': 2.4.9
-      '@emotion/cache': ^11.10.5
+      '@emotion/cache': 11.10.5
       '@emotion/react': '11'
       '@emotion/server': '11'
       '@emotion/styled': '11'
@@ -923,7 +923,7 @@ importers:
       '@types/uuid': 9.0.0
       Faker: 0.7.2
       bcryptjs: 2.4.3
-      chakra-ui-markdown-renderer: ^4.1.0
+      chakra-ui-markdown-renderer: 4.1.0
       cross-env: 7.0.3
       esbuild: 0.17.4
       esbuild-register: 3.4.2
@@ -932,15 +932,15 @@ importers:
       framer-motion: 8.5.0
       isbot: 3.6.5
       lodash: 4.17.21
-      mdx-bundler: ^9.2.1
+      mdx-bundler: 9.2.1
       prettier: 2.8.3
       prisma: 4.9.0
       react: 18.2.0
       react-dom: 18.2.0
       react-error-boundary: 3.1.4
       react-icons: 4.7.1
-      rehype-highlight: ^6.0.0
-      remark-frontmatter: ^4.0.1
+      rehype-highlight: 6.0.0
+      remark-frontmatter: 4.0.1
       remix-auth: 3.4.0
       remix-auth-form: 1.3.0
       tiny-invariant: 1.3.1
@@ -1003,7 +1003,7 @@ importers:
       '@emotion/styled': 11.10.5
       '@headlessui/react': 1.7.7
       '@next-auth/prisma-adapter': 1.0.5
-      '@previewjs/config-helper-nextjs': ^1.0.5
+      '@previewjs/config-helper-nextjs': 1.0.5
       '@prisma/client': 4.9.0
       '@srtp/core': workspace:*
       '@srtp/fn': workspace:*
@@ -1019,7 +1019,7 @@ importers:
       '@testing-library/react': 13.4.0
       '@testing-library/user-event': 14.4.3
       '@types/chance': 1.1.3
-      '@types/jest': ^29.2.6
+      '@types/jest': 29.2.6
       '@types/node': 18.11.18
       '@types/nprogress': 0.2.0
       '@types/react': 18.0.27
@@ -1047,7 +1047,7 @@ importers:
       identity-obj-proxy: 3.0.0
       immer: 9.0.18
       jest: 29.3.1
-      jest-environment-jsdom: ^29.3.1
+      jest-environment-jsdom: 29.3.1
       jotai: 1.13.1
       lint-staged: 13.1.0
       msw: 0.49.3
@@ -1174,12 +1174,6 @@ importers:
       typescript: 4.9.4
       zx: 7.1.1
 
-  e2e:
-    specifiers:
-      '@playwright/test': ^1.29.2
-    devDependencies:
-      '@playwright/test': 1.29.2
-
   libs/core:
     specifiers:
       '@srtp/tsconfig': workspace:*
@@ -1219,7 +1213,7 @@ importers:
     specifiers:
       '@typescript-eslint/eslint-plugin': 5.46.1
       '@typescript-eslint/parser': 5.46.1
-      confusing-browser-globals: ^1.0.11
+      confusing-browser-globals: 1.0.11
       eslint: 8.29.0
       eslint-config-next: 13.0.7
       eslint-config-prettier: 8.5.0
@@ -1253,7 +1247,7 @@ importers:
     specifiers:
       '@srtp/core': workspace:*
       '@srtp/tsconfig': workspace:*
-      '@types/jest': ^29.2.6
+      '@types/jest': 29.2.6
       '@types/node': 18.11.18
       cross-env: 7.0.3
       eslint: 8.32.0
@@ -1647,16 +1641,16 @@ importers:
 
   starters/next-trpc-starter:
     specifiers:
-      '@emotion/react': ^11.10.5
+      '@emotion/react': 11.10.5
       '@emotion/server': '11'
       '@mantine/core': 5.10.1
       '@mantine/dates': 5.10.1
       '@mantine/form': 5.10.1
       '@mantine/hooks': 5.10.1
-      '@mantine/modals': ^5.10.1
-      '@mantine/next': ^5.10.1
+      '@mantine/modals': 5.10.1
+      '@mantine/next': 5.10.1
       '@mantine/notifications': 5.10.1
-      '@mantine/nprogress': ^5.10.1
+      '@mantine/nprogress': 5.10.1
       '@next-auth/prisma-adapter': 1.0.5
       '@next/font': 13.1.4
       '@prisma/client': 4.9.0
@@ -1801,13 +1795,13 @@ importers:
       '@types/express-serve-static-core': 4.17.32
       '@types/lodash': 4.14.191
       '@types/node': 18.11.18
-      '@types/qs': ^6.9.7
+      '@types/qs': 6.9.7
       '@types/tap': 15.0.7
       chance: 1.1.9
       esbuild: 0.17.4
       esbuild-register: 3.4.2
       eslint: 8.32.0
-      express: ^4.18.2
+      express: 4.18.2
       got: 12.5.3
       immer: 9.0.18
       lodash: 4.17.21
@@ -1819,9 +1813,9 @@ importers:
       tap: 16.3.4
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
-      trpc-openapi: ^1.1.1
-      trpc-panel: ^1.2.6
-      trpc-playground: ^1.0.4
+      trpc-openapi: 1.1.1
+      trpc-panel: 1.2.6
+      trpc-playground: 1.0.4
       tsx: 3.12.2
       typescript: 4.9.4
       vitest: 0.27.3
@@ -3536,7 +3530,7 @@ packages:
       '@emotion/react': '>=10.0.35'
       react: '>=18'
     dependencies:
-      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
+      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
       react: 18.2.0
     dev: false
 
@@ -3972,8 +3966,8 @@ packages:
       '@chakra-ui/react-env': 3.0.0_react@18.2.0
       '@chakra-ui/system': 2.4.0_dovxhg2tvkkxkdnqyoum6wzcxm
       '@chakra-ui/utils': 2.0.15
-      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
-      '@emotion/styled': 11.10.5_qvatmowesywn4ye42qoh247szu
+      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
+      '@emotion/styled': 11.10.5_jrh5enlbqfbnumycmktdqgd6se
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
@@ -4459,8 +4453,8 @@ packages:
       '@chakra-ui/styled-system': 2.5.2
       '@chakra-ui/theme-utils': 2.0.9
       '@chakra-ui/utils': 2.0.15
-      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
-      '@emotion/styled': 11.10.5_qvatmowesywn4ye42qoh247szu
+      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
+      '@emotion/styled': 11.10.5_jrh5enlbqfbnumycmktdqgd6se
       react: 18.2.0
       react-fast-compare: 3.2.0
     dev: false
@@ -6683,15 +6677,6 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.4.1
-
-  /@playwright/test/1.29.2:
-    resolution: {integrity: sha512-+3/GPwOgcoF0xLz/opTnahel1/y42PdcgZ4hs+BZGIUjtmEFSXGg+nFoaH3NSmuc7a6GSFwXDJ5L7VXpqzigNg==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dependencies:
-      '@types/node': 18.11.18
-      playwright-core: 1.29.2
-    dev: true
 
   /@pnpm/network.ca-file/1.0.2:
     resolution: {integrity: sha512-YcPQ8a0jwYU9bTdJDpXjMi7Brhkr1mXsXrUJvjqM2mQDgkRiz8jFaQGOdaLxgjtUfQgZhKy/O3cG/YwmgKaxLA==}
@@ -18835,12 +18820,6 @@ packages:
     dependencies:
       find-up: 3.0.0
     dev: false
-
-  /playwright-core/1.29.2:
-    resolution: {integrity: sha512-94QXm4PMgFoHAhlCuoWyaBYKb92yOcGVHdQLoxQ7Wjlc7Flg4aC/jbFW7xMR52OfXMVkWicue4WXE7QEegbIRA==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dev: true
 
   /please-upgrade-node/3.2.0:
     resolution: {integrity: sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==}

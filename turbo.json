@@ -14,6 +14,7 @@
       "outputs": ["types", "dist/**"]
     },
     "lint": {
+      "dependsOn": ["types"],
       "outputs": []
     },
     "clean": {
@@ -23,7 +24,7 @@
       "outputs": []
     },
     "types": {
-      "dependsOn": ["^types"],
+      "dependsOn": ["^build", "^types"],
       "outputs": []
     },
     "test": {

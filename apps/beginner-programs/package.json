@@ -28,7 +28,7 @@
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "18.11.18",
-    "@vitejs/plugin-react-swc": "^3.0.1",
+    "@vitejs/plugin-react-swc": "3.0.1",
     "cross-env": "7.0.3",
     "eslint": "8.32.0",
     "eslint-config-srtp": "workspace:*",
