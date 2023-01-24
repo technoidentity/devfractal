@@ -28,7 +28,7 @@
     "@srtp/jotai": "workspace:*",
     "@srtp/reducer": "workspace:*",
     "@srtp/todo": "workspace:*",
-    "framer-motion": "8.5.0",
+    "framer-motion": "8.5.2",
     "html-react-parser": "3.0.8",
     "immer": "9.0.18",
     "jotai": "1.13.1",
@@ -54,11 +54,11 @@
     "cross-env": "7.0.3",
     "eslint": "8.32.0",
     "eslint-config-srtp": "workspace:*",
-    "npm-check-updates": "16.6.2",
+    "npm-check-updates": "16.6.3",
     "prettier": "2.8.3",
-    "rimraf": "4.1.1",
+    "rimraf": "4.1.2",
     "typescript": "4.9.4",
     "vite": "4.0.4",
-    "vitest": "0.27.3"
+    "vitest": "0.28.1"
   }
 }
