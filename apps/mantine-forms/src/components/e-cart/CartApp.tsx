@@ -70,6 +70,7 @@ export const CartApp = () => {
       <ProductList
         productList={filteredCategoryProducts}
         onAddProduct={handleAddProduct}
+        // eslint-disable-next-line no-console
         onProductView={product => console.log(product)}
       />
     </>
