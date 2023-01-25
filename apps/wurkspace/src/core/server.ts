@@ -1,4 +1,4 @@
-import { fns } from '@srtp/next'
+import { fns } from '@srtp/api'
 import { getAuth } from './getAuth'
 
 const r = fns(getAuth)

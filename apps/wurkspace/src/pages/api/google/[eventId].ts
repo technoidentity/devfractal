@@ -4,7 +4,7 @@ import { isTestMode } from '@core/isTestMode'
 import { getGoogleEvent } from '@db/googleEvents'
 import { getMeeting } from '@db/meetings'
 import { jstr } from '@srtp/core'
-import { HTTPError } from '@srtp/next'
+import { HTTPError } from '@srtp/api'
 
 export default api().get(async req => {
   const session = await getAuth({ req })

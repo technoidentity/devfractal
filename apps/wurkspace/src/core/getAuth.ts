@@ -1,6 +1,6 @@
 import { isEmail } from '@srtp/core'
 import { pick } from '@srtp/fn'
-import { CtxOrReq } from '@srtp/next'
+import { CtxOrReq } from '@srtp/api'
 import { addDays } from 'date-fns'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
