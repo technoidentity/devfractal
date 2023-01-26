@@ -233,7 +233,7 @@ importers:
       '@emotion/styled': 11.10.5_jrh5enlbqfbnumycmktdqgd6se
       '@react-spring/web': 9.6.1_biqbaboplfbrettd7655fr4n2y
       '@srtp/core': link:../../libs/core
-      '@srtp/fetch': link:../../libs/form
+      '@srtp/fetch': link:../../libs/fetch
       '@srtp/todo': link:../../packages/todo
       '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
       framer-motion: 8.5.2_biqbaboplfbrettd7655fr4n2y
@@ -286,6 +286,7 @@ importers:
       '@mantine/form': 5.10.1
       '@mantine/hooks': 5.10.1
       '@mantine/notifications': 5.10.1
+      '@srtp/form': workspace:^1.0.0
       '@tanstack/react-query': 4.23.0
       '@testing-library/react': 13.4.0
       '@types/lodash': 4.14.191
@@ -323,6 +324,7 @@ importers:
       ts-essentials: 9.3.0
       tslib: 2.4.1
       turbo: 1.7.0
+      type-fest: ^3.5.3
       typescript: 4.9.4
       use-immer: 0.8.1
       uuid: 9.0.0
@@ -336,6 +338,7 @@ importers:
       '@mantine/form': 5.10.1_react@18.2.0
       '@mantine/hooks': 5.10.1_react@18.2.0
       '@mantine/notifications': 5.10.1_ynz4r3bmi75slbqnmaycv7w7wa
+      '@srtp/form': link:../../libs/form
       '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
       dayjs: 1.11.7
       immer: 9.0.18
@@ -351,6 +354,7 @@ importers:
       tiny-warning: 1.0.3
       ts-essentials: 9.3.0_typescript@4.9.4
       tslib: 2.4.1
+      type-fest: 3.5.3
       use-immer: 0.8.1_immer@9.0.18+react@18.2.0
       uuid: 9.0.0
       zod: 3.20.2
@@ -1288,6 +1292,7 @@ importers:
       tslib: 2.4.1
       tsup: ' 6.5.0'
       typescript: 4.9.4
+      vitest: 0.28.2
     dependencies:
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
@@ -1307,6 +1312,7 @@ importers:
       prettier: 2.8.3
       tsup: 6.5.0_typescript@4.9.4
       typescript: 4.9.4
+      vitest: 0.28.2
 
   libs/fn:
     specifiers:
@@ -1345,33 +1351,48 @@ importers:
 
   libs/form:
     specifiers:
-      '@srtp/core': workspace:*
-      '@srtp/local-state': workspace:*
+      '@emotion/react': 11.10.5
+      '@mantine/core': 5.10.1
+      '@mantine/dates': 5.10.1
+      '@mantine/form': 5.10.1
       '@srtp/tsconfig': workspace:*
-      '@tanstack/react-query': 4.23.0
+      '@types/lodash': 4.14.191
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       cross-env: 7.0.3
       eslint: 8.32.0
       eslint-config-srtp: workspace:*
+      lodash: 4.17.21
       prettier: 2.8.3
       react: 18.2.0
       react-dom: 18.2.0
-      redaxios: 0.5.1
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
       tslib: 2.4.1
       tsup: ' 6.5.0'
+      type-fest: 3.5.3
       typescript: 4.9.4
+      uuid: 9.0.0
+      vitest: 0.28.1
+      zod: 3.20.2
     dependencies:
-      '@srtp/core': link:../core
-      '@srtp/local-state': link:../local-state
-      '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
+      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
+      '@mantine/core': 5.10.1_a3e44or6bupsbrlb2epm7rhj3a
+      '@mantine/dates': 5.10.1_46hdop3fhye7t6laxazduzsh5m
+      '@mantine/form': 5.10.1_react@18.2.0
+      lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      redaxios: 0.5.1
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
       tslib: 2.4.1
+      type-fest: 3.5.3
+      uuid: 9.0.0
+      zod: 3.20.2
     devDependencies:
       '@srtp/tsconfig': link:../tsconfig
+      '@types/lodash': 4.14.191
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -1381,6 +1402,7 @@ importers:
       prettier: 2.8.3
       tsup: 6.5.0_typescript@4.9.4
       typescript: 4.9.4
+      vitest: 0.28.1
 
   libs/global-state:
     specifiers:
@@ -1451,6 +1473,7 @@ importers:
       tsup: ' 6.5.0'
       typescript: 4.9.4
       use-immer: 0.8.1
+      vitest: 0.28.2
       zod: 3.20.2
     dependencies:
       '@srtp/core': link:../core
@@ -1473,6 +1496,7 @@ importers:
       prettier: 2.8.3
       tsup: 6.5.0_typescript@4.9.4
       typescript: 4.9.4
+      vitest: 0.28.2
 
   libs/next-api:
     specifiers:
@@ -1498,6 +1522,7 @@ importers:
       tslib: 2.4.1
       tsup: ' 6.5.0'
       typescript: 4.9.4
+      vitest: 0.28.2
       zod: 3.20.2
     dependencies:
       '@srtp/core': link:../core
@@ -1524,6 +1549,7 @@ importers:
       prettier: 2.8.3
       tsup: 6.5.0_typescript@4.9.4
       typescript: 4.9.4
+      vitest: 0.28.2
 
   libs/tsconfig:
     specifiers: {}
@@ -5953,7 +5979,7 @@ packages:
       jest-validate: 29.3.1
       jest-watcher: 29.3.1
       micromatch: 4.0.5
-      pretty-format: 29.3.1
+      pretty-format: 29.4.0
       slash: 3.0.0
       strip-ansi: 6.0.1
     transitivePeerDependencies:
@@ -6358,6 +6384,25 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
+  /@mantine/core/5.10.1_a3e44or6bupsbrlb2epm7rhj3a:
+    resolution: {integrity: sha512-ZVVrakV8QUFxAUNh8LCyJS6gKKpQbXSh2OQ757L/Q07aYNaYFvgwuSyI7+p32oGrgc+RZ53KroB7zZUVj/hvEw==}
+    peerDependencies:
+      '@mantine/hooks': 5.10.1
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@floating-ui/react-dom-interactions': 0.10.3_5ndqzdd6t4rivxsukjv3i3ak2q
+      '@mantine/styles': 5.10.1_sogmqz4enknxtkxk3k5s6bqwnq
+      '@mantine/utils': 5.10.1_react@18.2.0
+      '@radix-ui/react-scroll-area': 1.0.2_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-textarea-autosize: 8.3.4_3stiutgnnbnfnf3uowm5cip22i
+    transitivePeerDependencies:
+      - '@emotion/react'
+      - '@types/react'
+    dev: false
+
   /@mantine/core/5.10.1_pl7c6tg3txk3em5brrn6d2cdkm:
     resolution: {integrity: sha512-ZVVrakV8QUFxAUNh8LCyJS6gKKpQbXSh2OQ757L/Q07aYNaYFvgwuSyI7+p32oGrgc+RZ53KroB7zZUVj/hvEw==}
     peerDependencies:
@@ -6376,6 +6421,19 @@ packages:
     transitivePeerDependencies:
       - '@emotion/react'
       - '@types/react'
+    dev: false
+
+  /@mantine/dates/5.10.1_46hdop3fhye7t6laxazduzsh5m:
+    resolution: {integrity: sha512-lnZW9C6XCyzl6yj5exkf/vSQ5JY2EoLx9I6k0lW1u4hJQyffOhUxaXDaqNGRCbDQEeZggexi5BYjkxMNK0MgJw==}
+    peerDependencies:
+      '@mantine/core': 5.10.1
+      '@mantine/hooks': 5.10.1
+      dayjs: '>=1.0.0'
+      react: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 5.10.1_a3e44or6bupsbrlb2epm7rhj3a
+      '@mantine/utils': 5.10.1_react@18.2.0
+      react: 18.2.0
     dev: false
 
   /@mantine/dates/5.10.1_bpk7vfbxhpsvcdizyj7sptmxnq:
@@ -9050,7 +9108,7 @@ packages:
       vite: ^4
     dependencies:
       '@swc/core': 1.3.26
-      vite: 4.0.4_@types+node@18.11.18
+      vite: 4.0.4
     dev: true
 
   /@vitejs/plugin-react/3.0.1_vite@4.0.4:
@@ -9077,10 +9135,26 @@ packages:
       chai: 4.3.7
     dev: true
 
+  /@vitest/expect/0.28.2:
+    resolution: {integrity: sha512-syEAK7I24/aGR2lXma98WNnvMwAJ+fMx32yPcj8eLdCEWjZI3SH8ozMaKQMy65B/xZCZAl6MXmfjtJb2CpWPMg==}
+    dependencies:
+      '@vitest/spy': 0.28.2
+      '@vitest/utils': 0.28.2
+      chai: 4.3.7
+    dev: true
+
   /@vitest/runner/0.28.1:
     resolution: {integrity: sha512-kOdmgiNe+mAxZhvj2eUTqKnjfvzzknmrcS+SZXV7j6VgJuWPFAMCv3TWOe03nF9dkqDfVLCDRw/hwFuCzmzlQg==}
     dependencies:
       '@vitest/utils': 0.28.1
+      p-limit: 4.0.0
+      pathe: 1.1.0
+    dev: true
+
+  /@vitest/runner/0.28.2:
+    resolution: {integrity: sha512-BJ9CtfPwWM8uc5p7Ty0OprwApyh8RIaSK7QeQPhwfDYA59AAE009OytqA3aX0yj1Qy5+k/mYFJS8RJZgsueSGA==}
+    dependencies:
+      '@vitest/utils': 0.28.2
       p-limit: 4.0.0
       pathe: 1.1.0
     dev: true
@@ -9091,8 +9165,24 @@ packages:
       tinyspy: 1.0.2
     dev: true
 
+  /@vitest/spy/0.28.2:
+    resolution: {integrity: sha512-KlLzTzi5E6tHcI12VT+brlY1Pdi7sUzLf9+YXgh80+CfLu9DqPZi38doBBAUhqEnW/emoLCMinPMMoJlNAQZXA==}
+    dependencies:
+      tinyspy: 1.0.2
+    dev: true
+
   /@vitest/utils/0.28.1:
     resolution: {integrity: sha512-a7cV1fs5MeU+W+8sn8gM9gV+q7V/wYz3/4y016w/icyJEKm9AMdSHnrzxTWaElJ07X40pwU6m5353Jlw6Rbd8w==}
+    dependencies:
+      cli-truncate: 3.1.0
+      diff: 5.1.0
+      loupe: 2.3.6
+      picocolors: 1.0.0
+      pretty-format: 27.5.1
+    dev: true
+
+  /@vitest/utils/0.28.2:
+    resolution: {integrity: sha512-wcVTNnVdr22IGxZHDgiXrxWYcXsNg0iX2iBuOH3tVs9eme6fXJ0wxjn0/gCpp0TofQSoUwo3tX8LNACFVseDuA==}
     dependencies:
       cli-truncate: 3.1.0
       diff: 5.1.0
@@ -16044,7 +16134,7 @@ packages:
       jest-validate: 29.3.1
       micromatch: 4.0.5
       parse-json: 5.2.0
-      pretty-format: 29.3.1
+      pretty-format: 29.4.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
@@ -16275,7 +16365,7 @@ packages:
       chalk: 4.1.2
       jest-diff: 29.3.1
       jest-get-type: 29.2.0
-      pretty-format: 29.3.1
+      pretty-format: 29.4.0
     dev: true
 
   /jest-matcher-utils/29.4.0:
@@ -16298,7 +16388,7 @@ packages:
       chalk: 4.1.2
       graceful-fs: 4.2.10
       micromatch: 4.0.5
-      pretty-format: 29.3.1
+      pretty-format: 29.4.0
       slash: 3.0.0
       stack-utils: 2.0.6
     dev: true
@@ -16560,7 +16650,7 @@ packages:
       jest-message-util: 29.3.1
       jest-util: 29.3.1
       natural-compare: 1.4.0
-      pretty-format: 29.3.1
+      pretty-format: 29.4.0
       semver: 7.3.8
     transitivePeerDependencies:
       - supports-color
@@ -16631,7 +16721,7 @@ packages:
       chalk: 4.1.2
       jest-get-type: 29.2.0
       leven: 3.1.0
-      pretty-format: 29.3.1
+      pretty-format: 29.4.0
     dev: true
 
   /jest-validate/29.4.0:
@@ -23877,6 +23967,29 @@ packages:
       - terser
     dev: true
 
+  /vite-node/0.28.2_@types+node@18.11.18:
+    resolution: {integrity: sha512-zyiJ3DLs9zXign4P2MD4PQk+7rdT+JkHukgmmS0KuImbCQ7WnCdea5imQVeT6OtUsBwsLztJxQODUsinVr91tg==}
+    engines: {node: '>=v14.16.0'}
+    hasBin: true
+    dependencies:
+      cac: 6.7.14
+      debug: 4.3.4
+      mlly: 1.1.0
+      pathe: 1.1.0
+      picocolors: 1.0.0
+      source-map: 0.6.1
+      source-map-support: 0.5.21
+      vite: 4.0.4_@types+node@18.11.18
+    transitivePeerDependencies:
+      - '@types/node'
+      - less
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+    dev: true
+
   /vite/2.6.2_sass@1.42.1:
     resolution: {integrity: sha512-HSIg9U15LOnbD3CUxX364Pdrm7DUjftuBljowGxvkFHgDZU/SKPqApg9t86MX/Qq1VCO7wS+mGJHlfuTF7c0Sg==}
     engines: {node: '>=12.2.0'}
@@ -24013,6 +24126,61 @@ packages:
       tinyspy: 1.0.2
       vite: 4.0.4_@types+node@18.11.18
       vite-node: 0.28.1_@types+node@18.11.18
+      why-is-node-running: 2.2.2
+    transitivePeerDependencies:
+      - less
+      - sass
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+    dev: true
+
+  /vitest/0.28.2:
+    resolution: {integrity: sha512-HJBlRla4Mng0OiZ8aWunCecJ6BzLDA4yuzuxiBuBU2MXjGB6I4zT7QgIBL/UrwGKlNxLwaDC5P/4OpeuTlW8yQ==}
+    engines: {node: '>=v14.16.0'}
+    hasBin: true
+    peerDependencies:
+      '@edge-runtime/vm': '*'
+      '@vitest/browser': '*'
+      '@vitest/ui': '*'
+      happy-dom: '*'
+      jsdom: '*'
+    peerDependenciesMeta:
+      '@edge-runtime/vm':
+        optional: true
+      '@vitest/browser':
+        optional: true
+      '@vitest/ui':
+        optional: true
+      happy-dom:
+        optional: true
+      jsdom:
+        optional: true
+    dependencies:
+      '@types/chai': 4.3.4
+      '@types/chai-subset': 1.3.3
+      '@types/node': 18.11.18
+      '@vitest/expect': 0.28.2
+      '@vitest/runner': 0.28.2
+      '@vitest/spy': 0.28.2
+      '@vitest/utils': 0.28.2
+      acorn: 8.8.1
+      acorn-walk: 8.2.0
+      cac: 6.7.14
+      chai: 4.3.7
+      debug: 4.3.4
+      local-pkg: 0.4.2
+      pathe: 1.1.0
+      picocolors: 1.0.0
+      source-map: 0.6.1
+      std-env: 3.3.1
+      strip-literal: 1.0.0
+      tinybench: 2.3.1
+      tinypool: 0.3.0
+      tinyspy: 1.0.2
+      vite: 4.0.4_@types+node@18.11.18
+      vite-node: 0.28.2_@types+node@18.11.18
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
