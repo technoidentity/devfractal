@@ -7,20 +7,6 @@ const Category = z.enum(['seniorCitizen', 'generalPublic', 'employee'])
 type Library = z.infer<typeof Library>
 type Category = z.infer<typeof Category>
 
-export const initialValues = {
-  comment: '',
-  age: 18,
-  rating: 1,
-  library: 'react',
-  category: 'generalPublic',
-  country: [],
-  agree: false,
-  email: '',
-  password: '',
-  confirmPassword: '',
-  remember: false,
-}
-
 export const FormValueSchema = z
   .object({
     comment: z.string(),
@@ -39,3 +25,19 @@ export const FormValueSchema = z
     message: "Passwords don't match",
     path: ['confirmPassword'], // path of error
   })
+
+type FormValueSchema = z.infer<typeof FormValueSchema>
+
+export const initialValues: FormValueSchema = {
+  comment: '',
+  age: 18,
+  rating: 1,
+  library: 'react',
+  category: 'generalPublic',
+  country: [],
+  agree: false,
+  email: '',
+  password: '',
+  confirmPassword: '',
+  remember: false,
+}

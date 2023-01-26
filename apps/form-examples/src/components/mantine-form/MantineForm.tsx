@@ -1,27 +1,18 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable no-console */
 import {
-  TextInput,
-  PasswordInput,
-  Checkbox,
   Anchor,
-  Paper,
-  Title,
-  Text,
+  Button,
   Container,
   Group,
-  Button,
-  MultiSelect,
-  Radio,
-  Switch,
-  NumberInput,
-  Rating,
-  Select,
-  Textarea,
   MantineTheme,
+  Paper,
+  Radio,
+  Text,
+  Textarea,
+  Title,
 } from '@mantine/core'
+import { createForm } from '@srtp/form'
+
 import { FormValueSchema, initialValues } from './spec'
-import { useForm, zodResolver } from '@mantine/form'
 
 const countriesData = [
   { label: 'United States', value: 'US' },
@@ -31,12 +22,17 @@ const countriesData = [
   { label: 'Russia', value: 'RU' },
 ]
 
-export const MantineForm = () => {
-  const form = useForm({
-    validate: zodResolver(FormValueSchema),
-    initialValues,
-  })
+const { Form, Inputs } = createForm(FormValueSchema, initialValues)
 
+export const Submit = (props: any) => {
+  return (
+    <Button type="submit" {...props}>
+      Submit
+    </Button>
+  )
+}
+
+export const MantineForm = () => {
   return (
     <Container size={420} my={40}>
       <Title
@@ -54,33 +50,26 @@ export const MantineForm = () => {
           Create account
         </Anchor>
       </Text>
-      <form
-        onSubmit={form.onSubmit(values => {
-          console.log(values)
-        })}
-      >
+      <Form onSubmit={console.log}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput
+          <Inputs.Str
             label="Email"
             placeholder="you@mantine.dev"
-            required
-            {...form.getInputProps('email')}
+            name="email"
           />
-          <PasswordInput
+          <Inputs.Password
             label="Password"
             placeholder="Your password"
-            required
             mt="md"
-            {...form.getInputProps('password')}
+            name="password"
           />
-          <PasswordInput
+          <Inputs.Password
             mt="sm"
             label="Confirm password"
+            name="confirmPassword"
             placeholder="Confirm password"
-            {...form.getInputProps('confirmPassword')}
           />
           <Group position="apart" mt="md">
-            <Checkbox label="Remember me" {...form.getInputProps('remember')} />
             <Anchor<'a'>
               onClick={event => event.preventDefault()}
               href="#"
@@ -89,44 +78,43 @@ export const MantineForm = () => {
               Forgot password?
             </Anchor>
           </Group>
-          <Radio.Group
+          <Inputs.Enum
             mt={20}
-            name="category"
             label="Select Category to avail discount"
             description="This is anonymous"
             withAsterisk
-            {...form.getInputProps('category')}
+            name="category"
           >
             <Radio value="generalPublic" label="General Public" />
             <Radio value="seniorCitizen" label="Senior Citizen" />
             <Radio value="employee" label="Employee" />
-          </Radio.Group>
+          </Inputs.Enum>
 
-          <MultiSelect
+          <Inputs.EnumList
+            name="country"
             mt={20}
             data={countriesData}
             label="Countries you visited!"
             placeholder="Pick all that you like"
             searchable
             nothingFound="Nothing found"
-            {...form.getInputProps('country')}
           />
           <Textarea
             placeholder="Your comment"
             label="Your comment"
             withAsterisk
-            {...form.getInputProps('comment')}
+            name="comment"
           />
-          <NumberInput
+          <Inputs.Num
             defaultValue={18}
             min={18}
             placeholder="Your age"
             label="Your age"
+            name="age"
             withAsterisk
-            {...form.getInputProps('age')}
           />
-          <Rating defaultValue={2} mt={20} {...form.getInputProps('rating')} />
-          <Select
+          <Inputs.EnumSelect
+            name="library"
             mt={20}
             label="Your favorite framework/library"
             placeholder="Pick one"
@@ -136,18 +124,17 @@ export const MantineForm = () => {
               { value: 'svelte', label: 'Svelte' },
               { value: 'vue', label: 'Vue' },
             ]}
-            {...form.getInputProps('library')}
           />
-          <Switch
+          <Inputs.BoolSwitch
+            name="agree"
             mt={20}
             label="I agree to sell my privacy"
-            {...form.getInputProps('agree')}
           />
-          <Button type="submit" fullWidth mt="xl">
+          <Submit type="submit" fullWidth mt="xl">
             Submit
-          </Button>
+          </Submit>
         </Paper>
-      </form>
+      </Form>
     </Container>
   )
 }

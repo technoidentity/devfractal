@@ -2,6 +2,7 @@ const restrictedGlobals = require('confusing-browser-globals')
 
 module.exports = {
   env: {
+    react: true,
     browser: true,
     es6: true,
   },
