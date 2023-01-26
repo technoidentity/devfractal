@@ -49,3 +49,4 @@ yarn-error.log
 .turbo
 .next
 tsconfig.tsbuildinfo
+.cache
