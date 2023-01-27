@@ -1,5 +1,5 @@
 import { Center } from '@mantine/core'
-import React from 'react'
+import { slice } from '@srtp/local-state'
 import { SculptureList } from '../../../utils/types'
 import { CarouselView } from './CauroselView'
 
@@ -7,16 +7,27 @@ interface CarousalProps {
   sculptures: SculptureList
 }
 
+const useCarousel = slice(
+  { index: 0, showDetails: false },
+  {
+    next(state, sculpturesLength: number) {
+      state.index = (state.index + 1) % sculpturesLength
+    },
+    toggleShowDetails(state) {
+      state.showDetails = !state.showDetails
+    },
+  },
+)
+
 export const Carousel = ({ sculptures }: CarousalProps) => {
-  const [index, setIndex] = React.useState(0)
-  const [showDetails, setShowDetails] = React.useState(false)
+  const [{ index, showDetails }, { next, toggleShowDetails }] = useCarousel()
 
   const handleNextClick = () => {
-    setIndex(index => (index + 1) % sculptures.length)
+    next(sculptures.length)
   }
 
   const handleShowDetail = () => {
-    setShowDetails(!showDetails)
+    toggleShowDetails()
   }
 
   return (
