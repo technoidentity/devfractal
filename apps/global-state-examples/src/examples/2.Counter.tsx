@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
 import { action, signal, useAction, useValue } from '@srtp/global-state'
@@ -9,7 +10,7 @@ const incAtom = action((get, set) => {
   set(counterAtom, next)
 })
 
-const decAtom = action((get, set, _) => {
+const decAtom = action((get, set) => {
   const next = get(counterAtom) - 1
   if (next >= 0) {
     set(counterAtom, next)

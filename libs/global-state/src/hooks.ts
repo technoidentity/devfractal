@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable @typescript-eslint/unified-signatures */
-
 import produce, { Draft } from 'immer'
 import { Atom, useAtomValue, useSetAtom, WritableAtom } from 'jotai'
 import React from 'react'
@@ -42,11 +38,7 @@ export function useActionHook<Value, P extends any[]>(
   const set = useAction(signal)
 
   return React.useCallback(
-    (...args: P) => {
-      set((draft: Draft<Value>) => {
-        fn(draft, ...args)
-      })
-    },
+    (...args: P) => set((draft: Draft<Value>) => fn(draft, ...args)),
     [fn, set],
   )
 }
