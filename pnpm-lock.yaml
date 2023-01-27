@@ -286,6 +286,9 @@ importers:
       '@mantine/form': 5.10.1
       '@mantine/hooks': 5.10.1
       '@mantine/notifications': 5.10.1
+      '@srtp/form': workspace:*
+      '@srtp/global-state': workspace:*
+      '@srtp/local-state': workspace:*
       '@srtp/tsconfig': workspace:*
       '@tanstack/react-query': 4.23.0
       '@testing-library/react': 13.4.0
@@ -340,6 +343,9 @@ importers:
       '@mantine/form': 5.10.1_react@18.2.0
       '@mantine/hooks': 5.10.1_react@18.2.0
       '@mantine/notifications': 5.10.1_ynz4r3bmi75slbqnmaycv7w7wa
+      '@srtp/form': link:../../libs/form
+      '@srtp/global-state': link:../../libs/global-state
+      '@srtp/local-state': link:../../libs/local-state
       '@tanstack/react-query': 4.23.0_biqbaboplfbrettd7655fr4n2y
       dayjs: 1.11.7
       immer: 9.0.18
