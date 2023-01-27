@@ -1,20 +1,22 @@
-import React from 'react'
+import { slice } from '@srtp/local-state'
 import { AccordionView } from './AccordianView'
 
 type State = 'about' | 'ety'
 
-export const Accordian = () => {
-  const [state, set] = React.useState<State>('about')
+const initial = 'about'
 
-  const handleAboutClick = () => {
-    set(state === 'ety' ? 'about' : 'ety')
-  }
+const useAccordian = slice(initial as State, {
+  toggle: state => (state === 'ety' ? 'about' : 'ety'),
+})
+
+export const Accordian = () => {
+  const [state, { toggle }] = useAccordian()
 
   return (
     <AccordionView
       showAbout={state === 'about'}
       showEty={state === 'ety'}
-      onAboutClick={handleAboutClick}
+      onAboutClick={toggle}
     />
   )
 }
