@@ -1,17 +1,12 @@
 import { Container, Flex, Table } from '@mantine/core'
+import { useValue } from '@srtp/global-state'
 import React from 'react'
-import { categorizedProducts } from '../../utils/dataTransform'
-import { Products } from '../../utils/types'
 import { ProductCategoryRow } from './ProductCategoryRow'
 import { ProductRow } from './ProductRow'
+import { categoryProductsAtom } from './state'
 
-interface ProductTableProps {
-  products: Products
-}
-
-export const ProductTable = ({ products }: ProductTableProps) => {
-  const categorized = categorizedProducts(products)
-  const categoryProducts = Object.entries(categorized)
+export const ProductTable = () => {
+  const categoryProducts = useValue(categoryProductsAtom)
 
   return (
     <Flex>
