@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/unified-signatures */
 
+import { Draft } from 'immer'
 import { Atom, WritableAtom } from 'jotai'
 
 // types copied from jotai
@@ -26,3 +27,16 @@ export type Write<Update, Result extends void | Promise<void>> = (
 ) => Result
 
 export type Read<Value> = (get: Getter) => Value
+
+export type ImmerSetter = <Value, Update, Result extends void | Promise<void>>(
+  state: WritableAtom<Value, Update, Result>,
+  fn: Value | ((draft: Draft<Value>) => Value | void),
+) => Result
+
+export type ImmerWrite<Update, Result extends void | Promise<void>> = (
+  get: Getter,
+  set: ImmerSetter,
+  update: Update,
+) => Result
+
+export type { Atom, WritableAtom, PrimitiveAtom } from 'jotai'

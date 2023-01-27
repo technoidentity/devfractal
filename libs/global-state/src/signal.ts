@@ -1,6 +1,7 @@
+import produce from 'immer'
 import { atom, PrimitiveAtom, WritableAtom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
-import { Read, Write } from './types'
+import { ImmerSetter, ImmerWrite, Read, Write } from './types'
 
 export function signal<Value extends Object>(initialValue: Value) {
   return atom(initialValue)
@@ -24,6 +25,27 @@ export function action<
   Result extends void | Promise<void> = void,
 >(write: Write<Update, Result>, initialValue?: Value) {
   return atom(initialValue ?? null, write)
+}
+
+export function immerAction<
+  Value,
+  Update,
+  Result extends void | Promise<void> = void,
+>(
+  write: ImmerWrite<Update, Result>,
+  initialValue?: Value,
+): WritableAtom<Value, Update, Result> {
+  const anAtom: any = atom(initialValue ?? null, (get, set, arg: Update) => {
+    const setter: ImmerSetter = (atom, fn) => {
+      const value = produce(get(anAtom), fn as any)
+
+      return set(atom, value as any)
+    }
+
+    return write(get, setter, arg)
+  })
+
+  return anAtom
 }
 
 export const select = selectAtom
