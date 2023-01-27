@@ -38,7 +38,7 @@ export const MantineForm = () => {
       <Title
         align="center"
         sx={(theme: MantineTheme) => ({
-          fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+          fontFamily: `Greycliff CF, ${theme.fontFamily!}`,
           fontWeight: 900,
         })}
       >

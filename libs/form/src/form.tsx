@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import {
   Checkbox,
   CheckboxProps,
@@ -139,7 +140,7 @@ type EnumKeys<Spec extends ZodSchema> = ConditionalKeys<
 >
 type EnumArrayKeys<Spec extends ZodSchema> = ConditionalKeys<
   Spec['_def']['schema']['shape'],
-  z.ZodArray<z.ZodString, 'many'>
+  z.ZodArray<z.ZodString>
 >
 type Inputs<Spec extends ZodSchema> = {
   Str: (
