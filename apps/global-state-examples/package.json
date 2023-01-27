@@ -28,6 +28,7 @@
     "@srtp/global-state": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/todo": "workspace:*",
+    "@srtp/form": "workspace:*",
     "framer-motion": "8.5.2",
     "html-react-parser": "3.0.8",
     "immer": "9.0.18",
