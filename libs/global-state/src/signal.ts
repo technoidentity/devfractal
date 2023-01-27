@@ -37,7 +37,7 @@ export function immerAction<
 ): WritableAtom<Value, Update, Result> {
   const anAtom: any = atom(initialValue ?? null, (get, set, arg: Update) => {
     const setter: ImmerSetter = (atom, fn) => {
-      const value = produce(get(anAtom), fn as any)
+      const value = produce(get(atom), fn as any)
 
       return set(atom, value as any)
     }
