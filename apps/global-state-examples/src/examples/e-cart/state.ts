@@ -4,7 +4,7 @@ import { replaceAt2 } from './arrayUtils'
 import { CartItem } from './CartList'
 import { fakeProductList } from './fakeProducts'
 import { Product } from './ProductList'
-
+import { original } from 'immer'
 type Category = string
 
 export const fakeProducts = fakeProductList(10)
@@ -28,9 +28,10 @@ export const addProductToCart = action((get, set, product: Product) => {
 
 export const removeProductFromCart = immerAction((_, set, cartItem: CartItem) =>
   set(cartAtom, draft => {
-    const index = draft.findIndex(item => item === cartItem)
+    const index = draft.findIndex(item => original(item) === cartItem)
+    console.log({ index })
     if (index !== -1) {
-      draft.splice(index, index + 1)
+      draft.splice(index, 1)
     }
   }),
 )
