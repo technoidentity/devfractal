@@ -1,5 +1,5 @@
 import { delay } from '@srtp/core'
-import { slice$, useSlice$ } from '@srtp/local-state'
+import { state$, useState$ } from '@srtp/local-state'
 import React from 'react'
 import axios from 'redaxios'
 
@@ -15,7 +15,7 @@ const initial: FetchState = {
   isLoading: true,
 }
 
-const fetchSlice = slice$(initial, {
+const fetchSlice = state$(initial, {
   success(draft, data: unknown) {
     draft.data = data
     draft.error = undefined
@@ -28,7 +28,7 @@ const fetchSlice = slice$(initial, {
 })
 
 export function useFetch(url: string): FetchState {
-  const [state, actions] = useSlice$(fetchSlice)
+  const [state, actions] = useState$(fetchSlice)
 
   React.useEffect(() => {
     let cancelled = false
