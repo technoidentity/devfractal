@@ -29,6 +29,12 @@ export function useAction<Value, Update, Result extends void | Promise<void>>(
   )
 }
 
+export function useSlice<Value, Update, Result extends void | Promise<void>>(
+  atom: WritableAtom<Value, Update, Result>,
+) {
+  return [useValue(atom), useAction(atom)]
+}
+
 export function useActionHook<Value, P extends any[]>(
   signal:
     | WritableAtom<Value, Value | ((draft: Draft<Value>) => void)>
