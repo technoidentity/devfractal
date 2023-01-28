@@ -1,4 +1,5 @@
 export * from './hooks'
-export * from './reducer'
+export * from './slice'
 export * from './signal'
 export * from './types'
+export * from './signalWithHooks'

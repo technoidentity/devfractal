@@ -5,6 +5,7 @@ import { ImmerSetter, ImmerWrite, Read, Write } from './types'
 import { z } from 'zod'
 import { is } from '@srtp/core'
 
+// change it to extends object?
 export function signal<Value extends Object>(initialValue: Value) {
   return atom(initialValue)
 }

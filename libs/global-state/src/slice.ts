@@ -12,7 +12,7 @@ export function signalWithReducer<State, Action>(
   return atomWithReducer(initial, r)
 }
 
-export function signalSlice<State, Hs extends Handlers<State>>(
+export function slice<State, Hs extends Handlers<State>>(
   initial: State,
   slices: Hs,
 ) {
