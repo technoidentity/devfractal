@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Container, Text } from '@chakra-ui/react'
-import { signalSlice, useDispatch, useValue } from '@srtp/global-state'
+import { slice, useDispatch, useValue } from '@srtp/global-state'
 
-const counter = signalSlice(
+const counter = slice(
   { count: 100 },
   {
     inc(draft) {

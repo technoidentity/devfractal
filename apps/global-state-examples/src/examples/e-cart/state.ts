@@ -11,7 +11,13 @@ export const fakeProducts = fakeProductList(10)
 export const cartAtom = signal<CartItem[]>([])
 export const selectedCategoryAtom = signal<Category>('all')
 
-export const addProductToCart = action(cartAtom, (draft, product: Product) => {
+export const filteredProductsAtom = computed(get =>
+  get(selectedCategoryAtom) === 'all'
+    ? fakeProducts
+    : fakeProducts.filter(item => item.category === get(selectedCategoryAtom)),
+)
+
+export const addToCart = action(cartAtom, (draft, product: Product) => {
   const cartIndex = draft.findIndex(item => original(item)?.product === product)
   if (cartIndex === -1) {
     draft.push({ product, count: 1 })
@@ -20,7 +26,7 @@ export const addProductToCart = action(cartAtom, (draft, product: Product) => {
   }
 })
 
-export const removeProductFromCart = action((_, set, cartItem: CartItem) =>
+export const removeFromCart = action((_, set, cartItem: CartItem) =>
   set(cartAtom, draft => {
     const index = draft.findIndex(item => original(item) === cartItem)
     console.log({ index })
@@ -30,7 +36,7 @@ export const removeProductFromCart = action((_, set, cartItem: CartItem) =>
   }),
 )
 
-export const incrementProductQuantityInCart = action(
+export const incrementQuantity = action(
   cartAtom,
   (draft, cartItem: CartItem) => {
     const index = draft.findIndex(item => original(item) === cartItem)
@@ -38,7 +44,7 @@ export const incrementProductQuantityInCart = action(
   },
 )
 
-export const decreaseProductQuantityInCart = action(
+export const decrementQuantity = action(
   cartAtom,
   (draft, cartItem: CartItem) => {
     const index = draft.findIndex(item => original(item) === cartItem)
@@ -49,9 +55,3 @@ export const decreaseProductQuantityInCart = action(
 export const selectCategory = action((_, set, category: Category) => {
   set(selectedCategoryAtom, category)
 })
-
-export const filteredCategoryProductsAtom = computed(get =>
-  get(selectedCategoryAtom) === 'all'
-    ? fakeProducts
-    : fakeProducts.filter(item => item.category === get(selectedCategoryAtom)),
-)

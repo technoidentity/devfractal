@@ -3,9 +3,9 @@ import { useAction, useValue } from '@srtp/global-state'
 import { Product } from './ProductList'
 import {
   cartAtom,
-  decreaseProductQuantityInCart,
-  incrementProductQuantityInCart,
-  removeProductFromCart,
+  decrementQuantity,
+  incrementQuantity,
+  removeFromCart,
 } from './state'
 
 export interface CartItem {
@@ -18,9 +18,9 @@ interface CartItemProps {
 }
 
 export const CartItemView = ({ cartItem }: CartItemProps) => {
-  const onRemoveItem = useAction(removeProductFromCart)
-  const onInc = useAction(incrementProductQuantityInCart)
-  const onDec = useAction(decreaseProductQuantityInCart)
+  const onRemoveItem = useAction(removeFromCart)
+  const onInc = useAction(incrementQuantity)
+  const onDec = useAction(decrementQuantity)
 
   return (
     <tr>

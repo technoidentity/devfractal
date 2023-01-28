@@ -1,5 +1,10 @@
-import { Draft } from 'immer'
-
+import {
+  Getter,
+  signal,
+  signalWithHooks,
+  useAction,
+  useValue,
+} from '@srtp/global-state'
 import {
   createTodo,
   CreateTodo,
@@ -8,13 +13,7 @@ import {
   State,
   Todo,
 } from '@srtp/todo'
-import {
-  computed,
-  signal,
-  useAction,
-  useActionHook,
-  useValue,
-} from '@srtp/global-state'
+import { Draft } from 'immer'
 
 const filterAtom = signal<Filter>('All')
 
@@ -26,10 +25,10 @@ export const useUpdateFilter = () => {
   return useAction(filterAtom)
 }
 
-const todosAtom = signal(initialState.todos)
-const useTodoAction = <P extends any[]>(
-  fn: (draft: Draft<State['todos']>, ...args: P) => void,
-) => useActionHook(todosAtom, fn)
+type TodoState = State['todos']
+const [todosAtom, useTodoAction, useTodoValue] = signalWithHooks(
+  initialState.todos,
+)
 
 export const useCreate = () =>
   useTodoAction((draft, todo: CreateTodo) => {
@@ -48,15 +47,16 @@ export const useEdit = () =>
     draft.set(todo.id, { ...editTodo, ...todo })
   })
 
-export const useToggle = () =>
-  useTodoAction((draft, id: number) => {
-    const toggleTodo = draft.get(id)
-    if (toggleTodo) {
-      toggleTodo.completed = !toggleTodo.completed
-    }
-  })
+const toggle = (draft: Draft<TodoState>, id: number) => {
+  const toggleTodo = draft.get(id)
+  if (toggleTodo) {
+    toggleTodo.completed = !toggleTodo.completed
+  }
+}
 
-const filteredTodosAtom = computed(get => {
+export const useToggle = () => useTodoAction(toggle)
+
+const filtered = (get: Getter) => {
   const todoList = Array.from(get(todosAtom).values())
   const filter = get(filterAtom)
 
@@ -65,8 +65,8 @@ const filteredTodosAtom = computed(get => {
     : filter === 'Completed'
     ? todoList.filter(t => t.completed)
     : todoList.filter(t => !t.completed)
-})
-
-export const useFilteredTodos = () => {
-  return useValue(filteredTodosAtom)
 }
+
+// these hooks are to compute values, SHOULD NOT take any parameters
+// Must always pass the same function to useTodoValue
+export const useFilteredTodos = () => useTodoValue(filtered)

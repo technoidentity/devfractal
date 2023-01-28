@@ -1,7 +1,7 @@
 import { Button, Table } from '@mantine/core'
 import { useAction, useValue } from '@srtp/global-state'
 import { ProductModalView } from './ProductView'
-import { addProductToCart, filteredCategoryProductsAtom } from './state'
+import { addToCart, filteredProductsAtom } from './state'
 
 export interface Product {
   readonly id?: string
@@ -16,7 +16,7 @@ interface ProductProps {
 }
 
 export const ProductView = ({ product }: ProductProps) => {
-  const onAddProduct = useAction(addProductToCart)
+  const onAddProduct = useAction(addToCart)
 
   return (
     <tr style={{ border: 'solid 1px black', padding: '20px' }}>
@@ -34,7 +34,7 @@ export const ProductView = ({ product }: ProductProps) => {
 }
 
 export const ProductList = () => {
-  const productList = useValue(filteredCategoryProductsAtom)
+  const productList = useValue(filteredProductsAtom)
 
   return (
     <Table maw="800px" m="xl">
