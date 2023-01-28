@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@components": ["components"]
+      "@/*": ["./*"]
     },
     "incremental": true
   },
