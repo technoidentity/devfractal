@@ -1,7 +1,7 @@
 import { Box, Button, Text } from '@chakra-ui/react'
-import { slice } from '@srtp/local-state'
+import { state } from '@srtp/local-state'
 
-export const useCounter = slice(
+export const useCounter = state(
   { count: 0 },
   {
     onInc(state) {

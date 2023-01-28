@@ -1,10 +1,10 @@
 import { Box, Input, Text } from '@chakra-ui/react'
 import React from 'react'
-import { slice } from '@srtp/local-state'
+import { state } from '@srtp/local-state'
 
 const initial = { step: 1, count: 0 }
 
-const useStep = slice(initial, {
+const useStep = state(initial, {
   next(state) {
     state.count += state.step
   },

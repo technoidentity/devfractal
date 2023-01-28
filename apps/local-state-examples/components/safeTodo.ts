@@ -1,4 +1,4 @@
-import { action, actions, sliceProvider, sslice } from '@srtp/local-state'
+import { action, actions, tree$, safeReducer } from '@srtp/local-state'
 import { createTodo, CreateTodo, initialState, State, Todo } from '@srtp/todo'
 import { z } from 'zod'
 
@@ -11,7 +11,7 @@ const TodoAction = actions([
 
 export type TodoAction = Readonly<z.infer<typeof TodoAction>>
 
-export const todoReducer = sslice(
+export const todoReducer = safeReducer(
   State,
   TodoAction,
 )({
@@ -37,7 +37,7 @@ export const todoReducer = sslice(
   },
 })
 
-export const { Provider, useDispatch, useSelect, useValue } = sliceProvider(
-  todoReducer,
+export const { Provider, useDispatch, useSelect, useValue } = tree$(
   initialState,
+  todoReducer,
 )

@@ -1,5 +1,5 @@
 import { Button, HStack, Text } from '@chakra-ui/react'
-import { Handlers, provider } from '@srtp/local-state'
+import { Handlers, tree } from '@srtp/local-state'
 
 const initialState = { count: 0 }
 
@@ -15,10 +15,10 @@ const handlers = {
   },
 } as const satisfies Handlers<typeof initialState>
 
-const { Provider, useSlice, useActions } = provider(initialState, handlers)
+const { Provider, useState, useActions } = tree(initialState, handlers)
 
 const Counter = () => {
-  const [{ count }, { inc, dec }] = useSlice()
+  const [{ count }, { inc, dec }] = useState()
 
   return (
     <HStack>

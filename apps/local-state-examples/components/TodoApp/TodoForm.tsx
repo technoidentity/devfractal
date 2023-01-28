@@ -7,13 +7,13 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react'
-import { slice } from '@srtp/local-state'
+import { state } from '@srtp/local-state'
 import type { CreateTodo } from '@srtp/todo'
 import React from 'react'
 
 const initial: CreateTodo = { title: '', completed: false }
 
-const useTodoForm = slice(initial, {
+const useTodoForm = state(initial, {
   update: (state, up: Partial<CreateTodo>) => ({ ...state, ...up }),
 })
 

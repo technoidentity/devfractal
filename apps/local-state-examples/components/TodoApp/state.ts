@@ -1,7 +1,7 @@
-import { provider } from '@srtp/local-state'
+import { tree } from '@srtp/local-state'
 import { createTodo, Filter, initialState, Todo } from '@srtp/todo'
 
-export const { Provider, actions, useAction, useValue, useSelect } = provider(
+export const { Provider, actions, useAction, useValue, useSelect } = tree(
   initialState,
   {
     createTodo(draft, payload: Todo) {
