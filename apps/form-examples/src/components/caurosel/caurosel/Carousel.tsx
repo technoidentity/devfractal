@@ -1,5 +1,5 @@
 import { Center } from '@mantine/core'
-import { slice } from '@srtp/local-state'
+import { state } from '@srtp/local-state'
 import { SculptureList } from '../../../utils/types'
 import { CarouselView } from './CauroselView'
 
@@ -7,7 +7,7 @@ interface CarousalProps {
   sculptures: SculptureList
 }
 
-const useCarousel = slice(
+const useCarousel = state(
   { index: 0, showDetails: false },
   {
     next(state, sculpturesLength: number) {

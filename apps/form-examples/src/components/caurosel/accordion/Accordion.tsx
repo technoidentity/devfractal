@@ -1,11 +1,11 @@
-import { slice } from '@srtp/local-state'
+import { state } from '@srtp/local-state'
 import { AccordionView } from './AccordianView'
 
 type State = 'about' | 'ety'
 
 const initial = 'about'
 
-const useAccordian = slice(initial as State, {
+const useAccordian = state(initial as State, {
   toggle: state => (state === 'ety' ? 'about' : 'ety'),
 })
 
