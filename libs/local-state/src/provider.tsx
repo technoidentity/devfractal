@@ -14,9 +14,9 @@ type State<R extends Actions<any, any>> = R extends Actions<infer S, any>
 
 type Selector<R extends Actions<any, any>, A> = (snapshot: State<R>) => A
 
-export function sliceProvider<R extends Actions<any, any>>(
-  actions: R,
+export function tree$<R extends Actions<any, any>>(
   initialState: State<R>,
+  actions: R,
 ) {
   const StateContext = React.createContext<State<R> | undefined>(undefined)
 

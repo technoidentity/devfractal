@@ -10,7 +10,7 @@ type Payload<
   Action extends keyof Reducers,
 > = Parameters<Reducers[Action]>[1]
 
-export type ActionResult<
+type ActionResult<
   Reducers extends ReducerObject<any>,
   Action extends keyof Reducers,
 > = Payload<Reducers, Action> extends undefined
@@ -22,7 +22,7 @@ export type ActionResult<
       type: Action
     }
 
-export type ActionsFrom<State, Reducers extends ReducerObject<State>> = {
+type ActionsFrom<State, Reducers extends ReducerObject<State>> = {
   [Action in keyof Reducers]: ActionResult<Reducers, Action>
 }[keyof Reducers]
 
@@ -39,7 +39,11 @@ type Reducer<State, Reducers extends ReducerObject<State>> = (
 export function reducer<State, Reducers extends ReducerObject<State>>(
   initialState: State,
   slices: Reducers,
-) {
+): readonly [
+  Reducer<State, Reducers>,
+  ActionsCreators<State, Reducers>,
+  State,
+] {
   const fn: Reducer<State, Reducers> = (state, action) => {
     return slices[action.type](
       state,
