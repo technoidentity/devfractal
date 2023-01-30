@@ -5,7 +5,7 @@
   "scripts": {
     "build": "pnpm db:types && next build",
     "dev": "next dev",
-    "postinstall": "prisma generate",
+    "postinstall": "pnpm db:types",
     "lint": "next lint",
     "start": "next start",
     "upd": "pnpm ncu -u",
