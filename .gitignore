@@ -50,3 +50,7 @@ yarn-error.log
 .next
 tsconfig.tsbuildinfo
 .cache
+
+/test-results/
+/playwright-report/
+/playwright/.cache/
