@@ -16,21 +16,21 @@ export const initialValues = {
   typeLibrary: '',
   fullStackDeveloper: false,
   yearsOfExperience: '',
-  location: '',
+  location: [],
   previousJob: '',
   dateOfBirth: new Date(),
   age: 20,
   json: '',
-  favorite: '',
   segmentedControl: '',
-  slider: '',
+  slider: 20,
   file: '',
   color: '',
   rating: 2,
   dateOfJoining: new Date(),
   server: '',
   agree: false,
-  time: '',
+  time: new Date(),
+  accept: false,
 }
 
 export const StepOneSchema = z
@@ -50,12 +50,11 @@ export const StepOneSchema = z
   })
 
 export const StepTwoSchema = z.object({
-  location: z.string(),
+  location: z.string().array(),
   previousJob: z.string(),
-  dateOfBirth: z.string().datetime(),
+  dateOfBirth: z.date(),
   age: z.number(),
   json: z.string(),
-  favorite: z.string(),
 })
 
 export const StepThreeSchema = z.object({
@@ -64,8 +63,9 @@ export const StepThreeSchema = z.object({
   file: z.string(),
   color: z.string(),
   rating: z.number(),
-  dateOfJoining: z.string().datetime(),
+  dateOfJoining: z.date(),
   server: z.string(),
   agree: z.boolean(),
-  time: z.string().datetime(),
+  time: z.date(),
+  accept: z.boolean(),
 })
