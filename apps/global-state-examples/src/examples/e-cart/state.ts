@@ -55,3 +55,12 @@ export const decrementQuantity = action(
 export const selectCategory = action((_, set, category: Category) => {
   set(selectedCategoryAtom, category)
 })
+
+export const totalCartPrice = computed(get =>
+  get(cartAtom).reduce((acc, v) => acc + v.product.price * v.count, 0),
+)
+
+export const totalCartItems = computed(get => {
+  console.log(get(cartAtom))
+  return get(cartAtom).reduce((acc, v) => acc + v.count, 0)
+})

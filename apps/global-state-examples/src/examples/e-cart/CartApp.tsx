@@ -1,3 +1,4 @@
+import { CartHeader } from './CartHeader'
 import { CartList } from './CartList'
 import { CategoryMenu } from './CategoryMenu'
 import { ProductList } from './ProductList'
@@ -54,6 +55,7 @@ export const CartApp = () => {
 
   return (
     <>
+      <CartHeader />
       <CartList />
       <CategoryMenu />
       <ProductList />
