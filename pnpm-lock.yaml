@@ -580,6 +580,7 @@ importers:
       '@mantine/hooks': 5.10.2
       '@mantine/notifications': 5.10.2
       '@srtp/core': workspace:*
+      '@srtp/table': workspace:*
       '@srtp/tsconfig': workspace:*
       '@tanstack/query-core': 4.24.4
       '@tanstack/react-query': 4.24.4
@@ -622,6 +623,7 @@ importers:
       '@mantine/hooks': 5.10.2_react@18.2.0
       '@mantine/notifications': 5.10.2_yzf4d63xstafd7ya36kewhvvjm
       '@srtp/core': link:../../libs/core
+      '@srtp/table': link:../../libs/table
       '@tanstack/query-core': 4.24.4
       '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
       dayjs: 1.11.7
@@ -1065,18 +1067,6 @@ importers:
       vite: 4.0.4_@types+node@18.11.18
       vite-tsconfig-paths: 3.6.0_vite@4.0.4
       vitest: 0.27.3_happy-dom@8.2.2
-
-  apps/ti-finance/remix.init:
-    specifiers:
-      '@iarna/toml': ^2.2.5
-      '@npmcli/package-json': ^2.0.0
-      semver: ^7.3.8
-      yaml: ^2.2.1
-    dependencies:
-      '@iarna/toml': 2.2.5
-      '@npmcli/package-json': 2.0.0
-      semver: 7.3.8
-      yaml: 2.2.1
 
   apps/typescript-examples:
     specifiers:
@@ -1715,6 +1705,59 @@ importers:
       zod: 3.20.2
     devDependencies:
       '@srtp/tsconfig': link:../tsconfig
+      '@types/node': 18.11.18
+      '@types/react': 18.0.27
+      '@types/react-dom': 18.0.10
+      cross-env: 7.0.3
+      eslint: 8.33.0
+      eslint-config-srtp: link:../eslint-config-srtp
+      prettier: 2.8.3
+      tsup: 6.5.0_typescript@4.9.5
+      typescript: 4.9.5
+      vitest: 0.28.3
+
+  libs/table:
+    specifiers:
+      '@emotion/react': 11.10.5
+      '@mantine/core': 5.10.2
+      '@srtp/core': workspace:^1.0.0
+      '@srtp/local-state': workspace:^1.0.0
+      '@srtp/tsconfig': workspace:*
+      '@types/lodash': 4.14.191
+      '@types/node': 18.11.18
+      '@types/react': 18.0.27
+      '@types/react-dom': 18.0.10
+      cross-env: 7.0.3
+      eslint: 8.33.0
+      eslint-config-srtp: workspace:*
+      lodash: 4.17.21
+      prettier: 2.8.3
+      react: 18.2.0
+      react-dom: 18.2.0
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
+      tslib: 2.5.0
+      tsup: ' 6.5.0'
+      type-fest: 3.5.4
+      typescript: 4.9.5
+      vitest: 0.28.3
+      zod: 3.20.2
+    dependencies:
+      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
+      '@mantine/core': 5.10.2_a3e44or6bupsbrlb2epm7rhj3a
+      '@srtp/core': link:../core
+      '@srtp/local-state': link:../local-state
+      lodash: 4.17.21
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
+      tslib: 2.5.0
+      type-fest: 3.5.4
+      zod: 3.20.2
+    devDependencies:
+      '@srtp/tsconfig': link:../tsconfig
+      '@types/lodash': 4.14.191
       '@types/node': 18.11.18
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -6154,10 +6197,6 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
-  /@iarna/toml/2.2.5:
-    resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
-    dev: false
-
   /@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==}
     engines: {node: '>=8'}
@@ -7345,6 +7384,7 @@ packages:
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     dependencies:
       json-parse-even-better-errors: 2.3.1
+    dev: true
 
   /@npmcli/promise-spawn/6.0.2:
     resolution: {integrity: sha512-gGq0NJkIGSwdbUt4yhdF8ZrmkGKVz9vAdVzpOfnom+V8PLSmSOVhZwbNvZZS1EYcJN5hzzKBxmmVVAInM6HQLg==}
@@ -25275,6 +25315,7 @@ packages:
   /yaml/2.2.1:
     resolution: {integrity: sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==}
     engines: {node: '>= 14'}
+    dev: true
 
   /yargs-parser/18.1.3:
     resolution: {integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==}

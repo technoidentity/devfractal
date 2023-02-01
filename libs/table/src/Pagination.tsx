@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Pagination } from '@mantine/core'
-import { Row } from './data'
+import { Pagination as MantinePagination } from '@mantine/core'
 
-interface UserPaginationProps {
-  rows: Row[]
+export type PaginationProps<Row extends object> = Readonly<{
+  rows: readonly Row[]
   activePage: number
   setActivePage(activePage: number): void
   rowsPerPage: number
   totalPages: number
-}
-export const UserPagination = ({
+}>
+
+export function Pagination<Row extends object>({
   activePage,
   setActivePage,
   totalPages,
-}: UserPaginationProps) => {
+}: PaginationProps<Row>) {
   return (
-    <Pagination
+    <MantinePagination
       page={activePage}
       position="center"
       onChange={setActivePage}

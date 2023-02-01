@@ -1,22 +1,21 @@
-import { Input, Table } from '@mantine/core'
+import { Input, Table, TableProps } from '@mantine/core'
 import { omit } from 'lodash'
 import React from 'react'
-import { Column } from './data'
+import { Column, Filters } from './types'
 import { Sort } from './utils'
 
-export type Filters<T extends object> = Partial<Record<keyof T, string>>
-
-interface TableProps<T extends object> {
-  columns: Column<T>[]
-  rows: T[]
-  filters: Filters<T>
+interface TableViewProps<Row extends object & { id: number | string }>
+  extends TableProps {
+  columns: Column<Row>[]
+  rows: readonly Row[]
+  filters: Filters<Row>
   handleSearch(val: string, searchVal: string): void
-  sort: Sort
-  renderColumn: (key: keyof T, row: T) => React.ReactNode
-  handleSort(val: keyof T): void
+  sort: Sort<Row>
+  renderColumn: (key: keyof Row, row: Row) => React.ReactNode
+  handleSort(val: keyof Row): void
 }
 
-export function UserTable<T extends { id: number | string } & object>({
+export function TableView<T extends { id: number | string } & object>({
   columns,
   rows,
   sort,
@@ -24,9 +23,10 @@ export function UserTable<T extends { id: number | string } & object>({
   renderColumn,
   handleSearch,
   handleSort,
-}: TableProps<T>) {
+  ...props
+}: TableViewProps<T>) {
   return (
-    <Table mih={'300px'}>
+    <Table {...props}>
       <thead>
         <tr>
           {columns.map(column => {

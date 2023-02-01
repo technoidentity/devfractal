@@ -1,28 +1,41 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Flex } from '@mantine/core'
-import React, { useState, useMemo } from 'react'
-import { columns, Row, rows } from './data'
-import { UserPagination } from './UserPagination'
-import { Filters, UserTable } from './UserTable'
+import React, { useMemo, useState } from 'react'
+import { Pagination } from './Pagination'
+import { TableView } from './TableView'
+import { Filters } from './types'
 import { filterRows, Sort, sortRows } from './utils'
 
-const renderColumn = (k: keyof Row, row: Row) => {
-  if (k === 'is_manager') {
-    return <td>{row.is_manager ? '✔️' : '✖️'}</td>
-  }
-  return <td>{row[k]}</td>
+export type ClientTableProps<Row extends object & { id: number | string }> =
+  Readonly<{
+    renderColumn: (key: keyof Row, row: Row) => React.ReactNode
+    perPage: number
+    initialFilters: Filters<Row>
+    columns: any
+    rows: readonly Row[]
+  }>
+
+function paginateRows<Row extends object>(
+  sortedRows: readonly Row[],
+  activePage: number,
+  rowsPerPage: number,
+): Row[] {
+  return [...sortedRows].slice(
+    (activePage - 1) * rowsPerPage,
+    activePage * rowsPerPage,
+  )
 }
 
-export const MantineTable = () => {
-  const rowsPerPage = 3
+export function ClientTable<Row extends object & { id: number | string }>({
+  perPage,
+  columns,
+  rows,
+  renderColumn,
+  initialFilters,
+}: ClientTableProps<Row>) {
   const [activePage, setActivePage] = React.useState(1)
-  const [filters, setFilters] = useState<Filters<Row>>({
-    age: '',
-    is_manager: '',
-    name: '',
-    start_date: '',
-  })
-  const [sort, setSort] = useState<Sort>({ order: 'asc', orderBy: 'id' })
+  const [filters, setFilters] = useState(initialFilters)
+  const [sort, setSort] = useState<Sort<Row>>({ order: 'asc', orderBy: 'id' })
 
   const handleSearch = (val: string, accessor: string) => {
     setActivePage(1)
@@ -52,30 +65,21 @@ export const MantineTable = () => {
       orderBy: accessor,
     }))
   }
-  const filteredRows = useMemo(() => filterRows(rows, filters), [filters])
+  const filteredRows = useMemo(() => filterRows(rows, filters), [filters, rows])
 
   const sortedRows = useMemo(
     () => sortRows(filteredRows, sort),
     [filteredRows, sort],
   )
-  function paginateRows<T>(
-    sortedRows: T[],
-    activePage: number,
-    rowsPerPage: number,
-  ) {
-    return [...sortedRows].slice(
-      (activePage - 1) * rowsPerPage,
-      activePage * rowsPerPage,
-    )
-  }
 
-  const calculatedRows = paginateRows(sortedRows, activePage, rowsPerPage)
+  const calculatedRows = paginateRows(sortedRows, activePage, perPage)
   const count = filteredRows.length
-  const totalPages = Math.ceil(count / rowsPerPage)
+  const totalPages = Math.ceil(count / perPage)
 
   return (
     <Flex direction={{ base: 'column' }} justify={{ md: 'center' }}>
-      <UserTable
+      <TableView<Row>
+        mih={'300px'}
         columns={columns}
         rows={calculatedRows}
         filters={filters}
@@ -84,8 +88,8 @@ export const MantineTable = () => {
         renderColumn={renderColumn}
         handleSort={handleSort}
       />
-      <UserPagination
-        rowsPerPage={rowsPerPage}
+      <Pagination<Row>
+        rowsPerPage={perPage}
         rows={rows}
         activePage={activePage}
         setActivePage={setActivePage}

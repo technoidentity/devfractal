@@ -1,7 +1,7 @@
 import { debugCast, isBool, isNil, isNum, isStr } from '@srtp/core'
 import { isEmpty } from 'lodash'
 import { z } from 'zod'
-import { Row } from './data'
+import { Filters } from './types'
 
 const Primitive = z.union([z.number(), z.boolean(), z.string()]) // z.date()])
 type Primitive = z.infer<typeof Primitive>
@@ -22,14 +22,17 @@ const seq = (search: string, value: Primitive): boolean => {
   return false
 }
 
-export function filterRows(rows: Row[], filters: Record<string, string>) {
+export function filterRows<Row extends object>(
+  rows: readonly Row[],
+  filters: Filters<Row>,
+) {
   if (isEmpty(filters)) {
     return rows
   }
 
   return rows.filter(row => {
     return Object.keys(filters).every(accessor => {
-      const searchValue = debugCast(z.string(), filters[accessor])
+      const searchValue = debugCast(z.string(), (filters as any)[accessor])
       if (isNil(searchValue) || searchValue.trim() === '') {
         return true
       }
@@ -41,7 +44,7 @@ export function filterRows(rows: Row[], filters: Record<string, string>) {
   })
 }
 
-export type Sort = {
+export type Sort<Row extends object> = {
   order: 'asc' | 'desc'
   orderBy: keyof Row
 }
@@ -81,8 +84,11 @@ export function convertType(value: unknown): string {
   throw new Error(`{value} not a string, number or date or boolean`)
 }
 
-export function sortRows(rows: Row[], sort: Sort) {
-  return rows.sort((a, b) => {
+export function sortRows<Row extends object>(
+  rows: readonly Row[],
+  sort: Sort<Row>,
+) {
+  return [...rows].sort((a, b) => {
     const { order, orderBy } = sort
     if (isNil(a[orderBy])) {
       return 1

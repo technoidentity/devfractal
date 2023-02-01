@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { Column } from '@srtp/table'
+
 export type Row = {
   id: number
   name?: string
@@ -66,14 +68,6 @@ export const rows: Row[] = [
     start_date: undefined,
   },
 ]
-
-type Label = 'Name' | 'Age' | 'Manager' | 'Start Date'
-
-export type Column<T> = {
-  accessor: keyof T & string
-  label: Label
-  format?: (val: boolean) => void
-}
 
 export const columns: Column<Row>[] = [
   { accessor: 'name', label: 'Name' },
