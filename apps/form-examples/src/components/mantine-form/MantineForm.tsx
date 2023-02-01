@@ -105,7 +105,7 @@ export const MantineForm = () => {
             withAsterisk
             name="comment"
           />
-          <Inputs.Num
+          <Inputs.Number
             defaultValue={18}
             min={18}
             placeholder="Your age"
@@ -113,7 +113,7 @@ export const MantineForm = () => {
             name="age"
             withAsterisk
           />
-          <Inputs.EnumSelect
+          <Inputs.Select
             name="library"
             mt={20}
             label="Your favorite framework/library"
@@ -125,7 +125,7 @@ export const MantineForm = () => {
               { value: 'vue', label: 'Vue' },
             ]}
           />
-          <Inputs.BoolSwitch
+          <Inputs.Switch
             name="agree"
             mt={20}
             label="I agree to sell my privacy"

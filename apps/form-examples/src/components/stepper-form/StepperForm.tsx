@@ -40,6 +40,36 @@ const countriesData = [
   { label: 'France', value: 'FR' },
   { label: 'Russia', value: 'RU' },
 ]
+
+// const useStepForm = () => {
+//   const [active, setActive] = useState(0)
+
+//   const form = useForm({
+//     initialValues,
+//     validate:
+//       active === 0
+//         ? zodResolver(StepOneSchema)
+//         : active === 1
+//         ? zodResolver(StepTwoSchema)
+//         : active === 2
+//         ? zodResolver(StepThreeSchema)
+//         : {},
+//   })
+
+//   const nextStep = () => {
+//     console.log(form.validate().hasErrors, form.validate().errors)
+//     setActive(current => {
+//       if (form.validate().hasErrors) {
+//         return current
+//       }
+//       return current < 3 ? current + 1 : current
+//     })
+//   }
+
+//   const prevStep = () =>
+//     setActive(current => (current > 0 ? current - 1 : current))
+// }
+
 export const StepperForm = () => {
   const [active, setActive] = useState(0)
 
