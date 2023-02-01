@@ -1,9 +1,9 @@
-import produce, { Draft } from 'immer'
-import { Atom, atom, PrimitiveAtom, WritableAtom } from 'jotai'
-import { selectAtom } from 'jotai/utils'
-import { ImmerSetter, ImmerWrite, Read, Write } from './types'
-import { z } from 'zod'
 import { is } from '@srtp/core'
+import produce, { Draft } from 'immer'
+import { atom, Getter, PrimitiveAtom, WritableAtom } from 'jotai'
+import { selectAtom } from 'jotai/utils'
+import { z } from 'zod'
+import { ImmerSetter, ImmerWrite, Read, Write } from './types'
 
 // change it to extends object?
 export function signal<Value extends Object>(initialValue: Value) {
@@ -25,70 +25,54 @@ export function computed<Value>(read: Read<Value>) {
 // export function plainAction<
 //   Value,
 //   Update,
-//   Result extends void | Promise<void> = void,
+//   Result extends void,
 // >(write: Write<Update, Result>, initialValue?: Value) {
 //   return atom(initialValue ?? null, write)
 // }
 
-export function immerAction<Update, Result extends void | Promise<void> = void>(
-  write: ImmerWrite<Update, Result>,
-): WritableAtom<null, Update, Result> {
-  const anAtom: any = atom(null, (get, set, arg: Update) => {
+export const select = selectAtom
+
+export function derived<Value, Args extends unknown[], Result extends void>(
+  read: Read<Value>,
+  write: Write<Args, Result>,
+): WritableAtom<Value, Args, Result> {
+  return atom(read, write)
+}
+
+export function immerAction<Args extends unknown[], Result extends void>(
+  write: ImmerWrite<Args, Result>,
+): WritableAtom<null, Args, Result> {
+  const anAtom: any = atom(null, (get, set, ...args: Args) => {
     const setter: ImmerSetter = (atom, fn) => {
       const value = produce(get(atom), is(z.function(), fn) ? fn : () => fn)
 
-      // @TODO: value is 'Value' but should be 'Update'?
-      return set(atom, value as any)
+      return set(atom, ...(value as any))
     }
 
-    return write(get, setter, arg)
+    return write(get, setter, ...args)
   })
 
   return anAtom
 }
 
-export const select = selectAtom
-
-export function derived<
-  Value,
-  Update,
-  Result extends void | Promise<void> = void,
->(
-  read: Read<Value>,
-  write: Write<Update, Result>,
-): WritableAtom<Value, Update, Result> {
-  return atom(read, write)
-}
-
-type Getter = {
-  <Value>(atom: Atom<Value | Promise<Value>>): Value
-  // eslint-disable-next-line @typescript-eslint/unified-signatures
-  <Value>(atom: Atom<Promise<Value>>): Value
-  <Value>(atom: Atom<Value>): Awaited<Value>
-}
-
-export function atomAction<
-  Value,
-  Arg,
-  Result extends void | Promise<void> = void,
->(
+export function atomAction<Value, Args extends unknown[], Result extends void>(
   signal: WritableAtom<Value, any, Result>,
-  fn: (draft: Draft<Value>, arg: Arg, get: Getter) => void,
+  fn: (get: Getter, draft: Draft<Value>, ...args: Args) => void,
 ) {
-  return atom(null, (get, set, arg: Arg) => {
-    const value = produce(get(signal), draft => fn(draft, arg, get))
+  return atom(null, (get, set, ...args: Args) => {
+    const value = produce(get(signal), draft => fn(get, draft, ...args))
     return set(signal, value)
   })
 }
 
-export function action<Update, Result extends void | Promise<void> = void>(
-  write: ImmerWrite<Update, Result>,
-): WritableAtom<null, Update, Result>
+export function action<Args extends unknown[], Result extends void>(
+  write: ImmerWrite<Args, Result>,
+): WritableAtom<null, Args, Result>
 
-export function action<Value, Arg, Result extends void | Promise<void> = void>(
+export function action<Value, Args extends unknown[], Result extends void>(
   signal: WritableAtom<Value, any, Result>,
-  fn: (draft: Draft<Value>, arg: Arg, get: Getter) => void,
-): WritableAtom<null, Arg, Result>
+  fn: (get: Getter, draft: Draft<Value>, ...args: Args) => void,
+): WritableAtom<null, Args, Result>
 
 export function action(...args: [any] | [any, any]): any {
   return args.length === 1 ? immerAction(...args) : atomAction(...args)
