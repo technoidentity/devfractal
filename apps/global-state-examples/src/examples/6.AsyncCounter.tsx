@@ -28,7 +28,7 @@ const asyncIncrementAtom = derived(
   },
 )
 
-const anotherAtom = computed(get => get(asyncAtom) / 2)
+const anotherAtom = computed(async get => (await get(asyncAtom)) / 2)
 
 const Component = () => {
   const count = useValue(asyncIncrementAtom)

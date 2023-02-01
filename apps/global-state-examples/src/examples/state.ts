@@ -30,11 +30,12 @@ const [todosAtom, useTodoAction, useTodoValue] = signalWithHooks(
   initialState.todos,
 )
 
-export const useCreate = () =>
-  useTodoAction((draft, todo: CreateTodo) => {
-    const created = createTodo(todo)
-    draft.set(created.id, created)
-  })
+const createTodoAction = (draft: Draft<TodoState>, todo: CreateTodo) => {
+  const created = createTodo(todo)
+  draft.set(created.id, created)
+}
+
+export const useCreate = () => useTodoAction(createTodoAction)
 
 export const useDelete = () =>
   useTodoAction((draft, id: number) => {

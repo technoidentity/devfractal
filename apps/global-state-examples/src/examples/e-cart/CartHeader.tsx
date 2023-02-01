@@ -1,16 +1,7 @@
-import {
-  ActionIcon,
-  Avatar,
-  Button,
-  Group,
-  Header,
-  Indicator,
-  Title,
-} from '@mantine/core'
+import { Avatar, Button, Group, Header, Indicator, Title } from '@mantine/core'
 import { useValue } from '@srtp/global-state'
-import { IconShoppingCart } from '@tabler/icons-react'
+import { IconAperture, IconShoppingCart } from '@tabler/icons-react'
 import { totalCartItems } from './state'
-import { IconAperture } from '@tabler/icons-react'
 
 export const CartHeader = () => {
   const count = useValue(totalCartItems)

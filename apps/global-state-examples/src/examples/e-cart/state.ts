@@ -17,7 +17,7 @@ export const filteredProductsAtom = computed(get =>
     : fakeProducts.filter(item => item.category === get(selectedCategoryAtom)),
 )
 
-export const addToCart = action(cartAtom, (draft, product: Product) => {
+export const addToCart = action(cartAtom, (_, draft, product: Product) => {
   const cartIndex = draft.findIndex(item => original(item)?.product === product)
   if (cartIndex === -1) {
     draft.push({ product, count: 1 })
@@ -38,7 +38,7 @@ export const removeFromCart = action((_, set, cartItem: CartItem) =>
 
 export const incrementQuantity = action(
   cartAtom,
-  (draft, cartItem: CartItem) => {
+  (_, draft, cartItem: CartItem) => {
     const index = draft.findIndex(item => original(item) === cartItem)
     draft[index].count += 1
   },
@@ -46,7 +46,7 @@ export const incrementQuantity = action(
 
 export const decrementQuantity = action(
   cartAtom,
-  (draft, cartItem: CartItem) => {
+  (_, draft, cartItem: CartItem) => {
     const index = draft.findIndex(item => original(item) === cartItem)
     draft[index].count -= 1
   },
