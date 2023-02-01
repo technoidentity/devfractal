@@ -54,3 +54,6 @@ tsconfig.tsbuildinfo
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+/public/build
+.env

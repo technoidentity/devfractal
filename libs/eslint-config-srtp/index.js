@@ -1,3 +1,4 @@
+/** @type {import('eslint').Linter.Config} */
 const restrictedGlobals = require('confusing-browser-globals')
 
 module.exports = {
