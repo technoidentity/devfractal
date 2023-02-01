@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
+  AutocompleteProps,
   Checkbox,
   CheckboxProps,
+  Chip as MantineChip,
+  ChipProps,
+  ColorInput,
+  ColorInputProps,
+  FileInput,
+  FileInputProps,
   MultiSelect,
   MultiSelectProps,
   NumberInput,
@@ -10,17 +17,30 @@ import {
   PasswordInputProps,
   Radio,
   RadioGroupProps,
-  Rating,
+  Rating as MantineRating,
   RatingProps,
-  Select,
+  SegmentedControl as MantineSegmentedControl,
+  SegmentedControlProps,
+  Select as MantineSelect,
   SelectProps,
-  Switch,
+  Slider as MantineSlider,
+  SliderProps,
+  Switch as MantineSwitch,
   SwitchProps,
+  Autocomplete as MantineAutocomplete,
   Textarea,
   TextareaProps,
   TextInput,
   TextInputProps,
 } from '@mantine/core'
+import {
+  // Calendar as MantineCalendar,
+  // CalendarProps,
+  DatePicker as MantineDatePicker,
+  DatePickerProps,
+  TimeInput,
+  TimeInputProps,
+} from '@mantine/dates'
 import {
   createFormContext,
   useForm,
@@ -30,8 +50,8 @@ import {
 import { capitalize } from 'lodash'
 import React from 'react'
 import invariant from 'tiny-invariant'
-import { z } from 'zod'
 import type { ConditionalKeys } from 'type-fest'
+import { z } from 'zod'
 
 type ZodSchema = z.ZodEffects<z.ZodObject<z.ZodRawShape>>
 
@@ -71,7 +91,7 @@ export const Password = (props: Named<PasswordInputProps>) => {
   return <PasswordInput {...props} {...form.getInputProps(props.name)} />
 }
 
-export const Num = (props: Named<NumberInputProps>) => {
+export const Number = (props: Named<NumberInputProps>) => {
   const [form] = useFormContext()
 
   return (
@@ -89,9 +109,9 @@ export const Bool = (props: Named<CheckboxProps>) => {
   return <Checkbox label="Remember me" {...form.getInputProps(props.name)} />
 }
 
-export const StarRating = (props: Named<RatingProps>) => {
+export const Rating = (props: Named<RatingProps>) => {
   const [form] = useFormContext()
-  return <Rating {...props} {...form.getInputProps(props.name)} />
+  return <MantineRating {...props} {...form.getInputProps(props.name)} />
 }
 
 export const Enum = (
@@ -122,16 +142,76 @@ export const EnumList = (props: Named<MultiSelectProps>) => {
   return <MultiSelect {...props} {...form.getInputProps(props.name)} />
 }
 
-export const EnumSelect = (props: Named<SelectProps>) => {
+export const Select = (props: Named<SelectProps>) => {
   const [form] = useFormContext()
 
-  return <Select {...props} {...form.getInputProps(props.name)} />
+  return <MantineSelect {...props} {...form.getInputProps(props.name)} />
 }
 
-export const BoolSwitch = (props: Named<SwitchProps>) => {
+export const Switch = (props: Named<SwitchProps>) => {
   const [form] = useFormContext()
 
-  return <Switch {...props} {...form.getInputProps(props.name)} />
+  return <MantineSwitch {...props} {...form.getInputProps(props.name)} />
+}
+
+export const Chip = (props: Named<ChipProps>) => {
+  const [form] = useFormContext()
+
+  return (
+    <MantineChip {...props} {...form.getInputProps(props.name)}></MantineChip>
+  )
+}
+
+// export const Calendar = <Multiple extends boolean>(
+//   props: Named<CalendarProps<Multiple>>,
+// ) => {
+//   const [form] = useFormContext()
+
+//   return <MantineCalendar {...props} {...form.getInputProps(props.name)} />
+// }
+
+export const SegmentedControl = (props: Named<SegmentedControlProps>) => {
+  const [form] = useFormContext()
+
+  return (
+    <MantineSegmentedControl {...props} {...form.getInputProps(props.name)} />
+  )
+}
+
+export const Slider = (props: Named<SliderProps>) => {
+  const [form] = useFormContext()
+
+  return <MantineSlider {...props} {...form.getInputProps(props.name)} />
+}
+
+export const File = (props: Named<FileInputProps>) => {
+  const [form] = useFormContext()
+
+  return <FileInput {...props} {...form.getInputProps(props.name)} />
+}
+
+export const Color = (props: Named<ColorInputProps>) => {
+  const [form] = useFormContext()
+
+  return <ColorInput {...props} {...form.getInputProps(props.name)} />
+}
+
+export const DatePicker = (props: Named<DatePickerProps>) => {
+  const [form] = useFormContext()
+
+  return <MantineDatePicker {...props} {...form.getInputProps(props.name)} />
+}
+
+export const Autocomplete = (props: Named<AutocompleteProps>) => {
+  const [form] = useFormContext()
+
+  return <MantineAutocomplete {...props} {...form.getInputProps(props.name)} />
+}
+
+export const Time = (props: Named<TimeInputProps>) => {
+  const [form] = useFormContext()
+
+  return <TimeInput {...props} {...form.getInputProps(props.name)} />
 }
 
 type EnumKeys<Spec extends ZodSchema> = ConditionalKeys<
@@ -152,13 +232,13 @@ type Inputs<Spec extends ZodSchema> = {
   Password: (
     props: Named<PasswordInputProps, ConditionalKeys<z.infer<Spec>, string>>,
   ) => JSX.Element
-  Num: (
+  Number: (
     props: Named<NumberInputProps, ConditionalKeys<z.infer<Spec>, number>>,
   ) => JSX.Element
   Bool: (
     props: Named<CheckboxProps, ConditionalKeys<z.infer<Spec>, boolean>>,
   ) => JSX.Element
-  StarRating: (
+  Rating: (
     props: Named<RatingProps, ConditionalKeys<z.infer<Spec>, number>>,
   ) => JSX.Element
   Enum: (
@@ -167,10 +247,43 @@ type Inputs<Spec extends ZodSchema> = {
     },
   ) => JSX.Element
   EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
-  EnumSelect: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
-  BoolSwitch: (
+  Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
+  Switch: (
     props: Named<SwitchProps, ConditionalKeys<z.infer<Spec>, boolean>>,
   ) => JSX.Element
+  Chip: (
+    props: Named<ChipProps, ConditionalKeys<z.infer<Spec>, boolean>>,
+  ) => JSX.Element
+  Slider: (
+    props: Named<SliderProps, ConditionalKeys<z.infer<Spec>, number>>,
+  ) => JSX.Element
+  File: (
+    props: Named<FileInputProps, ConditionalKeys<z.infer<Spec>, File>>,
+  ) => JSX.Element
+  Color: (
+    props: Named<ColorInputProps, ConditionalKeys<z.infer<Spec>, string>>,
+  ) => JSX.Element
+  DatePicker: (
+    props: Named<DatePickerProps, ConditionalKeys<z.infer<Spec>, Date>>,
+  ) => JSX.Element
+  Autocomplete: (
+    props: Named<AutocompleteProps, ConditionalKeys<z.infer<Spec>, string>>,
+  ) => JSX.Element
+  Time: (
+    props: Named<TimeInputProps, ConditionalKeys<z.infer<Spec>, [Date, Date]>>,
+  ) => JSX.Element
+  SegmentedControl: (
+    props: Named<
+      SegmentedControlProps,
+      ConditionalKeys<Spec['_def']['schema']['shape'], z.ZodEnum<any>>
+    >,
+  ) => JSX.Element
+  // Calendar: <Multiple extends boolean = false>(
+  //   props: Named<
+  //     CalendarProps<Multiple>,
+  //     ConditionalKeys<z.infer<Spec>, Date[] | Date>
+  //   >,
+  // ) => JSX.Element
 }
 
 export function createForm<Spec extends ZodSchema>(
@@ -203,16 +316,25 @@ export function createForm<Spec extends ZodSchema>(
   }
 
   const Inputs: Inputs<Spec> = {
-    Str,
-    Content,
+    Autocomplete,
     Bool,
-    BoolSwitch,
+    Chip,
+    Switch,
+    Color,
+    Content,
+    DatePicker,
     Enum,
     EnumList,
-    EnumSelect,
-    Num,
+    Select,
+    File,
+    Number,
     Password,
-    StarRating,
+    SegmentedControl,
+    Slider,
+    Rating,
+    Str,
+    Time,
+    // Calendar,
   }
   // eslint-disable-next-line @typescript-eslint/naming-convention
   return { Form, useFormContext: useForm, Inputs }
