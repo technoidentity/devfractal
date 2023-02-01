@@ -27,9 +27,9 @@ const [resAtom] = atomsWithQuery(get => ({
   },
 }))
 
-const todoListAtom = atom(get => get(resAtom).data)
+const todoListAtom = atom(async get => (await get(resAtom)).data)
 
-const pageCountAtom = atom(get => get(resAtom).pageCount)
+const pageCountAtom = atom(async get => (await get(resAtom)).pageCount)
 
 export const TodoListComp = () => {
   const todoList = useAtomValue(todoListAtom)

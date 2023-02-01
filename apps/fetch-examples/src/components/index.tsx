@@ -4,8 +4,9 @@ import {
   QueryClientProvider,
   useQueryErrorResetBoundary,
 } from '@tanstack/react-query'
-import { atom, Provider } from 'jotai'
-import { Suspense } from 'react'
+import { createStore, Provider } from 'jotai'
+import { queryClientAtom } from 'jotai-tanstack-query'
+import React, { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { TodoList } from './client/Virtual'
 
@@ -23,8 +24,6 @@ const queryClient = new QueryClient({
   },
 })
 
-const queryClientAtom = atom(queryClient)
-
 const Fallback = ({ error, resetErrorBoundary }: any) => {
   return (
     <Heading color="red">
@@ -37,11 +36,18 @@ const Fallback = ({ error, resetErrorBoundary }: any) => {
 export const TodoApp = () => {
   const { reset } = useQueryErrorResetBoundary()
 
+  const storeRef = React.useRef<ReturnType<typeof createStore>>()
+  if (!storeRef.current) {
+    const store = createStore()
+    storeRef.current = store
+    store.set(queryClientAtom, queryClient)
+  }
+
   return (
     <ErrorBoundary onReset={reset} FallbackComponent={Fallback}>
       <Suspense fallback={<Heading>Loading...</Heading>}>
         <QueryClientProvider client={queryClient}>
-          <Provider initialValues={[[queryClientAtom, queryClient]]}>
+          <Provider store={storeRef.current}>
             <TodoList />
           </Provider>
         </QueryClientProvider>

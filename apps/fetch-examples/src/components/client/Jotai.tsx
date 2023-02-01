@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Flex, Heading, Spinner } from '@chakra-ui/react'
 import { paged } from '@srtp/core'
 import { Filter, Todo } from '@srtp/todo'
@@ -11,11 +12,11 @@ import { FilterView, Pagination, TodoListView } from '../components'
 const limitAtom = atom(15)
 const pageAtom = atom(1)
 
-const filterAtom = atom<Filter, Filter>('All', (get, set, _: Filter) => {
-  set(filterAtom, _)
+const filterAtom = atom('All' as Filter, async (get, set, _: Filter) => {
+  await set(filterAtom, _)
 
-  if (get(pageAtom) > get(pageCountAtom)) {
-    set(pageAtom, get(pageCountAtom))
+  if (get(pageAtom) > (await get(pageCountAtom))) {
+    set(pageAtom, await get(pageCountAtom))
   }
 })
 
@@ -27,16 +28,16 @@ const [todosAtom] = atomsWithQuery(() => {
   }
 })
 
-const filteredTodosAtom = atom(get =>
-  filteredTodos(get(todosAtom), get(filterAtom)),
+const filteredTodosAtom = atom(async get =>
+  filteredTodos(await get(todosAtom), get(filterAtom)),
 )
 
-const todoListAtom = atom(get =>
-  paged(get(filteredTodosAtom), get(pageAtom), get(limitAtom)),
+const todoListAtom = atom(async get =>
+  paged(await get(filteredTodosAtom), get(pageAtom), get(limitAtom)),
 )
 
-const pageCountAtom = atom(get =>
-  pageCount(get(filteredTodosAtom).length, get(limitAtom)),
+const pageCountAtom = atom(async get =>
+  pageCount((await get(filteredTodosAtom)).length, get(limitAtom)),
 )
 
 const TodoListComp = () => {
