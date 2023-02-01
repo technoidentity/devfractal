@@ -29,12 +29,12 @@ export function filterRows(rows: Row[], filters: Record<string, string>) {
 
   return rows.filter(row => {
     return Object.keys(filters).every(accessor => {
-      const value = debugCast(Primitive, (row as any)[accessor])
       const searchValue = debugCast(z.string(), filters[accessor])
-
       if (isNil(searchValue) || searchValue.trim() === '') {
         return true
       }
+
+      const value = debugCast(Primitive, (row as any)[accessor])
 
       return seq(searchValue, value)
     })
@@ -59,19 +59,26 @@ export function convertDateString(value: string) {
 }
 
 export function convertType(value: unknown): string {
-  if (isNum(value)) {
-    return value.toString()
-  }
-
   if (isDateString(value)) {
     return convertDateString(value)
+  }
+  if (isNum(value)) {
+    return value.toString()
   }
 
   if (isBool(value)) {
     return value ? '1' : '-1'
   }
 
-  throw new Error(`{value} not a number or date or boolean`)
+  if (isStr(value)) {
+    return value
+  }
+
+  if (isStr(value)) {
+    return value
+  }
+
+  throw new Error(`{value} not a string, number or date or boolean`)
 }
 
 export function sortRows(rows: Row[], sort: Sort) {
