@@ -1,0 +1,59 @@
+{
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "remix build",
+    "deploy": "fly deploy --remote-only",
+    "dev": "remix dev",
+    "start": "remix-serve build",
+    "typecheck": "tsc",
+    "upd": "pnpm ncu -u",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "lint": "eslint \"./app/**/*.{js,ts,tsx}\"",
+    "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
+    "types": "tsc --noEmit -p .",
+    "types:dev": "tsc --noEmit -p . --watch",
+    "test": "vitest run",
+    "test:dev": "vitest dev",
+    "coverage": "vitest run --coverage",
+    "ci": "pnpm turbo lint types"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "11",
+    "@mantine/core": "5.10.2",
+    "@mantine/dates": "5.10.2",
+    "@mantine/form": "5.10.2",
+    "@mantine/hooks": "5.10.2",
+    "@mantine/modals": "5.10.2",
+    "@mantine/notifications": "5.10.2",
+    "@mantine/remix": "^5.10.2",
+    "@remix-run/node": "1.12.0",
+    "@remix-run/react": "1.12.0",
+    "@remix-run/serve": "1.12.0",
+    "dayjs": "1.11.7",
+    "isbot": "3.6.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "13.4.0",
+    "@remix-run/dev": "1.12.0",
+    "@remix-run/eslint-config": "1.12.0",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "@types/node": "18.11.18",
+    "eslint": "8.33.0",
+    "cross-env": "7.0.3",
+    "npm-check-updates": "16.6.3",
+    "prettier": "2.8.3",
+    "rimraf": "4.1.2",
+    "turbo": "1.7.0",
+    "vite": "4.0.4",
+    "vitest": "0.28.3",
+    "typescript": "4.9.5"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
