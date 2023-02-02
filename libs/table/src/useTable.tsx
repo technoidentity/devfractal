@@ -8,9 +8,9 @@ export type CrudTableState<T extends object> = Readonly<{
 
   selectedRows: readonly T[]
   selectedColumns: ReadonlyArray<keyof T>
-
   page: number
-  // readonly perPage: number
+  // search: Record<keyof T, string | number | Date | boolean>
+  // perPage: number
 }>
 
 export const useCrudTable = <T extends object>(
