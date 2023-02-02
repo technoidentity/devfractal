@@ -408,7 +408,6 @@ importers:
       '@mantine/form': 5.10.2
       '@mantine/hooks': 5.10.2
       '@mantine/notifications': 5.10.2
-      '@playwright/test': ^1.30.0
       '@react-spring/web': 9.6.1
       '@srtp/core': workspace:*
       '@srtp/form': workspace:*
@@ -416,7 +415,7 @@ importers:
       '@srtp/local-state': workspace:*
       '@srtp/todo': workspace:*
       '@srtp/tsconfig': workspace:*
-      '@tabler/icons-react': ^2.1.2
+      '@tabler/icons-react': 2.1.2
       '@testing-library/react': 13.4.0
       '@types/lodash': 4.14.191
       '@types/node': 18.11.18
@@ -486,7 +485,6 @@ importers:
       zod: 3.20.2
     devDependencies:
       '@faker-js/faker': 7.6.0
-      '@playwright/test': 1.30.0
       '@srtp/tsconfig': link:../../libs/tsconfig
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@types/lodash': 4.14.191
@@ -7052,7 +7050,7 @@ packages:
       dayjs: '>=1.0.0'
       react: '>=16.8.0'
     dependencies:
-      '@mantine/core': 5.10.2_rnuruvd67a2c553vivo3kw42my
+      '@mantine/core': 5.10.2_bgdfy3qhwgihjpd7hjoiv47mfe
       '@mantine/hooks': 5.10.2_react@18.2.0
       '@mantine/utils': 5.10.2_react@18.2.0
       dayjs: 1.11.7
@@ -7117,7 +7115,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@mantine/core': 5.10.2_rnuruvd67a2c553vivo3kw42my
+      '@mantine/core': 5.10.2_bgdfy3qhwgihjpd7hjoiv47mfe
       '@mantine/hooks': 5.10.2_react@18.2.0
       '@mantine/utils': 5.10.2_react@18.2.0
       react: 18.2.0
@@ -7148,7 +7146,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@mantine/core': 5.10.2_rnuruvd67a2c553vivo3kw42my
+      '@mantine/core': 5.10.2_bgdfy3qhwgihjpd7hjoiv47mfe
       '@mantine/hooks': 5.10.2_react@18.2.0
       '@mantine/ssr': 5.10.2_vavbdtuajfyku5chqvt5ands7q
       '@mantine/styles': 5.10.2_sogmqz4enknxtkxk3k5s6bqwnq
@@ -7167,7 +7165,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
+      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
       '@emotion/server': 11.10.0
       '@mantine/styles': 5.10.2_sogmqz4enknxtkxk3k5s6bqwnq
       html-react-parser: 1.4.12_react@18.2.0
@@ -7182,7 +7180,7 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
+      '@emotion/react': 11.10.5_3stiutgnnbnfnf3uowm5cip22i
       clsx: 1.1.1
       csstype: 3.0.9
       react: 18.2.0
@@ -7720,15 +7718,6 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.5.0
-
-  /@playwright/test/1.30.0:
-    resolution: {integrity: sha512-SVxkQw1xvn/Wk/EvBnqWIq6NLo1AppwbYOjNLmyU0R1RoQ3rLEBtmjTnElcnz8VEtn11fptj1ECxK0tgURhajw==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dependencies:
-      '@types/node': 18.11.18
-      playwright-core: 1.30.0
-    dev: true
 
   /@pnpm/network.ca-file/1.0.2:
     resolution: {integrity: sha512-YcPQ8a0jwYU9bTdJDpXjMi7Brhkr1mXsXrUJvjqM2mQDgkRiz8jFaQGOdaLxgjtUfQgZhKy/O3cG/YwmgKaxLA==}
@@ -21194,12 +21183,6 @@ packages:
     dependencies:
       find-up: 3.0.0
     dev: false
-
-  /playwright-core/1.30.0:
-    resolution: {integrity: sha512-7AnRmTCf+GVYhHbLJsGUtskWTE33SwMZkybJ0v6rqR1boxq2x36U7p1vDRV7HO2IwTZgmycracLxPEJI49wu4g==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dev: true
 
   /please-upgrade-node/3.2.0:
     resolution: {integrity: sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==}
