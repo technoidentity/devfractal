@@ -1,5 +1,4 @@
 import { Input, Table, TableProps } from '@mantine/core'
-import { omit } from 'lodash'
 import React from 'react'
 import { Column, Filters } from './types'
 import { Sort } from './utils'
@@ -68,7 +67,9 @@ export function TableView<T extends { id: number | string } & object>({
       <tbody>
         {rows.map(r => (
           <tr key={r.id}>
-            {Object.keys(omit(r, 'id')).map(k => renderColumn(k as keyof T, r))}
+            {columns.map(({ accessor }) =>
+              renderColumn(accessor as keyof T, r),
+            )}
           </tr>
         ))}
       </tbody>
