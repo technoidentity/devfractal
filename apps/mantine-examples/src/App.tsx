@@ -9,7 +9,7 @@ const renderColumn = (k: keyof Row, row: Row) => {
   return <td>{row[k]}</td>
 }
 
-const initialFilters: Partial<Filters<Row>> = {
+const initialFilters: Filters<Row> = {
   age: '',
   name: '',
   // eslint-disable-next-line @typescript-eslint/naming-convention
