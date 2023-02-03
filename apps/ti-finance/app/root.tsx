@@ -13,7 +13,6 @@ import { MantineProvider, createEmotionCache } from '@mantine/core'
 import { getUser } from './session.server'
 import tailwindStylesheetUrl from './styles/tailwind.css'
 import { StylesPlaceholder } from '@mantine/remix'
-import { theme } from 'theme'
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: tailwindStylesheetUrl }]
@@ -35,7 +34,7 @@ createEmotionCache({ key: 'mantine' })
 
 export default function App() {
   return (
-    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
       <html lang="en" className="h-full">
         <head>
           <StylesPlaceholder />
