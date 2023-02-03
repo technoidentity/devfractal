@@ -7,6 +7,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider      = "zod-prisma"
+  output        = "./zod"
+  relationModel = "default"
+  imports       = "../specs"
+}
+
 model User {
   id    String @id @default(cuid())
   email String @unique
@@ -15,7 +22,6 @@ model User {
   updatedAt DateTime @updatedAt
 
   password Password?
-  notes    Note[]
 }
 
 model Password {
@@ -25,14 +31,24 @@ model Password {
   userId String @unique
 }
 
-model Note {
-  id    String @id @default(cuid())
-  title String
-  body  String
+model Ctc {
+  id       String   @id
+  name     String
+  ctc      Int
+  fromDate DateTime /// @zod.custom(imports.IsoDate)
+  toDate   DateTime /// @zod.custom(imports.IsoDate)
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum Billable {
+  billable
+  nonBillable
+}
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
+model Department {
+  id         String   @id
+  name       String
+  department String
+  fromDate   DateTime
+  toDate     DateTime
+  billable   Billable
 }
