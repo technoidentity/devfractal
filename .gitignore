@@ -57,4 +57,4 @@ playwright/.cache/
 postgres-data/
 public/build
 .env
-prisma/zod/
+**/prisma/zod/
