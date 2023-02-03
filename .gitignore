@@ -51,9 +51,9 @@ yarn-error.log
 tsconfig.tsbuildinfo
 .cache
 
-/test-results/
-/playwright-report/
-/playwright/.cache/
-
-/public/build
+test-results/
+playwright-report/
+playwright/.cache/
+postgres-data/
+public/build
 .env
