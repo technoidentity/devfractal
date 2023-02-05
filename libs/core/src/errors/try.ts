@@ -30,9 +30,9 @@ export function flatMap<A, R>(result: Try<A>, f: (x: A) => Try<R>): Try<R> {
 }
 
 export function isSuccess<T>(result: Try<T>): result is Right<T> {
-  return result.type === 'left'
+  return result.type === 'right'
 }
 
 export function isFailure<T>(result: Try<T>): result is Left<Error> {
-  return result.type === 'right'
+  return result.type === 'left'
 }

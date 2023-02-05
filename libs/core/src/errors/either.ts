@@ -1,6 +1,5 @@
-export type Right<T> = { type: 'right'; value: T }
-export type Left<E> = { type: 'left'; error: E }
-
+export type Right<T> = Readonly<{ type: 'right'; value: T }>
+export type Left<E> = Readonly<{ type: 'left'; error: E }>
 export type Either<E, T> = Left<E> | Right<T>
 
 export function right<E, T>(value: T): Either<E, T> {
