@@ -1,6 +1,6 @@
 export * from './array'
 export * from './assertions'
-export * as errors from './errors'
+export * from './errors'
 export * from './mutativeArray'
 export * from './types'
 export * from './utils'
