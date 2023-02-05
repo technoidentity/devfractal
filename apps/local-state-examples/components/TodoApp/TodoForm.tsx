@@ -1,3 +1,4 @@
+import { jstr } from '@srtp/core'
 import {
   Box,
   Button,
@@ -58,7 +59,7 @@ export const TodoForm = () => {
           </Button>
         </form>
         <Box p="2">
-          <pre>{JSON.stringify(todo, null, 2)}</pre>
+          <pre>{jstr(todo)}</pre>
         </Box>
       </Box>
     </Flex>

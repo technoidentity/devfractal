@@ -1,5 +1,6 @@
 import { Counter } from '@/components'
 import { Box, Button } from '@chakra-ui/react'
+import { jstr } from '@srtp/core'
 import React from 'react'
 
 const App = () => {
@@ -14,7 +15,7 @@ const App = () => {
       <Button onClick={() => set({ min, max: 100 })} colorScheme="blue">
         Change Max
       </Button>
-      <pre>{JSON.stringify({ min, max })}</pre>
+      <pre>{jstr({ min, max })}</pre>
     </Box>
   )
 }

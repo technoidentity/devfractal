@@ -1,4 +1,5 @@
 import { Button, Heading } from '@chakra-ui/react'
+import { jstr } from '@srtp/core'
 import {
   QueryClient,
   QueryClientProvider,
@@ -27,7 +28,7 @@ const queryClient = new QueryClient({
 const Fallback = ({ error, resetErrorBoundary }: any) => {
   return (
     <Heading color="red">
-      {JSON.stringify(error, null, 2)}
+      {jstr(error)}
       <Button onClick={() => resetErrorBoundary()}>Try again</Button>
     </Heading>
   )
