@@ -1,9 +1,9 @@
 import { DeepReadonly } from 'ts-essentials'
 import { z } from 'zod'
-import { isStr, jstr } from './typeCasts'
+import { isStr, jstr } from './types'
 
 export const tap = <T>(arg: T): T => {
-  console.log(JSON.stringify(arg, null, 2))
+  console.log(jstr(arg))
   return arg
 }
 
