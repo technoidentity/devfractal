@@ -32,6 +32,7 @@ import {
   StepThreeSchema,
   StepTwoSchema,
 } from './spec'
+import { jstr } from '@srtp/core'
 
 const countriesData = [
   { label: 'United States', value: 'US' },
@@ -266,7 +267,7 @@ export const StepperForm = () => {
         <Stepper.Completed>
           Completed! Form values:
           <Code block mt="xl">
-            {JSON.stringify(form.values, null, 2)}
+            {jstr(form.values)}
           </Code>
         </Stepper.Completed>
       </Stepper>
