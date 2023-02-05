@@ -67,7 +67,7 @@
     "compression": "1.7.4",
     "cross-env": "7.0.3",
     "dayjs": "1.11.7",
-    "devalue": "^4.2.3",
+    "devalue": "4.2.3",
     "express": "4.18.2",
     "express-prometheus-middleware": "1.2.0",
     "isbot": "3.6.5",
@@ -123,7 +123,7 @@
     "vite": "4.0.4",
     "vite-tsconfig-paths": "3.6.0",
     "vitest": "0.27.2",
-    "zod-prisma": "^0.5.4"
+    "zod-prisma": "0.5.4"
   },
   "engines": {
     "node": ">=14"

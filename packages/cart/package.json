@@ -1,7 +1,7 @@
 {
-  "name": "@srtp/global-state",
+  "name": "@srtp/cart",
   "version": "1.0.0",
-  "description": "convenient utility functions for jotai",
+  "description": "cart common files",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -27,26 +27,17 @@
   },
   "dependencies": {
     "@srtp/core": "workspace:*",
-    "@srtp/local-state": "workspace:*",
-    "immer": "9.0.19",
-    "jotai": "2.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tiny-invariant": "1.3.1",
-    "tiny-warning": "1.0.3",
-    "ts-essentials": "9.3.0",
+    "@types/node": "18.11.19",
     "tslib": "2.5.0",
     "zod": "3.20.2"
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "18.11.19",
-    "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.10",
-    "cross-env": "7.0.3",
     "eslint": "8.33.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.3",
+    "rimraf": "4.1.2",
     "tsup": " 6.5.0",
     "typescript": "4.9.5",
     "vitest": "0.28.4"

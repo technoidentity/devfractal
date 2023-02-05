@@ -21,7 +21,7 @@
   "dependencies": {
     "@fastify/autoload": "5.7.1",
     "@fastify/websocket": "7.1.2",
-    "@trpc/server": "10.9.1",
+    "@trpc/server": "10.10.0",
     "close-with-grace": "1.1.0",
     "dotenv": "16.0.3",
     "esbuild": "0.17.5",
@@ -48,8 +48,8 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.191",
-    "@types/node": "18.11.18",
-    "@types/tap": "15.0.7",
+    "@types/node": "18.11.19",
+    "@types/tap": "15.0.8",
     "concurrently": "7.6.0",
     "cross-env": "7.0.3",
     "fastify-cli": "5.7.1",
