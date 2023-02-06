@@ -16,6 +16,7 @@ export function Pagination<Row extends object>({
 }: PaginationProps<Row>) {
   return (
     <MantinePagination
+      mt="lg"
       page={activePage}
       position="center"
       onChange={setActivePage}
