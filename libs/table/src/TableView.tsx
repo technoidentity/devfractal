@@ -5,23 +5,27 @@ import { Sort } from './utils'
 
 interface TableViewProps<Row extends object & { id: number | string }>
   extends TableProps {
+  actions: boolean
   columns: Column<Row>[]
-  rows: readonly Row[]
   filters: Filters<Row>
-  handleSearch(val: string, searchVal: string): void
-  sort: Sort<Row>
+  onSearch(val: string, searchVal: string): void
+  onSort(val: keyof Row): void
   renderColumn: (key: keyof Row, row: Row) => React.ReactNode
-  handleSort(val: keyof Row): void
+  renderActions?: (row: Row) => React.ReactNode
+  rows: readonly Row[]
+  sort: Sort<Row>
 }
 
 export function TableView<T extends { id: number | string } & object>({
+  actions,
   columns,
+  filters,
+  onSearch,
+  onSort,
+  renderColumn,
+  renderActions,
   rows,
   sort,
-  filters,
-  renderColumn,
-  handleSearch,
-  handleSort,
   ...props
 }: TableViewProps<T>) {
   return (
@@ -43,12 +47,13 @@ export function TableView<T extends { id: number | string } & object>({
             return (
               <th key={column.accessor}>
                 <span>{column.label}</span>
-                <button onClick={() => handleSort(column.accessor)}>
+                <button onClick={() => onSort(column.accessor)}>
                   {sortIcon()}
                 </button>
               </th>
             )
           })}
+          <th>Actions</th>
         </tr>
         <tr>
           {columns.map(col => (
@@ -58,7 +63,7 @@ export function TableView<T extends { id: number | string } & object>({
                 type="search"
                 placeholder={`search ${col.label}`}
                 value={filters[col.accessor]}
-                onChange={evt => handleSearch(evt.target.value, col.accessor)}
+                onChange={evt => onSearch(evt.target.value, col.accessor)}
               />
             </th>
           ))}
@@ -70,6 +75,7 @@ export function TableView<T extends { id: number | string } & object>({
             {columns.map(({ accessor }) =>
               renderColumn(accessor as keyof T, r),
             )}
+            {renderActions && <td width={'200px'}>{renderActions(r)}</td>}
           </tr>
         ))}
       </tbody>

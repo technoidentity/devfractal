@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Flex } from '@mantine/core'
+import { Flex, TableProps } from '@mantine/core'
 import React, { useMemo, useState } from 'react'
 import { Pagination } from './Pagination'
 import { TableView } from './TableView'
@@ -7,13 +7,16 @@ import { Filters } from './types'
 import { filterRows, Sort, sortRows } from './utils'
 
 export type ClientTableProps<Row extends object & { id: number | string }> =
-  Readonly<{
-    renderColumn: (key: keyof Row, row: Row) => React.ReactNode
-    perPage: number
-    initialFilters: Filters<Row>
-    columns: any
-    rows: readonly Row[]
-  }>
+  TableProps &
+    Readonly<{
+      renderColumn: (key: keyof Row, row: Row) => React.ReactNode
+      renderActions?: (row: Row) => React.ReactNode
+      perPage: number
+      initialFilters: Filters<Row>
+      columns: any
+      rows: readonly Row[]
+      actions?: boolean
+    }>
 
 function paginateRows<Row extends object>(
   sortedRows: readonly Row[],
@@ -30,8 +33,9 @@ export function ClientTable<Row extends object & { id: number | string }>({
   perPage,
   columns,
   rows,
-  renderColumn,
+  actions,
   initialFilters,
+  ...props
 }: ClientTableProps<Row>) {
   const [activePage, setActivePage] = React.useState(1)
   const [filters, setFilters] = useState(initialFilters)
@@ -79,14 +83,14 @@ export function ClientTable<Row extends object & { id: number | string }>({
   return (
     <Flex direction={{ base: 'column' }} justify={{ md: 'center' }}>
       <TableView<Row>
-        mih={'300px'}
+        {...props}
         columns={columns}
         rows={calculatedRows}
         filters={filters}
-        handleSearch={handleSearch}
+        onSearch={handleSearch}
         sort={sort}
-        renderColumn={renderColumn}
-        handleSort={handleSort}
+        onSort={handleSort}
+        actions={!!actions}
       />
       <Pagination<Row>
         rowsPerPage={perPage}
