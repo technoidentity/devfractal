@@ -34,7 +34,7 @@ model Password {
 model Ctc {
   id       String   @id
   name     String
-  ctc      Int
+  ctc      Int /// @zod.min(0)
   fromDate DateTime /// @zod.custom(imports.IsoDate)
   toDate   DateTime /// @zod.custom(imports.IsoDate)
 }

@@ -34,6 +34,41 @@ const tiUsersCtc = [
   },
 ]
 
+// const departments = [
+//   {
+//     id: '1100',
+//     name: 'emma',
+//     department: 'finance',
+//     fromDate: new Date('2017-01-26'),
+//     toDate: new Date('2018-01-26'),
+//     billable: 'nonBillable',
+//   },
+//   {
+//     id: '1101',
+//     name: 'watson',
+//     department: 'finance',
+//     fromDate: new Date('2016-04-14'),
+//     toDate: new Date('2017-04-14'),
+//     billable: 'nonBillable',
+//   },
+//   {
+//     id: '1102',
+//     name: 'reena',
+//     department: 'finance',
+//     fromDate: new Date('2020-06-21'),
+//     toDate: new Date('2021-06-21'),
+//     billable: '',
+//   },
+//   {
+//     id: '1103',
+//     name: 'miland',
+//     department: 'finance',
+//     fromDate: new Date('2021-08-5'),
+//     toDate: new Date('2022-08-5'),
+//     billable: 'nonBillable',
+//   },
+// ]
+
 async function seed() {
   const email = 'rachel@remix.run'
 
