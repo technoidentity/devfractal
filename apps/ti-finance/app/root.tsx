@@ -1,4 +1,5 @@
-import type { LinksFunction, LoaderArgs, MetaFunction } from '@remix-run/node'
+import { createEmotionCache, MantineProvider } from '@mantine/core'
+import type { LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import {
   Links,
@@ -8,19 +9,15 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
-import { MantineProvider, createEmotionCache } from '@mantine/core'
 
-import { getUser } from './session.server'
-import tailwindStylesheetUrl from './styles/tailwind.css'
+import { ModalsProvider } from '@mantine/modals'
 import { StylesPlaceholder } from '@mantine/remix'
-
-export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: tailwindStylesheetUrl }]
-}
+import { theme } from '../theme'
+import { getUser } from './session.server'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
-  title: 'Remix Notes',
+  title: 'TI Finance',
   viewport: 'width=device-width,initial-scale=1',
 })
 
@@ -34,20 +31,22 @@ createEmotionCache({ key: 'mantine' })
 
 export default function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <html lang="en" className="h-full">
-        <head>
-          <StylesPlaceholder />
-          <Meta />
-          <Links />
-        </head>
-        <body className="h-full">
-          <Outlet />
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </body>
-      </html>
+    <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
+      <ModalsProvider>
+        <html lang="en" className="h-full">
+          <head>
+            <StylesPlaceholder />
+            <Meta />
+            <Links />
+          </head>
+          <body className="h-full">
+            <Outlet />
+            <ScrollRestoration />
+            <Scripts />
+            <LiveReload />
+          </body>
+        </html>
+      </ModalsProvider>
     </MantineProvider>
   )
 }
