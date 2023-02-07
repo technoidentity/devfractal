@@ -14,6 +14,7 @@ import { useForm, zodResolver } from '@mantine/form'
 import type { Ctc } from '@prisma/client'
 import { Form } from '@remix-run/react'
 import type { Errors } from '~/common/utils'
+import { getFieldError } from '~/common/utils'
 import { CtcSchema } from '~/common/validators'
 
 // @TODO: User better initial values
@@ -27,15 +28,14 @@ const initialValues: CtcSchema = {
 
 export type AddUserCtcProps = Errors<Ctc>
 
-export const AddUserCtc = ({
-  fieldErrors,
-  error: formError,
-}: AddUserCtcProps) => {
+export const AddUserCtc = (errors: AddUserCtcProps) => {
   const form = useForm({
     initialValues,
     validate: zodResolver(CtcSchema),
     validateInputOnBlur: true,
   })
+
+  const errMsg = getFieldError(errors, form)
 
   return (
     <Paper shadow={'lg'} p="lg" sx={{ maxWidth: 450 }} mt="xl" mx="auto">
@@ -46,7 +46,7 @@ export const AddUserCtc = ({
       </Center>
 
       <Box>
-        <Text color="red">{formError ? formError : ''}</Text>
+        <Text color="red">{errors.error ? errors.error : ''}</Text>
         <Form method="post">
           <TextInput
             withAsterisk
@@ -63,7 +63,7 @@ export const AddUserCtc = ({
             name="name"
             placeholder="Employee Fullname"
             {...form.getInputProps('name')}
-            error={fieldErrors?.name || ''}
+            error={errMsg('name')}
             mt="xs"
           />
 
@@ -73,7 +73,7 @@ export const AddUserCtc = ({
             name="ctc"
             placeholder="CTC if billable"
             {...form.getInputProps('ctc')}
-            error={fieldErrors?.ctc || ''}
+            error={errMsg('ctc')}
             mt="xs"
           />
 

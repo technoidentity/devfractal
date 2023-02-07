@@ -12,6 +12,7 @@ export type Errors<T extends object> = Readonly<{
 export const badRequest = <T extends object>(data: Errors<T>) =>
   json(data, { status: 400 })
 
+// @TODO: to .client.ts?
 export function getFieldError<T extends object>(
   errors: Errors<T> | undefined,
   form: UseFormReturnType<T, (values: T) => T>,
