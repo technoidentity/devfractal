@@ -13,14 +13,11 @@ import { DatePicker } from '@mantine/dates'
 import { useForm, zodResolver } from '@mantine/form'
 import type { Ctc } from '@prisma/client'
 import { Form } from '@remix-run/react'
-import { z } from 'zod'
+import type { Errors } from '~/common/utils'
+import { CtcSchema } from '~/common/validators'
 
-const schema = z.object({
-  name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
-  ctc: z.number().positive(),
-})
-
-const initialValues = {
+// @TODO: User better initial values
+const initialValues: CtcSchema = {
   id: '101',
   name: 'zubina',
   ctc: 240000,
@@ -28,15 +25,15 @@ const initialValues = {
   toDate: new Date('12-06-22'),
 }
 
-interface UserCtcProps {
-  fieldErrors: Ctc
-  fields: Ctc
-  formError?: string
-}
-export const UserCtc = ({ fieldErrors, fields, formError }: UserCtcProps) => {
+export type AddUserCtcProps = Errors<Ctc>
+
+export const AddUserCtc = ({
+  fieldErrors,
+  error: formError,
+}: AddUserCtcProps) => {
   const form = useForm({
     initialValues,
-    validate: zodResolver(schema),
+    validate: zodResolver(CtcSchema),
     validateInputOnBlur: true,
   })
 
@@ -47,12 +44,10 @@ export const UserCtc = ({ fieldErrors, fields, formError }: UserCtcProps) => {
           Add Employee CTC!
         </Title>
       </Center>
+
       <Box>
         <Text color="red">{formError ? formError : ''}</Text>
-        <Form
-          method="post"
-          // onSubmit={form.onSubmit(values => console.log(values))}
-        >
+        <Form method="post">
           <TextInput
             withAsterisk
             label="TI_ID"
@@ -61,6 +56,7 @@ export const UserCtc = ({ fieldErrors, fields, formError }: UserCtcProps) => {
             {...form.getInputProps('id')}
             mt="xs"
           />
+
           <TextInput
             withAsterisk
             label="Username"
@@ -70,6 +66,7 @@ export const UserCtc = ({ fieldErrors, fields, formError }: UserCtcProps) => {
             error={fieldErrors?.name || ''}
             mt="xs"
           />
+
           <NumberInput
             withAsterisk
             label="CTC"
@@ -79,6 +76,7 @@ export const UserCtc = ({ fieldErrors, fields, formError }: UserCtcProps) => {
             error={fieldErrors?.ctc || ''}
             mt="xs"
           />
+
           <DatePicker
             placeholder="Pick date"
             name="fromDate"
@@ -87,6 +85,7 @@ export const UserCtc = ({ fieldErrors, fields, formError }: UserCtcProps) => {
             {...form.getInputProps('fromDate')}
             mt="xs"
           />
+
           <DatePicker
             placeholder="Pick date"
             name="toDate"
@@ -95,6 +94,7 @@ export const UserCtc = ({ fieldErrors, fields, formError }: UserCtcProps) => {
             {...form.getInputProps('toDate')}
             mt="xs"
           />
+
           <Group position="right" mt="xl">
             <Button type="submit">Submit</Button>
           </Group>
