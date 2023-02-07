@@ -13,39 +13,23 @@ import { useForm, zodResolver } from '@mantine/form'
 import type { Ctc } from '@prisma/client'
 import { Form, useNavigation, useSubmit } from '@remix-run/react'
 import React, { useState } from 'react'
-import { z } from 'zod'
+import type { Errors } from '~/common/utils'
+import { getFieldError } from '~/common/utils'
+import { CtcSchema } from '~/common/validators'
 
-type Errors = {
-  fieldErrors: Ctc
-  fields: Ctc
-  formError: string | null
-}
-
-interface EditUserCtcModalProps {
+export type EditUserCtcModalProps = Readonly<{
   ctc: Ctc
-  errors?: Errors
-}
-
-const schema = z.object({
-  name: z.string().min(2, { message: 'Name should have at least 2 letters' }),
-  ctc: z.number().positive(),
-})
+  errors?: Errors<Ctc>
+}>
 
 export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
   const navigate = useNavigation()
-
   const submit = useSubmit()
   const [opened, setOpened] = useState(false)
-  const initialValues = {
-    id: ctc.id,
-    name: ctc.name,
-    ctc: ctc.ctc,
-    fromDate: ctc.fromDate,
-    toDate: ctc.toDate,
-  }
+
   const form = useForm({
-    initialValues,
-    validate: zodResolver(schema),
+    initialValues: ctc, // structuredClone?
+    validate: zodResolver(CtcSchema),
     validateInputOnBlur: true,
   })
 
@@ -54,12 +38,12 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
       navigate.state === 'loading' &&
       Object.keys(errors?.fieldErrors || {}).length == 0
     ) {
-      console.log(errors)
       setOpened(false)
     }
   }, [errors, navigate.state])
 
-  const fieldErrors = errors?.fieldErrors
+  const errMsg = getFieldError(errors, form)
+
   return (
     <>
       <Modal
@@ -69,13 +53,12 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
       >
         <Paper shadow={'lg'} p="lg" sx={{ maxWidth: 450 }} mt="xl" mx="auto">
           <Box>
-            <Text color="red">{errors?.formError ? errors.formError : ''}</Text>
+            <Text color="red">{errors?.error ? errors.error : ''}</Text>
+
             <Form
               method="put"
               onSubmit={form.onSubmit((_, event) => {
-                submit(event.currentTarget, {
-                  replace: true,
-                })
+                submit(event.currentTarget, { replace: true })
               })}
             >
               <TextInput
@@ -86,24 +69,27 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
                 {...form.getInputProps('id')}
                 mt="xs"
               />
+
               <TextInput
                 withAsterisk
                 label="Username"
                 name="name"
                 placeholder="Employee Fullname"
                 {...form.getInputProps('name')}
-                error={fieldErrors?.name || form.getInputProps('name').error}
+                error={errMsg('name')}
                 mt="xs"
               />
+
               <NumberInput
                 withAsterisk
                 label="CTC"
                 name="ctc"
                 placeholder="CTC if billable"
                 {...form.getInputProps('ctc')}
-                error={fieldErrors?.ctc || form.getInputProps('ctc').error}
+                error={errMsg('ctc')}
                 mt="xs"
               />
+
               <DatePicker
                 placeholder="Pick date"
                 name="fromDate"
@@ -112,6 +98,7 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
                 {...form.getInputProps('fromDate')}
                 mt="xs"
               />
+
               <DatePicker
                 placeholder="Pick date"
                 name="toDate"
@@ -120,7 +107,9 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
                 {...form.getInputProps('toDate')}
                 mt="xs"
               />
+
               <input type="hidden" name="_action" value="edit" />
+
               <Group position="right" mt="xl">
                 <Button type="submit">Update</Button>
               </Group>
