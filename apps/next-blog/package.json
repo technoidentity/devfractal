@@ -44,7 +44,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.33.0",
     "eslint-config-srtp": "workspace:*",
-    "npm-check-updates": "16.6.3",
+    "npm-check-updates": "16.6.5",
     "typescript": "4.9.5"
   }
 }

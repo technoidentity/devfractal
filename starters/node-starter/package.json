@@ -34,7 +34,7 @@
     "@types/lodash": "4.14.191",
     "@types/node": "18.11.19",
     "@types/tap": "15.0.8",
-    "esbuild": "0.17.5",
+    "esbuild": "0.17.6",
     "esbuild-register": "3.4.2",
     "eslint": "8.33.0",
     "nodemon": "2.0.20",
