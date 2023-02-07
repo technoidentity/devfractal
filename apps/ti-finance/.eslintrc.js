@@ -18,4 +18,7 @@ module.exports = {
       version: 28,
     },
   },
+  rules: {
+    '@typescript-eslint/no-redeclare': 'off',
+  },
 }
