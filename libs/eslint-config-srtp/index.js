@@ -76,7 +76,7 @@ module.exports = {
     '@typescript-eslint/no-this-alias': 'error',
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
     '@typescript-eslint/no-unnecessary-qualifier': 'error',
-    '@typescript-eslint/no-useless-constructor': 'error',
+    '@typescript-eslint/no-useless-constructor': 'off',
     '@typescript-eslint/no-var-requires': 'error',
     '@typescript-eslint/prefer-for-of': 'error',
     '@typescript-eslint/prefer-function-type': 'error',
