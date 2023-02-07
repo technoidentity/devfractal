@@ -1,74 +1,52 @@
-import type { Ctc, PrismaPromise } from '@prisma/client'
+import type { Ctc } from '@prisma/client'
 import { Prisma } from '@prisma/client'
-import { cast } from '@srtp/core'
-import { _CtcModel } from 'prisma/zod'
+import type { Result } from '@srtp/core'
+import { defaultError, fail, ok } from '@srtp/core'
 
 import { prisma } from '~/db.server'
 
-export const getUsersCtc = (): PrismaPromise<Ctc[]> => {
+export function getUsersCtc() {
   return prisma.ctc.findMany()
 }
 
-const defaultError = (e: unknown) =>
-  ({
-    type: 'failure',
-    error:
-      e instanceof Error
-        ? e.message
-        : `unexpected prisma error: ${JSON.stringify(e)}`,
-  } as const)
-
-export const createUserCtc = async (userCtc: Ctc) => {
+export async function createUserCtc(data: Ctc): Promise<Result<string, Ctc>> {
   try {
-    const result = await prisma.ctc.create({
-      data: userCtc,
-    })
-    return { type: 'success', data: result } as const
-  } catch (e) {
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      if (e.code === 'P2002') {
-        return {
-          type: 'failure',
-          error: 'user id already exists',
-        } as const
-      }
-    }
+    const ctc = await prisma.ctc.create({ data })
 
-    return defaultError(e)
+    return ok(ctc)
+  } catch (e) {
+    const err =
+      e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002'
+        ? 'user id already exists'
+        : defaultError(e)
+
+    return fail(err)
   }
 }
 
-export const deleteUserCtc = async (id: Ctc['id']) => {
+export async function deleteUserCtc(
+  id: Ctc['id'],
+): Promise<Result<string, Ctc>> {
   try {
-    const result = await prisma.ctc.delete({
-      where: {
-        id,
-      },
+    const ctc = await prisma.ctc.delete({
+      where: { id },
     })
-    return { type: 'success', data: result } as const
+
+    return ok(ctc)
   } catch (e) {
-    return {
-      type: 'failure',
-      error: 'user not found',
-    } as const
+    return fail('user not found')
   }
 }
 
-export const editUserCtc = async (ctcArg: Ctc) => {
-  const ctc = cast(_CtcModel, ctcArg)
+export async function editUserCtc(data: Ctc): Promise<Result<string, Ctc>> {
   try {
     const result = await prisma.ctc.update({
-      where: {
-        id: ctc.id?.toString(),
-      },
-      data: ctc,
+      where: { id: data.id?.toString() },
+      data,
     })
-    return { type: 'success', data: result } as const
+
+    return ok(result)
   } catch (e) {
-    const err = e instanceof Error ? e.message : ''
-    return {
-      type: 'failure',
-      error: err,
-    } as const
+    return fail(defaultError(e))
   }
 }
