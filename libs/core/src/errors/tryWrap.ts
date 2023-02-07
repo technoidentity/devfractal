@@ -1,5 +1,5 @@
 import { left, right } from './either'
-import { toError } from './toError'
+import { toError } from './utils'
 import { Try } from './try'
 
 export function ftry<R, Args extends unknown[]>(
