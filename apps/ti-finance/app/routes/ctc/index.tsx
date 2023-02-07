@@ -3,24 +3,17 @@ import type { Ctc } from '@prisma/client'
 import { useActionData, useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import { cast, str } from '@srtp/core'
+import { cast, isFail, isOk, str } from '@srtp/core'
 import type { Column, Filters } from '@srtp/table'
 import { ClientTable } from '@srtp/table'
-import { IsoDate } from 'specs'
+import { string } from '@srtp/validator'
+import React from 'react'
 import { z } from 'zod'
+import { badRequest, formErrors, fromFormData } from '~/common/utils'
+import { CtcSchema } from '~/common/validators'
 import { DeleteUserCtc } from '~/components/DeleteUserCtc'
 import { EditUserCtcModal } from '~/components/EditUserCtcModal'
 import { deleteUserCtc, editUserCtc, getUsersCtc } from '~/models/ctc.server'
-import { badRequest } from '~/models/request.server'
-import { zodErrors } from './new'
-
-export const _CtcModel = z.object({
-  id: z.string(),
-  name: z.string(),
-  ctc: z.coerce.number().int().min(0),
-  fromDate: IsoDate,
-  toDate: IsoDate,
-})
 
 const columns: Column<Ctc>[] = [
   { accessor: 'id', label: 'TI_ID' },
@@ -43,67 +36,40 @@ export async function loader(_: LoaderArgs) {
 }
 
 export async function action({ request }: ActionArgs) {
-  const { _action, ...values } = Object.fromEntries(await request.formData())
-  const result = _CtcModel.safeParse(values)
+  const schema = CtcSchema.extend({ _action: string })
+  const result = await fromFormData(schema, request)
 
   if (result.success) {
+    const { _action, ...values } = result.data
+
     if (_action === 'delete') {
       const result = await deleteUserCtc(str(values.id))
-      if (result.type === 'success') {
-        return {}
+      if (isFail(result)) {
+        return badRequest({ error: result.fail })
       }
-      return result.error
     }
-  } else {
-    const fieldErrors = result.success ? {} : zodErrors(result.error)
 
-    const fields = { values }
-
-    if (Object.values(fieldErrors).some(Boolean)) {
-      return badRequest({
-        fieldErrors,
-        fields,
-        formError: null,
-      })
-    }
-  }
-
-  if (result.success) {
     if (_action === 'edit') {
-      const result = await editUserCtc(cast(_CtcModel, values))
-      if (result.type === 'success') {
-        return {}
-      } else {
-        if (result.type === 'failure') {
-          return badRequest({
-            fieldErros: null,
-            fields: null,
-            formError: result.error,
-          })
-        }
+      const result = await editUserCtc(cast(CtcSchema, values))
+      if (isFail(result)) {
+        return badRequest({ error: result.fail })
       }
     }
+
+    return {}
   } else {
-    const fieldErrors = result.success ? {} : zodErrors(result.error)
-
-    const fields = { values }
-
-    if (Object.values(fieldErrors).some(Boolean)) {
-      return badRequest({
-        fieldErrors,
-        fields,
-        formError: null,
-      })
-    }
+    return badRequest({ fieldErrors: formErrors(result.error) })
   }
-  return {}
 }
 
 const UsersCtcPage = () => {
   const { usersCtc } = useLoaderData<typeof loader>()
-  const actionData = useActionData()
+  const actionData = useActionData<typeof action>()
 
-  const ctc = z.array(_CtcModel).parse(usersCtc)
+  const ctcList = React.useMemo(
+    () => z.array(CtcSchema).parse(usersCtc),
+    [usersCtc],
+  )
 
   return (
     <>
@@ -124,7 +90,7 @@ const UsersCtcPage = () => {
               </Group>
             )
           }}
-          rows={ctc}
+          rows={ctcList}
           columns={columns}
           initialFilters={initialFilters}
           perPage={3}
