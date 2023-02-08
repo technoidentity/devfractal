@@ -1,5 +1,6 @@
 import { Avatar, Button, Group, Title } from '@mantine/core'
 import type { User } from '@prisma/client'
+import { Form, Link } from '@remix-run/react'
 
 interface AppHeaderProps {
   user: User
@@ -15,9 +16,9 @@ export const AppHeader = ({ user }: AppHeaderProps) => {
         <Avatar color="cyan" radius="xl">
           {user && user?.email?.slice(0, 2).toUpperCase()}
         </Avatar>
-        <Button type="submit" color="cyan" component="a" href="/logout">
-          Logout
-        </Button>
+        <Form method="post" action="/logout">
+          <Button type="submit">Logout</Button>
+        </Form>
       </Group>
     </Group>
   )
