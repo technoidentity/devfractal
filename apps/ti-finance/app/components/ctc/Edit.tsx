@@ -28,14 +28,15 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
 
   const form = useForm({
     initialValues: ctc, // structuredClone?
-    // validate: zodResolver(CtcSchema),
+    validate: zodResolver(CtcSchema),
     validateInputOnBlur: true,
   })
 
   React.useEffect(() => {
     if (
       navigate.state === 'loading' &&
-      Object.keys(errors?.fieldErrors || {}).length == 0
+      Object.keys(errors?.fieldErrors || {}).length == 0 &&
+      errors?.error === undefined
     ) {
       setOpened(false)
     }
