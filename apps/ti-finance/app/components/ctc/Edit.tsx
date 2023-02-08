@@ -28,7 +28,7 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
 
   const form = useForm({
     initialValues: ctc, // structuredClone?
-    validate: zodResolver(CtcSchema),
+    // validate: zodResolver(CtcSchema),
     validateInputOnBlur: true,
   })
 
