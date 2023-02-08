@@ -1,4 +1,4 @@
-import { coerce, z } from 'zod'
+import { coerce, z, ZodNativeEnum } from 'zod'
 import { failure, success } from '@srtp/core'
 import type { Try } from '@srtp/core'
 export const number = coerce.number()
@@ -31,6 +31,7 @@ export type ZodPrimitive =
   | z.ZodBigInt
   | z.ZodLiteral<any>
   | z.ZodEnum<any>
+  | ZodNativeEnum<any>
 
 export type FieldSchema = ZodPrimitive | z.ZodOptional<ZodPrimitive>
 
