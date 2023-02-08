@@ -3,16 +3,15 @@ import type { Ctc } from '@prisma/client'
 import { useActionData, useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import { isFail, str } from '@srtp/core'
+import { cast, isFail, str } from '@srtp/core'
+import { badRequest, safeAction, safeActions } from '@srtp/remix-node'
 import type { Column, Filters } from '@srtp/table'
 import { ClientTable } from '@srtp/table'
 import { string } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
-import { badRequest, formErrors, fromFormData } from '~/common/utils'
 import { CtcSchema } from '~/common/validators'
-import { DeleteUserCtc } from '~/components/DeleteUserCtc'
-import { EditUserCtcModal } from '~/components/EditUserCtcModal'
+import { DeleteUserCtc, EditUserCtcModal } from '~/components/ctc'
 import { deleteUserCtc, editUserCtc, getUsersCtc } from '~/models/ctc.server'
 
 // format date into  Jan 26 2017 using Intl.DateTimeFormat
@@ -45,32 +44,53 @@ export async function loader(_: LoaderArgs) {
   return json({ usersCtc })
 }
 
-export async function action({ request }: ActionArgs) {
-  const schema = CtcSchema.extend({ _action: string })
-  const result = await fromFormData(schema, request)
+// export async function action({ request }: ActionArgs) {
+//   const schema = CtcSchema.extend({ _action: string })
+//   const result = await fromFormData(schema, request)
 
-  if (result.success) {
-    const { _action, ...values } = result.data
+//   if (result.success) {
+//     const { _action, ...values } = result.data
 
-    if (_action === 'delete') {
-      const result = await deleteUserCtc(str(values.id))
-      if (isFail(result)) {
-        return badRequest({ error: result.fail })
-      }
+//     if (_action === 'delete') {
+//       const result = await deleteUserCtc(str(values.id))
+//       if (isFail(result)) {
+//         return badRequest({ error: result.fail })
+//       }
+//     }
+
+//     if (_action === 'edit') {
+//       const result = await editUserCtc(cast(CtcSchema, values))
+//       if (isFail(result)) {
+//         return badRequest({ error: result.fail })
+//       }
+//     }
+
+//     return {}
+//   } else {
+//     return badRequest({ fieldErrors: formErrors(result.error) })
+//   }
+// }
+
+const edit = (request: LoaderArgs['request']) =>
+  safeAction(CtcSchema, request, async values => {
+    const result = await editUserCtc(cast(CtcSchema, values))
+    if (isFail(result)) {
+      return badRequest({ error: result.fail })
     }
+    return json({})
+  })
 
-    if (_action === 'edit') {
-      const result = await editUserCtc(values)
-      if (isFail(result)) {
-        return badRequest({ error: result.fail })
-      }
+const remove = (request: LoaderArgs['request']) =>
+  safeAction(z.object({ id: string }), request, async values => {
+    const result = await deleteUserCtc(str(values.id))
+    if (isFail(result)) {
+      return badRequest({ error: result.fail })
     }
+    return json({})
+  })
 
-    return {}
-  } else {
-    return badRequest({ fieldErrors: formErrors(result.error) })
-  }
-}
+export const action = ({ request }: ActionArgs) =>
+  safeActions(z.enum(['edit', 'delete']), request, { edit, delete: remove })
 
 const UsersCtcPage = () => {
   const { usersCtc } = useLoaderData<typeof loader>()
