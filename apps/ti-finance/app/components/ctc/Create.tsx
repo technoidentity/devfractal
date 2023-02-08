@@ -13,8 +13,8 @@ import { DatePicker } from '@mantine/dates'
 import { useForm, zodResolver } from '@mantine/form'
 import type { Ctc } from '@prisma/client'
 import { Form } from '@remix-run/react'
-import type { Errors } from '~/common/utils'
-import { getFieldError } from '~/common/utils'
+import type { Errors } from '@srtp/remix-core'
+import { getFieldError } from '@srtp/remix-react'
 import { CtcSchema } from '~/common/validators'
 
 // @TODO: User better initial values
@@ -28,14 +28,14 @@ const initialValues: CtcSchema = {
 
 export type AddUserCtcProps = Errors<Ctc>
 
-export const AddUserCtc = (errors: AddUserCtcProps) => {
+export const AddUserCtc = (serverErrors: AddUserCtcProps) => {
   const form = useForm({
     initialValues,
     validate: zodResolver(CtcSchema),
     validateInputOnBlur: true,
   })
 
-  const errMsg = getFieldError(errors, form)
+  const errMsg = getFieldError(serverErrors, form)
 
   return (
     <Paper shadow={'lg'} p="lg" sx={{ maxWidth: 450 }} mt="xl" mx="auto">
@@ -46,7 +46,7 @@ export const AddUserCtc = (errors: AddUserCtcProps) => {
       </Center>
 
       <Box>
-        <Text color="red">{errors.error ? errors.error : ''}</Text>
+        <Text color="red">{serverErrors.error ? serverErrors.error : ''}</Text>
         <Form method="post">
           <TextInput
             withAsterisk
