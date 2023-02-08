@@ -1,9 +1,9 @@
-import { Button, Container, Group } from '@mantine/core'
+import { Button, Group } from '@mantine/core'
 import type { Ctc } from '@prisma/client'
 import { useActionData, useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import { cast, isFail, isOk, str } from '@srtp/core'
+import { isFail, str } from '@srtp/core'
 import type { Column, Filters } from '@srtp/table'
 import { ClientTable } from '@srtp/table'
 import { string } from '@srtp/validator'
@@ -14,6 +14,16 @@ import { CtcSchema } from '~/common/validators'
 import { DeleteUserCtc } from '~/components/DeleteUserCtc'
 import { EditUserCtcModal } from '~/components/EditUserCtcModal'
 import { deleteUserCtc, editUserCtc, getUsersCtc } from '~/models/ctc.server'
+
+// format date into  Jan 26 2017 using Intl.DateTimeFormat
+const formatDate = (date: Date) => {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  })
+  return formatter.format(date)
+}
 
 const columns: Column<Ctc>[] = [
   { accessor: 'id', label: 'TI_ID' },
@@ -50,7 +60,7 @@ export async function action({ request }: ActionArgs) {
     }
 
     if (_action === 'edit') {
-      const result = await editUserCtc(cast(CtcSchema, values))
+      const result = await editUserCtc(values)
       if (isFail(result)) {
         return badRequest({ error: result.fail })
       }
@@ -78,24 +88,26 @@ const UsersCtcPage = () => {
           Add
         </Button>
       </Group>
-      <Container m="lg">
-        <ClientTable
-          withBorder
-          renderColumn={(k, row) => <td key={k}>{row[k].toString()}</td>}
-          renderActions={r => {
-            return (
-              <Group>
-                <DeleteUserCtc id={r.id} />
-                <EditUserCtcModal ctc={r} errors={actionData} />
-              </Group>
-            )
-          }}
-          rows={ctcList}
-          columns={columns}
-          initialFilters={initialFilters}
-          perPage={3}
-        />
-      </Container>
+
+      <ClientTable
+        striped
+        renderColumn={(k, row) => {
+          const r = row[k] instanceof Date ? formatDate(row[k] as Date) : row[k]
+          return <td key={k}>{r.toString()}</td>
+        }}
+        renderActions={r => {
+          return (
+            <Group>
+              <DeleteUserCtc id={r.id} />
+              <EditUserCtcModal ctc={r} errors={actionData} />
+            </Group>
+          )
+        }}
+        rows={ctcList}
+        columns={columns}
+        initialFilters={initialFilters}
+        perPage={3}
+      />
     </>
   )
 }
