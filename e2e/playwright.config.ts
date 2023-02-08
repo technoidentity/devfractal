@@ -1,5 +1,4 @@
-import type { PlaywrightTestConfig } from '@playwright/test'
-import { devices } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
 
 /**
  * Read environment variables from file.
@@ -10,8 +9,8 @@ import { devices } from '@playwright/test'
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const config: PlaywrightTestConfig = {
-  testDir: './tests',
+export default defineConfig({
+  testDir: '.',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -30,7 +29,6 @@ const config: PlaywrightTestConfig = {
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
@@ -46,51 +44,37 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-      },
+      use: { ...devices['Desktop Chrome'] },
     },
 
     // {
     //   name: 'firefox',
-    //   use: {
-    //     ...devices['Desktop Firefox'],
-    //   },
+    //   use: { ...devices['Desktop Firefox'] },
     // },
 
     // {
     //   name: 'webkit',
-    //   use: {
-    //     ...devices['Desktop Safari'],
-    //   },
+    //   use: { ...devices['Desktop Safari'] },
     // },
 
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //   },
+    //   use: { ...devices['Pixel 5'] },
     // },
     // {
     //   name: 'Mobile Safari',
-    //   use: {
-    //     ...devices['iPhone 12'],
-    //   },
+    //   use: { ...devices['iPhone 12'] },
     // },
 
     /* Test against branded browsers. */
     // {
     //   name: 'Microsoft Edge',
-    //   use: {
-    //     channel: 'msedge',
-    //   },
+    //   use: { channel: 'msedge' },
     // },
     // {
     //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //   },
+    //   use: { channel: 'chrome' },
     // },
   ],
 
@@ -102,6 +86,4 @@ const config: PlaywrightTestConfig = {
   //   command: 'npm run start',
   //   port: 3000,
   // },
-}
-
-export default config
+})
