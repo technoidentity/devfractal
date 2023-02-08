@@ -10,16 +10,15 @@ import {
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useForm, zodResolver } from '@mantine/form'
-import type { Ctc } from '@prisma/client'
 import { Form, useNavigation, useSubmit } from '@remix-run/react'
+import type { Errors } from '@srtp/remix-core'
+import { getFieldError } from '@srtp/remix-react'
 import React, { useState } from 'react'
-import type { Errors } from '~/common/utils'
-import { getFieldError } from '~/common/utils'
 import { CtcSchema } from '~/common/validators'
 
 export type EditUserCtcModalProps = Readonly<{
-  ctc: Ctc
-  errors?: Errors<Ctc>
+  ctc: CtcSchema
+  errors?: Errors<CtcSchema>
 }>
 
 export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
