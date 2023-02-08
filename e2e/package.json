@@ -4,11 +4,12 @@
   "description": "e2e tests --project=chromium",
   "main": "index.js",
   "scripts": {
-    "e2e": "pnpm exec playwright test"
+    "e2e": "pnpm playwright test"
   },
   "author": "Pervez Iqbal",
   "license": "MIT",
   "devDependencies": {
+    "playwright": "1.29.2",
     "@playwright/test": "1.29.2"
   }
 }
