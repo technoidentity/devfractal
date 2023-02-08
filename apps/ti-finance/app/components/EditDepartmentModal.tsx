@@ -10,12 +10,13 @@ import {
 } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
 import { useForm, zodResolver } from '@mantine/form'
-import type { Department } from '@prisma/client'
 import { Form, useNavigation, useSubmit } from '@remix-run/react'
 import React, { useState } from 'react'
-import type { Errors } from '~/common/utils'
-import { getFieldError } from '~/common/utils'
+import type { Errors } from '@srtp/remix-core'
+
 import { DepartmentSchema } from '~/common/validators'
+import { getFieldError } from '@srtp/remix-react'
+import type { Department } from '@prisma/client'
 
 interface EditDepartmentModalProps {
   department: Department

@@ -1,10 +1,10 @@
-import type { Department, PrismaPromise } from '@prisma/client'
+import type { Department } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
 import { prisma } from '~/db.server'
 
-export const getDepartments = (): PrismaPromise<Department[]> => {
+export const getDepartments = () => {
   return prisma.department.findMany()
 }
 

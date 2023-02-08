@@ -73,7 +73,7 @@ export async function loader(_: LoaderArgs) {
 
 const edit = (request: LoaderArgs['request']) =>
   safeAction(CtcSchema, request, async values => {
-    const result = await editUserCtc(cast(CtcSchema, values))
+    const result = await editUserCtc(values)
     if (isFail(result)) {
       return badRequest({ error: result.fail })
     }

@@ -1,6 +1,6 @@
-import { coerce, z, ZodNativeEnum } from 'zod'
-import { failure, success } from '@srtp/core'
 import type { Try } from '@srtp/core'
+import { failure, success } from '@srtp/core'
+import { coerce, z, ZodNativeEnum } from 'zod'
 export const number = coerce.number()
 export const int = coerce.number().int()
 export const positive = coerce.number().positive()
@@ -48,8 +48,8 @@ export function schema<T extends ZodRawShape>(shape: T) {
   return z.object(shape)
 }
 
-export function validate<T extends ZodRawShape, Spec extends z.ZodObject<T>>(
-  schema: z.ZodObject<T>,
+export function validate<T extends ZodRawShape, Spec extends z.ZodSchema<T>>(
+  schema: Spec,
   value: unknown,
 ): Try<z.infer<Spec>> {
   const r = schema.safeParse(value)
