@@ -986,7 +986,6 @@ importers:
       '@types/eslint': 8.21.0
       '@types/express': 4.17.17
       '@types/express-prometheus-middleware': 1.2.1
-      '@types/lodash': 4.14.191
       '@types/morgan': 1.9.4
       '@types/node': 18.11.19
       '@types/react': 18.0.27
@@ -1011,7 +1010,6 @@ importers:
       express-prometheus-middleware: 1.2.0
       happy-dom: 8.2.6
       isbot: 3.6.5
-      lodash: 4.17.21
       morgan: 1.10.0
       msw: 1.0.0
       npm-run-all: 4.1.5
@@ -1063,7 +1061,6 @@ importers:
       express: 4.18.2
       express-prometheus-middleware: 1.2.0_tgnxwnlb3i7khhmuxluo6kte34
       isbot: 3.6.5
-      lodash: 4.17.21
       morgan: 1.10.0
       prom-client: 14.1.1
       react: 18.2.0
@@ -1085,7 +1082,6 @@ importers:
       '@types/eslint': 8.21.0
       '@types/express': 4.17.17
       '@types/express-prometheus-middleware': 1.2.1
-      '@types/lodash': 4.14.191
       '@types/morgan': 1.9.4
       '@types/node': 18.11.19
       '@types/react': 18.0.27
@@ -1410,14 +1406,6 @@ importers:
       tailwindcss: 3.2.4_postcss@8.4.21
       typescript: 4.9.5
       zx: 7.1.1
-
-  e2e:
-    specifiers:
-      '@playwright/test': 1.29.2
-      playwright: 1.29.2
-    devDependencies:
-      '@playwright/test': 1.29.2
-      playwright: 1.29.2
 
   libs/core:
     specifiers:
@@ -7638,15 +7626,6 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.5.0
-
-  /@playwright/test/1.29.2:
-    resolution: {integrity: sha512-+3/GPwOgcoF0xLz/opTnahel1/y42PdcgZ4hs+BZGIUjtmEFSXGg+nFoaH3NSmuc7a6GSFwXDJ5L7VXpqzigNg==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dependencies:
-      '@types/node': 18.11.19
-      playwright-core: 1.29.2
-    dev: true
 
   /@pnpm/network.ca-file/1.0.2:
     resolution: {integrity: sha512-YcPQ8a0jwYU9bTdJDpXjMi7Brhkr1mXsXrUJvjqM2mQDgkRiz8jFaQGOdaLxgjtUfQgZhKy/O3cG/YwmgKaxLA==}
@@ -20987,21 +20966,6 @@ packages:
     dependencies:
       find-up: 3.0.0
     dev: false
-
-  /playwright-core/1.29.2:
-    resolution: {integrity: sha512-94QXm4PMgFoHAhlCuoWyaBYKb92yOcGVHdQLoxQ7Wjlc7Flg4aC/jbFW7xMR52OfXMVkWicue4WXE7QEegbIRA==}
-    engines: {node: '>=14'}
-    hasBin: true
-    dev: true
-
-  /playwright/1.29.2:
-    resolution: {integrity: sha512-hKBYJUtdmYzcjdhYDkP9WGtORwwZBBKAW8+Lz7sr0ZMxtJr04ASXVzH5eBWtDkdb0c3LLFsehfPBTRfvlfKJOA==}
-    engines: {node: '>=14'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      playwright-core: 1.29.2
-    dev: true
 
   /please-upgrade-node/3.2.0:
     resolution: {integrity: sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==}
