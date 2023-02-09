@@ -4,7 +4,7 @@ import { redirect } from '@remix-run/server-runtime'
 import { isFail } from '@srtp/core'
 import { badRequest, safeAction } from '@srtp/remix-node'
 import { CtcSchema } from '~/common/validators'
-import { AddUserCtc } from '~/components/ctc'
+import { CreateCtcForm } from '~/components/ctc'
 import { createUserCtc } from '~/models/ctc.server'
 
 export const action = ({ request }: ActionArgs) =>
@@ -21,7 +21,7 @@ export const action = ({ request }: ActionArgs) =>
 const AddUserCtcPage = () => {
   const actionData = useActionData<typeof action>()
 
-  return <AddUserCtc {...actionData} />
+  return <CreateCtcForm {...actionData} />
 }
 
 export default AddUserCtcPage
