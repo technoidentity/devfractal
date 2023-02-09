@@ -1,20 +1,7 @@
-import {
-  Box,
-  Button,
-  Center,
-  Group,
-  NumberInput,
-  Paper,
-  Text,
-  TextInput,
-  Title,
-} from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
-import { useForm, zodResolver } from '@mantine/form'
+import { Box, Button, Center, Group, Paper, Text, Title } from '@mantine/core'
 import type { Ctc } from '@prisma/client'
-import { Form } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
-import { getFieldError } from '@srtp/remix-react'
+import { createForm } from '@srtp/remix-react'
 import { CtcSchema } from '~/common/validators'
 
 // @TODO: User better initial values
@@ -26,17 +13,10 @@ const initialValues: CtcSchema = {
   toDate: new Date('12-06-22'),
 }
 
-export type AddUserCtcProps = Errors<Ctc>
+const { Form, Inputs } = createForm(CtcSchema, initialValues)
+export type CreateCtcFormProps = Errors<Ctc>
 
-export const AddUserCtc = (serverErrors: AddUserCtcProps) => {
-  const form = useForm({
-    initialValues,
-    validate: zodResolver(CtcSchema),
-    validateInputOnBlur: true,
-  })
-
-  const errMsg = getFieldError(serverErrors, form)
-
+export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
   return (
     <Paper shadow={'lg'} p="lg" sx={{ maxWidth: 450 }} mt="xl" mx="auto">
       <Center>
@@ -47,51 +27,44 @@ export const AddUserCtc = (serverErrors: AddUserCtcProps) => {
 
       <Box>
         <Text color="red">{serverErrors.error ? serverErrors.error : ''}</Text>
-        <Form method="post">
-          <TextInput
+        <Form method="post" serverErrors={serverErrors}>
+          <Inputs.Str
             withAsterisk
             label="TI_ID"
             name="id"
             placeholder="Employee ID"
-            {...form.getInputProps('id')}
             mt="xs"
           />
 
-          <TextInput
+          <Inputs.Str
             withAsterisk
             label="Username"
             name="name"
             placeholder="Employee Fullname"
-            {...form.getInputProps('name')}
-            error={errMsg('name')}
             mt="xs"
           />
 
-          <NumberInput
+          <Inputs.Number
             withAsterisk
             label="CTC"
             name="ctc"
             placeholder="CTC if billable"
-            {...form.getInputProps('ctc')}
-            error={errMsg('ctc')}
             mt="xs"
           />
 
-          <DatePicker
+          <Inputs.DatePicker
             placeholder="Pick date"
             name="fromDate"
             label="From date"
             withAsterisk
-            {...form.getInputProps('fromDate')}
             mt="xs"
           />
 
-          <DatePicker
+          <Inputs.DatePicker
             placeholder="Pick date"
             name="toDate"
             label="To date"
             withAsterisk
-            {...form.getInputProps('toDate')}
             mt="xs"
           />
 
