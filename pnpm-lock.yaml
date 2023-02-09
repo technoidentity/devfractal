@@ -291,6 +291,7 @@ importers:
       '@srtp/global-state': workspace:*
       '@srtp/local-state': workspace:*
       '@srtp/tsconfig': workspace:*
+      '@srtp/validator': workspace:*
       '@tanstack/react-query': 4.24.4
       '@testing-library/react': 13.4.0
       '@types/lodash': 4.14.191
@@ -348,6 +349,7 @@ importers:
       '@srtp/form': link:../../libs/form
       '@srtp/global-state': link:../../libs/global-state
       '@srtp/local-state': link:../../libs/local-state
+      '@srtp/validator': link:../../libs/validator
       '@tanstack/react-query': 4.24.4_biqbaboplfbrettd7655fr4n2y
       dayjs: 1.11.7
       immer: 9.0.19
@@ -1567,6 +1569,7 @@ importers:
       '@srtp/core': workspace:*
       '@srtp/local-state': workspace:*
       '@srtp/tsconfig': workspace:*
+      '@srtp/validator': workspace:*
       '@types/lodash': 4.14.191
       '@types/node': 18.11.19
       '@types/react': 18.0.27
@@ -1595,6 +1598,7 @@ importers:
       '@mantine/form': 5.10.3_react@18.2.0
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
+      '@srtp/validator': link:../validator
       lodash: 4.17.21
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -1872,6 +1876,7 @@ importers:
       '@srtp/local-state': workspace:*
       '@srtp/remix-core': workspace:*
       '@srtp/tsconfig': workspace:*
+      '@srtp/validator': workspace:*
       '@types/node': 18.13.0
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
@@ -1899,6 +1904,7 @@ importers:
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
       '@srtp/remix-core': link:../remix-core
+      '@srtp/validator': link:../validator
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       tiny-invariant: 1.3.1

@@ -44,15 +44,19 @@ import {
 } from '@mantine/dates'
 import type { UseFormReturnType } from '@mantine/form'
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
+import type { UseFormInput } from '@mantine/form/lib/types'
+
+import type { FormProps as RemixFormProps } from '@remix-run/react'
 import { Form as RemixForm, useNavigation, useSubmit } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
+import type { FormSchema, GetRawShape } from '@srtp/validator'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
-import type { z } from 'zod'
+import type { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
 import { getFieldError } from './utils'
 
-export const useActionSuccess = () => {
+export const useSuccessfulSubmit = () => {
   const { serverErrors } = useFormContext()
   const [success, set] = React.useState(false)
   const navigate = useNavigation()
@@ -69,9 +73,7 @@ export const useActionSuccess = () => {
   return success
 }
 
-type ZodSchema = z.ZodEffects<z.ZodObject<z.ZodRawShape>>
-
-type FormContext<Spec extends ZodSchema> = {
+type FormContext<Spec extends FormSchema> = {
   form: UseFormReturnType<
     z.infer<Spec>,
     (values: z.infer<Spec>) => z.infer<Spec>
@@ -86,32 +88,69 @@ type FormContext<Spec extends ZodSchema> = {
 
 const MyContext = React.createContext<FormContext<any> | undefined>(undefined)
 
-// T extends object? ZodSchema<T>?
-export function createForm<Spec extends ZodSchema>(
-  serverErrors: Errors<z.infer<Spec>>,
+type FormProps<Spec extends FormSchema> = Readonly<{
+  onSubmit?: (values: z.infer<Spec>) => void
+  children: React.ReactNode
+  serverErrors: Errors<z.infer<Spec>>
+}> &
+  Omit<RemixFormProps, 'onSubmit'> &
+  Omit<UseFormInput<z.infer<Spec>>, 'validate'>
+
+type MyRemixFormProps<Spec extends FormSchema> = RemixFormProps &
+  Readonly<{
+    onSubmit?: (values: z.infer<Spec>) => void
+    form: UseFormReturnType<
+      z.TypeOf<Spec>,
+      (values: z.TypeOf<Spec>) => z.TypeOf<Spec>
+    >
+  }>
+
+function MyRemixForm<Spec extends FormSchema>({
+  form,
+  children,
+  onSubmit,
+  ...props
+}: MyRemixFormProps<Spec>) {
+  const submit = useSubmit()
+  const success = useSuccessfulSubmit()
+
+  return (
+    <RemixForm
+      {...props}
+      onSubmit={form.onSubmit((values, event) => {
+        submit(event.currentTarget, { replace: true })
+        if (success) {
+          onSubmit?.(values)
+        }
+      })}
+    >
+      {children}
+    </RemixForm>
+  )
+}
+// T extends object? FormSchema<T>?
+export function createForm<Spec extends FormSchema>(
   spec: Spec,
   initial?: z.infer<Spec>,
 ) {
-  const [Provider, useContext] = createFormContext<z.infer<Spec>>()
+  type T = z.infer<Spec>
+  const [Provider, useContext] = createFormContext<T>()
 
   const Form = ({
     onSubmit,
     children,
-    initialValues,
-  }: {
-    onSubmit: (values: z.infer<Spec>) => void
-    children: React.ReactNode
-    initialValues?: z.infer<Spec>
-  }) => {
-    const submit = useSubmit()
-
-    // @TODO: take more useForm props and pass them here
+    serverErrors,
+    ...props
+  }: FormProps<Spec>) => {
     const form = useForm({
-      initialValues: initialValues || initial,
-      validate: zodResolver(spec),
+      initialValues: initial,
       validateInputOnBlur: true,
+      ...props,
+      validate: zodResolver(spec),
     })
 
+    // @TODO: use form.setErrors or initialErrors instead?
+    // Unfortunately globally available MyContext can't be typesafe. So any
     const errMsg = getFieldError(serverErrors, form) as any
 
     const value = { form, useContext, serverErrors, errMsg } as const
@@ -119,14 +158,9 @@ export function createForm<Spec extends ZodSchema>(
     return (
       <Provider form={form}>
         <MyContext.Provider value={value}>
-          <RemixForm
-            onSubmit={form.onSubmit((values, event) => {
-              submit(event.currentTarget, { replace: true })
-              onSubmit(values)
-            })}
-          >
+          <MyRemixForm {...props} onSubmit={onSubmit} form={form}>
             {children}
-          </RemixForm>
+          </MyRemixForm>
         </MyContext.Provider>
       </Provider>
     )
@@ -400,32 +434,38 @@ export const Time = (props: Named<TimeInputProps>) => {
   )
 }
 
-type EnumKeys<Spec extends ZodSchema> = ConditionalKeys<
-  Spec['_def']['schema']['shape'],
+type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
+  GetRawShape<Spec>,
   z.ZodEnum<any>
 >
-type EnumArrayKeys<Spec extends ZodSchema> = ConditionalKeys<
-  Spec['_def']['schema']['shape'],
+type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
+  GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
-type Inputs<Spec extends ZodSchema> = {
+type Inputs<Spec extends FormSchema> = {
   Str: (
-    props: Named<TextInputProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<TextInputProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
   ) => JSX.Element
   Content: (
-    props: Named<TextareaProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<TextareaProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
   ) => JSX.Element
   Password: (
-    props: Named<PasswordInputProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<
+      PasswordInputProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodString>
+    >,
   ) => JSX.Element
   Number: (
-    props: Named<NumberInputProps, ConditionalKeys<z.infer<Spec>, number>>,
+    props: Named<
+      NumberInputProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodNumber>
+    >,
   ) => JSX.Element
   Bool: (
-    props: Named<CheckboxProps, ConditionalKeys<z.infer<Spec>, boolean>>,
+    props: Named<CheckboxProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
   ) => JSX.Element
   Rating: (
-    props: Named<RatingProps, ConditionalKeys<z.infer<Spec>, number>>,
+    props: Named<RatingProps, ConditionalKeys<GetRawShape<Spec>, ZodNumber>>,
   ) => JSX.Element
   Enum: (
     props: Named<RadioGroupProps, EnumKeys<Spec>> & {
@@ -435,39 +475,48 @@ type Inputs<Spec extends ZodSchema> = {
   EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
   Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
   Switch: (
-    props: Named<SwitchProps, ConditionalKeys<z.infer<Spec>, boolean>>,
+    props: Named<SwitchProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
   ) => JSX.Element
   Chip: (
-    props: Named<ChipProps, ConditionalKeys<z.infer<Spec>, boolean>>,
+    props: Named<ChipProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
   ) => JSX.Element
   Slider: (
-    props: Named<SliderProps, ConditionalKeys<z.infer<Spec>, number>>,
+    props: Named<SliderProps, ConditionalKeys<GetRawShape<Spec>, ZodNumber>>,
   ) => JSX.Element
   File: (
     props: Named<FileInputProps, ConditionalKeys<z.infer<Spec>, File>>,
   ) => JSX.Element
   Color: (
-    props: Named<ColorInputProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<
+      ColorInputProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodString>
+    >,
   ) => JSX.Element
   DatePicker: (
-    props: Named<DatePickerProps, ConditionalKeys<z.infer<Spec>, Date>>,
+    props: Named<DatePickerProps, ConditionalKeys<GetRawShape<Spec>, ZodDate>>,
   ) => JSX.Element
   Autocomplete: (
-    props: Named<AutocompleteProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<
+      AutocompleteProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodString>
+    >,
   ) => JSX.Element
   Time: (
-    props: Named<TimeInputProps, ConditionalKeys<z.infer<Spec>, [Date, Date]>>,
+    props: Named<
+      TimeInputProps,
+      ConditionalKeys<GetRawShape<Spec>, [ZodDate, ZodDate]>
+    >,
   ) => JSX.Element
   SegmentedControl: (
     props: Named<
       SegmentedControlProps,
-      ConditionalKeys<Spec['_def']['schema']['shape'], z.ZodEnum<any>>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any>>
     >,
   ) => JSX.Element
   // Calendar: <Multiple extends boolean = false>(
   //   props: Named<
   //     CalendarProps<Multiple>,
-  //     ConditionalKeys<z.infer<Spec>, Date[] | Date>
+  //     ConditionalKeys<GetRawShape<Spec>, Date[] | Date>
   //   >,
   // ) => JSX.Element
 }
