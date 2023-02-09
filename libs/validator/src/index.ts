@@ -1,6 +1,6 @@
 import type { Try } from '@srtp/core'
 import { failure, success } from '@srtp/core'
-import { coerce, z, ZodNativeEnum } from 'zod'
+import { coerce, z, ZodEffects, ZodNativeEnum } from 'zod'
 export const number = coerce.number()
 export const int = coerce.number().int()
 export const positive = coerce.number().positive()
@@ -40,15 +40,30 @@ export function empty<T extends FieldSchema>(spec: T) {
 }
 
 // nesting and arrays not supported yet
-export type ZodRawShape = { [k: string]: FieldSchema }
+export type FormRawShape = { [k: string]: FieldSchema }
 
-export type FormSchema<T extends ZodRawShape> = z.ZodObject<T>
+export type GetRawShape<T> = T extends z.ZodEffects<infer R>
+  ? GetRawShape<R>
+  : T extends z.AnyZodObject
+  ? T['shape']
+  : never
 
-export function schema<T extends ZodRawShape>(shape: T) {
+export function getRawShape<T extends z.ZodEffects<any> | z.AnyZodObject>(
+  spec: T,
+): GetRawShape<T> {
+  return spec instanceof ZodEffects
+    ? // eslint-disable-next-line no-underscore-dangle
+      getRawShape(spec._def.schema)
+    : spec.shape
+}
+
+export type FormSchema = z.ZodEffects<any> | z.AnyZodObject
+
+export function schema<T extends FormRawShape>(shape: T) {
   return z.object(shape)
 }
 
-export function validate<T extends ZodRawShape, Spec extends z.ZodSchema<T>>(
+export function validate<T extends FormRawShape, Spec extends z.ZodSchema<T>>(
   schema: Spec,
   value: unknown,
 ): Try<z.infer<Spec>> {
