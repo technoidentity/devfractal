@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
+  Autocomplete as MantineAutocomplete,
   AutocompleteProps,
   Checkbox,
   CheckboxProps,
@@ -27,7 +28,6 @@ import {
   SliderProps,
   Switch as MantineSwitch,
   SwitchProps,
-  Autocomplete as MantineAutocomplete,
   Textarea,
   TextareaProps,
   TextInput,
@@ -47,15 +47,20 @@ import {
   UseFormReturnType,
   zodResolver,
 } from '@mantine/form'
+import { FormSchema, GetRawShape } from '@srtp/validator'
 import { capitalize } from 'lodash'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
-import { z } from 'zod'
+import { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
 
-type ZodSchema = z.ZodEffects<z.ZodObject<z.ZodRawShape>>
+// const Spec = z.object({
+//   name: z.string(),
+//   salary: z.number(),
+//   choice: z.enum(['yes', 'no']),
+// })
 
-type FormContext<Spec extends ZodSchema> = [
+type FormContext<Spec extends FormSchema> = [
   UseFormReturnType<z.TypeOf<Spec>, (values: z.TypeOf<Spec>) => z.TypeOf<Spec>>,
   () => UseFormReturnType<
     z.TypeOf<Spec>,
@@ -162,7 +167,7 @@ export const Chip = (props: Named<ChipProps>) => {
   )
 }
 
-// export const Calendar = <Multiple extends boolean>(
+// export const Calendar = <Multiple extends ZodBoolean>(
 //   props: Named<CalendarProps<Multiple>>,
 // ) => {
 //   const [form] = useFormContext()
@@ -214,32 +219,38 @@ export const Time = (props: Named<TimeInputProps>) => {
   return <TimeInput {...props} {...form.getInputProps(props.name)} />
 }
 
-type EnumKeys<Spec extends ZodSchema> = ConditionalKeys<
-  Spec['_def']['schema']['shape'],
+type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
+  GetRawShape<Spec>,
   z.ZodEnum<any>
 >
-type EnumArrayKeys<Spec extends ZodSchema> = ConditionalKeys<
-  Spec['_def']['schema']['shape'],
+type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
+  GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
-type Inputs<Spec extends ZodSchema> = {
+type Inputs<Spec extends FormSchema> = {
   Str: (
-    props: Named<TextInputProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<TextInputProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
   ) => JSX.Element
   Content: (
-    props: Named<TextareaProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<TextareaProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
   ) => JSX.Element
   Password: (
-    props: Named<PasswordInputProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<
+      PasswordInputProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodString>
+    >,
   ) => JSX.Element
   Number: (
-    props: Named<NumberInputProps, ConditionalKeys<z.infer<Spec>, number>>,
+    props: Named<
+      NumberInputProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodNumber>
+    >,
   ) => JSX.Element
   Bool: (
-    props: Named<CheckboxProps, ConditionalKeys<z.infer<Spec>, boolean>>,
+    props: Named<CheckboxProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
   ) => JSX.Element
   Rating: (
-    props: Named<RatingProps, ConditionalKeys<z.infer<Spec>, number>>,
+    props: Named<RatingProps, ConditionalKeys<GetRawShape<Spec>, ZodNumber>>,
   ) => JSX.Element
   Enum: (
     props: Named<RadioGroupProps, EnumKeys<Spec>> & {
@@ -249,44 +260,53 @@ type Inputs<Spec extends ZodSchema> = {
   EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
   Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
   Switch: (
-    props: Named<SwitchProps, ConditionalKeys<z.infer<Spec>, boolean>>,
+    props: Named<SwitchProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
   ) => JSX.Element
   Chip: (
-    props: Named<ChipProps, ConditionalKeys<z.infer<Spec>, boolean>>,
+    props: Named<ChipProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
   ) => JSX.Element
   Slider: (
-    props: Named<SliderProps, ConditionalKeys<z.infer<Spec>, number>>,
+    props: Named<SliderProps, ConditionalKeys<GetRawShape<Spec>, ZodNumber>>,
   ) => JSX.Element
   File: (
-    props: Named<FileInputProps, ConditionalKeys<z.infer<Spec>, File>>,
+    props: Named<FileInputProps, ConditionalKeys<GetRawShape<Spec>, File>>,
   ) => JSX.Element
   Color: (
-    props: Named<ColorInputProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<
+      ColorInputProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodString>
+    >,
   ) => JSX.Element
   DatePicker: (
-    props: Named<DatePickerProps, ConditionalKeys<z.infer<Spec>, Date>>,
+    props: Named<DatePickerProps, ConditionalKeys<GetRawShape<Spec>, ZodDate>>,
   ) => JSX.Element
   Autocomplete: (
-    props: Named<AutocompleteProps, ConditionalKeys<z.infer<Spec>, string>>,
+    props: Named<
+      AutocompleteProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodString>
+    >,
   ) => JSX.Element
   Time: (
-    props: Named<TimeInputProps, ConditionalKeys<z.infer<Spec>, [Date, Date]>>,
+    props: Named<
+      TimeInputProps,
+      ConditionalKeys<GetRawShape<Spec>, [ZodDate, ZodDate]>
+    >,
   ) => JSX.Element
   SegmentedControl: (
     props: Named<
       SegmentedControlProps,
-      ConditionalKeys<Spec['_def']['schema']['shape'], z.ZodEnum<any>>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any>>
     >,
   ) => JSX.Element
-  // Calendar: <Multiple extends boolean = false>(
+  // Calendar: <Multiple extends ZodBoolean = false>(
   //   props: Named<
   //     CalendarProps<Multiple>,
-  //     ConditionalKeys<z.infer<Spec>, Date[] | Date>
+  //     ConditionalKeys<GetRawShape<Spec>, Date[] | Date>
   //   >,
   // ) => JSX.Element
 }
 
-export function createForm<Spec extends ZodSchema>(
+export function createForm<Spec extends FormSchema>(
   spec: Spec,
   initial?: z.infer<Spec>,
 ) {

@@ -27,6 +27,7 @@
     "@srtp/form": "workspace:*",
     "@srtp/global-state": "workspace:*",
     "@srtp/local-state": "workspace:*",
+    "@srtp/validator": "workspace:*",
     "@tanstack/react-query": "4.24.4",
     "dayjs": "1.11.7",
     "immer": "9.0.19",
