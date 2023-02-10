@@ -298,6 +298,7 @@ type Inputs<Spec extends FormSchema> = {
       ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any>>
     >,
   ) => JSX.Element
+
   // Calendar: <Multiple extends ZodBoolean = false>(
   //   props: Named<
   //     CalendarProps<Multiple>,
@@ -339,20 +340,21 @@ export function createForm<Spec extends FormSchema>(
     Autocomplete,
     Bool,
     Chip,
-    Switch,
     Color,
     Content,
     DatePicker,
     Enum,
     EnumList,
-    Select,
     File,
+
     Number,
     Password,
-    SegmentedControl,
-    Slider,
     Rating,
+    SegmentedControl,
+    Select,
+    Slider,
     Str,
+    Switch,
     Time,
     // Calendar,
   }

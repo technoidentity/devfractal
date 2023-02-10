@@ -42,7 +42,6 @@ export const EditDepartmentModal = ({
       navigate.state === 'loading' &&
       Object.keys(errors?.fieldErrors || {}).length == 0
     ) {
-      console.log(errors)
       setOpened(false)
     }
   }, [errors, navigate.state])

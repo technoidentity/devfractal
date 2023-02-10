@@ -1,6 +1,6 @@
 import { Avatar, Button, Group, Title } from '@mantine/core'
 import type { User } from '@prisma/client'
-import { Form, Link } from '@remix-run/react'
+import { Form } from '@remix-run/react'
 
 interface AppHeaderProps {
   user: User

@@ -1,5 +1,5 @@
 import { Button, Container, Group } from '@mantine/core'
-import { Department } from '@prisma/client'
+import type { Department } from '@prisma/client'
 import { useActionData, useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'

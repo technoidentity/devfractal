@@ -1,6 +1,4 @@
 import { createEmotionCache, MantineProvider } from '@mantine/core'
-import type { LoaderArgs, MetaFunction } from '@remix-run/node'
-import { json } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -9,6 +7,8 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
+import type { LoaderArgs, MetaFunction } from '@remix-run/server-runtime'
+import { json } from '@remix-run/server-runtime'
 
 import { ModalsProvider } from '@mantine/modals'
 import { StylesPlaceholder } from '@mantine/remix'

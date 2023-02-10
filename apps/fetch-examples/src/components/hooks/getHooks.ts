@@ -17,7 +17,7 @@ export const getPagedTodos = async ({
   const res = await axios.get(`api/todos?${q}`)
 
   const ic = itemCount(res)
-  console.log({ ic })
+
   return {
     page: res.data as Todo[],
     pageCount: pageCount(ic, limit),
