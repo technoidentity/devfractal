@@ -275,7 +275,7 @@ export const Number = (props: Named<NumberInputProps>) => {
 }
 
 export const Bool = (props: Named<CheckboxProps>) => {
-  const { form, errMsg, spec } = useFormContext()
+  const { form, errMsg } = useFormContext()
 
   return (
     <Checkbox

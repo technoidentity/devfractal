@@ -1,48 +1,19 @@
-import {
-  Box,
-  Button,
-  Group,
-  Modal,
-  NumberInput,
-  Paper,
-  Text,
-  TextInput,
-} from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
-import { useForm, zodResolver } from '@mantine/form'
-import { Form, useNavigation, useSubmit } from '@remix-run/react'
+import { Box, Button, Group, Modal, Paper } from '@mantine/core'
 import type { Errors } from '@srtp/remix-core'
-import { getFieldError } from '@srtp/remix-react'
-import React, { useState } from 'react'
+import { createForm } from '@srtp/remix-react'
+import { useState } from 'react'
 import { CtcSchema } from '~/common/validators'
+import { FormErrors } from '../common'
 
-export type EditUserCtcModalProps = Readonly<{
+export type EditCtcModalFormProps = Readonly<{
   ctc: CtcSchema
   errors?: Errors<CtcSchema>
 }>
 
-export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
-  const navigate = useNavigation()
-  const submit = useSubmit()
+const { Form, Inputs } = createForm(CtcSchema)
+
+export const EditCtcModalForm = ({ ctc, errors }: EditCtcModalFormProps) => {
   const [opened, setOpened] = useState(false)
-
-  const form = useForm({
-    initialValues: ctc, // structuredClone?
-    validate: zodResolver(CtcSchema),
-    validateInputOnBlur: true,
-  })
-
-  React.useEffect(() => {
-    if (
-      navigate.state === 'loading' &&
-      Object.keys(errors?.fieldErrors || {}).length == 0 &&
-      errors?.error === undefined
-    ) {
-      setOpened(false)
-    }
-  }, [errors, navigate.state])
-
-  const errMsg = getFieldError(errors, form)
 
   return (
     <>
@@ -53,62 +24,53 @@ export const EditUserCtcModal = ({ ctc, errors }: EditUserCtcModalProps) => {
       >
         <Paper shadow={'lg'} p="lg" sx={{ maxWidth: 450 }} mt="xl" mx="auto">
           <Box>
-            <Text color="red">{errors?.error ? errors.error : ''}</Text>
+            <FormErrors error={errors?.error} />
 
             <Form
+              initialValues={ctc}
+              serverErrors={errors}
               method="put"
-              onSubmit={form.onSubmit((_, event) => {
-                submit(event.currentTarget, { replace: true })
-              })}
+              onSubmit={values => {
+                console.log({ values })
+                setOpened(false)
+              }}
             >
-              <TextInput
-                withAsterisk
+              <Inputs.Str
                 label="TI_ID"
                 name="id"
                 placeholder="Employee ID"
-                {...form.getInputProps('id')}
                 mt="xs"
               />
 
-              <TextInput
-                withAsterisk
+              <Inputs.Str
                 label="Username"
                 name="name"
                 placeholder="Employee Fullname"
-                {...form.getInputProps('name')}
-                error={errMsg('name')}
                 mt="xs"
               />
 
-              <NumberInput
-                withAsterisk
+              <Inputs.Number
                 label="CTC"
                 name="ctc"
                 placeholder="CTC if billable"
-                {...form.getInputProps('ctc')}
-                error={errMsg('ctc')}
                 mt="xs"
               />
 
-              <DatePicker
+              <Inputs.DatePicker
                 placeholder="Pick date"
                 name="fromDate"
                 label="From date"
-                withAsterisk
-                {...form.getInputProps('fromDate')}
                 mt="xs"
               />
 
-              <DatePicker
+              <Inputs.DatePicker
                 placeholder="Pick date"
                 name="toDate"
                 label="To date"
-                withAsterisk
-                {...form.getInputProps('toDate')}
                 mt="xs"
               />
 
-              <input type="hidden" name="_action" value="edit" />
+              <Inputs.Action action="edit" />
 
               <Group position="right" mt="xl">
                 <Button type="submit">Update</Button>

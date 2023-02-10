@@ -1,35 +1,50 @@
 import { Box, Button, Center, Group, Paper, Text, Title } from '@mantine/core'
-import type { Ctc } from '@prisma/client'
 import type { Errors } from '@srtp/remix-core'
 import { createForm } from '@srtp/remix-react'
+import React from 'react'
 import { CtcSchema } from '~/common/validators'
+import { FormErrors } from '../common'
 
-// @TODO: User better initial values
 const initialValues: CtcSchema = {
-  id: '101',
-  name: 'zubina',
-  ctc: 240000,
-  fromDate: new Date('12-06-21'),
-  toDate: new Date('12-06-22'),
+  id: '',
+  name: '',
+  ctc: 0,
+  fromDate: new Date(),
+  toDate: new Date(),
 }
 
 const { Form, Inputs } = createForm(CtcSchema, initialValues)
-export type CreateCtcFormProps = Errors<Ctc>
+
+export type CreateCtcFormProps = Errors<CtcSchema>
+
+const FormTitle = ({ children }: { children: React.ReactNode }) => (
+  <Center>
+    <Title order={3} mt="xl">
+      {children}
+    </Title>
+  </Center>
+)
+
+const SubmitButton = () => (
+  <Group position="right" mt="xl">
+    <Button type="submit">Submit</Button>
+  </Group>
+)
 
 export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
   return (
     <Paper shadow={'lg'} p="lg" sx={{ maxWidth: 450 }} mt="xl" mx="auto">
-      <Center>
-        <Title order={3} mt="xl">
-          Add Employee CTC!
-        </Title>
-      </Center>
+      <FormTitle>Add Employee CTC!</FormTitle>
 
       <Box>
-        <Text color="red">{serverErrors.error ? serverErrors.error : ''}</Text>
-        <Form method="post" serverErrors={serverErrors}>
+        <FormErrors error={serverErrors} />
+
+        <Form
+          method="post"
+          serverErrors={serverErrors}
+          initialValues={initialValues}
+        >
           <Inputs.Str
-            withAsterisk
             label="TI_ID"
             name="id"
             placeholder="Employee ID"
@@ -37,7 +52,6 @@ export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
           />
 
           <Inputs.Str
-            withAsterisk
             label="Username"
             name="name"
             placeholder="Employee Fullname"
@@ -45,7 +59,6 @@ export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
           />
 
           <Inputs.Number
-            withAsterisk
             label="CTC"
             name="ctc"
             placeholder="CTC if billable"
@@ -56,7 +69,6 @@ export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
             placeholder="Pick date"
             name="fromDate"
             label="From date"
-            withAsterisk
             mt="xs"
           />
 
@@ -64,13 +76,10 @@ export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
             placeholder="Pick date"
             name="toDate"
             label="To date"
-            withAsterisk
             mt="xs"
           />
 
-          <Group position="right" mt="xl">
-            <Button type="submit">Submit</Button>
-          </Group>
+          <SubmitButton />
         </Form>
       </Box>
     </Paper>

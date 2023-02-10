@@ -3,7 +3,7 @@ import { Form, useTransition } from '@remix-run/react'
 
 export type DeleteUserCtcProps = Readonly<{ id: string }>
 
-export const DeleteUserCtc = ({ id }: DeleteUserCtcProps) => {
+export const DeleteCtcForm = ({ id }: DeleteUserCtcProps) => {
   const transition = useTransition()
   const deleting = transition.submission
 
