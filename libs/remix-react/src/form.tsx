@@ -48,12 +48,15 @@ import type { UseFormInput } from '@mantine/form/lib/types'
 
 import type { FormProps as RemixFormProps } from '@remix-run/react'
 import { Form as RemixForm, useNavigation, useSubmit } from '@remix-run/react'
+import { isNil } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
 import type { FormSchema, GetRawShape } from '@srtp/validator'
+import { getRawShape } from '@srtp/validator'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
 import type { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
+import { ZodOptional } from 'zod'
 import { getFieldError } from './utils'
 
 export const useSuccessfulSubmit = () => {
@@ -64,8 +67,10 @@ export const useSuccessfulSubmit = () => {
   React.useEffect(() => {
     if (
       navigate.state === 'loading' &&
-      Object.keys(serverErrors?.fieldErrors || {}).length === 0
+      Object.keys(serverErrors?.fieldErrors || {}).length === 0 &&
+      isNil(serverErrors?.error)
     ) {
+      console.log(serverErrors)
       set(true)
     }
   }, [serverErrors, navigate.state])
@@ -82,8 +87,9 @@ type FormContext<Spec extends FormSchema> = {
     z.infer<Spec>,
     (values: z.infer<Spec>) => z.infer<Spec>
   >
-  serverErrors: Errors<z.infer<Spec>>
+  serverErrors?: Errors<z.infer<Spec>>
   errMsg: (key: keyof z.infer<Spec>) => string | undefined
+  spec: GetRawShape<Spec>
 }
 
 const MyContext = React.createContext<FormContext<any> | undefined>(undefined)
@@ -91,7 +97,7 @@ const MyContext = React.createContext<FormContext<any> | undefined>(undefined)
 type FormProps<Spec extends FormSchema> = Readonly<{
   onSubmit?: (values: z.infer<Spec>) => void
   children: React.ReactNode
-  serverErrors: Errors<z.infer<Spec>>
+  serverErrors?: Errors<z.infer<Spec>>
 }> &
   Omit<RemixFormProps, 'onSubmit'> &
   Omit<UseFormInput<z.infer<Spec>>, 'validate'>
@@ -112,16 +118,20 @@ function MyRemixForm<Spec extends FormSchema>({
   ...props
 }: MyRemixFormProps<Spec>) {
   const submit = useSubmit()
+
   const success = useSuccessfulSubmit()
+
+  React.useEffect(() => {
+    if (success) {
+      onSubmit?.(form.values)
+    }
+  }, [form.values, onSubmit, success])
 
   return (
     <RemixForm
       {...props}
-      onSubmit={form.onSubmit((values, event) => {
+      onSubmit={form.onSubmit((_, event) => {
         submit(event.currentTarget, { replace: true })
-        if (success) {
-          onSubmit?.(values)
-        }
       })}
     >
       {children}
@@ -137,13 +147,18 @@ export function createForm<Spec extends FormSchema>(
   const [Provider, useContext] = createFormContext<T>()
 
   const Form = ({
+    initialValues,
     onSubmit,
     children,
     serverErrors,
     ...props
   }: FormProps<Spec>) => {
+    invariant(
+      initialValues !== undefined || initial !== undefined,
+      'You must provide initialValues to form',
+    )
     const form = useForm({
-      initialValues: initial,
+      initialValues: initialValues || initial,
       validateInputOnBlur: true,
       ...props,
       validate: zodResolver(spec),
@@ -153,7 +168,13 @@ export function createForm<Spec extends FormSchema>(
     // Unfortunately globally available MyContext can't be typesafe. So any
     const errMsg = getFieldError(serverErrors, form) as any
 
-    const value = { form, useContext, serverErrors, errMsg } as const
+    const value = {
+      form,
+      useContext,
+      serverErrors,
+      errMsg,
+      spec: getRawShape(spec),
+    } as const
 
     return (
       <Provider form={form}>
@@ -167,6 +188,7 @@ export function createForm<Spec extends FormSchema>(
   }
 
   const Inputs: Inputs<Spec> = {
+    Action,
     Autocomplete,
     Bool,
     Chip,
@@ -178,6 +200,7 @@ export function createForm<Spec extends FormSchema>(
     EnumList,
     Select,
     File,
+    Hidden,
     Number,
     Password,
     SegmentedControl,
@@ -191,19 +214,20 @@ export function createForm<Spec extends FormSchema>(
   return { Form, useFormContext: useForm, Inputs }
 }
 
-const useFormContext = () => {
+const useFormContext = <Spec extends FormSchema>() => {
   const ctx = React.useContext(MyContext)
   invariant(ctx, 'use FormProvider')
-  return ctx
+  return ctx as FormContext<Spec>
 }
 
 type Named<T, Name = string> = T & Readonly<{ name: Name }>
 
-export const Str = (props: Named<TextInputProps>) => {
-  const { form, errMsg } = useFormContext()
+export const Str = <Spec extends FormSchema>(props: Named<TextInputProps>) => {
+  const { form, errMsg, spec } = useFormContext<Spec>()
 
   return (
     <TextInput
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -212,10 +236,11 @@ export const Str = (props: Named<TextInputProps>) => {
 }
 
 export const Content = (props: Named<TextareaProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <Textarea
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -224,10 +249,11 @@ export const Content = (props: Named<TextareaProps>) => {
 }
 
 export const Password = (props: Named<PasswordInputProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <PasswordInput
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -236,10 +262,11 @@ export const Password = (props: Named<PasswordInputProps>) => {
 }
 
 export const Number = (props: Named<NumberInputProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <NumberInput
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -248,7 +275,7 @@ export const Number = (props: Named<NumberInputProps>) => {
 }
 
 export const Bool = (props: Named<CheckboxProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <Checkbox
@@ -273,10 +300,11 @@ export const Rating = (props: Named<RatingProps>) => {
 export const Enum = (
   props: Named<RadioGroupProps> & { values?: readonly string[] },
 ) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <Radio.Group
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -295,10 +323,11 @@ export const Enum = (
 }
 
 export const EnumList = (props: Named<MultiSelectProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <MultiSelect
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -307,10 +336,11 @@ export const EnumList = (props: Named<MultiSelectProps>) => {
 }
 
 export const Select = (props: Named<SelectProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <MantineSelect
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -375,10 +405,11 @@ export const Slider = (props: Named<SliderProps>) => {
 }
 
 export const File = (props: Named<FileInputProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <FileInput
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -387,10 +418,11 @@ export const File = (props: Named<FileInputProps>) => {
 }
 
 export const Color = (props: Named<ColorInputProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <ColorInput
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -399,10 +431,11 @@ export const Color = (props: Named<ColorInputProps>) => {
 }
 
 export const DatePicker = (props: Named<DatePickerProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <MantineDatePicker
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -411,10 +444,11 @@ export const DatePicker = (props: Named<DatePickerProps>) => {
 }
 
 export const Autocomplete = (props: Named<AutocompleteProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <MantineAutocomplete
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -423,10 +457,11 @@ export const Autocomplete = (props: Named<AutocompleteProps>) => {
 }
 
 export const Time = (props: Named<TimeInputProps>) => {
-  const { form, errMsg } = useFormContext()
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <TimeInput
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg(props.name)}
@@ -434,6 +469,24 @@ export const Time = (props: Named<TimeInputProps>) => {
   )
 }
 
+export type HiddenProps = Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  'name' | 'type'
+>
+
+export const Hidden = (props: HiddenProps) => {
+  return <input {...props} type="hidden" />
+}
+
+export type ActionProps = Omit<HiddenProps, 'value'> &
+  Readonly<{ action: string }>
+
+export const Action = ({ action, ...props }: ActionProps) => {
+  return <input {...props} type="hidden" name="_action" value={action} />
+}
 type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodEnum<any>
@@ -513,6 +566,8 @@ type Inputs<Spec extends FormSchema> = {
       ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any>>
     >,
   ) => JSX.Element
+  Action: (props: ActionProps) => JSX.Element
+  Hidden: (props: HiddenProps) => JSX.Element
   // Calendar: <Multiple extends boolean = false>(
   //   props: Named<
   //     CalendarProps<Multiple>,
