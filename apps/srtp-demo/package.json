@@ -26,7 +26,7 @@
     "@tanstack/react-query": "4.24.4",
     "dayjs": "1.11.7",
     "immer": "9.0.19",
-    "jotai": "2.0.0",
+    "jotai": "2.0.1",
     "jotai-tanstack-query": "0.5.0",
     "query-string": "8.1.0",
     "react": "18.2.0",
@@ -38,7 +38,7 @@
     "ts-essentials": "9.3.0",
     "tslib": "2.5.0",
     "use-immer": "0.8.1",
-    "zod": "3.20.2"
+    "zod": "3.20.6"
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
@@ -53,7 +53,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.33.0",
     "eslint-config-srtp": "workspace:*",
-    "npm-check-updates": "16.6.5",
+    "npm-check-updates": "16.7.4",
     "prettier": "2.8.4",
     "rimraf": "4.1.2",
     "turbo": "1.7.4",

@@ -21,13 +21,13 @@
   "dependencies": {
     "@fastify/autoload": "5.7.1",
     "@fastify/websocket": "7.1.2",
-    "@trpc/server": "10.10.0",
+    "@trpc/server": "10.11.0",
     "close-with-grace": "1.1.0",
     "dotenv": "16.0.3",
-    "esbuild": "0.17.6",
+    "esbuild": "0.17.7",
     "esbuild-register": "3.4.2",
     "eslint": "8.33.0",
-    "fastify": "4.12.0",
+    "fastify": "4.13.0",
     "fastify-autoload": "3.13.0",
     "fastify-cli": "5.7.1",
     "fastify-cors": "6.1.0",
@@ -44,7 +44,7 @@
     "trpc-openapi": "1.1.2",
     "trpc-playground": "1.0.4",
     "typescript": "4.9.5",
-    "zod": "3.20.2"
+    "zod": "3.20.6"
   },
   "devDependencies": {
     "@types/lodash": "4.14.191",
