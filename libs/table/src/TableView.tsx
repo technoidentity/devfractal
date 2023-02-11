@@ -1,29 +1,44 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Input, Table, TableProps } from '@mantine/core'
+import { toStr } from '@srtp/core'
 import React from 'react'
 import { Column, Filters } from './types'
 import { Sort } from './utils'
 
 interface TableViewProps<Row extends object & { id: number | string }>
   extends TableProps {
-  actions: boolean
   columns: Column<Row>[]
   filters: Filters<Row>
   onSearch(val: string, searchVal: string): void
   onSort(val: keyof Row): void
-  renderColumn: (key: keyof Row, row: Row) => React.ReactNode
-  renderActions?: (row: Row) => React.ReactNode
+  renderColumn?: (col: unknown) => React.ReactNode
+  Actions?: (props: { row: Row }) => JSX.Element
   rows: readonly Row[]
   sort: Sort<Row>
 }
 
+const formatDate = (date: Date) => {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  })
+
+  return formatter.format(date)
+}
+
+const defaultRenderColumn = (x: unknown) => {
+  const r = x instanceof Date ? formatDate(x) : x
+  return <td>{toStr(r)}</td>
+}
+
 export function TableView<T extends { id: number | string } & object>({
-  actions,
   columns,
   filters,
   onSearch,
   onSort,
-  renderColumn,
-  renderActions,
+  renderColumn = defaultRenderColumn,
+  Actions,
   rows,
   sort,
   ...props
@@ -72,10 +87,17 @@ export function TableView<T extends { id: number | string } & object>({
       <tbody>
         {rows.map(r => (
           <tr key={r.id}>
-            {columns.map(({ accessor }) =>
-              renderColumn(accessor as keyof T, r),
+            {columns.map(({ accessor }) => (
+              <React.Fragment key={accessor}>
+                {renderColumn(r[accessor])}
+              </React.Fragment>
+            ))}
+            {Actions && (
+              <td width={'200px'}>
+                <Actions row={r} />
+                {/* <p>Hello</p> */}
+              </td>
             )}
-            {renderActions && <td width={'200px'}>{renderActions(r)}</td>}
           </tr>
         ))}
       </tbody>

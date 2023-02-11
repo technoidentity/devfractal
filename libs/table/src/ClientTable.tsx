@@ -9,13 +9,12 @@ import { filterRows, Sort, sortRows } from './utils'
 export type ClientTableProps<Row extends object & { id: number | string }> =
   TableProps &
     Readonly<{
-      renderColumn: (key: keyof Row, row: Row) => React.ReactNode
-      renderActions?: (row: Row) => React.ReactNode
+      renderColumn?: (col: unknown) => React.ReactNode
+      Actions?: (props: { row: Row }) => JSX.Element
       perPage: number
       initialFilters: Filters<Row>
       columns: any
       rows: readonly Row[]
-      actions?: boolean
     }>
 
 function paginateRows<Row extends object>(
@@ -33,7 +32,6 @@ export function ClientTable<Row extends object & { id: number | string }>({
   perPage,
   columns,
   rows,
-  actions,
   initialFilters,
   ...props
 }: ClientTableProps<Row>) {
@@ -90,7 +88,6 @@ export function ClientTable<Row extends object & { id: number | string }>({
         onSearch={handleSearch}
         sort={sort}
         onSort={handleSort}
-        actions={!!actions}
       />
       <Pagination<Row>
         rowsPerPage={perPage}
