@@ -2,6 +2,7 @@ import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import type { Errors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
+import invariant from 'tiny-invariant'
 import type { Writeable, ZodSchema, ZodTypeDef } from 'zod'
 import { z, ZodType } from 'zod'
 
@@ -27,7 +28,7 @@ export async function safeFormData<Output, Input>(
 
 export async function safeAction<T extends object, R>(
   formDataSpec: ZodSchema<T>,
-  request: LoaderArgs['request'],
+  { request }: LoaderArgs,
   fn: (values: z.infer<typeof formDataSpec>) => R,
 ) {
   const result = await safeFormData(formDataSpec, request)
@@ -43,13 +44,26 @@ export async function safeActions<
   T extends Readonly<[U, ...U[]]>,
   Actions extends Record<
     z.infer<z.ZodEnum<Writeable<T>>>,
-    (request: Request) => unknown
+    (args: LoaderArgs) => unknown
   >,
->(spec: z.ZodEnum<Writeable<T>>, request: Request, actions: Actions) {
-  const formData = await request.clone().formData()
+>(spec: z.ZodEnum<Writeable<T>>, args: LoaderArgs, actions: Actions) {
+  const formData = await args.request.clone().formData()
   const actionKey = spec.parse(formData.get('_action'))
 
-  return await actions[actionKey](request)
+  return await actions[actionKey](args)
+}
+
+const HTTPMethods = z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+type HTTPMethods = z.infer<typeof HTTPMethods>
+
+export async function actions<
+  Actions extends Partial<Record<HTTPMethods, (args: LoaderArgs) => unknown>>,
+>(args: LoaderArgs, actions: Actions) {
+  const method = HTTPMethods.parse(args.request.method)
+  const fn = actions[method]
+  invariant(fn !== undefined, `${method} not supported`)
+
+  return await fn(args)
 }
 
 export function safeParams<Spec extends z.ZodRawShape | z.ZodTypeAny>(
