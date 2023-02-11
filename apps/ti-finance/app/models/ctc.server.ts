@@ -5,11 +5,11 @@ import { defaultError, fail, ok } from '@srtp/core'
 
 import { prisma } from '~/db.server'
 
-export function getUsersCtc() {
+export function getCtcList() {
   return prisma.ctc.findMany()
 }
 
-export async function createUserCtc(data: Ctc): Promise<Result<string, Ctc>> {
+export async function createCtc(data: Ctc): Promise<Result<string, Ctc>> {
   try {
     const ctc = await prisma.ctc.create({ data })
 
@@ -24,9 +24,7 @@ export async function createUserCtc(data: Ctc): Promise<Result<string, Ctc>> {
   }
 }
 
-export async function deleteUserCtc(
-  id: Ctc['id'],
-): Promise<Result<string, Ctc>> {
+export async function deleteCtc(id: Ctc['id']): Promise<Result<string, Ctc>> {
   try {
     const ctc = await prisma.ctc.delete({
       where: { id },
@@ -38,7 +36,7 @@ export async function deleteUserCtc(
   }
 }
 
-export async function editUserCtc(data: Ctc): Promise<Result<string, Ctc>> {
+export async function updateCtc(data: Ctc): Promise<Result<string, Ctc>> {
   try {
     const result = await prisma.ctc.update({
       where: { id: data.id?.toString() },
