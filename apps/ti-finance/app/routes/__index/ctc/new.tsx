@@ -5,17 +5,15 @@ import { isFail } from '@srtp/core'
 import { badRequest, safeAction } from '@srtp/remix-node'
 import { CtcSchema } from '~/common/validators'
 import { CreateCtcForm } from '~/components/ctc'
-import { createUserCtc } from '~/models/ctc.server'
+import { createCtc } from '~/models/ctc.server'
 
-export const action = ({ request }: ActionArgs) =>
-  safeAction(CtcSchema, request, async values => {
-    const userResult = await createUserCtc(values)
+export const action = (args: ActionArgs) =>
+  safeAction(CtcSchema, args, async values => {
+    const userResult = await createCtc(values)
 
-    if (isFail(userResult)) {
-      return badRequest<CtcSchema>({ error: userResult.fail })
-    }
-
-    return redirect('/ctc')
+    return isFail(userResult)
+      ? badRequest<CtcSchema>({ error: userResult.fail })
+      : redirect('/ctc')
   })
 
 const AddUserCtcPage = () => {

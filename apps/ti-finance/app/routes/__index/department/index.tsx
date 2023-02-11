@@ -87,8 +87,7 @@ const DepartmentsPage = () => {
       <Container m="lg">
         <ClientTable
           withBorder
-          renderColumn={(k, row) => <td key={k}>{row[k].toString()}</td>}
-          renderActions={r => {
+          Actions={({ r }: any) => {
             return (
               <Group>
                 <DeleteDepartment id={r.id} />
