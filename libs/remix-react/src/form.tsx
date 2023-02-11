@@ -131,14 +131,14 @@ function MyRemixForm<Spec extends FormSchema>({
     <RemixForm
       {...props}
       onSubmit={form.onSubmit((_, event) => {
-        submit(event.currentTarget, { replace: true })
+        submit(event.currentTarget, { replace: true, method: props.method })
       })}
     >
       {children}
     </RemixForm>
   )
 }
-// T extends object? FormSchema<T>?
+
 export function createForm<Spec extends FormSchema>(
   spec: Spec,
   initial?: z.infer<Spec>,
@@ -474,7 +474,7 @@ export type HiddenProps = Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   >,
-  'name' | 'type'
+  'type'
 >
 
 export const Hidden = (props: HiddenProps) => {
@@ -495,7 +495,7 @@ type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
-type Inputs<Spec extends FormSchema> = {
+export type Inputs<Spec extends FormSchema> = {
   Str: (
     props: Named<TextInputProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
   ) => JSX.Element
