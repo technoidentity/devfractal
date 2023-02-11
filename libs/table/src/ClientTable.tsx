@@ -1,21 +1,19 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Flex, TableProps } from '@mantine/core'
+import { Flex } from '@mantine/core'
 import React, { useMemo, useState } from 'react'
 import { Pagination } from './Pagination'
-import { TableView } from './TableView'
+import { TableView, TableViewProps } from './TableView'
 import { Filters } from './types'
 import { filterRows, Sort, sortRows } from './utils'
 
-export type ClientTableProps<Row extends object & { id: number | string }> =
-  TableProps &
-    Readonly<{
-      renderColumn?: (col: unknown) => React.ReactNode
-      Actions?: (props: { row: Row }) => JSX.Element
-      perPage: number
-      initialFilters: Filters<Row>
-      columns: any
-      rows: readonly Row[]
-    }>
+export interface ClientTableProps<Row extends object & { id: number | string }>
+  extends Omit<
+    TableViewProps<Row>,
+    'onSearch' | 'sort' | 'onSort' | 'filters'
+  > {
+  readonly perPage: number
+  readonly initialFilters: Filters<Row>
+}
 
 function paginateRows<Row extends object>(
   sortedRows: readonly Row[],
