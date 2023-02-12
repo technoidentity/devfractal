@@ -1,5 +1,5 @@
 import { MantineProvider } from '@mantine/core'
-import { ClientTable, Filters } from '@srtp/table'
+import { ClientTable, Filters, useClientTable } from '@srtp/table'
 import { columns, Row, rows } from './data'
 
 const renderColumn = (k: keyof Row, row: Row) => {
@@ -17,14 +17,14 @@ const initialFilters: Filters<Row> = {
 }
 
 export function App() {
+  const tableState = useClientTable({ perPage: 3, rows, initialFilters })
+
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <ClientTable
-        initialFilters={initialFilters}
-        renderColumn={renderColumn}
+        tableState={tableState}
         columns={columns}
-        perPage={3}
-        rows={rows}
+        renderColumn={renderColumn}
       />
     </MantineProvider>
   )
