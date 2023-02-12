@@ -1,7 +1,7 @@
 import { debugCast, isBool, isNil, isNum, isStr } from '@srtp/core'
 import { isEmpty } from 'lodash'
 import { z } from 'zod'
-import { Filters } from './types'
+import { FieldPredicates, Filters, RowBase, RowPredicate, Sort } from './types'
 
 const Primitive = z.union([z.number(), z.boolean(), z.string()]) // z.date()])
 type Primitive = z.infer<typeof Primitive>
@@ -22,7 +22,7 @@ const seq = (search: string, value: Primitive): boolean => {
   return false
 }
 
-export function filterRows<Row extends object>(
+export function searchRows<Row extends object>(
   rows: readonly Row[],
   filters: Filters<Row>,
 ) {
@@ -44,9 +44,24 @@ export function filterRows<Row extends object>(
   })
 }
 
-export type Sort<Row extends object> = {
-  order: 'asc' | 'desc'
-  orderBy: keyof Row
+export function predicateRows<Row extends RowBase>(
+  rows: readonly Row[],
+  predicate: RowPredicate<Row>,
+) {
+  return rows.filter(predicate)
+}
+
+export function fieldPredicateRows<Row extends RowBase>(
+  rows: readonly Row[],
+  predicates: FieldPredicates<Row>,
+) {
+  return rows.filter(row =>
+    Object.keys(predicates).every(key => {
+      const k = key as keyof Row
+      const fn = predicates[k]
+      return fn?.(row[k]) || true
+    }),
+  )
 }
 
 export function isDateString(value: unknown): value is string {
@@ -109,4 +124,15 @@ export function sortRows<Row extends object>(
       numeric: isNum(a[orderBy]),
     })
   })
+}
+
+export function paginateRows<Row extends object>(
+  sortedRows: readonly Row[],
+  activePage: number,
+  rowsPerPage: number,
+): Row[] {
+  return [...sortedRows].slice(
+    (activePage - 1) * rowsPerPage,
+    activePage * rowsPerPage,
+  )
 }
