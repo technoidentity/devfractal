@@ -7,12 +7,12 @@ import { isFail } from '@srtp/core'
 import { formErrors, fromFormData } from '@srtp/remix-core'
 import { badRequest } from '@srtp/remix-node'
 import type { Column, Filters } from '@srtp/table'
-import { ClientTable } from '@srtp/table'
 import { string } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
 
 import { DepartmentSchema } from '~/common/validators'
+import { Table } from '~/components/common/Table'
 import { DeleteDepartment } from '~/components/DeleteDepartment'
 import { EditDepartmentModal } from '~/components/EditDepartmentModal'
 import {
@@ -85,7 +85,7 @@ const DepartmentsPage = () => {
         </Button>
       </Group>
       <Container m="lg">
-        <ClientTable
+        <Table
           withBorder
           Actions={({ r }: any) => {
             return (
