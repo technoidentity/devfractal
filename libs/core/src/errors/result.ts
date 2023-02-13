@@ -1,3 +1,5 @@
+import normalizeException from 'normalize-exception'
+
 export type Ok<T> = Readonly<{ type: 'ok'; value: T }>
 export type Err<E> = Readonly<{ type: 'fail'; fail: E }>
 export type Result<E, T> = Err<E> | Ok<T>
@@ -50,10 +52,10 @@ export function match<E, T, E2, T2>(
     : fail(match.fail(result.fail))
 }
 
-// export function etry<Error, T>(fn: () => T): Result<Error, T> {
-//   try {
-//     return ok(fn())
-//   } catch (fail) {
-//     return fail(fail)
-//   }
-// }
+export function rtry<T>(fn: () => T): Result<Error, T> {
+  try {
+    return ok(fn())
+  } catch (e) {
+    return fail(normalizeException(e))
+  }
+}
