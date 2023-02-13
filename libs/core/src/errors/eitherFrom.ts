@@ -22,6 +22,6 @@ class EitherFrom<Left, Right> {
   }
 }
 
-export function tryFrom<Left, Right>(result: Either<Left, Right>) {
+export function either<Left, Right>(result: Either<Left, Right>) {
   return new EitherFrom(result)
 }

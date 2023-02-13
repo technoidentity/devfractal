@@ -2,7 +2,7 @@ import { left, right } from './either'
 import { toError } from './utils'
 import { Try } from './try'
 
-export function ftry<R, Args extends unknown[]>(
+export function tryWrap<R, Args extends unknown[]>(
   fn: (...args: Args) => R,
 ): (...args: Args) => Try<R> {
   return (...args) => {
