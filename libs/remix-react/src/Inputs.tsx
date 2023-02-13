@@ -52,7 +52,7 @@ export const Str = <Spec extends FormSchema>(props: Named<TextInputProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -65,7 +65,7 @@ export const Content = (props: Named<TextareaProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -78,7 +78,7 @@ export const Password = (props: Named<PasswordInputProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -91,7 +91,7 @@ export const Number = (props: Named<NumberInputProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -103,7 +103,7 @@ export const Bool = (props: Named<CheckboxProps>) => {
     <Checkbox
       label="Remember me"
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -114,14 +114,15 @@ export const Rating = (props: Named<RatingProps>) => {
     <MantineRating
       {...props}
       {...form.getInputProps(props.name)}
-      // @TODO: error={errMsg(props.name)}
+      // @TODO: error={errMsg?.(props.name)}
     />
   )
 }
 
-export const Enum = (
-  props: Named<RadioGroupProps> & { values?: readonly string[] },
-) => {
+export const Enum = ({
+  children,
+  ...props
+}: Named<RadioGroupProps> & { values?: readonly string[] }) => {
   const { form, errMsg, spec } = useFormContext()
 
   return (
@@ -129,17 +130,11 @@ export const Enum = (
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     >
-      {props.values ? (
-        props.values.map((v: string) => <Radio key={v} value={v} />)
-      ) : (
-        <>
-          <Radio value="generalPublic" label="General Public" />
-          <Radio value="seniorCitizen" label="Senior Citizen" />
-          <Radio value="employee" label="Employee" />
-        </>
-      )}
+      {props.values
+        ? props.values.map(v => <Radio key={v} value={v} />)
+        : children}
     </Radio.Group>
   )
 }
@@ -152,7 +147,7 @@ export const EnumList = (props: Named<MultiSelectProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -165,7 +160,7 @@ export const Select = (props: Named<SelectProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -177,7 +172,7 @@ export const Switch = (props: Named<SwitchProps>) => {
     <MantineSwitch
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -189,7 +184,7 @@ export const Chip = (props: Named<ChipProps>) => {
     <MantineChip
       {...props}
       {...form.getInputProps(props.name)}
-      // @TODO: error={errMsg(props.name)}
+      // @TODO: error={errMsg?.(props.name)}
     />
   )
 }
@@ -199,7 +194,7 @@ export const Chip = (props: Named<ChipProps>) => {
 // ) => {
 //   const {form, errMsg} = useFormContext()
 
-//   return <MantineCalendar {...props} {...form.getInputProps(props.name)} error={errMsg(props.name)}/>
+//   return <MantineCalendar {...props} {...form.getInputProps(props.name)} error={errMsg?.(props.name)}/>
 // }
 
 export const SegmentedControl = (props: Named<SegmentedControlProps>) => {
@@ -209,7 +204,7 @@ export const SegmentedControl = (props: Named<SegmentedControlProps>) => {
     <MantineSegmentedControl
       {...props}
       {...form.getInputProps(props.name)}
-      // @TODO: error={errMsg(props.name)}
+      // @TODO: error={errMsg?.(props.name)}
     />
   )
 }
@@ -221,7 +216,7 @@ export const Slider = (props: Named<SliderProps>) => {
     <MantineSlider
       {...props}
       {...form.getInputProps(props.name)}
-      // @TODO: error={errMsg(props.name)}
+      // @TODO: error={errMsg?.(props.name)}
     />
   )
 }
@@ -234,7 +229,7 @@ export const File = (props: Named<FileInputProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -247,7 +242,7 @@ export const Color = (props: Named<ColorInputProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -260,7 +255,7 @@ export const DatePicker = (props: Named<DatePickerProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -273,7 +268,7 @@ export const Autocomplete = (props: Named<AutocompleteProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
@@ -286,7 +281,7 @@ export const Time = (props: Named<TimeInputProps>) => {
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
-      error={errMsg(props.name)}
+      error={errMsg?.(props.name)}
     />
   )
 }
