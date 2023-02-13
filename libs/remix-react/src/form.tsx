@@ -11,17 +11,19 @@ import { getRawShape } from '@srtp/validator'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-import { FormContext } from './FormContext'
+import { FormContext, useFormContext } from './FormContext'
 import type { InputsType } from './Inputs'
 import { Inputs } from './Inputs'
 import { useSuccessfulSubmit } from './useSuccessfulSubmit'
 import { getFieldError } from './utils'
 
-type FormProps<Spec extends FormSchema> = Readonly<{
+type MyFormProps<Spec extends FormSchema> = Readonly<{
   onSubmit?: (values: z.infer<Spec>) => void
   children: React.ReactNode
   serverErrors?: Errors<z.infer<Spec>>
-}> &
+}>
+
+type FormProps<Spec extends FormSchema> = MyFormProps<Spec> &
   Omit<RemixFormProps, 'onSubmit'> &
   Omit<UseFormInput<z.infer<Spec>>, 'validate'>
 
@@ -34,6 +36,17 @@ type MyRemixFormProps<Spec extends FormSchema> = RemixFormProps &
     >
   }>
 
+function useOnSubmitOnSuccess<Spec extends FormSchema>(
+  onSubmit?: (values: z.infer<Spec>) => void,
+) {
+  const { form } = useFormContext()
+  const success = useSuccessfulSubmit()
+
+  React.useEffect(() => {
+    success && onSubmit?.(form.values)
+  }, [form.values, onSubmit, success])
+}
+
 function MyRemixForm<Spec extends FormSchema>({
   form,
   children,
@@ -41,14 +54,7 @@ function MyRemixForm<Spec extends FormSchema>({
   ...props
 }: MyRemixFormProps<Spec>) {
   const submit = useSubmit()
-
-  const success = useSuccessfulSubmit()
-
-  React.useEffect(() => {
-    if (success) {
-      onSubmit?.(form.values)
-    }
-  }, [form.values, onSubmit, success])
+  useOnSubmitOnSuccess()
 
   return (
     <RemixForm

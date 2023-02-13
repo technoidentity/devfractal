@@ -1,8 +1,8 @@
-import type { Inputs } from '@srtp/remix-react'
+import type { InputsType } from '@srtp/remix-react'
 import type { CtcSchema } from '~/common/validators'
 
 export type FormFieldsProps = Readonly<{
-  Inputs: Inputs<typeof CtcSchema>
+  Inputs: InputsType<typeof CtcSchema>
 }>
 
 export const FormFields = ({ Inputs }: FormFieldsProps) => (

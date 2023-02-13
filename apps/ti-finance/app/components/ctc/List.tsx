@@ -1,15 +1,7 @@
 import { Button, Group } from '@mantine/core'
 import { useActionData } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
-import {
-  ClientTableProps,
-  Column,
-  Filters,
-  RowBase,
-  useClientTable,
-  UseClientTable,
-} from '@srtp/table'
-import { ClientTable } from '@srtp/table'
+import type { Column, Filters } from '@srtp/table'
 import type { CtcSchema } from '~/common/validators'
 import { DeleteCtcForm, EditCtcModalForm } from '~/components/ctc'
 import { Table } from '../common/Table'
