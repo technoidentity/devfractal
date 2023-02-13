@@ -1,15 +1,16 @@
 import type { Ctc } from '@prisma/client'
 import { Prisma } from '@prisma/client'
-import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
-
 import { prisma } from '~/db.server'
+import type { DbResult } from './types'
 
 export function getCtcList() {
   return prisma.ctc.findMany()
 }
 
-export async function createCtc(data: Ctc): Promise<Result<string, Ctc>> {
+type Result = DbResult<Ctc>
+
+export async function createCtc(data: Ctc): Result {
   try {
     const ctc = await prisma.ctc.create({ data })
 
@@ -24,7 +25,7 @@ export async function createCtc(data: Ctc): Promise<Result<string, Ctc>> {
   }
 }
 
-export async function deleteCtc(id: Ctc['id']): Promise<Result<string, Ctc>> {
+export async function deleteCtc(id: Ctc['id']): Result {
   try {
     const ctc = await prisma.ctc.delete({
       where: { id },
@@ -36,7 +37,7 @@ export async function deleteCtc(id: Ctc['id']): Promise<Result<string, Ctc>> {
   }
 }
 
-export async function updateCtc(data: Ctc): Promise<Result<string, Ctc>> {
+export async function updateCtc(data: Ctc): Result {
   try {
     const result = await prisma.ctc.update({
       where: { id: data.id?.toString() },
