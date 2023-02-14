@@ -1,13 +1,22 @@
-import { createStyles, Anchor, Group, ActionIcon, Title } from '@mantine/core'
+import type { Sx } from '@mantine/core'
+import { ActionIcon, Anchor, createStyles, Group, Title } from '@mantine/core'
 import {
+  IconBrandInstagram,
   IconBrandTwitter,
   IconBrandYoutube,
-  IconBrandInstagram,
 } from '@tabler/icons-react'
+
+const linkStyles: Sx = {
+  textDecoration: 'none',
+  color: 'grey',
+  '&:hover': {
+    color: '#228be6',
+  },
+}
 
 const useStyles = createStyles(theme => ({
   footer: {
-    marginTop: 120,
+    marginTop: '150px',
     borderTop: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
@@ -39,13 +48,11 @@ interface FooterCenteredProps {
 export function FooterCentered({ links }: FooterCenteredProps) {
   const { classes } = useStyles()
   const items = links.map(link => (
-    <Anchor<'a'>
-      color="dimmed"
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    <Anchor
       key={link.label}
       href={link.link}
-      sx={{ lineHeight: 1 }}
-      onClick={event => event.preventDefault()}
-      size="sm"
+      sx={{ lineHeight: 1, ...linkStyles }}
     >
       {link.label}
     </Anchor>

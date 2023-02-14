@@ -52,7 +52,7 @@ import { capitalize } from 'lodash'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
-import { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
+import { z, ZodArray, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
 
 // const Spec = z.object({
 //   name: z.string(),
@@ -221,7 +221,7 @@ export const Time = (props: Named<TimeInputProps>) => {
 
 type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
   GetRawShape<Spec>,
-  z.ZodEnum<any>
+  z.ZodEnum<any> | z.ZodNativeEnum<any>
 >
 type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
   GetRawShape<Spec>,
@@ -258,6 +258,12 @@ type Inputs<Spec extends FormSchema> = {
     },
   ) => JSX.Element
   EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
+  DynamicEnumList: (
+    props: Named<
+      MultiSelectProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodArray<ZodString>>
+    >,
+  ) => JSX.Element
   Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
   Switch: (
     props: Named<SwitchProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
@@ -295,7 +301,7 @@ type Inputs<Spec extends FormSchema> = {
   SegmentedControl: (
     props: Named<
       SegmentedControlProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any>>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any> | z.ZodNativeEnum<any>>
     >,
   ) => JSX.Element
 

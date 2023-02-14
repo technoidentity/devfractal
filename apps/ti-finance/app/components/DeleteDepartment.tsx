@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import { Form, useTransition } from '@remix-run/react'
 
-export type DeleteDepartmentProps = Readonly<{ id: string }>
+export type DeleteDepartmentProps = Readonly<{ id: number }>
 
 export const DeleteDepartment = ({ id }: DeleteDepartmentProps) => {
   const transition = useTransition()

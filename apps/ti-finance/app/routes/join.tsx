@@ -1,12 +1,57 @@
 import type { ActionArgs, LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import { Form, Link, useActionData, useSearchParams } from '@remix-run/react'
+import { Link, useActionData, useSearchParams } from '@remix-run/react'
 import * as React from 'react'
 
 import { createUserSession, getUserId } from '~/session.server'
 
+import {
+  Button,
+  Checkbox,
+  createStyles,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+} from '@mantine/core'
 import { createUser, getUserByEmail } from '~/models/user.server'
 import { safeRedirect, validateEmail } from '~/utils'
+
+const useStyles = createStyles(theme => ({
+  wrapper: {
+    minHeight: 900,
+    backgroundSize: 'cover',
+    backgroundImage:
+      'url(https://images.unsplash.com/photo-1484242857719-4b9144542727?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80)',
+  },
+
+  form: {
+    borderRight: `1px solid ${
+      theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
+    }`,
+    minHeight: 900,
+    maxWidth: 450,
+    paddingTop: 80,
+
+    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      maxWidth: '100%',
+    },
+  },
+
+  title: {
+    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+  },
+
+  logo: {
+    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+    width: 120,
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+}))
 
 export async function loader({ request }: LoaderArgs) {
   const userId = await getUserId(request)
@@ -85,8 +130,65 @@ export default function Join() {
     }
   }, [actionData])
 
+  const { classes } = useStyles()
   return (
-    <div>
+    <div className={classes.wrapper}>
+      <Paper className={classes.form} radius={0} p={30}>
+        <Title
+          order={2}
+          className={classes.title}
+          align="center"
+          mt="md"
+          mb={50}
+        >
+          Welcome back to TI_Finance!
+        </Title>
+
+        <TextInput
+          label="Email address"
+          name="email"
+          placeholder="hello@gmail.com"
+          size="md"
+        />
+        <Text color="red">
+          {actionData?.errors?.email && <div>{actionData.errors.email}</div>}
+        </Text>
+        <PasswordInput
+          label="Password"
+          name="password"
+          placeholder="Your password"
+          mt="md"
+          size="md"
+        />
+        <Text color="red">
+          {actionData?.errors?.password && (
+            <div>{actionData.errors.password}</div>
+          )}
+        </Text>
+        <Checkbox label="Keep me logged in" mt="xl" size="md" />
+        <input type="hidden" name="redirectTo" value={redirectTo} />
+        <Button type="submit" fullWidth mt="xl" size="md">
+          Signup
+        </Button>
+
+        <Text align="center" mt="md">
+          Already! a User?
+          <Link
+            to={{
+              pathname: '/login',
+              search: searchParams.toString(),
+            }}
+          >
+            Log in
+          </Link>
+        </Text>
+      </Paper>
+    </div>
+  )
+}
+
+{
+  /* <div>
       <div>
         <Form method="post">
           <div>
@@ -144,6 +246,5 @@ export default function Join() {
           </div>
         </Form>
       </div>
-    </div>
-  )
+    </div> */
 }

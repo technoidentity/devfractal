@@ -1946,6 +1946,7 @@ importers:
       '@srtp/core': workspace:*
       '@srtp/local-state': workspace:*
       '@srtp/tsconfig': workspace:*
+      '@tabler/icons-react': 2.2.0
       '@types/lodash': 4.14.191
       '@types/lodash-es': 4.17.6
       '@types/node': 18.13.0
@@ -1974,6 +1975,7 @@ importers:
       '@mantine/core': 5.10.3_a3e44or6bupsbrlb2epm7rhj3a
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
+      '@tabler/icons-react': 2.2.0_react@18.2.0
       immer: 9.0.19
       lodash: 4.17.21
       lodash-es: 4.17.21
@@ -8613,6 +8615,16 @@ packages:
     dependencies:
       defer-to-connect: 2.0.1
 
+  /@tabler/icons-react/2.2.0_react@18.2.0:
+    resolution: {integrity: sha512-4dIT/XL2VVTrqTR9mRMXSbM8/Pe9AmaiciItP+So8bpZy5dakwkc1zT5JtDFEbcv5YEi73rlnyuHdAhwRC1NGA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tabler/icons': 2.2.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
   /@tabler/icons-react/2.3.0_react@18.2.0:
     resolution: {integrity: sha512-///OAT9U9bEfPx81nrVxZGfXM0qyIxZNyicvbF42Dqo5AxX5URrSW4ZWSN4LONYbWBewhjHhIOxWPs+dfa4Eyw==}
     peerDependencies:
@@ -8621,6 +8633,10 @@ packages:
       '@tabler/icons': 2.3.0
       prop-types: 15.8.1
       react: 18.2.0
+    dev: false
+
+  /@tabler/icons/2.2.0:
+    resolution: {integrity: sha512-s2mm+7JqmLObKdU89Dtiy+USmUpOlACsoXZZPykjAJZC4pK3wMYxLsclJxViWLeLTb6Bc0oga92V7R+9nrj1ZQ==}
     dev: false
 
   /@tabler/icons/2.3.0:

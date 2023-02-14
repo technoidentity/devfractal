@@ -31,3 +31,7 @@ export function Pagination<Row extends object>({
     />
   )
 }
+
+/* <IconSortAscending size={14} stroke={1.5} onClick={()=>column.accessor}/>
+      ?  <IconSortDescending2 size={14} stroke={1.5} onClick={()=>column.accessor}/>:<IconArrowsSort size={14} stroke={1.5} onClick={()=>column.accessor}/>
+} */

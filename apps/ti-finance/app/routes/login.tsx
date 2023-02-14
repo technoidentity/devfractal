@@ -1,4 +1,15 @@
-import { Button, Checkbox, PasswordInput, Text, TextInput } from '@mantine/core'
+import {
+  Anchor,
+  Button,
+  Checkbox,
+  Container,
+  Group,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+} from '@mantine/core'
 import type { ActionArgs, LoaderArgs, MetaFunction } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
 import { Form, Link, useActionData, useSearchParams } from '@remix-run/react'
@@ -81,7 +92,65 @@ export default function LoginPage() {
   }, [actionData])
 
   return (
-    <Form method="post" noValidate>
+    <Container size={420} my={40}>
+      <Title
+        align="center"
+        sx={theme => ({
+          fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+          fontWeight: 900,
+        })}
+      >
+        Welcome back!
+      </Title>
+      <Text color="dimmed" size="sm" align="center" mt={5}>
+        Do not have an account yet?{' '}
+        <Link
+          to={{
+            pathname: '/join',
+            search: searchParams.toString(),
+          }}
+        >
+          Sign up
+        </Link>
+      </Text>
+
+      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+        <Form method="post" noValidate>
+          <TextInput
+            name="email"
+            label="Email"
+            placeholder="you@mantine.dev"
+            required
+          />
+          <PasswordInput
+            label="Password"
+            name="password"
+            placeholder="Your password"
+            required
+            mt="md"
+          />
+          <Group position="apart" mt="lg">
+            <Checkbox label="Remember me" sx={{ lineHeight: 1 }} />
+            <Anchor<'a'>
+              onClick={event => event.preventDefault()}
+              href="#"
+              size="sm"
+            >
+              Forgot password?
+            </Anchor>
+          </Group>
+          <input type="hidden" name="redirectTo" value={redirectTo} />
+          <Button type="submit" fullWidth mt="xl">
+            Sign in
+          </Button>
+        </Form>
+      </Paper>
+    </Container>
+  )
+}
+
+{
+  /* <Form method="post" noValidate>
       <TextInput name="email" label="Email address" />
       <PasswordInput name="password" label="Password" />
       <input type="hidden" name="redirectTo" value={redirectTo} />
@@ -99,6 +168,5 @@ export default function LoginPage() {
           Sign up
         </Link>
       </Text>
-    </Form>
-  )
+    </Form> */
 }

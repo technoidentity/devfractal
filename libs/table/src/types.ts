@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { TableProps } from '@mantine/core'
 import { useClientTable } from './useClientTable'
 
@@ -6,6 +7,8 @@ export type Sort<Row extends object> = {
   orderBy: keyof Row
 }
 
+=======
+>>>>>>> Stashed changes
 export type RowBase = object & { id: string | number }
 
 export type Column<T extends object> = {

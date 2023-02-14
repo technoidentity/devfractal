@@ -45,10 +45,32 @@ enum Billable {
 }
 
 model Department {
-  id         String   @id
-  name       String
-  department String
-  fromDate   DateTime
-  toDate     DateTime
-  billable   Billable
+  id          Int           @id @default(autoincrement())
+  name        String
+  ctc         Int /// @zod.min(0)
+  department  String
+  fromDate    DateTime
+  toDate      DateTime
+  billable    Billable
+  budget      Budget[]
+  expenditure Expenditure[]
+}
+
+model Budget {
+  id            Int        @id @default(autoincrement())
+  amount        Int
+  financialYear DateTime
+  Department    Department @relation(fields: [departmentId], references: [id])
+  departmentId  Int
+  category      Billable
+}
+
+model Expenditure {
+  id           Int        @id @default(autoincrement())
+  category     Billable
+  date         DateTime
+  amount       Int
+  remarks      String
+  Department   Department @relation(fields: [departmentId], references: [id])
+  departmentId Int
 }

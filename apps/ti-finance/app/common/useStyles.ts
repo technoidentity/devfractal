@@ -1,91 +1,56 @@
 import { createStyles } from '@mantine/core'
 
 export const useStyles = createStyles(theme => ({
-  wrapper: {
-    position: 'relative',
-    paddingTop: 180,
-    paddingBottom: 130,
-    backgroundImage:
-      'url(https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=980&q=80)',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-
-    '@media (max-width: 520px)': {
-      paddingTop: 80,
-      paddingBottom: 50,
-    },
+  inner: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: theme.spacing.xl * 4,
+    paddingBottom: theme.spacing.xl * 4,
   },
 
-  inner: {
-    position: 'relative',
-    zIndex: 1,
+  content: {
+    maxWidth: 480,
+    marginRight: theme.spacing.xl * 3,
+
+    [theme.fn.smallerThan('md')]: {
+      maxWidth: '100%',
+      marginRight: 0,
+    },
   },
 
   title: {
-    fontWeight: 800,
-    fontSize: 40,
-    letterSpacing: -1,
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-    color: theme.white,
-    marginBottom: theme.spacing.xs,
-    textAlign: 'center',
+    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    fontSize: 44,
+    lineHeight: 1.2,
+    fontWeight: 900,
 
-    '@media (max-width: 520px)': {
+    [theme.fn.smallerThan('xs')]: {
       fontSize: 28,
-      textAlign: 'left',
-    },
-  },
-
-  highlight: {
-    color: theme.colors[theme.primaryColor][4],
-  },
-
-  description: {
-    color: theme.colors.gray[0],
-    textAlign: 'center',
-
-    '@media (max-width: 520px)': {
-      fontSize: theme.fontSizes.md,
-      textAlign: 'left',
-    },
-  },
-
-  controls: {
-    marginTop: theme.spacing.xl * 1.5,
-    display: 'flex',
-    justifyContent: 'center',
-    paddingLeft: theme.spacing.md,
-    paddingRight: theme.spacing.md,
-
-    '@media (max-width: 520px)': {
-      flexDirection: 'column',
     },
   },
 
   control: {
-    height: 42,
-    fontSize: theme.fontSizes.md,
-
-    '&:not(:first-of-type)': {
-      marginLeft: theme.spacing.md,
-    },
-
-    '@media (max-width: 520px)': {
-      '&:not(:first-of-type)': {
-        marginTop: theme.spacing.md,
-        marginLeft: 0,
-      },
+    [theme.fn.smallerThan('xs')]: {
+      flex: 1,
     },
   },
 
-  secondaryControl: {
-    color: theme.white,
-    backgroundColor: 'rgba(255, 255, 255, .4)',
+  image: {
+    flex: 1,
 
-    '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, .45) !important',
+    [theme.fn.smallerThan('md')]: {
+      display: 'none',
     },
+  },
+
+  highlight: {
+    position: 'relative',
+    backgroundColor: theme.fn.variant({
+      variant: 'light',
+      color: theme.primaryColor,
+    }).background,
+    borderRadius: theme.radius.sm,
+    padding: '4px 12px',
   },
 }))

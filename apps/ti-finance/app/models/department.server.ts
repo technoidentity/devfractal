@@ -45,7 +45,7 @@ export async function editDepartment(
 ): Promise<Result<string, Department>> {
   try {
     const result = await prisma.department.update({
-      where: { id: data.id?.toString() },
+      where: { id: data.id },
       data,
     })
 

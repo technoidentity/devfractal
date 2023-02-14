@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
+// seed one to many relationship
+// https://www.prisma.io/docs/guides/database/seed-database#seed-one-to-many-relationship
+
 const tiUsersCtc = [
   {
     id: '100',
@@ -34,38 +37,105 @@ const tiUsersCtc = [
   },
 ]
 
-const departments = [
+const financeDepartment = {
+  name: 'emma',
+  department: 'Finance',
+  ctc: 18_00_000,
+  fromDate: new Date('2017-01-26'),
+  toDate: new Date('2018-01-26'),
+  billable: Billable.billable,
+}
+const itDepartment = {
+  name: 'watson',
+  department: 'IT',
+  ctc: 16_00_000,
+  fromDate: new Date('2016-04-14'),
+  toDate: new Date('2017-04-14'),
+  billable: Billable.nonBillable,
+}
+
+const developmentDepartment = {
+  name: 'reena',
+  department: 'Development',
+  ctc: 10_00_000,
+  fromDate: new Date('2020-06-21'),
+  toDate: new Date('2021-06-21'),
+  billable: Billable.nonBillable,
+}
+
+const itBudgets = [
   {
-    id: '1100',
-    name: 'emma',
-    department: 'finance',
-    fromDate: new Date('2017-01-26'),
-    toDate: new Date('2018-01-26'),
-    billable: Billable.billable,
+    category: Billable.billable,
+    amount: 100_00_000,
+    financialYear: new Date('2021-08-5'),
+  },
+]
+
+const developmentBudgets = [
+  {
+    category: Billable.billable,
+    amount: 100_00_000,
+    financialYear: new Date('2021-08-5'),
   },
   {
-    id: '1101',
-    name: 'watson',
-    department: 'finance',
-    fromDate: new Date('2016-04-14'),
-    toDate: new Date('2017-04-14'),
-    billable: Billable.nonBillable,
+    category: Billable.nonBillable,
+    amount: 100_00_000,
+    financialYear: new Date('2021-08-5'),
   },
   {
-    id: '1102',
-    name: 'reena',
-    department: 'finance',
-    fromDate: new Date('2020-06-21'),
-    toDate: new Date('2021-06-21'),
-    billable: Billable.nonBillable,
+    category: Billable.billable,
+    amount: 100_00_000,
+    financialYear: new Date('2021-08-5'),
+  },
+]
+
+const financeBudgets = [
+  {
+    amount: 100_00_000,
+    category: Billable.billable,
+    financialYear: new Date('2021-08-5'),
   },
   {
-    id: '1103',
-    name: 'miland',
-    department: 'finance',
-    fromDate: new Date('2021-08-5'),
-    toDate: new Date('2022-08-5'),
-    billable: Billable.billable,
+    category: Billable.nonBillable,
+    amount: 100_00_000,
+    financialYear: new Date('2021-08-5'),
+  },
+  {
+    category: Billable.billable,
+    amount: 100_00_000,
+    financialYear: new Date('2021-08-5'),
+  },
+]
+
+const itExpenditures = [
+  {
+    category: Billable.billable,
+    amount: 100_00_000,
+    date: new Date('2021-08-5'),
+    remarks: 'Identify and Plug Budget Leaks',
+  },
+]
+const financeExpenditures = [
+  {
+    category: Billable.nonBillable,
+    amount: 100_00_000,
+    date: new Date('2021-08-5'),
+    remarks: 'Assess New Income and Expenses',
+  },
+]
+
+const developmentExpenditures = [
+  {
+    category: Billable.billable,
+    amount: 100_00_000,
+    date: new Date('2021-08-5'),
+    remarks: 'Review Your Financial Goals',
+  },
+  {
+    category: Billable.nonBillable,
+    amount: 100_00_000,
+    date: new Date('2021-08-5'),
+    remarks: 'Modify Your Budget',
   },
 ]
 
@@ -96,11 +166,29 @@ async function seed() {
     })
   }
 
-  for (let i = 0; i < departments.length; i += 1) {
-    await prisma.department.create({
-      data: departments[i],
-    })
-  }
+  await prisma.department.create({
+    data: {
+      ...financeDepartment,
+      budget: { create: financeBudgets },
+      expenditure: { create: financeExpenditures },
+    },
+  })
+
+  await prisma.department.create({
+    data: {
+      ...itDepartment,
+      budget: { create: itBudgets },
+      expenditure: { create: itExpenditures },
+    },
+  })
+
+  await prisma.department.create({
+    data: {
+      ...developmentDepartment,
+      budget: { create: developmentBudgets },
+      expenditure: { create: developmentExpenditures },
+    },
+  })
 
   console.log(`Database has been seeded. 🌱`)
 }

@@ -1,4 +1,4 @@
-import { Button, Container, Group } from '@mantine/core'
+import { Button, Container, Group, Select, Text } from '@mantine/core'
 import type { Department } from '@prisma/client'
 import { useActionData, useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
@@ -10,6 +10,7 @@ import type { Column, Filters } from '@srtp/table'
 import { string } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
+import { capitalizeFirstLetter } from '~/common/stringUtil'
 
 import { DepartmentSchema } from '~/common/validators'
 import { Table } from '~/components/common/Table'
@@ -24,15 +25,17 @@ import {
 const columns: Column<Department>[] = [
   { accessor: 'id', label: 'TI_ID' },
   { accessor: 'name', label: 'Username' },
+  { accessor: 'ctc', label: 'CTC' },
   { accessor: 'department', label: 'Department' },
-  { accessor: 'fromDate', label: 'From Date' },
-  { accessor: 'toDate', label: 'To Date' },
+  { accessor: 'fromDate', label: 'From_Date' },
+  { accessor: 'toDate', label: 'To_Date' },
   { accessor: 'billable', label: 'Billable' },
 ]
 const initialFilters: Filters<Department> = {
   id: '',
   department: '',
   fromDate: '',
+  ctc: '',
   toDate: '',
   name: '',
   billable: 'billable',
@@ -40,8 +43,10 @@ const initialFilters: Filters<Department> = {
 
 export async function loader(_: LoaderArgs) {
   const departments = await getDepartments()
+
   return json({ departments })
 }
+
 export async function action({ request }: ActionArgs) {
   const schema = DepartmentSchema.extend({ _action: string })
   const result = await fromFormData(schema, request)
@@ -71,19 +76,39 @@ export async function action({ request }: ActionArgs) {
 
 const DepartmentsPage = () => {
   const { departments } = useLoaderData<typeof loader>()
+
   const actionData = useActionData<typeof action>()
+
+  const names = departments.map(d => ({
+    label: capitalizeFirstLetter(d.name),
+    value: d.name,
+  }))
+
+  const departmentData = departments.map(d => ({
+    label: d.department.toUpperCase(),
+    value: d.department,
+  }))
 
   const departmentList = React.useMemo(
     () => z.array(DepartmentSchema).parse(departments),
     [departments],
   )
+
   return (
     <>
-      <Group position="right" m="md">
+      <Group position="apart" m="md">
         <Button component="a" href="/department/new">
           Add
         </Button>
+        <Group>
+          <Text mt="md" fw="bold" size="sm">
+            Filter by:{' '}
+          </Text>
+          <Select label="Department" data={departmentData} size="xs" />
+          <Select label="Name" data={names} size="xs" />
+        </Group>
       </Group>
+<<<<<<< Updated upstream
       <Container m="lg">
         <Table
           withBorder
@@ -101,6 +126,23 @@ const DepartmentsPage = () => {
           perPage={3}
         />
       </Container>
+=======
+      <ClientTable
+        striped
+        Actions={({ row }) => {
+          return (
+            <Group>
+              <DeleteDepartment id={row.id} />
+              <EditDepartmentModal department={row} errors={actionData} />
+            </Group>
+          )
+        }}
+        rows={departmentList}
+        columns={columns}
+        initialFilters={initialFilters}
+        perPage={3}
+      />
+>>>>>>> Stashed changes
     </>
   )
 }

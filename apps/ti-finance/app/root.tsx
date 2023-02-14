@@ -33,13 +33,13 @@ export default function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
       <ModalsProvider>
-        <html lang="en" className="h-full">
+        <html lang="en">
           <head>
             <StylesPlaceholder />
             <Meta />
             <Links />
           </head>
-          <body className="h-full">
+          <body style={{ minHeight: '100vh' }}>
             <Outlet />
             <ScrollRestoration />
             <Scripts />

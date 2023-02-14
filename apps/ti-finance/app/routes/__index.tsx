@@ -2,19 +2,23 @@ import {
   AppShell,
   Button,
   Container,
+  Group,
   Header,
+  Image,
+  List,
   Navbar,
-  Overlay,
   Text,
+  ThemeIcon,
   Title,
 } from '@mantine/core'
 import { Outlet } from '@remix-run/react'
+import { IconCheck } from '@tabler/icons-react'
 import React from 'react'
+import { useStyles } from '~/common/useStyles'
 import { AppHeader } from '~/components/AppHeader'
 import { AppNavbar } from '~/components/AppNavbar'
 import { FooterCentered } from '~/components/Footer'
 import { useOptionalUser } from '~/utils'
-import { useStyles } from '../common/useStyles'
 
 const links = [
   { link: 'https://www.technoidentity.com/contact-us/', label: 'Contact' },
@@ -67,49 +71,78 @@ const HomePage = () => {
 }
 
 const AppIntroPage = () => {
-  const { classes, cx } = useStyles()
+  const { classes } = useStyles()
 
   return (
     <>
-      <div className={classes.wrapper}>
-        <Overlay color="#000" opacity={0.65} zIndex={1} />
+      <div>
+        <Container>
+          <div className={classes.inner}>
+            <div className={classes.content}>
+              <Title className={classes.title}>
+                A Scalable<span className={classes.highlight}> Banking</span>
+                <br /> Eco-System
+              </Title>
+              <Text color="dimmed" mt="md">
+                To advance technology through continuous learning and empathy so
+                that organizations globally can deliver greater value and build
+                a better future for humanity.
+              </Text>
 
-        <div className={classes.inner}>
-          <Title className={classes.title}>
-            Technology, For the people-
-            <Text component="span" inherit className={classes.highlight}>
-              by the people
-            </Text>
-          </Title>
+              <List
+                mt={30}
+                spacing="sm"
+                size="sm"
+                icon={
+                  <ThemeIcon size={20} radius="xl">
+                    <IconCheck size={12} stroke={1.5} />
+                  </ThemeIcon>
+                }
+              >
+                <List.Item>
+                  <b>TypeScript based</b> – build type safe applications, all
+                  components and hooks export types
+                </List.Item>
+                <List.Item>
+                  <b>Free and open source</b> – all packages have MIT license,
+                  you can use Mantine in any project
+                </List.Item>
+                <List.Item>
+                  <b>No annoying focus ring</b> – focus ring will appear only
+                  when user navigates with keyboard
+                </List.Item>
+              </List>
 
-          <Container size={640}>
-            <Text size="lg" className={classes.description}>
-              To advance technology through continuous learning and empathy so
-              that organizations globally can deliver greater value and build a
-              better future for humanity.
-            </Text>
-          </Container>
-
-          <div className={classes.controls}>
-            <Button
-              component="a"
-              href="/join"
-              className={classes.control}
-              variant="white"
-              size="lg"
-            >
-              Join
-            </Button>
-            <Button
-              className={cx(classes.control, classes.secondaryControl)}
-              size="lg"
-              component="a"
-              href="/login"
-            >
-              Sign in
-            </Button>
+              <Group mt={30}>
+                <Button
+                  component="a"
+                  href="/login"
+                  radius="xl"
+                  size="md"
+                  className={classes.control}
+                >
+                  Sign in
+                </Button>
+                <Button
+                  variant="default"
+                  component="a"
+                  href="/join"
+                  radius="xl"
+                  size="md"
+                  className={classes.control}
+                >
+                  Sign up
+                </Button>
+              </Group>
+            </div>
+            <Image
+              src={
+                'https://raw.githubusercontent.com/mantinedev/ui.mantine.dev/master/components/HeroBullets/image.svg'
+              }
+              className={classes.image}
+            />
           </div>
-        </div>
+        </Container>
       </div>
       <FooterCentered links={links} />
     </>
