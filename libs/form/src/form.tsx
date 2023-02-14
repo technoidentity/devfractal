@@ -52,7 +52,7 @@ import { capitalize } from 'lodash'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
-import { z, ZodArray, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
+import { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
 
 // const Spec = z.object({
 //   name: z.string(),
@@ -258,12 +258,6 @@ type Inputs<Spec extends FormSchema> = {
     },
   ) => JSX.Element
   EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
-  DynamicEnumList: (
-    props: Named<
-      MultiSelectProps,
-      ConditionalKeys<GetRawShape<Spec>, ZodArray<ZodString>>
-    >,
-  ) => JSX.Element
   Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
   Switch: (
     props: Named<SwitchProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
@@ -333,9 +327,11 @@ export function createForm<Spec extends FormSchema>(
       validate: zodResolver(spec),
     })
 
+    const value = React.useMemo(() => [form, useContext], [form])
+
     return (
       <Provider form={form}>
-        <MyContext.Provider value={[form, useContext]}>
+        <MyContext.Provider value={value as any}>
           <form onSubmit={form.onSubmit(onSubmit)}>{children}</form>
         </MyContext.Provider>
       </Provider>

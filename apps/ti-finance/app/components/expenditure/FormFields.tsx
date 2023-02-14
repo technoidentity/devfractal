@@ -1,12 +1,11 @@
 import { Radio } from '@mantine/core'
 import type { Department } from '@prisma/client'
-import type { Inputs } from '@srtp/remix-react'
-import { Hidden } from '@srtp/remix-react'
+import type { InputsType } from '@srtp/remix-react'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 import type { ExpenditureSchema } from '~/common/validators'
 
 export type FormFieldsProps = Readonly<{
-  Inputs: Inputs<typeof ExpenditureSchema>
+  Inputs: InputsType<typeof ExpenditureSchema>
   departments: ReadonlyArray<Pick<Department, 'id' | 'department'>>
 }>
 

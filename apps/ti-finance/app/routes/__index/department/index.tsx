@@ -108,7 +108,6 @@ const DepartmentsPage = () => {
           <Select label="Name" data={names} size="xs" />
         </Group>
       </Group>
-<<<<<<< Updated upstream
       <Container m="lg">
         <Table
           withBorder
@@ -126,8 +125,7 @@ const DepartmentsPage = () => {
           perPage={3}
         />
       </Container>
-=======
-      <ClientTable
+      <Table
         striped
         Actions={({ row }) => {
           return (
@@ -142,7 +140,6 @@ const DepartmentsPage = () => {
         initialFilters={initialFilters}
         perPage={3}
       />
->>>>>>> Stashed changes
     </>
   )
 }

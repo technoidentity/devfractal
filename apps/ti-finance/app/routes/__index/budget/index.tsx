@@ -3,12 +3,12 @@ import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import type { Column, Filters } from '@srtp/table'
-import { ClientTable } from '@srtp/table'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 import { DatePicker } from '@mantine/dates'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
 import type { BudgetAllocation } from '~/models/budget.server'
 import { getBudgetAllocations } from '~/models/budget.server'
+import { Table } from '~/components/common/Table'
 
 const columns: Column<BudgetAllocation>[] = [
   { accessor: 'department', label: 'Department' },
@@ -16,6 +16,7 @@ const columns: Column<BudgetAllocation>[] = [
   { accessor: 'amount', label: 'Amount' },
   { accessor: 'financialYear', label: 'Financial_year' },
 ]
+
 const initialFilters: Filters<BudgetAllocation> = {
   department: '',
   category: '',
@@ -48,7 +49,7 @@ const BudgetPage = () => {
           <DatePicker size="xs" label="Financial year" />
         </Group>
       </Group>
-      <ClientTable
+      <Table
         striped
         rows={budgets as any}
         columns={columns}

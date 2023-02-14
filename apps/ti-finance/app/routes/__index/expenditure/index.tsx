@@ -3,7 +3,6 @@ import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import type { Column, Filters } from '@srtp/table'
-import { ClientTable } from '@srtp/table'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 
 import { DatePicker } from '@mantine/dates'
@@ -13,6 +12,7 @@ import { number, string } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
 import { ExpenditureSchema } from '~/common/validators'
+import { Table } from '~/components/common/Table'
 import { DeleteExpenditure } from '~/components/expenditure/Delete'
 import { EditExpenditureForm } from '~/components/expenditure/Edit'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
@@ -113,7 +113,7 @@ const ExpenditurePage = () => {
           </Button>
         </Group>
       </Group>
-      <ClientTable
+      <Table
         striped
         rows={expList as any}
         columns={columns}

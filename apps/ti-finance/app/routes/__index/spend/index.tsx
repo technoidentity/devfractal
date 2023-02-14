@@ -5,11 +5,11 @@ import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import type { Column, Filters } from '@srtp/table'
-import { ClientTable } from '@srtp/table'
 import React from 'react'
 import { z } from 'zod'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 import { DepartmentSchema } from '~/common/validators'
+import { Table } from '~/components/common/Table'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
 import { getDepartments } from '~/models/department.server'
 
@@ -53,7 +53,7 @@ const PeopleSpendPage = () => {
         <Select size="xs" label="Person" data={names} />
       </Group>
 
-      <ClientTable
+      <Table
         striped
         renderColumn={(k, row) => {
           //   const r = row[k] instanceof Date ? formatDate(row[k] as Date) : row[k]

@@ -1,28 +1,10 @@
-<<<<<<< Updated upstream
-import { Table } from '@mantine/core'
-import { Headers } from './Headers'
-import { Filters as Filters } from './Filters'
-import { Rows } from './Rows'
-import { TableViewProps } from './types'
-=======
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Input, Table, TableProps } from '@mantine/core'
+import { Input, Table } from '@mantine/core'
 import { toStr } from '@srtp/core'
 import React from 'react'
-import { Column, Filters, RowBase } from './types'
-import { Sort } from './utils'
-
-export interface TableViewProps<Row extends object & { id: number | string }>
-  extends TableProps {
-  columns: Column<Row>[]
-  filters: Filters<Row>
-  onSearch(val: string, searchVal: string): void
-  onSort(val: keyof Row): void
-  renderColumn?: (key: keyof Row, row: Row) => React.ReactNode
-  Actions?: (props: { row: Row }) => JSX.Element
-  rows: readonly Row[]
-  sort: Sort<Row>
-}
+import { Filters } from './Filters'
+import { Headers } from './Headers'
+import { RowBase, TableViewProps } from './types'
 
 const formatDate = (date: Date) => {
   const formatter = new Intl.DateTimeFormat('en-US', {
@@ -91,17 +73,18 @@ export function Columns<Row extends object & { id: number | string }>({
 }: ColumnsProps<Row>) {
   return (
     <>
-      {columns.map(col => (
-        <th key={col.label}>
-          <Input
-            key={`${col.accessor}-search`}
-            type="search"
-            placeholder={`search ${col.label}`}
-            value={filters[col.accessor]}
-            onChange={evt => onSearch(evt.target.value, col.accessor)}
-          />
-        </th>
-      ))}
+      {filters &&
+        columns.map(col => (
+          <th key={col.label}>
+            <Input
+              key={`${col.accessor}-search`}
+              type="search"
+              placeholder={`search ${col.label}`}
+              value={filters[col.accessor]}
+              onChange={evt => onSearch(col.accessor, evt.target.value)}
+            />
+          </th>
+        ))}
     </>
   )
 }
@@ -136,7 +119,6 @@ function Rows<Row extends object & { id: number | string }>({
     </>
   )
 }
->>>>>>> Stashed changes
 
 export function TableView<T extends { id: number | string } & object>({
   columns,
@@ -153,16 +135,13 @@ export function TableView<T extends { id: number | string } & object>({
     <Table {...props}>
       <thead>
         <tr>
-<<<<<<< Updated upstream
           <Headers columns={columns} onSort={onSort} sort={sort} />
           {Actions && <th>Actions</th>}
-=======
           <ColumnHeaders columns={columns} onSort={onSort} sort={sort} />
           {Actions && <th>Actions</th>}
         </tr>
         <tr>
           <Columns columns={columns} filters={filters} onSearch={onSearch} />
->>>>>>> Stashed changes
         </tr>
         {filters && (
           <tr>

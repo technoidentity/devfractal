@@ -189,14 +189,6 @@ export const Chip = (props: Named<ChipProps>) => {
   )
 }
 
-// export const Calendar = <Multiple extends boolean>(
-//   props: Named<CalendarProps<Multiple>>,
-// ) => {
-//   const {form, errMsg} = useFormContext()
-
-//   return <MantineCalendar {...props} {...form.getInputProps(props.name)} error={errMsg?.(props.name)}/>
-// }
-
 export const SegmentedControl = (props: Named<SegmentedControlProps>) => {
   const { form } = useFormContext()
 
@@ -286,6 +278,32 @@ export const Time = (props: Named<TimeInputProps>) => {
   )
 }
 
+export const DynamicEnumList = (props: Named<MultiSelectProps>) => {
+  const { form, errMsg, spec } = useFormContext()
+
+  return (
+    <MultiSelect
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      {...props}
+      {...form.getInputProps(props.name)}
+      error={errMsg?.(props.name)}
+    />
+  )
+}
+
+export const DynamicSelect = (props: Named<SelectProps>) => {
+  const { form, errMsg, spec } = useFormContext()
+
+  return (
+    <MantineSelect
+      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      {...props}
+      {...form.getInputProps(props.name)}
+      error={errMsg?.(props.name)}
+    />
+  )
+}
+
 export type HiddenProps = Omit<
   React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
@@ -294,7 +312,7 @@ export type HiddenProps = Omit<
   'type'
 >
 
-export const Hidden = (props: HiddenProps) => {
+export const Hidden = (props: Named<HiddenProps>) => {
   return <input {...props} type="hidden" />
 }
 
@@ -306,7 +324,7 @@ export const Action = ({ action, ...props }: ActionProps) => {
 }
 type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
   GetRawShape<Spec>,
-  z.ZodEnum<any>
+  z.ZodEnum<any> | z.ZodNativeEnum<any>
 >
 type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
   GetRawShape<Spec>,
@@ -380,11 +398,27 @@ export type InputsType<Spec extends FormSchema> = {
   SegmentedControl: (
     props: Named<
       SegmentedControlProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any>>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any> | z.ZodNativeEnum<any>>
     >,
   ) => JSX.Element
   Action: (props: ActionProps) => JSX.Element
-  Hidden: (props: HiddenProps) => JSX.Element
+  Hidden: (props: Named<HiddenProps>) => JSX.Element
+
+  DynamicEnumList: (
+    props: Named<
+      MultiSelectProps,
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodArray<z.ZodString> | z.ZodArray<z.ZodNumber>
+      >
+    >,
+  ) => JSX.Element
+  DynamicSelect: (
+    props: Named<
+      SelectProps,
+      ConditionalKeys<GetRawShape<Spec>, ZodString | ZodNumber>
+    >,
+  ) => JSX.Element
   // Calendar: <Multiple extends boolean = false>(
   //   props: Named<
   //     CalendarProps<Multiple>,
@@ -398,21 +432,23 @@ export const Inputs: InputsType<any> = {
   Autocomplete,
   Bool,
   Chip,
-  Switch,
   Color,
   Content,
   DatePicker,
+  DynamicEnumList,
+  DynamicSelect,
   Enum,
   EnumList,
-  Select,
   File,
   Hidden,
   Number,
   Password,
-  SegmentedControl,
-  Slider,
   Rating,
+  SegmentedControl,
+  Select,
+  Slider,
   Str,
+  Switch,
   Time,
   // Calendar,
 }
