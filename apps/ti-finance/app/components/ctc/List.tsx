@@ -1,9 +1,8 @@
 import { Button, Group } from '@mantine/core'
-import { useActionData } from '@remix-run/react'
-import type { Errors } from '@srtp/remix-core'
 import type { Column, Filters } from '@srtp/table'
-import type { CtcSchema } from '~/common/validators'
+import { CtcSchema } from '~/common/validators'
 import { DeleteCtcForm, EditCtcModalForm } from '~/components/ctc'
+import { useFormData } from '../common'
 import { Table } from '../common/Table'
 
 const columns: Column<CtcSchema>[] = [
@@ -23,7 +22,7 @@ const initialFilters: Filters<CtcSchema> = {
 }
 
 const Actions = ({ row }: { row: CtcSchema }) => {
-  const actionData = useActionData<Errors<CtcSchema> | undefined>()
+  const actionData = useFormData(CtcSchema)
 
   return (
     <Group>
