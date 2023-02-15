@@ -1,5 +1,7 @@
 import type { LoaderArgs } from '@remix-run/node'
 import { json } from '@remix-run/node'
+import type { Result } from '@srtp/core'
+import { isFail } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
 import invariant from 'tiny-invariant'
@@ -56,7 +58,7 @@ export async function safeActions<
 const HTTPMethods = z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 type HTTPMethods = z.infer<typeof HTTPMethods>
 
-export async function actions<
+export async function methods<
   Actions extends Partial<Record<HTTPMethods, (args: LoaderArgs) => unknown>>,
 >(args: LoaderArgs, actions: Actions) {
   const method = HTTPMethods.parse(args.request.method)
@@ -81,4 +83,23 @@ export function safeQuery<Spec extends z.ZodRawShape | z.ZodTypeAny>(
   return getSchema(schema).parse(
     Object.fromEntries(new URL(request.url).searchParams),
   )
+}
+
+export function handleResult<T>(r: Result<string, T>) {
+  return isFail(r) ? badRequest({ error: r.fail }) : json({})
+}
+
+export function safeResultAction<T extends object, R>(
+  spec: z.ZodSchema<T>,
+  args: LoaderArgs,
+  fn: (values: z.infer<typeof spec>) => Promise<Result<string, R>>,
+) {
+  return safeAction(spec, args, async values => handleResult(await fn(values)))
+}
+
+export function method<T extends object, R>(
+  spec: z.ZodSchema<T>,
+  fn: (values: z.infer<typeof spec>) => Promise<Result<string, R>>,
+) {
+  return (args: LoaderArgs) => safeResultAction(spec, args, fn)
 }
