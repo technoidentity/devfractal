@@ -1,9 +1,11 @@
-import type {
+import {
   AutocompleteProps,
   CheckboxProps,
   ChipProps,
   ColorInputProps,
   FileInputProps,
+  Input,
+  InputProps,
   MultiSelectProps,
   NumberInputProps,
   PasswordInputProps,
@@ -304,24 +306,21 @@ export const DynamicSelect = (props: Named<SelectProps>) => {
   )
 }
 
-export type HiddenProps = Omit<
-  React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  >,
-  'type'
->
+export type HiddenProps = InputProps
 
 export const Hidden = (props: Named<HiddenProps>) => {
-  return <input {...props} type="hidden" />
+  const { form } = useFormContext()
+
+  return <Input type="hidden" {...props} {...form.getInputProps(props.name)} />
 }
 
-export type ActionProps = Omit<HiddenProps, 'value'> &
+export type ActionProps = Omit<InputProps, 'value'> &
   Readonly<{ action: string }>
 
 export const Action = ({ action, ...props }: ActionProps) => {
-  return <input {...props} type="hidden" name="_action" value={action} />
+  return <Input {...props} type="hidden" name="_action" value={action} />
 }
+
 type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodEnum<any> | z.ZodNativeEnum<any>
@@ -402,7 +401,9 @@ export type InputsType<Spec extends FormSchema> = {
     >,
   ) => JSX.Element
   Action: (props: ActionProps) => JSX.Element
-  Hidden: (props: Named<HiddenProps>) => JSX.Element
+  Hidden: (
+    props: Named<HiddenProps, ConditionalKeys<GetRawShape<Spec>, z.ZodAny>>,
+  ) => JSX.Element
 
   DynamicEnumList: (
     props: Named<
