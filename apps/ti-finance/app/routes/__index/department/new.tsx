@@ -4,12 +4,12 @@ import { redirect } from '@remix-run/server-runtime'
 import { isOk } from '@srtp/core'
 import { formErrors, fromFormData } from '@srtp/remix-core'
 import { badRequest } from '@srtp/remix-node'
-import { DepartmentSchema } from '~/common/validators'
-import { UserDepartment } from '~/components/department'
+import { CreateDepartmentForm } from '~/components/department/Create'
+import { CreateMappingSchema } from '~/components/department/specs'
 import { createDepartment } from '~/models/department.server'
 
 export async function action({ request }: ActionArgs) {
-  const result = await fromFormData(DepartmentSchema, request)
+  const result = await fromFormData(CreateMappingSchema, request)
 
   if (!result.success) {
     return badRequest({ fieldErrors: formErrors(result.error) })
@@ -19,13 +19,13 @@ export async function action({ request }: ActionArgs) {
 
   return isOk(departmentResult)
     ? redirect('/department')
-    : badRequest<DepartmentSchema>({ error: departmentResult.fail })
+    : badRequest<CreateMappingSchema>({ error: departmentResult.fail })
 }
 
 export const DepartmentPage = () => {
   const actionData = useActionData()
 
-  return <UserDepartment {...actionData} />
+  return <CreateDepartmentForm {...actionData} />
 }
 
 export default DepartmentPage
