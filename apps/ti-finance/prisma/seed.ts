@@ -1,4 +1,5 @@
-import { Billable, PrismaClient } from '@prisma/client'
+import type { DepartmentMapping } from '@prisma/client'
+import { Billable, Prisma, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
@@ -37,30 +38,63 @@ const tiUsersCtc = [
   },
 ]
 
-const financeDepartment = {
-  name: 'emma',
+const dm1: Prisma.DepartmentMappingCreateInput = {
+  tiId: 'TI_101',
+  username: 'emma',
   department: 'Finance',
   ctc: 18_00_000,
   fromDate: new Date('2017-01-26'),
   toDate: new Date('2018-01-26'),
-  billable: Billable.billable,
+  category: Billable.billable,
 }
-const itDepartment = {
-  name: 'watson',
+const dm2: Prisma.DepartmentMappingCreateInput = {
+  tiId: 'TI_102',
+  username: 'watson',
   department: 'IT',
   ctc: 16_00_000,
   fromDate: new Date('2016-04-14'),
   toDate: new Date('2017-04-14'),
-  billable: Billable.nonBillable,
+  category: Billable.nonBillable,
 }
 
-const developmentDepartment = {
-  name: 'reena',
+const dm3: Prisma.DepartmentMappingCreateInput = {
+  tiId: 'TI_103',
+  username: 'reena',
   department: 'Development',
   ctc: 10_00_000,
   fromDate: new Date('2020-06-21'),
   toDate: new Date('2021-06-21'),
-  billable: Billable.nonBillable,
+  category: Billable.nonBillable,
+}
+
+const dm4: Prisma.DepartmentMappingCreateInput = {
+  tiId: 'TI_101',
+  username: 'emma',
+  department: 'Finance',
+  ctc: 18_00_000,
+  fromDate: new Date('2018-02-26'),
+  toDate: new Date('2019-02-26'),
+  category: Billable.billable,
+}
+const dm5: Prisma.DepartmentMappingCreateInput = {
+  tiId: 'TI_102',
+
+  username: 'watson',
+  department: 'IT',
+  ctc: 16_00_000,
+  fromDate: new Date('2017-05-14'),
+  toDate: new Date('2018-05-14'),
+  category: Billable.nonBillable,
+}
+
+const dm6: Prisma.DepartmentMappingCreateInput = {
+  tiId: 'TI_103',
+  username: 'reena',
+  department: 'Development',
+  ctc: 10_00_000,
+  fromDate: new Date('2021-07-21'),
+  toDate: new Date('2022-07-21'),
+  category: Billable.nonBillable,
 }
 
 const itBudgets = [
@@ -166,28 +200,28 @@ async function seed() {
     })
   }
 
-  await prisma.department.create({
-    data: {
-      ...financeDepartment,
-      budget: { create: financeBudgets },
-      expenditure: { create: financeExpenditures },
-    },
+  await prisma.departmentMapping.create({
+    data: dm1,
   })
 
-  await prisma.department.create({
-    data: {
-      ...itDepartment,
-      budget: { create: itBudgets },
-      expenditure: { create: itExpenditures },
-    },
+  await prisma.departmentMapping.create({
+    data: dm2,
   })
 
-  await prisma.department.create({
-    data: {
-      ...developmentDepartment,
-      budget: { create: developmentBudgets },
-      expenditure: { create: developmentExpenditures },
-    },
+  await prisma.departmentMapping.create({
+    data: dm3,
+  })
+
+  await prisma.departmentMapping.create({
+    data: dm4,
+  })
+
+  await prisma.departmentMapping.create({
+    data: dm5,
+  })
+
+  await prisma.departmentMapping.create({
+    data: dm6,
   })
 
   console.log(`Database has been seeded. 🌱`)
