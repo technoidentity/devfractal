@@ -15,11 +15,6 @@ export function success<T>(value: T): Try<T> {
   return { type: 'right', value }
 }
 
-export const defaultError = (e: unknown) =>
-  e instanceof Error
-    ? e.message
-    : `unexpected prisma error: ${JSON.stringify(e)}`
-
 // @TODO: let's take anything and convert to error?
 export function failure<T>(error: unknown): Try<T> {
   return { type: 'left', error: toError(error) }

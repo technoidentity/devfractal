@@ -3,6 +3,11 @@ import { isObject, isStr, jstr } from '../types'
 import { fail, ok, Result } from './result'
 import { failure as tryFailure, success as trySuccess, Try } from './try'
 
+export const defaultError = (e: unknown) =>
+  e instanceof Error
+    ? e.message
+    : `unexpected prisma error: ${JSON.stringify(e)}`
+
 export function toError(err: unknown): Error {
   return err instanceof Error
     ? err
