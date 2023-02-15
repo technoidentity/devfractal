@@ -1,18 +1,21 @@
-import type { Department } from '@prisma/client'
+import type { Department, DepartmentMapping } from '@prisma/client'
 import { Prisma } from '@prisma/client'
-import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
+import type { DepartmentMappingSchema } from '~/common/validators'
+import type { CreateMappingSchema } from '~/components/department/specs'
 import { prisma } from '~/db.server'
+import type { DbResult } from './types'
 
-export const getDepartments = () => {
-  return prisma.department.findMany()
+export async function getDepartmentList() {
+  return await prisma.departmentMapping.findMany()
 }
 
-export const createDepartment = async (
-  data: Department,
-): Promise<Result<string, Department>> => {
+type Result = DbResult<DepartmentMapping>
+
+export async function createDepartment(data: CreateMappingSchema): Result {
   try {
-    const department = await prisma.department.create({ data })
+    const department = await prisma.departmentMapping.create({ data })
+
     return ok(department)
   } catch (e) {
     const err =
@@ -24,14 +27,10 @@ export const createDepartment = async (
   }
 }
 
-export async function deleteDepartment(
-  data: Department,
-): Promise<Result<string, Department>> {
+export async function deleteDepartment(id: Department['id']): Result {
   try {
-    const dept = await prisma.department.delete({
-      where: {
-        id: data.id,
-      },
+    const dept = await prisma.departmentMapping.delete({
+      where: { id },
     })
 
     return ok(dept)
@@ -40,17 +39,34 @@ export async function deleteDepartment(
   }
 }
 
-export async function editDepartment(
-  data: Department,
-): Promise<Result<string, Department>> {
+export async function updateDepartment(data: DepartmentMappingSchema): Result {
   try {
-    const result = await prisma.department.update({
+    console.log('updateDepartment', data)
+    const result = await prisma.departmentMapping.update({
       where: { id: data.id },
       data,
     })
-
+    console.log({ result })
     return ok(result)
   } catch (e) {
     return fail(defaultError(e))
   }
+}
+
+export async function getDepartmentsCost() {
+  const personCost = (
+    await prisma.departmentMapping.groupBy({
+      by: ['department'],
+      _sum: { ctc: true },
+    })
+  ).map(({ department, _sum }) => ({ department, total: _sum.ctc ?? 0 }))
+
+  const expenditure = (
+    await prisma.expenditure.groupBy({
+      by: ['departmentId'],
+      _sum: { amount: true },
+    })
+  ).map(({ departmentId, _sum }) => ({ departmentId, total: _sum.amount ?? 0 }))
+
+  return { personCost, expenditure }
 }
