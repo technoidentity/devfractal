@@ -15,8 +15,12 @@ generator zod {
 }
 
 model User {
-  id    String @id @default(cuid())
-  email String @unique
+  id       String  @id @default(cuid())
+  email    String  @unique
+  // tiId  String @unique
+  // name  String
+  Access   Access? @relation(fields: [accessId], references: [id])
+  accessId Int?    @map("departmentAccessId")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -44,16 +48,25 @@ enum Billable {
   nonBillable
 }
 
+model DepartmentMapping {
+  id         Int      @id @default(autoincrement())
+  tiId       String
+  username   String // @TODO: remove this once integrated with user
+  ctc        Int /// @zod.min(0)
+  department String
+  fromDate   DateTime
+  toDate     DateTime
+  category   Billable
+}
+
 model Department {
-  id          Int           @id @default(autoincrement())
-  name        String
-  ctc         Int /// @zod.min(0)
-  department  String
-  fromDate    DateTime
-  toDate      DateTime
-  billable    Billable
-  budget      Budget[]
-  expenditure Expenditure[]
+  id   Int    @id @default(autoincrement())
+  name String
+
+  Budget      Budget[]
+  Expenditure Expenditure[]
+
+  Access Access[]
 }
 
 model Budget {
@@ -73,4 +86,12 @@ model Expenditure {
   remarks      String
   Department   Department @relation(fields: [departmentId], references: [id])
   departmentId Int
+}
+
+model Access {
+  id               Int        @id @default(autoincrement())
+  parentCostCenter String // @TODO: 
+  Department       Department @relation(fields: [departmentId], references: [id])
+  departmentId     Int
+  User             User[]
 }
