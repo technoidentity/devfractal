@@ -7,7 +7,7 @@ import { capitalizeFirstLetter } from '~/common/stringUtil'
 
 import { DatePicker } from '@mantine/dates'
 import { isFail } from '@srtp/core'
-import { actions, badRequest, safeAction } from '@srtp/remix-node'
+import { badRequest, methods, safeAction } from '@srtp/remix-node'
 import { number, string } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
@@ -46,7 +46,7 @@ export async function loader(_: LoaderArgs) {
 }
 
 export const action = (args: ActionArgs) => {
-  return actions(args, {
+  return methods(args, {
     PUT: async args => {
       console.log(
         'action put received',
@@ -87,6 +87,7 @@ const ExpenditurePage = () => {
         .parse(expenditures),
     [expenditures],
   )
+
   const names = expList.map(d => ({
     label: capitalizeFirstLetter(d.department),
     value: d.category,
