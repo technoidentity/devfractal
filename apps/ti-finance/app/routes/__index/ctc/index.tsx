@@ -5,7 +5,7 @@ import { method, methods } from '@srtp/remix-node'
 import { string } from '@srtp/validator'
 import { z } from 'zod'
 import { CtcSchema } from '~/common/validators'
-import { listLoaderSpec, useSafeLoaderData } from '~/components/common'
+import { useSafeLoaderData } from '~/components/common'
 import { CtcList } from '~/components/ctc/List'
 import { deleteCtc, getCtcList, updateCtc } from '~/models/ctc.server'
 
@@ -21,8 +21,10 @@ export async function loader() {
   return json({ data })
 }
 
+const spec = z.object({ data: z.array(CtcSchema) })
+
 const UsersCtcPage = () => {
-  const { data } = useSafeLoaderData(listLoaderSpec(CtcSchema))
+  const { data } = useSafeLoaderData(spec)
 
   return <CtcList ctcList={data} />
 }

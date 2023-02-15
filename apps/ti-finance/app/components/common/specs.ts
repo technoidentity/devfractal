@@ -9,9 +9,6 @@ export function createErrorsSpec<Spec extends z.AnyZodObject>(
     fieldErrors: z.record(keys, z.string()).optional(),
     error: z.string().optional(),
   })
+  // this can be dangerous
   return errors as any
-}
-
-export function listLoaderSpec<Spec extends z.AnyZodObject>(spec: Spec) {
-  return z.object({ data: z.array(spec) })
 }
