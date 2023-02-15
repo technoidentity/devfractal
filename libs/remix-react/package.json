@@ -24,11 +24,11 @@
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
-    "@mantine/core": "5.10.3",
-    "@mantine/dates": "5.10.3",
-    "@mantine/form": "5.10.3",
-    "@mantine/hooks": "5.10.3",
-    "@remix-run/react": "1.12.0",
+    "@mantine/core": "5.10.4",
+    "@mantine/dates": "5.10.4",
+    "@mantine/form": "5.10.4",
+    "@mantine/hooks": "5.10.4",
+    "@remix-run/react": "1.13.0",
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/remix-core": "workspace:*",
@@ -44,14 +44,14 @@
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "18.13.0",
-    "@types/react-dom": "18.0.10",
-    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.11",
+    "@types/react": "18.0.28",
     "cross-env": "7.0.3",
     "eslint-config-srtp": "workspace:*",
-    "eslint": "8.33.0",
+    "eslint": "8.34.0",
     "prettier": "2.8.4",
-    "tsup": "6.6.0",
+    "tsup": "6.6.3",
     "typescript": "4.9.5",
-    "vitest": "0.28.4"
+    "vitest": "0.28.5"
   }
 }

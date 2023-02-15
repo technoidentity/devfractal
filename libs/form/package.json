@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
-    "@mantine/core": "5.10.3",
-    "@mantine/dates": "5.10.3",
-    "@mantine/form": "5.10.3",
+    "@mantine/core": "5.10.4",
+    "@mantine/dates": "5.10.4",
+    "@mantine/form": "5.10.4",
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/validator": "workspace:*",
@@ -45,14 +45,14 @@
     "@srtp/tsconfig": "workspace:*",
     "@types/lodash": "4.14.191",
     "@types/node": "18.13.0",
-    "@types/react": "18.0.27",
-    "@types/react-dom": "18.0.10",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
     "cross-env": "7.0.3",
-    "eslint": "8.33.0",
+    "eslint": "8.34.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.4",
-    "tsup": "6.6.0",
+    "tsup": "6.6.3",
     "typescript": "4.9.5",
-    "vitest": "0.28.4"
+    "vitest": "0.28.5"
   }
 }

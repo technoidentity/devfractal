@@ -20,15 +20,15 @@
     "web:dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.4.9",
-    "@chakra-ui/styled-system": "2.5.1",
+    "@chakra-ui/react": "2.5.0",
+    "@chakra-ui/styled-system": "2.6.0",
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@react-spring/web": "9.6.1",
     "@srtp/core": "workspace:*",
     "@srtp/todo": "workspace:*",
     "@srtp/fetch": "workspace:*",
-    "@tanstack/react-query": "4.24.4",
+    "@tanstack/react-query": "4.24.6",
     "framer-motion": "9.0.2",
     "immer": "9.0.19",
     "jotai": "2.0.1",
@@ -52,16 +52,16 @@
     "@srtp/tsconfig": "workspace:*",
     "@testing-library/react": "13.4.0",
     "@types/node": "18.13.0",
-    "@types/react": "18.0.27",
+    "@types/react": "18.0.28",
     "@types/react-beautiful-dnd": "13.1.3",
-    "@types/react-dom": "18.0.10",
+    "@types/react-dom": "18.0.11",
     "@types/react-virtualized-auto-sizer": "1.0.1",
     "@types/react-window": "1.8.5",
     "@types/react-window-infinite-loader": "1.0.6",
     "@vitejs/plugin-react-swc": "3.1.0",
     "concurrently": "7.6.0",
     "cross-env": "7.0.3",
-    "eslint": "8.33.0",
+    "eslint": "8.34.0",
     "eslint-config-srtp": "workspace:*",
     "json-server": "0.17.1",
     "npm-check-updates": "16.7.4",
@@ -69,6 +69,6 @@
     "rimraf": "4.1.2",
     "typescript": "4.9.5",
     "vite": "4.1.1",
-    "vitest": "0.28.4"
+    "vitest": "0.28.5"
   }
 }
