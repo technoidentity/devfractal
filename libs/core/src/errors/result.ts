@@ -1,4 +1,4 @@
-import normalizeException from 'normalize-exception'
+import { toError } from './utils'
 
 export type Ok<T> = Readonly<{ type: 'ok'; value: T }>
 export type Err<E> = Readonly<{ type: 'fail'; fail: E }>
@@ -56,6 +56,6 @@ export function rtry<T>(fn: () => T): Result<Error, T> {
   try {
     return ok(fn())
   } catch (e) {
-    return fail(normalizeException(e))
+    return fail(toError(e))
   }
 }
