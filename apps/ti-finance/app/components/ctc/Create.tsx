@@ -1,9 +1,8 @@
-import { Box, Button, Center, Group, Paper, Title } from '@mantine/core'
+import { Box, Paper } from '@mantine/core'
 import type { Errors } from '@srtp/remix-core'
 import { createForm } from '@srtp/remix-react'
-import React from 'react'
 import { CtcSchema } from '~/common/validators'
-import { FormErrors } from '../common'
+import { FormErrors, FormTitle, SubmitButton } from '../common'
 import { FormFields } from './FormFields'
 
 const initialValues: CtcSchema = {
@@ -17,20 +16,6 @@ const initialValues: CtcSchema = {
 const { Form, Inputs } = createForm(CtcSchema, initialValues)
 
 export type CreateCtcFormProps = Errors<CtcSchema>
-
-const FormTitle = ({ children }: { children: React.ReactNode }) => (
-  <Center>
-    <Title order={3} mt="xl">
-      {children}
-    </Title>
-  </Center>
-)
-
-const SubmitButton = () => (
-  <Group position="right" mt="xl">
-    <Button type="submit">Submit</Button>
-  </Group>
-)
 
 export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
   return (
@@ -46,6 +31,7 @@ export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
           serverErrors={serverErrors}
         >
           <FormFields Inputs={Inputs} />
+
           <SubmitButton />
         </Form>
       </Box>
