@@ -6,15 +6,17 @@ import {
   IconBrandCashapp,
   IconBusinessplan,
   IconDiscount2,
+  IconUserCircle,
+  IconHomeDollar,
 } from '@tabler/icons-react'
-import { CustomLink } from './CustomLink'
+import { CustomLink } from '../CustomLink'
 
 export const AppNavbar = () => {
   return (
     <Box mt="xl">
       <CustomLink
         to="/ctc"
-        uiProps={{ label: 'Person CTC', icon: <IconGauge /> }}
+        uiProps={{ label: 'Person CTC', icon: <IconUserCircle /> }}
         style={{ textDecoration: 'none', fontWeight: 'bold' }}
       />
 
@@ -66,6 +68,20 @@ export const AppNavbar = () => {
         uiProps={{
           label: 'Expenditure',
           icon: <IconDiscount2 />,
+          bg: '#f0f0f0',
+          mt: 'sm',
+        }}
+        style={{
+          textDecoration: 'none',
+          fontWeight: 'bold',
+          backgroundColor: 'lightgrey',
+        }}
+      />
+      <CustomLink
+        to="/department/cost"
+        uiProps={{
+          label: 'Department Cost',
+          icon: <IconHomeDollar />,
           bg: '#f0f0f0',
           mt: 'sm',
         }}
