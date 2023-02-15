@@ -36,16 +36,27 @@ export const ExpenditureSchema = schema({
 
 export type ExpenditureSchema = z.infer<typeof ExpenditureSchema>
 
-export const DepartmentSchema = schema({
+export const DepartmentMappingSchema = schema({
   id: number,
-  name: string.min(2, { message: 'Name should have at least 2 letters' }),
+  tiId: string,
+  username: string.min(2, { message: 'Name should have at least 2 letters' }),
   ctc: number.positive(),
   department: string,
   fromDate: date,
   toDate: date,
-  billable: BillableSchema,
+  category: BillableSchema,
   // budget: z.ex
   // expenditure: z.array(ExpenditureSchema),
 })
 
-export type DepartmentSchema = z.infer<typeof DepartmentSchema>
+export type DepartmentMappingSchema = z.infer<typeof DepartmentMappingSchema>
+
+export const CostSchema = schema({
+  id: string,
+  department: string,
+  peopleCost: number,
+  otherExpenditures: number,
+  totalCost: number,
+})
+
+export type CostSchema = z.infer<typeof CostSchema>
