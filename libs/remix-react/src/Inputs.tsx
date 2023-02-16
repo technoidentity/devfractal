@@ -407,9 +407,7 @@ export type InputsType<Spec extends FormSchema> = {
     >,
   ) => JSX.Element
   Action: (props: ActionProps) => JSX.Element
-  Hidden: (
-    props: Named<HiddenProps, ConditionalKeys<GetRawShape<Spec>, z.ZodAny>>,
-  ) => JSX.Element
+  Hidden: (props: Named<HiddenProps>) => JSX.Element
 
   DynamicEnumList: (
     props: Named<
