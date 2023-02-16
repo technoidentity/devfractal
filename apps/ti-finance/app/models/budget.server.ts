@@ -9,15 +9,16 @@ export async function getBudgetAllocations() {
         category: true,
         amount: true,
         financialYear: true,
-        Department: { select: { department: true } },
+        Department: { select: { id: true, name: true } },
       },
     })
   ).map(budget => ({
     id: budget.id,
     category: budget.category,
     amount: budget.amount,
-    financialYear: budget.financialYear,
-    department: budget.Department.department,
+    financialYear: budget.financialYear.getFullYear(),
+    department: budget.Department.name,
+    departmentId: budget.Department.id,
   }))
 }
 
