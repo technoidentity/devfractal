@@ -37,7 +37,7 @@ export interface ClientTableProps<Row extends RowBase>
     TableViewProps<Row>,
     'rows' | 'sort' | 'onSort' | 'onFieldSearch' | 'fieldSearch'
   > {
-  onSearch(search?: string): void
+  onSearch?(search?: string): void
   tableState: ReturnType<typeof useClientTable<Row>>
 }
 

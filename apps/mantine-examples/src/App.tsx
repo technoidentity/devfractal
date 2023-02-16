@@ -1,5 +1,5 @@
-import { MantineProvider } from '@mantine/core'
-import { ClientTable, Filters, useClientTable } from '@srtp/table'
+import { Container, MantineProvider } from '@mantine/core'
+import { ClientTable, FieldSearch, useClientTable } from '@srtp/table'
 import { columns, Row, rows } from './data'
 
 const renderColumn = (k: keyof Row, row: Row) => {
@@ -9,7 +9,7 @@ const renderColumn = (k: keyof Row, row: Row) => {
   return <td>{row[k]}</td>
 }
 
-const initialFilters: Filters<Row> = {
+const initialFieldSearch: FieldSearch<Row> = {
   age: '',
   name: '',
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -17,15 +17,19 @@ const initialFilters: Filters<Row> = {
 }
 
 export function App() {
-  const tableState = useClientTable({ perPage: 3, rows, initialFilters })
+  const tableState = useClientTable({ perPage: 7, rows, initialFieldSearch })
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <ClientTable
-        tableState={tableState}
-        columns={columns}
-        renderColumn={renderColumn}
-      />
+      <Container mt="md">
+        <ClientTable
+          withBorder
+          striped
+          tableState={tableState}
+          columns={columns}
+          renderColumn={renderColumn}
+        />
+      </Container>
     </MantineProvider>
   )
 }
