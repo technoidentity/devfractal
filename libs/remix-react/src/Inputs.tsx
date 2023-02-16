@@ -1,10 +1,9 @@
-import {
+import type {
   AutocompleteProps,
   CheckboxProps,
   ChipProps,
   ColorInputProps,
   FileInputProps,
-  Input,
   InputProps,
   MultiSelectProps,
   NumberInputProps,
@@ -21,23 +20,24 @@ import {
 import {
   Autocomplete as MantineAutocomplete,
   Checkbox,
+  Chip as MantineChip,
   ColorInput,
   FileInput,
+  Input,
   MultiSelect,
   NumberInput,
   PasswordInput,
   Radio,
+  Rating as MantineRating,
+  SegmentedControl as MantineSegmentedControl,
+  Select as MantineSelect,
+  Slider as MantineSlider,
+  Switch as MantineSwitch,
   Textarea,
   TextInput,
-  Rating as MantineRating,
-  Select as MantineSelect,
-  Switch as MantineSwitch,
-  Chip as MantineChip,
-  SegmentedControl as MantineSegmentedControl,
-  Slider as MantineSlider,
 } from '@mantine/core'
 import type { DatePickerProps, TimeInputProps } from '@mantine/dates'
-import { TimeInput, DatePicker as MantineDatePicker } from '@mantine/dates'
+import { DatePicker as MantineDatePicker, TimeInput } from '@mantine/dates'
 import type { FormSchema, GetRawShape } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
 import type { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
@@ -157,11 +157,14 @@ export const EnumList = (props: Named<MultiSelectProps>) => {
 export const Select = (props: Named<SelectProps>) => {
   const { form, errMsg, spec } = useFormContext()
 
+  const fp = form.getInputProps(props.name)
+  const formProps = { ...fp, value: fp.value.toString() }
+
   return (
     <MantineSelect
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
-      {...form.getInputProps(props.name)}
+      {...formProps}
       error={errMsg?.(props.name)}
     />
   )
@@ -296,11 +299,14 @@ export const DynamicEnumList = (props: Named<MultiSelectProps>) => {
 export const DynamicSelect = (props: Named<SelectProps>) => {
   const { form, errMsg, spec } = useFormContext()
 
+  const fp = form.getInputProps(props.name)
+  const formProps = { ...fp, value: fp.value.toString() }
+
   return (
     <MantineSelect
       withAsterisk={!(spec[props.name] instanceof ZodOptional)}
       {...props}
-      {...form.getInputProps(props.name)}
+      {...formProps}
       error={errMsg?.(props.name)}
     />
   )
