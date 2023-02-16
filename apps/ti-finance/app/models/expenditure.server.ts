@@ -2,8 +2,10 @@ import type { Expenditure } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
-import type { GetPrismaListType } from '~/common/prismaTypes'
-import type { ExpenditureSchema } from '~/common/validators'
+import type {
+  CreateExpenditureSchema,
+  ExpenditureSchema,
+} from '~/common/validators'
 import { prisma } from '~/db.server'
 
 export async function getDepartmentExpenditures() {
@@ -15,25 +17,25 @@ export async function getDepartmentExpenditures() {
         date: true,
         remarks: true,
         category: true,
-        Department: { select: { id: true, department: true } },
+        Department: { select: { id: true, name: true } },
       },
     })
   ).map(expenditure => ({
     ...expenditure,
-    department: expenditure.Department.department,
+    department: expenditure.Department.name,
     departmentId: expenditure.Department.id,
   }))
 }
 
-export async function getDepartments() {
-  return await prisma.department.findMany({
-    select: { id: true, department: true },
-  })
-}
+// export async function getDepartments() {
+//   return await prisma.department.findMany({
+//     select: { id: true, department: true },
+//   })
+// }
 
-export type DepartmentExpenditure = GetPrismaListType<
-  typeof getDepartmentExpenditures
->
+// export type DepartmentExpenditure = GetPrismaListType<
+//   typeof getDepartmentExpenditures
+// >
 
 export async function deleteExpenditure(
   id: Expenditure['id'],
@@ -50,7 +52,7 @@ export async function deleteExpenditure(
 }
 
 export async function createExpenditure(
-  data: Omit<ExpenditureSchema, 'id'>,
+  data: CreateExpenditureSchema,
 ): Promise<Result<string, Expenditure>> {
   try {
     const exp = await prisma.expenditure.create({
