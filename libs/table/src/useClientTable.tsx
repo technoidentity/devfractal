@@ -4,16 +4,17 @@ import React, { useMemo } from 'react'
 import {
   ClientTableState,
   FieldPredicates,
-  Filters,
+  FieldSearch,
   RowBase,
   RowPredicate,
   Sort,
 } from './types'
 import {
+  searchRows,
   fieldPredicateRows,
   paginateRows,
   predicateRows,
-  searchRows,
+  fieldSearchRows,
   sortRows,
 } from './utils'
 
@@ -26,21 +27,25 @@ function useClientTableHandlers<Row extends RowBase>() {
             state.sort.order === 'asc' && state.sort.orderBy === accessor
               ? 'desc'
               : 'asc'
-          state.activePage = 1
+          state.page = 1
           state.sort = { order, orderBy: castDraft(accessor) }
         },
 
-        handleSearch(state, key: keyof Row, val?: string | undefined) {
-          state.activePage = 1
+        handleSearch(state, search?: string | undefined) {
+          state.search = search
+        },
+
+        handleFieldSearch(state, key: keyof Row, val?: string | undefined) {
+          state.page = 1
           if (val) {
-            ;(state.filters as any)[key] = val
+            ;(state.fieldSearch as any)[key] = val
           } else {
-            delete (state.filters as any)[key]
+            delete (state.fieldSearch as any)[key]
           }
         },
 
-        setActivePage(state, activePage: number) {
-          state.activePage = activePage
+        setPage(state, page: number) {
+          state.page = page
         },
       } satisfies Handlers<ClientTableState<Row>>),
     [],
@@ -57,40 +62,58 @@ function useState<State, Hs extends Handlers<State>>(
 }
 
 export type UseClientTable<Row extends RowBase> = Readonly<{
-  perPage: number
-  initialFilters?: Filters<Row>
-  fieldPredicates?: FieldPredicates<Row>
-  rowPredicate?: RowPredicate<Row>
+  rows: readonly Row[]
+  perPage?: number
+  search?: string
   initialPage?: number
   initialSort?: Sort<Row>
-  rows: readonly Row[]
+
+  initialFieldSearch?: FieldSearch<Row>
+  fieldPredicates?: FieldPredicates<Row>
+  rowPredicate?: RowPredicate<Row>
 }>
 
 export function useClientTable<Row extends RowBase>(
   props: UseClientTable<Row>,
 ) {
-  const { initialFilters, initialSort, initialPage, rows, perPage } = props
+  const {
+    rows,
+    perPage = 20,
+    initialSort,
+    initialPage,
+
+    initialFieldSearch,
+  } = props
 
   const initialState = {
-    activePage: initialPage || 1,
-    filters: initialFilters,
+    search: '',
+    page: initialPage || 1,
     sort: initialSort || { order: 'asc', orderBy: 'id' },
+    filters: initialFieldSearch,
   } as const
   const handlers = useClientTableHandlers<Row>()
 
   const [state, actions] = useState(initialState, handlers)
 
   const searchedRows = useMemo(
-    () => (state.filters ? searchRows(rows, state.filters) : rows),
-    [state.filters, rows],
+    () => (state.search ? searchRows(rows, state.search) : rows),
+    [rows, state.search],
+  )
+
+  const fieldSearchedRows = useMemo(
+    () =>
+      state.filters
+        ? fieldSearchRows(searchedRows, state.filters)
+        : searchedRows,
+    [state.filters, searchedRows],
   )
 
   const filteredRows = useMemo(
     () =>
       props.fieldPredicates
-        ? fieldPredicateRows(searchedRows, props.fieldPredicates)
-        : searchedRows,
-    [props.fieldPredicates, searchedRows],
+        ? fieldPredicateRows(fieldSearchedRows, props.fieldPredicates)
+        : fieldSearchedRows,
+    [props.fieldPredicates, fieldSearchedRows],
   )
 
   const rowPredicateRows = useMemo(
@@ -107,17 +130,17 @@ export function useClientTable<Row extends RowBase>(
   )
 
   const currentRows = React.useMemo(
-    () => paginateRows(sortedRows, state.activePage, perPage),
-    [perPage, sortedRows, state.activePage],
+    () => paginateRows(sortedRows, state.page, perPage),
+    [perPage, sortedRows, state.page],
   )
 
   const totalPages = React.useMemo(
-    () => Math.ceil(searchedRows.length / perPage),
-    [searchedRows.length, perPage],
+    () => Math.ceil(fieldSearchedRows.length / perPage),
+    [fieldSearchedRows.length, perPage],
   )
 
   const selects = {
-    filterRows: searchRows,
+    filterRows: fieldSearchRows,
     sortedRows,
     currentRows,
     totalPages,

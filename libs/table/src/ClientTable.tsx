@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Flex } from '@mantine/core'
 import { Pagination } from './Pagination'
+import { TableSearch } from './TableSearch'
 import { TableView } from './TableView'
 import { ClientTableProps, RowBase } from './types'
 
 export function ClientTable<Row extends RowBase>({
   columns,
+  onSearch,
   tableState: {
     actions,
     selects,
@@ -17,21 +17,23 @@ export function ClientTable<Row extends RowBase>({
 }: ClientTableProps<Row>) {
   return (
     <Flex direction={{ base: 'column' }} justify={{ md: 'center' }}>
+      {onSearch && <TableSearch search={state.search} onSearch={onSearch} />}
+
       <TableView<Row>
         {...props}
         columns={columns}
-        filters={state.filters}
+        fieldSearch={state.filters}
+        onFieldSearch={actions.handleFieldSearch}
         sort={state.sort}
         rows={selects.currentRows}
-        onSearch={actions.handleSearch}
         onSort={actions.handleSort}
       />
 
       <Pagination<Row>
-        rowsPerPage={perPage}
+        rowsPerPage={perPage || 30}
         rows={rows}
-        activePage={state.activePage}
-        setActivePage={actions.setActivePage}
+        page={state.page}
+        setPage={actions.setPage}
         totalPages={selects.totalPages}
       />
     </Flex>

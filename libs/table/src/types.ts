@@ -14,31 +14,37 @@ export type Column<T extends object> = {
   format?: (val: boolean) => void
 }
 
-export type Filters<T extends object> = Partial<Record<keyof T, string>>
+export type FieldSearch<T extends object> = Partial<Record<keyof T, string>>
 
 export interface TableViewProps<Row extends RowBase> extends TableProps {
   columns: Column<Row>[]
-  filters?: Filters<Row>
+  rows: readonly Row[]
+
   sort: Sort<Row>
-  onSearch(key: keyof Row, val: string): void
   onSort(val: keyof Row): void
+
   renderColumn?: (key: keyof Row, row: Row) => React.ReactNode
+
   // eslint-disable-next-line @typescript-eslint/naming-convention
   Actions?: (props: { row: Row }) => JSX.Element
-  rows: readonly Row[]
+
+  fieldSearch?: FieldSearch<Row>
+  onFieldSearch(key: keyof Row, val: string): void
 }
 
 export interface ClientTableProps<Row extends RowBase>
   extends Omit<
     TableViewProps<Row>,
-    'onSearch' | 'sort' | 'onSort' | 'filters' | 'rows'
+    'rows' | 'sort' | 'onSort' | 'onFieldSearch' | 'fieldSearch'
   > {
+  onSearch(search?: string): void
   tableState: ReturnType<typeof useClientTable<Row>>
 }
 
 export type ClientTableState<Row extends RowBase> = Readonly<{
-  readonly activePage: number
-  readonly filters?: Filters<Row>
+  readonly search?: string
+  readonly page: number
+  readonly fieldSearch?: FieldSearch<Row>
   readonly sort: Sort<Row>
 }>
 
