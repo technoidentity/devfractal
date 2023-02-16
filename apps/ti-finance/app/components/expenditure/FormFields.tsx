@@ -1,23 +1,25 @@
 import { Radio } from '@mantine/core'
 import type { Department } from '@prisma/client'
 import type { InputsType } from '@srtp/remix-react'
+import type { FormSchema } from '@srtp/validator'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
-import type { ExpenditureSchema } from '~/common/validators'
 
-export type FormFieldsProps = Readonly<{
-  Inputs: InputsType<typeof ExpenditureSchema>
-  departments: ReadonlyArray<Pick<Department, 'id' | 'department'>>
+export type FormFieldsProps<T extends FormSchema> = Readonly<{
+  Inputs: InputsType<T>
+  departments: ReadonlyArray<Pick<Department, 'id' | 'name'>>
 }>
 
-export const FormFields = ({ Inputs, departments }: FormFieldsProps) => {
+export function FormFields<T extends FormSchema>({
+  Inputs,
+  departments,
+}: FormFieldsProps<T>) {
   const data = departments.map(d => ({
     value: d.id.toString(),
-    label: capitalizeFirstLetter(d.department),
+    label: capitalizeFirstLetter(d.name),
   }))
 
   return (
     <>
-      <Inputs.Hidden name="id" />
       <Inputs.DynamicSelect
         data={data}
         name="departmentId"
@@ -33,7 +35,7 @@ export const FormFields = ({ Inputs, departments }: FormFieldsProps) => {
         label="Date"
         mt="xs"
       />
-      <Inputs.Enum name="category" values={['billable', 'nonBillable']}>
+      <Inputs.Enum name="category">
         <Radio value="billable" label="Billable" />
         <Radio value="nonBillable" label="Non Billable" />
       </Inputs.Enum>

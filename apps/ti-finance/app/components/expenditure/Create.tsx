@@ -4,14 +4,9 @@ import { Billable } from '@prisma/client'
 import type { Errors } from '@srtp/remix-core'
 import { createForm } from '@srtp/remix-react'
 import React from 'react'
-import type { z } from 'zod'
-import { ExpenditureSchema } from '~/common/validators'
+import { CreateExpenditureSchema } from '~/common/validators'
 import { FormErrors } from '../common'
 import { FormFields } from './FormFields'
-
-export const CreateExpenditureSchema = ExpenditureSchema.omit({ id: true })
-
-export type CreateExpenditureSchema = z.infer<typeof CreateExpenditureSchema>
 
 const initialValues: CreateExpenditureSchema = {
   amount: 1800000,
@@ -25,7 +20,7 @@ const { Form, Inputs } = createForm(CreateExpenditureSchema, initialValues)
 
 export type ExpenditureFormProps = {
   errors?: Errors<CreateExpenditureSchema>
-  departments: ReadonlyArray<Pick<Department, 'id' | 'department'>>
+  departments: ReadonlyArray<Pick<Department, 'id' | 'name'>>
 }
 
 const FormTitle = ({ children }: { children: React.ReactNode }) => (
@@ -56,7 +51,7 @@ export const ExpenditureForm = (props: ExpenditureFormProps) => {
           serverErrors={props.errors}
           onSubmit={console.log}
         >
-          <FormFields Inputs={Inputs as any} departments={props.departments} />
+          <FormFields Inputs={Inputs} departments={props.departments} />
           <SubmitButton />
         </Form>
       </Box>
