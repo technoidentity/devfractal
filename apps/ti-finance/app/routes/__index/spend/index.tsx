@@ -1,49 +1,76 @@
 import { Group, Select } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
-import type { Department } from '@prisma/client'
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import type { Column, Filters } from '@srtp/table'
+import type { Column } from '@srtp/table'
 import React from 'react'
-import { z } from 'zod'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
-import { DepartmentSchema } from '~/common/validators'
+import type { PeopleSpendSchema } from '~/common/validators'
 import { Table } from '~/components/common/Table'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
-import { getDepartments } from '~/models/department.server'
+import { getPeopleSpend } from '~/models/department.server'
 
-const columns: Column<Department>[] = [
-  { accessor: 'id', label: 'TI_ID' },
-  { accessor: 'name', label: 'Username' },
-  { accessor: 'department', label: 'Department' },
-  { accessor: 'ctc', label: 'Cost' },
-]
-const initialFilters: Filters<Department> = {
-  id: '',
-  department: '',
-  name: '',
-  ctc: '',
+interface Spendings extends Omit<PeopleSpendSchema, 'department'> {
+  id: string
+  departments: string[]
 }
 
-export async function loader(_: LoaderArgs) {
-  const departments = await getDepartments()
+const columns: Column<Spendings>[] = [
+  { accessor: 'id', label: 'TI_ID' },
+  { accessor: 'username', label: 'Username' },
+  { accessor: 'departments', label: 'Departments' },
+  { accessor: 'cost', label: 'Cost' },
+]
 
-  return json({ departments })
+export async function loader(_: LoaderArgs) {
+  const { personCost } = await getPeopleSpend()
+
+  const spendings = {} as any
+
+  const getSpending = (c: any) => ({
+    id: c.tiId,
+    cost: c._sum.ctc || 0,
+    username: c.username,
+    departments: [c.department],
+  })
+
+  personCost.forEach(c => {
+    const spending = getSpending(c)
+    if (!spendings[spending.id]) {
+      spendings[spending.id] = spending
+    } else {
+      spendings[spending.id].cost += spending.cost
+      spendings[spending.id].departments.push(...spending.departments)
+    }
+  })
+
+  return json({ spendings })
 }
 
 const PeopleSpendPage = () => {
-  const { departments } = useLoaderData<typeof loader>()
+  const { spendings } = useLoaderData<typeof loader>()
 
-  const departmentList = React.useMemo(
-    () => z.array(DepartmentSchema).parse(departments),
-    [departments],
+  console.log(Object.values(spendings), 'spendings')
+
+  const names = Object.values(spendings).map((d: any) => ({
+    label: capitalizeFirstLetter(d.username),
+    value: d.username,
+  }))
+
+  const totalCost = Object.values(spendings).reduce(
+    (acc: number, s: any) => acc + s.cost,
+    0,
   )
 
-  const names = departments.map(d => capitalizeFirstLetter(d.name))
-
-  const totalCost = departmentList.reduce((acc, curr) => acc + curr.ctc, 0)
-
+  const rows = React.useMemo(
+    () =>
+      Object.values(spendings).map((s: any) => ({
+        ...s,
+        departments: s.departments.join(', '),
+      })),
+    [spendings],
+  )
   return (
     <>
       <TotalSpendCard cost={totalCost} label="Total Spend" />
@@ -59,9 +86,8 @@ const PeopleSpendPage = () => {
           //   const r = row[k] instanceof Date ? formatDate(row[k] as Date) : row[k]
           return <td key={k}>{row[k].toString()}</td>
         }}
-        rows={departmentList}
+        rows={rows}
         columns={columns}
-        initialFilters={initialFilters}
         perPage={3}
       />
     </>
