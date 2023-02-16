@@ -1,14 +1,14 @@
 import { Group, Select } from '@mantine/core'
+import { DatePicker } from '@mantine/dates'
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import type { Column, Filters } from '@srtp/table'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
-import { DatePicker } from '@mantine/dates'
+import { Table } from '~/components/common/Table'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
 import type { BudgetAllocation } from '~/models/budget.server'
 import { getBudgetAllocations } from '~/models/budget.server'
-import { Table } from '~/components/common/Table'
 
 const columns: Column<BudgetAllocation>[] = [
   { accessor: 'department', label: 'Department' },
@@ -44,14 +44,14 @@ const BudgetPage = () => {
     <>
       <Group position="left" m="md">
         <TotalSpendCard cost={totalCost} label="Total Amount" />
-        <Group>
-          <Select label="Department" data={names} size="xs" />
-          <DatePicker size="xs" label="Financial year" />
-        </Group>
+      </Group>
+      <Group mt="xl" mb="lg" ml="sm">
+        <Select label="Department" data={names} size="xs" />
+        <DatePicker size="xs" label="Financial year" />
       </Group>
       <Table
         striped
-        rows={budgets as any}
+        rows={budgets}
         columns={columns}
         initialFilters={initialFilters}
         perPage={3}
