@@ -72,6 +72,7 @@ model Department {
 model Budget {
   id            Int        @id @default(autoincrement())
   amount        Int
+  // @TODO: should be int/string
   financialYear DateTime
   Department    Department @relation(fields: [departmentId], references: [id])
   departmentId  Int

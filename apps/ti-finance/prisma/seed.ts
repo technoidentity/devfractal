@@ -1,5 +1,5 @@
-import type { DepartmentMapping } from '@prisma/client'
-import { Billable, Prisma, PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
+import { Billable, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
@@ -70,7 +70,7 @@ const dm3: Prisma.DepartmentMappingCreateInput = {
 const dm4: Prisma.DepartmentMappingCreateInput = {
   tiId: 'TI_101',
   username: 'emma',
-  department: 'Finance',
+  department: 'IT',
   ctc: 18_00_000,
   fromDate: new Date('2018-02-26'),
   toDate: new Date('2019-02-26'),
@@ -80,7 +80,7 @@ const dm5: Prisma.DepartmentMappingCreateInput = {
   tiId: 'TI_102',
 
   username: 'watson',
-  department: 'IT',
+  department: 'Finance',
   ctc: 16_00_000,
   fromDate: new Date('2017-05-14'),
   toDate: new Date('2018-05-14'),
@@ -90,17 +90,28 @@ const dm5: Prisma.DepartmentMappingCreateInput = {
 const dm6: Prisma.DepartmentMappingCreateInput = {
   tiId: 'TI_103',
   username: 'reena',
-  department: 'Development',
+  department: 'IT',
   ctc: 10_00_000,
   fromDate: new Date('2021-07-21'),
   toDate: new Date('2022-07-21'),
   category: Billable.nonBillable,
 }
 
+const financeDept: Prisma.DepartmentCreateInput = {
+  name: 'Finance',
+}
+
+const itDept: Prisma.DepartmentCreateInput = {
+  name: 'IT',
+}
+const developmentDept: Prisma.DepartmentCreateInput = {
+  name: 'Development',
+}
+
 const itBudgets = [
   {
     category: Billable.billable,
-    amount: 100_00_000,
+    amount: 3400000,
     financialYear: new Date('2021-08-5'),
   },
 ]
@@ -108,36 +119,36 @@ const itBudgets = [
 const developmentBudgets = [
   {
     category: Billable.billable,
-    amount: 100_00_000,
-    financialYear: new Date('2021-08-5'),
+    amount: 2200000,
+    financialYear: new Date('2019-08-5'),
   },
   {
     category: Billable.nonBillable,
-    amount: 100_00_000,
-    financialYear: new Date('2021-08-5'),
+    amount: 1000000,
+    financialYear: new Date('2020-08-5'),
   },
   {
     category: Billable.billable,
-    amount: 100_00_000,
+    amount: 1500000,
     financialYear: new Date('2021-08-5'),
   },
 ]
 
 const financeBudgets = [
   {
-    amount: 100_00_000,
+    amount: 2300000,
     category: Billable.billable,
-    financialYear: new Date('2021-08-5'),
+    financialYear: new Date('2019-08-5'),
   },
   {
     category: Billable.nonBillable,
-    amount: 100_00_000,
+    amount: 3400000,
     financialYear: new Date('2021-08-5'),
   },
   {
     category: Billable.billable,
-    amount: 100_00_000,
-    financialYear: new Date('2021-08-5'),
+    amount: 1200000,
+    financialYear: new Date('2022-08-5'),
   },
 ]
 
@@ -223,6 +234,41 @@ async function seed() {
   await prisma.departmentMapping.create({
     data: dm6,
   })
+
+  await prisma.department.create({
+    data: {
+      ...financeDept,
+      Budget: { create: financeBudgets },
+      Expenditure: { create: financeExpenditures },
+    },
+  })
+
+  await prisma.department.create({
+    data: {
+      ...itDept,
+      Budget: { create: itBudgets },
+      Expenditure: { create: itExpenditures },
+    },
+  })
+  await prisma.department.create({
+    data: {
+      ...developmentDept,
+      Budget: { create: developmentBudgets },
+      Expenditure: { create: developmentExpenditures },
+    },
+  })
+
+  // await prisma.budget.createMany({
+  //   data: itBudgets,
+  // })
+
+  // await prisma.budget.createMany({
+  //   data: developmentBudgets,
+  // })
+
+  // await prisma.budget.createMany({
+  //   data: financeBudgets,
+  // })
 
   console.log(`Database has been seeded. 🌱`)
 }
