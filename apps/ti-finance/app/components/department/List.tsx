@@ -1,7 +1,7 @@
 import { Group } from '@mantine/core'
 import { useActionData } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
-import type { Column, Filters } from '@srtp/table'
+import type { Column } from '@srtp/table'
 import type { DepartmentMappingSchema } from '~/common/validators'
 import { Table } from '../common/Table'
 import { DeleteDepartment } from './Delete'
@@ -16,15 +16,15 @@ const columns: Column<DepartmentMappingSchema>[] = [
   { accessor: 'toDate', label: 'To_Date' },
   { accessor: 'category', label: 'Billable' },
 ]
-const initialFilters: Filters<DepartmentMappingSchema> = {
-  tiId: '',
-  department: '',
-  fromDate: '',
-  ctc: '',
-  toDate: '',
-  username: '',
-  category: 'billable',
-}
+// const initialFilters: Filters<DepartmentMappingSchema> = {
+//   tiId: '',
+//   department: '',
+//   fromDate: '',
+//   ctc: '',
+//   toDate: '',
+//   username: '',
+//   category: 'billable',
+// }
 
 const Actions = ({ row }: { row: DepartmentMappingSchema }) => {
   const actionData = useActionData<
@@ -50,7 +50,6 @@ export const DepartmentList = ({ departmentList }: DepartmentListProps) => (
       Actions={Actions}
       rows={departmentList}
       columns={columns}
-      initialFilters={initialFilters}
       perPage={3}
     />
   </>

@@ -3,7 +3,7 @@ import { DatePicker } from '@mantine/dates'
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import type { Column, Filters } from '@srtp/table'
+import type { Column } from '@srtp/table'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 import { Table } from '~/components/common/Table'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
@@ -17,12 +17,12 @@ const columns: Column<BudgetAllocation>[] = [
   { accessor: 'financialYear', label: 'Financial_year' },
 ]
 
-const initialFilters: Filters<BudgetAllocation> = {
-  department: '',
-  category: '',
-  amount: '',
-  financialYear: '',
-}
+// const initialFilters: Filters<BudgetAllocation> = {
+//   department: '',
+//   category: '',
+//   amount: '',
+//   financialYear: '',
+// }
 
 export async function loader(_: LoaderArgs) {
   const budgets = await getBudgetAllocations()
@@ -49,13 +49,7 @@ const BudgetPage = () => {
         <Select label="Department" data={names} size="xs" />
         <DatePicker size="xs" label="Financial year" />
       </Group>
-      <Table
-        striped
-        rows={budgets}
-        columns={columns}
-        initialFilters={initialFilters}
-        perPage={3}
-      />
+      <Table striped rows={budgets} columns={columns} perPage={3} />
     </>
   )
 }

@@ -2,10 +2,10 @@ import { Button, Group, Select } from '@mantine/core'
 import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import type { Column, Filters } from '@srtp/table'
+import type { Column } from '@srtp/table'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
-
 import { DatePicker } from '@mantine/dates'
+import { method, methods } from '@srtp/remix-node'
 import { number, string } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
@@ -13,15 +13,14 @@ import type { ListExpenditureSchema } from '~/common/validators'
 import { ExpenditureSchema } from '~/common/validators'
 import { Table } from '~/components/common/Table'
 import { DeleteExpenditure } from '~/components/expenditure/Delete'
-import { method, methods } from '@srtp/remix-node'
+import { EditExpenditureForm } from '~/components/expenditure/Edit'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
+import { getDepartmentList } from '~/models/department.server'
 import {
   deleteExpenditure,
   getDepartmentExpenditures,
   updateExpenditure,
 } from '~/models/expenditure.server'
-import { EditExpenditureForm } from '~/components/expenditure/Edit'
-import { getDepartmentList } from '~/models/department.server'
 
 const columns: Column<ListExpenditureSchema>[] = [
   { accessor: 'department', label: 'Department' },
@@ -30,13 +29,14 @@ const columns: Column<ListExpenditureSchema>[] = [
   { accessor: 'date', label: 'Date' },
   { accessor: 'remarks', label: 'Remarks' },
 ]
-const initialFilters: Filters<ListExpenditureSchema> = {
-  category: '',
-  amount: '',
-  date: '',
-  department: '',
-  remarks: '',
-}
+
+// const initialFilters: Filters<ListExpenditureSchema> = {
+//   category: '',
+//   amount: '',
+//   date: '',
+//   department: '',
+//   remarks: '',
+// }
 
 export async function loader(_: LoaderArgs) {
   const expenditures = await getDepartmentExpenditures()
@@ -105,7 +105,6 @@ const ExpenditurePage = () => {
             </Group>
           )
         }}
-        initialFilters={initialFilters}
         perPage={3}
       />
     </>

@@ -1,5 +1,5 @@
 import { Button, Group } from '@mantine/core'
-import type { Column, Filters } from '@srtp/table'
+import type { Column } from '@srtp/table'
 import { CtcSchema } from '~/common/validators'
 import { DeleteCtcForm, EditCtcModalForm } from '~/components/ctc'
 import { useFormData } from '../common'
@@ -13,13 +13,13 @@ const columns: Column<CtcSchema>[] = [
   { accessor: 'toDate', label: 'To Date' },
 ]
 
-const initialFilters: Filters<CtcSchema> = {
-  id: '',
-  ctc: '',
-  fromDate: '',
-  toDate: '',
-  name: '',
-}
+// const initialFilters: Filters<CtcSchema> = {
+//   id: '',
+//   ctc: '',
+//   fromDate: '',
+//   toDate: '',
+//   name: '',
+// }
 
 const Actions = ({ row }: { row: CtcSchema }) => {
   const actionData = useFormData(CtcSchema)
@@ -49,7 +49,6 @@ export const CtcList = ({ ctcList }: CtcListProps) => (
       Actions={Actions}
       rows={ctcList}
       columns={columns}
-      initialFilters={initialFilters}
       perPage={3}
     />
   </>
