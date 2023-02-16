@@ -6,32 +6,31 @@ import type { Column, Filters } from '@srtp/table'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 
 import { DatePicker } from '@mantine/dates'
-import { isFail } from '@srtp/core'
-import { badRequest, methods, safeAction } from '@srtp/remix-node'
 import { number, string } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
+import type { ListExpenditureSchema } from '~/common/validators'
 import { ExpenditureSchema } from '~/common/validators'
 import { Table } from '~/components/common/Table'
 import { DeleteExpenditure } from '~/components/expenditure/Delete'
-import { EditExpenditureForm } from '~/components/expenditure/Edit'
+import { method, methods } from '@srtp/remix-node'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
-import type { DepartmentExpenditure } from '~/models/expenditure.server'
 import {
   deleteExpenditure,
   getDepartmentExpenditures,
-  getDepartments,
   updateExpenditure,
 } from '~/models/expenditure.server'
+import { EditExpenditureForm } from '~/components/expenditure/Edit'
+import { getDepartmentList } from '~/models/department.server'
 
-const columns: Column<DepartmentExpenditure>[] = [
+const columns: Column<ListExpenditureSchema>[] = [
   { accessor: 'department', label: 'Department' },
   { accessor: 'amount', label: 'Amount' },
   { accessor: 'category', label: 'Category' },
   { accessor: 'date', label: 'Date' },
   { accessor: 'remarks', label: 'Remarks' },
 ]
-const initialFilters: Filters<DepartmentExpenditure> = {
+const initialFilters: Filters<ListExpenditureSchema> = {
   category: '',
   amount: '',
   date: '',
@@ -42,32 +41,13 @@ const initialFilters: Filters<DepartmentExpenditure> = {
 export async function loader(_: LoaderArgs) {
   const expenditures = await getDepartmentExpenditures()
 
-  return json({ expenditures, departments: await getDepartments() })
+  return json({ expenditures, departments: await getDepartmentList() })
 }
 
 export const action = (args: ActionArgs) => {
   return methods(args, {
-    PUT: async args => {
-      console.log(
-        'action put received',
-        Object.fromEntries(await args.request.clone().formData()),
-      )
-
-      return safeAction(
-        ExpenditureSchema.extend({ departmentId: number }),
-        args,
-        async values => {
-          const result = await updateExpenditure(values)
-          return isFail(result) ? badRequest({ error: result.fail }) : json({})
-        },
-      )
-    },
-
-    DELETE: args =>
-      safeAction(z.object({ id: number }), args, async values => {
-        const result = await deleteExpenditure(values.id)
-        return isFail(result) ? badRequest({ error: result.fail }) : json({})
-      }),
+    PUT: method(ExpenditureSchema, updateExpenditure),
+    DELETE: method(z.object({ id: number }), ({ id }) => deleteExpenditure(id)),
   })
 }
 
@@ -87,7 +67,6 @@ const ExpenditurePage = () => {
         .parse(expenditures),
     [expenditures],
   )
-
   const names = expList.map(d => ({
     label: capitalizeFirstLetter(d.department),
     value: d.category,
@@ -116,7 +95,7 @@ const ExpenditurePage = () => {
       </Group>
       <Table
         striped
-        rows={expList as any}
+        rows={expList}
         columns={columns}
         Actions={({ row }) => {
           return (
@@ -134,3 +113,23 @@ const ExpenditurePage = () => {
 }
 
 export default ExpenditurePage
+
+// PUT: async args => {
+//   console.log(
+//     'action put received',
+//     Object.fromEntries(await args.request.clone().formData()),
+//   )
+//   return safeAction(
+//     ExpenditureSchema.extend({ departmentId: number }),
+//     args,
+//     async values => {
+//       const result = await updateExpenditure(values)
+//       return isFail(result) ? badRequest({ error: result.fail }) : json({})
+//     },
+//   )
+// },
+//     DELETE: args =>
+//       safeAction(z.object({ id: number }), args, async values => {
+//         const result = await deleteExpenditure(values.id)
+//         return isFail(result) ? badRequest({ error: result.fail }) : json({})
+//       }),
