@@ -7,6 +7,10 @@ import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
 export async function getDepartmentList() {
+  return await prisma.department.findMany()
+}
+
+export async function getDepartmentMappingsList() {
   return await prisma.departmentMapping.findMany()
 }
 
@@ -41,7 +45,6 @@ export async function deleteDepartment(id: Department['id']): Result {
 
 export async function updateDepartment(data: DepartmentMappingSchema): Result {
   try {
-    console.log('updateDepartment', data)
     const result = await prisma.departmentMapping.update({
       where: { id: data.id },
       data,
@@ -61,12 +64,21 @@ export async function getDepartmentsCost() {
     })
   ).map(({ department, _sum }) => ({ department, total: _sum.ctc ?? 0 }))
 
-  const expenditure = (
+  const expenditures = (
     await prisma.expenditure.groupBy({
       by: ['departmentId'],
       _sum: { amount: true },
     })
   ).map(({ departmentId, _sum }) => ({ departmentId, total: _sum.amount ?? 0 }))
 
-  return { personCost, expenditure }
+  return { personCost, expenditures }
+}
+
+export async function getPeopleSpend() {
+  const personCost = await prisma.departmentMapping.groupBy({
+    by: ['tiId', 'department', 'username'],
+    _sum: { ctc: true },
+  })
+
+  return { personCost }
 }
