@@ -10,7 +10,7 @@ import { ExpenditureSchema } from '~/common/validators'
 export type EditExpenditureFormProps = Readonly<{
   exp: ExpenditureSchema
   errors?: Errors<ExpenditureSchema>
-  departments: ReadonlyArray<Pick<Department, 'id' | 'department'>>
+  departments: ReadonlyArray<Pick<Department, 'id' | 'name'>>
 }>
 
 const { Form, Inputs } = createForm(ExpenditureSchema)
@@ -21,6 +21,7 @@ export const EditExpenditureForm = ({
   departments,
 }: EditExpenditureFormProps) => {
   const [opened, setOpened] = useState(false)
+  const initialValues = { ...exp, departmentId: exp.departmentId.toString() }
   return (
     <>
       <Modal
@@ -33,15 +34,15 @@ export const EditExpenditureForm = ({
             <FormErrors error={errors?.error} />
 
             <Form
-              initialValues={exp}
+              initialValues={initialValues as any}
               serverErrors={errors}
               method="put"
               onSubmit={values => {
                 setOpened(false)
               }}
             >
+              <Inputs.Hidden name="id" />
               <FormFields Inputs={Inputs} departments={departments} />
-
               <Group position="right" mt="xl">
                 <Button type="submit">Update</Button>
               </Group>
