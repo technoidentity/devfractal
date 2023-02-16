@@ -18,7 +18,6 @@ export function useSafeLoaderData<Spec extends z.ZodTypeAny>(
 ): z.infer<Spec> {
   const s = useLatest(spec)
   const data = useLoaderData()
-  console.log(data)
 
   return React.useMemo(() => s.current.parse(data), [data, s])
 }

@@ -1,4 +1,4 @@
-import { Button, Group } from '@mantine/core'
+import { Group } from '@mantine/core'
 import { useActionData } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
 import type { Column, Filters } from '@srtp/table'
@@ -45,12 +45,6 @@ export type DepartmentListProps = Readonly<{
 
 export const DepartmentList = ({ departmentList }: DepartmentListProps) => (
   <>
-    <Group position="right" m="md">
-      <Button component="a" href="/department/new">
-        Add
-      </Button>
-    </Group>
-
     <Table
       striped
       Actions={Actions}

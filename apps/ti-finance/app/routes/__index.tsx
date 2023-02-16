@@ -15,9 +15,9 @@ import { Outlet } from '@remix-run/react'
 import { IconCheck } from '@tabler/icons-react'
 import React from 'react'
 import { useStyles } from '~/common/useStyles'
-import { AppHeader } from '~/components/AppHeader'
-import { AppNavbar } from '~/components/AppNavbar'
-import { FooterCentered } from '~/components/Footer'
+import { AppHeader } from '~/components/app/AppHeader'
+import { AppNavbar } from '~/components/app/AppNavbar'
+import { FooterCentered } from '~/components/app/Footer'
 import { useOptionalUser } from '~/utils'
 
 const links = [
