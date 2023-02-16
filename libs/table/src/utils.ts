@@ -1,30 +1,42 @@
-import { debugCast, isBool, isNil, isNum, isStr } from '@srtp/core'
+import { debugCast, isBool, isNil, isNum, isStr, isDate } from '@srtp/core'
 import { isEmpty } from 'lodash'
 import { z } from 'zod'
-import { FieldPredicates, Filters, RowBase, RowPredicate, Sort } from './types'
+import {
+  FieldPredicates,
+  FieldSearch,
+  RowBase,
+  RowPredicate,
+  Sort,
+} from './types'
 
-const Primitive = z.union([z.number(), z.boolean(), z.string()]) // z.date()])
+const Primitive = z.union([z.number(), z.boolean(), z.string(), z.date()])
 type Primitive = z.infer<typeof Primitive>
 
 const seq = (search: string, value: Primitive): boolean => {
+  const s = search.trim()
+
   if (isStr(value)) {
-    return value.toLowerCase().includes(search.toLowerCase())
+    return value.toLowerCase().includes(s.toLowerCase())
   }
 
   if (isBool(value)) {
-    return (search === 'true' && value) || (search === 'false' && !value)
+    return (s === 'true' && value) || (s === 'false' && !value)
   }
 
   if (isNum(value)) {
-    return value === Number(search)
+    return value === Number(s)
+  }
+
+  if (isDate(value)) {
+    return value.getTime() === new Date(s).getTime()
   }
 
   return false
 }
 
-export function searchRows<Row extends object>(
+export function fieldSearchRows<Row extends object>(
   rows: readonly Row[],
-  filters: Filters<Row>,
+  filters: FieldSearch<Row>,
 ) {
   if (isEmpty(filters)) {
     return rows
@@ -42,6 +54,22 @@ export function searchRows<Row extends object>(
       return seq(searchValue, value)
     })
   })
+}
+
+export function searchRows<Row extends RowBase>(
+  rows: readonly Row[],
+  searchKeys: ReadonlyArray<keyof Row>,
+  search?: string,
+): readonly Row[] {
+  if (isNil(search) || search.trim() === '') {
+    return rows
+  }
+
+  return rows.filter(row =>
+    searchKeys.some(key =>
+      seq(search, debugCast(Primitive, (row as any)[key])),
+    ),
+  )
 }
 
 export function predicateRows<Row extends RowBase>(
@@ -128,11 +156,8 @@ export function sortRows<Row extends object>(
 
 export function paginateRows<Row extends object>(
   sortedRows: readonly Row[],
-  activePage: number,
+  page: number,
   rowsPerPage: number,
 ): Row[] {
-  return [...sortedRows].slice(
-    (activePage - 1) * rowsPerPage,
-    activePage * rowsPerPage,
-  )
+  return [...sortedRows].slice((page - 1) * rowsPerPage, page * rowsPerPage)
 }
