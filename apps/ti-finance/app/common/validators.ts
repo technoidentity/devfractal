@@ -18,6 +18,7 @@ const BillableSchema = z.nativeEnum(Billable)
 
 export const BudgetSchema = schema({
   id: number,
+  departmentId: number,
   category: BillableSchema,
   amount: number.positive(),
   financialYear: date,
@@ -35,6 +36,18 @@ export const ExpenditureSchema = schema({
 })
 
 export type ExpenditureSchema = z.infer<typeof ExpenditureSchema>
+
+export const ListExpenditureSchema = ExpenditureSchema.extend({
+  department: string,
+})
+
+export type ListExpenditureSchema = z.infer<typeof ListExpenditureSchema>
+
+export const CreateExpenditureSchema = ExpenditureSchema.omit({
+  id: true,
+})
+
+export type CreateExpenditureSchema = z.infer<typeof CreateExpenditureSchema>
 
 export const DepartmentMappingSchema = schema({
   id: number,
@@ -60,3 +73,12 @@ export const CostSchema = schema({
 })
 
 export type CostSchema = z.infer<typeof CostSchema>
+
+export const PeopleSpendSchema = schema({
+  tiId: string,
+  username: string,
+  cost: number.positive(),
+  department: string,
+})
+
+export type PeopleSpendSchema = z.infer<typeof PeopleSpendSchema>
