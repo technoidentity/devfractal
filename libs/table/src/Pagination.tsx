@@ -3,23 +3,23 @@ import { Pagination as MantinePagination } from '@mantine/core'
 
 export type PaginationProps<Row extends object> = Readonly<{
   rows: readonly Row[]
-  activePage: number
-  setActivePage(activePage: number): void
+  page: number
+  setPage(page: number): void
   rowsPerPage: number
   totalPages: number
 }>
 
 export function Pagination<Row extends object>({
-  activePage,
-  setActivePage,
+  page,
+  setPage,
   totalPages,
 }: PaginationProps<Row>) {
   return (
     <MantinePagination
       mt="lg"
-      page={activePage}
+      page={page}
       position="center"
-      onChange={setActivePage}
+      onChange={setPage}
       styles={theme => ({
         item: {
           '&[data-active]': {
@@ -31,7 +31,3 @@ export function Pagination<Row extends object>({
     />
   )
 }
-
-/* <IconSortAscending size={14} stroke={1.5} onClick={()=>column.accessor}/>
-      ?  <IconSortDescending2 size={14} stroke={1.5} onClick={()=>column.accessor}/>:<IconArrowsSort size={14} stroke={1.5} onClick={()=>column.accessor}/>
-} */
