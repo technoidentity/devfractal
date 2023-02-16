@@ -22,5 +22,13 @@ export function Table<Row extends RowBase>({
     rows,
   })
 
-  return <ClientTable {...props} tableState={tableState} />
+  return (
+    <ClientTable
+      withBorder
+      striped
+      {...props}
+      tableState={tableState}
+      onSearch={console.log}
+    />
+  )
 }
