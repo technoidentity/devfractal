@@ -1,11 +1,12 @@
 import { Button, Group } from '@mantine/core'
 import type { Column } from '@srtp/table'
+import type { ListCtcSchema } from '~/common/validators'
 import { CtcSchema } from '~/common/validators'
 import { DeleteCtcForm, EditCtcModalForm } from '~/components/ctc'
 import { useFormData } from '../common'
 import { Table } from '../common/Table'
 
-const columns: Column<CtcSchema>[] = [
+const columns: Column<ListCtcSchema>[] = [
   { accessor: 'id', label: 'TI_ID' },
   { accessor: 'name', label: 'Username' },
   { accessor: 'ctc', label: 'CTC(LPA)' },
@@ -33,7 +34,7 @@ const Actions = ({ row }: { row: CtcSchema }) => {
 }
 
 export type CtcListProps = Readonly<{
-  ctcList: readonly CtcSchema[]
+  ctcList: readonly ListCtcSchema[]
 }>
 
 export const CtcList = ({ ctcList }: CtcListProps) => (

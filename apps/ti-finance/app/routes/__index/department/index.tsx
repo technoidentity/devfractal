@@ -44,7 +44,7 @@ export const action = (args: ActionArgs) =>
 const DepartmentsPage = () => {
   const { mappings } = useLoaderData<typeof loader>()
   const { departments } = useDepartments()
-  const { users } = useUsers()
+  const { users, usersMap } = useUsers()
 
   const departmentsData = departments.map(d => ({
     label: capitalizeFirstLetter(d.name),
@@ -57,8 +57,12 @@ const DepartmentsPage = () => {
   }))
 
   const mappingsList = React.useMemo(
-    () => z.array(DepartmentMappingSchema).parse(mappings),
-    [mappings],
+    () =>
+      z
+        .array(DepartmentMappingSchema)
+        .parse(mappings)
+        .map(d => ({ ...d, username: usersMap.get(d.tiId)?.username! })),
+    [mappings, usersMap],
   )
 
   return (

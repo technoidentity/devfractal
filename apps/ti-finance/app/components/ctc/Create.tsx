@@ -7,7 +7,6 @@ import { FormFields } from './FormFields'
 
 const initialValues: CreateCtcSchema = {
   tiId: '',
-  name: '',
   ctc: 0,
   fromDate: new Date(),
   toDate: new Date(),

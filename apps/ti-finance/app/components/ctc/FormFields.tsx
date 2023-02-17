@@ -1,5 +1,6 @@
 import type { InputsType } from '@srtp/remix-react'
 import type { FormSchema } from '@srtp/validator'
+import { UserSelect } from '../common'
 
 export type FormFieldsProps<T extends FormSchema> = Readonly<{
   Inputs: InputsType<T>
@@ -10,7 +11,7 @@ export function FormFields<T extends FormSchema>({
 }: FormFieldsProps<T>) {
   return (
     <>
-      <Inputs.Str label="TI_ID" name="tiId" placeholder="Employee ID" mt="xs" />
+      <UserSelect Inputs={Inputs} name="tiId" />
 
       <Inputs.Number
         label="CTC"

@@ -2,12 +2,15 @@ import { Group } from '@mantine/core'
 import { useActionData } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
 import type { Column } from '@srtp/table'
-import type { DepartmentMappingSchema } from '~/common/validators'
+import type {
+  DepartmentMappingSchema,
+  ListDepartmentSchema,
+} from '~/common/validators'
 import { Table } from '../common/Table'
 import { DeleteDepartment } from './Delete'
 import { EditDepartmentForm } from './Edit'
 
-const columns: Column<DepartmentMappingSchema>[] = [
+const columns: Column<ListDepartmentSchema>[] = [
   { accessor: 'tiId', label: 'TI_ID' },
   { accessor: 'username', label: 'Username' },
   { accessor: 'ctc', label: 'CTC' },
@@ -40,7 +43,7 @@ const Actions = ({ row }: { row: DepartmentMappingSchema }) => {
 }
 
 export type DepartmentListProps = Readonly<{
-  departmentList: readonly DepartmentMappingSchema[]
+  departmentList: readonly ListDepartmentSchema[]
 }>
 
 export const DepartmentList = ({ departmentList }: DepartmentListProps) => (

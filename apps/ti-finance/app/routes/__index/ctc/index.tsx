@@ -3,7 +3,7 @@ import { json } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
 import { number } from '@srtp/validator'
 import { z } from 'zod'
-import { CtcSchema } from '~/common/validators'
+import { CtcSchema, ListCtcSchema } from '~/common/validators'
 import { useSafeLoaderData } from '~/components/common'
 import { CtcList } from '~/components/ctc/List'
 import { deleteCtc, getCtcList, updateCtc } from '~/models/ctc.server'
@@ -20,7 +20,7 @@ export async function loader() {
   return json({ data })
 }
 
-const spec = z.object({ data: z.array(CtcSchema) })
+const spec = z.object({ data: z.array(ListCtcSchema) })
 
 const CtcPage = () => {
   const { data } = useSafeLoaderData(spec)

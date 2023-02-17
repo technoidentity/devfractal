@@ -33,6 +33,7 @@ export const EditCtcModalForm = ({ ctc, errors }: EditCtcModalFormProps) => {
               method="put"
               onSubmit={() => setOpened(false)}
             >
+              <Inputs.Hidden name="id" />
               <FormFields Inputs={Inputs} />
 
               <Group position="right" mt="xl">

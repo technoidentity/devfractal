@@ -4,7 +4,7 @@ import type { Column } from '@srtp/table'
 import { Table } from '../common/Table'
 
 type Cost = Readonly<{
-  id: string
+  id: number
   peopleCost: number
   otherExpenditures: number
   totalCost: number
