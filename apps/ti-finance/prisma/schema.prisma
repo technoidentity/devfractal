@@ -7,18 +7,17 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator zod {
-  provider      = "zod-prisma"
-  output        = "./zod"
-  relationModel = "default"
-  imports       = "../specs"
-}
+// generator zod {
+//   provider      = "zod-prisma"
+//   output        = "./zod"
+//   relationModel = "default"
+//   imports       = "../specs"
+// }
 
 model User {
-  id       String  @id @default(cuid())
   email    String  @unique
-  // tiId  String @unique
-  // name  String
+  id       String  @unique // TI_ID
+  username String
   Access   Access? @relation(fields: [accessId], references: [id])
   accessId Int?    @map("departmentAccessId")
 
@@ -26,21 +25,25 @@ model User {
   updatedAt DateTime @updatedAt
 
   password Password?
+
+  Ctc               Ctc[]
+  DepartmentMapping DepartmentMapping[]
 }
 
 model Password {
   hash String
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String @unique
+  user User   @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id   String @unique
 }
 
 model Ctc {
-  id       String   @id
-  name     String
+  id       Int      @id @default(autoincrement())
   ctc      Int /// @zod.min(0)
   fromDate DateTime /// @zod.custom(imports.IsoDate)
   toDate   DateTime /// @zod.custom(imports.IsoDate)
+  user     User     @relation(fields: [tiId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tiId     String
 }
 
 enum Billable {
@@ -49,14 +52,15 @@ enum Billable {
 }
 
 model DepartmentMapping {
-  id         Int      @id @default(autoincrement())
-  tiId       String
-  username   String // @TODO: remove this once integrated with user
-  ctc        Int /// @zod.min(0)
-  department String
-  fromDate   DateTime
-  toDate     DateTime
-  category   Billable
+  id           Int        @id @default(autoincrement())
+  ctc          Int /// @zod.min(0)
+  fromDate     DateTime
+  toDate       DateTime
+  category     Billable
+  Department   Department @relation(fields: [departmentId], references: [id])
+  departmentId Int
+  User         User       @relation(fields: [tiId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  tiId         String
 }
 
 model Department {
@@ -66,7 +70,8 @@ model Department {
   Budget      Budget[]
   Expenditure Expenditure[]
 
-  Access Access[]
+  Access            Access[]
+  DepartmentMapping DepartmentMapping[]
 }
 
 model Budget {
@@ -91,7 +96,7 @@ model Expenditure {
 
 model Access {
   id               Int        @id @default(autoincrement())
-  parentCostCenter String // @TODO: 
+  parentCostCenter String // @TODO:
   Department       Department @relation(fields: [departmentId], references: [id])
   departmentId     Int
   User             User[]

@@ -16,7 +16,9 @@ export async function getDepartmentMappingsList() {
 
 type Result = DbResult<DepartmentMapping>
 
-export async function createDepartment(data: CreateMappingSchema): Result {
+export async function createDepartmentMapping(
+  data: CreateMappingSchema,
+): Result {
   try {
     const department = await prisma.departmentMapping.create({ data })
 
@@ -31,7 +33,7 @@ export async function createDepartment(data: CreateMappingSchema): Result {
   }
 }
 
-export async function deleteDepartment(id: Department['id']): Result {
+export async function deleteDepartmentMapping(id: Department['id']): Result {
   try {
     const dept = await prisma.departmentMapping.delete({
       where: { id },
@@ -43,7 +45,9 @@ export async function deleteDepartment(id: Department['id']): Result {
   }
 }
 
-export async function updateDepartment(data: DepartmentMappingSchema): Result {
+export async function updateDepartmentMapping(
+  data: DepartmentMappingSchema,
+): Result {
   try {
     const result = await prisma.departmentMapping.update({
       where: { id: data.id },
@@ -59,10 +63,13 @@ export async function updateDepartment(data: DepartmentMappingSchema): Result {
 export async function getDepartmentsCost() {
   const personCost = (
     await prisma.departmentMapping.groupBy({
-      by: ['department'],
+      by: ['departmentId'],
       _sum: { ctc: true },
     })
-  ).map(({ department, _sum }) => ({ department, total: _sum.ctc ?? 0 }))
+  ).map(({ departmentId, _sum }) => ({
+    departmentId,
+    total: _sum.ctc ?? 0,
+  }))
 
   const expenditures = (
     await prisma.expenditure.groupBy({
@@ -76,7 +83,7 @@ export async function getDepartmentsCost() {
 
 export async function getPeopleSpend() {
   const personCost = await prisma.departmentMapping.groupBy({
-    by: ['tiId', 'department', 'username'],
+    by: ['tiId', 'departmentId'],
     _sum: { ctc: true },
   })
 

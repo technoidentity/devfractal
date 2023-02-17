@@ -6,7 +6,7 @@ import { badRequest, safeAction } from '@srtp/remix-node'
 import type { ExpenditureSchema } from '~/common/validators'
 import { CreateExpenditureSchema } from '~/common/validators'
 import { ExpenditureForm } from '~/components/expenditure/Create'
-import { getDepartmentList } from '~/models/department.server'
+import { getDepartmentList } from '~/models/departmentMapping.server'
 import { createExpenditure } from '~/models/expenditure.server'
 
 export async function loader() {

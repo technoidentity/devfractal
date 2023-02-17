@@ -13,11 +13,20 @@ export async function getUserByEmail(email: User['email']) {
   return prisma.user.findUnique({ where: { email } })
 }
 
+function getRandomInt(max: number = 1000000) {
+  return Math.floor(Math.random() * Math.floor(max))
+}
+
+// @TODO: replace it by signup page
+const nextDummyId = () => `TI_${getRandomInt()}`
+
 export async function createUser(email: User['email'], password: string) {
   const hashedPassword = await bcrypt.hash(password, 10)
 
   return prisma.user.create({
     data: {
+      id: nextDummyId(),
+      username: getRandomInt().toString(),
       email,
       password: {
         create: {

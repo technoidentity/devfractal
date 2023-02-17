@@ -11,13 +11,17 @@ import {
   ThemeIcon,
   Title,
 } from '@mantine/core'
-import { Outlet } from '@remix-run/react'
+import { Outlet, useLoaderData } from '@remix-run/react'
+import type { LoaderArgs } from '@remix-run/server-runtime'
+import { json } from '@remix-run/server-runtime'
 import { IconCheck } from '@tabler/icons-react'
 import React from 'react'
+import { DepartmentsContext, UsersContext } from '~/common/context'
 import { useStyles } from '~/common/useStyles'
 import { AppHeader } from '~/components/app/AppHeader'
 import { AppNavbar } from '~/components/app/AppNavbar'
 import { FooterCentered } from '~/components/app/Footer'
+import { prisma } from '~/db.server'
 import { useOptionalUser } from '~/utils'
 
 const links = [
@@ -29,6 +33,17 @@ const links = [
     label: 'Careers',
   },
 ]
+
+export async function loader(args: LoaderArgs) {
+  const users = await prisma.user.findMany({
+    select: { id: true, username: true },
+  })
+  const departments = await prisma.department.findMany({
+    select: { id: true, name: true },
+  })
+
+  return json({ users, departments })
+}
 
 const SignedIn = ({ children }: { children: React.ReactNode }) => {
   const user = useOptionalUser()
@@ -50,6 +65,17 @@ const SignedOut = ({ children }: { children: React.ReactNode }) => {
 
 const HomePage = () => {
   const user = useOptionalUser()
+  const { departments, users } = useLoaderData<typeof loader>()
+
+  const departmentsMap = React.useMemo(
+    () => new Map(departments.map(department => [department.id, department])),
+    [departments],
+  )
+
+  const usersMap = React.useMemo(
+    () => new Map(users.map(department => [department.id, department])),
+    [users],
+  )
 
   return (
     <AppShell
@@ -65,7 +91,11 @@ const HomePage = () => {
         </Header>
       }
     >
-      <Outlet />
+      <DepartmentsContext.Provider value={{ departments, departmentsMap }}>
+        <UsersContext.Provider value={{ users, usersMap }}>
+          <Outlet />
+        </UsersContext.Provider>
+      </DepartmentsContext.Provider>
     </AppShell>
   )
 }

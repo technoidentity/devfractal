@@ -11,7 +11,7 @@ const columns: Column<DepartmentMappingSchema>[] = [
   { accessor: 'tiId', label: 'TI_ID' },
   { accessor: 'username', label: 'Username' },
   { accessor: 'ctc', label: 'CTC' },
-  { accessor: 'department', label: 'Department' },
+  { accessor: 'departmentId', label: 'Department' },
   { accessor: 'fromDate', label: 'From_Date' },
   { accessor: 'toDate', label: 'To_Date' },
   { accessor: 'category', label: 'Billable' },

@@ -1,6 +1,7 @@
 import type { Ctc } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import { defaultError, fail, ok } from '@srtp/core'
+import type { CreateCtcSchema } from '~/common/validators'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
@@ -10,7 +11,7 @@ export function getCtcList() {
 
 type Result = DbResult<Ctc>
 
-export async function createCtc(data: Ctc): Result {
+export async function createCtc(data: CreateCtcSchema): Result {
   try {
     const ctc = await prisma.ctc.create({ data })
 
@@ -40,7 +41,7 @@ export async function deleteCtc(id: Ctc['id']): Result {
 export async function updateCtc(data: Ctc): Result {
   try {
     const result = await prisma.ctc.update({
-      where: { id: data.id?.toString() },
+      where: { id: data.id },
       data,
     })
 

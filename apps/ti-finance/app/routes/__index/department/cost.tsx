@@ -7,7 +7,7 @@ import { DepartmentCostList } from '~/components/department/CostList'
 import {
   getDepartmentList,
   getDepartmentsCost,
-} from '~/models/department.server'
+} from '~/models/departmentMapping.server'
 
 export async function loader(_: LoaderArgs) {
   const { personCost, expenditures } = await getDepartmentsCost()

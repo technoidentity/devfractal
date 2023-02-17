@@ -7,20 +7,21 @@ import { badRequest, methods, safeAction } from '@srtp/remix-node'
 import { number } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
+import { useDepartments, useUsers } from '~/common/context'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 
 import { DepartmentMappingSchema } from '~/common/validators'
 import { DepartmentList } from '~/components/department'
 import {
-  deleteDepartment,
+  deleteDepartmentMapping,
   getDepartmentMappingsList,
-  updateDepartment,
-} from '~/models/department.server'
+  updateDepartmentMapping,
+} from '~/models/departmentMapping.server'
 
 export async function loader(_: LoaderArgs) {
-  const departments = await getDepartmentMappingsList()
+  const mappings = await getDepartmentMappingsList()
 
-  return json({ departments })
+  return json({ mappings })
 }
 
 export const action = (args: ActionArgs) =>
@@ -28,36 +29,36 @@ export const action = (args: ActionArgs) =>
     PUT: async args => {
       console.log('PUT', await args.request.clone().formData())
       return safeAction(DepartmentMappingSchema, args, async values => {
-        const result = await updateDepartment(values)
+        const result = await updateDepartmentMapping(values)
         return isFail(result) ? badRequest({ error: result.fail }) : json({})
       })
     },
 
     DELETE: args =>
       safeAction(z.object({ id: number }), args, async values => {
-        const result = await deleteDepartment(values.id)
+        const result = await deleteDepartmentMapping(values.id)
         return isFail(result) ? badRequest({ error: result.fail }) : json({})
       }),
   })
 
 const DepartmentsPage = () => {
-  const { departments } = useLoaderData<typeof loader>()
+  const { mappings } = useLoaderData<typeof loader>()
+  const { departments } = useDepartments()
+  const { users } = useUsers()
 
-  const names = departments.map(d => ({
-    label: capitalizeFirstLetter(d.username),
-    value: d.username,
+  const departmentsData = departments.map(d => ({
+    label: capitalizeFirstLetter(d.name),
+    value: d.id.toString(),
   }))
 
-  const departmentsData = [...new Set(departments.map(d => d.department))]
-
-  const departmentData = departmentsData.map(d => ({
-    label: d.toUpperCase(),
-    value: d,
+  const usersData = users.map(u => ({
+    label: capitalizeFirstLetter(u.username),
+    value: u.id,
   }))
 
-  const departmentList = React.useMemo(
-    () => z.array(DepartmentMappingSchema).parse(departments),
-    [departments],
+  const mappingsList = React.useMemo(
+    () => z.array(DepartmentMappingSchema).parse(mappings),
+    [mappings],
   )
 
   return (
@@ -70,11 +71,11 @@ const DepartmentsPage = () => {
           <Text mt="md" fw="bold" size="sm">
             Filter by:{' '}
           </Text>
-          <Select label="Department" data={departmentData} size="xs" />
-          <Select label="Name" data={names} size="xs" />
+          <Select label="Department" data={departmentsData} size="xs" />
+          <Select label="Name" data={usersData} size="xs" />
         </Group>
       </Group>
-      <DepartmentList departmentList={departmentList} />
+      <DepartmentList departmentList={mappingsList} />
     </>
   )
 }

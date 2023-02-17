@@ -9,9 +9,9 @@ import { CreateMappingSchema } from './specs'
 
 const initialValues: CreateMappingSchema = {
   tiId: '',
+  departmentId: -1111,
   username: '',
   ctc: 0,
-  department: '',
   category: Billable.billable,
   fromDate: new Date('12-06-21'),
   toDate: new Date('12-06-22'),

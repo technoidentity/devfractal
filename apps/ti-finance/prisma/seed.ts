@@ -7,95 +7,94 @@ const prisma = new PrismaClient()
 // seed one to many relationship
 // https://www.prisma.io/docs/guides/database/seed-database#seed-one-to-many-relationship
 
-const tiUsersCtc = [
+const users: Prisma.UserCreateInput[] = [
+  { id: 'TI_101', username: 'rachel', email: 'rachel@remix.run' },
+  { id: 'TI_102', username: 'emma', email: 'emma@technoidentity.com' },
+  { id: 'TI_103', username: 'reena', email: 'reena@technoidentity.com' },
+  { id: 'TI_104', username: 'miland', email: 'miland@technoidentity.com' },
+]
+
+const ctcList: Prisma.CtcCreateManyInput[] = [
   {
-    id: '100',
-    name: 'emma',
+    tiId: 'TI_101',
     ctc: 10,
     fromDate: new Date('2017-01-26'),
     toDate: new Date('2018-01-26'),
   },
   {
-    id: '101',
-    name: 'watson',
-    ctc: 16,
+    tiId: 'TI_102',
+    ctc: 100,
     fromDate: new Date('2016-04-14'),
     toDate: new Date('2017-04-14'),
   },
   {
-    id: '102',
-    name: 'reena',
+    tiId: 'TI_103',
     ctc: 24,
     fromDate: new Date('2020-06-21'),
     toDate: new Date('2021-06-21'),
   },
   {
-    id: '103',
-    name: 'miland',
+    tiId: 'TI_104',
     ctc: 18,
     fromDate: new Date('2021-08-5'),
     toDate: new Date('2022-08-5'),
   },
 ]
 
-const dm1: Prisma.DepartmentMappingCreateInput = {
-  tiId: 'TI_101',
-  username: 'emma',
-  department: 'Finance',
-  ctc: 18_00_000,
-  fromDate: new Date('2017-01-26'),
-  toDate: new Date('2018-01-26'),
-  category: Billable.billable,
-}
-const dm2: Prisma.DepartmentMappingCreateInput = {
-  tiId: 'TI_102',
-  username: 'watson',
-  department: 'IT',
-  ctc: 16_00_000,
-  fromDate: new Date('2016-04-14'),
-  toDate: new Date('2017-04-14'),
-  category: Billable.nonBillable,
-}
+const financeDeptMap: Prisma.DepartmentMappingUncheckedCreateWithoutDepartmentInput[] =
+  [
+    {
+      tiId: 'TI_101',
+      ctc: 18_00_000,
+      fromDate: new Date('2017-01-26'),
+      toDate: new Date('2018-01-26'),
+      category: Billable.billable,
+    },
+    {
+      tiId: 'TI_102',
+      ctc: 16_00_000,
+      fromDate: new Date('2017-05-14'),
+      toDate: new Date('2018-05-14'),
+      category: Billable.nonBillable,
+    },
+  ]
 
-const dm3: Prisma.DepartmentMappingCreateInput = {
-  tiId: 'TI_103',
-  username: 'reena',
-  department: 'Development',
-  ctc: 10_00_000,
-  fromDate: new Date('2020-06-21'),
-  toDate: new Date('2021-06-21'),
-  category: Billable.nonBillable,
-}
+const itDeptMap: Prisma.DepartmentMappingUncheckedCreateWithoutDepartmentInput[] =
+  [
+    {
+      tiId: 'TI_102',
+      ctc: 16_00_000,
+      fromDate: new Date('2016-04-14'),
+      toDate: new Date('2017-04-14'),
+      category: Billable.nonBillable,
+    },
+    {
+      tiId: 'TI_101',
+      // department: 'IT',
+      ctc: 18_00_000,
+      fromDate: new Date('2018-02-26'),
+      toDate: new Date('2019-02-26'),
+      category: Billable.billable,
+    },
+    {
+      tiId: 'TI_103',
+      ctc: 10_00_000,
+      fromDate: new Date('2021-07-21'),
+      toDate: new Date('2022-07-21'),
+      category: Billable.nonBillable,
+    },
+  ]
 
-const dm4: Prisma.DepartmentMappingCreateInput = {
-  tiId: 'TI_101',
-  username: 'emma',
-  department: 'IT',
-  ctc: 18_00_000,
-  fromDate: new Date('2018-02-26'),
-  toDate: new Date('2019-02-26'),
-  category: Billable.billable,
-}
-const dm5: Prisma.DepartmentMappingCreateInput = {
-  tiId: 'TI_102',
-
-  username: 'watson',
-  department: 'Finance',
-  ctc: 16_00_000,
-  fromDate: new Date('2017-05-14'),
-  toDate: new Date('2018-05-14'),
-  category: Billable.nonBillable,
-}
-
-const dm6: Prisma.DepartmentMappingCreateInput = {
-  tiId: 'TI_103',
-  username: 'reena',
-  department: 'IT',
-  ctc: 10_00_000,
-  fromDate: new Date('2021-07-21'),
-  toDate: new Date('2022-07-21'),
-  category: Billable.nonBillable,
-}
+const devDeptMap: Prisma.DepartmentMappingUncheckedCreateWithoutDepartmentInput[] =
+  [
+    {
+      tiId: 'TI_103',
+      ctc: 10_00_000,
+      fromDate: new Date('2020-06-21'),
+      toDate: new Date('2021-06-21'),
+      category: Billable.nonBillable,
+    },
+  ]
 
 const financeDept: Prisma.DepartmentCreateInput = {
   name: 'Finance',
@@ -184,19 +183,17 @@ const developmentExpenditures = [
   },
 ]
 
-async function seed() {
-  const email = 'rachel@remix.run'
-
+async function createUser(user: Prisma.UserCreateInput) {
   // cleanup the existing database
-  await prisma.user.delete({ where: { email } }).catch(() => {
+  await prisma.user.delete({ where: { email: user.email } }).catch(() => {
     // no worries if it doesn't exist yet
   })
 
-  const hashedPassword = await bcrypt.hash('racheliscool', 10)
+  const hashedPassword = await bcrypt.hash(`${user.username}iscool`, 10)
 
   await prisma.user.create({
     data: {
-      email,
+      ...user,
       password: {
         create: {
           hash: hashedPassword,
@@ -204,40 +201,26 @@ async function seed() {
       },
     },
   })
+}
 
-  for (let i = 0; i < tiUsersCtc.length; i += 1) {
-    await prisma.ctc.create({
-      data: tiUsersCtc[i],
-    })
+async function seed() {
+  // await prisma.ctc.deleteMany()
+  // await prisma.budget.deleteMany()
+  // await prisma.expenditure.deleteMany()
+  // await prisma.departmentMapping.deleteMany()
+  // await prisma.department.deleteMany()
+  // await prisma.user.deleteMany()
+  // await prisma.access.deleteMany()
+
+  for (const user of users) {
+    await createUser(user)
   }
 
-  await prisma.departmentMapping.create({
-    data: dm1,
-  })
-
-  await prisma.departmentMapping.create({
-    data: dm2,
-  })
-
-  await prisma.departmentMapping.create({
-    data: dm3,
-  })
-
-  await prisma.departmentMapping.create({
-    data: dm4,
-  })
-
-  await prisma.departmentMapping.create({
-    data: dm5,
-  })
-
-  await prisma.departmentMapping.create({
-    data: dm6,
-  })
-
+  await prisma.ctc.createMany({ data: ctcList })
   await prisma.department.create({
     data: {
       ...financeDept,
+      DepartmentMapping: { create: financeDeptMap },
       Budget: { create: financeBudgets },
       Expenditure: { create: financeExpenditures },
     },
@@ -246,6 +229,7 @@ async function seed() {
   await prisma.department.create({
     data: {
       ...itDept,
+      DepartmentMapping: { create: itDeptMap },
       Budget: { create: itBudgets },
       Expenditure: { create: itExpenditures },
     },
@@ -253,6 +237,7 @@ async function seed() {
   await prisma.department.create({
     data: {
       ...developmentDept,
+      DepartmentMapping: { create: devDeptMap },
       Budget: { create: developmentBudgets },
       Expenditure: { create: developmentExpenditures },
     },

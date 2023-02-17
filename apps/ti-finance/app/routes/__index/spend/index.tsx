@@ -9,7 +9,7 @@ import { capitalizeFirstLetter } from '~/common/stringUtil'
 import type { PeopleSpendSchema } from '~/common/validators'
 import { Table } from '~/components/common/Table'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
-import { getPeopleSpend } from '~/models/department.server'
+import { getPeopleSpend } from '~/models/departmentMapping.server'
 
 interface Spendings extends Omit<PeopleSpendSchema, 'department'> {
   id: string

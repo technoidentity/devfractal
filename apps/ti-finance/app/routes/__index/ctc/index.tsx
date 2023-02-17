@@ -1,8 +1,7 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import { str } from '@srtp/core'
 import { method, methods } from '@srtp/remix-node'
-import { string } from '@srtp/validator'
+import { number } from '@srtp/validator'
 import { z } from 'zod'
 import { CtcSchema } from '~/common/validators'
 import { useSafeLoaderData } from '~/components/common'
@@ -12,7 +11,7 @@ import { deleteCtc, getCtcList, updateCtc } from '~/models/ctc.server'
 export const action = (args: ActionArgs) =>
   methods(args, {
     PUT: method(CtcSchema, updateCtc),
-    DELETE: method(z.object({ id: string }), ({ id }) => deleteCtc(str(id))),
+    DELETE: method(z.object({ id: number }), ({ id }) => deleteCtc(id)),
   })
 
 export async function loader() {

@@ -1,21 +1,21 @@
 import { Box, Paper } from '@mantine/core'
 import type { Errors } from '@srtp/remix-core'
 import { createForm } from '@srtp/remix-react'
-import { CtcSchema } from '~/common/validators'
+import { CreateCtcSchema } from '~/common/validators'
 import { FormErrors, FormTitle, SubmitButton } from '../common'
 import { FormFields } from './FormFields'
 
-const initialValues: CtcSchema = {
-  id: '',
+const initialValues: CreateCtcSchema = {
+  tiId: '',
   name: '',
   ctc: 0,
   fromDate: new Date(),
   toDate: new Date(),
 }
 
-const { Form, Inputs } = createForm(CtcSchema, initialValues)
+const { Form, Inputs } = createForm(CreateCtcSchema, initialValues)
 
-export type CreateCtcFormProps = Errors<CtcSchema>
+export type CreateCtcFormProps = Errors<CreateCtcSchema>
 
 export const CreateCtcForm = (serverErrors: CreateCtcFormProps) => {
   return (

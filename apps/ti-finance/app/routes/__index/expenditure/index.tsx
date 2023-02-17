@@ -15,7 +15,7 @@ import { Table } from '~/components/common/Table'
 import { DeleteExpenditure } from '~/components/expenditure/Delete'
 import { EditExpenditureForm } from '~/components/expenditure/Edit'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
-import { getDepartmentList } from '~/models/department.server'
+import { getDepartmentList } from '~/models/departmentMapping.server'
 import {
   deleteExpenditure,
   getDepartmentExpenditures,

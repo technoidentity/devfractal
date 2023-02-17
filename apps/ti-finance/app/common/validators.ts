@@ -3,14 +3,18 @@ import { date, number, positive, schema, string } from '@srtp/validator'
 import { z } from 'zod'
 
 export const CtcSchema = schema({
-  id: string,
-  name: string.min(2),
+  id: number,
+  tiId: string,
   ctc: positive,
   fromDate: date,
   toDate: date,
 })
 
 export type CtcSchema = z.infer<typeof CtcSchema>
+
+export const CreateCtcSchema = CtcSchema.omit({ id: true })
+
+export type CreateCtcSchema = z.infer<typeof CreateCtcSchema>
 
 const BillableSchema = z.nativeEnum(Billable)
 
@@ -52,7 +56,7 @@ export const DepartmentMappingSchema = schema({
   tiId: string,
   username: string.min(2, { message: 'Name should have at least 2 letters' }),
   ctc: number.positive(),
-  department: string,
+  departmentId: number,
   fromDate: date,
   toDate: date,
   category: BillableSchema,
