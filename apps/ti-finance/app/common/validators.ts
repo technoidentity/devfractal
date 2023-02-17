@@ -10,6 +10,10 @@ export const CtcSchema = schema({
   toDate: date,
 })
 
+export const ListCtcSchema = CtcSchema.extend({ name: string })
+
+export type ListCtcSchema = z.infer<typeof ListCtcSchema>
+
 export type CtcSchema = z.infer<typeof CtcSchema>
 
 export const CreateCtcSchema = CtcSchema.omit({ id: true })
@@ -54,13 +58,18 @@ export type CreateExpenditureSchema = z.infer<typeof CreateExpenditureSchema>
 export const DepartmentMappingSchema = schema({
   id: number,
   tiId: string,
-  username: string.min(2, { message: 'Name should have at least 2 letters' }),
   ctc: number.positive(),
   departmentId: number,
   fromDate: date,
   toDate: date,
   category: BillableSchema,
 })
+
+export const ListDepartmentSchema = DepartmentMappingSchema.extend({
+  username: string,
+})
+
+export type ListDepartmentSchema = z.infer<typeof ListDepartmentSchema>
 
 export type DepartmentMappingSchema = z.infer<typeof DepartmentMappingSchema>
 
