@@ -3,7 +3,7 @@ import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import invariant from 'tiny-invariant'
 
-import { DepartmentCostList } from '~/components/department/costList'
+import { DepartmentCostList } from '~/components/department/CostList'
 import {
   getDepartmentList,
   getDepartmentsCost,
