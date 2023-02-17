@@ -2,11 +2,9 @@ import { Billable } from '@prisma/client'
 import { date, number, positive, schema, string } from '@srtp/validator'
 import { z } from 'zod'
 
-// how to define a zod schema for a array objects
-
 export const CtcSchema = schema({
   id: string,
-  name: string.min(2, { message: 'Name should have at least 2 letters' }),
+  name: string.min(2),
   ctc: positive,
   fromDate: date,
   toDate: date,
@@ -58,8 +56,6 @@ export const DepartmentMappingSchema = schema({
   fromDate: date,
   toDate: date,
   category: BillableSchema,
-  // budget: z.ex
-  // expenditure: z.array(ExpenditureSchema),
 })
 
 export type DepartmentMappingSchema = z.infer<typeof DepartmentMappingSchema>

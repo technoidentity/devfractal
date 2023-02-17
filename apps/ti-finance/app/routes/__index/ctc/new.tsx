@@ -16,10 +16,10 @@ export const action = (args: ActionArgs) =>
       : redirect('/ctc')
   })
 
-const AddUserCtcPage = () => {
+const AddCtcPage = () => {
   const actionData = useFormData(CtcSchema)
 
   return <CreateCtcForm {...actionData} />
 }
 
-export default AddUserCtcPage
+export default AddCtcPage

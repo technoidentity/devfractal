@@ -23,10 +23,10 @@ export async function loader() {
 
 const spec = z.object({ data: z.array(CtcSchema) })
 
-const UsersCtcPage = () => {
+const CtcPage = () => {
   const { data } = useSafeLoaderData(spec)
 
   return <CtcList ctcList={data} />
 }
 
-export default UsersCtcPage
+export default CtcPage
