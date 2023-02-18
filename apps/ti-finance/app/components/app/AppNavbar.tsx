@@ -2,14 +2,13 @@
 import { Box } from '@mantine/core'
 import {
   IconActivity,
-  IconGauge,
   IconBrandCashapp,
   IconBusinessplan,
   IconDiscount2,
-  IconUserCircle,
   IconHomeDollar,
+  IconUserCircle,
 } from '@tabler/icons-react'
-import { CustomLink } from '../CustomLink'
+import { CustomLink } from '../common'
 
 export const AppNavbar = () => {
   return (

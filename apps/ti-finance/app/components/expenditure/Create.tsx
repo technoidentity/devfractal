@@ -19,6 +19,7 @@ const initialValues: CreateExpenditureSchema = {
 const { Form, Inputs } = createForm(CreateExpenditureSchema, initialValues)
 
 export type ExpenditureFormProps = {
+  error?: string
   errors?: Errors<CreateExpenditureSchema>
   departments: ReadonlyArray<Pick<Department, 'id' | 'name'>>
 }

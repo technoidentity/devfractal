@@ -1,6 +1,9 @@
-import { TypeOf, z, ZodSchema } from 'zod'
+import { z } from 'zod'
 
-function is<T extends ZodSchema>(spec: T, value: unknown): value is TypeOf<T> {
+function is<T extends z.ZodSchema>(
+  spec: T,
+  value: unknown,
+): value is z.TypeOf<T> {
   return spec.safeParse(value).success
 }
 
