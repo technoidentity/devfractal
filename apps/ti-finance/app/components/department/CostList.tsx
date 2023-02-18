@@ -1,7 +1,6 @@
-import { Box, Group } from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
 import type { Column } from '@srtp/table'
 import { Table } from '../common/Table'
+import { CostFilters } from './CostFilters'
 
 type Cost = Readonly<{
   id: number
@@ -30,14 +29,9 @@ export type DepartmentCostListProps = Readonly<{
 
 export const DepartmentCostList = ({ costList }: DepartmentCostListProps) => {
   return (
-    <Box>
-      <Group position="left" m="md">
-        <DatePicker size="xs" label="From Date" defaultValue={new Date()} />
-        <DatePicker size="xs" label="To Date" defaultValue={new Date()} />
-        {/* <Select label="Department" data={data} size="xs" /> */}
-      </Group>
-
+    <>
+      <CostFilters />
       <Table striped rows={costList} columns={columns} perPage={3} />
-    </Box>
+    </>
   )
 }
