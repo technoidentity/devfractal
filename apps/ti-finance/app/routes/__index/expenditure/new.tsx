@@ -26,7 +26,13 @@ const CreateExpenditurePage = () => {
   const departments = useLoaderData<typeof loader>().departments
   const actionData = useActionData<typeof action>()
 
-  return <ExpenditureForm errors={actionData} departments={departments} />
+  return (
+    <ExpenditureForm
+      error={actionData?.error}
+      errors={actionData?.fieldErrors}
+      departments={departments}
+    />
+  )
 }
 
 export default CreateExpenditurePage
