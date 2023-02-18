@@ -1,20 +1,16 @@
-import { Button, Group, Select, Text } from '@mantine/core'
+import { Button, Group } from '@mantine/core'
 import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import { isFail, notNil } from '@srtp/core'
 import { badRequest, methods, safeAction } from '@srtp/remix-node'
-import { number } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
-import {
-  useDepartmentsSelect,
-  useUsers,
-  useUsersSelect,
-} from '~/common/context'
+import { useUsers } from '~/common/context'
 
-import { DepartmentMappingSchema } from '~/common/validators'
+import { DepartmentMappingSchema, IntId } from '~/common/validators'
 import { DepartmentList } from '~/components/department'
+import { Filters } from '~/components/department/Filters'
 import {
   deleteDepartmentMapping,
   getDepartmentMappingsList,
@@ -38,8 +34,8 @@ export const action = (args: ActionArgs) =>
     },
 
     DELETE: args =>
-      safeAction(z.object({ id: number }), args, async values => {
-        const result = await deleteDepartmentMapping(values.id)
+      safeAction(IntId, args, async ({ id }) => {
+        const result = await deleteDepartmentMapping(id)
         return isFail(result) ? badRequest({ error: result.fail }) : json({})
       }),
   })
@@ -57,32 +53,13 @@ const DepartmentsPage = () => {
     [mappings, usersMap],
   )
 
-  const departmentsData = useDepartmentsSelect()
-  const usersData = useUsersSelect()
-
   return (
     <>
       <Group position="apart" m="md">
         <Button component="a" href="/department/new">
           Add
         </Button>
-        <Group>
-          <Text mt="md" fw="bold" size="sm">
-            Filter by:{' '}
-          </Text>
-          <Select
-            label="Department"
-            data={departmentsData}
-            size="xs"
-            defaultValue={departmentsData[0].value}
-          />
-          <Select
-            label="Name"
-            data={usersData}
-            size="xs"
-            defaultValue={usersData[0].value}
-          />
-        </Group>
+        <Filters />
       </Group>
       <DepartmentList departmentList={mappingsList} />
     </>
