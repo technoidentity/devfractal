@@ -2,13 +2,16 @@ import { Button, Group, Select, Text } from '@mantine/core'
 import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import { isFail } from '@srtp/core'
+import { isFail, notNil } from '@srtp/core'
 import { badRequest, methods, safeAction } from '@srtp/remix-node'
 import { number } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
-import { useDepartments, useUsers } from '~/common/context'
-import { capitalizeFirstLetter } from '~/common/stringUtil'
+import {
+  useDepartmentsSelect,
+  useUsers,
+  useUsersSelect,
+} from '~/common/context'
 
 import { DepartmentMappingSchema } from '~/common/validators'
 import { DepartmentList } from '~/components/department'
@@ -43,27 +46,19 @@ export const action = (args: ActionArgs) =>
 
 const DepartmentsPage = () => {
   const { mappings } = useLoaderData<typeof loader>()
-  const { departments } = useDepartments()
-  const { users, usersMap } = useUsers()
-
-  const departmentsData = departments.map(d => ({
-    label: capitalizeFirstLetter(d.name),
-    value: d.id.toString(),
-  }))
-
-  const usersData = users.map(u => ({
-    label: capitalizeFirstLetter(u.username),
-    value: u.id,
-  }))
+  const { usersMap } = useUsers()
 
   const mappingsList = React.useMemo(
     () =>
       z
         .array(DepartmentMappingSchema)
         .parse(mappings)
-        .map(d => ({ ...d, username: usersMap.get(d.tiId)?.username! })),
+        .map(d => ({ ...d, username: notNil(usersMap.get(d.tiId)?.username) })),
     [mappings, usersMap],
   )
+
+  const departmentsData = useDepartmentsSelect()
+  const usersData = useUsersSelect()
 
   return (
     <>
@@ -75,8 +70,18 @@ const DepartmentsPage = () => {
           <Text mt="md" fw="bold" size="sm">
             Filter by:{' '}
           </Text>
-          <Select label="Department" data={departmentsData} size="xs" />
-          <Select label="Name" data={usersData} size="xs" />
+          <Select
+            label="Department"
+            data={departmentsData}
+            size="xs"
+            defaultValue={departmentsData[0].value}
+          />
+          <Select
+            label="Name"
+            data={usersData}
+            size="xs"
+            defaultValue={usersData[0].value}
+          />
         </Group>
       </Group>
       <DepartmentList departmentList={mappingsList} />
