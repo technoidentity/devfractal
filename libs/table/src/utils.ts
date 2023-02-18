@@ -12,7 +12,7 @@ import {
 const Primitive = z.union([z.number(), z.boolean(), z.string(), z.date()])
 type Primitive = z.infer<typeof Primitive>
 
-const seq = (search: string, value: Primitive): boolean => {
+const primitiveSearch = (search: string, value: Primitive): boolean => {
   const s = search.trim()
 
   if (isStr(value)) {
@@ -27,6 +27,7 @@ const seq = (search: string, value: Primitive): boolean => {
     return value === Number(s)
   }
 
+  // @TODO: match partial date too
   if (isDate(value)) {
     return value.getTime() === new Date(s).getTime()
   }
@@ -51,7 +52,7 @@ export function fieldSearchRows<Row extends object>(
 
       const value = debugCast(Primitive, (row as any)[accessor])
 
-      return seq(searchValue, value)
+      return primitiveSearch(searchValue, value)
     })
   })
 }
@@ -67,7 +68,7 @@ export function searchRows<Row extends RowBase>(
 
   return rows.filter(row =>
     searchKeys.some(key =>
-      seq(search, debugCast(Primitive, (row as any)[key])),
+      primitiveSearch(search, debugCast(Primitive, (row as any)[key])),
     ),
   )
 }
@@ -159,5 +160,5 @@ export function paginateRows<Row extends object>(
   page: number,
   rowsPerPage: number,
 ): Row[] {
-  return [...sortedRows].slice((page - 1) * rowsPerPage, page * rowsPerPage)
+  return sortedRows.slice((page - 1) * rowsPerPage, page * rowsPerPage)
 }

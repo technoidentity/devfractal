@@ -40,6 +40,7 @@ const BudgetPage = () => {
 
   // @TODO: use budget allocation schema late from the add form
   const totalCost = budgets.reduce((acc, curr) => acc + curr.amount, 0)
+
   return (
     <>
       <Group position="left" m="md">

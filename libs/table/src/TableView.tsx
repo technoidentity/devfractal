@@ -36,6 +36,7 @@ export function TableView<T extends { id: number | string } & object>({
   columns,
   fieldSearch,
   onSort,
+  onFieldSearch,
   renderColumn,
   Actions,
   rows,
@@ -78,11 +79,3 @@ export function TableView<T extends { id: number | string } & object>({
     </ScrollArea>
   )
 }
-
-// {
-//   filters && (
-//     <tr>
-//       <Filters columns={columns} filters={filters} onSearch={onSearch} />
-//     </tr>
-//   )
-// }

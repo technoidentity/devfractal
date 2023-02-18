@@ -1,7 +1,6 @@
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import invariant from 'tiny-invariant'
 
 import { DepartmentCostList } from '~/components/department/CostList'
 import { getDepartmentsCost } from '~/models/departmentMapping.server'

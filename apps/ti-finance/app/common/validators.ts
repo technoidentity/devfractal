@@ -44,7 +44,9 @@ export const ExpenditureSchema = schema({
 export type ExpenditureSchema = z.infer<typeof ExpenditureSchema>
 
 export const ListExpenditureSchema = ExpenditureSchema.extend({
+  departmentId: number,
   department: string,
+  id: number,
 })
 
 export type ListExpenditureSchema = z.infer<typeof ListExpenditureSchema>

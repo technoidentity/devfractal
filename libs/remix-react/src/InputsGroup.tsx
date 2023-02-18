@@ -36,11 +36,15 @@ export function createInputsGroup<Spec extends FormSchema>(spec: Spec) {
       onChange?.(form.values)
     }, [form.values, onChange])
 
-    const value = {
-      form,
-      useContext: useMantineFormContext,
-      spec: getRawShape(spec),
-    } as const
+    const value = React.useMemo(
+      () =>
+        ({
+          form,
+          useContext: useMantineFormContext,
+          spec: getRawShape(spec),
+        } as const),
+      [form],
+    )
 
     return (
       <MantineProvider form={form}>
