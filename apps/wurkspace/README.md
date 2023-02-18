@@ -56,11 +56,11 @@ Optionally, run the following commands individually:
 
 ```bash
 # generate types for prisma schema:
-pnpm exec prisma generate
+pnpm prisma generate
 # update the database schema:
-pnpm exec prisma db push
+pnpm prisma db push
 # Seed the database:
-pnpm exec prisma db seed
+pnpm prisma db seed
 ```
 
 You could also execute above three commands using the following command:
