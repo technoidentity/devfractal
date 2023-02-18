@@ -1,3 +1,4 @@
+import { get } from '@srtp/core'
 import { useSafeContext } from '@srtp/remix-react'
 import React, { createContext } from 'react'
 import { capitalizeFirstLetter } from './stringUtil'
@@ -27,6 +28,22 @@ export function useDepartments() {
 
 export function useUsers() {
   return useSafeContext(UsersContext, 'use UsersContext')
+}
+
+export function useUserName() {
+  const { usersMap } = useUsers()
+  return React.useCallback(
+    (tid: string) => get(usersMap, tid).username,
+    [usersMap],
+  )
+}
+
+export function useDepartmentName() {
+  const { departmentsMap } = useDepartments()
+  return React.useCallback(
+    (depId: number) => get(departmentsMap, depId).name,
+    [departmentsMap],
+  )
 }
 
 export function useDepartmentsSelect() {
