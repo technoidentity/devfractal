@@ -30,6 +30,7 @@ module.exports = {
     react: { version: 'detect' },
   },
   rules: {
+    '@typescript-eslint/consistent-type-imports': 'off',
     '@typescript-eslint/restrict-plus-operands': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     '@typescript-eslint/member-ordering': 'off',
