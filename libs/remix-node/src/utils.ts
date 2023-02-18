@@ -5,8 +5,7 @@ import { isFail } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
 import invariant from 'tiny-invariant'
-import type { Writeable, ZodSchema, ZodTypeDef } from 'zod'
-import { z, ZodType } from 'zod'
+import { z } from 'zod'
 
 type Request = LoaderArgs['request']
 
@@ -17,19 +16,19 @@ export function badRequest<T extends object>(data: Errors<T>) {
 export function getSchema<Spec extends z.ZodRawShape | z.ZodTypeAny>(
   schema: Spec,
 ) {
-  return schema instanceof ZodType ? schema : z.object(schema)
+  return schema instanceof z.ZodType ? schema : z.object(schema)
 }
 
 export async function safeFormData<Output, Input>(
-  spec: ZodType<Output, ZodTypeDef, Input>,
+  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
   request: Request,
 ) {
   const values = Object.fromEntries(await request.clone().formData())
   return spec.safeParse(values)
 }
 
-export async function safeAction<T extends object, R>(
-  formDataSpec: ZodSchema<T>,
+export async function safeAction<Spec extends z.AnyZodObject, R>(
+  formDataSpec: Spec,
   { request }: LoaderArgs,
   fn: (values: z.infer<typeof formDataSpec>) => R,
 ) {
@@ -45,14 +44,14 @@ export async function safeActions<
   U extends string,
   T extends Readonly<[U, ...U[]]>,
   Actions extends Record<
-    z.infer<z.ZodEnum<Writeable<T>>>,
+    z.infer<z.ZodEnum<z.Writeable<T>>>,
     (args: LoaderArgs) => unknown
   >,
->(spec: z.ZodEnum<Writeable<T>>, args: LoaderArgs, actions: Actions) {
+>(spec: z.ZodEnum<z.Writeable<T>>, args: LoaderArgs, actions: Actions) {
   const formData = await args.request.clone().formData()
   const actionKey = spec.parse(formData.get('_action'))
 
-  return await actions[actionKey](args)
+  return actions[actionKey](args)
 }
 
 const HTTPMethods = z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
@@ -65,7 +64,7 @@ export async function methods<
   const fn = actions[method]
   invariant(fn !== undefined, `${method} not supported`)
 
-  return await fn(args)
+  return fn(args)
 }
 
 export function safeParams<Spec extends z.ZodRawShape | z.ZodTypeAny>(
@@ -89,17 +88,17 @@ export function handleResult<T>(r: Result<string, T>) {
   return isFail(r) ? badRequest({ error: r.fail }) : json({})
 }
 
-export function safeResultAction<T extends object, R>(
-  spec: z.ZodSchema<T>,
+export function safeResultAction<Spec extends z.AnyZodObject, R>(
+  spec: Spec,
   args: LoaderArgs,
   fn: (values: z.infer<typeof spec>) => Promise<Result<string, R>>,
 ) {
   return safeAction(spec, args, async values => handleResult(await fn(values)))
 }
 
-export function method<T extends object, R>(
-  spec: z.ZodSchema<T>,
-  fn: (values: z.infer<typeof spec>) => Promise<Result<string, R>>,
+export function method<Spec extends z.AnyZodObject, R>(
+  spec: Spec,
+  fn: (values: z.infer<Spec>) => Promise<Result<string, R>>,
 ) {
   return (args: LoaderArgs) => safeResultAction(spec, args, fn)
 }

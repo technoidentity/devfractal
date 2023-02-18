@@ -1,14 +1,14 @@
-import type { ZodError, ZodType, ZodTypeDef } from 'zod'
+import type { z } from 'zod'
 
 export type FieldErrors<T extends object> = Record<keyof T, string>
 
 export type Errors<T extends object> = Readonly<{
   fieldErrors?: FieldErrors<T>
-  error?: string | undefined
+  error?: string
 }>
 
 export async function fromFormData<Output, Input>(
-  spec: ZodType<Output, ZodTypeDef, Input>,
+  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
   request: Request,
 ) {
   const values = Object.fromEntries(await request.formData())
@@ -16,7 +16,7 @@ export async function fromFormData<Output, Input>(
 }
 
 export const formErrors = <T extends object>(
-  error: ZodError<T>,
+  error: z.ZodError<T>,
 ): FieldErrors<T> => {
   const results: any = {}
   error.errors.forEach(error => {

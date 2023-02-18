@@ -6,7 +6,7 @@ import { setDifference } from '@srtp/fn'
 import { prisma } from '@core/prisma'
 import { addDays, subDays } from 'date-fns'
 import invariant from 'tiny-invariant'
-import { any, z } from 'zod'
+import { z } from 'zod'
 import { Args } from './utils'
 import { getProfileFromZoho } from './zohoProfile'
 
@@ -39,7 +39,7 @@ export const getGoogleEvent = async (
       Accept: 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
-    response: any(), // @TODO: CalendarEvent[],
+    response: z.any(), // @TODO: CalendarEvent[],
   })(
     `https://www.googleapis.com/calendar/v3/calendars/primary/events/${eventId}`,
   )
@@ -92,7 +92,7 @@ export const getGoogleEvents = async (
       Accept: 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
-    response: any(), // @TODO: z.object({ items: z.array(CalendarEvent) }),
+    response: z.any(), // @TODO: z.object({ items: z.array(CalendarEvent) }),
   })(url)
 
   const meetings: CalendarEvent[] = []

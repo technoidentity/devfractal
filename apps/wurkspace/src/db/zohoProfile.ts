@@ -2,17 +2,17 @@ import { post, sget } from '@core/api'
 import { prisma } from '@core/prisma'
 import { Employee } from '@prisma/client'
 import { EmployeeResponse } from '@ui/responses'
-import qs from 'query-string'
+import qs from 'query-z.string'
 import invariant from 'tiny-invariant'
-import { any, number, object, string, z } from 'zod'
+import { z } from 'zod'
 
 const { stringify } = qs
 
-const AccessTokenResponse = object({
-  access_token: string(),
-  api_domain: string(),
-  token_type: string(),
-  expires_in: number(),
+const AccessTokenResponse = z.object({
+  access_token: z.string(),
+  api_domain: z.string(),
+  token_type: z.string(),
+  expires_in: z.number(),
 })
 type AccessTokenResponse = z.infer<typeof AccessTokenResponse>
 
@@ -50,10 +50,10 @@ const getAccessToken = async (
   return zohoAccessToken
 }
 
-const profileUrl = (email: string) =>
+const profileUrl = (email: z.string) =>
   `https://people.zoho.com/api/forms/employee/getRecords?searchColumn=EMPLOYEEMAILALIAS&searchValue=${email}`
 
-const headers = (accessToken: string) => ({
+const headers = (accessToken: z.string) => ({
   response: any(), // @TODO: spec for profiles?.response?.result?.[0]
   headers: {
     Accept: 'application/json',
@@ -62,7 +62,7 @@ const headers = (accessToken: string) => ({
 })
 
 export const getProfileFromZoho = async (
-  email: string,
+  email: z.string,
   { force } = { force: false },
 ): // @TODO: type correctly
 Promise<any> => {
@@ -86,7 +86,7 @@ Promise<any> => {
   }
 }
 
-const getReportingToInfo = (reportingTo: string) => {
+const getReportingToInfo = (reportingTo: z.string) => {
   const [firstName, lastName] = reportingTo.split(' ')
   return { firstName, lastName }
 }
@@ -109,7 +109,7 @@ const converProfile = (zohoProfile: any): Employee => {
   }
 }
 
-export const getProfileFromDb = async (email: string) => {
+export const getProfileFromDb = async (email: z.string) => {
   const profile = await prisma.employee.findUnique({
     where: { email },
     include: { user: true },
@@ -118,7 +118,9 @@ export const getProfileFromDb = async (email: string) => {
   return profile
 }
 
-export const getUserId = async (email: string): Promise<string | undefined> => {
+export const getUserId = async (
+  email: z.string,
+): Promise<z.string | undefined> => {
   const userId = await prisma.user.findUnique({
     where: { email },
     select: { id: true },
@@ -141,7 +143,9 @@ const updateUserId = async (profile: Employee) => {
   }
 }
 
-export const getProfile = async (email: string): Promise<EmployeeResponse> => {
+export const getProfile = async (
+  email: z.string,
+): Promise<EmployeeResponse> => {
   const profile = await getProfileFromDb(email)
 
   if (profile) {
@@ -166,7 +170,7 @@ export const getProfile = async (email: string): Promise<EmployeeResponse> => {
 }
 
 export const getManagerProfile = async (
-  email: string,
+  email: z.string,
 ): Promise<EmployeeResponse> => {
   const employee = await prisma.employee.findUnique({
     where: { email },

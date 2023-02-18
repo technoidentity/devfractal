@@ -2,10 +2,10 @@ import type { Goal } from '@specs/old/goals'
 import { ErrorMessage } from '@ui/core'
 import { useSafeQuery } from '@ui/core/useApi'
 import { LoadingScreen } from '@ui/LoadingScreen'
-import { any } from 'zod'
+import { z } from 'zod'
 
 export const Goals = () => {
-  const { data, error } = useSafeQuery({ key: ['goals'], spec: any() })
+  const { data, error } = useSafeQuery({ key: ['goals'], spec: z.any() })
 
   if (error) {
     return <ErrorMessage error="Currently fetching goals not supported" />

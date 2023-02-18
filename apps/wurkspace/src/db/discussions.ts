@@ -2,7 +2,7 @@ import { str, toInt } from '@srtp/core'
 import { prisma } from '@core/prisma'
 import { omit } from '@srtp/fn'
 import { Discussion } from '@prisma/client'
-import { array, number } from 'zod'
+import { z } from 'zod'
 import { Args } from './utils'
 
 export const getDiscussions = async (
@@ -36,7 +36,7 @@ export const postDiscussion = async (
 }
 
 export const updateDiscussion = async (args: Args<'id' | 'discussion'>) => {
-  const discussionId = number().parse(+(args.id as string))
+  const discussionId = z.number().parse(+(args.id as string))
 
   return prisma.discussion.update({
     where: { id: discussionId },
@@ -56,7 +56,7 @@ export const forwardDiscussions = async (
   args: Args<'id' | 'discussionIds'>,
 ) => {
   const meetingId = str(args.id)
-  const discussionIds = array(number()).parse(args.discussionIds)
+  const discussionIds = z.array(z.number()).parse(args.discussionIds)
 
   await prisma.meeting.update({
     where: { id: meetingId },

@@ -2,7 +2,7 @@
 import { omit, range } from '@srtp/fn'
 import Chance from 'chance'
 import { v4 as uuidv4 } from 'uuid'
-import { z, ZodTypeAny } from 'zod'
+import { z } from 'zod'
 
 const chance = new Chance()
 
@@ -74,7 +74,7 @@ const defaultOptions: Partial<FakeOptions> = {
 export type SupportedTypes = z.infer<typeof SupportedTypes>
 
 function fakeNumber(
-  spec: ZodTypeAny,
+  spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
   const opts = omit(options.ZodNumber!, ['kind'])
@@ -88,7 +88,7 @@ function fakeNumber(
 }
 
 function fakeString(
-  spec: ZodTypeAny,
+  spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
   const opts = omit(options.ZodNumber!, ['kind'])
@@ -117,7 +117,7 @@ function fakeString(
 }
 
 export function fake(
-  spec: ZodTypeAny,
+  spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
   const type: string = spec._def.typeName
@@ -156,7 +156,7 @@ export function fake(
   }
 
   if (type === 'ZodTuple') {
-    return spec._def.items.map((s: ZodTypeAny) => fake(s, options))
+    return spec._def.items.map((s: z.ZodTypeAny) => fake(s, options))
   }
 
   if (type === 'ZodObject') {

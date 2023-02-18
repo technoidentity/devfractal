@@ -1,4 +1,4 @@
-import { SafeParseReturnType, ZodError } from 'zod'
+import { z } from 'zod'
 import { isObject, isStr, jstr } from '../types'
 import { fail, ok, Result } from './result'
 import { failure as tryFailure, success as trySuccess, Try } from './try'
@@ -17,7 +17,7 @@ export function toError(err: unknown): Error {
 }
 
 export function tryFromZod<Output, Input = Output>(
-  result: SafeParseReturnType<Input, Output>,
+  result: z.SafeParseReturnType<Input, Output>,
 ): Try<Output> {
   return result.success
     ? trySuccess(result.data)
@@ -25,7 +25,7 @@ export function tryFromZod<Output, Input = Output>(
 }
 
 export function resultFromZod<Output, Input = Output>(
-  result: SafeParseReturnType<Input, Output>,
-): Result<ZodError<Input>, Output> {
+  result: z.SafeParseReturnType<Input, Output>,
+): Result<z.ZodError<Input>, Output> {
   return result.success ? ok(result.data) : fail(result.error)
 }

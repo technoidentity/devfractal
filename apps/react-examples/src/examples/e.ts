@@ -1,4 +1,4 @@
-import { z, ZodType } from 'zod'
+import { z } from 'zod'
 import { ensure, is } from '@srtp/core'
 
 const Tag = z.union([z.string(), z.function()])
@@ -6,7 +6,7 @@ type Tag = z.infer<typeof Tag>
 
 type Props = Record<string, unknown> & { children?: Children }
 
-const Props: ZodType<Props> = z.lazy(() =>
+const Props: z.ZodType<Props> = z.lazy(() =>
   z.intersection(
     z.record(z.string(), z.unknown()),
     z.object({ children: Children }),
@@ -14,7 +14,7 @@ const Props: ZodType<Props> = z.lazy(() =>
 )
 
 type Element = { tag: string | Function; props: Props }
-const Element: ZodType<Element> = z.object({ tag: Tag, props: Props })
+const Element: z.ZodType<Element> = z.object({ tag: Tag, props: Props })
 
 const Children = z.union([z.array(Element), z.string()])
 type Children = z.infer<typeof Children>

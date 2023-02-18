@@ -40,8 +40,7 @@ import type { DatePickerProps, TimeInputProps } from '@mantine/dates'
 import { DatePicker as MantineDatePicker, TimeInput } from '@mantine/dates'
 import type { FormSchema, GetRawShape } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
-import type { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
-import { ZodOptional } from 'zod'
+import { z } from 'zod'
 import { useFormContext } from './FormContext'
 
 type Named<T, Name = string> = T & Readonly<{ name: Name }>
@@ -51,7 +50,7 @@ export const Str = <Spec extends FormSchema>(props: Named<TextInputProps>) => {
 
   return (
     <TextInput
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -64,7 +63,7 @@ export const Content = (props: Named<TextareaProps>) => {
 
   return (
     <Textarea
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -77,7 +76,7 @@ export const Password = (props: Named<PasswordInputProps>) => {
 
   return (
     <PasswordInput
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -90,7 +89,7 @@ export const Number = (props: Named<NumberInputProps>) => {
 
   return (
     <NumberInput
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -129,7 +128,7 @@ export const Enum = ({
 
   return (
     <Radio.Group
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -146,7 +145,7 @@ export const EnumList = (props: Named<MultiSelectProps>) => {
 
   return (
     <MultiSelect
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -158,11 +157,11 @@ export const Select = (props: Named<SelectProps>) => {
   const { form, errMsg, spec } = useFormContext()
 
   const fp = form.getInputProps(props.name)
-  const formProps = { ...fp, value: fp.value.toString() }
+  const formProps = { ...fp, value: fp.value?.toString() }
 
   return (
     <MantineSelect
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...formProps}
       error={errMsg?.(props.name)}
@@ -223,7 +222,7 @@ export const File = (props: Named<FileInputProps>) => {
 
   return (
     <FileInput
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -236,7 +235,7 @@ export const Color = (props: Named<ColorInputProps>) => {
 
   return (
     <ColorInput
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -249,7 +248,7 @@ export const DatePicker = (props: Named<DatePickerProps>) => {
 
   return (
     <MantineDatePicker
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -262,7 +261,7 @@ export const Autocomplete = (props: Named<AutocompleteProps>) => {
 
   return (
     <MantineAutocomplete
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -275,7 +274,7 @@ export const Time = (props: Named<TimeInputProps>) => {
 
   return (
     <TimeInput
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -288,7 +287,7 @@ export const DynamicEnumList = (props: Named<MultiSelectProps>) => {
 
   return (
     <MultiSelect
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
       error={errMsg?.(props.name)}
@@ -300,11 +299,11 @@ export const DynamicSelect = (props: Named<SelectProps>) => {
   const { form, errMsg, spec } = useFormContext()
 
   const fp = form.getInputProps(props.name)
-  const formProps = { ...fp, value: fp.value.toString() }
+  const formProps = { ...fp, value: fp.value?.toString() }
 
   return (
     <MantineSelect
-      withAsterisk={!(spec[props.name] instanceof ZodOptional)}
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...formProps}
       error={errMsg?.(props.name)}
@@ -337,28 +336,37 @@ type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
 >
 export type InputsType<Spec extends FormSchema> = {
   Str: (
-    props: Named<TextInputProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
+    props: Named<
+      TextInputProps,
+      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
+    >,
   ) => JSX.Element
   Content: (
-    props: Named<TextareaProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
+    props: Named<
+      TextareaProps,
+      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
+    >,
   ) => JSX.Element
   Password: (
     props: Named<
       PasswordInputProps,
-      ConditionalKeys<GetRawShape<Spec>, ZodString>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
     >,
   ) => JSX.Element
   Number: (
     props: Named<
       NumberInputProps,
-      ConditionalKeys<GetRawShape<Spec>, ZodNumber>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodNumber>
     >,
   ) => JSX.Element
   Bool: (
-    props: Named<CheckboxProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
+    props: Named<
+      CheckboxProps,
+      ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>
+    >,
   ) => JSX.Element
   Rating: (
-    props: Named<RatingProps, ConditionalKeys<GetRawShape<Spec>, ZodNumber>>,
+    props: Named<RatingProps, ConditionalKeys<GetRawShape<Spec>, z.ZodNumber>>,
   ) => JSX.Element
   Enum: (
     props: Named<RadioGroupProps, EnumKeys<Spec>> & {
@@ -368,13 +376,13 @@ export type InputsType<Spec extends FormSchema> = {
   EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
   Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
   Switch: (
-    props: Named<SwitchProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
+    props: Named<SwitchProps, ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>>,
   ) => JSX.Element
   Chip: (
-    props: Named<ChipProps, ConditionalKeys<GetRawShape<Spec>, ZodBoolean>>,
+    props: Named<ChipProps, ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>>,
   ) => JSX.Element
   Slider: (
-    props: Named<SliderProps, ConditionalKeys<GetRawShape<Spec>, ZodNumber>>,
+    props: Named<SliderProps, ConditionalKeys<GetRawShape<Spec>, z.ZodNumber>>,
   ) => JSX.Element
   File: (
     props: Named<FileInputProps, ConditionalKeys<z.infer<Spec>, File>>,
@@ -382,22 +390,25 @@ export type InputsType<Spec extends FormSchema> = {
   Color: (
     props: Named<
       ColorInputProps,
-      ConditionalKeys<GetRawShape<Spec>, ZodString>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
     >,
   ) => JSX.Element
   DatePicker: (
-    props: Named<DatePickerProps, ConditionalKeys<GetRawShape<Spec>, ZodDate>>,
+    props: Named<
+      DatePickerProps,
+      ConditionalKeys<GetRawShape<Spec>, z.ZodDate>
+    >,
   ) => JSX.Element
   Autocomplete: (
     props: Named<
       AutocompleteProps,
-      ConditionalKeys<GetRawShape<Spec>, ZodString>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
     >,
   ) => JSX.Element
   Time: (
     props: Named<
       TimeInputProps,
-      ConditionalKeys<GetRawShape<Spec>, [ZodDate, ZodDate]>
+      ConditionalKeys<GetRawShape<Spec>, [z.ZodDate, z.ZodDate]>
     >,
   ) => JSX.Element
   SegmentedControl: (
@@ -421,7 +432,7 @@ export type InputsType<Spec extends FormSchema> = {
   DynamicSelect: (
     props: Named<
       SelectProps,
-      ConditionalKeys<GetRawShape<Spec>, ZodString | ZodNumber>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodString | z.ZodNumber>
     >,
   ) => JSX.Element
   // Calendar: <Multiple extends boolean = false>(

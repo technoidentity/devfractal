@@ -9,9 +9,9 @@ import {
   useQueryClient,
   UseQueryOptions,
 } from 'react-query'
-import { z, ZodTypeAny } from 'zod'
+import { z } from 'zod'
 
-type UseSafeQueryArgs<Spec extends ZodTypeAny> = Readonly<{
+type UseSafeQueryArgs<Spec extends z.ZodTypeAny> = Readonly<{
   key: Paths
   query?: Record<string | number, string | number | boolean | null | undefined>
   spec: Spec
@@ -19,7 +19,7 @@ type UseSafeQueryArgs<Spec extends ZodTypeAny> = Readonly<{
   options?: Omit<UseQueryOptions, 'queryKey' | 'queryFn'>
 }>
 
-export function useSafeQuery<Spec extends ZodTypeAny>({
+export function useSafeQuery<Spec extends z.ZodTypeAny>({
   spec,
   key: paths,
   query,

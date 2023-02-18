@@ -1,30 +1,30 @@
-import { TypeOf, ZodTypeAny } from 'zod'
+import { z } from 'zod'
 
-export function cast<Spec extends ZodTypeAny>(
+export function cast<Spec extends z.ZodTypeAny>(
   spec: Spec,
   v: unknown,
-): TypeOf<Spec> {
+): z.infer<Spec> {
   return spec.parse(v)
 }
 
-export function ensure<Spec extends ZodTypeAny>(
+export function ensure<Spec extends z.ZodTypeAny>(
   spec: Spec,
   v: unknown,
-): asserts v is TypeOf<Spec> {
+): asserts v is z.infer<Spec> {
   spec.parse(v)
 }
 
-export function is<Spec extends ZodTypeAny>(
+export function is<Spec extends z.ZodTypeAny>(
   spec: Spec,
   v: unknown,
-): v is TypeOf<Spec> {
+): v is z.infer<Spec> {
   return spec.safeParse(v).success
 }
 
-export function debugCast<Spec extends ZodTypeAny>(
+export function debugCast<Spec extends z.ZodTypeAny>(
   spec: Spec,
   v: unknown,
-): TypeOf<Spec> {
+): z.infer<Spec> {
   if (process.env.NODE_ENV === 'development') {
     return spec.parse(v)
   }

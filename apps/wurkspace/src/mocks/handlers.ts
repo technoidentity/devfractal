@@ -3,7 +3,7 @@ import { faqs } from '@fake/faqs'
 import { organizationData } from '@fake/profile'
 import { addDays } from 'date-fns'
 import { rest } from 'msw'
-import { number } from 'zod'
+import { z } from 'zod'
 import {
   updateAction,
   updateDiscussion,
@@ -59,7 +59,7 @@ export const handlers = [
   }),
 
   rest.patch('/api/v1/actions/:id', (req, res, ctx) => {
-    const id = number().parse(req.params.id)
+    const id = z.number().parse(req.params.id)
 
     const result = updateAction(id, req.body as any)
     if (result) {
@@ -69,7 +69,7 @@ export const handlers = [
   }),
 
   rest.patch('/api/v1/discussions/:id', (req, res, ctx) => {
-    const id = number().parse(req.params.id)
+    const id = z.number().parse(req.params.id)
     const result = updateDiscussion(id, req.body as any)
     if (result) {
       return res(ctx.status(200), ctx.json(result))
@@ -114,7 +114,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(faqs))
   }),
 
-  rest.put<{ count: number }>('/count', (req, res, ctx) => {
+  rest.put<{ count: z.number }>('/count', (req, res, ctx) => {
     count = req.body.count
     return res(ctx.status(200), ctx.json({ count }))
   }),
