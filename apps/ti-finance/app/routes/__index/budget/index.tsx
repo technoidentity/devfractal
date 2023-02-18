@@ -4,7 +4,7 @@ import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import type { Column } from '@srtp/table'
-import { capitalizeFirstLetter } from '~/common/stringUtil'
+import { useDepartmentsSelect } from '~/common/context'
 import { Table } from '~/components/common/Table'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
 import type { BudgetAllocation } from '~/models/budget.server'
@@ -32,11 +32,7 @@ export async function loader(_: LoaderArgs) {
 
 const BudgetPage = () => {
   const { budgets } = useLoaderData<typeof loader>()
-
-  const names = budgets.map(d => ({
-    label: capitalizeFirstLetter(d.category),
-    value: d.category,
-  }))
+  const departmentsData = useDepartmentsSelect()
 
   // @TODO: use budget allocation schema late from the add form
   const totalCost = budgets.reduce((acc, curr) => acc + curr.amount, 0)
@@ -47,8 +43,17 @@ const BudgetPage = () => {
         <TotalSpendCard cost={totalCost} label="Total Amount" />
       </Group>
       <Group mt="xl" mb="lg" ml="sm">
-        <Select label="Department" data={names} size="xs" />
-        <DatePicker size="xs" label="Financial year" />
+        <Select
+          label="Department"
+          data={departmentsData}
+          size="xs"
+          defaultValue={departmentsData[0].value}
+        />
+        <DatePicker
+          size="xs"
+          label="Financial year"
+          defaultValue={new Date()}
+        />
       </Group>
       <Table striped rows={budgets} columns={columns} perPage={3} />
     </>

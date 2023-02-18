@@ -6,7 +6,7 @@ import { json } from '@remix-run/server-runtime'
 import { get, mergeWithToMap } from '@srtp/core'
 import type { Column } from '@srtp/table'
 import React from 'react'
-import { useDepartments, useUsers } from '~/common/context'
+import { useDepartments, useUsers, useUsersSelect } from '~/common/context'
 import { capitalizeFirstLetter } from '~/common/stringUtil'
 import { Table } from '~/components/common/Table'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
@@ -37,6 +37,7 @@ const PeopleSpendPage = () => {
   const { personCost } = useLoaderData<typeof loader>()
   const { departmentsMap } = useDepartments()
   const { usersMap } = useUsers()
+  const userData = useUsersSelect()
 
   type Spendings = Omit<PeopleSpendSchema, 'departments'> & {
     departments: string[]
@@ -66,20 +67,30 @@ const PeopleSpendPage = () => {
     [personCost, departmentsMap, usersMap],
   )
 
-  const names = rows.map(d => ({
-    label: capitalizeFirstLetter(d.username),
-    value: d.username,
-  }))
-
   const totalCost = rows.reduce((acc, e) => acc + e.cost, 0)
 
   return (
     <>
       <TotalSpendCard cost={totalCost} label="Total Spend" />
       <Group position="left" m="md">
-        <DatePicker placeholder="Pick date" label="From date" size="xs" />
-        <DatePicker placeholder="Pick date" label="To date" size="xs" />
-        <Select size="xs" label="Person" data={names} />
+        <DatePicker
+          placeholder="Pick date"
+          label="From date"
+          size="xs"
+          defaultValue={new Date()}
+        />
+        <DatePicker
+          placeholder="Pick date"
+          label="To date"
+          size="xs"
+          defaultValue={new Date()}
+        />
+        <Select
+          size="xs"
+          label="Person"
+          data={userData}
+          defaultValue={userData[0].value}
+        />
       </Group>
 
       <Table striped rows={rows} columns={columns} />
