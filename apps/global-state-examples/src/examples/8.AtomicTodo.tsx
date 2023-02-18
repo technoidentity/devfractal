@@ -9,8 +9,8 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { a, useTransition } from '@react-spring/web'
-import { PrimitiveAtom } from 'jotai'
-import { FormEvent } from 'react'
+import type { PrimitiveAtom } from 'jotai'
+import type { FormEvent } from 'react'
 import {
   computed,
   signal,

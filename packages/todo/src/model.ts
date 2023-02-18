@@ -1,4 +1,5 @@
-import { cast, Infer, strict } from '@srtp/core'
+import type { Infer } from '@srtp/core'
+import { cast, strict } from '@srtp/core'
 import { z } from 'zod'
 
 export const Todo = strict({

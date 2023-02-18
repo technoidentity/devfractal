@@ -2,7 +2,7 @@
 import { state } from '@srtp/local-state'
 import { castDraft } from 'immer'
 import { uniqBy } from 'lodash-es'
-import { RowBase } from './types'
+import type { RowBase } from './types'
 
 export type CrudTableSearchFilters<Row extends RowBase> = Record<
   keyof Row,

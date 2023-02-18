@@ -1,4 +1,5 @@
-import { fail, isOk, Result, resultFlatMap, resultMap } from './result'
+import type { Result } from './result'
+import { fail, isOk, resultFlatMap, resultMap } from './result'
 
 class ResultFrom<E, T> {
   // eslint-disable-next-line no-useless-constructor

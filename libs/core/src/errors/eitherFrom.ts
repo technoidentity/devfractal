@@ -1,4 +1,5 @@
-import { Either, eitherFlatMap, eitherMap, isLeft, left } from './either'
+import type { Either } from './either'
+import { eitherFlatMap, eitherMap, isLeft, left } from './either'
 
 class EitherFrom<Left, Right> {
   // eslint-disable-next-line no-useless-constructor

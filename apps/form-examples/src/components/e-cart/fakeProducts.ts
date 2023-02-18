@@ -2,7 +2,7 @@
 import { faker } from '@faker-js/faker'
 import { range } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
-import { Product } from './Product'
+import type { Product } from './Product'
 
 export const categories = ['fashion', 'electronics', 'books', 'beauty']
 

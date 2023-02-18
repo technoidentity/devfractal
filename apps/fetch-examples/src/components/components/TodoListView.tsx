@@ -9,7 +9,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { Todo } from '@srtp/todo'
+import type { Todo } from '@srtp/todo'
 import React from 'react'
 
 type TodoItemProps = Readonly<{

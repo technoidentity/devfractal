@@ -1,4 +1,4 @@
-import { Product } from '../../utils/types'
+import type { Product } from '../../utils/types'
 
 interface ProductCategoryRowProps {
   category: Product['category']

@@ -2,7 +2,7 @@ import { post, sget } from '@core/api'
 import { prisma } from '@core/prisma'
 import { Employee } from '@prisma/client'
 import { EmployeeResponse } from '@ui/responses'
-import qs from 'query-z.string'
+import qs from 'query-string'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
@@ -50,11 +50,11 @@ const getAccessToken = async (
   return zohoAccessToken
 }
 
-const profileUrl = (email: z.string) =>
+const profileUrl = (email: string) =>
   `https://people.zoho.com/api/forms/employee/getRecords?searchColumn=EMPLOYEEMAILALIAS&searchValue=${email}`
 
-const headers = (accessToken: z.string) => ({
-  response: any(), // @TODO: spec for profiles?.response?.result?.[0]
+const headers = (accessToken: string) => ({
+  response: z.any(), // @TODO: spec for profiles?.response?.result?.[0]
   headers: {
     Accept: 'application/json',
     Authorization: `Zoho-oauthtoken ${accessToken}`,
@@ -62,7 +62,7 @@ const headers = (accessToken: z.string) => ({
 })
 
 export const getProfileFromZoho = async (
-  email: z.string,
+  email: string,
   { force } = { force: false },
 ): // @TODO: type correctly
 Promise<any> => {
@@ -86,7 +86,7 @@ Promise<any> => {
   }
 }
 
-const getReportingToInfo = (reportingTo: z.string) => {
+const getReportingToInfo = (reportingTo: string) => {
   const [firstName, lastName] = reportingTo.split(' ')
   return { firstName, lastName }
 }
@@ -109,7 +109,7 @@ const converProfile = (zohoProfile: any): Employee => {
   }
 }
 
-export const getProfileFromDb = async (email: z.string) => {
+export const getProfileFromDb = async (email: string) => {
   const profile = await prisma.employee.findUnique({
     where: { email },
     include: { user: true },
@@ -118,9 +118,7 @@ export const getProfileFromDb = async (email: z.string) => {
   return profile
 }
 
-export const getUserId = async (
-  email: z.string,
-): Promise<z.string | undefined> => {
+export const getUserId = async (email: string): Promise<string | undefined> => {
   const userId = await prisma.user.findUnique({
     where: { email },
     select: { id: true },
@@ -143,9 +141,7 @@ const updateUserId = async (profile: Employee) => {
   }
 }
 
-export const getProfile = async (
-  email: z.string,
-): Promise<EmployeeResponse> => {
+export const getProfile = async (email: string): Promise<EmployeeResponse> => {
   const profile = await getProfileFromDb(email)
 
   if (profile) {
@@ -170,7 +166,7 @@ export const getProfile = async (
 }
 
 export const getManagerProfile = async (
-  email: z.string,
+  email: string,
 ): Promise<EmployeeResponse> => {
   const employee = await prisma.employee.findUnique({
     where: { email },

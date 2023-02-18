@@ -1,6 +1,8 @@
 import { Container, MantineProvider } from '@mantine/core'
-import { ClientTable, FieldSearch, useClientTable } from '@srtp/table'
-import { columns, Row, rows } from './data'
+import type { FieldSearch } from '@srtp/table'
+import { ClientTable, useClientTable } from '@srtp/table'
+import type { Row } from './data'
+import { columns, rows } from './data'
 
 const renderColumn = (k: keyof Row, row: Row) => {
   if (k === 'is_manager') {

@@ -15,7 +15,7 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import React from 'react'
-import { Todo } from '@srtp/todo'
+import type { Todo } from '@srtp/todo'
 import { filteredTodosSelector, filterSelector } from './selectors'
 import { actions, useAction, useSelect } from './state'
 import { TodoForm } from './TodoForm'

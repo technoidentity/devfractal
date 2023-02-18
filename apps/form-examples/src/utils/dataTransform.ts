@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Products } from './types'
+import type { Products } from './types'
 
 export const categorizedProducts = (data: Products) => {
   // return data.reduce((acc, v) => {

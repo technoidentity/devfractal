@@ -1,9 +1,11 @@
 import { is } from '@srtp/core'
-import produce, { Draft } from 'immer'
-import { atom, Getter, PrimitiveAtom, WritableAtom } from 'jotai'
+import type { Draft } from 'immer'
+import produce from 'immer'
+import type { Getter, PrimitiveAtom, WritableAtom } from 'jotai'
+import { atom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import { z } from 'zod'
-import { ImmerSetter, ImmerWrite, Read, Write } from './types'
+import type { ImmerSetter, ImmerWrite, Read, Write } from './types'
 
 // change it to extends object?
 export function signal<Value extends Object>(initialValue: Value) {

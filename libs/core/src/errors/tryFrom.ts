@@ -1,4 +1,5 @@
-import { failure, isFailure, Try, tryFlatMap, tryMap } from './try'
+import type { Try } from './try'
+import { failure, isFailure, tryFlatMap, tryMap } from './try'
 
 class TryFrom<T> {
   // eslint-disable-next-line no-useless-constructor

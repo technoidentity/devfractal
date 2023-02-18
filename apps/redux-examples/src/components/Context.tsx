@@ -1,6 +1,7 @@
 import React from 'react'
 import invariant from 'tiny-invariant'
-import { initialState, State } from '@srtp/todo'
+import type { State } from '@srtp/todo'
+import { initialState } from '@srtp/todo'
 import { todoReducer } from './reducer'
 
 export type ReducerContext = {

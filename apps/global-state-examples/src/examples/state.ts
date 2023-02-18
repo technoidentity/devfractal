@@ -1,19 +1,13 @@
+import type { Getter } from '@srtp/global-state'
 import {
-  Getter,
   signal,
   signalWithHooks,
   useAction,
   useValue,
 } from '@srtp/global-state'
-import {
-  createTodo,
-  CreateTodo,
-  Filter,
-  initialState,
-  State,
-  Todo,
-} from '@srtp/todo'
-import { Draft } from 'immer'
+import type { CreateTodo, Filter, State, Todo } from '@srtp/todo'
+import { createTodo, initialState } from '@srtp/todo'
+import type { Draft } from 'immer'
 
 const filterAtom = signal<Filter>('All')
 

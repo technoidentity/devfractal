@@ -1,58 +1,55 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import {
-  Autocomplete as MantineAutocomplete,
+import type {
   AutocompleteProps,
-  Checkbox,
   CheckboxProps,
-  Chip as MantineChip,
   ChipProps,
-  ColorInput,
   ColorInputProps,
-  FileInput,
   FileInputProps,
-  MultiSelect,
   MultiSelectProps,
-  NumberInput,
   NumberInputProps,
-  PasswordInput,
   PasswordInputProps,
-  Radio,
   RadioGroupProps,
-  Rating as MantineRating,
   RatingProps,
-  SegmentedControl as MantineSegmentedControl,
   SegmentedControlProps,
-  Select as MantineSelect,
   SelectProps,
-  Slider as MantineSlider,
   SliderProps,
-  Switch as MantineSwitch,
   SwitchProps,
-  Textarea,
   TextareaProps,
-  TextInput,
   TextInputProps,
 } from '@mantine/core'
+import {
+  Autocomplete as MantineAutocomplete,
+  Checkbox,
+  Chip as MantineChip,
+  ColorInput,
+  FileInput,
+  MultiSelect,
+  NumberInput,
+  PasswordInput,
+  Radio,
+  Rating as MantineRating,
+  SegmentedControl as MantineSegmentedControl,
+  Select as MantineSelect,
+  Slider as MantineSlider,
+  Switch as MantineSwitch,
+  Textarea,
+  TextInput,
+} from '@mantine/core'
+import type { DatePickerProps, TimeInputProps } from '@mantine/dates'
 import {
   // Calendar as MantineCalendar,
   // CalendarProps,
   DatePicker as MantineDatePicker,
-  DatePickerProps,
   TimeInput,
-  TimeInputProps,
 } from '@mantine/dates'
-import {
-  createFormContext,
-  useForm,
-  UseFormReturnType,
-  zodResolver,
-} from '@mantine/form'
-import { FormSchema, GetRawShape } from '@srtp/validator'
+import type { UseFormReturnType } from '@mantine/form'
+import { createFormContext, useForm, zodResolver } from '@mantine/form'
+import type { FormSchema, GetRawShape } from '@srtp/validator'
 import { capitalize } from 'lodash'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
-import { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
+import type { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
 
 // const Spec = z.object({
 //   name: z.string(),

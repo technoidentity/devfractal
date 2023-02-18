@@ -1,4 +1,4 @@
-import { QueryFunctionContext } from '@tanstack/react-query'
+import type { QueryFunctionContext } from '@tanstack/react-query'
 import axios from 'redaxios'
 
 const str = (k: unknown) => (k as string | number | boolean).toString()

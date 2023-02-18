@@ -1,6 +1,6 @@
 import React from 'react'
 import { defaultColumnRenderer } from './defaultColumnRenderer'
-import { RowBase, TableViewProps } from './types'
+import type { RowBase, TableViewProps } from './types'
 
 type RowsProps<Row extends RowBase> = Pick<
   TableViewProps<Row>,

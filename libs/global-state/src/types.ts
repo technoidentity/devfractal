@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/unified-signatures */
 
-import { Draft } from 'immer'
-import { Getter, WritableAtom } from 'jotai'
+import type { Draft } from 'immer'
+import type { Getter, WritableAtom } from 'jotai'
 
 // types copied from jotai
 export type Setter = <Value, Args extends unknown[], Result>(

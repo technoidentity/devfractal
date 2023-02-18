@@ -2,7 +2,8 @@ import React from 'react'
 import { removeAt, replaceAt2 } from './arrayUtils'
 import { CategoryMenu } from './CategoryMenu'
 import { fakeProductList } from './fakeProducts'
-import { CartItem, CartList, Product, ProductList } from './Product'
+import type { CartItem, Product } from './Product'
+import { CartList, ProductList } from './Product'
 
 const fakeProducts = fakeProductList(10)
 

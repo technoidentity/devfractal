@@ -1,11 +1,7 @@
-import produce, { Draft } from 'immer'
-import {
-  Atom,
-  PrimitiveAtom,
-  useAtomValue,
-  useSetAtom,
-  WritableAtom,
-} from 'jotai'
+import type { Draft } from 'immer'
+import produce from 'immer'
+import type { Atom, PrimitiveAtom, WritableAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'
 
 export function useValue<Value>(

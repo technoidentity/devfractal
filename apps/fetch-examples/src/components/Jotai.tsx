@@ -4,7 +4,7 @@ import { atomsWithQuery } from 'jotai-tanstack-query'
 import qs from 'query-string'
 import React, { Suspense, useTransition } from 'react'
 import axios from 'redaxios'
-import { Filter, Todo } from '@srtp/todo'
+import type { Filter, Todo } from '@srtp/todo'
 import { itemCount, pageCount } from './common'
 import { FilterView, Pagination, TodoListView } from './components'
 

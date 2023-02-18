@@ -1,5 +1,5 @@
 import { toStr } from '@srtp/core'
-import { RowBase } from './types'
+import type { RowBase } from './types'
 
 const formatDate = (date: Date) => {
   const formatter = new Intl.DateTimeFormat('en-US', {

@@ -1,8 +1,8 @@
-import { Draft } from 'immer'
+import type { Draft } from 'immer'
 import React from 'react'
 import { actionHook, useValue } from './hooks'
 import { computed, signal } from './signal'
-import { Read } from './types'
+import type { Read } from './types'
 
 export function signalWithHooks<Value extends object>(initialValue: Value) {
   const atom = signal(initialValue)

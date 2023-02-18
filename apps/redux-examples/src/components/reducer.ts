@@ -1,7 +1,10 @@
-import { Draft, produce } from 'immer'
+import type { Draft } from 'immer'
+import { produce } from 'immer'
 import { z } from 'zod'
-import { cast, Infer, strict } from '@srtp/core'
-import { CreateTodo, createTodo, State, Todo } from '@srtp/todo'
+import type { Infer } from '@srtp/core'
+import { cast, strict } from '@srtp/core'
+import type { State } from '@srtp/todo'
+import { CreateTodo, createTodo, Todo } from '@srtp/todo'
 
 export const Action = z.union([
   strict({ type: z.literal('createTodo'), todo: CreateTodo }),

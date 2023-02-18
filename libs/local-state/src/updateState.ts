@@ -1,4 +1,5 @@
-import React, { Reducer } from 'react'
+import type { Reducer } from 'react'
+import React from 'react'
 
 export function updateReducer<T>(state: T, update: Partial<T>): T {
   return { ...state, ...update }

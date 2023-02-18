@@ -1,4 +1,4 @@
-import { Person } from '../../../utils/types'
+import type { Person } from '../../../utils/types'
 
 interface PersonProps {
   person: Person

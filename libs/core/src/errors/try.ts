@@ -1,4 +1,5 @@
-import { Either, Left, left, Right, right } from './either'
+import type { Either, Left, Right } from './either'
+import { left, right } from './either'
 import { toError } from './utils'
 
 export type Try<T> = Either<Error, T>

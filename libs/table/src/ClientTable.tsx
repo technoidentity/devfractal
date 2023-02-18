@@ -2,7 +2,7 @@ import { Flex } from '@mantine/core'
 import { Pagination } from './Pagination'
 import { TableSearch } from './TableSearch'
 import { TableView } from './TableView'
-import { ClientTableProps, RowBase } from './types'
+import type { ClientTableProps, RowBase } from './types'
 
 export function ClientTable<Row extends RowBase>({
   columns,

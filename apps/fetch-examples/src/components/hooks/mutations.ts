@@ -1,6 +1,6 @@
 // Mutations
 
-import { Todo } from '@srtp/todo'
+import type { Todo } from '@srtp/todo'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import axios from 'redaxios'

@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Draft } from 'immer'
+import type { Draft } from 'immer'
 import React from 'react'
 import { useImmerReducer } from 'use-immer'
-import { ActionCreators, Actions, ActionsFrom, Handlers } from './types'
+import type { ActionCreators, Actions, ActionsFrom, Handlers } from './types'
 
 type Reducer<State, Hs extends Handlers<State>> = (
   state: Draft<State>,

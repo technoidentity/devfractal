@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import { Button, Group, Modal, Stack, Title } from '@mantine/core'
 import { useState } from 'react'
-import { Product } from './Product'
+import type { Product } from './Product'
 
 interface ProductModalViewProps {
   readonly product: Partial<Product>

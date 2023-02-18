@@ -6,7 +6,7 @@ import { getWinner } from './calculateWinner'
 import { GameBoard, n } from './GameBoard'
 import { PlayerStatus } from './PlayerStatus'
 import { RestartButton } from './RestartButton'
-import { Player } from './Square'
+import type { Player } from './Square'
 import { StepsView } from './StepCount'
 
 export function replaceAt<T>(

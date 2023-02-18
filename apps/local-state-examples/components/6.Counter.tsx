@@ -8,7 +8,8 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { int } from '@srtp/core'
-import { Handlers, state } from '@srtp/local-state'
+import type { Handlers } from '@srtp/local-state'
+import { state } from '@srtp/local-state'
 import React from 'react'
 
 const createUseCounter = (

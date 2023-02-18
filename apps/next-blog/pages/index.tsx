@@ -1,5 +1,6 @@
 import { Articles } from '../components/Articles'
-import { getAllPosts, PostMeta } from '../src/api'
+import type { PostMeta } from '../src/api'
+import { getAllPosts } from '../src/api'
 
 // eslint-disable-next-line import/no-default-export
 export default function Home({ posts }: { posts: PostMeta[] }) {

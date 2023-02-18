@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Flex, Heading, Spinner } from '@chakra-ui/react'
 import { paged } from '@srtp/core'
-import { Filter, Todo } from '@srtp/todo'
+import type { Filter, Todo } from '@srtp/todo'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
 import { Suspense, useTransition } from 'react'

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import type { z } from 'zod'
 
 export function cast<Spec extends z.ZodTypeAny>(
   spec: Spec,

@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { GetStaticProps, GetStaticPaths } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
 import Head from 'next/head'
 import Image from 'next/image'
-import { getPostFromSlug, getSlugs, PostMeta } from '../../src/api'
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
-import Youtube from '../../components/Youtube'
-import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeHighlight from 'rehype-highlight'
+import rehypeSlug from 'rehype-slug'
+import Youtube from '../../components/Youtube'
+import type { PostMeta } from '../../src/api'
+import { getPostFromSlug, getSlugs } from '../../src/api'
 
 interface MdxPost {
   source: MDXRemoteSerializeResult

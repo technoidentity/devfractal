@@ -1,4 +1,4 @@
-import { Player } from './Square'
+import type { Player } from './Square'
 import { range } from 'lodash'
 
 const getRow = <T>(

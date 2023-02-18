@@ -1,5 +1,5 @@
 import React from 'react'
-import { Player } from './Square'
+import type { Player } from './Square'
 import { Title } from '@mantine/core'
 
 interface PlayerProps {

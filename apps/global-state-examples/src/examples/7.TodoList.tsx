@@ -14,7 +14,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { Filter, Todo } from '@srtp/todo'
+import type { Filter, Todo } from '@srtp/todo'
 import {
   useDelete,
   useFilteredTodos,

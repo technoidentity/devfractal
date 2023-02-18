@@ -114,7 +114,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(faqs))
   }),
 
-  rest.put<{ count: z.number }>('/count', (req, res, ctx) => {
+  rest.put<{ count: number }>('/count', (req, res, ctx) => {
     count = req.body.count
     return res(ctx.status(200), ctx.json({ count }))
   }),

@@ -9,7 +9,7 @@ import {
 import React from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList } from 'react-window'
-import { Todo } from '@srtp/todo'
+import type { Todo } from '@srtp/todo'
 
 export type VirtualTodoItemProps = Readonly<{
   todo: Readonly<Todo>

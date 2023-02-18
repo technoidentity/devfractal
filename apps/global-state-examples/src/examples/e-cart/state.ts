@@ -1,9 +1,9 @@
 import { action, computed, signal } from '@srtp/global-state'
 
 import { original } from 'immer'
-import { CartItem } from './CartList'
+import type { CartItem } from './CartList'
 import { fakeProductList } from './fakeProducts'
-import { Product } from './ProductList'
+import type { Product } from './ProductList'
 type Category = string
 
 export const fakeProducts = fakeProductList(10)

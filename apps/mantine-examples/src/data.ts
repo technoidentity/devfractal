@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Column } from '@srtp/table'
+import type { Column } from '@srtp/table'
 
 export type Row = {
   id: number

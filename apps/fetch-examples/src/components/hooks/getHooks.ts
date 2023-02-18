@@ -1,12 +1,9 @@
-import {
-  QueryFunctionContext,
-  useInfiniteQuery,
-  useQuery,
-} from '@tanstack/react-query'
+import type { QueryFunctionContext } from '@tanstack/react-query'
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 import qs from 'query-string'
 import axios from 'redaxios'
 import { get } from '@srtp/fetch'
-import { Todo } from '@srtp/todo'
+import type { Todo } from '@srtp/todo'
 import { itemCount, limit, pageCount } from '../common'
 
 export const getPagedTodos = async ({

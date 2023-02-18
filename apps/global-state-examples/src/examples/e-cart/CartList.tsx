@@ -9,7 +9,7 @@ import {
   Title,
 } from '@mantine/core'
 import { useAction, useValue } from '@srtp/global-state'
-import { Product } from './ProductList'
+import type { Product } from './ProductList'
 import {
   cartAtom,
   decrementQuantity,

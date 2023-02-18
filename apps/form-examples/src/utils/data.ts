@@ -1,4 +1,4 @@
-import { People, Products, SculptureList } from './types'
+import type { People, Products, SculptureList } from './types'
 
 export const PRODUCTS: Products = [
   { category: 'Fruits', price: '$1', stocked: true, name: 'Apple' },

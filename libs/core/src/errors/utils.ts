@@ -1,7 +1,9 @@
-import { z } from 'zod'
+import type { z } from 'zod'
 import { isObject, isStr, jstr } from '../types'
-import { fail, ok, Result } from './result'
-import { failure as tryFailure, success as trySuccess, Try } from './try'
+import type { Result } from './result'
+import { fail, ok } from './result'
+import type { Try } from './try'
+import { failure as tryFailure, success as trySuccess } from './try'
 
 export const defaultError = (e: unknown) =>
   e instanceof Error

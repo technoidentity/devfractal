@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { TransferList, TransferListData } from '@mantine/core'
+import type { TransferListData } from '@mantine/core'
+import { TransferList } from '@mantine/core'
 
 const initialValues: TransferListData = [
   [

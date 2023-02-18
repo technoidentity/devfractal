@@ -1,11 +1,6 @@
 import { proxyMap } from 'valtio/utils'
-import {
-  createTodo as create,
-  CreateTodo,
-  initialState,
-  State,
-  Todo,
-} from '@srtp/todo'
+import type { CreateTodo, State, Todo } from '@srtp/todo'
+import { createTodo as create, initialState } from '@srtp/todo'
 
 export const state: State = {
   todos: proxyMap<number, Todo>(initialState.todos),

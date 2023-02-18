@@ -1,5 +1,5 @@
 import { Input } from '@mantine/core'
-import { RowBase, TableViewProps } from './types'
+import type { RowBase, TableViewProps } from './types'
 
 export type FieldSearchProps<Row extends RowBase> = Required<
   Pick<TableViewProps<Row>, 'columns' | 'onFieldSearch' | 'fieldSearch'>

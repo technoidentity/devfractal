@@ -6,7 +6,7 @@ import {
   UnstyledButton,
 } from '@mantine/core'
 import { ArrowsSort, SortAscending, SortDescending } from 'tabler-icons-react'
-import { Column, RowBase, Sort, TableViewProps } from './types'
+import type { Column, RowBase, Sort, TableViewProps } from './types'
 
 const useStyles = createStyles(theme => ({
   th: {

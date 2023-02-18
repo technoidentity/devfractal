@@ -3,7 +3,7 @@ import { createStyles, ScrollArea, Table, Text } from '@mantine/core'
 import React from 'react'
 import { Headers } from './Headers'
 import { Rows } from './Rows'
-import { TableViewProps } from './types'
+import type { TableViewProps } from './types'
 
 const useStyles = createStyles(theme => ({
   header: {

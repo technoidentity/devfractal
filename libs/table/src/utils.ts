@@ -1,7 +1,7 @@
 import { debugCast, isBool, isNil, isNum, isStr, isDate } from '@srtp/core'
 import { isEmpty } from 'lodash'
 import { z } from 'zod'
-import {
+import type {
   FieldPredicates,
   FieldSearch,
   RowBase,

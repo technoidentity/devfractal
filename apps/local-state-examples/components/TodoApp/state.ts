@@ -1,5 +1,6 @@
 import { tree } from '@srtp/local-state'
-import { createTodo, Filter, initialState, Todo } from '@srtp/todo'
+import type { Filter, Todo } from '@srtp/todo'
+import { createTodo, initialState } from '@srtp/todo'
 
 export const { Provider, actions, useAction, useValue, useSelect } = tree(
   initialState,

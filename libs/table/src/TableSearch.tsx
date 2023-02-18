@@ -1,6 +1,6 @@
 import { TextInput } from '@mantine/core'
 import { IconSearch } from '@tabler/icons-react'
-import { RowBase } from './types'
+import type { RowBase } from './types'
 
 export type TableSearchProps<Row extends RowBase> = Readonly<{
   searchFields?: ReadonlyArray<keyof Row>

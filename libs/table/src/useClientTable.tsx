@@ -1,7 +1,8 @@
-import { Handlers, state } from '@srtp/local-state'
+import type { Handlers } from '@srtp/local-state'
+import { state } from '@srtp/local-state'
 import { castDraft } from 'immer'
 import React, { useMemo } from 'react'
-import {
+import type {
   ClientTableState,
   FieldPredicates,
   FieldSearch,

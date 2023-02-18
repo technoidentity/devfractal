@@ -1,11 +1,12 @@
-import {
+import type {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from 'next'
-import { Session } from 'next-auth'
+import type { Session } from 'next-auth'
 import { z } from 'zod'
-import { Response, response } from './response'
+import type { Response } from './response'
+import { response } from './response'
 
 export interface CtxOrReq {
   req?: NextApiRequest

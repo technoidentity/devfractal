@@ -1,9 +1,9 @@
+import type { MantineTheme } from '@mantine/core'
 import {
   Anchor,
   Button,
   Container,
   Group,
-  MantineTheme,
   Paper,
   Radio,
   Text,

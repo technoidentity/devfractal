@@ -1,6 +1,7 @@
 import { Button, Container, HStack, Input, Text } from '@chakra-ui/react'
 import { int } from '@srtp/core'
-import { Handlers, state$, useState$ } from '@srtp/local-state'
+import type { Handlers } from '@srtp/local-state'
+import { state$, useState$ } from '@srtp/local-state'
 import React from 'react'
 
 const initial = { count: 1 }

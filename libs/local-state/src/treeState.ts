@@ -1,7 +1,7 @@
 import React from 'react'
 import { getActions, state$ } from './localState'
 import { tree$ } from './provider'
-import { Actions, Handlers } from './types'
+import type { Actions, Handlers } from './types'
 
 export function tree<State, Hs extends Handlers<State>>(
   initialState: State,
