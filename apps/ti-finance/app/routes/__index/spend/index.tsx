@@ -3,13 +3,17 @@ import { DatePicker } from '@mantine/dates'
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import { get, mergeWithToMap } from '@srtp/core'
+import { mergeWithToMap } from '@srtp/core'
 import type { Column } from '@srtp/table'
 import React from 'react'
-import { useDepartments, useUsers, useUsersSelect } from '~/common/context'
-import { capitalizeFirstLetter } from '~/common/stringUtil'
+import {
+  useDepartmentName,
+  useUserName,
+  useUsersSelect,
+} from '~/common/context'
+import { TotalSpendCard } from '~/components/common'
 import { Table } from '~/components/common/Table'
-import { TotalSpendCard } from '~/components/TotalSpendCard'
+import { Filters } from '~/components/spend'
 import { getPeopleSpend } from '~/models/departmentMapping.server'
 
 export async function loader(_: LoaderArgs) {
@@ -35,9 +39,8 @@ const columns: Column<PeopleSpendSchema>[] = [
 const PeopleSpendPage = () => {
   console.log('PeopleSpendPage')
   const { personCost } = useLoaderData<typeof loader>()
-  const { departmentsMap } = useDepartments()
-  const { usersMap } = useUsers()
-  const userData = useUsersSelect()
+  const getUserName = useUserName()
+  const getDepartmentName = useDepartmentName()
 
   type Spendings = Omit<PeopleSpendSchema, 'departments'> & {
     departments: string[]
@@ -49,22 +52,22 @@ const PeopleSpendPage = () => {
           acc
             ? {
                 id: e.tiId,
-                username: get(usersMap, e.tiId).username,
+                username: getUserName(e.tiId),
                 cost: acc.cost + e.ctc,
                 departments: [
                   ...acc.departments,
-                  get(departmentsMap, e.departmentId).name,
+                  getDepartmentName(e.departmentId),
                 ],
               }
             : {
                 id: e.tiId,
-                username: get(usersMap, e.tiId).username,
+                username: getUserName(e.tiId),
                 cost: e.ctc,
-                departments: [get(departmentsMap, e.departmentId).name],
+                departments: [getDepartmentName(e.departmentId)],
               },
         ).values(),
       ).map(c => ({ ...c, departments: c.departments.join(', ') })),
-    [personCost, departmentsMap, usersMap],
+    [personCost, getUserName, getDepartmentName],
   )
 
   const totalCost = rows.reduce((acc, e) => acc + e.cost, 0)
@@ -72,27 +75,7 @@ const PeopleSpendPage = () => {
   return (
     <>
       <TotalSpendCard cost={totalCost} label="Total Spend" />
-      <Group position="left" m="md">
-        <DatePicker
-          placeholder="Pick date"
-          label="From date"
-          size="xs"
-          defaultValue={new Date()}
-        />
-        <DatePicker
-          placeholder="Pick date"
-          label="To date"
-          size="xs"
-          defaultValue={new Date()}
-        />
-        <Select
-          size="xs"
-          label="Person"
-          data={userData}
-          defaultValue={userData[0].value}
-        />
-      </Group>
-
+      <Filters />
       <Table striped rows={rows} columns={columns} />
     </>
   )
