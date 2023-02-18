@@ -77,6 +77,16 @@ const HomePage = () => {
     [users],
   )
 
+  const depValue = React.useMemo(
+    () => ({ departments, departmentsMap }),
+    [departments, departmentsMap],
+  )
+
+  const usersValue = React.useMemo(
+    () => ({ users, usersMap }),
+    [users, usersMap],
+  )
+
   return (
     <AppShell
       padding="md"
@@ -91,8 +101,8 @@ const HomePage = () => {
         </Header>
       }
     >
-      <DepartmentsContext.Provider value={{ departments, departmentsMap }}>
-        <UsersContext.Provider value={{ users, usersMap }}>
+      <DepartmentsContext.Provider value={depValue}>
+        <UsersContext.Provider value={usersValue}>
           <Outlet />
         </UsersContext.Provider>
       </DepartmentsContext.Provider>
