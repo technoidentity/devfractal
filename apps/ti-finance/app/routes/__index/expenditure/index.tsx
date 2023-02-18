@@ -1,19 +1,24 @@
-import { Button, Group, Select } from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
+import { Button, Group } from '@mantine/core'
 import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
 import type { Column } from '@srtp/table'
-import { number } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
-import { useDepartments, useDepartmentsSelect } from '~/common/context'
-import { ExpenditureSchema, ListExpenditureSchema } from '~/common/validators'
+import { useDepartments } from '~/common/context'
+import {
+  ExpenditureSchema,
+  IntId,
+  ListExpenditureSchema,
+} from '~/common/validators'
+import { TotalSpendCard } from '~/components/common'
 import { Table } from '~/components/common/Table'
-import { DeleteExpenditure } from '~/components/expenditure/Delete'
-import { EditExpenditureForm } from '~/components/expenditure/Edit'
-import { TotalSpendCard } from '~/components/TotalSpendCard'
+import {
+  DeleteExpenditure,
+  EditExpenditureForm,
+  Filters,
+} from '~/components/expenditure'
 import {
   deleteExpenditure,
   getDepartmentExpenditures,
@@ -45,7 +50,7 @@ export async function loader(_: LoaderArgs) {
 export const action = (args: ActionArgs) => {
   return methods(args, {
     PUT: method(ExpenditureSchema, updateExpenditure),
-    DELETE: method(z.object({ id: number }), ({ id }) => deleteExpenditure(id)),
+    DELETE: method(IntId, ({ id }) => deleteExpenditure(id)),
   })
 }
 
@@ -61,44 +66,26 @@ const Actions = ({ row }: { row: ListExpenditureSchema }) => {
 
 const ExpenditurePage = () => {
   const { expenditures } = useLoaderData<typeof loader>()
-  const departmentsData = useDepartmentsSelect()
 
   const expList = React.useMemo(
     () => z.array(ListExpenditureSchema).parse(expenditures),
     [expenditures],
   )
 
-  const categories = [
-    { value: 'billable', label: 'Billable' },
-    { value: 'nonBillable', label: 'Non_Billable' },
-  ]
-
   const totalCost = expList.reduce((acc, curr) => acc + curr.amount, 0)
 
   return (
     <>
       <TotalSpendCard cost={totalCost} label="Total Amount" />
+
       <Group position="left" m="md">
-        <Group>
-          <DatePicker size="xs" label="From Date" defaultValue={new Date()} />
-          <DatePicker size="xs" label="To Date" defaultValue={new Date()} />
-          <Select
-            label="Category"
-            size="xs"
-            data={categories}
-            defaultValue={'billable'}
-          />
-          <Select
-            label="Department"
-            data={departmentsData}
-            size="xs"
-            defaultValue={departmentsData[0].value}
-          />
-          <Button component="a" href="/expenditure/new">
-            Add
-          </Button>
-        </Group>
+        <Filters />
+
+        <Button component="a" href="/expenditure/new">
+          Add
+        </Button>
       </Group>
+
       <Table
         striped
         rows={expList}
