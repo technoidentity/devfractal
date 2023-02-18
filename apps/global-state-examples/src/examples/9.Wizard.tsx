@@ -112,13 +112,16 @@ export const Wizard = ({ children }: WizardProps) => {
     [dispatch],
   )
 
-  const context = {
-    activePageIdx,
-    handlePrevious,
-    handleNext,
-    steps,
-    setSteps,
-  }
+  const context = React.useMemo(
+    () => ({
+      activePageIdx,
+      handlePrevious,
+      handleNext,
+      steps,
+      setSteps,
+    }),
+    [activePageIdx, setSteps, steps],
+  )
 
   return (
     <WizardContext.Provider value={context}>

@@ -1,5 +1,6 @@
 import { useSafeContext } from '@srtp/remix-react'
-import { createContext } from 'react'
+import React, { createContext } from 'react'
+import { capitalizeFirstLetter } from './stringUtil'
 
 type User = { id: string; username: string }
 type Department = { id: number; name: string }
@@ -26,4 +27,34 @@ export function useDepartments() {
 
 export function useUsers() {
   return useSafeContext(UsersContext, 'use UsersContext')
+}
+
+export function useDepartmentsSelect() {
+  const { departments } = useDepartments()
+
+  const data = React.useMemo(
+    () =>
+      departments.map(d => ({
+        label: capitalizeFirstLetter(d.name),
+        value: d.id.toString(),
+      })),
+    [departments],
+  )
+
+  return data
+}
+
+export function useUsersSelect() {
+  const { users } = useUsers()
+
+  const data = React.useMemo(
+    () =>
+      users.map(u => ({
+        label: capitalizeFirstLetter(u.username),
+        value: u.id,
+      })),
+    [users],
+  )
+
+  return data
 }

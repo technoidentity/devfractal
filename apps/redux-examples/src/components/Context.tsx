@@ -13,9 +13,9 @@ const Context = React.createContext<ReducerContext | undefined>(undefined)
 export const ReducerProvider = ({ children }: any) => {
   const [state, dispatch] = React.useReducer(todoReducer, initialState)
 
-  return (
-    <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
-  )
+  const value = React.useMemo(() => ({ state, dispatch }), [state])
+
+  return <Context.Provider value={value}>{children}</Context.Provider>
 }
 
 export const useState = () => {
