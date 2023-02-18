@@ -82,10 +82,16 @@ export async function getDepartmentsCost() {
 }
 
 export async function getPeopleSpend() {
-  const personCost = await prisma.departmentMapping.groupBy({
-    by: ['tiId', 'departmentId'],
-    _sum: { ctc: true },
-  })
+  const personCost = (
+    await prisma.departmentMapping.groupBy({
+      by: ['tiId', 'departmentId'],
+      _sum: { ctc: true },
+    })
+  ).map(p => ({
+    tiId: p.tiId,
+    departmentId: p.departmentId,
+    ctc: p._sum.ctc || 0,
+  }))
 
   return { personCost }
 }
