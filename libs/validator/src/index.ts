@@ -1,25 +1,54 @@
 import type { Try } from '@srtp/core'
 import { failure, success } from '@srtp/core'
-import { coerce, z, ZodEffects, ZodNativeEnum } from 'zod'
-export const number = coerce.number()
-export const int = coerce.number().int()
-export const positive = coerce.number().positive()
-export const nonnegative = coerce.number().nonnegative()
-export const negative = coerce.number().negative()
-export const nonpositive = coerce.number().nonpositive()
+import { z } from 'zod'
 
-export const boolean = coerce.boolean()
-export const date = coerce.date()
-export const bigint = coerce.bigint()
+export const number = (defaultValue = 0) =>
+  z.coerce.number().default(defaultValue)
+
+export const int = (defaultValue = 0) =>
+  z.coerce.number().int().default(defaultValue)
+
+export const positive = (defaultValue = 0) =>
+  z.coerce.number().positive().default(defaultValue)
+
+export const nonnegative = (defaultValue = 0) =>
+  z.coerce.number().nonnegative().default(defaultValue)
+
+export const negative = (defaultValue: number) =>
+  z.coerce.number().negative().default(defaultValue)
+
+export const nonpositive = (defaultValue: number) =>
+  z.coerce.number().nonpositive().default(defaultValue)
+
+export const string = (defaultValue = '') =>
+  z.coerce.string().default(defaultValue)
+
+export const email = (defaultValue: string) =>
+  z.string().email().default(defaultValue)
+
+export const url = (defaultValue: string) =>
+  z.string().url().default(defaultValue)
+
+export const uuid = (defaultValue: string) =>
+  z.string().uuid().default(defaultValue)
+
+export const cuid = (defaultValue: string) =>
+  z.string().cuid().default(defaultValue)
+
+export const datetime = (defaultValue: string) =>
+  z.string().datetime().default(defaultValue)
+
+export const boolean = (defaultValue = false) =>
+  z.coerce.boolean().default(defaultValue)
+
+export const date = (defaultValue?: Date) =>
+  defaultValue ? z.coerce.date().default(defaultValue) : z.coerce.date()
+
+export const bigint = (defaultValue = 0n) =>
+  z.coerce.bigint().default(defaultValue)
+
 export const nil = z.union([z.null(), z.undefined()])
 
-export const string = z.coerce.string()
-
-export const email = z.string().email()
-export const url = z.string().url()
-export const uuid = z.string().uuid()
-export const cuid = z.string().cuid()
-export const datetime = z.string().datetime()
 export const oneOf = z.enum
 // export const array = z.array
 
@@ -31,9 +60,12 @@ export type ZodPrimitive =
   | z.ZodBigInt
   | z.ZodLiteral<any>
   | z.ZodEnum<any>
-  | ZodNativeEnum<any>
+  | z.ZodNativeEnum<any>
 
-export type FieldSchema = ZodPrimitive | z.ZodOptional<ZodPrimitive>
+export type FieldSchema =
+  | z.ZodOptional<z.ZodDefault<ZodPrimitive> | ZodPrimitive>
+  | z.ZodDefault<ZodPrimitive>
+  | ZodPrimitive
 
 export function empty<T extends FieldSchema>(spec: T) {
   return z.union([spec, z.literal('')])
@@ -51,7 +83,7 @@ export type GetRawShape<T> = T extends z.ZodEffects<infer R>
 export function getRawShape<T extends z.ZodEffects<any> | z.AnyZodObject>(
   spec: T,
 ): GetRawShape<T> {
-  return spec instanceof ZodEffects
+  return spec instanceof z.ZodEffects
     ? // eslint-disable-next-line no-underscore-dangle
       getRawShape(spec._def.schema)
     : spec.shape
