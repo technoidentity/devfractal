@@ -1,21 +1,19 @@
 import { Button, Group, Select } from '@mantine/core'
+import { DatePicker } from '@mantine/dates'
 import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import type { Column } from '@srtp/table'
-import { capitalizeFirstLetter } from '~/common/stringUtil'
-import { DatePicker } from '@mantine/dates'
 import { method, methods } from '@srtp/remix-node'
-import { number, string } from '@srtp/validator'
+import type { Column } from '@srtp/table'
+import { number } from '@srtp/validator'
 import React from 'react'
 import { z } from 'zod'
-import type { ListExpenditureSchema } from '~/common/validators'
-import { ExpenditureSchema } from '~/common/validators'
+import { useDepartments, useDepartmentsSelect } from '~/common/context'
+import { ExpenditureSchema, ListExpenditureSchema } from '~/common/validators'
 import { Table } from '~/components/common/Table'
 import { DeleteExpenditure } from '~/components/expenditure/Delete'
 import { EditExpenditureForm } from '~/components/expenditure/Edit'
 import { TotalSpendCard } from '~/components/TotalSpendCard'
-import { getDepartmentList } from '~/models/departmentMapping.server'
 import {
   deleteExpenditure,
   getDepartmentExpenditures,
@@ -41,7 +39,7 @@ const columns: Column<ListExpenditureSchema>[] = [
 export async function loader(_: LoaderArgs) {
   const expenditures = await getDepartmentExpenditures()
 
-  return json({ expenditures, departments: await getDepartmentList() })
+  return json({ expenditures })
 }
 
 export const action = (args: ActionArgs) => {
@@ -51,26 +49,24 @@ export const action = (args: ActionArgs) => {
   })
 }
 
+const Actions = ({ row }: { row: ListExpenditureSchema }) => {
+  const { departments } = useDepartments()
+  return (
+    <Group>
+      <DeleteExpenditure id={row.id} />
+      <EditExpenditureForm exp={row} departments={departments} />
+    </Group>
+  )
+}
+
 const ExpenditurePage = () => {
-  const { expenditures, departments } = useLoaderData<typeof loader>()
+  const { expenditures } = useLoaderData<typeof loader>()
+  const departmentsData = useDepartmentsSelect()
 
   const expList = React.useMemo(
-    () =>
-      z
-        .array(
-          ExpenditureSchema.extend({
-            departmentId: number,
-            department: string,
-            id: number,
-          }),
-        )
-        .parse(expenditures),
+    () => z.array(ListExpenditureSchema).parse(expenditures),
     [expenditures],
   )
-  const names = expList.map(d => ({
-    label: capitalizeFirstLetter(d.department),
-    value: d.category,
-  }))
 
   const categories = [
     { value: 'billable', label: 'Billable' },
@@ -84,10 +80,20 @@ const ExpenditurePage = () => {
       <TotalSpendCard cost={totalCost} label="Total Amount" />
       <Group position="left" m="md">
         <Group>
-          <DatePicker size="xs" label="From Date" />
-          <DatePicker size="xs" label="To Date" />
-          <Select label="Category" size="xs" data={categories} />
-          <Select label="Department" data={names} size="xs" />
+          <DatePicker size="xs" label="From Date" defaultValue={new Date()} />
+          <DatePicker size="xs" label="To Date" defaultValue={new Date()} />
+          <Select
+            label="Category"
+            size="xs"
+            data={categories}
+            defaultValue={'billable'}
+          />
+          <Select
+            label="Department"
+            data={departmentsData}
+            size="xs"
+            defaultValue={departmentsData[0].value}
+          />
           <Button component="a" href="/expenditure/new">
             Add
           </Button>
@@ -97,14 +103,7 @@ const ExpenditurePage = () => {
         striped
         rows={expList}
         columns={columns}
-        Actions={({ row }) => {
-          return (
-            <Group>
-              <DeleteExpenditure id={row.id} />
-              <EditExpenditureForm exp={row} departments={departments} />
-            </Group>
-          )
-        }}
+        Actions={Actions}
         perPage={3}
       />
     </>
