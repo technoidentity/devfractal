@@ -1,4 +1,3 @@
-import { Button, Group } from '@mantine/core'
 import type { Ctc } from '@prisma/client'
 import type { Column } from '@srtp/table'
 import React from 'react'
@@ -29,20 +28,12 @@ export const CtcList = ({ ctcList }: CtcListProps) => {
   )
 
   return (
-    <>
-      <Group position="right" m="md">
-        <Button component="a" href="/ctc/new">
-          Add
-        </Button>
-      </Group>
-
-      <CrudTable
-        spec={CtcSchema}
-        FormFields={FormFields}
-        editTitle="Update CTC"
-        rows={list}
-        columns={columns}
-      />
-    </>
+    <CrudTable
+      spec={CtcSchema}
+      FormFields={FormFields}
+      editTitle="Update CTC"
+      rows={list}
+      columns={columns}
+    />
   )
 }

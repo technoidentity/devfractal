@@ -1,6 +1,7 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import React from 'react'
 import { sjson, useGet } from '~/common'
+import { CostFilters } from '~/components/department'
 
 import { DepartmentCostList } from '~/components/department/CostList'
 import { getDepartmentsCost } from '~/models/departmentMapping.server'
@@ -32,7 +33,12 @@ const DepartmentsPage = () => {
     }
   })
 
-  return <DepartmentCostList costList={costList} />
+  return (
+    <>
+      <CostFilters />
+      <DepartmentCostList costList={costList} />
+    </>
+  )
 }
 
 export default DepartmentsPage

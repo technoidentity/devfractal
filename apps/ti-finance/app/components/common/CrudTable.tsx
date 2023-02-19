@@ -1,8 +1,9 @@
 import type { Column, RowBase } from '@srtp/table'
 import type { FormSchema } from '@srtp/validator'
 import type { z } from 'zod'
-import type { EditFormProps } from '.'
-import { Table, useActions } from '.'
+import { useActions } from './createActions'
+import type { EditFormProps } from './EditForm'
+import { Table } from './Table'
 
 export type CrudTableProps<
   Spec extends FormSchema & z.AnyZodObject,
@@ -20,5 +21,6 @@ export function CrudTable<
   Row extends RowBase,
 >(props: CrudTableProps<Spec, Row>) {
   const Actions = useActions(props.spec, props.FormFields, props.editTitle)
+
   return <Table Actions={Actions} rows={props.rows} columns={props.columns} />
 }

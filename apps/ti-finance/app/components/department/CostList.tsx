@@ -1,6 +1,5 @@
 import type { Column } from '@srtp/table'
-import { Table } from '../common/Table'
-import { CostFilters } from './CostFilters'
+import { Table } from '../common'
 
 type Cost = Readonly<{
   id: number
@@ -21,10 +20,5 @@ export type DepartmentCostListProps = Readonly<{
 }>
 
 export const DepartmentCostList = ({ costList }: DepartmentCostListProps) => {
-  return (
-    <>
-      <CostFilters />
-      <Table rows={costList} columns={columns} />
-    </>
-  )
+  return <Table rows={costList} columns={columns} />
 }
