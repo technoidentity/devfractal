@@ -1,12 +1,10 @@
 import { Button, Group } from '@mantine/core'
 import type { Column } from '@srtp/table'
 import React from 'react'
-import { useUserName } from '~/common/context'
-import type { ListCtcSchema } from '~/common/validators'
-import { CtcSchema } from '~/common/validators'
-import { DeleteCtcForm, EditCtcModalForm } from '~/components/ctc'
-import { useFormData } from '../common'
-import { Table } from '../common/Table'
+import type { ListCtcSchema } from '~/common'
+import { CtcSchema, useUserName } from '~/common'
+import { CrudTable } from '../common'
+import { FormFields } from './FormFields'
 
 const columns: Column<ListCtcSchema>[] = [
   { accessor: 'tiId', label: 'TI_ID' },
@@ -15,25 +13,6 @@ const columns: Column<ListCtcSchema>[] = [
   { accessor: 'fromDate', label: 'From Date' },
   { accessor: 'toDate', label: 'To Date' },
 ]
-
-// const initialFilters: Filters<CtcSchema> = {
-//   id: '',
-//   ctc: '',
-//   fromDate: '',
-//   toDate: '',
-//   name: '',
-// }
-
-const Actions = ({ row }: { row: CtcSchema }) => {
-  const actionData = useFormData(CtcSchema)
-
-  return (
-    <Group>
-      <DeleteCtcForm id={row.id} />
-      <EditCtcModalForm ctc={row} errors={actionData} />
-    </Group>
-  )
-}
 
 export type CtcListProps = Readonly<{
   ctcList: readonly ListCtcSchema[]
@@ -55,12 +34,12 @@ export const CtcList = ({ ctcList }: CtcListProps) => {
         </Button>
       </Group>
 
-      <Table
-        striped
-        Actions={Actions}
+      <CrudTable
+        spec={CtcSchema}
+        FormFields={FormFields}
+        editTitle="Update CTC"
         rows={list}
         columns={columns}
-        perPage={3}
       />
     </>
   )
