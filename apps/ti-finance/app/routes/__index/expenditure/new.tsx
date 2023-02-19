@@ -1,11 +1,11 @@
-import { useActionData, useLoaderData } from '@remix-run/react'
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { json, redirect } from '@remix-run/server-runtime'
 import { isFail } from '@srtp/core'
 import { badRequest, safeAction } from '@srtp/remix-node'
 import type { ExpenditureSchema } from '~/common/validators'
 import { CreateExpenditureSchema } from '~/common/validators'
-import { ExpenditureForm } from '~/components/expenditure/Create'
+import { useFormData } from '~/components/common'
+import { CreateExpenditureForm } from '~/components/expenditure'
 import { getDepartmentList } from '~/models/departmentMapping.server'
 import { createExpenditure } from '~/models/expenditure.server'
 
@@ -23,16 +23,9 @@ export const action = (args: ActionArgs) =>
   })
 
 const CreateExpenditurePage = () => {
-  const departments = useLoaderData<typeof loader>().departments
-  const actionData = useActionData<typeof action>()
+  const actionData = useFormData(CreateExpenditureSchema)
 
-  return (
-    <ExpenditureForm
-      error={actionData?.error}
-      errors={actionData?.fieldErrors}
-      departments={departments}
-    />
-  )
+  return <CreateExpenditureForm {...actionData} />
 }
 
 export default CreateExpenditurePage
