@@ -1,7 +1,6 @@
-import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
-import { json } from '@remix-run/server-runtime'
 import React from 'react'
+import { sjson, useGet } from '~/common'
 
 import { DepartmentCostList } from '~/components/department/CostList'
 import { getDepartmentsCost } from '~/models/departmentMapping.server'
@@ -9,11 +8,11 @@ import { getDepartmentsCost } from '~/models/departmentMapping.server'
 export async function loader(_: LoaderArgs) {
   const { personCost, expenditures } = await getDepartmentsCost()
 
-  return json({ personCost, expenditures })
+  return sjson({ personCost, expenditures })
 }
 
 const DepartmentsPage = () => {
-  const { personCost, expenditures } = useLoaderData<typeof loader>()
+  const { personCost, expenditures } = useGet<typeof loader>()
 
   const expendituresMap = React.useMemo(
     () => new Map(expenditures.map(e => [e.departmentId, e.total])),
