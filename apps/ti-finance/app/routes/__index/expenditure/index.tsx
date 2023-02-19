@@ -6,12 +6,7 @@ import { method, methods } from '@srtp/remix-node'
 import type { Column } from '@srtp/table'
 import React from 'react'
 import { z } from 'zod'
-import {
-  ExpenditureSchema,
-  IntId,
-  ListExpenditureSchema,
-  useDepartments,
-} from '~/common'
+import { ExpenditureSchema, IntId, ListExpenditureSchema } from '~/common'
 import { Table, TotalSpendCard } from '~/components/common'
 import {
   DeleteExpenditure,
@@ -46,11 +41,10 @@ export const action = (args: ActionArgs) => {
 }
 
 const Actions = ({ row }: { row: ListExpenditureSchema }) => {
-  const { departments } = useDepartments()
   return (
     <Group>
       <DeleteExpenditure id={row.id} />
-      <EditExpenditureForm exp={row} departments={departments} />
+      <EditExpenditureForm initialValues={row} />
     </Group>
   )
 }

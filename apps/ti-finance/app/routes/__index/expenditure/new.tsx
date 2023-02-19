@@ -4,7 +4,7 @@ import { isFail } from '@srtp/core'
 import { badRequest, safeAction } from '@srtp/remix-node'
 import type { ExpenditureSchema } from '~/common/validators'
 import { CreateExpenditureSchema } from '~/common/validators'
-import { useFormData } from '~/components/common'
+import { useServerErrors } from '~/components/common'
 import { CreateExpenditureForm } from '~/components/expenditure'
 import { getDepartmentList } from '~/models/departmentMapping.server'
 import { createExpenditure } from '~/models/expenditure.server'
@@ -23,7 +23,7 @@ export const action = (args: ActionArgs) =>
   })
 
 const CreateExpenditurePage = () => {
-  const actionData = useFormData(CreateExpenditureSchema)
+  const actionData = useServerErrors(CreateExpenditureSchema)
 
   return <CreateExpenditureForm {...actionData} />
 }

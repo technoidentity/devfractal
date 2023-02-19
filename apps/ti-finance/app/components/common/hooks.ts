@@ -35,7 +35,7 @@ function isEmpty(data: object) {
   return data === null || data === undefined || Object.keys(data).length === 0
 }
 
-export function useFormData<Spec extends z.AnyZodObject>(
+export function useServerErrors<Spec extends z.AnyZodObject>(
   spec: Spec,
 ): Errors<z.infer<Spec>> {
   const s = useLatest(createErrorsSpec(spec))

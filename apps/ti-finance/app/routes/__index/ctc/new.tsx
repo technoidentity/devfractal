@@ -4,7 +4,7 @@ import { isFail } from '@srtp/core'
 import { badRequest, safeAction } from '@srtp/remix-node'
 import type { CtcSchema } from '~/common/validators'
 import { CreateCtcSchema } from '~/common/validators'
-import { useFormData } from '~/components/common'
+import { useServerErrors } from '~/components/common'
 import { CreateCtcForm } from '~/components/ctc'
 import { createCtc } from '~/models/ctc.server'
 
@@ -18,7 +18,7 @@ export const action = (args: ActionArgs) =>
   })
 
 const AddCtcPage = () => {
-  const actionData = useFormData(CreateCtcSchema)
+  const actionData = useServerErrors(CreateCtcSchema)
 
   return <CreateCtcForm {...actionData} />
 }

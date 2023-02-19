@@ -5,7 +5,7 @@ import type { z } from 'zod'
 import { DeleteForm } from './DeleteForm'
 import type { EditFormProps } from './EditForm'
 import { EditForm } from './EditForm'
-import { useFormData } from './hooks'
+import { useServerErrors } from './hooks'
 
 function createActions$<Spec extends FormSchema & z.AnyZodObject>(
   spec: Spec,
@@ -13,7 +13,7 @@ function createActions$<Spec extends FormSchema & z.AnyZodObject>(
   editTitle: string,
 ) {
   return function Actions({ row }: { row: z.infer<Spec> }) {
-    const serverErrors = useFormData(spec)
+    const serverErrors = useServerErrors(spec)
 
     return (
       <Group>
