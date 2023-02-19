@@ -21,10 +21,6 @@ export const CtcSchema = schema({
 
 export type CtcSchema = z.infer<typeof CtcSchema>
 
-export const ListCtcSchema = CtcSchema.extend({ name: string() })
-
-export type ListCtcSchema = z.infer<typeof ListCtcSchema>
-
 export const CreateCtcSchema = CtcSchema.omit({ id: true })
 
 export type CreateCtcSchema = z.infer<typeof CreateCtcSchema>
@@ -52,14 +48,6 @@ export const ExpenditureSchema = schema({
 
 export type ExpenditureSchema = z.infer<typeof ExpenditureSchema>
 
-export const ListExpenditureSchema = ExpenditureSchema.extend({
-  departmentId: number(),
-  department: string(),
-  id: number(),
-})
-
-export type ListExpenditureSchema = z.infer<typeof ListExpenditureSchema>
-
 export const CreateExpenditureSchema = ExpenditureSchema.omit({
   id: true,
 })
@@ -75,12 +63,6 @@ export const DepartmentMappingSchema = schema({
   toDate: date(),
   category: BillableSchema,
 })
-
-export const ListDepartmentSchema = DepartmentMappingSchema.extend({
-  username: string(),
-})
-
-export type ListDepartmentSchema = z.infer<typeof ListDepartmentSchema>
 
 export type DepartmentMappingSchema = z.infer<typeof DepartmentMappingSchema>
 

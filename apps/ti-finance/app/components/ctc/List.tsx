@@ -1,12 +1,14 @@
 import { Button, Group } from '@mantine/core'
+import type { Ctc } from '@prisma/client'
 import type { Column } from '@srtp/table'
 import React from 'react'
-import type { ListCtcSchema } from '~/common'
 import { CtcSchema, useUserName } from '~/common'
 import { CrudTable } from '../common'
 import { FormFields } from './FormFields'
 
-const columns: Column<ListCtcSchema>[] = [
+type ListCtc = Ctc & { name: string }
+
+const columns: Column<ListCtc>[] = [
   { accessor: 'tiId', label: 'TI_ID' },
   { accessor: 'name', label: 'Username' },
   { accessor: 'ctc', label: 'CTC(LPA)' },
@@ -15,7 +17,7 @@ const columns: Column<ListCtcSchema>[] = [
 ]
 
 export type CtcListProps = Readonly<{
-  ctcList: readonly ListCtcSchema[]
+  ctcList: readonly Ctc[]
 }>
 
 export const CtcList = ({ ctcList }: CtcListProps) => {

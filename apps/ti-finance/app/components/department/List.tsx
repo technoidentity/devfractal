@@ -1,10 +1,13 @@
 import type { Column } from '@srtp/table'
-import { DepartmentMappingSchema } from '~/common/validators'
-import type { ListDepartmentSchema } from '~/common/validators'
+import { DepartmentMappingSchema } from '~/common'
 import { CrudTable } from '../common'
 import { FormFields } from './FormFields'
 
-const columns: Column<ListDepartmentSchema>[] = [
+type DepartmentList = DepartmentMappingSchema & {
+  username: string
+}
+
+const columns: Column<DepartmentList>[] = [
   { accessor: 'tiId', label: 'TI_ID' },
   { accessor: 'username', label: 'Username' },
   { accessor: 'ctc', label: 'CTC' },
@@ -15,7 +18,7 @@ const columns: Column<ListDepartmentSchema>[] = [
 ]
 
 export type DepartmentListProps = Readonly<{
-  departmentList: readonly ListDepartmentSchema[]
+  departmentList: readonly DepartmentList[]
 }>
 
 export const DepartmentList = ({ departmentList }: DepartmentListProps) => (
