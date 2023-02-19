@@ -1,4 +1,4 @@
-import { CreateCtcSchema } from '~/common/validators'
+import { CreateCtcSchema } from '~/common'
 import type { CreateProps } from '../common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'

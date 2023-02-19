@@ -1,7 +1,7 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import { handleResult, safeAction } from '@srtp/remix-node'
-import { CreateExpenditureSchema } from '~/common/validators'
+import { CreateExpenditureSchema } from '~/common'
 import { useServerErrors } from '~/components/common'
 import { CreateExpenditureForm } from '~/components/expenditure'
 import { getDepartmentList } from '~/models/departmentMapping.server'

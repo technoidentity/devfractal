@@ -1,7 +1,7 @@
 import { Group } from '@mantine/core'
 import { createInputsGroup } from '@srtp/remix-react'
 import { z } from 'zod'
-import { useDepartmentsSelect } from '~/common/context'
+import { useDepartmentsSelect } from '~/common'
 
 const FiltersSchema = z.object({
   department: z.string(),

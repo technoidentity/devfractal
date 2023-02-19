@@ -6,7 +6,7 @@ import React from 'react'
 import { z } from 'zod'
 import { sjson, useGet, useUsers } from '~/common'
 
-import { DepartmentMappingSchema, IntId } from '~/common/validators'
+import { DepartmentMappingSchema, IntId } from '~/common'
 import { DepartmentList, Filters } from '~/components/department'
 import {
   deleteDepartmentMapping,

@@ -2,7 +2,7 @@
 
 import type { InputsType } from '@srtp/remix-react'
 import type { FormSchema } from '@srtp/validator'
-import { useDepartmentsSelect } from '~/common/context'
+import { useDepartmentsSelect } from '~/common'
 
 export type SelectDepartmentProps<T extends FormSchema = FormSchema> = {
   Inputs: InputsType<T>

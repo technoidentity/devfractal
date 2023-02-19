@@ -1,4 +1,4 @@
-import type { GetPrismaListType } from '~/common/prismaTypes'
+import type { GetPrismaListType } from '~/common'
 import { prisma } from '~/db.server'
 
 export async function getBudgetAllocations() {

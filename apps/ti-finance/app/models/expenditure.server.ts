@@ -2,10 +2,7 @@ import type { Expenditure } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
-import type {
-  CreateExpenditureSchema,
-  ExpenditureSchema,
-} from '~/common/validators'
+import type { CreateExpenditureSchema, ExpenditureSchema } from '~/common'
 import { prisma } from '~/db.server'
 
 export async function getDepartmentExpenditures() {

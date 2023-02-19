@@ -1,7 +1,7 @@
 import { Group } from '@mantine/core'
 import { createInputsGroup } from '@srtp/remix-react'
 import { z } from 'zod'
-import { useUsersSelect } from '~/common/context'
+import { useUsersSelect } from '~/common'
 
 const FiltersSchema = z.object({
   fromDate: z.date(),

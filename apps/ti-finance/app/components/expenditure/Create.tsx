@@ -1,6 +1,6 @@
 import { Billable } from '@prisma/client'
 import type { Errors } from '@srtp/remix-core'
-import { CreateExpenditureSchema } from '~/common/validators'
+import { CreateExpenditureSchema } from '~/common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'
 

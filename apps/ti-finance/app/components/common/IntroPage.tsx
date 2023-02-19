@@ -9,7 +9,7 @@ import {
   Title,
 } from '@mantine/core'
 import { IconCheck } from '@tabler/icons-react'
-import { useStyles } from '~/components/common/useStyles'
+import { useStyles } from '~/components/common'
 import { FooterCentered } from '../app'
 
 const links = [

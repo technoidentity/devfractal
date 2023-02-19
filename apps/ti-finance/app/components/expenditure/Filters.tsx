@@ -2,7 +2,7 @@ import { Group } from '@mantine/core'
 import { Billable } from '@prisma/client'
 import { createInputsGroup } from '@srtp/remix-react'
 import { z } from 'zod'
-import { useDepartmentsSelect } from '~/common/context'
+import { useDepartmentsSelect } from '~/common'
 
 const FiltersSchema = z.object({
   fromDate: z.date(),

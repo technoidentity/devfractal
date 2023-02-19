@@ -1,7 +1,6 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
-import { sjson, useGet } from '~/common'
-import { CtcSchema, IntId } from '~/common/validators'
+import { CtcSchema, IntId, sjson, useGet } from '~/common'
 import { AddLink } from '~/components/common'
 import { CtcList } from '~/components/ctc/List'
 import { deleteCtc, getCtcList, updateCtc } from '~/models/ctc.server'

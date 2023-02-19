@@ -1,7 +1,7 @@
 import type { Ctc } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import { defaultError, fail, ok } from '@srtp/core'
-import type { CreateCtcSchema } from '~/common/validators'
+import type { CreateCtcSchema } from '~/common'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 

@@ -1,6 +1,6 @@
 import { DepartmentMappingSchema } from '~/common'
 import type { EditProps } from '../common'
-import { EditForm } from '../common/EditForm'
+import { EditForm } from '../common'
 import { FormFields } from './FormFields'
 
 export const EditDepartmentForm = ({

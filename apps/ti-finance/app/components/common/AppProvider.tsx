@@ -1,5 +1,5 @@
 import React from 'react'
-import { DepartmentsContext, UsersContext } from '~/common/context'
+import { DepartmentsContext, UsersContext } from '~/common'
 
 export type AppProviderProps = Readonly<{
   readonly departments: Readonly<{ id: number; name: string }>[]
