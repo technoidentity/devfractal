@@ -6,14 +6,13 @@ import { method, methods } from '@srtp/remix-node'
 import type { Column } from '@srtp/table'
 import React from 'react'
 import { z } from 'zod'
-import { useDepartments } from '~/common/context'
 import {
   ExpenditureSchema,
   IntId,
   ListExpenditureSchema,
-} from '~/common/validators'
-import { TotalSpendCard } from '~/components/common'
-import { Table } from '~/components/common/Table'
+  useDepartments,
+} from '~/common'
+import { Table, TotalSpendCard } from '~/components/common'
 import {
   DeleteExpenditure,
   EditExpenditureForm,
@@ -32,14 +31,6 @@ const columns: Column<ListExpenditureSchema>[] = [
   { accessor: 'date', label: 'Date' },
   { accessor: 'remarks', label: 'Remarks' },
 ]
-
-// const initialFilters: Filters<ListExpenditureSchema> = {
-//   category: '',
-//   amount: '',
-//   date: '',
-//   department: '',
-//   remarks: '',
-// }
 
 export async function loader(_: LoaderArgs) {
   const expenditures = await getDepartmentExpenditures()
@@ -72,7 +63,10 @@ const ExpenditurePage = () => {
     [expenditures],
   )
 
-  const totalCost = expList.reduce((acc, curr) => acc + curr.amount, 0)
+  const totalCost = React.useMemo(
+    () => expList.reduce((acc, curr) => acc + curr.amount, 0),
+    [expList],
+  )
 
   return (
     <>
@@ -98,23 +92,3 @@ const ExpenditurePage = () => {
 }
 
 export default ExpenditurePage
-
-// PUT: async args => {
-//   console.log(
-//     'action put received',
-//     Object.fromEntries(await args.request.clone().formData()),
-//   )
-//   return safeAction(
-//     ExpenditureSchema.extend({ departmentId: number }),
-//     args,
-//     async values => {
-//       const result = await updateExpenditure(values)
-//       return isFail(result) ? badRequest({ error: result.fail }) : json({})
-//     },
-//   )
-// },
-//     DELETE: args =>
-//       safeAction(z.object({ id: number }), args, async values => {
-//         const result = await deleteExpenditure(values.id)
-//         return isFail(result) ? badRequest({ error: result.fail }) : json({})
-//       }),
