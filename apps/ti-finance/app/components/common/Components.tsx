@@ -1,4 +1,8 @@
-import { Button, Center, Group, Text, Title } from '@mantine/core'
+/* eslint-disable jsx-a11y/anchor-has-content */
+import type { NavLinkProps } from '@mantine/core'
+import { Button, Center, Group, NavLink, Text, Title } from '@mantine/core'
+import type { NavLinkProps as RemixNavLinkProps } from '@remix-run/react'
+import { NavLink as RemixNavLink } from '@remix-run/react'
 import React from 'react'
 import { useOptionalUser } from '~/utils'
 
@@ -16,9 +20,10 @@ export const SubmitButton = () => (
   </Group>
 )
 
-export const FormErrors = ({ error }: { error: unknown }) => (
-  <Text color="red">{JSON.stringify(error) || ''}</Text>
-)
+export const FormErrors = ({ error }: { error?: unknown }) =>
+  error && Object.keys(error).length > 0 ? (
+    <Text color="red">{JSON.stringify(error) || ''}</Text>
+  ) : null
 
 export const SignedIn = ({ children }: { children: React.ReactNode }) => {
   const user = useOptionalUser()
@@ -36,4 +41,16 @@ export const SignedOut = ({ children }: { children: React.ReactNode }) => {
     return <>{children}</>
   }
   return null
+}
+
+export type CustomLinkProps = RemixNavLinkProps & {
+  uiProps?: NavLinkProps
+}
+
+export function CustomLink({ uiProps, ...props }: CustomLinkProps) {
+  return (
+    <RemixNavLink {...props}>
+      {({ isActive }) => <NavLink {...uiProps} active={isActive} />}
+    </RemixNavLink>
+  )
 }
