@@ -3,12 +3,13 @@ import { date, number, positive, schema, string } from '@srtp/validator'
 import { z } from 'zod'
 
 export const IntId = schema({ id: number() })
-type IntId = z.infer<typeof IntId>
+export type IntId = z.infer<typeof IntId>
 
 export const StrId = schema({ id: number() })
-type StrId = z.infer<typeof StrId>
+export type StrId = z.infer<typeof StrId>
 
-const BillableSchema = z.nativeEnum(Billable).default('billable')
+export const BillableSchema = z.nativeEnum(Billable).default('billable')
+export type BillableSchema = z.infer<typeof BillableSchema>
 
 export const CtcSchema = schema({
   id: number(),
