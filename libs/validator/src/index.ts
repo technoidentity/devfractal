@@ -2,50 +2,62 @@ import type { Try } from '@srtp/core'
 import { failure, success } from '@srtp/core'
 import { z } from 'zod'
 
-export const number = (defaultValue = 0) =>
-  z.coerce.number().default(defaultValue)
+export const number = (defaultValue?: number) =>
+  defaultValue ? z.coerce.number().default(defaultValue) : z.coerce.number()
 
-export const int = (defaultValue = 0) =>
-  z.coerce.number().int().default(defaultValue)
+export const int = (defaultValue?: number) =>
+  defaultValue
+    ? z.coerce.number().int().default(defaultValue)
+    : z.coerce.number().int()
 
-export const positive = (defaultValue = 0) =>
-  z.coerce.number().positive().default(defaultValue)
+export const positive = (defaultValue?: number) =>
+  defaultValue
+    ? z.coerce.number().positive().default(defaultValue)
+    : z.coerce.number().positive()
 
-export const nonnegative = (defaultValue = 0) =>
-  z.coerce.number().nonnegative().default(defaultValue)
+export const nonnegative = (defaultValue?: number) =>
+  defaultValue
+    ? z.coerce.number().nonnegative().default(defaultValue)
+    : z.coerce.number().nonnegative()
 
 export const negative = (defaultValue: number) =>
-  z.coerce.number().negative().default(defaultValue)
+  defaultValue
+    ? z.coerce.number().negative().default(defaultValue)
+    : z.coerce.number().negative()
 
 export const nonpositive = (defaultValue: number) =>
-  z.coerce.number().nonpositive().default(defaultValue)
+  defaultValue
+    ? z.coerce.number().nonpositive().default(defaultValue)
+    : z.coerce.number().nonpositive()
 
-export const string = (defaultValue = '') =>
-  z.coerce.string().default(defaultValue)
+export const string = (defaultValue?: string) =>
+  defaultValue ? z.coerce.string().default(defaultValue) : z.coerce.string()
 
-export const email = (defaultValue: string) =>
-  z.string().email().default(defaultValue)
+export const email = (defaultValue?: string) =>
+  defaultValue ? z.string().email().default(defaultValue) : z.string().email()
 
-export const url = (defaultValue: string) =>
-  z.string().url().default(defaultValue)
+export const url = (defaultValue?: string) =>
+  defaultValue ? z.string().url().default(defaultValue) : z.string().url()
 
-export const uuid = (defaultValue: string) =>
-  z.string().uuid().default(defaultValue)
+export const uuid = (defaultValue?: string) =>
+  defaultValue ? z.string().uuid().default(defaultValue) : z.string().uuid()
 
-export const cuid = (defaultValue: string) =>
-  z.string().cuid().default(defaultValue)
+export const cuid = (defaultValue?: string) =>
+  defaultValue ? z.string().cuid().default(defaultValue) : z.string().cuid()
 
-export const datetime = (defaultValue: string) =>
-  z.string().datetime().default(defaultValue)
+export const datetime = (defaultValue?: string) =>
+  defaultValue
+    ? z.string().datetime().default(defaultValue)
+    : z.string().datetime()
 
-export const boolean = (defaultValue = false) =>
-  z.coerce.boolean().default(defaultValue)
+export const boolean = (defaultValue?: boolean) =>
+  defaultValue ? z.coerce.boolean().default(defaultValue) : z.coerce.boolean()
 
 export const date = (defaultValue?: Date) =>
   defaultValue ? z.coerce.date().default(defaultValue) : z.coerce.date()
 
 export const bigint = (defaultValue = 0n) =>
-  z.coerce.bigint().default(defaultValue)
+  defaultValue ? z.coerce.bigint().default(defaultValue) : z.coerce.bigint()
 
 export const nil = z.union([z.null(), z.undefined()])
 
@@ -63,7 +75,8 @@ export type ZodPrimitive =
   | z.ZodNativeEnum<any>
 
 export type FieldSchema =
-  | z.ZodOptional<z.ZodDefault<ZodPrimitive> | ZodPrimitive>
+  | z.ZodOptional<z.ZodDefault<ZodPrimitive>>
+  | z.ZodOptional<ZodPrimitive>
   | z.ZodDefault<ZodPrimitive>
   | ZodPrimitive
 
