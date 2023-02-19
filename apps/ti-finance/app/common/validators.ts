@@ -66,6 +66,12 @@ export const DepartmentMappingSchema = schema({
 
 export type DepartmentMappingSchema = z.infer<typeof DepartmentMappingSchema>
 
+export const CreateMappingSchema = DepartmentMappingSchema.omit({
+  id: true,
+})
+
+export type CreateMappingSchema = z.infer<typeof CreateMappingSchema>
+
 export const CostSchema = schema({
   id: string(),
   department: string(),

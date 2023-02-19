@@ -1,8 +1,10 @@
 import type { Department, DepartmentMapping } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import { defaultError, fail, ok } from '@srtp/core'
-import type { DepartmentMappingSchema } from '~/common/validators'
-import type { CreateMappingSchema } from '~/components/department/specs'
+import type {
+  CreateMappingSchema,
+  DepartmentMappingSchema,
+} from '~/common/validators'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
