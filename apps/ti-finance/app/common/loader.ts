@@ -10,8 +10,12 @@ export function sjson<T>(data: T, init?: Parameters<typeof json>[1]) {
   return result as TypedResponse<SuperJSONResult> & { __srtp__type?: T }
 }
 
+type RT<T extends (...args: any) => any> = T extends (...args: any) => infer R
+  ? R
+  : unknown
+
 export function useGet<F extends (...args: any[]) => any>(): Required<
-  ReturnType<F>
+  Awaited<RT<F>>
 >['__srtp__type'] {
   const data = useLoaderData()
 
