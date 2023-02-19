@@ -3,7 +3,7 @@ import { method, methods } from '@srtp/remix-node'
 import { CtcSchema, IntId, sjson, useGet } from '~/common'
 import { AddLink } from '~/components/common'
 import { CtcList } from '~/components/ctc/List'
-import { deleteCtc, getCtcList, updateCtc } from '~/models/ctc.server'
+import { deleteCtc, getCtcList, updateCtc } from '~/models'
 
 export const action = (args: ActionArgs) =>
   methods(args, {

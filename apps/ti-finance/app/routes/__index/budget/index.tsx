@@ -5,8 +5,8 @@ import React from 'react'
 import { sjson, useGet } from '~/common'
 import { Filters } from '~/components/budget/Filters'
 import { Table, TotalSpendCard } from '~/components/common'
-import type { BudgetAllocation } from '~/models/budget.server'
-import { getBudgetAllocations } from '~/models/budget.server'
+import type { BudgetAllocation } from '~/models'
+import { getBudgetAllocations } from '~/models'
 
 const columns: Column<BudgetAllocation>[] = [
   { accessor: 'department', label: 'Department' },

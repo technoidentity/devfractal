@@ -4,8 +4,7 @@ import { handleResult, safeAction } from '@srtp/remix-node'
 import { CreateExpenditureSchema } from '~/common'
 import { useServerErrors } from '~/components/common'
 import { CreateExpenditureForm } from '~/components/expenditure'
-import { getDepartmentList } from '~/models/departmentMapping.server'
-import { createExpenditure } from '~/models/expenditure.server'
+import { createExpenditure, getDepartmentList } from '~/models'
 
 export async function loader() {
   return json({ departments: await getDepartmentList() })

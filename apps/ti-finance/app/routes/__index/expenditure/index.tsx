@@ -6,7 +6,7 @@ import {
   deleteExpenditure,
   getDepartmentExpenditures,
   updateExpenditure,
-} from '~/models/expenditure.server'
+} from '~/models'
 
 export async function loader(_: LoaderArgs) {
   const expenditures = await getDepartmentExpenditures()

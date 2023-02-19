@@ -3,7 +3,7 @@ import { handleResult, safeAction } from '@srtp/remix-node'
 import { CreateCtcSchema } from '~/common'
 import { useServerErrors } from '~/components/common'
 import { CreateCtcForm } from '~/components/ctc'
-import { createCtc } from '~/models/ctc.server'
+import { createCtc } from '~/models'
 
 export const action = (args: ActionArgs) =>
   safeAction(CreateCtcSchema, args, async values => {

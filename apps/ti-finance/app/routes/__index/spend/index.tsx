@@ -1,7 +1,7 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { sjson, useGet } from '~/common'
 import { PeopleSpendList } from '~/components/spend'
-import { getPeopleSpend } from '~/models/departmentMapping.server'
+import { getPeopleSpend } from '~/models'
 
 export async function loader(_: LoaderArgs) {
   const { personCost } = await getPeopleSpend()

@@ -4,7 +4,7 @@ import { sjson, useGet } from '~/common'
 import { CostFilters } from '~/components/department'
 
 import { DepartmentCostList } from '~/components/department/CostList'
-import { getDepartmentsCost } from '~/models/departmentMapping.server'
+import { getDepartmentsCost } from '~/models'
 
 export async function loader(_: LoaderArgs) {
   const { personCost, expenditures } = await getDepartmentsCost()

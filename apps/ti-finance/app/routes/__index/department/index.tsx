@@ -12,7 +12,7 @@ import {
   deleteDepartmentMapping,
   getDepartmentMappingsList,
   updateDepartmentMapping,
-} from '~/models/departmentMapping.server'
+} from '~/models'
 
 export async function loader(_: LoaderArgs) {
   const mappings = await getDepartmentMappingsList()

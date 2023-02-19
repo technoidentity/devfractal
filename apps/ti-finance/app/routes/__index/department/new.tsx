@@ -3,7 +3,7 @@ import { handleResult, safeAction } from '@srtp/remix-node'
 import { CreateMappingSchema } from '~/common'
 import { useServerErrors } from '~/components/common'
 import { CreateDepartmentForm } from '~/components/department'
-import { createDepartmentMapping } from '~/models/departmentMapping.server'
+import { createDepartmentMapping } from '~/models'
 
 export const action = (args: ActionArgs) =>
   safeAction(CreateMappingSchema, args, async values => {
