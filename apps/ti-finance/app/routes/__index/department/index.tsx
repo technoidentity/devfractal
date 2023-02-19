@@ -1,16 +1,14 @@
 import { Button, Group } from '@mantine/core'
-import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import { get, isFail } from '@srtp/core'
 import { badRequest, methods, safeAction } from '@srtp/remix-node'
 import React from 'react'
 import { z } from 'zod'
-import { useUsers } from '~/common/context'
+import { sjson, useGet, useUsers } from '~/common'
 
 import { DepartmentMappingSchema, IntId } from '~/common/validators'
-import { DepartmentList } from '~/components/department'
-import { Filters } from '~/components/department/Filters'
+import { DepartmentList, Filters } from '~/components/department'
 import {
   deleteDepartmentMapping,
   getDepartmentMappingsList,
@@ -20,7 +18,7 @@ import {
 export async function loader(_: LoaderArgs) {
   const mappings = await getDepartmentMappingsList()
 
-  return json({ mappings })
+  return sjson({ mappings })
 }
 
 export const action = (args: ActionArgs) =>
@@ -41,7 +39,7 @@ export const action = (args: ActionArgs) =>
   })
 
 const DepartmentsPage = () => {
-  const { mappings } = useLoaderData<typeof loader>()
+  const { mappings } = useGet<typeof loader>()
   const { usersMap } = useUsers()
 
   const mappingsList = React.useMemo(
