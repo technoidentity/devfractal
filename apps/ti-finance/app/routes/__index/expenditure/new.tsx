@@ -1,8 +1,6 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
-import { json, redirect } from '@remix-run/server-runtime'
-import { isFail } from '@srtp/core'
-import { badRequest, safeAction } from '@srtp/remix-node'
-import type { ExpenditureSchema } from '~/common/validators'
+import { json } from '@remix-run/server-runtime'
+import { handleResult, safeAction } from '@srtp/remix-node'
 import { CreateExpenditureSchema } from '~/common/validators'
 import { useServerErrors } from '~/components/common'
 import { CreateExpenditureForm } from '~/components/expenditure'
@@ -17,9 +15,7 @@ export const action = (args: ActionArgs) =>
   safeAction(CreateExpenditureSchema, args, async values => {
     const userResult = await createExpenditure(values)
 
-    return isFail(userResult)
-      ? badRequest<ExpenditureSchema>({ error: userResult.fail })
-      : redirect('/expenditure')
+    return handleResult(userResult, { redirectUrl: '/expenditure' })
   })
 
 const CreateExpenditurePage = () => {

@@ -1,8 +1,7 @@
 import { Button, Group } from '@mantine/core'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
-import { json } from '@remix-run/server-runtime'
-import { get, isFail } from '@srtp/core'
-import { badRequest, methods, safeAction } from '@srtp/remix-node'
+import { get } from '@srtp/core'
+import { handleResult, methods, safeAction } from '@srtp/remix-node'
 import React from 'react'
 import { z } from 'zod'
 import { sjson, useGet, useUsers } from '~/common'
@@ -27,14 +26,14 @@ export const action = (args: ActionArgs) =>
       console.log('PUT', await args.request.clone().formData())
       return safeAction(DepartmentMappingSchema, args, async values => {
         const result = await updateDepartmentMapping(values)
-        return isFail(result) ? badRequest({ error: result.fail }) : json({})
+        return handleResult(result)
       })
     },
 
     DELETE: args =>
       safeAction(IntId, args, async ({ id }) => {
         const result = await deleteDepartmentMapping(id)
-        return isFail(result) ? badRequest({ error: result.fail }) : json({})
+        return handleResult(result)
       }),
   })
 

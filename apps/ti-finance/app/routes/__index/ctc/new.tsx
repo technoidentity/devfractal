@@ -1,8 +1,5 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
-import { redirect } from '@remix-run/server-runtime'
-import { isFail } from '@srtp/core'
-import { badRequest, safeAction } from '@srtp/remix-node'
-import type { CtcSchema } from '~/common/validators'
+import { handleResult, safeAction } from '@srtp/remix-node'
 import { CreateCtcSchema } from '~/common/validators'
 import { useServerErrors } from '~/components/common'
 import { CreateCtcForm } from '~/components/ctc'
@@ -12,9 +9,7 @@ export const action = (args: ActionArgs) =>
   safeAction(CreateCtcSchema, args, async values => {
     const userResult = await createCtc(values)
 
-    return isFail(userResult)
-      ? badRequest<CtcSchema>({ error: userResult.fail })
-      : redirect('/ctc')
+    return handleResult(userResult, { redirectUrl: '/ctc' })
   })
 
 const AddCtcPage = () => {
