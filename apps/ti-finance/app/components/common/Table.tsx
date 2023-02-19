@@ -14,7 +14,7 @@ export function Table<Row extends RowBase>({
   ...props
 }: TableProps<Row>) {
   const tableState = useClientTable({
-    perPage,
+    perPage: perPage || 5,
     fieldPredicates,
     rowPredicate,
     initialPage,
