@@ -17,7 +17,7 @@ export type Column<T extends object> = {
 export type FieldSearch<T extends object> = Partial<Record<keyof T, string>>
 
 export interface TableViewProps<Row extends RowBase> extends TableProps {
-  columns: Column<Row>[]
+  columns: readonly Column<Row>[]
   rows: readonly Row[]
 
   sort: Sort<Row>
