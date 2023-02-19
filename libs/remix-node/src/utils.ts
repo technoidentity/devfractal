@@ -1,5 +1,5 @@
 import type { LoaderArgs } from '@remix-run/node'
-import { json } from '@remix-run/node'
+import { json, redirect } from '@remix-run/node'
 import type { Result } from '@srtp/core'
 import { isFail } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
@@ -11,6 +11,25 @@ type Request = LoaderArgs['request']
 
 export function badRequest<T extends object>(data: Errors<T>) {
   return json(data, { status: 400 })
+}
+
+export function badRequestFromResult<T extends object>(
+  result: Result<string, T>,
+) {
+  invariant(isFail(result), 'badRequestFromResult expects a fail result')
+
+  return badRequest<T>({ error: result.fail })
+}
+
+export function handleResult<T>(
+  result: Result<string, T>,
+  options?: { redirectUrl: string },
+) {
+  return isFail(result)
+    ? badRequest({ error: result.fail })
+    : options === undefined
+    ? json({})
+    : redirect(options.redirectUrl)
 }
 
 export function getSchema<Spec extends z.ZodRawShape | z.ZodTypeAny>(
@@ -82,10 +101,6 @@ export function safeQuery<Spec extends z.ZodRawShape | z.ZodTypeAny>(
   return getSchema(schema).parse(
     Object.fromEntries(new URL(request.url).searchParams),
   )
-}
-
-export function handleResult<T>(r: Result<string, T>) {
-  return isFail(r) ? badRequest({ error: r.fail }) : json({})
 }
 
 export function safeResultAction<Spec extends z.AnyZodObject, R>(
