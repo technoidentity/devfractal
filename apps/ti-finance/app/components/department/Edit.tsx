@@ -1,23 +1,18 @@
-import type { Errors } from '@srtp/remix-core'
-import { DepartmentMappingSchema } from '~/common/validators'
+import { DepartmentMappingSchema } from '~/common'
+import type { EditProps } from '../common'
 import { EditForm } from '../common/EditForm'
 import { FormFields } from './FormFields'
 
-export type EditDepartmentFormProps = Readonly<{
-  department: DepartmentMappingSchema
-  serverErrors?: Errors<DepartmentMappingSchema>
-}>
-
 export const EditDepartmentForm = ({
-  department,
+  initialValues,
   serverErrors,
-}: EditDepartmentFormProps) => {
+}: EditProps<DepartmentMappingSchema>) => {
   return (
     <EditForm
       FormFields={FormFields}
       serverErrors={serverErrors}
       title="Edit Department"
-      initialValues={department}
+      initialValues={initialValues}
       spec={DepartmentMappingSchema}
     />
   )

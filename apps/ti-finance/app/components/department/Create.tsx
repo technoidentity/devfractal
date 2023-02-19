@@ -1,21 +1,21 @@
 import { Billable } from '@prisma/client'
-import type { Errors } from '@srtp/remix-core'
+import { CreateMappingSchema } from '~/common'
+import type { CreateProps } from '../common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'
-import { CreateMappingSchema } from './specs'
 
 const initialValues: CreateMappingSchema = {
   tiId: '',
   departmentId: -1111,
   ctc: 0,
   category: Billable.billable,
-  fromDate: new Date('12-06-21'),
-  toDate: new Date('12-06-22'),
+  fromDate: new Date(),
+  toDate: new Date(),
 }
 
-export type CreateDepartmentProps = Errors<CreateMappingSchema>
-
-export const CreateDepartmentForm = (serverErrors: CreateDepartmentProps) => {
+export const CreateDepartmentForm = (
+  serverErrors: CreateProps<CreateMappingSchema>,
+) => {
   return (
     <CreateForm
       spec={CreateMappingSchema}

@@ -1,5 +1,5 @@
-import type { Errors } from '@srtp/remix-core'
 import { CreateCtcSchema } from '~/common/validators'
+import type { CreateProps } from '../common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'
 
@@ -10,7 +10,7 @@ const initialValues = {
   toDate: new Date(),
 }
 
-export const CreateCtcForm = (serverErrors: Errors<CreateCtcSchema>) => {
+export const CreateCtcForm = (serverErrors: CreateProps<CreateCtcSchema>) => {
   return (
     <CreateForm
       FormFields={FormFields}

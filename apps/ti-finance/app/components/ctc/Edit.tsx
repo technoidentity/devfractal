@@ -1,22 +1,17 @@
-import type { Errors } from '@srtp/remix-core'
-import { CtcSchema } from '~/common/validators'
-import { EditForm } from '../common/EditForm'
+import { CtcSchema } from '~/common'
+import type { EditProps } from '../common'
+import { EditForm } from '../common'
 import { FormFields } from './FormFields'
-
-export type EditCtcFormProps = Readonly<{
-  initialValues: CtcSchema
-  serverErrors?: Errors<CtcSchema>
-}>
 
 export const EditCtcForm = ({
   initialValues,
   serverErrors,
-}: EditCtcFormProps) => {
+}: EditProps<CtcSchema>) => {
   return (
     <EditForm
       FormFields={FormFields}
       serverErrors={serverErrors}
-      title="Edit CTC"
+      title="Edit CTC!"
       initialValues={initialValues}
       spec={CtcSchema}
     />

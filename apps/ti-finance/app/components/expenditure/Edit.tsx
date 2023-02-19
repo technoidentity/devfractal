@@ -1,12 +1,9 @@
-import type { Errors } from '@srtp/remix-core'
 import { ExpenditureSchema } from '~/common/validators'
+import type { EditProps } from '../common'
 import { EditForm } from '../common/EditForm'
 import { FormFields } from './FormFields'
 
-export type EditExpenditureFormProps = Readonly<{
-  initialValues: ExpenditureSchema
-  serverErrors?: Errors<ExpenditureSchema>
-}>
+export type EditExpenditureFormProps = EditProps<ExpenditureSchema>
 
 export const EditExpenditureForm = ({
   initialValues,
