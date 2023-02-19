@@ -1,6 +1,6 @@
 import { Text, Progress, Card } from '@mantine/core'
 
-type TotalSpendCardProps = {
+export type TotalSpendCardProps = {
   label: string
   cost: number
 }

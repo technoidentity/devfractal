@@ -50,10 +50,9 @@ export async function updateDepartmentMapping(
 ): Result {
   try {
     const result = await prisma.departmentMapping.update({
-      where: { id: data.id },
       data,
+      where: { id: data.id },
     })
-    console.log({ result })
     return ok(result)
   } catch (e) {
     return fail(defaultError(e))
@@ -76,7 +75,10 @@ export async function getDepartmentsCost() {
       by: ['departmentId'],
       _sum: { amount: true },
     })
-  ).map(({ departmentId, _sum }) => ({ departmentId, total: _sum.amount ?? 0 }))
+  ).map(({ departmentId, _sum }) => ({
+    departmentId,
+    total: _sum.amount ?? 0,
+  }))
 
   return { personCost, expenditures }
 }

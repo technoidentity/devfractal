@@ -27,16 +27,6 @@ export async function getDepartmentExpenditures() {
   }))
 }
 
-// export async function getDepartments() {
-//   return await prisma.department.findMany({
-//     select: { id: true, department: true },
-//   })
-// }
-
-// export type DepartmentExpenditure = GetPrismaListType<
-//   typeof getDepartmentExpenditures
-// >
-
 export async function deleteExpenditure(
   id: Expenditure['id'],
 ): Promise<Result<string, Expenditure>> {

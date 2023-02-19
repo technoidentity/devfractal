@@ -2,7 +2,7 @@ import { Button, Group } from '@mantine/core'
 import { useLoaderData } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
-import { isFail, notNil } from '@srtp/core'
+import { get, isFail } from '@srtp/core'
 import { badRequest, methods, safeAction } from '@srtp/remix-node'
 import React from 'react'
 import { z } from 'zod'
@@ -49,7 +49,7 @@ const DepartmentsPage = () => {
       z
         .array(DepartmentMappingSchema)
         .parse(mappings)
-        .map(d => ({ ...d, username: notNil(usersMap.get(d.tiId)?.username) })),
+        .map(d => ({ ...d, username: get(usersMap, d.tiId).username })),
     [mappings, usersMap],
   )
 
@@ -61,6 +61,7 @@ const DepartmentsPage = () => {
         </Button>
         <Filters />
       </Group>
+
       <DepartmentList departmentList={mappingsList} />
     </>
   )

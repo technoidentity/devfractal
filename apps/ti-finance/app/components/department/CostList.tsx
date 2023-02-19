@@ -16,13 +16,6 @@ const columns: Column<Cost>[] = [
   { accessor: 'totalCost', label: 'Total Cost' },
 ]
 
-// const initialFilters: Filters<Cost> = {
-//   id: '',
-//   peopleCost: '',
-//   otherExpenditures: '',
-//   totalCost: '',
-// }
-
 export type DepartmentCostListProps = Readonly<{
   costList: Cost[]
 }>
@@ -31,7 +24,7 @@ export const DepartmentCostList = ({ costList }: DepartmentCostListProps) => {
   return (
     <>
       <CostFilters />
-      <Table striped rows={costList} columns={columns} perPage={3} />
+      <Table rows={costList} columns={columns} />
     </>
   )
 }

@@ -27,6 +27,7 @@ export const Filters = () => {
       <Group>
         <Inputs.DatePicker name="fromDate" size="xs" label="From Date" />
         <Inputs.DatePicker name="toDate" size="xs" label="To Date" />
+
         <Inputs.Select
           name="category"
           label="Category"

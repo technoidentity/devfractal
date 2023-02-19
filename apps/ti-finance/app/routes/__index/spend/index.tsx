@@ -81,7 +81,7 @@ const PeopleSpendPage = () => {
 
       <Filters />
 
-      <Table striped rows={rows} columns={columns} />
+      <Table rows={rows} columns={columns} />
     </>
   )
 }

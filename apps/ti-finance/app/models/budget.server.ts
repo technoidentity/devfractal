@@ -16,9 +16,9 @@ export async function getBudgetAllocations() {
     id: budget.id,
     category: budget.category,
     amount: budget.amount,
-    financialYear: budget.financialYear.getFullYear(),
     department: budget.Department.name,
     departmentId: budget.Department.id,
+    financialYear: budget.financialYear.getFullYear(),
   }))
 }
 
