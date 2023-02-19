@@ -1,18 +1,11 @@
-import { Group, Select } from '@mantine/core'
-import { DatePicker } from '@mantine/dates'
 import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import { mergeWithToMap } from '@srtp/core'
 import type { Column } from '@srtp/table'
 import React from 'react'
-import {
-  useDepartmentName,
-  useUserName,
-  useUsersSelect,
-} from '~/common/context'
-import { TotalSpendCard } from '~/components/common'
-import { Table } from '~/components/common/Table'
+import { useDepartmentName, useUserName } from '~/common'
+import { Table, TotalSpendCard } from '~/components/common'
 import { Filters } from '~/components/spend'
 import { getPeopleSpend } from '~/models/departmentMapping.server'
 
@@ -36,15 +29,16 @@ const columns: Column<PeopleSpendSchema>[] = [
   { accessor: 'cost', label: 'Cost' },
 ]
 
-const PeopleSpendPage = () => {
-  console.log('PeopleSpendPage')
+const useSpendPage = () => {
   const { personCost } = useLoaderData<typeof loader>()
+
   const getUserName = useUserName()
   const getDepartmentName = useDepartmentName()
 
   type Spendings = Omit<PeopleSpendSchema, 'departments'> & {
     departments: string[]
   }
+
   const rows = React.useMemo(
     () =>
       Array.from(
@@ -70,12 +64,23 @@ const PeopleSpendPage = () => {
     [personCost, getUserName, getDepartmentName],
   )
 
-  const totalCost = rows.reduce((acc, e) => acc + e.cost, 0)
+  const totalCost = React.useMemo(
+    () => rows.reduce((acc, e) => acc + e.cost, 0),
+    [rows],
+  )
+
+  return { rows, totalCost }
+}
+
+const PeopleSpendPage = () => {
+  const { rows, totalCost } = useSpendPage()
 
   return (
     <>
       <TotalSpendCard cost={totalCost} label="Total Spend" />
+
       <Filters />
+
       <Table striped rows={rows} columns={columns} />
     </>
   )
