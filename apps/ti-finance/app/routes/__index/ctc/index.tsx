@@ -1,9 +1,7 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
-import { json } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
-import { z } from 'zod'
-import { CtcSchema, IntId, ListCtcSchema } from '~/common/validators'
-import { useSafeLoaderData } from '~/components/common'
+import { sjson, useGet } from '~/common'
+import { CtcSchema, IntId } from '~/common/validators'
 import { CtcList } from '~/components/ctc/List'
 import { deleteCtc, getCtcList, updateCtc } from '~/models/ctc.server'
 
@@ -16,13 +14,11 @@ export const action = (args: ActionArgs) =>
 export async function loader() {
   const ctcList = await getCtcList()
 
-  return json({ ctcList })
+  return sjson(ctcList)
 }
 
-const spec = z.object({ ctcList: z.array(ListCtcSchema) })
-
 const CtcPage = () => {
-  const { ctcList } = useSafeLoaderData(spec)
+  const ctcList = useGet<typeof loader>()
 
   return <CtcList ctcList={ctcList} />
 }
