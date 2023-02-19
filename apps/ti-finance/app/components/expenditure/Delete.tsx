@@ -1,13 +1,3 @@
-import { Button } from '@mantine/core'
-import { Form } from '@remix-run/react'
+import { DeleteForm } from '../common'
 
-export type DeleteExpenditureProps = Readonly<{ id: number }>
-
-export const DeleteExpenditure = ({ id }: DeleteExpenditureProps) => {
-  return (
-    <Form method="delete">
-      <input type="hidden" name="id" value={id} />
-      <Button type="submit">Delete</Button>
-    </Form>
-  )
-}
+export const DeleteExpenditure = DeleteForm<number>
