@@ -1,7 +1,7 @@
 import { Radio } from '@mantine/core'
 import type { InputsType } from '@srtp/remix-react'
 import type { FormSchema } from '@srtp/validator'
-import { DepartmentSelect, UserSelect } from '../common'
+import { SelectDepartment, SelectUser } from '../common'
 
 export type CreateFormFieldsProps<T extends FormSchema> = Readonly<{
   Inputs: InputsType<T>
@@ -12,8 +12,8 @@ export function FormFields<T extends FormSchema>({
 }: CreateFormFieldsProps<T>) {
   return (
     <>
-      <UserSelect Inputs={Inputs} name="tiId" />
-      <DepartmentSelect Inputs={Inputs} name="departmentId" />
+      <SelectUser Inputs={Inputs} name="tiId" />
+      <SelectDepartment Inputs={Inputs} name="departmentId" />
 
       <Inputs.Number
         label="CTC"
