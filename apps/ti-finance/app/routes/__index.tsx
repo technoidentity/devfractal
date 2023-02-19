@@ -1,6 +1,5 @@
-import { useLoaderData } from '@remix-run/react'
 import type { LoaderArgs } from '@remix-run/server-runtime'
-import { json } from '@remix-run/server-runtime'
+import { sjson, useGet } from '~/common'
 import {
   AppIntroPage,
   AppProvider,
@@ -19,11 +18,11 @@ export async function loader(_: LoaderArgs) {
     select: { id: true, name: true },
   })
 
-  return json({ users, departments })
+  return sjson({ users, departments })
 }
 
 export default function Index() {
-  const { departments, users } = useLoaderData<typeof loader>()
+  const { departments, users } = useGet<typeof loader>()
 
   return (
     <>
