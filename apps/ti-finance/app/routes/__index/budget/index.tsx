@@ -1,12 +1,16 @@
 import { Group } from '@mantine/core'
 import type { LoaderArgs } from '@remix-run/server-runtime'
+import { isEmpty } from '@srtp/core'
+import { safeQuery } from '@srtp/remix-node'
 import type { Column } from '@srtp/table'
 import React from 'react'
 import { sjson, useGet } from '~/common'
-import { Filters } from '~/components/budget/Filters'
-import { Table, TotalSpendCard } from '~/components/common'
+import type { FiltersValues } from '~/components/budget'
+import { BudgetFiltersSpec, BudgetFilters } from '~/components/budget'
+import { Table, TotalSpendCard, useSearch } from '~/components/common'
 import type { BudgetAllocation } from '~/models'
 import { getBudgetAllocations } from '~/models'
+import dayjs from 'dayjs'
 
 const columns: Column<BudgetAllocation>[] = [
   { accessor: 'department', label: 'Department' },
@@ -15,9 +19,18 @@ const columns: Column<BudgetAllocation>[] = [
   { accessor: 'financialYear', label: 'Financial_year' },
 ]
 
-export async function loader(_: LoaderArgs) {
-  const budgets = await getBudgetAllocations()
+const thisYear = (year: number) => {
+  const d = dayjs(new Date(year, 1, 1))
+  return { gte: d.startOf('year').toDate(), lte: d.endOf('year').toDate() }
+}
 
+export async function loader(args: LoaderArgs) {
+  const where = safeQuery(BudgetFiltersSpec.partial(), args.request)
+  const financialYear = where.financialYear
+    ? thisYear(where.financialYear)
+    : undefined
+
+  const budgets = await getBudgetAllocations({ ...where, financialYear })
   return sjson({ budgets })
 }
 
@@ -29,11 +42,22 @@ const BudgetPage = () => {
     [budgets],
   )
 
+  const [, set] = useSearch(BudgetFiltersSpec)
+
+  const handleFilterChange = React.useCallback(
+    (values: FiltersValues) => {
+      if (!isEmpty(values)) {
+        set(values)
+      }
+    },
+    [set],
+  )
+
   return (
     <>
       <Group position="left" m="md">
         <TotalSpendCard cost={totalCost} label="Total Amount" />
-        <Filters />
+        <BudgetFilters onFilterChange={handleFilterChange} />
       </Group>
 
       <Table rows={budgets} columns={columns} />
