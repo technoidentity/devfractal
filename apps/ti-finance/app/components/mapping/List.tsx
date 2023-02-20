@@ -3,9 +3,9 @@ import { MappingSpec } from '~/common'
 import { CrudTable } from '../common'
 import { FormFields } from './FormFields'
 
-type DepartmentList = MappingSpec & { username: string }
+type MappingList = MappingSpec & { username: string }
 
-const columns: Column<DepartmentList>[] = [
+const columns: Column<MappingList>[] = [
   { accessor: 'tiId', label: 'TI_ID' },
   { accessor: 'username', label: 'Username' },
   { accessor: 'ctc', label: 'CTC' },
@@ -15,11 +15,11 @@ const columns: Column<DepartmentList>[] = [
   { accessor: 'category', label: 'Billable' },
 ]
 
-export type DepartmentListProps = Readonly<{
-  departmentList: readonly DepartmentList[]
+export type MappingListProps = Readonly<{
+  departmentList: readonly MappingList[]
 }>
 
-export const DepartmentList = ({ departmentList }: DepartmentListProps) => (
+export const MappingList = ({ departmentList }: MappingListProps) => (
   <>
     <CrudTable
       spec={MappingSpec}

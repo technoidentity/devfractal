@@ -9,8 +9,12 @@ export async function getDepartmentList() {
   return await prisma.department.findMany()
 }
 
-export async function getDepartmentMappingsList() {
-  return await prisma.departmentMapping.findMany()
+export async function getDepartmentMappingsList(
+  where?: Prisma.DepartmentMappingFindManyArgs['where'],
+) {
+  return await prisma.departmentMapping.findMany({
+    where,
+  })
 }
 
 type Result = DbResult<DepartmentMapping>
@@ -78,11 +82,15 @@ export async function getDepartmentsCost() {
   return { personCost, expenditures }
 }
 
-export async function getPeopleSpend() {
+export async function getPeopleSpend(
+  where?: Prisma.DepartmentMappingWhereInput,
+) {
+  console.log({ where })
   const personCost = (
     await prisma.departmentMapping.groupBy({
       by: ['tiId', 'departmentId'],
       _sum: { ctc: true },
+      where,
     })
   ).map(p => ({
     tiId: p.tiId,
