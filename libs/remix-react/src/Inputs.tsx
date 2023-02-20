@@ -36,16 +36,24 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core'
-import type { DatePickerProps, TimeInputProps } from '@mantine/dates'
-import { DatePicker as MantineDatePicker, TimeInput } from '@mantine/dates'
-import type { FormSchema, GetRawShape } from '@srtp/validator'
+import type {
+  DatePickerProps,
+  DateRangePickerProps,
+  TimeInputProps,
+} from '@mantine/dates'
+import {
+  DatePicker as MantineDatePicker,
+  DateRangePicker as MantineDateRangePicker,
+  TimeInput,
+} from '@mantine/dates'
+import type { FormSpec, GetRawShape } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
 import { z } from 'zod'
 import { useFormContext } from './FormContext'
 
 type Named<T, Name = string> = T & Readonly<{ name: Name }>
 
-export const Str = <Spec extends FormSchema>(props: Named<TextInputProps>) => {
+export const Str = <Spec extends FormSpec>(props: Named<TextInputProps>) => {
   const { form, errMsg, spec } = useFormContext<Spec>()
 
   return (
@@ -256,6 +264,18 @@ export const DatePicker = (props: Named<DatePickerProps>) => {
   )
 }
 
+export const DateRangePicker = (props: Named<DateRangePickerProps>) => {
+  const { form, errMsg, spec } = useFormContext()
+
+  return (
+    <MantineDateRangePicker
+      withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
+      {...props}
+      {...form.getInputProps(props.name)}
+      error={errMsg?.(props.name)}
+    />
+  )
+}
 export const Autocomplete = (props: Named<AutocompleteProps>) => {
   const { form, errMsg, spec } = useFormContext()
 
@@ -326,15 +346,17 @@ export const Action = ({ action, ...props }: ActionProps) => {
   return <Input {...props} type="hidden" name="_action" value={action} />
 }
 
-type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
+type EnumKeys<Spec extends FormSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodEnum<any> | z.ZodNativeEnum<any>
 >
-type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
+type EnumArrayKeys<Spec extends FormSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
-export type InputsType<Spec extends FormSchema> = {
+
+// handle partials/z.Optional too
+export type InputsType<Spec extends FormSpec> = {
   Str: (
     props: Named<
       TextInputProps,
@@ -399,6 +421,12 @@ export type InputsType<Spec extends FormSchema> = {
       ConditionalKeys<GetRawShape<Spec>, z.ZodDate>
     >,
   ) => JSX.Element
+  DateRangePicker: (
+    props: Named<
+      DateRangePickerProps,
+      ConditionalKeys<GetRawShape<Spec>, z.ZodArray<z.ZodDate, 'many'>>
+    >,
+  ) => JSX.Element
   Autocomplete: (
     props: Named<
       AutocompleteProps,
@@ -451,6 +479,7 @@ export const Inputs: InputsType<any> = {
   Color,
   Content,
   DatePicker,
+  DateRangePicker,
   DynamicEnumList,
   DynamicSelect,
   Enum,
