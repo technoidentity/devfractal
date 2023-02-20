@@ -1,9 +1,9 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import React from 'react'
 import { sjson, useGet } from '~/common'
-import { CostFilters } from '~/components/department'
+import { CostFilters } from '~/components/mapping'
 
-import { DepartmentCostList } from '~/components/department/CostList'
+import { DepartmentCostList } from '~/components/mapping/CostList'
 import { getDepartmentsCost } from '~/models'
 
 export async function loader(_: LoaderArgs) {

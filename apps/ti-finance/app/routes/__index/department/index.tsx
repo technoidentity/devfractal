@@ -7,7 +7,7 @@ import { z } from 'zod'
 import { sjson, useGet, useUsers } from '~/common'
 
 import { MappingSpec, IntId } from '~/common'
-import { DepartmentList, Filters } from '~/components/department'
+import { DepartmentList, Filters } from '~/components/mapping'
 import {
   deleteDepartmentMapping,
   getDepartmentMappingsList,
