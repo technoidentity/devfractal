@@ -67,7 +67,7 @@ export function TableView<T extends { id: number | string } & object>({
           ) : (
             <tr>
               {/* @TODO:Take length from spec */}
-              <td colSpan={Object.keys(rows[0]).length}>
+              <td colSpan={Object.keys(columns).length}>
                 <Text weight={500} align="center">
                   Nothing found
                 </Text>
