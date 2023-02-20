@@ -1,13 +1,13 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
-import { CtcSchema, IntId, sjson, useGet } from '~/common'
+import { CtcSpec, IntId, sjson, useGet } from '~/common'
 import { AddLink } from '~/components/common'
 import { CtcList } from '~/components/ctc/List'
 import { deleteCtc, getCtcList, updateCtc } from '~/models'
 
 export const action = (args: ActionArgs) =>
   methods(args, {
-    PUT: method(CtcSchema, updateCtc),
+    PUT: method(CtcSpec, updateCtc),
     DELETE: method(IntId, ({ id }) => deleteCtc(id)),
   })
 

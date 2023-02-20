@@ -1,4 +1,4 @@
-import { CreateCtcSchema } from '~/common'
+import { CreateCtcSpec } from '~/common'
 import type { CreateProps } from '../common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'
@@ -10,14 +10,14 @@ const initialValues = {
   toDate: new Date(),
 }
 
-export const CreateCtcForm = (serverErrors: CreateProps<CreateCtcSchema>) => {
+export const CreateCtcForm = (serverErrors: CreateProps<CreateCtcSpec>) => {
   return (
     <CreateForm
       FormFields={FormFields}
       serverErrors={serverErrors}
       title="Add Employee CTC!"
       initialValues={initialValues}
-      spec={CreateCtcSchema}
+      spec={CreateCtcSpec}
     />
   )
 }

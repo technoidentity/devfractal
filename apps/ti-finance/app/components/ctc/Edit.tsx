@@ -1,4 +1,4 @@
-import { CtcSchema } from '~/common'
+import { CtcSpec } from '~/common'
 import type { EditProps } from '../common'
 import { EditForm } from '../common'
 import { FormFields } from './FormFields'
@@ -6,14 +6,14 @@ import { FormFields } from './FormFields'
 export const EditCtcForm = ({
   initialValues,
   serverErrors,
-}: EditProps<CtcSchema>) => {
+}: EditProps<CtcSpec>) => {
   return (
     <EditForm
       FormFields={FormFields}
       serverErrors={serverErrors}
       title="Edit CTC!"
       initialValues={initialValues}
-      spec={CtcSchema}
+      spec={CtcSpec}
     />
   )
 }

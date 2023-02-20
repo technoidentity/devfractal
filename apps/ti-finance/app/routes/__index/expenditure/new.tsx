@@ -1,7 +1,7 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import { handleResult, safeAction } from '@srtp/remix-node'
-import { CreateExpenditureSchema } from '~/common'
+import { CreateExpenditureSpec } from '~/common'
 import { useServerErrors } from '~/components/common'
 import { CreateExpenditureForm } from '~/components/expenditure'
 import { createExpenditure, getDepartmentList } from '~/models'
@@ -11,14 +11,14 @@ export async function loader() {
 }
 
 export const action = (args: ActionArgs) =>
-  safeAction(CreateExpenditureSchema, args, async values => {
+  safeAction(CreateExpenditureSpec, args, async values => {
     const userResult = await createExpenditure(values)
 
     return handleResult(userResult, { redirectUrl: '/expenditure' })
   })
 
 const CreateExpenditurePage = () => {
-  const actionData = useServerErrors(CreateExpenditureSchema)
+  const actionData = useServerErrors(CreateExpenditureSpec)
 
   return <CreateExpenditureForm {...actionData} />
 }

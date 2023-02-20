@@ -1,12 +1,12 @@
 import type { Column, RowBase } from '@srtp/table'
-import type { FormSchema } from '@srtp/validator'
+import type { FormSpec } from '@srtp/validator'
 import type { z } from 'zod'
 import { useActions } from './createActions'
 import type { EditFormProps } from './EditForm'
 import { Table } from './Table'
 
 export type CrudTableProps<
-  Spec extends FormSchema & z.AnyZodObject,
+  Spec extends FormSpec & z.AnyZodObject,
   Row extends RowBase,
 > = {
   rows: readonly Row[]
@@ -17,7 +17,7 @@ export type CrudTableProps<
 }
 
 export function CrudTable<
-  Spec extends FormSchema & z.AnyZodObject,
+  Spec extends FormSpec & z.AnyZodObject,
   Row extends RowBase,
 >(props: CrudTableProps<Spec, Row>) {
   const Actions = useActions(props.spec, props.FormFields, props.editTitle)

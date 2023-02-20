@@ -1,9 +1,9 @@
-import { ExpenditureSchema } from '~/common'
+import { ExpenditureSpec } from '~/common'
 import type { EditProps } from '../common'
 import { EditForm } from '../common'
 import { FormFields } from './FormFields'
 
-export type EditExpenditureFormProps = EditProps<ExpenditureSchema>
+export type EditExpenditureFormProps = EditProps<ExpenditureSpec>
 
 export const EditExpenditureForm = ({
   initialValues,
@@ -11,7 +11,7 @@ export const EditExpenditureForm = ({
 }: EditExpenditureFormProps) => {
   return (
     <EditForm
-      spec={ExpenditureSchema}
+      spec={ExpenditureSpec}
       FormFields={FormFields}
       title="Modify Department Expenditure!"
       initialValues={initialValues}

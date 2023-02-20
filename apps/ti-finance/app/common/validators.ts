@@ -1,17 +1,17 @@
 import { Billable } from '@prisma/client'
-import { date, number, positive, schema, string } from '@srtp/validator'
+import { date, number, positive, spec, string } from '@srtp/validator'
 import { z } from 'zod'
 
-export const IntId = schema({ id: number() })
+export const IntId = spec({ id: number() })
 export type IntId = z.infer<typeof IntId>
 
-export const StrId = schema({ id: number() })
+export const StrId = spec({ id: number() })
 export type StrId = z.infer<typeof StrId>
 
-export const BillableSchema = z.nativeEnum(Billable).default('billable')
-export type BillableSchema = z.infer<typeof BillableSchema>
+export const BillableSpec = z.nativeEnum(Billable).default('billable')
+export type BillableSpec = z.infer<typeof BillableSpec>
 
-export const CtcSchema = schema({
+export const CtcSpec = spec({
   id: number(),
   tiId: string(),
   ctc: positive(),
@@ -19,60 +19,60 @@ export const CtcSchema = schema({
   toDate: date(),
 })
 
-export type CtcSchema = z.infer<typeof CtcSchema>
+export type CtcSpec = z.infer<typeof CtcSpec>
 
-export const CreateCtcSchema = CtcSchema.omit({ id: true })
+export const CreateCtcSpec = CtcSpec.omit({ id: true })
 
-export type CreateCtcSchema = z.infer<typeof CreateCtcSchema>
+export type CreateCtcSpec = z.infer<typeof CreateCtcSpec>
 
-export const BudgetSchema = schema({
+export const BudgetSpec = spec({
   id: number(),
   departmentId: number(),
-  category: BillableSchema,
+  category: BillableSpec,
   amount: positive(),
   financialYear: date(),
 })
 
 // function specs()
 
-export type BudgetSchema = z.infer<typeof BudgetSchema>
+export type BudgetSpec = z.infer<typeof BudgetSpec>
 
-export const ExpenditureSchema = schema({
+export const ExpenditureSpec = spec({
   id: number(),
   amount: positive(),
   date: date(),
-  category: BillableSchema,
+  category: BillableSpec,
   remarks: string(),
   departmentId: number(),
 })
 
-export type ExpenditureSchema = z.infer<typeof ExpenditureSchema>
+export type ExpenditureSpec = z.infer<typeof ExpenditureSpec>
 
-export const CreateExpenditureSchema = ExpenditureSchema.omit({
+export const CreateExpenditureSpec = ExpenditureSpec.omit({
   id: true,
 })
 
-export type CreateExpenditureSchema = z.infer<typeof CreateExpenditureSchema>
+export type CreateExpenditureSpec = z.infer<typeof CreateExpenditureSpec>
 
-export const DepartmentMappingSchema = schema({
+export const MappingSpec = spec({
   id: number(),
   tiId: string(),
   ctc: positive(),
   departmentId: number(),
   fromDate: date(),
   toDate: date(),
-  category: BillableSchema,
+  category: BillableSpec,
 })
 
-export type DepartmentMappingSchema = z.infer<typeof DepartmentMappingSchema>
+export type MappingSpec = z.infer<typeof MappingSpec>
 
-export const CreateMappingSchema = DepartmentMappingSchema.omit({
+export const CreateMappingSpec = MappingSpec.omit({
   id: true,
 })
 
-export type CreateMappingSchema = z.infer<typeof CreateMappingSchema>
+export type CreateMappingSpec = z.infer<typeof CreateMappingSpec>
 
-export const CostSchema = schema({
+export const CostSpec = spec({
   id: string(),
   department: string(),
   peopleCost: number(),
@@ -80,13 +80,13 @@ export const CostSchema = schema({
   totalCost: number(),
 })
 
-export type CostSchema = z.infer<typeof CostSchema>
+export type CostSpec = z.infer<typeof CostSpec>
 
-export const PeopleSpendSchema = z.object({
+export const SpendSpec = z.object({
   tiId: z.string(),
   username: z.string(),
   cost: z.number().int().positive(),
   department: z.string(),
 })
 
-export type PeopleSpendSchema = z.infer<typeof PeopleSpendSchema>
+export type SpendSpec = z.infer<typeof SpendSpec>

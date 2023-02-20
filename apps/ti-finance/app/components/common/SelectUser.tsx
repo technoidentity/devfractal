@@ -1,15 +1,15 @@
 // @TODO: implement useInputs? or export useFormContext?
 
 import type { InputsType } from '@srtp/remix-react'
-import type { FormSchema } from '@srtp/validator'
+import type { FormSpec } from '@srtp/validator'
 import { useUsersSelect } from '~/common'
 
-export type SelectUserProps<T extends FormSchema = FormSchema> = {
+export type SelectUserProps<T extends FormSpec = FormSpec> = {
   Inputs: InputsType<T>
   name: string
 }
 
-export function SelectUser<T extends FormSchema = FormSchema>({
+export function SelectUser<T extends FormSpec = FormSpec>({
   Inputs,
   name,
 }: SelectUserProps<T>) {

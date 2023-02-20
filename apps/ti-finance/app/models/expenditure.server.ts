@@ -2,7 +2,7 @@ import type { Expenditure } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
-import type { CreateExpenditureSchema, ExpenditureSchema } from '~/common'
+import type { CreateExpenditureSpec, ExpenditureSpec } from '~/common'
 import { prisma } from '~/db.server'
 
 export async function getDepartmentExpenditures() {
@@ -39,7 +39,7 @@ export async function deleteExpenditure(
 }
 
 export async function createExpenditure(
-  data: CreateExpenditureSchema,
+  data: CreateExpenditureSpec,
 ): Promise<Result<string, Expenditure>> {
   try {
     const exp = await prisma.expenditure.create({
@@ -64,8 +64,8 @@ export async function createExpenditure(
 }
 
 export async function updateExpenditure(
-  data: ExpenditureSchema,
-): Promise<Result<string, ExpenditureSchema>> {
+  data: ExpenditureSpec,
+): Promise<Result<string, ExpenditureSpec>> {
   try {
     const result = await prisma.expenditure.update({
       where: { id: data.id },

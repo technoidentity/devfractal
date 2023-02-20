@@ -1,10 +1,8 @@
-import type { FormSchema } from '@srtp/validator'
+import type { FormSpec } from '@srtp/validator'
 import type { FormFieldsProps } from '../common'
 import { SelectUser } from '../common'
 
-export function FormFields<T extends FormSchema>({
-  Inputs,
-}: FormFieldsProps<T>) {
+export function FormFields<T extends FormSpec>({ Inputs }: FormFieldsProps<T>) {
   return (
     <>
       <SelectUser Inputs={Inputs} name="tiId" />

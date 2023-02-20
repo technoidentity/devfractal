@@ -1,12 +1,12 @@
 import { Button, Group } from '@mantine/core'
 import type { Column } from '@srtp/table'
 import React from 'react'
-import { ExpenditureSchema } from '~/common'
+import { ExpenditureSpec } from '~/common'
 import { CrudTable, TotalSpendCard } from '~/components/common'
 import { Filters } from '~/components/expenditure'
 import { FormFields } from './FormFields'
 
-type ExpenditureList = ExpenditureSchema & {
+type ExpenditureList = ExpenditureSpec & {
   departmentId: number
   department: string
   id: number
@@ -43,7 +43,7 @@ export const ExpenditureList = ({ expenditureList }: ExpenditureListProps) => {
       </Group>
 
       <CrudTable
-        spec={ExpenditureSchema}
+        spec={ExpenditureSpec}
         editTitle="Update Expenditure"
         FormFields={FormFields}
         rows={expenditureList}

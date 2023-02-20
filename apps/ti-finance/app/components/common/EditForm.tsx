@@ -1,13 +1,13 @@
 import { Box, Button, Group, Modal, Paper } from '@mantine/core'
 import type { Errors } from '@srtp/remix-core'
 import { createForm } from '@srtp/remix-react'
-import type { FormSchema } from '@srtp/validator'
+import type { FormSpec } from '@srtp/validator'
 import React from 'react'
 import type { z } from 'zod'
 import type { FormFieldsProps } from '../common'
 import { FormErrors, SubmitButton } from '../common'
 
-export type EditFormProps<Spec extends FormSchema> = Readonly<{
+export type EditFormProps<Spec extends FormSpec> = Readonly<{
   spec: Spec
   serverErrors?: Errors<z.infer<Spec>>
   initialValues: z.infer<Spec>
@@ -15,7 +15,7 @@ export type EditFormProps<Spec extends FormSchema> = Readonly<{
   FormFields: (props: FormFieldsProps<Spec>) => JSX.Element
 }>
 
-export function EditForm<Spec extends FormSchema>({
+export function EditForm<Spec extends FormSpec>({
   initialValues,
   serverErrors,
   spec,

@@ -1,7 +1,7 @@
 import type { Department, DepartmentMapping } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import { defaultError, fail, ok } from '@srtp/core'
-import type { CreateMappingSchema, DepartmentMappingSchema } from '~/common'
+import type { CreateMappingSpec, MappingSpec } from '~/common'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
@@ -15,9 +15,7 @@ export async function getDepartmentMappingsList() {
 
 type Result = DbResult<DepartmentMapping>
 
-export async function createDepartmentMapping(
-  data: CreateMappingSchema,
-): Result {
+export async function createDepartmentMapping(data: CreateMappingSpec): Result {
   try {
     const department = await prisma.departmentMapping.create({ data })
 
@@ -44,9 +42,7 @@ export async function deleteDepartmentMapping(id: Department['id']): Result {
   }
 }
 
-export async function updateDepartmentMapping(
-  data: DepartmentMappingSchema,
-): Result {
+export async function updateDepartmentMapping(data: MappingSpec): Result {
   try {
     const result = await prisma.departmentMapping.update({
       data,

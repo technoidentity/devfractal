@@ -1,10 +1,10 @@
 import { Billable } from '@prisma/client'
 import type { Errors } from '@srtp/remix-core'
-import { CreateExpenditureSchema } from '~/common'
+import { CreateExpenditureSpec } from '~/common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'
 
-const initialValues: CreateExpenditureSchema = {
+const initialValues: CreateExpenditureSpec = {
   amount: 1800000,
   category: Billable.billable,
   date: new Date(),
@@ -12,14 +12,14 @@ const initialValues: CreateExpenditureSchema = {
   remarks: '',
 }
 
-export type CreateExpenditureFormProps = Errors<CreateExpenditureSchema>
+export type CreateExpenditureFormProps = Errors<CreateExpenditureSpec>
 
 export const CreateExpenditureForm = (
   serverErrors: CreateExpenditureFormProps,
 ) => {
   return (
     <CreateForm
-      spec={CreateExpenditureSchema}
+      spec={CreateExpenditureSpec}
       FormFields={FormFields}
       title="Create Department Expenditure!"
       initialValues={initialValues}

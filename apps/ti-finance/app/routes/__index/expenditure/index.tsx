@@ -1,6 +1,6 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
-import { ExpenditureSchema, IntId, sjson, useGet } from '~/common'
+import { ExpenditureSpec, IntId, sjson, useGet } from '~/common'
 import { ExpenditureList } from '~/components/expenditure/List'
 import {
   deleteExpenditure,
@@ -16,7 +16,7 @@ export async function loader(_: LoaderArgs) {
 
 export const action = (args: ActionArgs) => {
   return methods(args, {
-    PUT: method(ExpenditureSchema, updateExpenditure),
+    PUT: method(ExpenditureSpec, updateExpenditure),
     DELETE: method(IntId, ({ id }) => deleteExpenditure(id)),
   })
 }

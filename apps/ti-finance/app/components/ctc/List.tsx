@@ -1,7 +1,7 @@
 import type { Ctc } from '@prisma/client'
 import type { Column } from '@srtp/table'
 import React from 'react'
-import { CtcSchema, useUserName } from '~/common'
+import { CtcSpec, useUserName } from '~/common'
 import { CrudTable } from '../common'
 import { FormFields } from './FormFields'
 
@@ -29,7 +29,7 @@ export const CtcList = ({ ctcList }: CtcListProps) => {
 
   return (
     <CrudTable
-      spec={CtcSchema}
+      spec={CtcSpec}
       FormFields={FormFields}
       editTitle="Update CTC"
       rows={list}

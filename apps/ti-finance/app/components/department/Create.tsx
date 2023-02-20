@@ -1,10 +1,10 @@
 import { Billable } from '@prisma/client'
-import { CreateMappingSchema } from '~/common'
+import { CreateMappingSpec } from '~/common'
 import type { CreateProps } from '../common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'
 
-const initialValues: CreateMappingSchema = {
+const initialValues: CreateMappingSpec = {
   tiId: '',
   departmentId: -1111,
   ctc: 0,
@@ -14,11 +14,11 @@ const initialValues: CreateMappingSchema = {
 }
 
 export const CreateDepartmentForm = (
-  serverErrors: CreateProps<CreateMappingSchema>,
+  serverErrors: CreateProps<CreateMappingSpec>,
 ) => {
   return (
     <CreateForm
-      spec={CreateMappingSchema}
+      spec={CreateMappingSpec}
       serverErrors={serverErrors}
       title="Create Department Mapping"
       FormFields={FormFields}

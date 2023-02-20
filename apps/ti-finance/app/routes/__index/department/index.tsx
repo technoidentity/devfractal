@@ -6,7 +6,7 @@ import React from 'react'
 import { z } from 'zod'
 import { sjson, useGet, useUsers } from '~/common'
 
-import { DepartmentMappingSchema, IntId } from '~/common'
+import { MappingSpec, IntId } from '~/common'
 import { DepartmentList, Filters } from '~/components/department'
 import {
   deleteDepartmentMapping,
@@ -24,7 +24,7 @@ export const action = (args: ActionArgs) =>
   methods(args, {
     PUT: async args => {
       console.log('PUT', await args.request.clone().formData())
-      return safeAction(DepartmentMappingSchema, args, async values => {
+      return safeAction(MappingSpec, args, async values => {
         const result = await updateDepartmentMapping(values)
         return handleResult(result)
       })
@@ -44,7 +44,7 @@ const DepartmentsPage = () => {
   const mappingsList = React.useMemo(
     () =>
       z
-        .array(DepartmentMappingSchema)
+        .array(MappingSpec)
         .parse(mappings)
         .map(d => ({ ...d, username: get(usersMap, d.tiId).username })),
     [mappings, usersMap],

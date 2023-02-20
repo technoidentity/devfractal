@@ -1,7 +1,7 @@
 import type { Ctc } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import { defaultError, fail, ok } from '@srtp/core'
-import type { CreateCtcSchema } from '~/common'
+import type { CreateCtcSpec } from '~/common'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
@@ -11,7 +11,7 @@ export function getCtcList() {
 
 type Result = DbResult<Ctc>
 
-export async function createCtc(data: CreateCtcSchema): Result {
+export async function createCtc(data: CreateCtcSpec): Result {
   try {
     const ctc = await prisma.ctc.create({ data })
 

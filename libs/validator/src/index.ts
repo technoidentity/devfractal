@@ -74,18 +74,18 @@ export type ZodPrimitive =
   | z.ZodEnum<any>
   | z.ZodNativeEnum<any>
 
-export type FieldSchema =
+export type FieldSpec =
   | z.ZodOptional<z.ZodDefault<ZodPrimitive>>
   | z.ZodOptional<ZodPrimitive>
   | z.ZodDefault<ZodPrimitive>
   | ZodPrimitive
 
-export function empty<T extends FieldSchema>(spec: T) {
+export function empty<T extends FieldSpec>(spec: T) {
   return z.union([spec, z.literal('')])
 }
 
 // nesting and arrays not supported yet
-export type FormRawShape = { [k: string]: FieldSchema }
+export type FormRawShape = { [k: string]: FieldSpec }
 
 export type GetRawShape<T> = T extends z.ZodEffects<infer R>
   ? GetRawShape<R>
@@ -102,9 +102,9 @@ export function getRawShape<T extends z.ZodEffects<any> | z.AnyZodObject>(
     : spec.shape
 }
 
-export type FormSchema = z.ZodEffects<any> | z.AnyZodObject
+export type FormSpec = z.ZodEffects<any> | z.AnyZodObject
 
-export function schema<T extends FormRawShape>(shape: T) {
+export function spec<T extends FormRawShape>(shape: T) {
   return z.object(shape)
 }
 
@@ -116,7 +116,7 @@ export function validate<T extends FormRawShape, Spec extends z.ZodSchema<T>>(
   return r.success ? success(r.data) : failure(r.error) // @TODO: format error
 }
 
-export function fieldValidate<Spec extends FieldSchema>(
+export function fieldValidate<Spec extends FieldSpec>(
   schema: Spec,
   value: unknown,
 ): Try<z.infer<Spec>> {

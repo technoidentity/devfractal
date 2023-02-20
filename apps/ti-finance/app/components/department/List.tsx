@@ -1,11 +1,9 @@
 import type { Column } from '@srtp/table'
-import { DepartmentMappingSchema } from '~/common'
+import { MappingSpec } from '~/common'
 import { CrudTable } from '../common'
 import { FormFields } from './FormFields'
 
-type DepartmentList = DepartmentMappingSchema & {
-  username: string
-}
+type DepartmentList = MappingSpec & { username: string }
 
 const columns: Column<DepartmentList>[] = [
   { accessor: 'tiId', label: 'TI_ID' },
@@ -24,7 +22,7 @@ export type DepartmentListProps = Readonly<{
 export const DepartmentList = ({ departmentList }: DepartmentListProps) => (
   <>
     <CrudTable
-      spec={DepartmentMappingSchema}
+      spec={MappingSpec}
       FormFields={FormFields}
       editTitle="Update Department"
       rows={departmentList}
