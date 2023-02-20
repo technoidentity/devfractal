@@ -1,6 +1,7 @@
 import type { UseFormReturnType } from '@mantine/form'
+import type { GetRawShape } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
-import type { FormSpec, GetRawShape } from '@srtp/validator'
+import type { FormSpec } from '@srtp/validator'
 import React from 'react'
 import type { z } from 'zod'
 import { useSafeContext } from './useSafeContext'

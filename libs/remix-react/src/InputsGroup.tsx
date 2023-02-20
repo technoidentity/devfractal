@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { UseFormInput } from '@mantine/form/lib/types'
+import { getRawShape } from '@srtp/core'
 import type { FormSpec } from '@srtp/validator'
-import { getRawShape } from '@srtp/validator'
 import React from 'react'
 import type { z } from 'zod'
 import { FormContext } from './FormContext'

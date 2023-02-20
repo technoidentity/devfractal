@@ -46,7 +46,8 @@ import {
   DateRangePicker as MantineDateRangePicker,
   TimeInput,
 } from '@mantine/dates'
-import type { FormSpec, GetRawShape } from '@srtp/validator'
+import { GetRawShape } from '@srtp/core'
+import type { FormSpec } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
 import { z } from 'zod'
 import { useFormContext } from './FormContext'
