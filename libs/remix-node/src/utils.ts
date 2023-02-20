@@ -4,6 +4,7 @@ import type { Result } from '@srtp/core'
 import { isFail } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
+import queryString from 'query-string'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
@@ -21,7 +22,7 @@ export function badRequestFromResult<T extends object>(
   return badRequest<T>({ error: result.fail })
 }
 
-export function handleResult<T>(
+export function actionResult<T>(
   result: Result<string, T>,
   options?: { redirectUrl: string },
 ) {
@@ -32,11 +33,11 @@ export function handleResult<T>(
     : redirect(options.redirectUrl)
 }
 
-export function getSchema<Spec extends z.ZodRawShape | z.ZodTypeAny>(
-  schema: Spec,
-) {
-  return schema instanceof z.ZodType ? schema : z.object(schema)
-}
+// export function getSpec<Spec extends z.ZodRawShape | z.ZodTypeAny>(
+//   spec: Spec,
+// ): z.ZodObject<GetRawShape<Spec>> {
+//   return spec instanceof z.ZodType ? spec : z.object(spec)
+// }
 
 export async function safeFormData<Output, Input>(
   spec: z.ZodType<Output, z.ZodTypeDef, Input>,
@@ -86,21 +87,24 @@ export async function methods<
   return fn(args)
 }
 
-export function safeParams<Spec extends z.ZodRawShape | z.ZodTypeAny>(
-  schema: Spec,
+export function safeParams<Spec extends z.ZodTypeAny>(
+  spec: Spec,
   params: LoaderArgs['params'],
 ) {
-  return getSchema(schema).parse(params)
+  return spec.parse(params)
 }
 
 // @TODO: use query-string to support arrays etc
-export function safeQuery<Spec extends z.ZodRawShape | z.ZodTypeAny>(
-  schema: Spec,
+export function safeQuery<Spec extends z.ZodTypeAny>(
+  spec: Spec,
   request: Request,
+  options?: queryString.ParseOptions,
 ) {
-  return getSchema(schema).parse(
-    Object.fromEntries(new URL(request.url).searchParams),
-  )
+  const obj = queryString.parse(new URL(request.url).searchParams.toString(), {
+    arrayFormat: 'index',
+    ...options,
+  })
+  return spec.parse(obj)
 }
 
 export function safeResultAction<Spec extends z.AnyZodObject, R>(
@@ -108,7 +112,7 @@ export function safeResultAction<Spec extends z.AnyZodObject, R>(
   args: LoaderArgs,
   fn: (values: z.infer<typeof spec>) => Promise<Result<string, R>>,
 ) {
-  return safeAction(spec, args, async values => handleResult(await fn(values)))
+  return safeAction(spec, args, async values => actionResult(await fn(values)))
 }
 
 export function method<Spec extends z.AnyZodObject, R>(
