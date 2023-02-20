@@ -1,5 +1,5 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
-import { handleResult, safeAction } from '@srtp/remix-node'
+import { actionResult, safeAction } from '@srtp/remix-node'
 import { CreateMappingSpec } from '~/common'
 import { useServerErrors } from '~/components/common'
 import { CreateDepartmentForm } from '~/components/mapping'
@@ -9,7 +9,7 @@ export const action = (args: ActionArgs) =>
   safeAction(CreateMappingSpec, args, async values => {
     const departmentResult = await createDepartmentMapping(values)
 
-    return handleResult(departmentResult, { redirectUrl: '/department' })
+    return actionResult(departmentResult, { redirectUrl: '/department' })
   })
 
 export const DepartmentPage = () => {
