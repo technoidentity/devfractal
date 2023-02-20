@@ -4,4 +4,10 @@
 module.exports = {
   cacheDirectory: './node_modules/.cache/remix',
   ignoredRouteFiles: ['**/.*', '**/*.css', '**/*.test.{js,jsx,ts,tsx}'],
+  serverDependenciesToBundle: [
+    'query-string',
+    'decode-uri-component',
+    'split-on-first',
+    'filter-obj',
+  ],
 }
