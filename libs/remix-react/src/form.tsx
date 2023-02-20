@@ -6,7 +6,7 @@ import type { UseFormInput } from '@mantine/form/lib/types'
 import type { FormProps as RemixFormProps } from '@remix-run/react'
 import { Form as RemixForm, useSubmit } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
-import type { FormSchema } from '@srtp/validator'
+import type { FormSpec } from '@srtp/validator'
 import { getRawShape } from '@srtp/validator'
 import React from 'react'
 import invariant from 'tiny-invariant'
@@ -17,17 +17,17 @@ import { Inputs } from './Inputs'
 import { useSuccessfulSubmit } from './useSuccessfulSubmit'
 import { getFieldError } from './utils'
 
-type MyFormProps<Spec extends FormSchema> = Readonly<{
+type MyFormProps<Spec extends FormSpec> = Readonly<{
   onSubmit?: (values: z.infer<Spec>) => void
   children: React.ReactNode
   serverErrors?: Errors<z.infer<Spec>>
 }>
 
-type FormProps<Spec extends FormSchema> = MyFormProps<Spec> &
+type FormProps<Spec extends FormSpec> = MyFormProps<Spec> &
   Omit<RemixFormProps, 'onSubmit'> &
   Omit<UseFormInput<z.infer<Spec>>, 'validate'>
 
-type MyRemixFormProps<Spec extends FormSchema> = RemixFormProps &
+type MyRemixFormProps<Spec extends FormSpec> = RemixFormProps &
   Readonly<{
     onSubmit?: (values: z.infer<Spec>) => void
     form: UseFormReturnType<
@@ -36,7 +36,7 @@ type MyRemixFormProps<Spec extends FormSchema> = RemixFormProps &
     >
   }>
 
-function useOnSubmitOnSuccess<Spec extends FormSchema>(
+function useOnSubmitOnSuccess<Spec extends FormSpec>(
   onSubmit?: (values: z.infer<Spec>) => void,
 ) {
   const { form } = useFormContext()
@@ -47,7 +47,7 @@ function useOnSubmitOnSuccess<Spec extends FormSchema>(
   }, [form.values, onSubmit, success])
 }
 
-function MyRemixForm<Spec extends FormSchema>({
+function MyRemixForm<Spec extends FormSpec>({
   form,
   children,
   onSubmit,
@@ -68,7 +68,7 @@ function MyRemixForm<Spec extends FormSchema>({
   )
 }
 
-export function createForm<Spec extends FormSchema>(
+export function createForm<Spec extends FormSpec>(
   spec: Spec,
   initial?: z.infer<Spec>,
 ) {

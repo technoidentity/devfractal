@@ -44,20 +44,14 @@ import {
 } from '@mantine/dates'
 import type { UseFormReturnType } from '@mantine/form'
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
-import type { FormSchema, GetRawShape } from '@srtp/validator'
+import type { FormSpec, GetRawShape } from '@srtp/validator'
 import { capitalize } from 'lodash'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
 import type { z, ZodBoolean, ZodDate, ZodNumber, ZodString } from 'zod'
 
-// const Spec = z.object({
-//   name: z.string(),
-//   salary: z.number(),
-//   choice: z.enum(['yes', 'no']),
-// })
-
-type FormContext<Spec extends FormSchema> = [
+type FormContext<Spec extends FormSpec> = [
   UseFormReturnType<z.TypeOf<Spec>, (values: z.TypeOf<Spec>) => z.TypeOf<Spec>>,
   () => UseFormReturnType<
     z.TypeOf<Spec>,
@@ -216,15 +210,15 @@ export const Time = (props: Named<TimeInputProps>) => {
   return <TimeInput {...props} {...form.getInputProps(props.name)} />
 }
 
-type EnumKeys<Spec extends FormSchema> = ConditionalKeys<
+type EnumKeys<Spec extends FormSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodEnum<any> | z.ZodNativeEnum<any>
 >
-type EnumArrayKeys<Spec extends FormSchema> = ConditionalKeys<
+type EnumArrayKeys<Spec extends FormSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
-type Inputs<Spec extends FormSchema> = {
+type Inputs<Spec extends FormSpec> = {
   Str: (
     props: Named<TextInputProps, ConditionalKeys<GetRawShape<Spec>, ZodString>>,
   ) => JSX.Element
@@ -304,7 +298,7 @@ type Inputs<Spec extends FormSchema> = {
   // ) => JSX.Element
 }
 
-export function createForm<Spec extends FormSchema>(
+export function createForm<Spec extends FormSpec>(
   spec: Spec,
   initial?: z.infer<Spec>,
 ) {
