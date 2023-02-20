@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { UseFormInput } from '@mantine/form/lib/types'
-import type { FormSchema } from '@srtp/validator'
+import type { FormSpec } from '@srtp/validator'
 import { getRawShape } from '@srtp/validator'
 import React from 'react'
 import type { z } from 'zod'
@@ -9,15 +9,15 @@ import { FormContext } from './FormContext'
 import type { InputsType } from './Inputs'
 import { Inputs } from './Inputs'
 
-type MyInputsGroupProps<Spec extends FormSchema> = Readonly<{
+type MyInputsGroupProps<Spec extends FormSpec> = Readonly<{
   onChange?: (values: z.infer<Spec>) => void
   children: React.ReactNode
 }>
 
-type InputsGroupProps<Spec extends FormSchema> = MyInputsGroupProps<Spec> &
+type InputsGroupProps<Spec extends FormSpec> = MyInputsGroupProps<Spec> &
   Omit<UseFormInput<z.infer<Spec>>, 'validate'>
 
-export function createInputsGroup<Spec extends FormSchema>(spec: Spec) {
+export function createInputsGroup<Spec extends FormSpec>(spec: Spec) {
   type T = z.infer<Spec>
   const [MantineProvider, useMantineFormContext] = createFormContext<T>()
 
@@ -34,7 +34,8 @@ export function createInputsGroup<Spec extends FormSchema>(spec: Spec) {
 
     React.useEffect(() => {
       onChange?.(form.values)
-    }, [form.values, onChange])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [form.values])
 
     const value = React.useMemo(
       () =>
