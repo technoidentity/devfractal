@@ -1,5 +1,6 @@
-import { useActionData, useLoaderData } from '@remix-run/react'
+import { useActionData, useLoaderData, useSearchParams } from '@remix-run/react'
 import type { Errors } from '@srtp/remix-core'
+import qs from 'query-string'
 import React from 'react'
 import type { z } from 'zod'
 import { createErrorsSpec } from './specs'
@@ -49,4 +50,27 @@ export function useServerErrors<Spec extends z.AnyZodObject>(
 
     return s.current.parse(data)
   }, [data, s])
+}
+
+export function useSearch<Spec extends z.AnyZodObject>(
+  spec: Spec,
+  options?: qs.StringifyOptions,
+) {
+  const [search, set] = useSearchParams()
+
+  const setSearch = React.useCallback(
+    (values: Partial<z.infer<Spec>>) => {
+      set(
+        qs.stringify(values, {
+          arrayFormat: 'index',
+          skipNull: true,
+          skipEmptyString: true,
+          ...options,
+        }),
+      )
+    },
+    [options, set],
+  )
+
+  return [search, setSearch] as const
 }
