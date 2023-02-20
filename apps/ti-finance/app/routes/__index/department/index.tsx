@@ -1,39 +1,43 @@
 import { Button, Group } from '@mantine/core'
+import { useSearchParams } from '@remix-run/react'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
-import { get } from '@srtp/core'
-import { handleResult, methods, safeAction } from '@srtp/remix-node'
+import { get, isEmpty } from '@srtp/core'
+import { actionResult, methods, safeAction, safeQuery } from '@srtp/remix-node'
+import qs from 'query-string'
 import React from 'react'
 import { z } from 'zod'
-import { sjson, useGet, useUsers } from '~/common'
-
-import { MappingSpec, IntId } from '~/common'
-import { DepartmentList, Filters } from '~/components/mapping'
+import { IntId, MappingSpec, sjson, useGet, useUsers } from '~/common'
+import { useSearch } from '~/components/common'
+import type { FiltersValues } from '~/components/mapping'
+import {
+  MappingFilters,
+  MappingFiltersSpec,
+  MappingList,
+} from '~/components/mapping'
 import {
   deleteDepartmentMapping,
   getDepartmentMappingsList,
   updateDepartmentMapping,
 } from '~/models'
 
-export async function loader(_: LoaderArgs) {
-  const mappings = await getDepartmentMappingsList()
-
+export async function loader(args: LoaderArgs) {
+  const where = safeQuery(MappingFiltersSpec.partial(), args.request)
+  const mappings = await getDepartmentMappingsList(where)
   return sjson({ mappings })
 }
 
 export const action = (args: ActionArgs) =>
   methods(args, {
-    PUT: async args => {
-      console.log('PUT', await args.request.clone().formData())
-      return safeAction(MappingSpec, args, async values => {
+    PUT: async args =>
+      safeAction(MappingSpec, args, async values => {
         const result = await updateDepartmentMapping(values)
-        return handleResult(result)
-      })
-    },
+        return actionResult(result)
+      }),
 
     DELETE: args =>
       safeAction(IntId, args, async ({ id }) => {
         const result = await deleteDepartmentMapping(id)
-        return handleResult(result)
+        return actionResult(result)
       }),
   })
 
@@ -50,16 +54,29 @@ const DepartmentsPage = () => {
     [mappings, usersMap],
   )
 
+  const [, set] = useSearch(MappingFiltersSpec)
+
+  const handleFilterChange = React.useCallback(
+    (values: FiltersValues) => {
+      console.dir(values)
+      if (!isEmpty(values)) {
+        set(values)
+      }
+    },
+    [set],
+  )
+
   return (
     <>
       <Group position="apart" m="md">
         <Button component="a" href="/department/new">
           Add
         </Button>
-        <Filters />
+
+        <MappingFilters onFilterChange={handleFilterChange} />
       </Group>
 
-      <DepartmentList departmentList={mappingsList} />
+      <MappingList departmentList={mappingsList} />
     </>
   )
 }
