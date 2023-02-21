@@ -1,6 +1,6 @@
 import { Billable } from '@prisma/client'
-import type { Errors } from '@srtp/remix-core'
 import { CreateExpenditureSpec } from '~/common'
+import type { CreateProps } from '../common'
 import { CreateForm } from '../common'
 import { FormFields } from './FormFields'
 
@@ -12,17 +12,15 @@ const initialValues: CreateExpenditureSpec = {
   remarks: '',
 }
 
-export type CreateExpenditureFormProps = Errors<CreateExpenditureSpec>
-
 export const CreateExpenditureForm = (
-  serverErrors: CreateExpenditureFormProps,
+  serverErrors: CreateProps<CreateExpenditureSpec>,
 ) => {
   return (
     <CreateForm
       spec={CreateExpenditureSpec}
-      FormFields={FormFields}
-      title="Create Department Expenditure!"
       initialValues={initialValues}
+      title="Create Department Expenditure!"
+      FormFields={FormFields}
       serverErrors={serverErrors}
     />
   )

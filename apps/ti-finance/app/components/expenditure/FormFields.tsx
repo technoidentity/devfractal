@@ -1,9 +1,11 @@
 import { Radio } from '@mantine/core'
-import type { FormSpec } from '@srtp/validator'
+import type { CreateExpenditureSpec, ExpenditureSpec } from '~/common'
 import { useDepartmentsSelect } from '~/common'
 import type { FormFieldsProps } from '../common'
 
-export function FormFields<T extends FormSpec>({ Inputs }: FormFieldsProps<T>) {
+export function FormFields<
+  T extends typeof ExpenditureSpec | typeof CreateExpenditureSpec,
+>({ Inputs }: FormFieldsProps<T>) {
   const data = useDepartmentsSelect()
 
   return (
