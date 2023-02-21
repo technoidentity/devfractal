@@ -3,11 +3,28 @@ import { Prisma } from '@prisma/client'
 import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
 import type { CreateExpenditureSpec, ExpenditureSpec } from '~/common'
+import type { ExpenditureSearchSpec } from '~/components/expenditure'
 import { prisma } from '~/db.server'
 
-export async function getDepartmentExpenditures() {
+function getWhere(q?: Partial<ExpenditureSearchSpec>) {
+  if (q === undefined) return undefined
+
+  const from = q.dateRange?.[0]
+  const to = q.dateRange?.[1]
+
+  return {
+    departmentId: q.departmentId,
+    date: { gte: from, lte: to },
+    category: q.category,
+  }
+}
+
+export async function getDepartmentExpenditures(q?: Partial<ExpenditureSpec>) {
+  const where = getWhere(q)
+
   return (
     await prisma.expenditure.findMany({
+      where,
       select: {
         id: true,
         amount: true,

@@ -3,8 +3,8 @@ import type { Column } from '@srtp/table'
 import React from 'react'
 import { ExpenditureSpec } from '~/common'
 import { CrudTable, TotalSpendCard } from '~/components/common'
-import { Filters } from '~/components/expenditure'
 import { FormFields } from './FormFields'
+import { ExpenditureSearchForm } from './Search'
 
 type ExpenditureList = ExpenditureSpec & {
   departmentId: number
@@ -35,7 +35,7 @@ export const ExpenditureList = ({ expenditureList }: ExpenditureListProps) => {
       <TotalSpendCard cost={totalCost} label="Total Amount" />
 
       <Group position="left" m="md">
-        <Filters />
+        <ExpenditureSearchForm />
 
         <Button component="a" href="/expenditure/new">
           Add
