@@ -1,10 +1,9 @@
-import { isEmpty, mergeWithToMap } from '@srtp/core'
+import { mergeWithToMap } from '@srtp/core'
 import type { Column } from '@srtp/table'
 import React from 'react'
 import { useDepartmentName, useUserName } from '~/common'
-import { Table, TotalSpendCard, useSearch } from '~/components/common'
-import type { FiltersValues } from '~/components/spend'
-import { Filters, SpendFiltersSpec } from '~/components/spend'
+import { Table, TotalSpendCard } from '~/components/common'
+import { SpendSearchForm } from './Search'
 
 type PeopleSpend = {
   id: string
@@ -25,6 +24,7 @@ type PersonCost = Readonly<{
   departmentId: number
   ctc: number
 }>
+
 const useSpendPage = (personCost: readonly PersonCost[]) => {
   const getUserName = useUserName()
   const getDepartmentName = useDepartmentName()
@@ -73,20 +73,11 @@ type PeopleSpendProps = Readonly<{
 export const PeopleSpendList = ({ personCost }: PeopleSpendProps) => {
   const { rows, totalCost } = useSpendPage(personCost)
 
-  const [, set] = useSearch(SpendFiltersSpec)
-
-  const handleFilterChange = (values: FiltersValues) => {
-    console.log({ nullh: values })
-    if (!isEmpty(values)) {
-      set(values)
-    }
-  }
-
   return (
     <>
       <TotalSpendCard cost={totalCost} label="Total Spend" />
 
-      <Filters onFilterChange={handleFilterChange} />
+      <SpendSearchForm />
 
       <Table rows={rows} columns={columns} />
     </>

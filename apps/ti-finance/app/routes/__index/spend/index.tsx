@@ -1,19 +1,23 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
-import { safeQuery } from '@srtp/remix-node'
 import { sjson, useGet } from '~/common'
-import { PeopleSpendList, SpendFiltersSpec } from '~/components/spend'
+import { safeQuery } from '~/components/common'
+import { PeopleSpendList, SpendSearchSpec } from '~/components/spend'
 import { getPeopleSpend } from '~/models'
 
-export async function loader(args: LoaderArgs) {
-  const q = safeQuery(SpendFiltersSpec.partial(), args.request)
+const getWhere = (request: LoaderArgs['request']) => {
+  const q = safeQuery(SpendSearchSpec.partial(), request)
   const fromDate = { gte: q.dateRange?.[0] ?? undefined }
   const toDate = { lte: q.dateRange?.[1] ?? undefined }
-
-  const { personCost } = await getPeopleSpend({
+  return {
     tiId: q.tiId,
     fromDate,
     toDate,
-  })
+  }
+}
+
+export async function loader(args: LoaderArgs) {
+  const where = getWhere(args.request)
+  const { personCost } = await getPeopleSpend(where)
 
   return sjson({ personCost })
 }
