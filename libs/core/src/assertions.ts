@@ -1,3 +1,5 @@
+import '@total-typescript/ts-reset'
+
 import invariant from 'tiny-invariant'
 import warn from 'tiny-warning'
 
