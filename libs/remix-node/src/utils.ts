@@ -4,7 +4,6 @@ import type { Result } from '@srtp/core'
 import { isFail } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
-import queryString from 'query-string'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
@@ -94,30 +93,20 @@ export function safeParams<Spec extends z.ZodTypeAny>(
   return spec.parse(params)
 }
 
-// @TODO: use query-string to support arrays etc
-export function safeQuery<Spec extends z.ZodTypeAny>(
-  spec: Spec,
-  request: Request,
-  options?: queryString.ParseOptions,
-) {
-  const obj = queryString.parse(new URL(request.url).searchParams.toString(), {
-    arrayFormat: 'index',
-    ...options,
-  })
-  return spec.parse(obj)
-}
-
-export function safeResultAction<Spec extends z.AnyZodObject, R>(
-  spec: Spec,
+export function onlyMethod<Spec extends z.AnyZodObject, R>(
   args: LoaderArgs,
+  spec: Spec,
   fn: (values: z.infer<typeof spec>) => Promise<Result<string, R>>,
+  options?: { redirectUrl: string },
 ) {
-  return safeAction(spec, args, async values => actionResult(await fn(values)))
+  return safeAction(spec, args, async values =>
+    actionResult(await fn(values), options),
+  )
 }
 
 export function method<Spec extends z.AnyZodObject, R>(
   spec: Spec,
   fn: (values: z.infer<Spec>) => Promise<Result<string, R>>,
 ) {
-  return (args: LoaderArgs) => safeResultAction(spec, args, fn)
+  return (args: LoaderArgs) => onlyMethod(args, spec, fn)
 }
