@@ -1,6 +1,7 @@
 import { useActionData, useLoaderData, useSearchParams } from '@remix-run/react'
+import { isEmpty } from '@srtp/core'
 import type { Errors } from '@srtp/remix-core'
-import qs from 'query-string'
+import queryString from 'query-string'
 import React from 'react'
 import type { z } from 'zod'
 import { createErrorsSpec } from './specs'
@@ -32,14 +33,11 @@ export function useSafeActionData<Spec extends z.ZodTypeAny>(
   return React.useMemo(() => s.current.parse(data), [data, s])
 }
 
-function isEmpty(data: object) {
-  return data === null || data === undefined || Object.keys(data).length === 0
-}
-
 export function useServerErrors<Spec extends z.AnyZodObject>(
   spec: Spec,
 ): Errors<z.infer<Spec>> {
-  const s = useLatest(createErrorsSpec(spec))
+  const errSpec = React.useMemo(() => createErrorsSpec(spec), [spec])
+  const s = useLatest(errSpec)
   const data = useActionData()
 
   return React.useMemo(() => {
@@ -52,22 +50,20 @@ export function useServerErrors<Spec extends z.AnyZodObject>(
   }, [data, s])
 }
 
+const defaultOptions: queryString.StringifyOptions = {
+  arrayFormat: 'index',
+  skipNull: true,
+  skipEmptyString: true,
+}
+
 export function useSearch<Spec extends z.AnyZodObject>(
   spec: Spec,
-  options?: qs.StringifyOptions,
+  options?: queryString.StringifyOptions,
 ) {
   const [search, set] = useSearchParams()
-
   const setSearch = React.useCallback(
     (values: Partial<z.infer<Spec>>) => {
-      set(
-        qs.stringify(values, {
-          arrayFormat: 'index',
-          skipNull: true,
-          skipEmptyString: true,
-          ...options,
-        }),
-      )
+      set(queryString.stringify(values, { ...defaultOptions, ...options }))
     },
     [options, set],
   )
