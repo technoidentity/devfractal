@@ -1,8 +1,10 @@
-import type { FormSpec } from '@srtp/validator'
+import type { CreateCtcSpec, CtcSpec } from '~/common'
 import type { FormFieldsProps } from '../common'
 import { SelectUser } from '../common'
 
-export function FormFields<T extends FormSpec>({ Inputs }: FormFieldsProps<T>) {
+export function FormFields<T extends typeof CtcSpec | typeof CreateCtcSpec>({
+  Inputs,
+}: FormFieldsProps<T>) {
   return (
     <>
       <SelectUser Inputs={Inputs} name="tiId" />
