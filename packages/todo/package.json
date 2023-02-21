@@ -27,13 +27,13 @@
   },
   "dependencies": {
     "@srtp/core": "workspace:*",
-    "@types/node": "18.13.0",
+    "@types/node": "18.14.0",
     "tslib": "2.5.0",
     "zod": "3.20.6"
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "18.13.0",
+    "@types/node": "18.14.0",
     "eslint": "8.34.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.4",
