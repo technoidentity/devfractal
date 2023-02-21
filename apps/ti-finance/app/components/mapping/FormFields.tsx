@@ -1,15 +1,11 @@
 import { Radio } from '@mantine/core'
-import type { InputsType } from '@srtp/remix-react'
-import type { FormSpec } from '@srtp/validator'
+import type { CreateMappingSpec, MappingSpec } from '~/common'
+import type { FormFieldsProps } from '../common'
 import { SelectDepartment, SelectUser } from '../common'
 
-export type CreateFormFieldsProps<T extends FormSpec> = Readonly<{
-  Inputs: InputsType<T>
-}>
-
-export function FormFields<T extends FormSpec>({
-  Inputs,
-}: CreateFormFieldsProps<T>) {
+export function FormFields<
+  T extends typeof MappingSpec | typeof CreateMappingSpec,
+>({ Inputs }: FormFieldsProps<T>) {
   return (
     <>
       <SelectUser Inputs={Inputs} name="tiId" />
