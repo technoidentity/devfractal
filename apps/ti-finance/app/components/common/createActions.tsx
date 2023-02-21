@@ -35,5 +35,9 @@ export function useActions<Spec extends FormSpec & z.AnyZodObject>(
   FormFields: EditFormProps<Spec>['FormFields'],
   editTitle: string,
 ) {
-  return React.useMemo(() => createActions$(spec, FormFields, editTitle), [])
+  return React.useMemo(
+    () => createActions$(spec, FormFields, editTitle),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
 }
