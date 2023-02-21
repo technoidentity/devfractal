@@ -1,10 +1,23 @@
-import type { Prisma } from '@prisma/client'
 import type { GetPrismaListType } from '~/common'
+import type { BudgetSearchSpec } from '~/components/budget'
+import { thisYear } from '~/components/common'
 import { prisma } from '~/db.server'
 
-export async function getBudgetAllocations(
-  where?: Prisma.BudgetFindManyArgs['where'],
-) {
+function getFinancialYear(financialYear?: number) {
+  return financialYear ? thisYear(financialYear) : undefined
+}
+
+function getWhere(q?: Partial<BudgetSearchSpec>) {
+  if (q === undefined) return undefined
+
+  const financialYear = getFinancialYear(q.financialYear)
+
+  return { ...q, financialYear }
+}
+
+export async function getBudgetAllocations(q?: Partial<BudgetSearchSpec>) {
+  const where = getWhere(q)
+
   return (
     await prisma.budget.findMany({
       select: {
