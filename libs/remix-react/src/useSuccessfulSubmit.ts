@@ -14,7 +14,6 @@ export const useSuccessfulSubmit = () => {
       Object.keys(serverErrors?.fieldErrors || {}).length === 0 &&
       isNil(serverErrors?.error)
     ) {
-      console.log(serverErrors)
       set(true)
     }
   }, [serverErrors, navigate.state])
