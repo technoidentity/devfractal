@@ -1,19 +1,14 @@
-import { Box, Button, Group, Modal, Paper } from '@mantine/core'
-import type { Errors } from '@srtp/remix-core'
-import { createForm } from '@srtp/remix-react'
+import { Button, Group, Modal, Paper } from '@mantine/core'
 import type { FormSpec } from '@srtp/validator'
 import React from 'react'
-import type { z } from 'zod'
 import type { FormFieldsProps } from '../common'
-import { FormErrors, SubmitButton } from '../common'
+import type { CrudFormProps } from './CrudForm'
+import { CrudForm } from './CrudForm'
 
-export type EditFormProps<Spec extends FormSpec> = Readonly<{
-  spec: Spec
-  serverErrors?: Errors<z.infer<Spec>>
-  initialValues: z.infer<Spec>
-  title: string
+export interface EditFormProps<Spec extends FormSpec>
+  extends Omit<CrudFormProps<Spec>, 'children' | 'onSubmit' | 'method'> {
   FormFields: (props: FormFieldsProps<Spec>) => JSX.Element
-}>
+}
 
 export function EditForm<Spec extends FormSpec>({
   initialValues,
@@ -23,12 +18,6 @@ export function EditForm<Spec extends FormSpec>({
 }: EditFormProps<Spec>) {
   const [opened, setOpened] = React.useState(false)
 
-  const { Form, Inputs } = React.useMemo(
-    () => createForm(spec, initialValues),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  )
-
   return (
     <>
       <Modal
@@ -37,26 +26,22 @@ export function EditForm<Spec extends FormSpec>({
         title="Update CTC"
       >
         <Paper shadow={'lg'} p="lg" sx={{ maxWidth: 450 }} mt="xl" mx="auto">
-          <Box>
-            <FormErrors error={serverErrors?.error} />
-
-            <Form
-              initialValues={initialValues}
-              serverErrors={serverErrors}
-              method="put"
-              onSubmit={() => setOpened(false)}
-            >
-              <Inputs.Hidden name="id" />
-              <FormFields Inputs={Inputs} />
-
-              <SubmitButton />
-            </Form>
-          </Box>
-          <Group position="center">
-            <Button onClick={() => setOpened(true)}>Edit</Button>
-          </Group>
+          <CrudForm
+            spec={spec}
+            title="Update CTC"
+            initialValues={initialValues}
+            serverErrors={serverErrors}
+            method="put"
+            onSubmit={() => {
+              console.log('edit onSubmit')
+              setOpened(false)
+            }}
+          >
+            {FormFields}
+          </CrudForm>
         </Paper>
       </Modal>
+
       <Group position="center">
         <Button onClick={() => setOpened(true)}>Edit</Button>
       </Group>
