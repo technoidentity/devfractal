@@ -46,7 +46,7 @@ import {
   DateRangePicker as MantineDateRangePicker,
   TimeInput,
 } from '@mantine/dates'
-import { GetRawShape } from '@srtp/core'
+import type { GetRawShape } from '@srtp/core'
 import type { FormSpec } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
 import { z } from 'zod'
@@ -349,7 +349,10 @@ export const Action = ({ action, ...props }: ActionProps) => {
 
 type EnumKeys<Spec extends FormSpec> = ConditionalKeys<
   GetRawShape<Spec>,
-  z.ZodEnum<any> | z.ZodNativeEnum<any>
+  | z.ZodEnum<any>
+  | z.ZodNativeEnum<any>
+  | z.ZodDefault<z.ZodEnum<any>>
+  | z.ZodDefault<z.ZodNativeEnum<any>>
 >
 type EnumArrayKeys<Spec extends FormSpec> = ConditionalKeys<
   GetRawShape<Spec>,
@@ -361,35 +364,56 @@ export type InputsType<Spec extends FormSpec> = {
   Str: (
     props: Named<
       TextInputProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodString | z.ZodDefault<z.ZodString>
+      >
     >,
   ) => JSX.Element
   Content: (
     props: Named<
       TextareaProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodString | z.ZodDefault<z.ZodString>
+      >
     >,
   ) => JSX.Element
   Password: (
     props: Named<
       PasswordInputProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodString | z.ZodDefault<z.ZodNumber>
+      >
     >,
   ) => JSX.Element
   Number: (
     props: Named<
       NumberInputProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodNumber>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodNumber | z.ZodDefault<z.ZodNumber>
+      >
     >,
   ) => JSX.Element
   Bool: (
     props: Named<
       CheckboxProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodBoolean | z.ZodDefault<z.ZodBoolean>
+      >
     >,
   ) => JSX.Element
   Rating: (
-    props: Named<RatingProps, ConditionalKeys<GetRawShape<Spec>, z.ZodNumber>>,
+    props: Named<
+      RatingProps,
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodNumber | z.ZodDefault<z.ZodNumber>
+      >
+    >,
   ) => JSX.Element
   Enum: (
     props: Named<RadioGroupProps, EnumKeys<Spec>> & {
@@ -399,13 +423,29 @@ export type InputsType<Spec extends FormSpec> = {
   EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
   Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
   Switch: (
-    props: Named<SwitchProps, ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>>,
+    props: Named<
+      SwitchProps,
+      | ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>
+      | z.ZodDefault<z.ZodBoolean>
+    >,
   ) => JSX.Element
   Chip: (
-    props: Named<ChipProps, ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>>,
+    props: Named<
+      ChipProps,
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodBoolean | z.ZodDefault<z.ZodBoolean>
+      >
+    >,
   ) => JSX.Element
   Slider: (
-    props: Named<SliderProps, ConditionalKeys<GetRawShape<Spec>, z.ZodNumber>>,
+    props: Named<
+      SliderProps,
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodNumber | z.ZodDefault<z.ZodNumber>
+      >
+    >,
   ) => JSX.Element
   File: (
     props: Named<FileInputProps, ConditionalKeys<z.infer<Spec>, File>>,
@@ -413,13 +453,16 @@ export type InputsType<Spec extends FormSpec> = {
   Color: (
     props: Named<
       ColorInputProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodString | z.ZodDefault<z.ZodString>
+      >
     >,
   ) => JSX.Element
   DatePicker: (
     props: Named<
       DatePickerProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodDate>
+      ConditionalKeys<GetRawShape<Spec>, z.ZodDate | z.ZodDefault<z.ZodDate>>
     >,
   ) => JSX.Element
   DateRangePicker: (
@@ -431,13 +474,19 @@ export type InputsType<Spec extends FormSpec> = {
   Autocomplete: (
     props: Named<
       AutocompleteProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodString>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodString | z.ZodDefault<z.ZodString>
+      >
     >,
   ) => JSX.Element
   Time: (
     props: Named<
       TimeInputProps,
-      ConditionalKeys<GetRawShape<Spec>, [z.ZodDate, z.ZodDate]>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        z.ZodArray<z.ZodString> | z.ZodArray<z.ZodNumber>
+      >
     >,
   ) => JSX.Element
   SegmentedControl: (
@@ -461,7 +510,13 @@ export type InputsType<Spec extends FormSpec> = {
   DynamicSelect: (
     props: Named<
       SelectProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodString | z.ZodNumber>
+      ConditionalKeys<
+        GetRawShape<Spec>,
+        | z.ZodString
+        | z.ZodNumber
+        | z.ZodDefault<z.ZodString>
+        | z.ZodDefault<z.ZodNumber>
+      >
     >,
   ) => JSX.Element
   // Calendar: <Multiple extends boolean = false>(
