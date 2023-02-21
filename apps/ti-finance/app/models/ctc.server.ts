@@ -5,8 +5,14 @@ import type { CreateCtcSpec } from '~/common'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
-export function getCtcList() {
-  return prisma.ctc.findMany()
+export async function getCtcList() {
+  return (
+    await prisma.ctc.findMany({
+      include: {
+        user: { select: { username: true } },
+      },
+    })
+  ).map(({ user, ...rest }) => ({ ...rest, username: user.username }))
 }
 
 type Result = DbResult<Ctc>
