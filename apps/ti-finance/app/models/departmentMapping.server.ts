@@ -2,6 +2,8 @@ import type { Department, DepartmentMapping } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import { defaultError, fail, ok } from '@srtp/core'
 import type { CreateMappingSpec, MappingSpec } from '~/common'
+import type { CostSearchSpec } from '~/components/cost'
+import type { MappingSearchSpec } from '~/components/mapping'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
@@ -10,11 +12,20 @@ export async function getDepartmentList() {
 }
 
 export async function getDepartmentMappingsList(
-  where?: Prisma.DepartmentMappingFindManyArgs['where'],
+  where?: Partial<MappingSearchSpec>,
 ) {
-  return await prisma.departmentMapping.findMany({
+  const mappings = await prisma.departmentMapping.findMany({
     where,
+    include: {
+      User: { select: { username: true } },
+      Department: { select: { name: true } },
+    },
   })
+  return mappings.map(({ Department, User, ...rest }) => ({
+    ...rest,
+    username: User.username,
+    departmentName: Department.name,
+  }))
 }
 
 type Result = DbResult<DepartmentMapping>
@@ -58,11 +69,42 @@ export async function updateDepartmentMapping(data: MappingSpec): Result {
   }
 }
 
-export async function getDepartmentsCost() {
+function getMappingWhere(q?: Partial<CostSearchSpec>) {
+  if (q === undefined) return undefined
+  const from = q.dateRange?.[0]
+  const to = q.dateRange?.[1]
+
+  if (from === undefined && to === undefined) return undefined
+
+  const range = { gte: from, lte: to }
+
+  return {
+    departmentId: q.departmentId,
+    OR: [{ fromDate: range }, { toDate: range }],
+  } satisfies Prisma.DepartmentMappingGroupByArgs['where']
+}
+
+function getExpenditureWhere(q?: Partial<CostSearchSpec>) {
+  if (q === undefined) return undefined
+
+  const from = q.dateRange?.[0]
+  const to = q.dateRange?.[1]
+
+  return {
+    departmentId: q.departmentId,
+    date: { gte: from, lte: to },
+  } satisfies Prisma.ExpenditureGroupByArgs['where']
+}
+
+export async function getDepartmentsCost(q?: Partial<CostSearchSpec>) {
+  const where = getMappingWhere(q)
+  const expenditureWhere = getExpenditureWhere(q)
+
   const personCost = (
     await prisma.departmentMapping.groupBy({
       by: ['departmentId'],
       _sum: { ctc: true },
+      where,
     })
   ).map(({ departmentId, _sum }) => ({
     departmentId,
@@ -73,6 +115,7 @@ export async function getDepartmentsCost() {
     await prisma.expenditure.groupBy({
       by: ['departmentId'],
       _sum: { amount: true },
+      where: expenditureWhere,
     })
   ).map(({ departmentId, _sum }) => ({
     departmentId,
@@ -85,7 +128,6 @@ export async function getDepartmentsCost() {
 export async function getPeopleSpend(
   where?: Prisma.DepartmentMappingWhereInput,
 ) {
-  console.log({ where })
   const personCost = (
     await prisma.departmentMapping.groupBy({
       by: ['tiId', 'departmentId'],
