@@ -1,18 +1,24 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import React from 'react'
-import { sjson, useGet } from '~/common'
-import { CostFilters } from '~/components/cost'
-import { DepartmentCostList } from '~/components/cost'
+import { sjson, useDepartmentName, useGet } from '~/common'
+import { safeQuery } from '~/components/common'
+import {
+  CostSearchForm,
+  CostSearchSpec,
+  DepartmentCostList,
+} from '~/components/cost'
 import { getDepartmentsCost } from '~/models'
 
-export async function loader(_: LoaderArgs) {
-  const { personCost, expenditures } = await getDepartmentsCost()
+export async function loader(args: LoaderArgs) {
+  const q = safeQuery(CostSearchSpec.partial(), args.request)
+  const { personCost, expenditures } = await getDepartmentsCost(q)
 
   return sjson({ personCost, expenditures })
 }
 
 const DepartmentsPage = () => {
   const { personCost, expenditures } = useGet<typeof loader>()
+  const getDepartmentName = useDepartmentName()
 
   const expendituresMap = React.useMemo(
     () => new Map(expenditures.map(e => [e.departmentId, e.total])),
@@ -26,6 +32,7 @@ const DepartmentsPage = () => {
 
     return {
       id: e.departmentId,
+      department: getDepartmentName(e.departmentId),
       peopleCost,
       otherExpenditures,
       totalCost,
@@ -34,7 +41,7 @@ const DepartmentsPage = () => {
 
   return (
     <>
-      <CostFilters />
+      <CostSearchForm />
       <DepartmentCostList costList={costList} />
     </>
   )

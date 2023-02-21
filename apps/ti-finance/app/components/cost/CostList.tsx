@@ -3,13 +3,14 @@ import { Table } from '../common'
 
 type Cost = Readonly<{
   id: number
+  department: string
   peopleCost: number
   otherExpenditures: number
   totalCost: number
 }>
 
 const columns: Column<Cost>[] = [
-  { accessor: 'id', label: 'Department' },
+  { accessor: 'department', label: 'Department' },
   { accessor: 'peopleCost', label: 'People Cost' },
   { accessor: 'otherExpenditures', label: 'Other Expenditures' },
   { accessor: 'totalCost', label: 'Total Cost' },
