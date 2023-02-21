@@ -9,6 +9,6 @@ export function createErrorsSpec<Spec extends z.AnyZodObject>(
     fieldErrors: z.record(keys, z.string()).optional(),
     error: z.string().optional(),
   })
-  // this can be dangerous
+  // this can be dangerous as type and runtime errors can be different
   return errors as any
 }
