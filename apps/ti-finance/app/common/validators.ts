@@ -18,11 +18,9 @@ export const CtcSpec = spec({
   fromDate: date(),
   toDate: date(),
 })
-
 export type CtcSpec = z.infer<typeof CtcSpec>
 
 export const CreateCtcSpec = CtcSpec.omit({ id: true })
-
 export type CreateCtcSpec = z.infer<typeof CreateCtcSpec>
 
 export const BudgetSpec = spec({
@@ -32,9 +30,6 @@ export const BudgetSpec = spec({
   amount: positive(),
   financialYear: date(),
 })
-
-// function specs()
-
 export type BudgetSpec = z.infer<typeof BudgetSpec>
 
 export const ExpenditureSpec = spec({
@@ -45,13 +40,9 @@ export const ExpenditureSpec = spec({
   remarks: string(),
   departmentId: number(),
 })
-
 export type ExpenditureSpec = z.infer<typeof ExpenditureSpec>
 
-export const CreateExpenditureSpec = ExpenditureSpec.omit({
-  id: true,
-})
-
+export const CreateExpenditureSpec = ExpenditureSpec.omit({ id: true })
 export type CreateExpenditureSpec = z.infer<typeof CreateExpenditureSpec>
 
 export const MappingSpec = spec({
@@ -63,13 +54,9 @@ export const MappingSpec = spec({
   toDate: date(),
   category: BillableSpec,
 })
-
 export type MappingSpec = z.infer<typeof MappingSpec>
 
-export const CreateMappingSpec = MappingSpec.omit({
-  id: true,
-})
-
+export const CreateMappingSpec = MappingSpec.omit({ id: true })
 export type CreateMappingSpec = z.infer<typeof CreateMappingSpec>
 
 export const CostSpec = spec({
@@ -79,7 +66,6 @@ export const CostSpec = spec({
   otherExpenditures: number(),
   totalCost: number(),
 })
-
 export type CostSpec = z.infer<typeof CostSpec>
 
 export const SpendSpec = z.object({
@@ -88,5 +74,4 @@ export const SpendSpec = z.object({
   cost: z.number().int().positive(),
   department: z.string(),
 })
-
 export type SpendSpec = z.infer<typeof SpendSpec>
