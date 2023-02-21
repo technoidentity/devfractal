@@ -155,7 +155,7 @@ const itExpenditures = [
   {
     category: Billable.billable,
     amount: 100_00_000,
-    date: new Date('2021-08-5'),
+    date: new Date('2021-06-5'),
     remarks: 'Identify and Plug Budget Leaks',
   },
 ]
@@ -163,7 +163,7 @@ const financeExpenditures = [
   {
     category: Billable.nonBillable,
     amount: 100_00_000,
-    date: new Date('2021-08-5'),
+    date: new Date('2021-07-5'),
     remarks: 'Assess New Income and Expenses',
   },
 ]
@@ -178,7 +178,7 @@ const developmentExpenditures = [
   {
     category: Billable.nonBillable,
     amount: 100_00_000,
-    date: new Date('2021-08-5'),
+    date: new Date('2021-09-5'),
     remarks: 'Modify Your Budget',
   },
 ]
