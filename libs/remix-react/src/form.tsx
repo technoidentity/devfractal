@@ -54,7 +54,7 @@ function MyRemixForm<Spec extends FormSpec>({
   ...props
 }: MyRemixFormProps<Spec>) {
   const submit = useSubmit()
-  useOnSubmitOnSuccess()
+  useOnSubmitOnSuccess(onSubmit)
 
   return (
     <RemixForm
