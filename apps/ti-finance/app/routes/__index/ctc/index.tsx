@@ -1,8 +1,8 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
-import { CtcSpec, IntId, sjson, useGet } from '~/common'
-import { AddLink } from '~/components/common'
-import { CtcList } from '~/components/ctc'
+import { CtcSpec, IntId } from '~/common'
+import { CtcList } from '~/features/ctc'
+import { AddLink, sjson, useGet } from '~/core'
 import { deleteCtc, getCtcList, updateCtc } from '~/models'
 
 export async function loader() {

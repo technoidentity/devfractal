@@ -1,9 +1,9 @@
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
-import { ExpenditureSpec, IntId, sjson, useGet } from '~/common'
-import { safeQuery } from '~/components/common'
-import { ExpenditureSearchSpec } from '~/components/expenditure'
-import { ExpenditureList } from '~/components/expenditure/List'
+import { ExpenditureSpec, IntId } from '~/common'
+import { ExpenditureSearchSpec } from '~/features/expenditure'
+import { ExpenditureList } from '~/features/expenditure/List'
+import { safeQuery, sjson, useGet } from '~/core'
 import {
   deleteExpenditure,
   getDepartmentExpenditures,

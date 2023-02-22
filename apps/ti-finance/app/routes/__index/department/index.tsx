@@ -1,13 +1,13 @@
 import { Button, Group } from '@mantine/core'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
-import { actionResult, method, methods, safeAction } from '@srtp/remix-node'
-import { IntId, MappingSpec, sjson, useGet } from '~/common'
-import { safeQuery } from '~/components/common'
+import { method, methods } from '@srtp/remix-node'
+import { IntId, MappingSpec } from '~/common'
 import {
   MappingList,
   MappingSearchForm,
   MappingSearchSpec,
-} from '~/components/mapping'
+} from '~/features/mapping'
+import { safeQuery, sjson, useGet } from '~/core'
 import {
   deleteDepartmentMapping,
   getDepartmentMappingsList,

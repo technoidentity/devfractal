@@ -1,12 +1,8 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
-import { sjson, useGet } from '~/common'
-import {
-  AppIntroPage,
-  AppProvider,
-  HomePage,
-  SignedIn,
-  SignedOut,
-} from '~/components/common'
+import { AppProvider } from '~/common'
+import { AppIntroPage, HomePage } from '~/features/app'
+import { SignedIn, SignedOut, sjson, useGet } from '~/core'
+
 import { prisma } from '~/db.server'
 
 export async function loader(_: LoaderArgs) {

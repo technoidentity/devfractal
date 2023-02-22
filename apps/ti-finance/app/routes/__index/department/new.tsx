@@ -1,8 +1,8 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { actionResult, safeAction } from '@srtp/remix-node'
 import { CreateMappingSpec } from '~/common'
-import { useServerErrors } from '~/components/common'
-import { CreateDepartmentForm } from '~/components/mapping'
+import { useServerErrors } from '~/core'
+import { CreateDepartmentForm } from '~/features/mapping'
 import { createDepartmentMapping } from '~/models'
 
 export const action = (args: ActionArgs) =>

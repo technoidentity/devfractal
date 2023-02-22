@@ -1,7 +1,6 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
-import { sjson, useGet } from '~/common'
-import { safeQuery } from '~/components/common'
-import { PeopleSpendList, SpendSearchSpec } from '~/components/spend'
+import { PeopleSpendList, SpendSearchSpec } from '~/features/spend'
+import { safeQuery, sjson, useGet } from '~/core'
 import { getPeopleSpend } from '~/models'
 
 const getWhere = (request: LoaderArgs['request']) => {

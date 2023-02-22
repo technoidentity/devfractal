@@ -1,8 +1,8 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
 import { onlyMethod } from '@srtp/remix-node'
 import { CreateCtcSpec } from '~/common'
-import { useServerErrors } from '~/components/common'
-import { CreateCtcForm } from '~/components/ctc'
+import { CreateCtcForm } from '~/features/ctc'
+import { useServerErrors } from '~/core'
 import { createCtc } from '~/models'
 
 export const action = (args: ActionArgs) =>

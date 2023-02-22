@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client'
 import type { Result } from '@srtp/core'
 import { defaultError, fail, ok } from '@srtp/core'
 import type { CreateExpenditureSpec, ExpenditureSpec } from '~/common'
-import type { ExpenditureSearchSpec } from '~/components/expenditure'
+import type { ExpenditureSearchSpec } from '~/features/expenditure'
 import { prisma } from '~/db.server'
 
 function getWhere(q?: Partial<ExpenditureSearchSpec>) {

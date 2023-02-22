@@ -1,5 +1,5 @@
 import SuperJSON from 'superjson'
-import { sjson, useGet } from '~/common'
+import { sjson, useGet } from '~/core'
 
 export const loader = () => {
   return sjson({

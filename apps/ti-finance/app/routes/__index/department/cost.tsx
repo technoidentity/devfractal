@@ -1,12 +1,12 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import React from 'react'
-import { sjson, useDepartmentName, useGet } from '~/common'
-import { safeQuery } from '~/components/common'
+import { useDepartmentName } from '~/common'
 import {
   CostSearchForm,
   CostSearchSpec,
   DepartmentCostList,
-} from '~/components/cost'
+} from '~/features/cost'
+import { safeQuery, sjson, useGet } from '~/core'
 import { getDepartmentsCost } from '~/models'
 
 export async function loader(args: LoaderArgs) {
