@@ -1,16 +1,7 @@
 import { Group } from '@mantine/core'
-import { z } from 'zod'
-import { useDepartmentsSelect } from '~/common'
+import { CostSearchSpec, useDepartmentsSelect } from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
-
-export const CostSearchSpec = z.object({
-  dateRange: z.array(z.coerce.date()),
-
-  departmentId: z.coerce.number(),
-})
-
-export type CostSearchSpec = z.infer<typeof CostSearchSpec>
 
 export function CostInputs({
   Inputs,

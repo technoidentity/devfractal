@@ -1,15 +1,8 @@
 import { Group } from '@mantine/core'
-import { z } from 'zod'
-import { useUsersSelect } from '~/common'
+import type { z } from 'zod'
+import { SpendSearchSpec, useUsersSelect } from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
-
-export const SpendSearchSpec = z.object({
-  dateRange: z.array(z.coerce.date()),
-  tiId: z.string(),
-})
-
-export type SpendSearchSpec = z.infer<typeof SpendSearchSpec>
 
 export function SpendInputs<T extends z.AnyZodObject>({
   Inputs,

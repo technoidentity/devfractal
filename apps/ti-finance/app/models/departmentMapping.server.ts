@@ -1,9 +1,13 @@
 import type { Department, DepartmentMapping } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 import { defaultError, fail, ok } from '@srtp/core'
-import type { CreateMappingSpec, MappingSpec } from '~/common'
-import type { CostSearchSpec } from '~/features/cost'
-import type { MappingSearchSpec } from '~/features/mapping'
+import type {
+  CostSearchSpec,
+  CreateMappingSpec,
+  MappingSearchSpec,
+  MappingSpec,
+  SpendSearchSpec,
+} from '~/common'
 import { prisma } from '~/db.server'
 import type { DbResult } from './types'
 
@@ -125,9 +129,17 @@ export async function getDepartmentsCost(q?: Partial<CostSearchSpec>) {
   return { personCost, expenditures }
 }
 
-export async function getPeopleSpend(
-  where?: Prisma.DepartmentMappingWhereInput,
-) {
+function getSpendWhere(q?: Partial<SpendSearchSpec>) {
+  if (q === undefined) return undefined
+
+  const fromDate = { gte: q.dateRange?.[0] ?? undefined }
+  const toDate = { lte: q.dateRange?.[1] ?? undefined }
+
+  return { tiId: q.tiId, fromDate, toDate }
+}
+
+export async function getPeopleSpend(q?: Partial<SpendSearchSpec>) {
+  const where = getSpendWhere(q)
   const personCost = (
     await prisma.departmentMapping.groupBy({
       by: ['tiId', 'departmentId'],

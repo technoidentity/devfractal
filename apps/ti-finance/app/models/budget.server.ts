@@ -1,5 +1,4 @@
-import type { GetPrismaListType } from '~/common'
-import type { BudgetSearchSpec } from '~/features/budget'
+import type { BudgetSearchSpec, GetPrismaListType } from '~/common'
 import { thisYear } from '~/core'
 import { prisma } from '~/db.server'
 

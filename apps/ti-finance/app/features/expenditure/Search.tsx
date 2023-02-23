@@ -1,17 +1,7 @@
 import { Group } from '@mantine/core'
-import { Billable } from '@prisma/client'
-import { z } from 'zod'
-import { useDepartmentsSelect } from '~/common'
+import { ExpenditureSearchSpec, useDepartmentsSelect } from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
-
-export const ExpenditureSearchSpec = z.object({
-  dateRange: z.array(z.coerce.date()),
-  category: z.nativeEnum(Billable),
-  departmentId: z.coerce.number(),
-})
-
-export type ExpenditureSearchSpec = z.infer<typeof ExpenditureSearchSpec>
 
 const categories = [
   { value: 'billable', label: 'Billable' },

@@ -1,9 +1,9 @@
 import { Group } from '@mantine/core'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import type { Column } from '@srtp/table'
-import { Table, TotalSpendCard } from '~/common'
-import { BudgetSearchForm, BudgetSearchSpec } from '~/features/budget'
+import { BudgetSearchSpec, Table, TotalSpendCard } from '~/common'
 import { safeQuery, sjson, useGet } from '~/core'
+import { BudgetSearchForm } from '~/features/budget'
 import type { BudgetAllocation } from '~/models'
 import { getBudgetAllocations } from '~/models'
 

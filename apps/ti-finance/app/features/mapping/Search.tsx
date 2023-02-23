@@ -1,15 +1,11 @@
 import { Group, Text } from '@mantine/core'
-import { z } from 'zod'
-import { useDepartmentsSelect, useUsersSelect } from '~/common'
+import {
+  MappingSearchSpec,
+  useDepartmentsSelect,
+  useUsersSelect,
+} from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
-
-export const MappingSearchSpec = z.object({
-  departmentId: z.coerce.number().int(),
-  tiId: z.string(),
-})
-
-export type MappingSearchSpec = z.infer<typeof MappingSearchSpec>
 
 export function MappingInputs({
   Inputs,

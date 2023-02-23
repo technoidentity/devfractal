@@ -75,3 +75,40 @@ export const SpendSpec = z.object({
   department: z.string(),
 })
 export type SpendSpec = z.infer<typeof SpendSpec>
+
+export const BudgetSearchSpec = spec({
+  departmentId: number(),
+  financialYear: number(),
+})
+
+export type BudgetSearchSpec = z.infer<typeof BudgetSearchSpec>
+
+export const CostSearchSpec = z.object({
+  dateRange: z.array(z.coerce.date()),
+  departmentId: number(),
+})
+
+export type CostSearchSpec = z.infer<typeof CostSearchSpec>
+
+// @TODO: change to spec
+export const ExpenditureSearchSpec = z.object({
+  dateRange: z.array(z.coerce.date()),
+  category: z.nativeEnum(Billable),
+  departmentId: z.coerce.number(),
+})
+
+export type ExpenditureSearchSpec = z.infer<typeof ExpenditureSearchSpec>
+
+export const MappingSearchSpec = z.object({
+  departmentId: z.coerce.number().int(),
+  tiId: z.string(),
+})
+
+export type MappingSearchSpec = z.infer<typeof MappingSearchSpec>
+
+export const SpendSearchSpec = z.object({
+  dateRange: z.array(z.coerce.date()),
+  tiId: z.string(),
+})
+
+export type SpendSearchSpec = z.infer<typeof SpendSearchSpec>

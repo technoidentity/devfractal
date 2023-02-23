@@ -1,12 +1,8 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import React from 'react'
-import { useDepartmentName } from '~/common'
-import {
-  CostSearchForm,
-  CostSearchSpec,
-  DepartmentCostList,
-} from '~/features/cost'
+import { CostSearchSpec, useDepartmentName } from '~/common'
 import { safeQuery, sjson, useGet } from '~/core'
+import { CostSearchForm, DepartmentCostList } from '~/features/cost'
 import { getDepartmentsCost } from '~/models'
 
 export async function loader(args: LoaderArgs) {
@@ -16,7 +12,7 @@ export async function loader(args: LoaderArgs) {
   return sjson({ personCost, expenditures })
 }
 
-const DepartmentsPage = () => {
+const DepartmentsCostPage = () => {
   const { personCost, expenditures } = useGet<typeof loader>()
   const getDepartmentName = useDepartmentName()
 
@@ -47,4 +43,4 @@ const DepartmentsPage = () => {
   )
 }
 
-export default DepartmentsPage
+export default DepartmentsCostPage
