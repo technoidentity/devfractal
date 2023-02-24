@@ -56,13 +56,18 @@ export const boolean = (defaultValue?: boolean) =>
 export const date = (defaultValue?: Date) =>
   defaultValue ? z.coerce.date().default(defaultValue) : z.coerce.date()
 
+export const DateRange = z.array(z.date()).max(2).brand<'DateRange'>()
+export type ZodDateRange = typeof DateRange
+export type DateRange = z.infer<typeof DateRange>
+
+export const dateRange = () => DateRange
+
 export const bigint = (defaultValue = 0n) =>
   defaultValue ? z.coerce.bigint().default(defaultValue) : z.coerce.bigint()
 
 export const nil = z.union([z.null(), z.undefined()])
 
 export const oneOf = z.enum
-// export const array = z.array
 
 export type ZodPrimitive =
   | z.ZodNumber
@@ -79,6 +84,7 @@ export type FieldSpec =
   | z.ZodOptional<ZodPrimitive>
   | z.ZodDefault<ZodPrimitive>
   | ZodPrimitive
+  | ZodDateRange // only to support DateRangePicker
 
 export function empty<T extends FieldSpec>(spec: T) {
   return z.union([spec, z.literal('')])
