@@ -6,7 +6,7 @@ import { CostSearchForm, DepartmentCostList } from '~/features/cost'
 import { getDepartmentsCost } from '~/models'
 
 export async function loader(args: LoaderArgs) {
-  const q = safeQuery(CostSearchSpec.partial(), args.request)
+  const q = safeQuery(CostSearchSpec, args.request)
   const { personCost, expenditures } = await getDepartmentsCost(q)
 
   return sjson({ personCost, expenditures })

@@ -15,9 +15,7 @@ export async function getDepartmentList() {
   return await prisma.department.findMany()
 }
 
-export async function getDepartmentMappingsList(
-  where?: Partial<MappingSearchSpec>,
-) {
+export async function getDepartmentMappingsList(where?: MappingSearchSpec) {
   const mappings = await prisma.departmentMapping.findMany({
     where,
     include: {
@@ -73,7 +71,7 @@ export async function updateDepartmentMapping(data: MappingSpec): Result {
   }
 }
 
-function getMappingWhere(q?: Partial<CostSearchSpec>) {
+function getMappingWhere(q?: CostSearchSpec) {
   if (q === undefined) return undefined
   const from = q.dateRange?.[0]
   const to = q.dateRange?.[1]
@@ -88,7 +86,7 @@ function getMappingWhere(q?: Partial<CostSearchSpec>) {
   } satisfies Prisma.DepartmentMappingGroupByArgs['where']
 }
 
-function getExpenditureWhere(q?: Partial<CostSearchSpec>) {
+function getExpenditureWhere(q?: CostSearchSpec) {
   if (q === undefined) return undefined
 
   const from = q.dateRange?.[0]
@@ -100,7 +98,7 @@ function getExpenditureWhere(q?: Partial<CostSearchSpec>) {
   } satisfies Prisma.ExpenditureGroupByArgs['where']
 }
 
-export async function getDepartmentsCost(q?: Partial<CostSearchSpec>) {
+export async function getDepartmentsCost(q?: CostSearchSpec) {
   const where = getMappingWhere(q)
   const expenditureWhere = getExpenditureWhere(q)
 
@@ -129,7 +127,7 @@ export async function getDepartmentsCost(q?: Partial<CostSearchSpec>) {
   return { personCost, expenditures }
 }
 
-function getSpendWhere(q?: Partial<SpendSearchSpec>) {
+function getSpendWhere(q?: SpendSearchSpec) {
   if (q === undefined) return undefined
 
   const fromDate = { gte: q.dateRange?.[0] ?? undefined }
@@ -138,7 +136,7 @@ function getSpendWhere(q?: Partial<SpendSearchSpec>) {
   return { tiId: q.tiId, fromDate, toDate }
 }
 
-export async function getPeopleSpend(q?: Partial<SpendSearchSpec>) {
+export async function getPeopleSpend(q?: SpendSearchSpec) {
   const where = getSpendWhere(q)
   const personCost = (
     await prisma.departmentMapping.groupBy({

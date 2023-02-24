@@ -5,7 +5,7 @@ import React from 'react'
 import type { z } from 'zod'
 import { useSearch } from './hooks'
 
-export type SearchValues<Spec extends z.AnyZodObject> = Partial<z.infer<Spec>>
+export type SearchValues<Spec extends z.AnyZodObject> = z.infer<Spec>
 
 export type SearchInputsProps<Spec extends z.AnyZodObject> = Readonly<{
   Inputs: InputsType<Spec>

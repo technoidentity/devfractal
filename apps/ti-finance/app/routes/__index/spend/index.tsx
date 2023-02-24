@@ -5,7 +5,7 @@ import { PeopleSpendList } from '~/features/spend'
 import { getPeopleSpend } from '~/models'
 
 export async function loader(args: LoaderArgs) {
-  const q = safeQuery(SpendSearchSpec.partial(), args.request)
+  const q = safeQuery(SpendSearchSpec, args.request)
   const { personCost } = await getPeopleSpend(q)
 
   return sjson({ personCost })

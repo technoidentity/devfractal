@@ -10,7 +10,7 @@ import {
 } from '~/models'
 
 export async function loader(args: LoaderArgs) {
-  const q = safeQuery(ExpenditureSearchSpec.partial(), args.request)
+  const q = safeQuery(ExpenditureSearchSpec, args.request)
   const expenditures = await getDepartmentExpenditures(q)
 
   return sjson({ expenditures })

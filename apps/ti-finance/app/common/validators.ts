@@ -1,5 +1,12 @@
 import { Billable } from '@prisma/client'
-import { date, number, positive, spec, string } from '@srtp/validator'
+import {
+  date,
+  dateRange,
+  number,
+  positive,
+  spec,
+  string,
+} from '@srtp/validator'
 import { z } from 'zod'
 
 export const IntId = spec({ id: number() })
@@ -68,47 +75,47 @@ export const CostSpec = spec({
 })
 export type CostSpec = z.infer<typeof CostSpec>
 
-export const SpendSpec = z.object({
-  tiId: z.string(),
-  username: z.string(),
-  cost: z.number().int().positive(),
-  department: z.string(),
+export const SpendSpec = spec({
+  tiId: string(),
+  username: string(),
+  cost: positive(),
+  department: string(),
 })
 export type SpendSpec = z.infer<typeof SpendSpec>
 
 export const BudgetSearchSpec = spec({
   departmentId: number(),
   financialYear: number(),
-})
+}).partial()
 
 export type BudgetSearchSpec = z.infer<typeof BudgetSearchSpec>
 
-export const CostSearchSpec = z.object({
-  dateRange: z.array(z.coerce.date()),
+export const CostSearchSpec = spec({
+  dateRange: dateRange(),
   departmentId: number(),
-})
+}).partial()
 
 export type CostSearchSpec = z.infer<typeof CostSearchSpec>
 
 // @TODO: change to spec
-export const ExpenditureSearchSpec = z.object({
-  dateRange: z.array(z.coerce.date()),
-  category: z.nativeEnum(Billable),
-  departmentId: z.coerce.number(),
-})
+export const ExpenditureSearchSpec = spec({
+  dateRange: dateRange(),
+  category: BillableSpec,
+  departmentId: number(),
+}).partial()
 
 export type ExpenditureSearchSpec = z.infer<typeof ExpenditureSearchSpec>
 
-export const MappingSearchSpec = z.object({
-  departmentId: z.coerce.number().int(),
-  tiId: z.string(),
-})
+export const MappingSearchSpec = spec({
+  departmentId: number(),
+  tiId: string(),
+}).partial()
 
 export type MappingSearchSpec = z.infer<typeof MappingSearchSpec>
 
-export const SpendSearchSpec = z.object({
-  dateRange: z.array(z.coerce.date()),
-  tiId: z.string(),
-})
+export const SpendSearchSpec = spec({
+  dateRange: dateRange(),
+  tiId: string(),
+}).partial()
 
 export type SpendSearchSpec = z.infer<typeof SpendSearchSpec>

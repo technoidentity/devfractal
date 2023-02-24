@@ -6,7 +6,7 @@ function getFinancialYear(financialYear?: number) {
   return financialYear ? thisYear(financialYear) : undefined
 }
 
-function getWhere(q?: Partial<BudgetSearchSpec>) {
+function getWhere(q?: BudgetSearchSpec) {
   if (q === undefined) return undefined
 
   const financialYear = getFinancialYear(q.financialYear)
@@ -14,7 +14,7 @@ function getWhere(q?: Partial<BudgetSearchSpec>) {
   return { ...q, financialYear }
 }
 
-export async function getBudgetAllocations(q?: Partial<BudgetSearchSpec>) {
+export async function getBudgetAllocations(q?: BudgetSearchSpec) {
   const where = getWhere(q)
 
   return (

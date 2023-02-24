@@ -10,7 +10,7 @@ import type {
 
 import { prisma } from '~/db.server'
 
-function getWhere(q?: Partial<ExpenditureSearchSpec>) {
+function getWhere(q?: ExpenditureSearchSpec) {
   if (q === undefined) return undefined
 
   const from = q.dateRange?.[0]
@@ -23,7 +23,7 @@ function getWhere(q?: Partial<ExpenditureSearchSpec>) {
   }
 }
 
-export async function getDepartmentExpenditures(q?: Partial<ExpenditureSpec>) {
+export async function getDepartmentExpenditures(q?: ExpenditureSearchSpec) {
   const where = getWhere(q)
 
   return (

@@ -11,7 +11,7 @@ import {
 } from '~/models'
 
 export async function loader(args: LoaderArgs) {
-  const where = safeQuery(MappingSearchSpec.partial(), args.request)
+  const where = safeQuery(MappingSearchSpec, args.request)
   const mappings = await getDepartmentMappingsList(where)
 
   return sjson({ mappings })

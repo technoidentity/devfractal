@@ -15,7 +15,7 @@ const columns: Column<BudgetAllocation>[] = [
 ]
 
 export async function loader(args: LoaderArgs) {
-  const q = safeQuery(BudgetSearchSpec.partial(), args.request)
+  const q = safeQuery(BudgetSearchSpec, args.request)
 
   const budgets = await getBudgetAllocations(q)
   const totalCost = budgets.reduce((acc, curr) => acc + curr.amount, 0)
