@@ -47,9 +47,10 @@ import {
   TimeInput,
 } from '@mantine/dates'
 import type { GetRawShape } from '@srtp/core'
-import type { FormSpec } from '@srtp/validator'
+import type { FormSpec, ZodDateRange } from '@srtp/validator'
+import { positive, spec } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
-import { z } from 'zod'
+import { date, number, string, z } from 'zod'
 import { useFormContext } from './FormContext'
 
 type Named<T, Name = string> = T & Readonly<{ name: Name }>
@@ -347,138 +348,107 @@ export const Action = ({ action, ...props }: ActionProps) => {
   return <Input {...props} type="hidden" name="_action" value={action} />
 }
 
-type EnumKeys<Spec extends FormSpec> = ConditionalKeys<
-  GetRawShape<Spec>,
-  | z.ZodEnum<any>
-  | z.ZodNativeEnum<any>
-  | z.ZodDefault<z.ZodEnum<any>>
-  | z.ZodDefault<z.ZodNativeEnum<any>>
->
+// type EnumKeys<Spec extends FormSpec> = ConditionalKeys<
+//   GetRawShape<Spec>,
+//   | z.ZodEnum<any>
+//   | z.ZodNativeEnum<any>
+//   | z.ZodDefault<z.ZodEnum<any>>
+//   | z.ZodDefault<z.ZodNativeEnum<any>>
+// >
 type EnumArrayKeys<Spec extends FormSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
 
-// handle partials/z.Optional too
+type KeyByZod<Spec extends FormSpec, Z extends z.ZodTypeAny> = ConditionalKeys<
+  GetRawShape<Spec>,
+  | Z
+  | z.ZodDefault<Z>
+  | z.ZodOptional<Z>
+  | z.ZodOptional<Z | z.ZodDefault<Z>>
+  | z.ZodOptional<z.ZodDefault<Z>>
+>
+
+type ZodNamed<Spec extends FormSpec, Props, Z extends z.ZodTypeAny> = Named<
+  Props,
+  KeyByZod<Spec, Z>
+>
+
+type StrNamed<Spec extends FormSpec, Props> = ZodNamed<Spec, Props, z.ZodString>
+type NumNamed<Spec extends FormSpec, Props> = ZodNamed<Spec, Props, z.ZodNumber>
+type BoolNamed<Spec extends FormSpec, Props> = ZodNamed<
+  Spec,
+  Props,
+  z.ZodBoolean
+>
+type DateNamed<Spec extends FormSpec, Props> = ZodNamed<Spec, Props, z.ZodDate>
+type EnumNamed<Spec extends FormSpec, Props> = Named<
+  Props,
+  KeyByZod<Spec, z.ZodEnum<any>> | KeyByZod<Spec, z.ZodNativeEnum<any>>
+>
+
+export const MappingSpec = spec({
+  id: number(),
+  tiId: string(),
+  ctc: positive(),
+  departmentId: number(),
+  fromDate: date(),
+  toDate: date(),
+})
+export type MappingSpec = z.infer<typeof MappingSpec>
+
+// type EnumNamed<T> =
+// type PickNumOrStr = FieldPickByZod<z.ZodNumber> | FieldPickByZod<z.ZodString>
+// type PickEnum =
+//   | FieldPickByZod<z.ZodEnum<any>>
+//   | FieldPickByZod<z.ZodNativeEnum<any>>
+
 export type InputsType<Spec extends FormSpec> = {
-  Str: (
-    props: Named<
-      TextInputProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodString | z.ZodDefault<z.ZodString>
-      >
-    >,
-  ) => JSX.Element
-  Content: (
-    props: Named<
-      TextareaProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodString | z.ZodDefault<z.ZodString>
-      >
-    >,
-  ) => JSX.Element
-  Password: (
-    props: Named<
-      PasswordInputProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodString | z.ZodDefault<z.ZodNumber>
-      >
-    >,
-  ) => JSX.Element
-  Number: (
-    props: Named<
-      NumberInputProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodNumber | z.ZodDefault<z.ZodNumber>
-      >
-    >,
-  ) => JSX.Element
-  Bool: (
-    props: Named<
-      CheckboxProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodBoolean | z.ZodDefault<z.ZodBoolean>
-      >
-    >,
-  ) => JSX.Element
-  Rating: (
-    props: Named<
-      RatingProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodNumber | z.ZodDefault<z.ZodNumber>
-      >
-    >,
+  Str: (props: StrNamed<Spec, TextInputProps>) => JSX.Element
+  Content: (props: StrNamed<Spec, TextareaProps>) => JSX.Element
+  Password: (props: StrNamed<Spec, PasswordInputProps>) => JSX.Element
+  Number: (props: NumNamed<Spec, NumberInputProps>) => JSX.Element
+  Bool: (props: BoolNamed<Spec, CheckboxProps>) => JSX.Element
+  Rating: (props: NumNamed<Spec, RatingProps>) => JSX.Element
+  Select: (props: EnumNamed<Spec, SelectProps>) => JSX.Element
+  Switch: (props: BoolNamed<Spec, SwitchProps>) => JSX.Element
+  Chip: (props: BoolNamed<Spec, ChipProps>) => JSX.Element
+  Slider: (props: NumNamed<Spec, SliderProps>) => JSX.Element
+  Color: (props: StrNamed<Spec, ColorInputProps>) => JSX.Element
+  DatePicker: (props: DateNamed<Spec, DatePickerProps>) => JSX.Element
+  Autocomplete: (props: StrNamed<Spec, AutocompleteProps>) => JSX.Element
+  SegmentedControl: (
+    props: EnumNamed<Spec, SegmentedControlProps>,
   ) => JSX.Element
   Enum: (
-    props: Named<RadioGroupProps, EnumKeys<Spec>> & {
+    props: EnumNamed<Spec, RadioGroupProps> & {
       values?: readonly string[]
     },
   ) => JSX.Element
-  EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
-  Select: (props: Named<SelectProps, EnumKeys<Spec>>) => JSX.Element
-  Switch: (
-    props: Named<
-      SwitchProps,
-      | ConditionalKeys<GetRawShape<Spec>, z.ZodBoolean>
-      | z.ZodDefault<z.ZodBoolean>
-    >,
-  ) => JSX.Element
-  Chip: (
-    props: Named<
-      ChipProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodBoolean | z.ZodDefault<z.ZodBoolean>
-      >
-    >,
-  ) => JSX.Element
-  Slider: (
-    props: Named<
-      SliderProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodNumber | z.ZodDefault<z.ZodNumber>
-      >
-    >,
-  ) => JSX.Element
+
+  Action: (props: ActionProps) => JSX.Element
+  Hidden: (props: Named<HiddenProps>) => JSX.Element
+
   File: (
     props: Named<FileInputProps, ConditionalKeys<z.infer<Spec>, File>>,
   ) => JSX.Element
-  Color: (
+
+  EnumList: (props: Named<MultiSelectProps, EnumArrayKeys<Spec>>) => JSX.Element
+  DynamicEnumList: (
     props: Named<
-      ColorInputProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodString | z.ZodDefault<z.ZodString>
-      >
+      MultiSelectProps,
+      | KeyByZod<Spec, z.ZodArray<z.ZodString>>
+      | KeyByZod<Spec, z.ZodArray<z.ZodNumber>>
     >,
   ) => JSX.Element
-  DatePicker: (
+  DynamicSelect: (
     props: Named<
-      DatePickerProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodDate | z.ZodDefault<z.ZodDate>>
+      SelectProps,
+      KeyByZod<Spec, z.ZodString> | KeyByZod<Spec, z.ZodNumber>
     >,
   ) => JSX.Element
   DateRangePicker: (
-    props: Named<
-      DateRangePickerProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodArray<z.ZodDate, 'many'>>
-    >,
-  ) => JSX.Element
-  Autocomplete: (
-    props: Named<
-      AutocompleteProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodString | z.ZodDefault<z.ZodString>
-      >
-    >,
+    props: ZodNamed<Spec, DateRangePickerProps, ZodDateRange>,
   ) => JSX.Element
   Time: (
     props: Named<
@@ -489,36 +459,7 @@ export type InputsType<Spec extends FormSpec> = {
       >
     >,
   ) => JSX.Element
-  SegmentedControl: (
-    props: Named<
-      SegmentedControlProps,
-      ConditionalKeys<GetRawShape<Spec>, z.ZodEnum<any> | z.ZodNativeEnum<any>>
-    >,
-  ) => JSX.Element
-  Action: (props: ActionProps) => JSX.Element
-  Hidden: (props: Named<HiddenProps>) => JSX.Element
 
-  DynamicEnumList: (
-    props: Named<
-      MultiSelectProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        z.ZodArray<z.ZodString> | z.ZodArray<z.ZodNumber>
-      >
-    >,
-  ) => JSX.Element
-  DynamicSelect: (
-    props: Named<
-      SelectProps,
-      ConditionalKeys<
-        GetRawShape<Spec>,
-        | z.ZodString
-        | z.ZodNumber
-        | z.ZodDefault<z.ZodString>
-        | z.ZodDefault<z.ZodNumber>
-      >
-    >,
-  ) => JSX.Element
   // Calendar: <Multiple extends boolean = false>(
   //   props: Named<
   //     CalendarProps<Multiple>,
