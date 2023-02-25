@@ -6,7 +6,6 @@ export type TableProps<Row extends RowBase> = UseClientTable<Row> &
 
 export function Table<Row extends RowBase>({
   perPage,
-  fieldPredicates,
   rowPredicate,
   initialPage,
   initialSort,
@@ -15,7 +14,6 @@ export function Table<Row extends RowBase>({
 }: TableProps<Row>) {
   const tableState = useClientTable({
     perPage: perPage || 5,
-    fieldPredicates,
     rowPredicate,
     initialPage,
     initialSort,

@@ -2,22 +2,8 @@ import type { Handlers } from '@srtp/local-state'
 import { state } from '@srtp/local-state'
 import { castDraft } from 'immer'
 import React, { useMemo } from 'react'
-import type {
-  ClientTableState,
-  FieldPredicates,
-  FieldSearch,
-  RowBase,
-  RowPredicate,
-  Sort,
-} from './types'
-import {
-  searchRows,
-  fieldPredicateRows,
-  paginateRows,
-  predicateRows,
-  fieldSearchRows,
-  sortRows,
-} from './utils'
+import type { ClientTableState, RowBase, FilterPredicate, Sort } from './types'
+import { paginateRows, predicateRows, searchRows, sortRows } from './utils'
 
 function useClientTableHandlers<Row extends RowBase>() {
   return React.useMemo(
@@ -36,15 +22,6 @@ function useClientTableHandlers<Row extends RowBase>() {
           state.search = search
         },
 
-        handleFieldSearch(state, key: keyof Row, val?: string | undefined) {
-          state.page = 1
-          if (val) {
-            ;(state.fieldSearch as any)[key] = val
-          } else {
-            delete (state.fieldSearch as any)[key]
-          }
-        },
-
         setPage(state, page: number) {
           state.page = page
         },
@@ -53,7 +30,7 @@ function useClientTableHandlers<Row extends RowBase>() {
   )
 }
 
-function useState<State, Hs extends Handlers<State>>(
+function useLocalState<State, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
 ) {
@@ -68,82 +45,59 @@ export type UseClientTable<Row extends RowBase> = Readonly<{
   search?: string
   initialPage?: number
   initialSort?: Sort<Row>
-
-  initialFieldSearch?: FieldSearch<Row>
-  fieldPredicates?: FieldPredicates<Row>
-  rowPredicate?: RowPredicate<Row>
+  searchFields?: 'all' | ReadonlyArray<keyof Row>
+  rowPredicate?: FilterPredicate<Row>
 }>
 
 export function useClientTable<Row extends RowBase>(
   props: UseClientTable<Row>,
 ) {
-  const {
-    rows,
-    perPage = 20,
-    initialSort,
-    initialPage,
-
-    initialFieldSearch,
-  } = props
+  const { rows, perPage = 20, initialSort, initialPage } = props
 
   const initialState = {
-    search: '',
+    search: '' as string,
     page: initialPage || 1,
     sort: initialSort || { order: 'asc', orderBy: 'id' },
-    filters: initialFieldSearch,
   } as const
   const handlers = useClientTableHandlers<Row>()
 
-  const [state, actions] = useState(initialState, handlers)
+  const [state, actions] = useLocalState(initialState, handlers)
 
-  const searchedRows = useMemo(
-    () => (state.search ? searchRows(rows, state.search) : rows),
-    [rows, state.search],
-  )
-
-  const fieldSearchedRows = useMemo(
+  const searched = useMemo(
     () =>
-      state.filters
-        ? fieldSearchRows(searchedRows, state.filters)
-        : searchedRows,
-    [state.filters, searchedRows],
+      props.searchFields
+        ? searchRows(rows, props.searchFields, state.search)
+        : rows,
+    [props.searchFields, rows, state.search],
   )
 
-  const filteredRows = useMemo(
-    () =>
-      props.fieldPredicates
-        ? fieldPredicateRows(fieldSearchedRows, props.fieldPredicates)
-        : fieldSearchedRows,
-    [props.fieldPredicates, fieldSearchedRows],
-  )
-
-  const rowPredicateRows = useMemo(
+  const filtered = useMemo(
     () =>
       props.rowPredicate
-        ? predicateRows(filteredRows, props.rowPredicate)
-        : filteredRows,
-    [filteredRows, props.rowPredicate],
+        ? predicateRows(searched, props.rowPredicate)
+        : searched,
+    [searched, props.rowPredicate],
   )
 
-  const sortedRows = useMemo(
-    () => sortRows(rowPredicateRows, state.sort),
-    [rowPredicateRows, state.sort],
+  const sorted = useMemo(
+    () => sortRows(filtered, state.sort),
+    [filtered, state.sort],
   )
 
-  const currentRows = React.useMemo(
-    () => paginateRows(sortedRows, state.page, perPage),
-    [perPage, sortedRows, state.page],
+  const current = React.useMemo(
+    () => paginateRows(sorted, state.page, perPage),
+    [perPage, sorted, state.page],
   )
 
   const totalPages = React.useMemo(
-    () => Math.ceil(fieldSearchedRows.length / perPage),
-    [fieldSearchedRows.length, perPage],
+    () => Math.ceil(sorted.length / perPage),
+    [sorted.length, perPage],
   )
 
   const selects = {
-    filterRows: fieldSearchRows,
-    sortedRows,
-    currentRows,
+    searched,
+    sorted,
+    current,
     totalPages,
   }
 

@@ -34,9 +34,7 @@ const useStyles = createStyles(theme => ({
 
 export function TableView<T extends { id: number | string } & object>({
   columns,
-  fieldSearch,
   onSort,
-  onFieldSearch,
   renderColumn,
   Actions,
   rows,
@@ -46,8 +44,8 @@ export function TableView<T extends { id: number | string } & object>({
   const { classes, cx } = useStyles()
   const [scrolled, setScrolled] = React.useState(false)
 
-  // @TODO: need to provide ScrollArea height for sticky?
   return (
+    // @TODO: need to provide ScrollArea height for sticky?
     <ScrollArea onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
       <Table verticalSpacing="xs" {...props}>
         <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
@@ -66,8 +64,7 @@ export function TableView<T extends { id: number | string } & object>({
             />
           ) : (
             <tr>
-              {/* @TODO:Take length from spec */}
-              <td colSpan={Object.keys(columns).length}>
+              <td colSpan={Object.keys(columns).length + (Actions ? 1 : 0)}>
                 <Text weight={500} align="center">
                   Nothing found
                 </Text>

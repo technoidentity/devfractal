@@ -1,5 +1,4 @@
 import { Container, MantineProvider } from '@mantine/core'
-import type { FieldSearch } from '@srtp/table'
 import { ClientTable, useClientTable } from '@srtp/table'
 import type { Row } from './data'
 import { columns, rows } from './data'
@@ -8,18 +7,16 @@ const renderColumn = (k: keyof Row, row: Row) => {
   if (k === 'is_manager') {
     return <td>{row.is_manager ? '✔️' : '✖️'}</td>
   }
+
   return <td>{row[k]}</td>
 }
 
-const initialFieldSearch: FieldSearch<Row> = {
-  age: '',
-  name: '',
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  start_date: '',
-}
-
 export function App() {
-  const tableState = useClientTable({ perPage: 7, rows, initialFieldSearch })
+  const tableState = useClientTable({
+    perPage: 7,
+    rows,
+    searchFields: ['name', 'age'],
+  })
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>

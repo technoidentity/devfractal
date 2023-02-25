@@ -1,18 +1,19 @@
-import { debugCast, isBool, isNil, isNum, isStr, isDate } from '@srtp/core'
-import { isEmpty } from 'lodash'
+import { debugCast, isBool, isDate, isNil, isNum, isStr } from '@srtp/core'
 import { z } from 'zod'
-import type {
-  FieldPredicates,
-  FieldSearch,
-  RowBase,
-  RowPredicate,
-  Sort,
-} from './types'
+import type { FilterPredicate, RowBase, Sort } from './types'
 
-const Primitive = z.union([z.number(), z.boolean(), z.string(), z.date()])
+const Primitive = z.union([
+  z.number(),
+  z.boolean(),
+  z.string(),
+  z.coerce.date(),
+])
 type Primitive = z.infer<typeof Primitive>
 
 const primitiveSearch = (search: string, value: Primitive): boolean => {
+  if (value === undefined) {
+    return false
+  }
   const s = search.trim()
 
   if (isStr(value)) {
@@ -35,62 +36,32 @@ const primitiveSearch = (search: string, value: Primitive): boolean => {
   return false
 }
 
-export function fieldSearchRows<Row extends object>(
-  rows: readonly Row[],
-  filters: FieldSearch<Row>,
-) {
-  if (isEmpty(filters)) {
-    return rows
-  }
-
-  return rows.filter(row => {
-    return Object.keys(filters).every(accessor => {
-      const searchValue = debugCast(z.string(), (filters as any)[accessor])
-      if (isNil(searchValue) || searchValue.trim() === '') {
-        return true
-      }
-
-      const value = debugCast(Primitive, (row as any)[accessor])
-
-      return primitiveSearch(searchValue, value)
-    })
-  })
-}
-
 export function searchRows<Row extends RowBase>(
   rows: readonly Row[],
-  searchKeys: ReadonlyArray<keyof Row>,
+  searchFields: 'all' | ReadonlyArray<keyof Row>,
   search?: string,
 ): readonly Row[] {
-  if (isNil(search) || search.trim() === '') {
+  if (isNil(search) || search.trim() === '' || rows.length === 0) {
     return rows
   }
+
+  const searchKeys =
+    searchFields === 'all'
+      ? (Object.keys(rows[0]) as ReadonlyArray<keyof Row>)
+      : searchFields
 
   return rows.filter(row =>
     searchKeys.some(key =>
-      primitiveSearch(search, debugCast(Primitive, (row as any)[key])),
+      primitiveSearch(search, row[key] && debugCast(Primitive, row[key])),
     ),
   )
 }
 
 export function predicateRows<Row extends RowBase>(
   rows: readonly Row[],
-  predicate: RowPredicate<Row>,
+  predicate: FilterPredicate<Row>,
 ) {
   return rows.filter(predicate)
-}
-
-export function fieldPredicateRows<Row extends RowBase>(
-  rows: readonly Row[],
-  predicates: FieldPredicates<Row>,
-) {
-  return rows.filter(row =>
-    Object.keys(predicates).every(key => {
-      const k = key as keyof Row
-      const fn = predicates[k]
-      return fn?.(row[k]) || true
-    }),
-  )
 }
 
 export function isDateString(value: unknown): value is string {

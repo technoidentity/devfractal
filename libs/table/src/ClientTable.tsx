@@ -6,26 +6,25 @@ import type { ClientTableProps, RowBase } from './types'
 
 export function ClientTable<Row extends RowBase>({
   columns,
-  onSearch,
   tableState: {
     actions,
     selects,
-    props: { perPage, rows },
+    props: { perPage, rows, searchFields },
     state,
   },
   ...props
 }: ClientTableProps<Row>) {
   return (
     <Flex direction={{ base: 'column' }} justify={{ md: 'center' }}>
-      {onSearch && <TableSearch search={state.search} onSearch={onSearch} />}
+      {searchFields && (
+        <TableSearch search={state.search} onSearch={actions.handleSearch} />
+      )}
 
       <TableView<Row>
         {...props}
         columns={columns}
-        fieldSearch={state.filters}
-        onFieldSearch={actions.handleFieldSearch}
         sort={state.sort}
-        rows={selects.currentRows}
+        rows={selects.current}
         onSort={actions.handleSort}
       />
 
