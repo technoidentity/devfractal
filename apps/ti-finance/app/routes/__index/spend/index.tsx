@@ -1,3 +1,4 @@
+import { Title } from '@mantine/core'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { SpendSearchSpec } from '~/common'
 import { safeQuery, sjson, useGet } from '~/core'
@@ -14,7 +15,14 @@ export async function loader(args: LoaderArgs) {
 const PeopleSpendPage = () => {
   const { personCost } = useGet<typeof loader>()
 
-  return <PeopleSpendList personCost={personCost} />
+  return (
+    <>
+      <Title order={3} mb="xl">
+        View People Spend
+      </Title>
+      <PeopleSpendList personCost={personCost} />
+    </>
+  )
 }
 
 export default PeopleSpendPage
