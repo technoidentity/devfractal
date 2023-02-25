@@ -1,15 +1,13 @@
 import type { ActionArgs } from '@remix-run/server-runtime'
-import { actionResult, safeAction } from '@srtp/remix-node'
+import { onlyMethod } from '@srtp/remix-node'
 import { CreateMappingSpec } from '~/common'
 import { useServerErrors } from '~/core'
 import { CreateDepartmentForm } from '~/features/mapping'
 import { createDepartmentMapping } from '~/models'
 
 export const action = (args: ActionArgs) =>
-  safeAction(CreateMappingSpec, args, async values => {
-    const departmentResult = await createDepartmentMapping(values)
-
-    return actionResult(departmentResult, { redirectUrl: '/department' })
+  onlyMethod(args, CreateMappingSpec, createDepartmentMapping, {
+    redirectUrl: '/department',
   })
 
 export const DepartmentPage = () => {
