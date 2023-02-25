@@ -1,8 +1,9 @@
+import { Title } from '@mantine/core'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import React from 'react'
 import { CostSearchSpec, useDepartmentName } from '~/common'
 import { safeQuery, sjson, useGet } from '~/core'
-import { CostSearchForm, DepartmentCostList } from '~/features/cost'
+import { DepartmentCostList } from '~/features/cost'
 import { getDepartmentsCost } from '~/models'
 
 export async function loader(args: LoaderArgs) {
@@ -37,7 +38,9 @@ const DepartmentsCostPage = () => {
 
   return (
     <>
-      <CostSearchForm />
+      <Title order={3} mb="xl">
+        View Department Costing
+      </Title>
       <DepartmentCostList costList={costList} />
     </>
   )
