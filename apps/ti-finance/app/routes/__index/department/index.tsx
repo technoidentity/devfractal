@@ -1,4 +1,4 @@
-import { Button, Group } from '@mantine/core'
+import { Button, Group, Title } from '@mantine/core'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
 import { IntId, MappingSearchSpec, MappingSpec } from '~/common'
@@ -28,6 +28,9 @@ const DepartmentsPage = () => {
 
   return (
     <>
+      <Title order={3} mb="xl">
+        Department Person Mapping
+      </Title>
       <Group position="apart" m="md">
         <Button component="a" href="/department/new">
           Add
