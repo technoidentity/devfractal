@@ -1,3 +1,4 @@
+import { Title } from '@mantine/core'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
 import { method, methods } from '@srtp/remix-node'
 import { ExpenditureSearchSpec, ExpenditureSpec, IntId } from '~/common'
@@ -26,7 +27,14 @@ export const action = (args: ActionArgs) => {
 const ExpenditurePage = () => {
   const { expenditures } = useGet<typeof loader>()
 
-  return <ExpenditureList expenditureList={expenditures} />
+  return (
+    <>
+      <Title order={3} mb="xl">
+        Department Expenditure
+      </Title>
+      <ExpenditureList expenditureList={expenditures} />
+    </>
+  )
 }
 
 export default ExpenditurePage
