@@ -1,6 +1,7 @@
 # Getting Started
 
-Please Note: Following instructions will work on WSL 2 on Windows, Ubuntu or macos. These won't work on. windows native
+Please Note: Following instructions will work on WSL 2 on Windows, Ubuntu or
+macos. These won't work on. windows native
 
 ## Setup repository
 
@@ -31,22 +32,25 @@ pnpm install
 
 ## Configure WSL 2
 
-You need to run the project in a [devcontainer](https://code.visualstudio.com/docs/remote/containers).
+You need to run the project in a
+[devcontainer](https://code.visualstudio.com/docs/remote/containers).
 
 1. Install [docker desktop](https://www.docker.com/products/docker-desktop)
 2. Configure it with `WSL 2` on windows by following the
    [docker WSL2 setup instructions](https://docs.docker.com/desktop/windows/wsl/)
-3. Install all the recommended packages when `visual studio code`
-   prompts you(available in `.vscode/extensions.json`)
+3. Install all the recommended packages when `visual studio code` prompts
+   you(available in `.vscode/extensions.json`)
 
-Open the project in `visual studio code`, press `Ctrl+Shift+P` and
-type 'Reopen in container'
+Open the project in `visual studio code`, press `Ctrl+Shift+P` and type 'Reopen
+in container'
 
 ## Configure database
 
-You might need to use the following database commands every time you run `git pull`:
+You might need to use the following database commands every time you run
+`git pull`:
 
-Update the schema and reset the database by running the following command(highly recommended):
+Update the schema and reset the database by running the following command(highly
+recommended):
 
 ```bash
 pnpm db:reset
@@ -69,7 +73,8 @@ You could also execute above three commands using the following command:
 pnpm db # push schema, seed and generate types(doesn't reset database)
 ```
 
-Optionally, add the `DATABASE_URL` environment variable to the `.env` file, if needed. By default, this will be devcontainer postgres database url.
+Optionally, add the `DATABASE_URL` environment variable to the `.env` file, if
+needed. By default, this will be devcontainer postgres database url.
 
 ```bash
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/posgres"
@@ -77,7 +82,8 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/posgres"
 
 ## Configure GCP
 
-1. Set the environment variables in the `.env` file. Currently the following values must be provided:
+1. Set the environment variables in the `.env` file. Currently the following
+   values must be provided:
 
    ```bash
    GOOGLE_ID=<YOUR OWN GOOGLE DEVELOPER ID FROM CONSOLE>
@@ -105,14 +111,15 @@ To run tests and watch for changes:
 pnpm test
 ```
 
-Open the terminal inside `Visual Studio Code`, and run the following command to continuously watch
-for type errors:
+Open the terminal inside `Visual Studio Code`, and run the following command to
+continuously watch for type errors:
 
 ```bash
 pnpm types
 ```
 
-**Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.**
+**Open [http://localhost:3000](http://localhost:3000) with your browser to see
+the result.**
 
 ## Contributing
 
@@ -122,8 +129,9 @@ Create a branch, like:
 git checkout -b <your-branch>
 ```
 
-Implement your feature or fix an issue. Commit your changes. Rebase changes from the `main` branch.
-Then run the following before doing `git push` and sending a pull request:
+Implement your feature or fix an issue. Commit your changes. Rebase changes from
+the `main` branch. Then run the following before doing `git push` and sending a
+pull request:
 
 ```bash
 git checkout main
@@ -137,27 +145,35 @@ pnpm ci
 ## Approach for creating pages for the app
 
 1. Divide the page into components.
-2. Implement each component's static structure for all the components. Make sure manager approves
-   UI with static structure.
-3. Once approved, define props for each of the components. Make sure you define event handlers.
-4. Use a static object or a fake object created using faker.js to test components with props.
-5. Decide if the components need state. If yes, define state and use storybook to test or document
-   components, especially if the component is reusable.
-6. If state needs to be shared between unrelated components(not parent/child), use `jotai`.
-7. If data is needed from server use `MSW` to define mock data and use `SWR` to fetch data.
-8. Implement most interactions using `MSW`. If possible use cypress to test fetch logic.
-9. Now use `next.js` api routes/handlers along with `prisma` to implement all of msw handlers,
-   making sure nothing breaks.
+2. Implement each component's static structure for all the components. Make sure
+   manager approves UI with static structure.
+3. Once approved, define props for each of the components. Make sure you define
+   event handlers.
+4. Use a static object or a fake object created using faker.js to test
+   components with props.
+5. Decide if the components need state. If yes, define state and use storybook
+   to test or document components, especially if the component is reusable.
+6. If state needs to be shared between unrelated components(not parent/child),
+   use `jotai`.
+7. If data is needed from server use `MSW` to define mock data and use `SWR` to
+   fetch data.
+8. Implement most interactions using `MSW`. If possible use playwright to test
+   fetch logic.
+9. Now use `next.js` api routes/handlers along with `prisma` to implement all of
+   msw handlers, making sure nothing breaks.
 10. Refactor. Mostly done by my team.
 
 ## Notes about deciding between controlled & uncontrolled components
 
-1. Prefer controlled components, especially for simple or leaf(no user defined children) components.
+1. Prefer controlled components, especially for simple or leaf(no user defined
+   children) components.
 2. All reusable components must be controlled components.
-3. If needed, implement the component so that it can be both controlled or uncontrolled.
+3. If needed, implement the component so that it can be both controlled or
+   uncontrolled.
 4. All CRUD forms should be uncontrolled components.
 5. All page components must be uncontrolled components.
-6. Large components, which aren't reusable are generally uncontrolled components.
+6. Large components, which aren't reusable are generally uncontrolled
+   components.
 7. Components needing server side data are usually uncontrolled components.
 8. Components which need jotai state are uncontrolled components.
 
