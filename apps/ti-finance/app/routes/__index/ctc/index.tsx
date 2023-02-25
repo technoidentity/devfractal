@@ -4,6 +4,7 @@ import { CtcSpec, IntId } from '~/common'
 import { CtcList } from '~/features/ctc'
 import { AddLink, sjson, useGet } from '~/core'
 import { deleteCtc, getCtcList, updateCtc } from '~/models'
+import { Title } from '@mantine/core'
 
 export async function loader() {
   const ctcList = await getCtcList()
@@ -22,6 +23,7 @@ const CtcPage = () => {
 
   return (
     <>
+      <Title order={3}>Person CTC</Title>
       <AddLink link="/ctc/new" />
       <CtcList ctcList={ctcList} />
     </>
