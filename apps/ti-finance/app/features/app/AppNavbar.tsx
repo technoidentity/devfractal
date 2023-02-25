@@ -7,6 +7,7 @@ import {
   IconDiscount2,
   IconHomeDollar,
   IconUserCircle,
+  IconMoneybag,
 } from '@tabler/icons-react'
 import { CustomLink } from '~/core'
 
@@ -22,7 +23,7 @@ export const AppNavbar = () => {
       <CustomLink
         to="/department"
         uiProps={{
-          label: 'Departments',
+          label: 'Department',
           icon: <IconActivity />,
           bg: '#f0f0f0',
           mt: 'sm',
@@ -79,8 +80,22 @@ export const AppNavbar = () => {
       <CustomLink
         to="/department/cost"
         uiProps={{
-          label: 'Department Cost',
+          label: 'Costing',
           icon: <IconHomeDollar />,
+          bg: '#f0f0f0',
+          mt: 'sm',
+        }}
+        style={{
+          textDecoration: 'none',
+          fontWeight: 'bold',
+          backgroundColor: 'lightgrey',
+        }}
+      />
+      <CustomLink
+        to="/budget/utilize"
+        uiProps={{
+          label: 'Budget Utilize',
+          icon: <IconMoneybag />,
           bg: '#f0f0f0',
           mt: 'sm',
         }}

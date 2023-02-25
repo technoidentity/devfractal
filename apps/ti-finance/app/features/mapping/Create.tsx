@@ -6,7 +6,7 @@ import { FormFields } from './FormFields'
 
 const initialValues: CreateMappingSpec = {
   tiId: '',
-  departmentId: -1111,
+  departmentId: -1,
   ctc: 0,
   category: Billable.billable,
   fromDate: new Date(),

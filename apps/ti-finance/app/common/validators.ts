@@ -66,6 +66,19 @@ export type MappingSpec = z.infer<typeof MappingSpec>
 export const CreateMappingSpec = MappingSpec.omit({ id: true })
 export type CreateMappingSpec = z.infer<typeof CreateMappingSpec>
 
+// export const BudgetUtilizedSpec = spec({
+//   financialYear: date(),
+//   department: string(),
+//   category: BillableSpec,
+//   amountAllocated: number(),
+//   amountUtilized: number(),
+//   amountRemaining: number(),
+//   utilized: number(),
+//   remaining: number(),
+// })
+
+// export type BudgetUtilizedSpec = z.infer<typeof BudgetUtilizedSpec>
+
 export const CostSpec = spec({
   id: string(),
   department: string(),
@@ -119,3 +132,11 @@ export const SpendSearchSpec = spec({
 }).partial()
 
 export type SpendSearchSpec = z.infer<typeof SpendSearchSpec>
+
+export const BudgetUtilizedSearchSpec = spec({
+  financialYear: number(),
+  departmentId: number(),
+  category: BillableSpec,
+}).partial()
+
+export type BudgetUtilizedSearchSpec = z.infer<typeof BudgetUtilizedSearchSpec>
