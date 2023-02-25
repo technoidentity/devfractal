@@ -1,4 +1,4 @@
-import { Group } from '@mantine/core'
+import { Group, Title } from '@mantine/core'
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import type { Column } from '@srtp/table'
 import { BudgetSearchSpec, Table, TotalSpendCard } from '~/common'
@@ -28,8 +28,11 @@ const BudgetPage = () => {
 
   return (
     <>
-      <Group position="left" m="md">
-        <TotalSpendCard cost={totalCost} label="Total Amount" />
+      <Title order={3} mb="xl">
+        Budget Allocated
+      </Title>
+      <TotalSpendCard cost={totalCost} label="Total Amount" />
+      <Group position="left">
         <BudgetSearchForm />
       </Group>
 
