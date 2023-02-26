@@ -1,8 +1,7 @@
 import { Group } from '@mantine/core'
 import {
   CostSearchSpec,
-  SelectDepartment,
-  useDepartmentsSelect,
+  SelectDepartment
 } from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
