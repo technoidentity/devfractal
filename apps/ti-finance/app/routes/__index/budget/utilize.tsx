@@ -8,7 +8,7 @@ import type { BudgetAllocation } from '~/models'
 import { getBudgetUtilization } from '~/models'
 
 const columns: Column<BudgetAllocation>[] = [
-  { accessor: 'financialYear', label: 'Financial_year' },
+  { accessor: 'financialYear', label: 'Financial year' },
   { accessor: 'department', label: 'Department' },
   { accessor: 'category', label: 'Category' },
   { accessor: 'amount', label: 'Amount' },

@@ -129,7 +129,6 @@ export const StepperForm = () => {
             data={['React', 'Vue', 'Angular', 'Svelte']}
             label="Select your favorite framework/library"
             description="This is anonymous"
-            withAsterisk
             {...form.getInputProps('library')}
             mt="md"
           />
@@ -157,7 +156,6 @@ export const StepperForm = () => {
             mt="md"
             label="Years of Experience"
             description="This is anonymous"
-            withAsterisk
             {...form.getInputProps('yearsOfExperience')}
           >
             <Radio value="fresher" label="Fresher" />
@@ -187,7 +185,6 @@ export const StepperForm = () => {
             defaultValue={18}
             placeholder="Your age"
             label="Your age"
-            withAsterisk
             mt="sm"
             {...form.getInputProps('age')}
           />
@@ -195,7 +192,6 @@ export const StepperForm = () => {
           <Textarea
             placeholder="Previous Job Description"
             label="Previous Job Description"
-            withAsterisk
             mt="sm"
             {...form.getInputProps('previousJob')}
           />
@@ -232,7 +228,6 @@ export const StepperForm = () => {
             mt="sm"
             placeholder="Pick file"
             label="Your resume"
-            withAsterisk
             {...form.getInputProps('file')}
           />
           <ColorInput
@@ -245,7 +240,6 @@ export const StepperForm = () => {
             placeholder="Pick date"
             label="Date of Joining"
             mt="sm"
-            withAsterisk
             {...form.getInputProps('dateOfJoining')}
           />
           <Switch
