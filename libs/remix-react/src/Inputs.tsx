@@ -48,9 +48,8 @@ import {
 } from '@mantine/dates'
 import type { GetRawShape } from '@srtp/core'
 import type { FormSpec, ZodDateRange } from '@srtp/validator'
-import { positive, spec } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
-import { date, number, string, z } from 'zod'
+import { z } from 'zod'
 import { useFormContext } from './FormContext'
 
 type Named<T, Name = string> = T & Readonly<{ name: Name }>
@@ -386,16 +385,6 @@ type EnumNamed<Spec extends FormSpec, Props> = Named<
   Props,
   KeyByZod<Spec, z.ZodEnum<any>> | KeyByZod<Spec, z.ZodNativeEnum<any>>
 >
-
-export const MappingSpec = spec({
-  id: number(),
-  tiId: string(),
-  ctc: positive(),
-  departmentId: number(),
-  fromDate: date(),
-  toDate: date(),
-})
-export type MappingSpec = z.infer<typeof MappingSpec>
 
 // type EnumNamed<T> =
 // type PickNumOrStr = FieldPickByZod<z.ZodNumber> | FieldPickByZod<z.ZodString>

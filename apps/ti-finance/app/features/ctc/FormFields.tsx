@@ -2,6 +2,7 @@ import type { CreateCtcSpec, CtcSpec } from '~/common'
 import { SelectUser } from '~/common'
 import type { FormFieldsProps } from '~/core'
 
+// @TODO: 'name' typesafety not working
 export function FormFields<T extends typeof CtcSpec | typeof CreateCtcSpec>({
   Inputs,
 }: FormFieldsProps<T>) {
