@@ -22,7 +22,7 @@ export function ExpenditureInputs({
       />
 
       <Inputs.Select
-        allowDeselect
+        clearable
         name="category"
         label="Category"
         size="xs"
@@ -30,7 +30,7 @@ export function ExpenditureInputs({
       />
 
       <Inputs.DynamicSelect
-        allowDeselect
+        clearable
         name="departmentId"
         label="Department"
         data={departments}
