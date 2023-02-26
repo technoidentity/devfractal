@@ -16,7 +16,7 @@ function createActions$<Spec extends FormSpec & z.AnyZodObject>(
     const serverErrors = useServerErrors(spec)
 
     return (
-      <Group>
+      <Group noWrap>
         <DeleteForm id={row.id} />
         <EditForm
           FormFields={FormFields}
