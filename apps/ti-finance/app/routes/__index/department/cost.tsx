@@ -10,17 +10,16 @@ export async function loader(args: LoaderArgs) {
   const q = safeQuery(CostSearchSpec, args.request)
   const { personCost, expenditures } = await getDepartmentsCost(q)
 
-  return sjson({ personCost, expenditures })
+  const expendituresMap = new Map(
+    expenditures.map(e => [e.departmentId, e.total]),
+  )
+
+  return sjson({ personCost, expendituresMap })
 }
 
 const DepartmentsCostPage = () => {
-  const { personCost, expenditures } = useGet<typeof loader>()
+  const { personCost, expendituresMap } = useGet<typeof loader>()
   const getDepartmentName = useDepartmentName()
-
-  const expendituresMap = React.useMemo(
-    () => new Map(expenditures.map(e => [e.departmentId, e.total])),
-    [expenditures],
-  )
 
   const costList = personCost.map(e => {
     const otherExpenditures = expendituresMap.get(e.departmentId) || 0
