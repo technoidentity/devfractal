@@ -2,15 +2,15 @@
   "devDependencies": {
     "@reactpreview/cli": "0.7.2",
     "concurrently": "7.6.0",
-    "eslint": "8.34.0",
+    "eslint": "8.35.0",
     "husky": "8.0.3",
     "lint-staged": "13.1.2",
-    "npm-check-updates": "16.7.5",
+    "npm-check-updates": "16.7.9",
     "npm-run-all": "4.1.5",
     "start-server-and-test": "1.15.4",
-    "turbo": "1.8.1",
+    "turbo": "1.8.2",
     "typescript": "4.9.5",
-    "vite-node": "0.28.5",
+    "vite-node": "0.29.1",
     "zx": "7.1.1"
   },
   "scripts": {
