@@ -4,12 +4,12 @@ import React from 'react'
 import { Table, TotalSpendCard, useDepartmentName, useUserName } from '~/common'
 import { SpendSearchForm } from './Search'
 
-type PeopleSpend = {
+type PeopleSpend = Readonly<{
   id: string
   username: string
   cost: number
   departments: string
-}
+}>
 
 const columns: Column<PeopleSpend>[] = [
   { accessor: 'id', label: 'TI_ID' },
@@ -35,24 +35,15 @@ const useSpendPage = (personCost: readonly PersonCost[]) => {
   const rows = React.useMemo(
     () =>
       Array.from(
-        mergeWithToMap(personCost, 'tiId', (acc: Spendings | undefined, e) =>
-          acc
-            ? {
-                id: e.tiId,
-                username: getUserName(e.tiId),
-                cost: acc.cost + e.ctc,
-                departments: [
-                  ...acc.departments,
-                  getDepartmentName(e.departmentId),
-                ],
-              }
-            : {
-                id: e.tiId,
-                username: getUserName(e.tiId),
-                cost: e.ctc,
-                departments: [getDepartmentName(e.departmentId)],
-              },
-        ).values(),
+        mergeWithToMap(personCost, 'tiId', (acc: Spendings | undefined, e) => ({
+          id: e.tiId,
+          username: getUserName(e.tiId),
+          cost: acc ? acc.cost + e.ctc : e.ctc,
+          departments: [
+            ...(acc?.departments || []),
+            getDepartmentName(e.departmentId),
+          ],
+        })).values(),
       ).map(c => ({ ...c, departments: c.departments.join(', ') })),
     [personCost, getUserName, getDepartmentName],
   )
