@@ -56,7 +56,7 @@ export const boolean = (defaultValue?: boolean) =>
 export const date = (defaultValue?: Date) =>
   defaultValue ? z.coerce.date().default(defaultValue) : z.coerce.date()
 
-export const DateRange = z.array(z.date()).max(2).brand<'DateRange'>()
+export const DateRange = z.array(date()).max(2).brand<'DateRange'>()
 export type ZodDateRange = typeof DateRange
 export type DateRange = z.infer<typeof DateRange>
 
