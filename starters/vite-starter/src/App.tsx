@@ -1,9 +1,9 @@
-import { MantineProvider, Text } from '@mantine/core'
+import { MantineProvider, Title } from '@mantine/core'
 
 export function App() {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Text>Welcome to Mantine!</Text>
+      <Title align="center">Hello, World!</Title>
     </MantineProvider>
   )
 }
