@@ -1,8 +1,5 @@
-import { pass, test } from 'tap'
+import { expect, test } from 'vitest'
 
-pass('this test is always passing')
-
-test('+', t => {
-  t.equal(1 + 2, 3)
-  t.end()
+test('+', () => {
+  expect(true).toBeTruthy()
 })
