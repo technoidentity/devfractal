@@ -11,6 +11,7 @@
     "turbo": "1.8.2",
     "typescript": "4.9.5",
     "vite-node": "0.29.1",
+    "ndb": "1.1.5",
     "zx": "7.1.1"
   },
   "scripts": {
@@ -32,8 +33,5 @@
   },
   "lint-staged": {
     "*.ts*": "tsc"
-  },
-  "dependencies": {
-    "ndb": "1.1.5"
   }
 }
