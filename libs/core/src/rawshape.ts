@@ -9,6 +9,7 @@ export type GetRawShape<T> = T extends z.ZodEffects<infer R>
 export function getRawShape<T extends z.ZodEffects<any> | z.AnyZodObject>(
   spec: T,
 ): GetRawShape<T> {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return spec instanceof z.ZodEffects
     ? // eslint-disable-next-line no-underscore-dangle
       getRawShape(spec._def.schema)
