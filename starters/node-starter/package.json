@@ -9,9 +9,9 @@
     "build": "npx tsc -p .",
     "types": "npx tsc -p .",
     "types:dev": "tsc --noEmit -p . --watch",
-    "lint": " npx xo",
-    "test": "vitest",
-    "test:dev": "pnpm test -- --watch",
+    "lint": "npx xo",
+    "test": "vitest run",
+    "test:dev": "vitest",
     "dev": "nodemon -x tsx src/index.ts",
     "ci": "pnpm turbo build lint test"
   },
