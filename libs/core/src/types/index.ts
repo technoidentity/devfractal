@@ -1,6 +1,5 @@
 export * from './casts'
 export * from './coerce'
 export * from './is'
-export * from './isoDate'
 export * from './typeCasts'
 export * from './casts'
