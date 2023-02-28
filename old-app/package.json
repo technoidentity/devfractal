@@ -39,17 +39,14 @@
   "devDependencies": {
     "@previewjs/config-helper-nextjs": "1.0.5",
     "@srtp/tsconfig": "workspace:*",
-    "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "14.4.3",
-    "@types/jest": "~29.2.5",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
     "cross-env": "7.0.3",
     "eslint": "8.32.0",
     "eslint-config-srtp": "workspace:*",
-    "jest": "29.3.1",
     "npm-check-updates": "16.6.2",
     "prettier": "2.8.3",
     "rimraf": "4.1.1",
@@ -64,9 +61,8 @@
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "pnpm types --watch",
-    "lint": "eslint \"./pages/**/*.{js,ts,tsx}\"",
-    "validate": "rushx lint && rushx types",
-    "test": "jest --config ./jest.config.json"
+    "lint": "eslint --max-warnings=0 --cache --cache-location ./node_modules/.cache/eslint .",
+    "validate": "rushx lint && rushx types"
   },
   "browserslist": [
     ">0.2%",

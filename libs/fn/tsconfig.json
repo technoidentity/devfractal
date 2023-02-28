@@ -1,6 +1,6 @@
 {
   "extends": "@srtp/tsconfig/base.json",
-  "include": ["src"],
+  "include": ["src", "tests", "__previewjs__"],
   "compilerOptions": {
     "types": ["node"]
   }

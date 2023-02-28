@@ -32,5 +32,5 @@
     "target": "ESNext",
     "types": ["node", "vite/client"]
   },
-  "include": ["src", "mocks", "__previewjs__"]
+  "include": ["src", "mocks", "tests", "__previewjs__"]
 }

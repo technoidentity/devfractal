@@ -1,6 +1,6 @@
 // @TODO: implement useInputs? or export useFormContext?
 
-import { SelectProps } from '@mantine/core'
+import type { SelectProps } from '@mantine/core'
 import type { InputsType } from '@srtp/remix-react'
 import type { FormSpec } from '@srtp/validator'
 import { useUsersSelect } from '~/common'

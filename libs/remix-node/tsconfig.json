@@ -1,4 +1,4 @@
 {
   "extends": "@srtp/tsconfig/react.json",
-  "include": ["src"]
+  "include": ["src", "tests", "__previewjs__"]
 }

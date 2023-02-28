@@ -3,4 +3,5 @@ dist
 .cache
 coverage
 .eslintrc.js
-vite.config.ts
+build
+**/prisma-client/**

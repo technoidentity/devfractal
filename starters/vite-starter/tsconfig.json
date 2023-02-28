@@ -28,6 +28,6 @@
     "target": "ESNext",
     "types": ["node", "vite/client"]
   },
-  "include": ["src", "tests"],
-  "exclude": ["node_modules", "./vite.config.ts"]
+  "include": ["src", "tests", "__previewjs__"],
+  "exclude": ["node_modules", "vite.config.ts"]
 }

@@ -148,25 +148,3 @@ export default function LoginPage() {
     </Container>
   )
 }
-
-{
-  /* <Form method="post" noValidate>
-      <TextInput name="email" label="Email address" />
-      <PasswordInput name="password" label="Password" />
-      <input type="hidden" name="redirectTo" value={redirectTo} />
-      <Button type="submit">Log in</Button>
-      <Checkbox label="Remember me" />
-
-      <Text>
-        Don't have an account?
-        <Link
-          to={{
-            pathname: '/join',
-            search: searchParams.toString(),
-          }}
-        >
-          Sign up
-        </Link>
-      </Text>
-    </Form> */
-}

@@ -4,5 +4,6 @@
     "jsx": "react-jsx",
     "types": ["node", "vite/client"]
   },
-  "include": ["src"]
+  "include": ["src", "tests", "__previewjs__"],
+  "exclude": ["node_modules"]
 }

@@ -20,7 +20,6 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'react',
-    'jest',
     'prettier',
     'import',
     'jsx-a11y',

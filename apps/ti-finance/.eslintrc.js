@@ -14,7 +14,6 @@ module.exports = {
       version: 28,
     },
   },
-  ignorePatterns: ['./prisma/zod/**'],
   rules: {
     '@typescript-eslint/no-redeclare': 'off',
   },

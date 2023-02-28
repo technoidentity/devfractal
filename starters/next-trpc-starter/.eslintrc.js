@@ -2,6 +2,9 @@ const restrictedGlobals = require('confusing-browser-globals')
 
 module.exports = {
   root: true,
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+  },
   overrides: [
     {
       extends: [

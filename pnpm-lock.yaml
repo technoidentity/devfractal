@@ -4571,7 +4571,7 @@ packages:
       '@emotion/react': '>=10.0.35'
       react: '>=18'
     dependencies:
-      '@emotion/react': 11.10.5_pmekkgnqduwlme35zpnqhenc34
+      '@emotion/react': 11.10.5_kzbn2opkn2327fwg5yzwzya5o4
       react: 18.2.0
     dev: false
 

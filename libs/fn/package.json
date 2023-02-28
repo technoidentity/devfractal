@@ -18,7 +18,7 @@
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint --max-warnings=0 --cache --cache-location ./node_modules/.cache/eslint src --ext ts,tsx",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "test": "vitest run",
     "test:dev": "vitest dev",
@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/jest": "29.4.0",
     "@types/node": "18.14.1",
     "cross-env": "7.0.3",
     "eslint": "8.35.0",
