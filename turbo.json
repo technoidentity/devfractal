@@ -9,6 +9,11 @@
   "globalDependencies": [".env", ".env.development", ".env.dev"],
 
   "pipeline": {
+    "dev": {
+      "cache": false,
+      "outputMode": "full",
+      "persistent": true
+    },
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["types", "dist/**"]
