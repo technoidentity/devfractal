@@ -3,4 +3,7 @@ dist
 .cache
 coverage
 .eslintrc.js
+build
 **/prisma-client/**
+vite.config.ts
+next.config.js
