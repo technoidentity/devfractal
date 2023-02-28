@@ -22,3 +22,4 @@ node_modules
 
 /app/styles/tailwind.css
 **/prisma/zod/**
+**/prisma-client/**

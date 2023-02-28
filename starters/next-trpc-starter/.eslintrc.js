@@ -1,6 +1,7 @@
 const restrictedGlobals = require('confusing-browser-globals')
 
 module.exports = {
+  root: true,
   overrides: [
     {
       extends: [

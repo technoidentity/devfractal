@@ -4,3 +4,4 @@ dist
 coverage
 .eslintrc.js
 build
+**/prisma-client/**

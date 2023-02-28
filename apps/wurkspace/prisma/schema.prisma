@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../src/prisma-client"
 }
 
 datasource db {
@@ -137,7 +138,6 @@ model Meeting {
   discussions   Discussion[]
   actions       Action[]
   calendarEvent CalendarEvent @relation(name: "eventMeeting", fields: [id], references: [id])
-
 
   @@map("meeting")
 }

@@ -58,3 +58,4 @@ postgres-data/
 public/build
 .env
 **/prisma/zod/
+**/prisma-client/

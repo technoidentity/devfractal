@@ -9,7 +9,8 @@
       "@core/*": ["src/core/*"],
       "@db/*": ["src/db/*"],
       "@fake/*": ["src/fake/*"],
-      "@specs/*": ["src/specs/*"]
+      "@specs/*": ["src/specs/*"],
+      "@prisma/client": ["./src/prisma-client"]
     },
     "target": "ESNext",
     "incremental": true

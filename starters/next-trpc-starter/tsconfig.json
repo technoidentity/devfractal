@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@prisma/client": ["./src/prisma-client"]
     },
     "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],

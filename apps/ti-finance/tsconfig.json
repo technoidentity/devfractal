@@ -16,7 +16,8 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "@prisma/client": ["./app/prisma-client"]
     },
     "skipLibCheck": true,
 
