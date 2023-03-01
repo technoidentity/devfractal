@@ -10,6 +10,7 @@
     "mhutchie.git-graph",
     "ms-azuretools.vscode-docker",
     "ms-edgedevtools.vscode-edge-devtools",
+    "ms-vscode-remote.remote-containers",
     "ms-vscode-remote.remote-wsl-recommender",
     "pomdtr.excalidraw-editor",
     "prisma.prisma",
@@ -17,7 +18,7 @@
     "streetsidesoftware.code-spell-checker",
     "vincaslt.highlight-matching-tag",
     "wayou.vscode-todo-highlight",
-    "ZixuanChen.vitest-explorer",
-    "zenclabs.previewjs"
+    "zenclabs.previewjs",
+    "ZixuanChen.vitest-explorer"
   ]
 }

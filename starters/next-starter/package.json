@@ -2,6 +2,18 @@
   "name": "@srtp/next-starter",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "update": "pnpm ncu -u",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:dev": "pnpm lint --quiet --fix",
+    "types": "tsc --noEmit -p .",
+    "types:dev": "pnpm types --watch",
+    "ci": "pnpm turbo lint types"
+  },
   "dependencies": {
     "@chakra-ui/react": "2.4.9",
     "@chakra-ui/styled-system": "2.5.1",
@@ -36,14 +48,10 @@
     "zod": "3.20.2"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "7.19.1",
     "@next/eslint-plugin-next": "13.1.2",
-    "@testing-library/react": "13.4.0",
-    "@testing-library/user-event": "14.4.3",
     "@types/node": "18.11.18",
     "@types/react-beautiful-dnd": "13.1.3",
     "@types/react-dom": "18.0.10",
-    "@types/react-test-renderer": "18.0.0",
     "@types/react-virtualized-auto-sizer": "1.0.1",
     "@types/react-window-infinite-loader": "1.0.6",
     "@types/react-window": "1.8.5",
@@ -71,23 +79,5 @@
     "rimraf": "4.1.0",
     "turbo": "1.7.0",
     "typescript": "4.9.4"
-  },
-  "scripts": {
-    "update": "pnpm ncu -u",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "lint:dev": "pnpm lint --quiet --fix",
-    "types": "tsc --noEmit -p .",
-    "types:dev": "pnpm types --watch",
-    "ci": "pnpm turbo lint types"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }

@@ -15,7 +15,10 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noImplicitOverride": true,
     "noImplicitThis": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "strictPropertyInitialization": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -32,14 +35,6 @@
     // },
     "incremental": true
   },
-  "include": [
-    "pages",
-    "safe",
-    "tests",
-    "components",
-    "next.config.js",
-    "next-env.d.ts",
-    "__previewjs__"
-  ],
+  "include": ["pages", "tests", "next-env.d.ts", "__previewjs__"],
   "exclude": ["node_modules", "next.config.js", "next-env.d.ts"]
 }

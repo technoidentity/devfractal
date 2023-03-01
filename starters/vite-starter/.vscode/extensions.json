@@ -18,6 +18,11 @@
     "prisma.prisma",
     "rangav.vscode-thunder-client",
     "ms-edgedevtools.vscode-edge-devtools",
-    "pomdtr.excalidraw-editor"
+    "pomdtr.excalidraw-editor",
+    "humao.rest-client",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode-remote.remote-wsl-recommender",
+    "zenclabs.previewjs",
+    "ZixuanChen.vitest-explorer"
   ]
 }
