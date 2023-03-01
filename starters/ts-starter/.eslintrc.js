@@ -8,7 +8,6 @@ module.exports = {
   extends: [
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:prettier/recommended',
-    'turbo',
   ],
 
   parser: '@typescript-eslint/parser',

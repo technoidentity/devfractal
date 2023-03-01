@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "pnpm types && vite build",
     "serve": "vite preview",
-    "lint": "eslint --max-warnings=0 --cache --cache-location ./node_modules/.cache/eslint src tests --ext ts,tsx",
+    "lint": "eslint --max-warnings=0 --cache src tests --ext ts,tsx",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "tsc --noEmit -p . --watch",

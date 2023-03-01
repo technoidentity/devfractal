@@ -61,7 +61,7 @@
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "pnpm types --watch",
-    "lint": "eslint --max-warnings=0 --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint --max-warnings=0 --cache .",
     "validate": "rushx lint && rushx types"
   },
   "browserslist": [

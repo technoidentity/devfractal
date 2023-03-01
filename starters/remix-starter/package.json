@@ -9,7 +9,7 @@
     "typecheck": "tsc",
     "upd": "pnpm ncu -u",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "lint": "eslint --max-warnings=0 --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint --max-warnings=0 --cache .",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "tsc --noEmit -p . --watch",

@@ -59,3 +59,4 @@ public/build
 .env
 **/prisma/zod/
 **/prisma-client/
+.eslintcache

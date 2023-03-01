@@ -16,7 +16,7 @@
     "dev:server": "cross-env NODE_ENV=development node --inspect --require ./node_modules/dotenv/config --require ./mocks ./build/server.js",
     "docker": "docker-compose up -d",
     "format": "prettier --write .",
-    "lint": "eslint --max-warnings=0 --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint": "eslint --max-warnings=0 --cache .",
     "setup": "pnpm db:types && pnpm prisma migrate deploy && pnpm prisma db seed",
     "start": "cross-env NODE_ENV=production node ./build/server.js",
     "start:mocks": "cross-env NODE_ENV=production node --require ./mocks --require dotenv/config ./build/server.js",

@@ -9,7 +9,7 @@
     "coverage": "vitest run --coverage",
     "db": "json-server ./db.js",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
-    "lint": "eslint --max-warnings=0 --cache --cache-location ./node_modules/.cache/eslint src tests --ext ts,tsx",
+    "lint": "eslint --max-warnings=0 --cache src tests --ext ts,tsx",
     "serve": "vite preview",
     "test:dev": "vitest dev",
     "test": "vitest run",
