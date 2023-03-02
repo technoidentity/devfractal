@@ -60,3 +60,5 @@ public/build
 **/prisma/zod/
 **/prisma-client/
 .eslintcache
+.history
+
