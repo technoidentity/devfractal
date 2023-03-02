@@ -17,6 +17,7 @@ export function SelectUser(props: SelectUserProps) {
       label="User"
       placeholder="Select User"
       name="tiId"
+      size="xs"
       {...props}
     />
   )

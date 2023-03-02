@@ -10,7 +10,7 @@ export function FormFields({
   | FormFieldsProps<typeof CreateMappingSpec>) {
   return (
     <>
-      <SelectUser name="tiId" />
+      <SelectUser />
       <SelectDepartment name="departmentId" />
 
       <Inputs.Number

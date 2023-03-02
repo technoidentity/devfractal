@@ -17,6 +17,7 @@ export function SelectDepartment(props: SelectDepartmentProps) {
       name={'departmentId'}
       placeholder="Select Department"
       label="Department"
+      size="xs"
       {...props}
     />
   )

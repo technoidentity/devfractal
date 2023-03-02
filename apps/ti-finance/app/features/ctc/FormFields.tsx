@@ -7,7 +7,7 @@ export function FormFields({
 }: FormFieldsProps<typeof CtcSpec> | FormFieldsProps<typeof CreateCtcSpec>) {
   return (
     <>
-      <SelectUser name="tiId" />
+      <SelectUser />
 
       <Inputs.Number
         label="CTC"

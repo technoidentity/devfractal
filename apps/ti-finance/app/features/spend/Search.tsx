@@ -15,7 +15,7 @@ export function SpendInputs({
         label="Date range"
         size="xs"
       />
-      <SelectUser size="xs" />
+      <SelectUser />
     </Group>
   )
 }

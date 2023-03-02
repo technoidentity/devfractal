@@ -13,7 +13,7 @@ export function BudgetInputs({
 }: SearchInputsProps<typeof BudgetSearchSpec>) {
   return (
     <Group mt="xl" mb="lg" ml="sm">
-      <SelectDepartment size="xs" />
+      <SelectDepartment />
       <Inputs.DynamicSelect
         clearable
         searchable

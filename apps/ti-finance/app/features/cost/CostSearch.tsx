@@ -13,7 +13,7 @@ export function CostInputs({
         size="xs"
         label="From and To Date"
       />
-      <SelectDepartment size="xs" />
+      <SelectDepartment />
     </Group>
   )
 }
