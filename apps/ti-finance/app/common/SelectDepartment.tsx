@@ -1,22 +1,11 @@
 // @TODO: implement useInputs? or export useFormContext?
 
 import type { SelectProps } from '@mantine/core'
-import type { InputsType } from '@srtp/remix-react'
-import type { FormSpec } from '@srtp/validator'
+import { Inputs } from '@srtp/remix-react'
 import { useDepartmentsSelect } from '~/common'
 
-export type SelectDepartmentProps<T extends FormSpec = FormSpec> = Omit<
-  SelectProps,
-  'name' | 'data'
-> & {
-  Inputs: InputsType<T>
-  name?: string
-}
-
-export function SelectDepartment<T extends FormSpec = FormSpec>({
-  Inputs,
-  ...props
-}: SelectDepartmentProps<T>) {
+export type SelectDepartmentProps = Omit<SelectProps, 'data'>
+export function SelectDepartment(props: SelectDepartmentProps) {
   const departments = useDepartmentsSelect()
 
   return (
@@ -27,7 +16,7 @@ export function SelectDepartment<T extends FormSpec = FormSpec>({
       data={departments}
       name={'departmentId'}
       placeholder="Select Department"
-      label={props.label || 'Department'}
+      label="Department"
       {...props}
     />
   )

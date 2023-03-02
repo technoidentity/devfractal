@@ -1,12 +1,11 @@
 import { Group } from '@mantine/core'
-import type { z } from 'zod'
 import { SelectUser, SpendSearchSpec } from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
 
-export function SpendInputs<T extends z.AnyZodObject>({
+export function SpendInputs({
   Inputs,
-}: SearchInputsProps<T>) {
+}: SearchInputsProps<typeof SpendSearchSpec>) {
   return (
     <Group position="left" m="md">
       <Inputs.DateRangePicker
@@ -16,7 +15,7 @@ export function SpendInputs<T extends z.AnyZodObject>({
         label="Date range"
         size="xs"
       />
-      <SelectUser Inputs={Inputs} size="xs" />
+      <SelectUser size="xs" />
     </Group>
   )
 }

@@ -3,13 +3,15 @@ import type { CreateMappingSpec, MappingSpec } from '~/common'
 import { SelectDepartment, SelectUser } from '~/common'
 import type { FormFieldsProps } from '~/core'
 
-export function FormFields<
-  T extends typeof MappingSpec | typeof CreateMappingSpec,
->({ Inputs }: FormFieldsProps<T>) {
+export function FormFields({
+  Inputs,
+}:
+  | FormFieldsProps<typeof MappingSpec>
+  | FormFieldsProps<typeof CreateMappingSpec>) {
   return (
     <>
-      <SelectUser Inputs={Inputs} name="tiId" />
-      <SelectDepartment Inputs={Inputs} name="departmentId" />
+      <SelectUser name="tiId" />
+      <SelectDepartment name="departmentId" />
 
       <Inputs.Number
         label="CTC"

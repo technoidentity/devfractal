@@ -1,8 +1,5 @@
 import { Group } from '@mantine/core'
-import {
-  CostSearchSpec,
-  SelectDepartment
-} from '~/common'
+import { CostSearchSpec, SelectDepartment } from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
 
@@ -16,7 +13,7 @@ export function CostInputs({
         size="xs"
         label="From and To Date"
       />
-      <SelectDepartment Inputs={Inputs} size="xs" />
+      <SelectDepartment size="xs" />
     </Group>
   )
 }

@@ -2,13 +2,12 @@ import type { CreateCtcSpec, CtcSpec } from '~/common'
 import { SelectUser } from '~/common'
 import type { FormFieldsProps } from '~/core'
 
-// @TODO: 'name' typesafety not working
-export function FormFields<T extends typeof CtcSpec | typeof CreateCtcSpec>({
+export function FormFields({
   Inputs,
-}: FormFieldsProps<T>) {
+}: FormFieldsProps<typeof CtcSpec> | FormFieldsProps<typeof CreateCtcSpec>) {
   return (
     <>
-      <SelectUser Inputs={Inputs} name="tiId" />
+      <SelectUser name="tiId" />
 
       <Inputs.Number
         label="CTC"

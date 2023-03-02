@@ -11,8 +11,8 @@ export function MappingInputs({
       <Text mt="md" fw="bold" size="sm">
         Filter by:{' '}
       </Text>
-      <SelectDepartment Inputs={Inputs} size="xs" />
-      <SelectUser Inputs={Inputs} size="xs" />
+      <SelectDepartment size="xs" />
+      <SelectUser size="xs" />
     </Group>
   )
 }

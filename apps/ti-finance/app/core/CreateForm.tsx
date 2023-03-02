@@ -4,8 +4,8 @@ import type { FormSpec } from '@srtp/validator'
 import type { CrudFormProps } from './CrudForm'
 import { CrudForm } from './CrudForm'
 
-export type FormFieldsProps<T extends FormSpec> = Readonly<{
-  Inputs: InputsType<T>
+export type FormFieldsProps<Spec extends FormSpec> = Readonly<{
+  Inputs: InputsType<Spec>
 }>
 
 export interface CreateFormProps<Spec extends FormSpec>

@@ -8,7 +8,7 @@ export function FormFields<
 >({ Inputs }: FormFieldsProps<T>) {
   return (
     <>
-      <SelectDepartment Inputs={Inputs} mt="xs" />
+      <SelectDepartment mt="xs" />
       <Inputs.Number label="Amount" name="amount" mt="xs" />
       <Inputs.DatePicker
         placeholder="Pick date"
