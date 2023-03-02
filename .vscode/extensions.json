@@ -19,6 +19,7 @@
     "vincaslt.highlight-matching-tag",
     "wayou.vscode-todo-highlight",
     "zenclabs.previewjs",
-    "ZixuanChen.vitest-explorer"
+    "zixuanchen.vitest-explorer",
+    "teamhub.teamhub"
   ]
 }
