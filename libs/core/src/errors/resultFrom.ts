@@ -1,12 +1,11 @@
+import type { Result, ResultMatch } from './result'
 import {
   fail,
   isOk,
   ok,
-  Result,
   resultFMap,
   resultMatch,
   resultMap,
-  ResultMatch,
   resultMapError,
   resultExpect,
 } from './result'

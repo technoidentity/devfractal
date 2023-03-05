@@ -1,12 +1,13 @@
 import type { Department, Prisma } from '@prisma/client'
-import {
+import type {
   CostSearchSpec,
   CreateMappingSpec,
-  entityExists,
-  entityNotFound,
   MappingSearchSpec,
   MappingSpec,
-  SpendSearchSpec,
+  SpendSearchSpec} from '~/common';
+import {
+  entityExists,
+  entityNotFound
 } from '~/common'
 import { prisma } from '~/db.server'
 import { dbTry } from '../common'
