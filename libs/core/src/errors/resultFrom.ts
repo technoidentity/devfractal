@@ -1,28 +1,61 @@
-import type { Result } from './result'
-import { fail, isOk, resultFlatMap, resultMap } from './result'
+import {
+  fail,
+  isOk,
+  ok,
+  Result,
+  resultFMap,
+  resultMatch,
+  resultMap,
+  ResultMatch,
+  resultMapError,
+  resultExpect,
+} from './result'
 
-class ResultFrom<E, T> {
+export class ResultType<E, T> {
   // eslint-disable-next-line no-useless-constructor
   constructor(private readonly res: Result<E, T>) {}
-  map<R>(fn: (v: T) => R): ResultFrom<E, R> {
-    return result(resultMap(this.res, fn))
-  }
 
-  fmap<R>(fn: (v: T) => Result<E, R>): ResultFrom<E, R> {
-    return result(resultFlatMap(this.res, fn))
-  }
-
-  err<E2>(fn: (err: E) => E2): ResultFrom<E2, T> {
+  get isOk() {
     return isOk(this.res)
-      ? result<E2, T>(this.res)
-      : result(fail<E2, T>(fn(this.res.fail)))
+  }
+
+  get isFail() {
+    return !isOk(this.res)
   }
 
   get result() {
     return this.res
   }
+
+  map<R>(fn: (v: T) => R): ResultType<E, R> {
+    return result(resultMap(this.res, fn))
+  }
+
+  fmap<R>(fn: (v: T) => Result<E, R>): ResultType<E, R> {
+    return result(resultFMap(this.res, fn))
+  }
+
+  mapError<E2>(fn: (err: E) => E2): ResultType<E2, T> {
+    return result(resultMapError(this.res, fn))
+  }
+
+  match<E2, T2>(match: ResultMatch<E, T, E2, T2>) {
+    return resultMatch(this.res, match)
+  }
+
+  expect(message?: string): T {
+    return resultExpect(this.res, message)
+  }
 }
 
 export function result<E, T>(result: Result<E, T>) {
-  return new ResultFrom(result)
+  return new ResultType(result)
+}
+
+export function okResult<T>(value: T) {
+  return result(ok(value))
+}
+
+export function failResult<E>(err: E) {
+  return result(fail(err))
 }
