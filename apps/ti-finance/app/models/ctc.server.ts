@@ -1,9 +1,7 @@
 import type { Ctc } from '@prisma/client'
-import { Prisma } from '@prisma/client'
-import { defaultError, fail, ok } from '@srtp/core'
-import type { CreateCtcSpec } from '~/common'
+import { CreateCtcSpec, entityExists, entityNotFound } from '~/common'
 import { prisma } from '~/db.server'
-import type { DbResult } from './types'
+import { dbTry } from '../common'
 
 export async function getCtcList() {
   return (
@@ -15,44 +13,15 @@ export async function getCtcList() {
   ).map(({ user, ...rest }) => ({ ...rest, username: user.username }))
 }
 
-type Result = DbResult<Ctc>
+export type CtcList = Awaited<ReturnType<typeof getCtcList>>
 
-export async function createCtc(data: CreateCtcSpec): Result {
-  try {
-    const ctc = await prisma.ctc.create({ data })
+export const createCtc = (data: CreateCtcSpec) =>
+  dbTry(() => prisma.ctc.create({ data }), { mapError: entityExists('ctc') })
 
-    return ok(ctc)
-  } catch (e) {
-    const err =
-      e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002'
-        ? 'user id already exists'
-        : defaultError(e)
+export const deleteCtc = (id: Ctc['id']) =>
+  dbTry(() => prisma.ctc.delete({ where: { id } }), {
+    mapError: entityNotFound('ctc'),
+  })
 
-    return fail(err)
-  }
-}
-
-export async function deleteCtc(id: Ctc['id']): Result {
-  try {
-    const ctc = await prisma.ctc.delete({
-      where: { id },
-    })
-
-    return ok(ctc)
-  } catch (e) {
-    return fail('user not found')
-  }
-}
-
-export async function updateCtc(data: Ctc): Result {
-  try {
-    const result = await prisma.ctc.update({
-      where: { id: data.id },
-      data,
-    })
-
-    return ok(result)
-  } catch (e) {
-    return fail(defaultError(e))
-  }
-}
+export const updateCtc = (data: Ctc) =>
+  dbTry(() => prisma.ctc.update({ where: { id: data.id }, data }))

@@ -1,14 +1,14 @@
 import type { Expenditure } from '@prisma/client'
-import { Prisma } from '@prisma/client'
-import type { Result } from '@srtp/core'
-import { defaultError, fail, ok } from '@srtp/core'
-import type {
+import {
   CreateExpenditureSpec,
+  entityExists,
+  entityNotFound,
   ExpenditureSearchSpec,
   ExpenditureSpec,
 } from '~/common'
 
 import { prisma } from '~/db.server'
+import { dbTry } from '../common'
 
 function getWhere(q?: ExpenditureSearchSpec) {
   if (q === undefined) return undefined
@@ -45,50 +45,35 @@ export async function getDepartmentExpenditures(q?: ExpenditureSearchSpec) {
   }))
 }
 
-export async function deleteExpenditure(
-  id: Expenditure['id'],
-): Promise<Result<string, Expenditure>> {
-  try {
-    const expe = await prisma.expenditure.delete({
-      where: { id },
-    })
+const entity = 'expenditure'
 
-    return ok(expe)
-  } catch (e) {
-    return fail('user not found')
-  }
-}
+export const deleteExpenditure = (id: Expenditure['id']) =>
+  dbTry(
+    () =>
+      prisma.expenditure.delete({
+        where: { id },
+      }),
+    { mapError: entityNotFound(entity) },
+  )
 
-export async function createExpenditure(
-  data: CreateExpenditureSpec,
-): Promise<Result<string, Expenditure>> {
-  try {
-    const exp = await prisma.expenditure.create({
-      data: {
-        amount: data.amount,
-        date: data.date,
-        remarks: data.remarks,
-        category: data.category,
-        Department: { connect: { id: data.departmentId } },
-      },
-    })
+export const createExpenditure = (data: CreateExpenditureSpec) =>
+  dbTry(
+    () =>
+      prisma.expenditure.create({
+        data: {
+          amount: data.amount,
+          date: data.date,
+          remarks: data.remarks,
+          category: data.category,
+          Department: { connect: { id: data.departmentId } },
+        },
+      }),
+    { mapError: entityExists(entity) },
+  )
 
-    return ok(exp)
-  } catch (e) {
-    const err =
-      e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002'
-        ? 'user id already exists'
-        : defaultError(e)
-    console.error(e)
-    return fail(err)
-  }
-}
-
-export async function updateExpenditure(
-  data: ExpenditureSpec,
-): Promise<Result<string, ExpenditureSpec>> {
-  try {
-    const result = await prisma.expenditure.update({
+export const updateExpenditure = (data: ExpenditureSpec) =>
+  dbTry(() =>
+    prisma.expenditure.update({
       where: { id: data.id },
       data: {
         amount: data.amount,
@@ -97,10 +82,5 @@ export async function updateExpenditure(
         category: data.category,
         Department: { connect: { id: data.departmentId } },
       },
-    })
-
-    return ok(result)
-  } catch (e) {
-    return fail(defaultError(e))
-  }
-}
+    }),
+  )

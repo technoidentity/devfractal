@@ -1,18 +1,18 @@
-import type { Department, DepartmentMapping } from '@prisma/client'
-import { Prisma } from '@prisma/client'
-import { defaultError, fail, ok } from '@srtp/core'
-import type {
+import type { Department, Prisma } from '@prisma/client'
+import {
   CostSearchSpec,
   CreateMappingSpec,
+  entityExists,
+  entityNotFound,
   MappingSearchSpec,
   MappingSpec,
   SpendSearchSpec,
 } from '~/common'
 import { prisma } from '~/db.server'
-import type { DbResult } from './types'
+import { dbTry } from '../common'
 
-export async function getDepartmentList() {
-  return await prisma.department.findMany()
+export function getDepartmentList() {
+  return prisma.department.findMany()
 }
 
 export async function getDepartmentMappingsList(where?: MappingSearchSpec) {
@@ -23,52 +23,12 @@ export async function getDepartmentMappingsList(where?: MappingSearchSpec) {
       Department: { select: { name: true } },
     },
   })
+
   return mappings.map(({ Department, User, ...rest }) => ({
     ...rest,
     username: User.username,
     departmentName: Department.name,
   }))
-}
-
-type Result = DbResult<DepartmentMapping>
-
-export async function createDepartmentMapping(data: CreateMappingSpec): Result {
-  try {
-    const department = await prisma.departmentMapping.create({ data })
-
-    return ok(department)
-  } catch (e) {
-    const err =
-      e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002'
-        ? 'user id already exists'
-        : defaultError(e)
-
-    return fail(err)
-  }
-}
-
-export async function deleteDepartmentMapping(id: Department['id']): Result {
-  try {
-    const dept = await prisma.departmentMapping.delete({
-      where: { id },
-    })
-
-    return ok(dept)
-  } catch (e) {
-    return fail('user not found')
-  }
-}
-
-export async function updateDepartmentMapping(data: MappingSpec): Result {
-  try {
-    const result = await prisma.departmentMapping.update({
-      data,
-      where: { id: data.id },
-    })
-    return ok(result)
-  } catch (e) {
-    return fail(defaultError(e))
-  }
 }
 
 function getMappingWhere(q?: CostSearchSpec) {
@@ -152,3 +112,26 @@ export async function getPeopleSpend(q?: SpendSearchSpec) {
 
   return { personCost }
 }
+
+const entity = 'department mapping'
+export const createDepartmentMapping = (data: CreateMappingSpec) =>
+  dbTry(() => prisma.departmentMapping.create({ data }), {
+    mapError: entityExists(entity),
+  })
+
+export const deleteDepartmentMapping = (id: Department['id']) =>
+  dbTry(
+    () =>
+      prisma.departmentMapping.delete({
+        where: { id },
+      }),
+    { mapError: entityNotFound(entity) },
+  )
+
+export const updateDepartmentMapping = (data: MappingSpec) =>
+  dbTry(() =>
+    prisma.departmentMapping.update({
+      data,
+      where: { id: data.id },
+    }),
+  )
