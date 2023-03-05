@@ -994,6 +994,7 @@ importers:
       '@types/eslint': 8.21.1
       '@types/express': 4.17.17
       '@types/express-prometheus-middleware': 1.2.1
+      '@types/http-status-codes': ^1.2.0
       '@types/morgan': 1.9.4
       '@types/node': 18.14.2
       '@types/react': 18.0.28
@@ -1015,7 +1016,9 @@ importers:
       express: 4.18.2
       express-prometheus-middleware: 1.2.0
       happy-dom: 8.9.0
+      http-status-codes: 2.2.0
       isbot: 3.6.6
+      modern-errors: ^5.5.1
       morgan: 1.10.0
       msw: 1.1.0
       npm-run-all: 4.1.5
@@ -1070,7 +1073,9 @@ importers:
       devalue: 4.3.0
       express: 4.18.2
       express-prometheus-middleware: 1.2.0_tgnxwnlb3i7khhmuxluo6kte34
+      http-status-codes: 2.2.0
       isbot: 3.6.6
+      modern-errors: 5.5.1
       morgan: 1.10.0
       prom-client: 14.1.1
       query-string: 8.1.0
@@ -1092,6 +1097,7 @@ importers:
       '@types/eslint': 8.21.1
       '@types/express': 4.17.17
       '@types/express-prometheus-middleware': 1.2.1
+      '@types/http-status-codes': 1.2.0
       '@types/morgan': 1.9.4
       '@types/node': 18.14.2
       '@types/react': 18.0.28
@@ -1842,6 +1848,7 @@ importers:
       prettier: 2.8.4
       query-string: 8.1.0
       rimraf: 4.1.2
+      superjson: 1.12.2
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
       tslib: 2.5.0
@@ -1857,6 +1864,7 @@ importers:
       '@srtp/remix-core': link:../remix-core
       immer: 9.0.19
       query-string: 8.1.0
+      superjson: 1.12.2
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
       tslib: 2.5.0
@@ -1899,6 +1907,7 @@ importers:
       query-string: 8.1.0
       react: 18.2.0
       react-dom: 18.2.0
+      superjson: 1.12.2
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
       tslib: 2.5.0
@@ -1921,6 +1930,7 @@ importers:
       query-string: 8.1.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      superjson: 1.12.2
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
       tslib: 2.5.0
@@ -9915,6 +9925,13 @@ packages:
   /@types/http-cache-semantics/4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
 
+  /@types/http-status-codes/1.2.0:
+    resolution: {integrity: sha512-vjpjevMaxtrtdrrV/TQNIFT7mKL8nvIKG7G/LjMDZdVvqRxRg5SNfGkeuSaowVc0rbK8xDA2d/Etunyb5GyzzA==}
+    deprecated: This is a stub types definition for http-status-codes (https://github.com/prettymuchbryce/node-http-status). http-status-codes provides its own type definitions, so you don\'t need @types/http-status-codes installed!
+    dependencies:
+      http-status-codes: 2.2.0
+    dev: true
+
   /@types/istanbul-lib-coverage/2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: true
@@ -13405,6 +13422,18 @@ packages:
   /err-code/2.0.3:
     resolution: {integrity: sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==}
     dev: true
+
+  /error-class-utils/2.5.0:
+    resolution: {integrity: sha512-Q6EU8/wpjQzYAMWpvb8gIKPcRgP6odDpx5i3svG+uxLcO4tvA2Tn0SRL1I5f0j3WA6PnWmcQKpY+gGg2huV7ZQ==}
+    engines: {node: '>=14.18.0'}
+    dev: false
+
+  /error-custom-class/8.4.0:
+    resolution: {integrity: sha512-WS8v14AVXtyNHgORTInJkKEc7xA4NDXLyUnNGR2QpkuiF1WQuok/GqGpmNqWwNvSKxxHvCOZ8Kj+wiSUPpT3ag==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      error-class-utils: 2.5.0
+    dev: false
 
   /error-ex/1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
@@ -17255,7 +17284,6 @@ packages:
 
   /http-status-codes/2.2.0:
     resolution: {integrity: sha512-feERVo9iWxvnejp3SEfm/+oNG517npqL2/PIA8ORjyOZjGC7TwCRQsZylciLS64i6pJ0wRYz3rkXLRwbtFa8Ng==}
-    dev: false
 
   /http2-wrapper/1.0.3:
     resolution: {integrity: sha512-V+23sDMr12Wnz7iTcDeJr3O6AIxlnvT/bmaAAAP/Xda35C90p9599p0F1eHR/N1KILWSoWVAiOMFjBBXaXSMxg==}
@@ -17624,6 +17652,11 @@ packages:
     resolution: {integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==}
     engines: {node: '>=8'}
     hasBin: true
+
+  /is-error-instance/1.6.0:
+    resolution: {integrity: sha512-/hwL1b641Mqr86zH9RMueUCdmDq+iH2hK2uG5xkjHknBHK78Ft54m88R7JOC5eJnyDY8sYdyPBUT0uQ3You6Zw==}
+    engines: {node: '>=14.18.0'}
+    dev: false
 
   /is-extendable/0.1.1:
     resolution: {integrity: sha512-5BMULNob1vgFX6EjQw5izWDxrecWK9AM72rugNr0TFldMOi0fj6Jk+zeKIt0xGj4cEfQIJth4w3OKWOJ4f+AFw==}
@@ -19580,6 +19613,16 @@ packages:
   /merge-descriptors/1.0.1:
     resolution: {integrity: sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==}
 
+  /merge-error-cause/3.5.0:
+    resolution: {integrity: sha512-VHh0HFeXvNMqZNLVYkSRqVzpNpit9yMHS2xjdL2KK3SigDbVWV0InW73WlfYUGvG7FopU7X6x2Jb1XazBfmIQQ==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      normalize-exception: 2.11.0
+      set-error-class: 1.6.0
+      set-error-props: 4.0.0
+      wrap-error-message: 1.0.0
+    dev: false
+
   /merge-stream/2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
     dev: true
@@ -20051,6 +20094,21 @@ packages:
       pkg-types: 1.0.1
       ufo: 1.0.1
     dev: true
+
+  /modern-errors/5.5.1:
+    resolution: {integrity: sha512-/5uw5WNx1BJCoxIw1PJHcH6KNQGUOfRlz4Lq1dKeD2Ge57nzakK3nWEP6Z9Jh/b3rzss4qVcbeMyiyM+MT9dbA==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      error-class-utils: 2.5.0
+      error-custom-class: 8.4.0
+      filter-obj: 5.1.0
+      is-plain-obj: 4.1.0
+      merge-error-cause: 3.5.0
+      normalize-exception: 2.11.0
+      set-error-message: 1.6.0
+      set-error-props: 4.0.0
+      set-error-stack: 1.0.0
+    dev: false
 
   /morgan/1.10.0:
     resolution: {integrity: sha512-AbegBVI4sh6El+1gNwvD5YIck7nSA36weD7xvIxG4in80j/UoK8AEGaWnnz8v1GxonMCltmlNs5ZKbGvl9b1XQ==}
@@ -20589,6 +20647,14 @@ packages:
     dependencies:
       abbrev: 1.1.1
     dev: true
+
+  /normalize-exception/2.11.0:
+    resolution: {integrity: sha512-pm61RNZN6qLO4TqRrFCM0OQdUYxEYVfFM1pWnYGfu5bAjKc9xsebC/bHIS2GV9a2vl9CtPP6FVDjY3zslWk6Bg==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      is-error-instance: 1.6.0
+      is-plain-obj: 4.1.0
+    dev: false
 
   /normalize-package-data/2.5.0:
     resolution: {integrity: sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==}
@@ -22928,6 +22994,13 @@ packages:
     resolution: {integrity: sha512-FSD2AmfdbkYwl7KDExYQlVvIrFz6Yd83pGfaGjBzM9F6rpq8g652Q4Yq5QD4c+nf4g2AgeElv1y+8ajUPiOYMg==}
     dev: false
 
+  /redefine-property/1.0.2:
+    resolution: {integrity: sha512-M/bLXdbI3mEZKkFFLc7IxYk0LK33ZpVo4tHLc/5ln+F6+3UeUf/WFs07P8zeP556iFpMJ3A1MZxc5eauL9XGHQ==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      is-plain-obj: 4.1.0
+    dev: false
+
   /redent/3.0.0:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
     engines: {node: '>=8'}
@@ -23543,6 +23616,36 @@ packages:
 
   /set-cookie-parser/2.5.1:
     resolution: {integrity: sha512-1jeBGaKNGdEq4FgIrORu/N570dwoPYio8lSoYLWmX7sQ//0JY08Xh9o5pBcgmHQ/MbsYp/aZnOe1s1lIsbLprQ==}
+
+  /set-error-class/1.6.0:
+    resolution: {integrity: sha512-k9191t6hKqAVJru8QAaOeqX+LpXksZprKUPWiItEh5A2cX8dC6pQsUpBEFU+7fXJ9+Yo9ExvMaUPEyTqqeSRKA==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      normalize-exception: 2.11.0
+    dev: false
+
+  /set-error-message/1.6.0:
+    resolution: {integrity: sha512-shoEDvQlZ4SudotBoKCfHBghsSfig8qCRyeQ3GmbCV/VG5oxn+269uTMJDM/RmAmKlFryPJxY0UNr4fwxIiieA==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      normalize-exception: 2.11.0
+    dev: false
+
+  /set-error-props/4.0.0:
+    resolution: {integrity: sha512-cJdKFPIsXA/wvlCD89fTqZ4nmXR7X+P9/KEHgnFFNDuVqw0ym9oPgaLjaAQ3YLfb2XXbxqpdzWsR6djLUECn5Q==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      is-error-instance: 1.6.0
+      is-plain-obj: 4.1.0
+      redefine-property: 1.0.2
+    dev: false
+
+  /set-error-stack/1.0.0:
+    resolution: {integrity: sha512-putUG6P5+JoZY9nazLnbBkcNAFOuOHBEEhpi639sHlPrDBz7i6F7CqMuWR/gnuzc2UIa2CuQTqYKnrNjbuax4Q==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      normalize-exception: 2.11.0
+    dev: false
 
   /set-harmonic-interval/1.0.1:
     resolution: {integrity: sha512-AhICkFV84tBP1aWqPwLZqFvAwqEoVA9kxNMniGEUvzOlm4vLmOFLiTT3UZ6bziJTy4bOVpzWGTfSCbmaayGx8g==}
@@ -26320,6 +26423,14 @@ packages:
       string-width: 5.1.2
       strip-ansi: 7.0.1
     dev: true
+
+  /wrap-error-message/1.0.0:
+    resolution: {integrity: sha512-axCHQQYrkUaKPCj+BP0emCB++Lzq8Fa1Vba3qPeDbdKyfvypjX6i10KaAoLcRt6Mq0M9peONc6GEzM/XqXNniw==}
+    engines: {node: '>=14.18.0'}
+    dependencies:
+      normalize-exception: 2.11.0
+      set-error-message: 1.6.0
+    dev: false
 
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
