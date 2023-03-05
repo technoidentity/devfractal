@@ -1,8 +1,9 @@
 import { Title } from '@mantine/core'
 import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
-import { method, methods } from '@srtp/remix-node'
+import { method, methods, sjson } from '@srtp/remix-node'
+import { useGet } from '@srtp/remix-react'
 import { ExpenditureSearchSpec, ExpenditureSpec, IntId } from '~/common'
-import { safeQuery, sjson, useGet } from '~/core'
+import { safeQuery } from '~/core'
 import { ExpenditureList } from '~/features/expenditure'
 import {
   deleteExpenditure,

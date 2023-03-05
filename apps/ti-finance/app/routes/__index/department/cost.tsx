@@ -1,8 +1,9 @@
 import { Title } from '@mantine/core'
 import type { LoaderArgs } from '@remix-run/server-runtime'
-import React from 'react'
+import { sjson } from '@srtp/remix-node'
+import { useGet } from '@srtp/remix-react'
 import { CostSearchSpec, useDepartmentName } from '~/common'
-import { safeQuery, sjson, useGet } from '~/core'
+import { safeQuery } from '~/core'
 import { DepartmentCostList } from '~/features/cost'
 import { getDepartmentsCost } from '~/models'
 

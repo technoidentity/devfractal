@@ -1,7 +1,9 @@
 import { Title } from '@mantine/core'
 import type { LoaderArgs } from '@remix-run/server-runtime'
+import { sjson } from '@srtp/remix-node'
+import { useGet } from '@srtp/remix-react'
 import { SpendSearchSpec } from '~/common'
-import { safeQuery, sjson, useGet } from '~/core'
+import { safeQuery } from '~/core'
 import { PeopleSpendList } from '~/features/spend'
 import { getPeopleSpend } from '~/models'
 

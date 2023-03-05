@@ -1,10 +1,11 @@
-import type { ActionArgs } from '@remix-run/server-runtime'
-import { method, methods } from '@srtp/remix-node'
-import { CtcSpec, IntId } from '~/common'
-import { CtcList } from '~/features/ctc'
-import { AddLink, sjson, useGet } from '~/core'
-import { deleteCtc, getCtcList, updateCtc } from '~/models'
 import { Title } from '@mantine/core'
+import type { ActionArgs } from '@remix-run/server-runtime'
+import { method, methods, sjson } from '@srtp/remix-node'
+import { useGet } from '@srtp/remix-react'
+import { CtcSpec, IntId } from '~/common'
+import { AddLink } from '~/core'
+import { CtcList } from '~/features/ctc'
+import { deleteCtc, getCtcList, updateCtc } from '~/models'
 
 export async function loader() {
   const ctcList = await getCtcList()

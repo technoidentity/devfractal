@@ -1,9 +1,11 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { AppProvider } from '~/common'
 import { AppIntroPage, HomePage } from '~/features/app'
-import { SignedIn, SignedOut, sjson, useGet } from '~/core'
+import { SignedIn, SignedOut } from '~/core'
 
 import { prisma } from '~/db.server'
+import { sjson } from '@srtp/remix-node'
+import { useGet } from '@srtp/remix-react'
 
 export async function loader(_: LoaderArgs) {
   const users = await prisma.user.findMany({
