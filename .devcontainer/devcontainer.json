@@ -55,7 +55,8 @@
 		"wayou.vscode-todo-highlight",
 		"ZixuanChen.vitest-explorer",
 		"zenclabs.previewjs",
-		"TeamHub.teamhub"
+		"TeamHub.teamhub",
+		"ms-playwright.playwright"
 	]
     }
   },

@@ -20,6 +20,7 @@
     "wayou.vscode-todo-highlight",
     "zenclabs.previewjs",
     "zixuanchen.vitest-explorer",
-    "teamhub.teamhub"
+    "teamhub.teamhub",
+    "ms-playwright.playwright"
   ]
 }
