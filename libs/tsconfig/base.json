@@ -13,7 +13,7 @@
     "importHelpers": true,
     "inlineSources": false,
     "isolatedModules": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
