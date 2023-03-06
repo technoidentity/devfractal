@@ -105,6 +105,20 @@ export const AppNavbar = () => {
           backgroundColor: 'lightgrey',
         }}
       />
+      <CustomLink
+        to="/departmentAccess"
+        uiProps={{
+          label: 'Department Access',
+          icon: <IconMoneybag />,
+          bg: '#f0f0f0',
+          mt: 'sm',
+        }}
+        style={{
+          textDecoration: 'none',
+          fontWeight: 'bold',
+          backgroundColor: 'lightgrey',
+        }}
+      />
     </Box>
   )
 }
