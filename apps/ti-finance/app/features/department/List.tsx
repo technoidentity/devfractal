@@ -1,5 +1,5 @@
 import type { Column } from '@srtp/table'
-import { CreateAccessSpec, Table } from '~/common'
+import { CreateAccessSpec } from '~/common'
 import { CrudTable } from '~/core'
 import type { DepartmentAccessList } from '~/models/department.server'
 import { FormFields } from './FormFields'
