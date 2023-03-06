@@ -8,19 +8,12 @@ generator client {
   output   = "../app/prisma-client"
 }
 
-// generator zod {
-//   provider      = "zod-prisma"
-//   output        = "./zod"
-//   relationModel = "default"
-//   imports       = "../specs"
-// }
-
 model User {
-  email    String  @unique
-  id       String  @unique // TI_ID
+  email    String   @unique
+  tiId     String   @unique @map("id")
   username String
-  Access   Access? @relation(fields: [accessId], references: [id])
-  accessId Int?    @map("departmentAccessId")
+  Access   Access[]
+  accessId Int?     @map("departmentAccessId")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -34,16 +27,16 @@ model User {
 model Password {
   hash String
 
-  user User   @relation(fields: [id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user User   @relation(fields: [id], references: [tiId], onDelete: Cascade, onUpdate: Cascade)
   id   String @unique
 }
 
 model Ctc {
   id       Int      @id @default(autoincrement())
-  ctc      Int /// @zod.min(0)
-  fromDate DateTime /// @zod.custom(imports.IsoDate)
-  toDate   DateTime /// @zod.custom(imports.IsoDate)
-  user     User     @relation(fields: [tiId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ctc      Int
+  fromDate DateTime
+  toDate   DateTime
+  user     User     @relation(fields: [tiId], references: [tiId], onDelete: Cascade, onUpdate: Cascade)
   tiId     String
 }
 
@@ -54,19 +47,21 @@ enum Billable {
 
 model DepartmentMapping {
   id           Int        @id @default(autoincrement())
-  ctc          Int /// @zod.min(0)
+  ctc          Int
   fromDate     DateTime
   toDate       DateTime
   category     Billable
   Department   Department @relation(fields: [departmentId], references: [id])
   departmentId Int
-  User         User       @relation(fields: [tiId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  User         User       @relation(fields: [tiId], references: [tiId], onDelete: Cascade, onUpdate: Cascade)
   tiId         String
 }
 
 model Department {
-  id   Int    @id @default(autoincrement())
-  name String
+  id               Int     @id @default(autoincrement())
+  name             String
+  // @TODO: Should be clarified 
+  parentCostCenter String?
 
   Budget      Budget[]
   Expenditure Expenditure[]
@@ -96,9 +91,12 @@ model Expenditure {
 }
 
 model Access {
-  id               Int        @id @default(autoincrement())
-  parentCostCenter String // @TODO:
-  Department       Department @relation(fields: [departmentId], references: [id])
-  departmentId     Int
-  User             User[]
+  id Int @id @default(autoincrement())
+
+  Department   Department @relation(fields: [departmentId], references: [id])
+  departmentId Int
+  User         User       @relation(fields: [tiId], references: [tiId])
+  tiId         String
+
+  @@unique([departmentId, tiId])
 }
