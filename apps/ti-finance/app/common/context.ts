@@ -3,7 +3,7 @@ import { useSafeContext } from '@srtp/remix-react'
 import React, { createContext } from 'react'
 import { capitalize } from './stringUtil'
 
-type User = { id: string; username: string }
+type User = { tiId: string; username: string }
 type Department = { id: number; name: string }
 
 type DepartmentsContext = {
@@ -49,6 +49,8 @@ export function useDepartmentName() {
 export function useDepartmentsSelect() {
   const { departments } = useDepartments()
 
+  console.log({ departments }, 'departments')
+
   const data = React.useMemo(
     () =>
       departments.map(d => ({
@@ -68,7 +70,7 @@ export function useUsersSelect() {
     () =>
       users.map(u => ({
         label: capitalize(u.username),
-        value: u.id,
+        value: u.tiId,
       })),
     [users],
   )

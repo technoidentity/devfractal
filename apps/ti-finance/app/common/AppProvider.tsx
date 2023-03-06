@@ -3,7 +3,7 @@ import { DepartmentsContext, UsersContext } from '~/common'
 
 export type AppProviderProps = Readonly<{
   readonly departments: Readonly<{ id: number; name: string }>[]
-  readonly users: Readonly<{ id: string; username: string }>[]
+  readonly users: Readonly<{ tiId: string; username: string }>[]
 }>
 
 export function AppProvider({
@@ -17,7 +17,7 @@ export function AppProvider({
   )
 
   const usersMap = React.useMemo(
-    () => new Map(users.map(department => [department.id, department])),
+    () => new Map(users.map(user => [user.tiId, user])),
     [users],
   )
 

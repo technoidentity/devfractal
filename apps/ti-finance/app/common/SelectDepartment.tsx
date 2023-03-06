@@ -14,7 +14,7 @@ export function SelectDepartment(props: SelectDepartmentProps) {
       clearable
       allowDeselect
       data={departments}
-      name={'departmentId'}
+      name="departmentId"
       placeholder="Select Department"
       label="Department"
       size="xs"
