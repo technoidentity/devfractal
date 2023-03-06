@@ -8,10 +8,17 @@ const prisma = new PrismaClient()
 // https://www.prisma.io/docs/guides/database/seed-database#seed-one-to-many-relationship
 
 const users: Prisma.UserCreateInput[] = [
-  { id: 'TI_101', username: 'rachel', email: 'rachel@remix.run' },
-  { id: 'TI_102', username: 'emma', email: 'emma@technoidentity.com' },
-  { id: 'TI_103', username: 'reena', email: 'reena@technoidentity.com' },
-  { id: 'TI_104', username: 'miland', email: 'miland@technoidentity.com' },
+  { tiId: 'TI_101', username: 'rachel', email: 'rachel@remix.run' },
+  { tiId: 'TI_102', username: 'emma', email: 'emma@technoidentity.com' },
+  { tiId: 'TI_103', username: 'reena', email: 'reena@technoidentity.com' },
+  { tiId: 'TI_104', username: 'miland', email: 'miland@technoidentity.com' },
+  { tiId: 'TI_105', username: 'monica', email: 'monica@technoidentity.com' },
+  {
+    tiId: 'TI_106',
+    username: 'chandler',
+    email: 'chandler@technoidentity.com',
+  },
+  { tiId: 'TI_107', username: 'joe', email: 'joe@technoidentity.com' },
 ]
 
 const ctcList: Prisma.CtcCreateManyInput[] = [
@@ -85,6 +92,32 @@ const itDeptMap: Prisma.DepartmentMappingUncheckedCreateWithoutDepartmentInput[]
     },
   ]
 
+const salesDeptMap: Prisma.DepartmentMappingUncheckedCreateWithoutDepartmentInput[] =
+  [
+    {
+      tiId: 'TI_102',
+      ctc: 16_00_000,
+      fromDate: new Date('2016-04-14'),
+      toDate: new Date('2017-04-14'),
+      category: Billable.nonBillable,
+    },
+    {
+      tiId: 'TI_101',
+      // department: 'IT',
+      ctc: 18_00_000,
+      fromDate: new Date('2018-02-26'),
+      toDate: new Date('2019-02-26'),
+      category: Billable.billable,
+    },
+    {
+      tiId: 'TI_103',
+      ctc: 10_00_000,
+      fromDate: new Date('2021-07-21'),
+      toDate: new Date('2022-07-21'),
+      category: Billable.nonBillable,
+    },
+  ]
+
 const devDeptMap: Prisma.DepartmentMappingUncheckedCreateWithoutDepartmentInput[] =
   [
     {
@@ -96,18 +129,15 @@ const devDeptMap: Prisma.DepartmentMappingUncheckedCreateWithoutDepartmentInput[
     },
   ]
 
-const financeDept: Prisma.DepartmentCreateInput = {
-  name: 'Finance',
-}
-
-const itDept: Prisma.DepartmentCreateInput = {
-  name: 'IT',
-}
-const developmentDept: Prisma.DepartmentCreateInput = {
-  name: 'Development',
-}
-
 const itBudgets = [
+  {
+    category: Billable.billable,
+    amount: 3400000,
+    financialYear: new Date('2021-08-5'),
+  },
+]
+
+const salesBudgets = [
   {
     category: Billable.billable,
     amount: 3400000,
@@ -159,6 +189,16 @@ const itExpenditures = [
     remarks: 'Identify and Plug Budget Leaks',
   },
 ]
+
+const salesExpenditures = [
+  {
+    category: Billable.billable,
+    amount: 1200000,
+    date: new Date('2021-06-5'),
+    remarks: 'Identify and Plug Budget Leaks',
+  },
+]
+
 const financeExpenditures = [
   {
     category: Billable.nonBillable,
@@ -219,7 +259,18 @@ async function seed() {
   await prisma.ctc.createMany({ data: ctcList })
   await prisma.department.create({
     data: {
-      ...financeDept,
+      name: 'Finance',
+      parentCostCenter: 'technoidentity',
+      Access: {
+        create: [
+          {
+            User: { connect: { tiId: 'TI_101' } },
+          },
+          {
+            User: { connect: { tiId: 'TI_102' } },
+          },
+        ],
+      },
       DepartmentMapping: { create: financeDeptMap },
       Budget: { create: financeBudgets },
       Expenditure: { create: financeExpenditures },
@@ -228,7 +279,21 @@ async function seed() {
 
   await prisma.department.create({
     data: {
-      ...itDept,
+      name: 'IT',
+      parentCostCenter: 'vendeep',
+      Access: {
+        create: [
+          {
+            User: { connect: { tiId: 'TI_105' } },
+          },
+          {
+            User: { connect: { tiId: 'TI_107' } },
+          },
+          {
+            User: { connect: { tiId: 'TI_103' } },
+          },
+        ],
+      },
       DepartmentMapping: { create: itDeptMap },
       Budget: { create: itBudgets },
       Expenditure: { create: itExpenditures },
@@ -236,10 +301,41 @@ async function seed() {
   })
   await prisma.department.create({
     data: {
-      ...developmentDept,
+      name: 'Development',
+      parentCostCenter: 'vendeep',
+      Access: {
+        create: [
+          {
+            User: { connect: { tiId: 'TI_102' } },
+          },
+          {
+            User: { connect: { tiId: 'TI_103' } },
+          },
+        ],
+      },
       DepartmentMapping: { create: devDeptMap },
       Budget: { create: developmentBudgets },
       Expenditure: { create: developmentExpenditures },
+    },
+  })
+
+  await prisma.department.create({
+    data: {
+      name: 'Sales',
+      parentCostCenter: 'seartipy',
+      Access: {
+        create: [
+          {
+            User: { connect: { tiId: 'TI_101' } },
+          },
+          {
+            User: { connect: { tiId: 'TI_106' } },
+          },
+        ],
+      },
+      DepartmentMapping: { create: salesDeptMap },
+      Budget: { create: salesBudgets },
+      Expenditure: { create: salesExpenditures },
     },
   })
 
