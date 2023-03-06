@@ -1,4 +1,5 @@
 import { Billable } from '@prisma/client'
+import { toStr } from '@srtp/core'
 import {
   date,
   dateRange,
@@ -140,3 +141,10 @@ export const BudgetUtilizedSearchSpec = spec({
 }).partial()
 
 export type BudgetUtilizedSearchSpec = z.infer<typeof BudgetUtilizedSearchSpec>
+
+export const CreateAccessSpec = z.object({
+  departmentId: number(),
+  accessTiIds: z.preprocess(v => toStr(v).split(','), z.array(string())),
+})
+
+export type CreateAccessSpec = z.infer<typeof CreateAccessSpec>
