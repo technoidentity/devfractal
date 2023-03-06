@@ -362,6 +362,7 @@ type EnumArrayKeys<Spec extends FormSpec> = ConditionalKeys<
 type KeyByZod<Spec extends FormSpec, Z extends z.ZodTypeAny> = ConditionalKeys<
   GetRawShape<Spec>,
   | Z
+  | z.ZodEffects<Z, any, any>
   | z.ZodDefault<Z>
   | z.ZodOptional<Z>
   | z.ZodOptional<Z | z.ZodDefault<Z>>
@@ -426,8 +427,10 @@ export type InputsType<Spec extends FormSpec> = {
   DynamicEnumList: (
     props: Named<
       MultiSelectProps,
-      | KeyByZod<Spec, z.ZodArray<z.ZodString>>
-      | KeyByZod<Spec, z.ZodArray<z.ZodNumber>>
+      KeyByZod<
+        Spec,
+        z.ZodArray<z.ZodString | z.ZodDefault<z.ZodString>, 'many'>
+      >
     >,
   ) => JSX.Element
   DynamicSelect: (
