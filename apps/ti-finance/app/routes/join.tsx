@@ -103,7 +103,7 @@ export async function action({ request }: ActionArgs) {
 
   return createUserSession({
     request,
-    userId: user.id,
+    userId: user.tiId,
     remember: false,
     redirectTo,
   })

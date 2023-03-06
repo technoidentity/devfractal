@@ -5,8 +5,8 @@ import { prisma } from '~/db.server'
 
 export type { User } from '@prisma/client'
 
-export async function getUserById(id: User['id']) {
-  return prisma.user.findUnique({ where: { id } })
+export async function getUserById(tiId: User['tiId']) {
+  return prisma.user.findUnique({ where: { tiId } })
 }
 
 export async function getUserByEmail(email: User['email']) {
@@ -26,7 +26,7 @@ export async function createUser(email: User['email'], password: string) {
   // @TODO:
   return prisma.user.create({
     data: {
-      id: nextDummyId(),
+      tiId: nextDummyId(),
       username: getRandomInt().toString(),
       email,
       password: {
