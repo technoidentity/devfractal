@@ -1,4 +1,5 @@
-import { CreateAccessSpec, dbTry, entityNotFound } from '~/common'
+import type { CreateAccessSpec } from '~/common'
+import { dbTry, entityNotFound } from '~/common'
 import { prisma } from '~/db.server'
 import type { Department } from '~/prisma-client'
 
