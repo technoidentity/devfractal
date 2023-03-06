@@ -9,7 +9,7 @@ import { useGet } from '@srtp/remix-react'
 
 export async function loader(_: LoaderArgs) {
   const users = await prisma.user.findMany({
-    select: { id: true, username: true },
+    select: { tiId: true, username: true },
   })
 
   const departments = await prisma.department.findMany({
