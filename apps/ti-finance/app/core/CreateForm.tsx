@@ -9,7 +9,7 @@ export type FormFieldsProps<Spec extends FormSpec> = Readonly<{
 }>
 
 export interface CreateFormProps<Spec extends FormSpec>
-  extends Omit<CrudFormProps<Spec>, 'children' | 'onSubmit' | 'method'> {
+  extends Omit<CrudFormProps<Spec>, 'children' | 'method'> {
   FormFields: (props: FormFieldsProps<Spec>) => JSX.Element
 }
 
@@ -18,6 +18,7 @@ export function CreateForm<Spec extends FormSpec>({
   serverErrors,
   initialValues,
   title,
+  onSubmit,
   FormFields,
 }: CreateFormProps<Spec>) {
   return (
@@ -27,10 +28,8 @@ export function CreateForm<Spec extends FormSpec>({
         spec={spec}
         title={title}
         initialValues={initialValues}
+        onSubmit={onSubmit}
         serverErrors={serverErrors}
-        onSubmit={() => {
-          console.log('onSubmit')
-        }}
       >
         {FormFields}
       </CrudForm>
