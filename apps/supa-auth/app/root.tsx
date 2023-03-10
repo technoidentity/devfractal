@@ -1,4 +1,5 @@
-import { json, LoaderArgs, MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, MetaFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -8,30 +9,30 @@ import {
   ScrollRestoration,
   useFetcher,
   useLoaderData,
-} from "@remix-run/react";
-import { createBrowserClient } from "@supabase/auth-helpers-remix";
-import React, { useState } from "react";
-import { createServerClient } from "./utils/supabase.server";
+} from '@remix-run/react'
+import { createBrowserClient } from '@supabase/auth-helpers-remix'
+import React, { useState } from 'react'
+import { createServerClient } from './utils/supabase.server'
 
 export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
-});
+  charset: 'utf-8',
+  title: 'New Remix App',
+  viewport: 'width=device-width,initial-scale=1',
+})
 
 export const loader = async ({ request }: LoaderArgs) => {
   const env = {
     SUPABASE_URL: process.env.SUPABASE_URL,
     SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
-  };
+  }
 
-  const response = new Response();
+  const response = new Response()
 
-  const supabase = createServerClient({ request, response });
+  const supabase = createServerClient({ request, response })
 
   const {
     data: { session },
-  } = await supabase.auth.getSession();
+  } = await supabase.auth.getSession()
 
   return json(
     {
@@ -40,18 +41,18 @@ export const loader = async ({ request }: LoaderArgs) => {
     },
     {
       headers: response.headers,
-    }
-  );
-};
+    },
+  )
+}
 
 export default function App() {
-  const { env, session } = useLoaderData<typeof loader>();
-  const fetcher = useFetcher();
+  const { env, session } = useLoaderData<typeof loader>()
+  const fetcher = useFetcher()
 
   const [supabase] = useState(() =>
-    createBrowserClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!)
-  );
-  const serverAccessToken = session?.access_token;
+    createBrowserClient(env.SUPABASE_URL!, env.SUPABASE_ANON_KEY!),
+  )
+  const serverAccessToken = session?.access_token
 
   React.useEffect(() => {
     const {
@@ -61,16 +62,16 @@ export default function App() {
         // server and client are out of sync.
         // Remix recalls active loaders after actions complete
         fetcher.submit(null, {
-          method: "post",
-          action: "/handle-supabase-auth",
-        });
+          method: 'post',
+          action: '/handle-supabase-auth',
+        })
       }
-    });
+    })
 
     return () => {
-      subscription.unsubscribe();
-    };
-  }, [serverAccessToken, supabase, fetcher]);
+      subscription.unsubscribe()
+    }
+  }, [serverAccessToken, supabase, fetcher])
 
   return (
     <html lang="en">
@@ -85,5 +86,5 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
-  );
+  )
 }

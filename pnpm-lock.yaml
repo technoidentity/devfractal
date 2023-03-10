@@ -971,6 +971,7 @@ importers:
       react-dom: 18.2.0
       supabase: ^1.42.2
       typescript: 4.9.5
+      vitest: 0.29.2
     dependencies:
       '@remix-run/node': 1.14.0
       '@remix-run/react': 1.14.0_biqbaboplfbrettd7655fr4n2y
@@ -987,6 +988,7 @@ importers:
       eslint: 8.35.0
       supabase: 1.42.2
       typescript: 4.9.5
+      vitest: 0.29.2
 
   apps/ti-finance:
     specifiers:
