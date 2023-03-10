@@ -61,4 +61,4 @@ public/build
 **/prisma-client/
 .eslintcache
 .history
-
+**/supabase/.branches
