@@ -1,5 +1,4 @@
 import { Button, Container, Flex, Table, Text } from '@mantine/core'
-import React from 'react'
 import { ProductModalView } from './ProductView'
 
 export interface Product {

@@ -1,4 +1,5 @@
-import { DB, db as tasksDb } from '@core/memoryDb'
+import type { DB} from '@core/memoryDb';
+import { db as tasksDb } from '@core/memoryDb'
 import { z } from 'zod'
 
 const Task = z.object({

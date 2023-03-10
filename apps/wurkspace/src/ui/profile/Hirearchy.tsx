@@ -1,5 +1,5 @@
 import { Labels } from './Util'
-import { OrganizationData } from '@specs/old/profile'
+import type { OrganizationData } from '@specs/old/profile'
 import Tree from 'react-d3-tree'
 
 type HeirarchyProps = Readonly<{

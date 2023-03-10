@@ -1,4 +1,4 @@
-import { Action } from '@specs/action'
+import type { Action } from '@specs/action'
 import { usePendingActions } from '@ui/queries'
 import { format } from 'date-fns'
 import Image from 'next/image'

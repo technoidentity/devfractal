@@ -1,7 +1,7 @@
 import { ErrorMessage } from '@ui/core'
 import { LoadingScreen } from '@ui/LoadingScreen'
 import { useUpcomingMeets } from '@ui/queries'
-import { UpComingMeeting, UpComingMeetingsResponse } from '@ui/responses'
+import type { UpComingMeeting, UpComingMeetingsResponse } from '@ui/responses'
 import Link from 'next/link'
 import React from 'react'
 

@@ -10,7 +10,7 @@
     "dev!": "pnpm db! && pnpm dev",
     "build": "dotenv -e .env.development -- next build",
     "start": "dotenv -e .env.development -- next start",
-    "lint": "next lint --max-warnings=0",
+    "lint": "next lint --fix --max-warnings=0",
     "types": "pnpm db:types && tsc --noEmit -p .",
     "types:dev": "pnpm db:types && tsc --noEmit -p . --watch",
     "test": "dotenv -e .env.development -- jest",

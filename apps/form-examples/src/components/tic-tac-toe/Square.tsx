@@ -1,5 +1,4 @@
 import { Button } from '@mantine/core'
-import React from 'react'
 
 export type Player = 'X' | 'O' | 'none'
 
@@ -19,7 +18,7 @@ export interface SquareProps {
 //   <Text h={4} w={4} opacity="0.5" bg="teal.500" borderRadius="50%"></Text>
 // )
 
-export const SquareView: React.FC<SquareProps> = ({ value, onClick, idx }) => {
+export const SquareView = ({ value, onClick, idx }: SquareProps) => {
   return (
     <Button
       size="lg"

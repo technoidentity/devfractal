@@ -1,4 +1,4 @@
-import { Action } from '@specs/action'
+import type { Action } from '@specs/action'
 import { ErrorMessage } from '@ui/core'
 import { LoadingScreen } from '@ui/LoadingScreen'
 import { usePendingActions } from '@ui/queries'

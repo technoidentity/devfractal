@@ -1,13 +1,13 @@
 import { str } from '@srtp/core'
 import { prisma } from '@core/prisma'
 import type { CalendarEvent, Meeting } from '@prisma/client'
-import {
+import type {
   CardsResponse,
   MeetingResponse,
   PreviousMeetingsResponse,
   UpComingMeetingsResponse,
 } from '@ui/responses'
-import { Args } from './utils'
+import type { Args } from './utils'
 
 export const getMeetings = async (args: Args<'email'>): Promise<Meeting[]> => {
   const email = str(args.email)

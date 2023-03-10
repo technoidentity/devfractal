@@ -1,10 +1,9 @@
-import React from 'react'
-import type { Player } from './Square'
+import type * as Square from './Square'
 import { Title } from '@mantine/core'
 
 interface PlayerProps {
-  readonly player: Player
-  readonly winner: Player | 'Game over'
+  readonly player: Square.Player
+  readonly winner: Square.Player | 'Game over'
 }
 
 export const PlayerStatus: React.FC<PlayerProps> = ({ player, winner }) => {

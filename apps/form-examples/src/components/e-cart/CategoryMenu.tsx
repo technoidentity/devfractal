@@ -1,5 +1,4 @@
 import { Select } from '@mantine/core'
-import React from 'react'
 
 interface CategoryMenuProps {
   onCategorySelect(category: string): void

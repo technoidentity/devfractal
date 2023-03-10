@@ -1,5 +1,4 @@
 import { Box, Grid } from '@mantine/core'
-import React from 'react'
 import type { Player } from './Square'
 import { SquareView } from './Square'
 

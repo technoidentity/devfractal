@@ -9,7 +9,7 @@ import {
   WrapItem,
 } from '@chakra-ui/react'
 import { FiMoreHorizontal } from 'react-icons/fi'
-import { Discussion } from '@specs/discussion'
+import type { Discussion } from '@specs/discussion'
 import { Draggable } from 'react-beautiful-dnd'
 
 export interface DiscussionCardProps {

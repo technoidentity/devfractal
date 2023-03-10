@@ -1,4 +1,5 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'
 import { isStr } from '@srtp/core'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL

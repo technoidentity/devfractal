@@ -2,7 +2,7 @@
 
 import { CgArrowRight } from 'react-icons/cg'
 
-import { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 
 type MeetingState = 'start meeting' | 'end meeting'
 interface Props {

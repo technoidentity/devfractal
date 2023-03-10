@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import { TiArrowRight } from 'react-icons/ti'
 import { useClickOutside } from '@ui/core/useClickOutside'
 

@@ -1,4 +1,4 @@
-import { CalendarEvent } from '@prisma/client'
+import type { CalendarEvent } from '@prisma/client'
 import { v4 as uuid } from 'uuid'
 export const calendarEvents: Omit<CalendarEvent, 'createdAt' | 'updatedAt'>[] =
   [

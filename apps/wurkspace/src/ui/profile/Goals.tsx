@@ -1,4 +1,4 @@
-import { OKR } from '@specs/old/profile'
+import type { OKR } from '@specs/old/profile'
 
 export type GoalsProps = OKR
 

@@ -1,9 +1,9 @@
 import { str, toInt } from '@srtp/core'
 import { prisma } from '@core/prisma'
 import { omit } from '@srtp/fn'
-import { Action } from '@prisma/client'
-import { PendingActionsResponse } from '@ui/responses'
-import { Args } from './utils'
+import type { Action } from '@prisma/client'
+import type { PendingActionsResponse } from '@ui/responses'
+import type { Args } from './utils'
 
 export const getActions = async (
   args: Args<'meetingId'>,

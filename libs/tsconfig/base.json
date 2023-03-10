@@ -10,6 +10,7 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": false,
     "importHelpers": true,
     "inlineSources": false,
     "isolatedModules": true,

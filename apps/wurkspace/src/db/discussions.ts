@@ -1,9 +1,9 @@
 import { str, toInt } from '@srtp/core'
 import { prisma } from '@core/prisma'
 import { omit } from '@srtp/fn'
-import { Discussion } from '@prisma/client'
+import type { Discussion } from '@prisma/client'
 import { z } from 'zod'
-import { Args } from './utils'
+import type { Args } from './utils'
 
 export const getDiscussions = async (
   args: Args<'meetingId'>,

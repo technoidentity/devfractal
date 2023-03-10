@@ -3,7 +3,7 @@ import { ErrorMessage } from '@ui/core'
 import { useAuth } from '@ui/core/useAuth'
 import { LoadingScreen } from '@ui/LoadingScreen'
 import { usePreviousMeetings } from '@ui/queries'
-import { PreviousMeeting } from '@ui/responses'
+import type { PreviousMeeting } from '@ui/responses'
 import Link from 'next/link'
 
 export const getReportingToInfo = (reportingTo: string) => {

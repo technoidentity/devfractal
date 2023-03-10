@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { Button, Flex, Select } from '@chakra-ui/react'
-import { UsersResponse } from '@ui/responses'
+import type { UsersResponse } from '@ui/responses'
 
 import React from 'react'
 import invariant from 'tiny-invariant'

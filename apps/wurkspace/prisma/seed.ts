@@ -1,5 +1,6 @@
-import { Meeting, PrismaClient } from '@prisma/client'
-import { Employee } from '@specs/employee'
+import type { Meeting } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
+import type { Employee } from '@specs/employee'
 import {
   calendarEvents,
   currentMeetingActions,

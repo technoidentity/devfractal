@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
-import { Category } from '@specs/enums'
-import { Card, isAction } from '@specs/oneOnOne'
+import type { Category } from '@specs/enums'
+import type { Card} from '@specs/oneOnOne';
+import { isAction } from '@specs/oneOnOne'
 import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
 import { ActionCard } from './ActionCard'

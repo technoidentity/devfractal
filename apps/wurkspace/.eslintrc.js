@@ -146,6 +146,7 @@ module.exports = {
     'react/require-render-return': 'error',
     'react/style-prop-object': 'error',
 
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/adjacent-overload-signatures': 'error',

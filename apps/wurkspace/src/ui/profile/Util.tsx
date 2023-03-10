@@ -1,4 +1,4 @@
-import { Label, Content } from '@specs/old/profile'
+import type { Label, Content } from '@specs/old/profile'
 
 export const Labels = (param: Label) => (
   <h2 className="text-lg font-bold leading-tight text-black">{param.value} </h2>

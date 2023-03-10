@@ -1,7 +1,7 @@
 import { prisma } from '@core/prisma'
 import { ErrorMessage } from '@ui/core'
 import { Help } from '@ui/help'
-import { InferGetStaticPropsType } from 'next'
+import type { InferGetStaticPropsType } from 'next'
 import React from 'react'
 
 export const getStaticProps = async () => {

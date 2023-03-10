@@ -1,3 +1,5 @@
+import type {
+  useDisclosure} from '@chakra-ui/react';
 import {
   Box,
   Circle,
@@ -9,10 +11,9 @@ import {
   ModalOverlay,
   Text,
   Textarea,
-  useDisclosure,
   VStack,
 } from '@chakra-ui/react'
-import { Discussion } from '@specs/discussion'
+import type { Discussion } from '@specs/discussion'
 import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import { string } from 'zod'

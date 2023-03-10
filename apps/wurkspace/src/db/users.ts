@@ -2,9 +2,9 @@ import { str } from '@srtp/core'
 import { prisma } from '@core/prisma'
 import { pick } from '@srtp/fn'
 import { addDays } from 'date-fns'
-import { Session } from 'next-auth'
+import type { Session } from 'next-auth'
 import invariant from 'tiny-invariant'
-import { Args } from './utils'
+import type { Args } from './utils'
 
 export const getSessionByUser = async (
   args: Args<'email'>,

@@ -1,7 +1,7 @@
 // @components
 import { useClickOutside } from '@ui/core/useClickOutside'
 import { DatePickerView } from '@ui/core'
-import { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import { TiArrowRight } from 'react-icons/ti'
 
 interface Props {

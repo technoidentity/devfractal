@@ -1,15 +1,17 @@
-import { Paths, safeQueryFn } from '@core/api'
+import type { Paths} from '@core/api';
+import { safeQueryFn } from '@core/api'
 import { logIfError } from '@core/utils'
 import produce from 'immer'
 import React from 'react'
-import {
+import type {
   QueryClient,
+  UseQueryOptions} from 'react-query';
+import {
   useMutation,
   useQuery,
-  useQueryClient,
-  UseQueryOptions,
+  useQueryClient
 } from 'react-query'
-import { z } from 'zod'
+import type { z } from 'zod'
 
 type UseSafeQueryArgs<Spec extends z.ZodTypeAny> = Readonly<{
   key: Paths

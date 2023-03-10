@@ -31,6 +31,7 @@ module.exports = {
     react: { version: 'detect' },
   },
   rules: {
+    'no-useless-constructor': 'off',
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/restrict-plus-operands': 'off',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
@@ -148,7 +149,6 @@ module.exports = {
     'no-unused-labels': 'error',
     'no-useless-computed-key': 'error',
     'no-useless-concat': 'error',
-    'no-useless-constructor': 'error',
     'no-useless-escape': 'error',
     'no-var': 'error',
     'no-void': 'error',

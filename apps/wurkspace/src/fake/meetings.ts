@@ -1,4 +1,4 @@
-import { CalendarEvent, Meeting as PrismaMeeting } from '@prisma/client'
+import type { CalendarEvent, Meeting as PrismaMeeting } from '@prisma/client'
 import { addDays, addHours, subDays, subHours } from 'date-fns'
 import { v4 as uuid } from 'uuid'
 

@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { Employee, User as PrismaUser } from '@prisma/client'
+import type { Employee, User as PrismaUser } from '@prisma/client'
 
 type User = Omit<PrismaUser, 'createdAt' | 'updatedAt' | 'emailVerified'>
 

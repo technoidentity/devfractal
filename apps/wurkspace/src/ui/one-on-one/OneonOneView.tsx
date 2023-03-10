@@ -3,7 +3,8 @@ import { groupBy } from '@srtp/fn'
 import { Category } from '@specs/enums'
 import { Card } from '@specs/oneOnOne'
 import React, { useMemo } from 'react'
-import { DragDropContext, DropResult } from 'react-beautiful-dnd'
+import type { DropResult } from 'react-beautiful-dnd';
+import { DragDropContext } from 'react-beautiful-dnd'
 import { z } from 'zod'
 import { OneOnOneColumn } from './OneOnOneColumn'
 

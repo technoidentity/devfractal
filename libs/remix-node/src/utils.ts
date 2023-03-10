@@ -18,7 +18,7 @@ export function badRequestFromResult<T extends object>(
 ) {
   invariant(isFail(result), 'badRequestFromResult expects a fail result')
 
-  return badRequest<T>({ error: result.fail })
+  return badRequest<T>({ error: result.error })
 }
 
 export function actionResult<T>(
@@ -26,7 +26,7 @@ export function actionResult<T>(
   options?: { redirectUrl: string },
 ) {
   return isFail(result)
-    ? badRequest({ error: result.fail })
+    ? badRequest({ error: result.error })
     : options === undefined
     ? json({})
     : redirect(options.redirectUrl)

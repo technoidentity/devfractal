@@ -1,3 +1,5 @@
+import type {
+  useDisclosure} from '@chakra-ui/react';
 import {
   Box,
   Center,
@@ -10,10 +12,9 @@ import {
   ModalFooter,
   Text,
   Textarea,
-  useDisclosure,
   VStack,
 } from '@chakra-ui/react'
-import { Action } from '@specs/action'
+import type { Action } from '@specs/action'
 import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import { string } from 'zod'

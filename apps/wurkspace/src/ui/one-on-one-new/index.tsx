@@ -1,6 +1,6 @@
 import { ErrorMessage, useAuth } from '@ui/core'
 import { useSafeQuery } from '@ui/core/useApi'
-import { MeetingResponse } from '@ui/responses'
+import type { MeetingResponse } from '@ui/responses'
 import { useState } from 'react'
 import { FiClock } from 'react-icons/fi'
 import { any } from 'zod'

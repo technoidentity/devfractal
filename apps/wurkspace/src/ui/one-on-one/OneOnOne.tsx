@@ -1,7 +1,8 @@
 import { useDisclosure } from '@chakra-ui/react'
-import { Card, isAction, isDiscussion } from '@specs/oneOnOne'
-import { Action } from '@specs/action'
-import { Discussion } from '@specs/discussion'
+import type { Card} from '@specs/oneOnOne';
+import { isAction, isDiscussion } from '@specs/oneOnOne'
+import type { Action } from '@specs/action'
+import type { Discussion } from '@specs/discussion'
 import { LoadingScreen } from '@ui/LoadingScreen'
 import { useCardMutations, useCards, useSupabase } from '@ui/queries'
 import React from 'react'

@@ -1,4 +1,4 @@
-import { UserProfile } from '@specs/old/profile'
+import type { UserProfile } from '@specs/old/profile'
 
 type PersonalInformationTableProps = UserProfile
 

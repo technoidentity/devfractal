@@ -9,7 +9,7 @@ import { queryFn } from '@core/api'
 import { useAuth } from '@ui/core/useAuth'
 import { Layout } from '@ui/Layout'
 import { TestUserProvider } from '@ui/test'
-import { NextComponentType } from 'next'
+import type { NextComponentType } from 'next'
 import type { AppProps } from 'next/app'
 // Page Loading Indicator
 import Router from 'next/router'

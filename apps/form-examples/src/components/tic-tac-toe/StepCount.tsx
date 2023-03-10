@@ -1,6 +1,5 @@
 import { Button, Group } from '@mantine/core'
 import { range } from 'lodash'
-import React from 'react'
 
 interface StepCountProps {
   readonly count: number

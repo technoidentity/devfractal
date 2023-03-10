@@ -1,5 +1,5 @@
 import { prisma } from '@core/prisma'
-import { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const users = await prisma.user.findMany()
