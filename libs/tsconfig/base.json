@@ -19,6 +19,7 @@
     "noEmit": true,
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
+    "importsNotUsedAsValues": "error",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
