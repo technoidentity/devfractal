@@ -3,6 +3,7 @@ import type { NavLinkProps } from '@mantine/core'
 import { Button, Center, Group, NavLink, Text, Title } from '@mantine/core'
 import type { NavLinkProps as RemixNavLinkProps } from '@remix-run/react'
 import { NavLink as RemixNavLink } from '@remix-run/react'
+import { jstr } from '@srtp/core'
 import React from 'react'
 import { useOptionalUser } from '~/utils'
 
@@ -22,7 +23,7 @@ export const SubmitButton = () => (
 
 export const FormErrors = ({ error }: { error?: unknown }) =>
   error && Object.keys(error).length > 0 ? (
-    <Text color="red">{JSON.stringify(error) || ''}</Text>
+    <Text color="red">{jstr(error) || ''}</Text>
   ) : null
 
 export const SignedIn = ({ children }: { children: React.ReactNode }) => {
