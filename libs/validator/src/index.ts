@@ -1,5 +1,5 @@
 import type { Try } from '@srtp/core'
-import { failure, success } from '@srtp/core'
+import { tryFromZod } from '@srtp/core'
 import { z } from 'zod'
 
 export const number = (defaultValue?: number) =>
@@ -104,7 +104,7 @@ export function validate<T extends FormRawShape, Spec extends z.ZodSchema<T>>(
   value: unknown,
 ): Try<z.infer<Spec>> {
   const r = schema.safeParse(value)
-  return r.success ? success(r.data) : failure(r.error) // @TODO: format error
+  return tryFromZod(r)
 }
 
 export function fieldValidate<Spec extends FieldSpec>(
@@ -112,5 +112,5 @@ export function fieldValidate<Spec extends FieldSpec>(
   value: unknown,
 ): Try<z.infer<Spec>> {
   const r = schema.safeParse(value)
-  return r.success ? success(r.data) : failure(r.error) // @TODO: format error
+  return tryFromZod(r)
 }
