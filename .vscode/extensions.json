@@ -21,6 +21,7 @@
     "zenclabs.previewjs",
     "zixuanchen.vitest-explorer",
     "teamhub.teamhub",
-    "ms-playwright.playwright"
+    "ms-playwright.playwright",
+    "aaron-bond.better-comments"
   ]
 }
