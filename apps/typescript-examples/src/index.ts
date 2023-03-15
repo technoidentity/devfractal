@@ -10,6 +10,7 @@ export const isOdd = (num: number): boolean => {
   }
   return convertedNum % 2 === 1
 }
+
 export const isEven = (num: number) => num % 2 === 0
 
 // problem 4
