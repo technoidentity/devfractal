@@ -23,7 +23,7 @@ import {
   Textarea,
   TextInput,
 } from '@mantine/core'
-import { Calendar, DatePicker, TimeInput } from '@mantine/dates'
+import { Calendar, DatePickerInput, TimeInput } from '@mantine/dates'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
 import {
@@ -236,7 +236,7 @@ export const StepperForm = () => {
             {...form.getInputProps('color')}
           />
           <Rating mt="sm" defaultValue={2} {...form.getInputProps('rating')} />
-          <DatePicker
+          <DatePickerInput
             placeholder="Pick date"
             label="Date of Joining"
             mt="sm"

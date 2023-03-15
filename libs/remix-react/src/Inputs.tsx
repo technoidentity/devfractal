@@ -37,15 +37,10 @@ import {
   TextInput,
 } from '@mantine/core'
 import type {
-  DatePickerProps,
-  DateRangePickerProps,
+  DatePickerInputProps as DatePickerProps,
   TimeInputProps,
 } from '@mantine/dates'
-import {
-  DatePicker as MantineDatePicker,
-  DateRangePicker as MantineDateRangePicker,
-  TimeInput,
-} from '@mantine/dates'
+import { DatePickerInput as MantineDatePicker, TimeInput } from '@mantine/dates'
 import type { GetRawShape } from '@srtp/core'
 import type { FormSpec, ZodDateRange } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
@@ -265,11 +260,12 @@ export const DatePicker = (props: Named<DatePickerProps>) => {
   )
 }
 
-export const DateRangePicker = (props: Named<DateRangePickerProps>) => {
-  const { form, errMsg, spec } = useFormContext()
+export const DateRangePicker = (props: Named<DatePickerProps<'range'>>) => {
+  const { form, spec, errMsg } = useFormContext()
 
   return (
-    <MantineDateRangePicker
+    <MantineDatePicker
+      type="range"
       withAsterisk={!(spec[props.name] instanceof z.ZodOptional)}
       {...props}
       {...form.getInputProps(props.name)}
@@ -440,7 +436,7 @@ export type InputsType<Spec extends FormSpec> = {
     >,
   ) => JSX.Element
   DateRangePicker: (
-    props: ZodNamed<Spec, DateRangePickerProps, ZodDateRange>,
+    props: ZodNamed<Spec, DatePickerProps<'range'>, ZodDateRange>,
   ) => JSX.Element
   Time: (
     props: Named<

@@ -33,14 +33,14 @@ export function ClientTable<Row extends RowBase>({
         mt="lg"
         position="right"
         styles={theme => ({
-          item: {
+          control: {
             // eslint-disable-next-line @typescript-eslint/naming-convention
             '&[data-active]': {
               backgroundImage: theme.fn.gradient({ from: 'red', to: 'yellow' }),
             },
           },
         })}
-        page={state.page}
+        value={state.page}
         onChange={actions.setPage}
         total={selects.totalPages}
       />

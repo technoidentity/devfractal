@@ -1,5 +1,5 @@
 import type { Ctc } from '@prisma/client'
-import type { CreateCtcSpec} from '~/common';
+import type { CreateCtcSpec } from '~/common'
 import { entityExists, entityNotFound } from '~/common'
 import { prisma } from '~/db.server'
 import { dbTry } from '../common'

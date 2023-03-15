@@ -59,6 +59,10 @@ export function rerror$<E, T>(res: Result<E, T>, message?: string): E {
   return res.error
 }
 
+export function or$<E, T>(res: Result<E, T>, or: T): T {
+  return isOk(res) ? res.value : or
+}
+
 export type Match<E, T, E2, T2> = {
   ok(x: T): T2
   fail(e: E): E2

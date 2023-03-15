@@ -9,7 +9,6 @@ export function SpendInputs({
   return (
     <Group position="left" m="md">
       <Inputs.DateRangePicker
-        amountOfMonths={2}
         name="dateRange"
         placeholder="Pick from and to date"
         label="Date range"

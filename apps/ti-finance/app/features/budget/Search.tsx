@@ -1,12 +1,10 @@
 import { Group } from '@mantine/core'
-import { getYearsRange } from '@mantine/dates'
+import { range } from '@srtp/core'
 import { BudgetSearchSpec, SelectDepartment } from '~/common'
 import type { SearchInputsProps } from '~/core'
 import { SearchForm } from '~/core'
 
-const years = getYearsRange({ from: 2015, to: 2030 }).map(year =>
-  year.toString(),
-)
+const years = range(2015, 2030).map(year => year.toString())
 
 export function BudgetInputs({
   Inputs,

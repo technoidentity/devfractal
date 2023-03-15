@@ -1,16 +1,17 @@
 import { createStyles } from '@mantine/core'
+import { toNum } from '@srtp/core'
 
 export const useStyles = createStyles(theme => ({
   inner: {
     display: 'flex',
     justifyContent: 'space-between',
-    paddingTop: theme.spacing.xl * 4,
-    paddingBottom: theme.spacing.xl * 4,
+    paddingTop: toNum(theme.spacing.xl) * 4,
+    paddingBottom: toNum(theme.spacing.xl) * 4,
   },
 
   content: {
     maxWidth: 480,
-    marginRight: theme.spacing.xl * 3,
+    marginRight: toNum(theme.spacing.xl) * 3,
 
     [theme.fn.smallerThan('md')]: {
       maxWidth: '100%',
