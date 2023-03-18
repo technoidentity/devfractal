@@ -1,15 +1,28 @@
 import invariant from 'tiny-invariant'
-import { map, range } from './iter'
+import { map, range, toArray } from './iter'
 import { pipe } from './pipe'
 import { bool } from './specs'
 import { Natural } from './specs/commonSpecs'
 
 export function first<T>(arr: readonly T[]): T {
+  invariant(arr.length > 0, 'first undefined on an empty array')
   return arr[0]
 }
 
 export function last<T>(arr: readonly T[]): T {
+  invariant(arr.length > 0, 'last undefined on an empty array')
   return arr[arr.length - 1]
+}
+
+export function at(index: number) {
+  return <T>(arr: readonly T[]): T | undefined => arr.at(index)
+}
+
+export function at$(index: number) {
+  return <T>(arr: readonly T[]): T => {
+    invariant(index >= 0 && index < arr.length, 'index out of bounds')
+    return arr[index]
+  }
 }
 
 export function slice(start: number, end: number) {
@@ -21,24 +34,32 @@ export const push =
   (arr: readonly T[]): T[] =>
     [...arr, v]
 
-export const pop = <T>(arr: readonly T[]): T[] => arr.slice(0, arr.length - 1)
+export const pop = <T>(arr: readonly T[]): T[] => {
+  invariant(arr.length > 0, 'pop undefined on an empty array')
+  return arr.slice(0, arr.length - 1)
+}
 
 export const unshift =
   <T>(v: T) =>
   (arr: readonly T[]): T[] =>
     [v, ...arr]
 
-export const shift = <T>(arr: readonly T[]): T[] => arr.slice(1)
-
+export const shift = <T>(arr: readonly T[]): T[] => {
+  invariant(arr.length > 0, 'shift undefined on an empty array')
+  return arr.slice(1)
+}
 export const insert =
   <T>(index: number, value: T) =>
-  (arr: readonly T[]) =>
-    [...arr.slice(0, index), value, ...arr.slice(index)]
-
+  (arr: readonly T[]): T[] => {
+    invariant(index >= 0 && index <= arr.length, 'index out of bounds')
+    return [...arr.slice(0, index), value, ...arr.slice(index)]
+  }
 export const remove =
-  <T>(index: number) =>
-  (arr: readonly T[]) =>
-    [...arr.slice(0, index), ...arr.slice(index + 1)]
+  (index: number) =>
+  <T>(arr: readonly T[]): T[] => {
+    invariant(index >= 0 && index < arr.length, 'index out of bounds')
+    return [...arr.slice(0, index), ...arr.slice(index + 1)]
+  }
 
 export function reduce<T1, T2>(f: (x: T1, acc: T2) => T2, init: T2) {
   return (arr: Iterable<T1>): T2 => {
@@ -51,17 +72,20 @@ export function reduce<T1, T2>(f: (x: T1, acc: T2) => T2, init: T2) {
   }
 }
 
-export const copy = <T>(arr: readonly T[]) => [...arr]
+export const copy = <T>(arr: readonly T[]): T[] => [...arr]
 
 export const merge =
   <T1>(obj: T1) =>
-  <T2>(obj2: T2) => {
+  <T2>(obj2: T2): T1 & T2 => {
     return { ...obj, ...obj2 }
   }
 
 export const paged =
-  <T>(current: number, limit: number) =>
-  (arr: readonly T[]) => {
+  (current: number, limit: number) =>
+  <T>(arr: readonly T[]): T[] => {
+    invariant(current > 0 && current < arr.length, 'current out of bounds')
+    invariant(limit > 0, 'limit must be greater than 0')
+
     return slice((current - 1) * limit, current * limit)(arr)
   }
 
@@ -175,11 +199,12 @@ export function minBy<T extends object>(by: keyof T) {
   }
 }
 
-export function zip<T>(...args: T[][]) {
+export function zip<T>(...args: T[][]): T[][] {
   const len = pipe(args, minBy('length')).length
   return pipe(
     range(len),
     map(i => args.map(arr => arr[i])),
+    toArray,
   )
 }
 
