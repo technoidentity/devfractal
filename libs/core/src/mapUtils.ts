@@ -1,4 +1,4 @@
-import { notNil } from './types'
+import { notNil } from './specs'
 
 export function toMap<T extends object, Select extends [keyof T, keyof T]>(
   objList: readonly T[],

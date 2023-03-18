@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import { isObject, isStr, jstr } from '../types'
+import { isObject, isStr, jstr } from '../specs'
 import type { Result } from './result'
 import { fail, ok } from './result'
 import type { Try } from './try'

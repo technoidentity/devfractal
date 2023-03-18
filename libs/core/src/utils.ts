@@ -1,18 +1,10 @@
 import type { DeepReadonly } from 'ts-essentials'
 import { z } from 'zod'
-import { isStr, jstr } from './types'
+import { isStr, jstr } from './specs'
 
 export const tap = <T>(arg: T): T => {
   console.log(jstr(arg))
   return arg
-}
-
-export const range = (start: number, end: number) => {
-  const result = []
-  for (let i = start; i <= end; i++) {
-    result.push(i)
-  }
-  return result
 }
 
 export const strict = <T extends z.ZodRawShape>(o: T) => z.object(o).strict()
