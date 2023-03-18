@@ -244,3 +244,14 @@ export function uniqueSorted<T>(arr: readonly T[]): T[] {
 
   return result
 }
+
+export function unique<T>(arr: readonly T[]): T[] {
+  const result: T[] = []
+  for (const e of arr) {
+    if (!result.includes(e)) {
+      result.push(e)
+    }
+  }
+
+  return result
+}
