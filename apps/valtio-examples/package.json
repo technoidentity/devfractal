@@ -11,7 +11,7 @@
     "db": "json-server ./db.js",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
-    "lint": "eslint --max-warnings=0 --cache src tests --ext ts,tsx",
+    "lint": "eslint --max-warnings=0 --cache src tests --ext .ts,.tsx",
     "serve": "vite preview",
     "test:dev": "vitest dev",
     "test": "vitest run",

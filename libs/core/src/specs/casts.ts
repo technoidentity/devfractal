@@ -4,7 +4,6 @@ export function cast<T, Spec extends z.ZodType<T>>(
   spec: Spec,
   v: unknown,
 ): z.infer<Spec> {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return spec.parse(v)
 }
 

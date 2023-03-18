@@ -9,7 +9,7 @@
     "dev": "concurrently pnpm:web:dev pnpm:db",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
-    "lint": "eslint --max-warnings=0 --cache src tests --ext ts,tsx",
+    "lint": "eslint --max-warnings=0 --cache src tests --ext .ts,.tsx",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "test": "vitest run",
     "test:dev": "vitest dev",
