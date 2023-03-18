@@ -1,5 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react'
-import { paged } from '@srtp/core'
+import { paged, pipe } from '@srtp/core'
 import type { Filter } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'
@@ -22,7 +22,8 @@ const useTodoList = () => {
   )
 
   const todoList = React.useMemo(
-    () => (filtered === undefined ? undefined : paged(filtered, page, limit)),
+    () =>
+      filtered === undefined ? undefined : pipe(filtered, paged(page, limit)),
     [filtered, page, limit],
   )
 

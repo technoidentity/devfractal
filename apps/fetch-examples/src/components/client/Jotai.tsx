@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Flex, Heading, Spinner } from '@chakra-ui/react'
-import { paged } from '@srtp/core'
+import { paged, pipe } from '@srtp/core'
 import type { Filter, Todo } from '@srtp/todo'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
@@ -33,7 +33,7 @@ const filteredTodosAtom = atom(async get =>
 )
 
 const todoListAtom = atom(async get =>
-  paged(await get(filteredTodosAtom), get(pageAtom), get(limitAtom)),
+  pipe(await get(filteredTodosAtom), paged(get(pageAtom), get(limitAtom))),
 )
 
 const pageCountAtom = atom(async get =>

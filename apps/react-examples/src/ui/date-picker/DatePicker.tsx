@@ -1,11 +1,25 @@
 import React from 'react'
 
 import { HStack, Select } from '@chakra-ui/react'
-import { range } from '@srtp/core'
+import { map, pipe, range, toArray } from '@srtp/core'
 
-const dates = range(1, 30).map(v => v)
-const months = range(1, 12).map(v => v)
-const years = range(2000, 2030).map(v => v)
+const dates = pipe(
+  range(1, 30),
+  map(v => v),
+  toArray,
+)
+
+const months = pipe(
+  range(1, 12),
+  map(v => v),
+  toArray,
+)
+
+const years = pipe(
+  range(2000, 2030),
+  map(v => v),
+  toArray,
+)
 
 export const DatePickerView = () => {
   return (
