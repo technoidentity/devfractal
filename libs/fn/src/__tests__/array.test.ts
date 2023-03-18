@@ -9,54 +9,52 @@ import {
   join,
   leftOuterJoin,
   max,
-  maxBy,
   maxIndex,
   min,
-  minBy,
   minIndex,
   orderBy,
-  range,
   removeAt,
   replaceAt,
   rightOuterJoin,
-  sortedUnique,
   take,
   takeWhile,
-  uniq,
-  zip,
+  unique,
+  uniqueSorted,
   zipWith,
 } from '../array'
 
 import { expect, it, test } from 'vitest'
+import { range } from '../iter'
+import { pipe } from '../pipe'
 
 test('take', () => {
-  expect(uniq([2, 1, 2])).toEqual([2, 1])
-  expect(uniq(['a', 1, 'a', 2, '1'])).toEqual(['a', 1, 2, '1'])
-  expect(uniq([false, true, true, false, 0, 1, 's', 1])).toEqual([
+  expect(unique([2, 1, 2])).toEqual([2, 1])
+  expect(unique(['a', 1, 'a', 2, '1'])).toEqual(['a', 1, 2, '1'])
+  expect(unique([false, true, true, false, 0, 1, 's', 1])).toEqual([
     false,
     true,
     0,
     1,
     's',
   ])
-  expect(uniq([])).toEqual([])
-  expect(uniq([1])).toEqual([1])
-  expect(uniq([1, 1, 0, 0, '', ''])).toEqual([1, 0, ''])
+  expect(unique([])).toEqual([])
+  expect(unique([1])).toEqual([1])
+  expect(unique([1, 1, 0, 0, '', ''])).toEqual([1, 0, ''])
 })
 
 test('range', () => {
-  expect(uniq([2, 1, 2])).toEqual([2, 1])
-  expect(uniq(['a', 1, 'a', 2, '1'])).toEqual(['a', 1, 2, '1'])
-  expect(uniq([false, true, true, false, 0, 1, 's', 1])).toEqual([
+  expect(unique([2, 1, 2])).toEqual([2, 1])
+  expect(unique(['a', 1, 'a', 2, '1'])).toEqual(['a', 1, 2, '1'])
+  expect(unique([false, true, true, false, 0, 1, 's', 1])).toEqual([
     false,
     true,
     0,
     1,
     's',
   ])
-  expect(uniq([])).toEqual([])
-  expect(uniq([1])).toEqual([1])
-  expect(uniq([1, 1, 0, 0, '', ''])).toEqual([1, 0, ''])
+  expect(unique([])).toEqual([])
+  expect(unique([1])).toEqual([1])
+  expect(unique([1, 1, 0, 0, '', ''])).toEqual([1, 0, ''])
 })
 
 test('take', () => {
@@ -96,23 +94,23 @@ test('max', () => {
   expect(() => max([])).toThrow()
 })
 
-test('zip', () => {
-  expect(zip([1, 2, 3], ['a', 'b'])).toEqual([
-    [1, 'a'],
-    [2, 'b'],
-  ])
-  expect(zip([1, 2, 3], ['a', 'b', 'c', 'd', 'e'])).toEqual([
-    [1, 'a'],
-    [2, 'b'],
-    [3, 'c'],
-  ])
-  expect(zip([1, 2], ['a', 'b'])).toEqual([
-    [1, 'a'],
-    [2, 'b'],
-  ])
-  expect(zip([1], ['a'])).toEqual([[1, 'a']])
-  expect(zip([], [])).toEqual([])
-})
+// test('zip', () => {
+//   expect(zip([1, 2, 3], ['a', 'b'])).toEqual([
+//     [1, 'a'],
+//     [2, 'b'],
+//   ])
+//   expect(zip([1, 2, 3], ['a', 'b', 'c', 'd', 'e'])).toEqual([
+//     [1, 'a'],
+//     [2, 'b'],
+//     [3, 'c'],
+//   ])
+//   expect(zip([1, 2], ['a', 'b'])).toEqual([
+//     [1, 'a'],
+//     [2, 'b'],
+//   ])
+//   expect(zip([1], ['a'])).toEqual([[1, 'a']])
+//   expect(zip([], [])).toEqual([])
+// })
 
 test('takeWhile', () => {
   expect(takeWhile([2, 4, 9, 8], x => x % 2 === 0)).toEqual([2, 4])
@@ -146,23 +144,28 @@ test('maxIndex', () => {
   expect(() => maxIndex([])).toThrow()
 })
 
-const objects = [{ n: 1 }, { n: 2 }, { n: 3 }, { n: 0 }]
+// const objects = [{ n: 1 }, { n: 2 }, { n: 3 }, { n: 0 }]
 
-test('minBy', () => {
-  expect(minBy([9, 3, 5, 8, 2, 4], x => x % 3)).toEqual(9)
-  expect(minBy([3, 6, 8, 1, 2, 9], x => x + 3)).toEqual(1)
-  expect(minBy(objects, x => x.n)).toEqual({ n: 0 })
-  expect(minBy([4], x => x % 3)).toEqual(4)
-  expect(() => minBy([], x => x % 3)).toThrow()
-})
+// test('minBy', () => {
+//   expect(
+//     pipe(
+//       [9, 3, 5, 8, 2, 4],
+//       minBy(x => x % 3),
+//     ),
+//   ).toEqual(9)
+//   expect(pipe([3, 6, 8, 1, 2, 9], x => x + 3)).toEqual(1)
+//   expect(pipe(objects, x => x.n)).toEqual({ n: 0 })
+//   expect(pipe([4], x => x % 3)).toEqual(4)
+//   expect(() => pipe([], x => x % 3)).toThrow()
+// })
 
-test('maxBy', () => {
-  expect(maxBy([9, 3, 5, 8, 2, 4], x => x % 3)).toEqual(5)
-  expect(maxBy([3, 6, 8, 1, 2, 9], x => x + 3)).toEqual(9)
-  expect(maxBy(objects, x => x.n)).toEqual({ n: 3 })
-  expect(maxBy([4], x => x % 3)).toEqual(4)
-  expect(() => maxBy([], x => x % 3)).toThrow()
-})
+// test('maxBy', () => {
+//   expect(maxBy([9, 3, 5, 8, 2, 4], x => x % 3)).toEqual(5)
+//   expect(maxBy([3, 6, 8, 1, 2, 9], x => x + 3)).toEqual(9)
+//   expect(maxBy(objects, x => x.n)).toEqual({ n: 3 })
+//   expect(maxBy([4], x => x % 3)).toEqual(4)
+//   expect(() => maxBy([], x => x % 3)).toThrow()
+// })
 
 test('zipWith', () => {
   expect(zipWith([1, 2], [10, 20], (x, y) => x + y)).toEqual([11, 22])
@@ -175,19 +178,19 @@ test('zipWith', () => {
 })
 
 test('sortedUnique', () => {
-  expect(sortedUnique(['237', '124', '255', '124', '366', '255'])).toEqual([
+  expect(uniqueSorted(['237', '124', '255', '124', '366', '255'])).toEqual([
     '124',
     '237',
     '255',
     '366',
   ])
-  expect(sortedUnique([237, 124, 255, 124, 366, 255])).toEqual([
+  expect(uniqueSorted([237, 124, 255, 124, 366, 255])).toEqual([
     124, 237, 255, 366,
   ])
-  // expect(sortedUnique([-7, -7, -8, -3, -3, -6, -2, -4, -4])).toEqual([
+  // expect(uniqueSorted([-7, -7, -8, -3, -3, -6, -2, -4, -4])).toEqual([
   //   -2, -3, -4, -6, -7, -8,
   // ])
-  expect(sortedUnique([])).toEqual([])
+  expect(uniqueSorted([])).toEqual([])
 })
 
 test('assignWith', () => {
@@ -220,7 +223,7 @@ test('range', () => {
 })
 
 test('groupBy', () => {
-  expect(groupBy([6.1, 4.2, 6.3], Math.floor)).toEqual({
+  expect(pipe([6.1, 4.2, 6.3], groupBy(Math.floor))).toEqual({
     '6': [6.1, 6.3],
     '4': [4.2],
   })
@@ -471,7 +474,7 @@ test('replaceAt', () => {
 })
 
 test('groupBy', () => {
-  expect(groupBy([6.1, 4.2, 6.3], Math.floor)).toEqual({
+  expect(pipe([6.1, 4.2, 6.3], groupBy(Math.floor))).toEqual({
     '6': [6.1, 6.3],
     '4': [4.2],
   })

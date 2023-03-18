@@ -1,4 +1,4 @@
-import { isArray, isObject, isStr } from './specs'
+import { isArray, isObject, isStr } from '../../core/src/specs'
 
 export function isEmpty(x: unknown) {
   return (

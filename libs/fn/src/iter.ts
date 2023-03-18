@@ -1,6 +1,6 @@
 import invariant from 'tiny-invariant'
 import { pipe } from './pipe'
-import { Natural } from './specs/commonSpecs'
+import { Natural } from '../../core/src/specs/commonSpecs'
 
 export function iterator<T>(iter: Iterable<T>) {
   return iter[Symbol.iterator]()
@@ -106,7 +106,7 @@ export function findIndex<T>(f: (x: T) => boolean) {
   }
 }
 
-export function takeWhile<T>(f: (x: T) => boolean) {
+export function itakeWhile<T>(f: (x: T) => boolean) {
   return function* (arr: Iterable<T>) {
     for (const e of arr) {
       if (!f(e)) {
@@ -132,13 +132,13 @@ export function skipWhile<T>(f: (x: T) => boolean) {
   }
 }
 
-export function take<T>(n: Natural) {
+export function itake<T>(n: Natural) {
   return (arr: Iterable<T>) => {
     Natural.parse(n)
 
     return pipe(
       enumerate(arr),
-      takeWhile(([_, i]) => i < n),
+      itakeWhile(([_, i]) => i < n),
     )
   }
 }

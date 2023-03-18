@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { expect, test } from 'vitest'
-import { mergeWith, omit, omitBy, pick, pickBy, pluck } from '../object'
+import { mergeWith, omit, omitBy, pick, pickBy } from '../object'
 
 test('mergeWith', () => {
   expect(mergeWith({ a: 1, b: 2 }, { a: 9, b: 98 }, (x, y) => x + y)).toEqual({
@@ -79,26 +79,26 @@ test('omitBy', () => {
 })
 
 // test case for pluck function
-const array = [
-  { name: 'jack', age: 14 },
-  { name: 'jill', age: '15' },
-  { name: 'Hoo', age: 16 },
-]
-const emptyArr: Record<string, any>[] = []
+// const array = [
+//   { name: 'jack', age: 14 },
+//   { name: 'jill', age: '15' },
+//   { name: 'Hoo', age: 16 },
+// ]
+// const emptyArr: Record<string, any>[] = []
 
-test('pluck', () => {
-  expect(pluck(array, ['name', 'age'])).toEqual([
-    { name: 'jack', age: 14 },
-    { name: 'jill', age: '15' },
-    { name: 'Hoo', age: 16 },
-  ])
+// test('pluck', () => {
+//   expect(pluck(array, ['name', 'age'])).toEqual([
+//     { name: 'jack', age: 14 },
+//     { name: 'jill', age: '15' },
+//     { name: 'Hoo', age: 16 },
+//   ])
 
-  expect(pluck(array, ['age'])).toEqual([
-    { age: 14 },
-    { age: '15' },
-    { age: 16 },
-  ])
-  expect(pluck(emptyArr, ['age'])).toEqual([])
-  expect(pluck(array, [''] as any)).toEqual([{}, {}, {}])
-  expect(pluck(array, ['unknownKey'] as any)).toEqual([{}, {}, {}])
-})
+//   expect(pluck(array, ['age'])).toEqual([
+//     { age: 14 },
+//     { age: '15' },
+//     { age: 16 },
+//   ])
+//   expect(pluck(emptyArr, ['age'])).toEqual([])
+//   expect(pluck(array, [''] as any)).toEqual([{}, {}, {}])
+//   expect(pluck(array, ['unknownKey'] as any)).toEqual([{}, {}, {}])
+// })

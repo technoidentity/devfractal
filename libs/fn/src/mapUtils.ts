@@ -1,4 +1,4 @@
-import { notNil } from './specs'
+import { notNil } from '../../core/src/specs'
 
 export function toMap<T extends object, Select extends [keyof T, keyof T]>(
   objList: readonly T[],
@@ -26,7 +26,7 @@ export function mergeToMap<T extends object, Key extends keyof T>(
   return map
 }
 
-export function get<K, V>(map: Map<K, V>, k: K): V {
+export function mget<K, V>(map: Map<K, V>, k: K): V {
   return notNil(map.get(k))
 }
 
