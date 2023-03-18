@@ -11,7 +11,7 @@ export function cast<T, Spec extends z.ZodType<T>>(
 export function ensure<T, Spec extends z.ZodType<T>>(
   spec: Spec,
   v: unknown,
-): asserts v is z.infer<Spec> {
+): void {
   spec.parse(v)
 }
 
