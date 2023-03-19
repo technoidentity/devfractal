@@ -1,4 +1,4 @@
-import { mergeWithToMap } from '@srtp/core'
+import { mergeWithToMap } from '@srtp/fn'
 import type { Column } from '@srtp/table'
 import React from 'react'
 import { Table, TotalSpendCard, useDepartmentName, useUserName } from '~/common'

@@ -1,4 +1,4 @@
-import { str } from '@srtp/core'
+import { str } from '@srtp/spec'
 import { ErrorMessage } from '@ui/core'
 import { LoadingScreen } from '@ui/LoadingScreen'
 import { OneOnOneNew } from '@ui/one-on-one-new'

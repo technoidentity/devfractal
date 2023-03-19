@@ -32,7 +32,7 @@ import {
   StepThreeSchema,
   StepTwoSchema,
 } from './spec'
-import { jstr } from '@srtp/core'
+import { jstr } from '@srtp/spec'
 
 const countriesData = [
   { label: 'United States', value: 'US' },

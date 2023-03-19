@@ -1,11 +1,11 @@
 import { Box, Flex } from '@chakra-ui/react'
-import { paged, pipe } from '@srtp/core'
 import type { Filter } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import { filteredTodos, pageCount } from '../common'
 import { useTodoMutations, useTodos } from '../hooks'
 
+import { paged, pipe } from '@srtp/fn'
 import { FilterView, Pagination, TodoListView } from '../components'
 
 const useTodoList = () => {

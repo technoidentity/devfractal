@@ -1,5 +1,5 @@
 import { createStyles } from '@mantine/core'
-import { toNum } from '@srtp/core'
+import { toNum } from '@srtp/spec'
 
 export const useStyles = createStyles(theme => ({
   inner: {

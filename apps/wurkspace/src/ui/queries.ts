@@ -1,9 +1,9 @@
 import { put } from '@core/api'
-import { cast } from '@srtp/core'
 import { supabase } from '@core/supabase'
 import { Action } from '@specs/action'
 import { Discussion } from '@specs/discussion'
 import { Employee as EmployeeResponse } from '@specs/employee'
+import { cast } from '@srtp/spec'
 import { useOptMutation, useSafeQuery } from '@ui/core/useApi'
 import { useAuth } from '@ui/core/useAuth'
 import React from 'react'
@@ -14,7 +14,7 @@ import {
   PendingActionsResponse,
   PreviousMeetingsResponse,
   UpComingMeetingsResponse,
-  UsersResponse,
+  UsersResponse
 } from './responses'
 
 const queries = {

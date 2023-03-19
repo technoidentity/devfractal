@@ -1,4 +1,4 @@
-import { jstr } from '@srtp/core'
+import { jstr } from '@srtp/spec'
 import {
   Box,
   Button,

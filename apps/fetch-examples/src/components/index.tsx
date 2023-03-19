@@ -1,5 +1,5 @@
 import { Button, Heading } from '@chakra-ui/react'
-import { jstr } from '@srtp/core'
+import { jstr } from '@srtp/spec'
 import {
   QueryClient,
   QueryClientProvider,

@@ -1,6 +1,6 @@
 import { Counter } from '@/components'
 import { Box, Button } from '@chakra-ui/react'
-import { jstr } from '@srtp/core'
+import { jstr } from '@srtp/spec'
 import React from 'react'
 
 const App = () => {

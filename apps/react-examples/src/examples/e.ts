@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ensure, is } from '@srtp/core'
+import { ensure, is } from '@srtp/spec'
 
 const Tag = z.union([z.string(), z.function()])
 type Tag = z.infer<typeof Tag>

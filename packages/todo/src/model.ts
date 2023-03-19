@@ -1,6 +1,6 @@
-import type { Infer } from '@srtp/core'
-import { cast, strict } from '@srtp/core'
+import { strict } from '@srtp/core'
 import { z } from 'zod'
+import { cast } from '@srtp/spec'
 
 export const Todo = strict({
   id: z.number(),
@@ -14,7 +14,7 @@ export type Filter = z.infer<typeof Filter>
 export type Todo = z.infer<typeof Todo>
 
 export const CreateTodo = Todo.omit({ id: true })
-export type CreateTodo = Infer<typeof CreateTodo>
+export type CreateTodo = z.infer<typeof CreateTodo>
 
 let nextId = 1000
 

@@ -1,7 +1,7 @@
-import { cast } from '@srtp/core'
+import { cast } from '@srtp/spec'
 import qs from 'query-string'
 import type { QueryFunctionContext, QueryKey } from 'react-query'
-import type { Options as RedaxiosOptions } from 'redaxios';
+import type { Options as RedaxiosOptions } from 'redaxios'
 import axios from 'redaxios'
 import { z } from 'zod'
 

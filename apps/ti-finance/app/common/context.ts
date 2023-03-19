@@ -1,4 +1,4 @@
-import { get } from '@srtp/core'
+import { mget } from '@srtp/fn'
 import { useSafeContext } from '@srtp/remix-react'
 import React, { createContext } from 'react'
 import { capitalize } from './stringUtil'
@@ -33,7 +33,7 @@ export function useUsers() {
 export function useUserName() {
   const { usersMap } = useUsers()
   return React.useCallback(
-    (tid: string) => get(usersMap, tid).username,
+    (tid: string) => mget(usersMap, tid).username,
     [usersMap],
   )
 }
@@ -41,7 +41,7 @@ export function useUserName() {
 export function useDepartmentName() {
   const { departmentsMap } = useDepartments()
   return React.useCallback(
-    (depId: number) => get(departmentsMap, depId).name,
+    (depId: number) => mget(departmentsMap, depId).name,
     [departmentsMap],
   )
 }

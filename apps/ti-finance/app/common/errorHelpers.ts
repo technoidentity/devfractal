@@ -1,4 +1,4 @@
-import { toStringError } from '@srtp/core'
+import { toStringError } from '@srtp/result'
 import { Prisma } from '~/prisma-client'
 
 export function entityExists(entity: string) {

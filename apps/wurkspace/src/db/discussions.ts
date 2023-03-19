@@ -1,4 +1,4 @@
-import { str, toInt } from '@srtp/core'
+import { str, toInt } from '@srtp/spec'
 import { prisma } from '@core/prisma'
 import { omit } from '@srtp/fn'
 import type { Discussion } from '@prisma/client'

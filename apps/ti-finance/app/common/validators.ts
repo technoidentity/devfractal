@@ -1,5 +1,5 @@
 import { Billable } from '@prisma/client'
-import { toStr } from '@srtp/core'
+import { toStr } from '@srtp/spec'
 import {
   date,
   dateRange,

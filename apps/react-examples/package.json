@@ -25,6 +25,8 @@
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@srtp/core": "workspace:*",
+    "@srtp/spec": "workspace:*",
+    "@srtp/fn": "workspace:*",
     "framer-motion": "10.3.1",
     "immer": "9.0.19",
     "prop-types": "15.8.1",
@@ -41,7 +43,6 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@babel/core": "7.21.3",
     "@srtp/tsconfig": "workspace:*",
     "@testing-library/react": "14.0.0",
     "@types/node": "18.15.3",

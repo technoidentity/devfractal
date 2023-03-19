@@ -1,4 +1,4 @@
-import { isEmail } from '@srtp/core'
+import { isEmail } from '@srtp/spec'
 import { pick } from '@srtp/fn'
 import type { CtxOrReq } from '@srtp/api'
 import { addDays } from 'date-fns'

@@ -1,10 +1,10 @@
 import type { Draft } from 'immer'
 import { produce } from 'immer'
 import { z } from 'zod'
-import type { Infer } from '@srtp/core'
-import { cast, strict } from '@srtp/core'
+import { strict } from '@srtp/core'
 import type { State } from '@srtp/todo'
 import { CreateTodo, createTodo, Todo } from '@srtp/todo'
+import { cast } from '@srtp/spec'
 
 export const Action = z.union([
   strict({ type: z.literal('createTodo'), todo: CreateTodo }),
@@ -13,7 +13,7 @@ export const Action = z.union([
   strict({ type: z.literal('editTodo'), todo: Todo }),
 ])
 
-export type Action = Infer<typeof Action>
+export type Action = z.infer<typeof Action>
 
 export const todoReducer = produce((draft: Draft<State>, action: Action) => {
   action = cast(Action, action)

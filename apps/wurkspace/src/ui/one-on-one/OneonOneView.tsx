@@ -1,9 +1,9 @@
 import { Flex } from '@chakra-ui/react'
-import { groupBy } from '@srtp/fn'
+import { groupBy, pipe } from '@srtp/fn'
 import { Category } from '@specs/enums'
 import { Card } from '@specs/oneOnOne'
 import React, { useMemo } from 'react'
-import type { DropResult } from 'react-beautiful-dnd';
+import type { DropResult } from 'react-beautiful-dnd'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { z } from 'zod'
 import { OneOnOneColumn } from './OneOnOneColumn'
@@ -23,7 +23,11 @@ export const OneOnOneView = (props: OneOnOneViewProps) => {
   // OneOnOneViewProps.parse(props)
 
   const grouped = useMemo(
-    () => groupBy(props.cards, c => c.category),
+    () =>
+      pipe(
+        props.cards,
+        groupBy(c => c.category),
+      ),
     [props.cards],
   )
 

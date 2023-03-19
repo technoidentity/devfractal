@@ -189,6 +189,8 @@ importers:
       '@react-spring/web': 9.7.1
       '@srtp/core': workspace:*
       '@srtp/fetch': workspace:*
+      '@srtp/fn': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/todo': workspace:*
       '@srtp/tsconfig': workspace:*
       '@tanstack/react-query': 4.26.1
@@ -238,6 +240,8 @@ importers:
       '@react-spring/web': 9.7.1_biqbaboplfbrettd7655fr4n2y
       '@srtp/core': link:../../libs/core
       '@srtp/fetch': link:../../libs/fetch
+      '@srtp/fn': link:../../libs/fn
+      '@srtp/spec': link:../../libs/spec
       '@srtp/todo': link:../../packages/todo
       '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
       framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
@@ -294,6 +298,7 @@ importers:
       '@srtp/form': workspace:*
       '@srtp/global-state': workspace:*
       '@srtp/local-state': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@srtp/validator': workspace:*
       '@tanstack/react-query': 4.26.1
@@ -353,6 +358,7 @@ importers:
       '@srtp/form': link:../../libs/form
       '@srtp/global-state': link:../../libs/global-state
       '@srtp/local-state': link:../../libs/local-state
+      '@srtp/spec': link:../../libs/spec
       '@srtp/validator': link:../../libs/validator
       '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
       dayjs: 1.11.7
@@ -523,6 +529,7 @@ importers:
       '@previewjs/config-helper-nextjs': 1.0.7
       '@srtp/core': workspace:*
       '@srtp/local-state': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/todo': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
@@ -554,6 +561,7 @@ importers:
       '@next/font': 13.2.4
       '@srtp/core': link:../../libs/core
       '@srtp/local-state': link:../../libs/local-state
+      '@srtp/spec': link:../../libs/spec
       '@srtp/todo': link:../../packages/todo
       core-js: 3.29.1
       framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
@@ -726,12 +734,13 @@ importers:
 
   apps/react-examples:
     specifiers:
-      '@babel/core': 7.21.3
       '@chakra-ui/react': 2.5.1
       '@chakra-ui/styled-system': 2.6.1
       '@emotion/react': 11.10.6
       '@emotion/styled': 11.10.6
       '@srtp/core': workspace:*
+      '@srtp/fn': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@testing-library/react': 14.0.0
       '@types/node': 18.15.3
@@ -766,6 +775,8 @@ importers:
       '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
       '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
       '@srtp/core': link:../../libs/core
+      '@srtp/fn': link:../../libs/fn
+      '@srtp/spec': link:../../libs/spec
       framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
       immer: 9.0.19
       prop-types: 15.8.1
@@ -781,7 +792,6 @@ importers:
       use-immer: 0.8.1_immer@9.0.19+react@18.2.0
       zod: 3.21.4
     devDependencies:
-      '@babel/core': 7.21.3
       '@srtp/tsconfig': link:../../libs/tsconfig
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@types/node': 18.15.3
@@ -804,6 +814,7 @@ importers:
       '@emotion/react': 11.10.6
       '@emotion/styled': 11.10.6
       '@srtp/core': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/todo': workspace:*
       '@srtp/tsconfig': workspace:*
       '@testing-library/react': 14.0.0
@@ -838,6 +849,7 @@ importers:
       '@emotion/react': 11.10.6_pmekkgnqduwlme35zpnqhenc34
       '@emotion/styled': 11.10.6_oouaibmszuch5k64ms7uxp2aia
       '@srtp/core': link:../../libs/core
+      '@srtp/spec': link:../../libs/spec
       '@srtp/todo': link:../../packages/todo
       framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
       immer: 9.0.19
@@ -1017,6 +1029,8 @@ importers:
       '@srtp/remix-core': workspace:*
       '@srtp/remix-node': workspace:*
       '@srtp/remix-react': workspace:*
+      '@srtp/result': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/table': workspace:*
       '@srtp/validator': workspace:*
       '@tabler/icons-react': 2.10.0
@@ -1098,6 +1112,8 @@ importers:
       '@srtp/remix-core': link:../../libs/remix-core
       '@srtp/remix-node': link:../../libs/remix-node
       '@srtp/remix-react': link:../../libs/remix-react
+      '@srtp/result': link:../../libs/result
+      '@srtp/spec': link:../../libs/spec
       '@srtp/table': link:../../libs/table
       '@srtp/validator': link:../../libs/validator
       '@tabler/icons-react': 2.10.0_react@18.2.0
@@ -1290,6 +1306,7 @@ importers:
       '@srtp/api': workspace:*
       '@srtp/core': workspace:*
       '@srtp/fn': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@supabase/supabase-js': 2.10.0
       '@tailwindcss/aspect-ratio': 0.4.2
@@ -1376,6 +1393,7 @@ importers:
       '@srtp/api': link:../../libs/next-api
       '@srtp/core': link:../../libs/core
       '@srtp/fn': link:../../libs/fn
+      '@srtp/spec': link:../../libs/spec
       '@supabase/supabase-js': 2.10.0
       date-fns: 2.29.3
       framer-motion: 10.3.1_biqbaboplfbrettd7655fr4n2y
@@ -1466,6 +1484,9 @@ importers:
 
   libs/core:
     specifiers:
+      '@srtp/fn': workspace:*
+      '@srtp/result': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@total-typescript/ts-reset': 0.4.2
       '@types/node': 18.15.3
@@ -1484,6 +1505,9 @@ importers:
       vitest: 0.29.2
       zod: 3.21.4
     dependencies:
+      '@srtp/fn': link:../fn
+      '@srtp/result': link:../result
+      '@srtp/spec': link:../spec
       '@total-typescript/ts-reset': 0.4.2
       exhaustive: 1.1.1
       immer: 9.0.19
@@ -1580,7 +1604,6 @@ importers:
 
   libs/fn:
     specifiers:
-      '@srtp/core': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
       cross-env: 7.0.3
@@ -1588,17 +1611,12 @@ importers:
       eslint-config-srtp: workspace:*
       prettier: 2.8.4
       tiny-invariant: 1.3.1
-      tiny-warning: 1.0.3
-      ts-essentials: 9.3.1
       tslib: 2.5.0
       tsup: 6.6.3
       typescript: 4.9.5
       vitest: 0.29.2
     dependencies:
-      '@srtp/core': link:../core
       tiny-invariant: 1.3.1
-      tiny-warning: 1.0.3
-      ts-essentials: 9.3.1_typescript@4.9.5
       tslib: 2.5.0
     devDependencies:
       '@srtp/tsconfig': link:../tsconfig
@@ -1619,6 +1637,7 @@ importers:
       '@mantine/form': 6.0.2
       '@srtp/core': workspace:*
       '@srtp/local-state': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@srtp/validator': workspace:*
       '@types/lodash': 4.14.191
@@ -1649,6 +1668,7 @@ importers:
       '@mantine/form': 6.0.2_react@18.2.0
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
+      '@srtp/spec': link:../spec
       '@srtp/validator': link:../validator
       lodash: 4.17.21
       react: 18.2.0
@@ -1678,6 +1698,7 @@ importers:
     specifiers:
       '@srtp/core': workspace:*
       '@srtp/local-state': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
       '@types/react': 18.0.28
@@ -1701,6 +1722,7 @@ importers:
     dependencies:
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
+      '@srtp/spec': link:../spec
       immer: 9.0.19
       jotai: 2.0.3_react@18.2.0
       react: 18.2.0
@@ -1726,6 +1748,7 @@ importers:
   libs/local-state:
     specifiers:
       '@srtp/core': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
       '@types/react': 18.0.28
@@ -1747,6 +1770,7 @@ importers:
       zod: 3.21.4
     dependencies:
       '@srtp/core': link:../core
+      '@srtp/spec': link:../spec
       immer: 9.0.19
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -1772,6 +1796,7 @@ importers:
     specifiers:
       '@srtp/core': workspace:*
       '@srtp/fn': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@tanstack/react-query': 4.26.1
       '@types/node': 18.15.3
@@ -1797,6 +1822,7 @@ importers:
     dependencies:
       '@srtp/core': link:../core
       '@srtp/fn': link:../fn
+      '@srtp/spec': link:../spec
       '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
       date-fns: 2.29.3
       http-status-codes: 2.2.0
@@ -1874,6 +1900,8 @@ importers:
       '@remix-run/node': 1.14.1
       '@srtp/core': workspace:*
       '@srtp/remix-core': workspace:*
+      '@srtp/result': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
       cross-env: 7.0.3
@@ -1897,6 +1925,8 @@ importers:
       '@remix-run/node': 1.14.1
       '@srtp/core': link:../core
       '@srtp/remix-core': link:../remix-core
+      '@srtp/result': link:../result
+      '@srtp/spec': link:../spec
       immer: 9.0.19
       query-string: 8.1.0
       superjson: 1.12.2
@@ -1930,6 +1960,7 @@ importers:
       '@srtp/core': workspace:*
       '@srtp/local-state': workspace:*
       '@srtp/remix-core': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@srtp/validator': workspace:*
       '@types/node': 18.15.3
@@ -1961,6 +1992,7 @@ importers:
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
       '@srtp/remix-core': link:../remix-core
+      '@srtp/spec': link:../spec
       '@srtp/validator': link:../validator
       query-string: 8.1.0
       react: 18.2.0
@@ -1984,12 +2016,73 @@ importers:
       typescript: 4.9.5
       vitest: 0.29.2
 
+  libs/result:
+    specifiers:
+      '@srtp/tsconfig': workspace:*
+      '@types/node': 18.15.3
+      cross-env: 7.0.3
+      eslint: 8.36.0
+      eslint-config-srtp: workspace:*
+      prettier: 2.8.4
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
+      tslib: 2.5.0
+      tsup: 6.6.3
+      typescript: 4.9.5
+      vitest: 0.29.2
+    dependencies:
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
+      tslib: 2.5.0
+    devDependencies:
+      '@srtp/tsconfig': link:../tsconfig
+      '@types/node': 18.15.3
+      cross-env: 7.0.3
+      eslint: 8.36.0
+      eslint-config-srtp: link:../eslint-config-srtp
+      prettier: 2.8.4
+      tsup: 6.6.3_typescript@4.9.5
+      typescript: 4.9.5
+      vitest: 0.29.2
+
+  libs/spec:
+    specifiers:
+      '@srtp/tsconfig': workspace:*
+      '@types/node': 18.15.3
+      cross-env: 7.0.3
+      eslint: 8.36.0
+      eslint-config-srtp: workspace:*
+      prettier: 2.8.4
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
+      tslib: 2.5.0
+      tsup: 6.6.3
+      typescript: 4.9.5
+      vitest: 0.29.2
+      zod: 3.21.4
+    dependencies:
+      tiny-invariant: 1.3.1
+      tiny-warning: 1.0.3
+      tslib: 2.5.0
+      zod: 3.21.4
+    devDependencies:
+      '@srtp/tsconfig': link:../tsconfig
+      '@types/node': 18.15.3
+      cross-env: 7.0.3
+      eslint: 8.36.0
+      eslint-config-srtp: link:../eslint-config-srtp
+      prettier: 2.8.4
+      tsup: 6.6.3_typescript@4.9.5
+      typescript: 4.9.5
+      vitest: 0.29.2
+
   libs/table:
     specifiers:
       '@emotion/react': 11.10.6
       '@mantine/core': 6.0.2
       '@srtp/core': workspace:*
       '@srtp/local-state': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@tabler/icons-react': 2.10.0
       '@types/lodash': 4.14.191
@@ -2022,6 +2115,7 @@ importers:
       '@mantine/core': 6.0.2_dl5meo57oqikomakll4aynjcye
       '@srtp/core': link:../core
       '@srtp/local-state': link:../local-state
+      '@srtp/spec': link:../spec
       '@tabler/icons-react': 2.10.0_react@18.2.0
       immer: 9.0.19
       lodash: 4.17.21
@@ -2057,6 +2151,7 @@ importers:
   libs/validator:
     specifiers:
       '@srtp/core': workspace:*
+      '@srtp/result': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
       cross-env: 7.0.3
@@ -2075,6 +2170,7 @@ importers:
       zod: 3.21.4
     dependencies:
       '@srtp/core': link:../core
+      '@srtp/result': link:../result
       immer: 9.0.19
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
@@ -2125,6 +2221,7 @@ importers:
   packages/todo:
     specifiers:
       '@srtp/core': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
       eslint: 8.36.0
@@ -2138,6 +2235,7 @@ importers:
       zod: 3.21.4
     dependencies:
       '@srtp/core': link:../../libs/core
+      '@srtp/spec': link:../../libs/spec
       '@types/node': 18.15.3
       tslib: 2.5.0
       zod: 3.21.4
@@ -11993,6 +12091,7 @@ packages:
 
   /caniuse-lite/1.0.30001445:
     resolution: {integrity: sha512-8sdQIdMztYmzfTMO6KfLny878Ln9c2M0fc7EH60IjlP4Dc4PiCy7K2Vl3ITmWgOyPgVQKa5x+UP/KqFsxj4mBg==}
+    dev: false
 
   /caniuse-lite/1.0.30001466:
     resolution: {integrity: sha512-ewtFBSfWjEmxUgNBSZItFSmVtvk9zkwkl1OfRZlKA8slltRN+/C/tuGVrF9styXkN36Yu3+SeJ1qkXxDEyNZ5w==}
@@ -20490,7 +20589,7 @@ packages:
     dependencies:
       '@next/env': 13.2.4
       '@swc/helpers': 0.4.14
-      caniuse-lite: 1.0.30001445
+      caniuse-lite: 1.0.30001466
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -20536,7 +20635,7 @@ packages:
     dependencies:
       '@next/env': 13.2.4
       '@swc/helpers': 0.4.14
-      caniuse-lite: 1.0.30001445
+      caniuse-lite: 1.0.30001466
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -21846,7 +21945,7 @@ packages:
       ts-node:
         optional: true
     dependencies:
-      lilconfig: 2.0.6
+      lilconfig: 2.1.0
       yaml: 1.10.2
     dev: true
 
@@ -21862,7 +21961,7 @@ packages:
       ts-node:
         optional: true
     dependencies:
-      lilconfig: 2.0.6
+      lilconfig: 2.1.0
       postcss: 8.4.21
       yaml: 1.10.2
     dev: true

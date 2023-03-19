@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import type { Category } from '@specs/enums'
-import type { Card} from '@specs/oneOnOne';
+import type { Card } from '@specs/oneOnOne'
 import { isAction } from '@specs/oneOnOne'
 import React from 'react'
 import { Droppable } from 'react-beautiful-dnd'
@@ -21,8 +21,8 @@ const Header = ({ bg, text }: HeaderProps) => {
 }
 
 type BodyProps = Readonly<{
+  cards: readonly Card[]
   category: Category
-  cards: Card[]
   onCardClick(a: Card): void
 }>
 
@@ -83,7 +83,7 @@ const headerUIProps = {
 }
 
 export type OneOnOneColumnProps = Readonly<{
-  cards: Card[]
+  cards: readonly Card[]
   category: Category
   onCardClick(d: Card): void
 }>

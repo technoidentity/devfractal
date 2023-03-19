@@ -1,4 +1,4 @@
-import { isStr, jstr } from '@srtp/core'
+import { isStr, jstr } from '@srtp/spec'
 
 export type ErrorMessageProps = Readonly<{
   error: Error | string | Record<string, unknown> | unknown

@@ -1,5 +1,5 @@
-import { isStr } from '@srtp/core'
-import { jlog } from './jlog'
+import { isStr } from '@srtp/spec'
+import { jlog } from '@srtp/core'
 
 export const logIfError = (error?: unknown) => {
   if (!error) {

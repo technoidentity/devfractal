@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { omit, range } from '@srtp/fn'
+import { forEach, map, omit, pipe, range } from '@srtp/fn'
 import Chance from 'chance'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
@@ -152,7 +152,10 @@ export function fake(
       max: 10,
     })
 
-    return range(0, n).map(() => fake(spec._def.type, options))
+    return pipe(
+      range(0, n),
+      map(() => fake(spec._def.type, options)),
+    )
   }
 
   if (type === 'ZodTuple') {
@@ -174,9 +177,15 @@ export function fake(
     })
 
     const rec: any = {}
-    range(0, n).forEach(() => {
-      rec[fake(spec._def.keyType, options)] = fake(spec._def.valueType, options)
-    })
+    pipe(
+      range(0, n),
+      forEach(() => {
+        rec[fake(spec._def.keyType, options)] = fake(
+          spec._def.valueType,
+          options,
+        )
+      }),
+    )
 
     return rec
   }
@@ -188,12 +197,15 @@ export function fake(
     })
 
     const map = new Map()
-    range(0, n).forEach(() => {
-      map.set(
-        fake(spec._def.keyType, options),
-        fake(spec._def.valueType, options),
-      )
-    })
+    pipe(
+      range(0, n),
+      forEach(() => {
+        map.set(
+          fake(spec._def.keyType, options),
+          fake(spec._def.valueType, options),
+        )
+      }),
+    )
 
     return map
   }
@@ -205,9 +217,10 @@ export function fake(
     })
 
     const set = new Set()
-    range(0, n).forEach(() => {
-      set.add(fake(spec._def.valueType, options))
-    })
+    pipe(
+      range(0, n),
+      forEach(() => set.add(fake(spec._def.valueType, options))),
+    )
 
     return set
   }

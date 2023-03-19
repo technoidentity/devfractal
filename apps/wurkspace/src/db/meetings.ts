@@ -1,4 +1,4 @@
-import { str } from '@srtp/core'
+import { str } from '@srtp/spec'
 import { prisma } from '@core/prisma'
 import type { CalendarEvent, Meeting } from '@prisma/client'
 import type {

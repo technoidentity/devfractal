@@ -1,4 +1,4 @@
-import { isEmail, str } from '@srtp/core'
+import { isEmail, str } from '@srtp/spec'
 import { api } from '@core/server'
 import { destroyCookie, setCookie } from 'nookies'
 import invariant from 'tiny-invariant'

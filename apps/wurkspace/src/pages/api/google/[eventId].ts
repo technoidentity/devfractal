@@ -3,7 +3,7 @@ import { getAuth } from '@core/getAuth'
 import { isTestMode } from '@core/isTestMode'
 import { getGoogleEvent } from '@db/googleEvents'
 import { getMeeting } from '@db/meetings'
-import { jstr } from '@srtp/core'
+import { jstr } from '@srtp/spec'
 import { HTTPError } from '@srtp/api'
 
 export default api().get(async req => {

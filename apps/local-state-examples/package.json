@@ -20,6 +20,7 @@
     "@emotion/styled": "11.10.6",
     "@next/font": "13.2.4",
     "@srtp/core": "workspace:*",
+    "@srtp/spec": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/todo": "workspace:*",
     "core-js": "3.29.1",

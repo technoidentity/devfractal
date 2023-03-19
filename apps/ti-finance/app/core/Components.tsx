@@ -3,7 +3,7 @@ import type { NavLinkProps } from '@mantine/core'
 import { Button, Center, Group, NavLink, Text, Title } from '@mantine/core'
 import type { NavLinkProps as RemixNavLinkProps } from '@remix-run/react'
 import { NavLink as RemixNavLink } from '@remix-run/react'
-import { jstr } from '@srtp/core'
+import { jstr } from '@srtp/spec'
 import React from 'react'
 import { useOptionalUser } from '~/utils'
 

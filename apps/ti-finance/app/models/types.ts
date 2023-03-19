@@ -1,3 +1,3 @@
-import type { CResult } from '@srtp/core'
+import type { CResult } from '@srtp/result'
 
 export type DbResult<T> = Promise<CResult<string, T>>

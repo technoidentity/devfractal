@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { del, post } from '@core/api'
 import { isTestMode } from '@core/isTestMode'
-import { isEmail } from '@srtp/core'
+import { isEmail } from '@srtp/spec'
 import { useRouter } from 'next/router'
 import { parseCookies } from 'nookies'
 import React from 'react'

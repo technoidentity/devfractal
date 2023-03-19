@@ -24,6 +24,7 @@
     "@mantine/hooks": "6.0.2",
     "@mantine/notifications": "6.0.2",
     "@srtp/core": "workspace:*",
+    "@srtp/spec": "workspace:*",
     "@srtp/form": "workspace:*",
     "@srtp/global-state": "workspace:*",
     "@srtp/local-state": "workspace:*",

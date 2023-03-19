@@ -7,7 +7,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { int } from '@srtp/core'
+import { int } from '@srtp/spec'
 import type { Handlers } from '@srtp/local-state'
 import { state } from '@srtp/local-state'
 import React from 'react'

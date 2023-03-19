@@ -1,4 +1,4 @@
-import { str } from '@srtp/core'
+import { str } from '@srtp/spec'
 import { api } from '@core/server'
 import { getProfile } from '@db/zohoProfile'
 
