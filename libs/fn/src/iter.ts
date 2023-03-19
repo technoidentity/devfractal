@@ -1,7 +1,7 @@
 import invariant from 'tiny-invariant'
 import { pipe } from './pipe'
 
-export function iterator<T>(iter: Iterable<T>) {
+export function iterator<T>(iter: Iterable<T>): Iterator<T> {
   return iter[Symbol.iterator]()
 }
 
@@ -15,53 +15,6 @@ export function* range(start: number, stop?: number) {
 
   for (let i = first; i < last; i += 1) {
     yield i
-  }
-}
-
-export function* enumerate<T>(iter: Iterable<T>) {
-  let i = 0
-  for (const e of iter) {
-    yield [i, e] as const
-    i += 1
-  }
-}
-
-export function toArray<T>(iter: Iterable<T>) {
-  return [...iter]
-}
-
-export function toSet<T>(iter: Iterable<T>) {
-  return new Set(iter)
-}
-
-export function iterToMap<K, V>(iter: Iterable<[K, V]>) {
-  return new Map(iter)
-}
-
-export function length<T>(iter: Iterable<T>) {
-  let len = 0
-  for (const _ of iter) {
-    len += 1
-  }
-
-  return len
-}
-
-export function map<T1, T2>(f: (x: T1) => T2) {
-  return function* (iter: Iterable<T1>) {
-    for (const e of iter) {
-      yield f(e)
-    }
-  }
-}
-
-export function filter<T>(pred: (x: T) => boolean) {
-  return function* (iter: readonly T[]) {
-    for (const e of iter) {
-      if (pred(e)) {
-        yield e
-      }
-    }
   }
 }
 
@@ -80,6 +33,64 @@ export function* repeatedly<T>(n: number, f: () => T) {
   }
 }
 
+export function* enumerate<T>(iter: Iterable<T>) {
+  let i = 0
+  for (const e of iter) {
+    yield [e, i] as const
+    i += 1
+  }
+}
+
+export function toArray<T>(iter: Iterable<T>): T[] {
+  return [...iter]
+}
+
+export function toSet<T>(iter: Iterable<T>): Set<T> {
+  return new Set(iter)
+}
+
+export function iterToMap<K, V>(iter: Iterable<[K, V]>): Map<K, V> {
+  return new Map(iter)
+}
+
+export function length<T>(iter: Iterable<T>): number {
+  let len = 0
+  for (const _ of iter) {
+    len += 1
+  }
+
+  return len
+}
+
+export function map<T1, T2>(f: (x: T1) => T2) {
+  return function* (iter: Iterable<T1>) {
+    for (const e of iter) {
+      yield f(e)
+    }
+  }
+}
+
+export function filter<T>(pred: (x: T) => boolean) {
+  return function* (iter: Iterable<T>) {
+    for (const e of iter) {
+      if (pred(e)) {
+        yield e
+      }
+    }
+  }
+}
+
+export function reduce<T1, T2>(f: (x: T1, acc: T2) => T2, init: T2) {
+  return (arr: Iterable<T1>): T2 => {
+    let result = init
+    for (const e of arr) {
+      result = f(e, result)
+    }
+
+    return result
+  }
+}
+
 export function find<T>(f: (x: T) => boolean) {
   return (arr: Iterable<T>): T | undefined => {
     for (const e of arr) {
@@ -87,6 +98,7 @@ export function find<T>(f: (x: T) => boolean) {
         return e
       }
     }
+
     return undefined
   }
 }
@@ -104,7 +116,29 @@ export function findIndex<T>(f: (x: T) => boolean) {
   }
 }
 
-export function itakeWhile<T>(f: (x: T) => boolean) {
+export function take<T>(n: number) {
+  return (arr: Iterable<T>) => {
+    invariant(n >= 0, 'n must be >= 0')
+
+    return pipe(
+      enumerate(arr),
+      takeWhile(([_, i]) => i < n),
+    )
+  }
+}
+
+export function skip<T>(n: number) {
+  return (arr: Iterable<T>) => {
+    invariant(n >= 0, 'n must be >= 0')
+
+    return pipe(
+      enumerate(arr),
+      skipWhile(([_, i]) => i < n),
+    )
+  }
+}
+
+export function takeWhile<T>(f: (x: T) => boolean) {
   return function* (arr: Iterable<T>) {
     for (const e of arr) {
       if (!f(e)) {
@@ -130,29 +164,31 @@ export function skipWhile<T>(f: (x: T) => boolean) {
   }
 }
 
-export function itake<T>(n: number) {
-  return (arr: Iterable<T>) => {
-    invariant(n >= 0, 'n must be >= 0')
+export function all<T>(f: (v: T) => boolean) {
+  return (arr: Iterable<T>): boolean => {
+    for (const e of arr) {
+      if (!f(e)) {
+        return false
+      }
+    }
 
-    return pipe(
-      enumerate(arr),
-      itakeWhile(([_, i]) => i < n),
-    )
+    return true
   }
 }
 
-export function skip<T>(n: number) {
-  return (arr: Iterable<T>) => {
-    invariant(n >= 0, 'n must be >= 0')
+export function any<T>(f: (v: T) => boolean) {
+  return (arr: Iterable<T>): boolean => {
+    for (const e of arr) {
+      if (f(e)) {
+        return true
+      }
+    }
 
-    return pipe(
-      enumerate(arr),
-      skipWhile(([_, i]) => i < n),
-    )
+    return false
   }
 }
 
-export function forEach(f: (x: unknown) => void) {
+export function each(f: (x: unknown) => void) {
   return (arr: Iterable<unknown>) => {
     for (const e of arr) {
       f(e)
@@ -160,17 +196,13 @@ export function forEach(f: (x: unknown) => void) {
   }
 }
 
-export function islice<T>(start: number, stop?: number) {
+export function iterSlice<T>(start: number, stop?: number) {
   return function* (iter: Iterable<T>) {
-    if (stop === undefined) {
-      stop = start
-      start = 0
-    }
     invariant(start >= 0, 'start must be >= 0')
 
     let i = 0
     for (const e of iter) {
-      if (i >= stop) {
+      if (stop !== undefined && i >= stop) {
         break
       }
       if (i >= start) {
@@ -182,7 +214,7 @@ export function islice<T>(start: number, stop?: number) {
   }
 }
 
-export function iequal<T>(snd: Iterable<T>) {
+export function iterEqual<T>(snd: Iterable<T>) {
   return (fst: Iterable<T>): boolean => {
     const fstIter = iterator(fst)
     const sndIter = iterator(snd)
@@ -206,13 +238,13 @@ export function iequal<T>(snd: Iterable<T>) {
   }
 }
 
-export function ichunks<T>(size: number) {
-  return (arr: readonly T[]): T[][] => {
-    invariant(size > 0, 'size must be > 0')
+export function groupBy<T, K extends string | number>(f: (x: T) => K) {
+  return (arr: Iterable<T>): Record<K, readonly T[]> => {
+    const result: Record<K, readonly T[]> = {} as any
 
-    const result: T[][] = []
-    for (let i = 0; i < arr.length; i += size) {
-      result.push(arr.slice(i, i + size))
+    for (const v of arr) {
+      const k = f(v)
+      result[k] = result[k] ? [...result[k], v] : [v]
     }
 
     return result
@@ -221,21 +253,24 @@ export function ichunks<T>(size: number) {
 
 type DeepFlattenArgs<T> = Iterable<T | DeepFlattenArgs<T>>
 
-export function* iflatten<T>(arr: DeepFlattenArgs<T>): Generator<T> {
+export function* iterFlatten<T>(arr: DeepFlattenArgs<T>): Generator<T> {
   const isArray = (x: unknown): x is DeepFlattenArgs<any> => Array.isArray(x)
 
   for (const e of arr) {
     if (isArray(e)) {
-      yield* iflatten(e)
+      yield* iterFlatten(e)
     } else {
       yield e
     }
   }
 }
 
-export function* iconcat<T>(...args: Iterable<T>[]) {
-  for (const arr of args) {
-    yield* arr
+export function chain<T>(...args: Iterable<T>[]) {
+  return function* (first: Iterable<T>) {
+    yield* first
+    for (const arr of args) {
+      yield* arr
+    }
   }
 }
 
@@ -247,47 +282,50 @@ export function flatMap<T1, T2>(f: (x: T1) => Iterable<T2>) {
   }
 }
 
-export function* izip<T1, T2>(fst: Iterable<T1>, snd: Iterable<T2>) {
-  const fstIter = iterator(fst)
-  const sndIter = iterator(snd)
+export function zip<T1>(second: Iterable<T1>) {
+  return function* <T2>(first: Iterable<T2>) {
+    const fi = iterator(first)
+    const si = iterator(second)
 
-  while (true) {
-    const fstNext = fstIter.next()
-    const sndNext = sndIter.next()
+    while (true) {
+      const fnext = fi.next()
+      const snext = si.next()
 
-    if (fstNext.done || sndNext.done) {
-      break
+      if (fnext.done || snext.done) {
+        break
+      }
+
+      yield [fnext.value, snext.value] as const
     }
-
-    yield [fstNext.value, sndNext.value]
   }
 }
 
-export function* izipLongest<T1, T2>(
-  fst: Iterable<T1>,
+export function zipLongest<T1, T2>(
   snd: Iterable<T2>,
   fstDefault: T1,
   sndDefault: T2,
 ) {
-  const fstIter = iterator(fst)
-  const sndIter = iterator(snd)
+  return function* (fst: Iterable<T1>) {
+    const fstIter = iterator(fst)
+    const sndIter = iterator(snd)
 
-  while (true) {
-    const fstNext = fstIter.next()
-    const sndNext = sndIter.next()
+    while (true) {
+      const fstNext = fstIter.next()
+      const sndNext = sndIter.next()
 
-    if (fstNext.done && sndNext.done) {
-      break
+      if (fstNext.done && sndNext.done) {
+        break
+      }
+
+      yield [
+        fstNext.done ? fstDefault : fstNext.value,
+        sndNext.done ? sndDefault : sndNext.value,
+      ] as const
     }
-
-    yield [
-      fstNext.done ? fstDefault : fstNext.value,
-      sndNext.done ? sndDefault : sndNext.value,
-    ] as const
   }
 }
 
-export function imaxBy<T extends object>(by: keyof T) {
+export function fmax<T>(less: (x: T, y: T) => boolean) {
   return (arr: Iterable<T>): T => {
     const iter = iterator(arr)
     const n = iter.next()
@@ -301,16 +339,17 @@ export function imaxBy<T extends object>(by: keyof T) {
       }
 
       const e = n.value
-      if (e[by] > max[by]) {
+      if (less(max, e)) {
         max = e
       }
     }
+
     return max
   }
 }
 
-export function iminBy<T extends object>(by: keyof T) {
-  return (arr: readonly T[]): T => {
+export function fmin<T>(less: (x: T, y: T) => boolean) {
+  return (arr: Iterable<T>): T => {
     const iter = iterator(arr)
     const n = iter.next()
     invariant(!n.done, 'minBy undefined on an empty iterable')
@@ -323,10 +362,60 @@ export function iminBy<T extends object>(by: keyof T) {
       }
 
       const e = n.value
-      if (e[by] < min[by]) {
+      if (less(e, min)) {
         min = e
       }
     }
+
     return min
   }
 }
+
+export function min<T extends number | string | Date>(arr: Iterable<T>): T {
+  return pipe(
+    arr,
+    fmin((x: T, y: T) => x < y),
+  )
+}
+
+export function max<T extends number | string | Date>(arr: Iterable<T>): T {
+  return pipe(
+    arr,
+    fmax((x, y) => x < y),
+  )
+}
+
+export function maxByProp<T, K extends keyof T>(k: K) {
+  return (arr: Iterable<T>): T =>
+    pipe(
+      arr,
+      fmax((x, y) => x[k] < y[k]),
+    )
+}
+
+export function minByProp<T, K extends keyof T>(k: K) {
+  return (arr: Iterable<T>): T =>
+    pipe(
+      arr,
+      fmin((x, y) => x[k] < y[k]),
+    )
+}
+
+export function maxBy<T>(f: (x: T) => number) {
+  return (arr: Iterable<T>): T =>
+    pipe(
+      arr,
+      fmax((x, y) => f(x) < f(y)),
+    )
+}
+
+export function minBy<T>(f: (x: T) => number) {
+  return (arr: Iterable<T>): T =>
+    pipe(
+      arr,
+      fmin((x, y) => f(x) < f(y)),
+    )
+}
+
+export const isIterable = (x: unknown): x is Iterable<any> =>
+  x != null && typeof (x as any)[Symbol.iterator] === 'function'
