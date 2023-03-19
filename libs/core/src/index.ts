@@ -1,5 +1,1 @@
-export * from './assertions'
-export * from './errors'
-export * from './rawshape'
-export * from './specs'
 export * from './utils'

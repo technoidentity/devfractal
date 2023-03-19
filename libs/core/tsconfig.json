@@ -7,6 +7,7 @@
     "../fn/src/iter.ts",
     "../fn/src/isEmpty.ts",
     "../fn/src/pipe.ts",
-    "../fn/src/mapUtils.ts"
+    "../fn/src/mapUtils.ts",
+    "../spec/src/is.ts"
   ]
 }
