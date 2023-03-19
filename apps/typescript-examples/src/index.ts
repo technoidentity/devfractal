@@ -1,3 +1,5 @@
+import invariant from 'tiny-invariant'
+
 // problem 2
 export const convertToCelsius = (temp: number): number => (temp - 32) * (5 / 9)
 export const convertToFahrenheit = (temp: number): number => temp * (9 / 5) + 32
@@ -9,6 +11,23 @@ export const isOdd = (num: number): boolean => {
     convertedNum = Math.abs(num)
   }
   return convertedNum % 2 === 1
+}
+
+export function compact<T extends readonly unknown[]>(arr: T): T {
+  return arr.filter(x => !!x) as any as T
+}
+
+export function chunks<T>(size: number) {
+  return (arr: readonly T[]): T[][] => {
+    invariant(size > 0, 'size must be > 0')
+
+    const result: T[][] = []
+    for (let i = 0; i < arr.length; i += size) {
+      result.push(arr.slice(i, i + size))
+    }
+
+    return result
+  }
 }
 
 export const isEven = (num: number) => num % 2 === 0
@@ -163,12 +182,22 @@ export const getSubStrNew = (
   return [word1, word2]
 }
 
-export const partition = (text: string, num: number) => {
+export const partitions = (text: string, num: number) => {
   const result = []
   for (let i = 0; i < text.length; i += num) {
     result.push(text.slice(i, i + num))
   }
   return result
+}
+
+export function partition<T>(f: (v: T) => boolean) {
+  return (arr: readonly T[]): [readonly T[], readonly T[]] => {
+    const result: [T[], T[]] = [[], []]
+    for (const e of arr) {
+      result[f(e) ? 0 : 1].push(e)
+    }
+    return result
+  }
 }
 
 export const subStrAll = (text: string, indices: number[]) => {
