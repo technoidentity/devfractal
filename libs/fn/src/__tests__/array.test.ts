@@ -1,33 +1,144 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
-  assignWith,
-  drop,
-  dropWhile,
-  groupBy,
-  insertAt,
-  join,
-  leftOuterJoin,
-  max,
+  at,
+  first,
+  flatten,
+  insert,
+  last,
   maxIndex,
-  min,
   minIndex,
-  orderBy,
-  removeAt,
-  replaceAt,
-  rightOuterJoin,
-  take,
-  takeWhile,
+  paged,
+  pop,
+  push,
+  remove,
+  replace,
+  reversed,
+  shift,
+  slice,
   unique,
   uniqueSorted,
+  unshift,
+  zipAll,
   zipWith,
 } from '../array'
 
-import { expect, it, test } from 'vitest'
-import { range } from '../iter'
+import { expect, test } from 'vitest'
 import { pipe } from '../pipe'
+import { arrayEqual$, sorted$, splitAt$, zipWith$ } from '../uncurried'
 
-test('take', () => {
+test('first', () => {
+  expect(first([1])).toBe(1)
+  expect(first([1, 2, 3])).toBe(1)
+  expect(() => first([])).toThrow()
+})
+
+test('last', () => {
+  expect(last([1])).toBe(1)
+  expect(last([1, 2, 3])).toBe(3)
+  expect(() => last([])).toThrow()
+})
+
+test('at', () => {
+  expect(pipe([1], at(0))).toBe(1)
+  expect(pipe([1, 2, 3], at(0))).toBe(1)
+  expect(pipe([1, 2, 3], at(1))).toBe(2)
+  expect(pipe([1, 2, 3], at(2))).toBe(3)
+  expect(() => pipe([1, 2, 3], at(3))).toThrow()
+  expect(pipe([1, 2, 3], at(-1))).toBe(3)
+  expect(() => pipe([], at(0))).toThrow()
+  expect(() => pipe([], at(0))).toThrow()
+})
+
+test('slice', () => {
+  expect(pipe([], slice(0))).toEqual([])
+  expect(pipe([1, 2, 3, 4, 5], slice(0, 2))).toEqual([1, 2])
+  expect(pipe([1, 2, 3, 4, 5], slice(2))).toEqual([3, 4, 5])
+  expect(pipe([1, 2, 3, 4, 5], slice(2, 4))).toEqual([3, 4])
+  expect(pipe([1, 2, 3, 4, 5], slice(0, 6))).toEqual([1, 2, 3, 4, 5])
+  expect(pipe([1, 2, 3, 4, 5], slice(5))).toEqual([])
+  expect(pipe([1, 2, 3, 4, 5], slice(0, -1))).toEqual([1, 2, 3, 4])
+  expect(pipe([1, 2, 3, 4, 5], slice(0, -2))).toEqual([1, 2, 3])
+  expect(pipe([1, 2, 3, 4, 5], slice(0, -6))).toEqual([])
+})
+
+test('push', () => {
+  expect(pipe([], push(2))).toEqual([2])
+  expect(pipe([1, 2, 3], push(4, 5))).toEqual([1, 2, 3, 4, 5])
+  expect(pipe([], push(1, 2, 3))).toEqual([1, 2, 3])
+})
+
+test('pop', () => {
+  expect(pipe([1, 2, 3], pop)).toEqual([1, 2])
+  expect(pipe([1], pop)).toEqual([])
+  expect(pipe([], pop)).toEqual([])
+})
+
+test('unshift', () => {
+  expect(pipe([], unshift(2))).toEqual([2])
+  expect(pipe([1, 2, 3], unshift(4, 5))).toEqual([4, 5, 1, 2, 3])
+  expect(pipe([], unshift(1, 2, 3))).toEqual([1, 2, 3])
+})
+
+test('shift', () => {
+  expect(pipe([1, 2, 3], shift)).toEqual([2, 3])
+  expect(pipe([1], shift)).toEqual([])
+  expect(pipe([], shift)).toEqual([])
+})
+
+test('insert', () => {
+  expect(pipe([1, 2, 3], insert(0, 0))).toEqual([0, 1, 2, 3])
+  expect(pipe([1, 2, 3], insert(0, -1, 0))).toEqual([-1, 0, 1, 2, 3])
+  expect(pipe([1, 2, 3], insert(1, 0))).toEqual([1, 0, 2, 3])
+  expect(pipe([1, 2, 3], insert(2, 0))).toEqual([1, 2, 0, 3])
+  expect(pipe([1, 2, 3], insert(3, 0))).toEqual([1, 2, 3, 0])
+  expect(() => pipe([1, 2, 3], insert(4, 0))).toThrow()
+  expect(() => pipe([1, 2, 3], insert(-1, 0))).toThrow()
+})
+
+test('replace', () => {
+  expect(pipe([1, 2, 3], replace(0, 0))).toEqual([0, 2, 3])
+  expect(pipe([1, 2, 3], replace(1, 0))).toEqual([1, 0, 3])
+  expect(pipe([1, 2, 3], replace(2, 0))).toEqual([1, 2, 0])
+  expect(() => pipe([1, 2, 3], replace(3, 0))).toThrow()
+  expect(() => pipe([1, 2, 3], replace(-1, 0))).toThrow()
+})
+
+test('remove', () => {
+  expect(pipe([1, 2, 3, 4], remove(0))).toEqual([2, 3, 4])
+  expect(pipe([1, 2, 3, 4], remove(1))).toEqual([1, 3, 4])
+  expect(pipe([1, 2, 3, 4], remove(2))).toEqual([1, 2, 4])
+  expect(pipe([1, 2, 3, 4], remove(3))).toEqual([1, 2, 3])
+  expect(() => pipe([1, 2, 3, 4], remove(4))).toThrow()
+  expect(() => pipe([1, 2, 3, 4], remove(-1))).toThrow()
+})
+
+test('paged', () => {
+  expect(pipe([1, 2, 3, 4, 5], paged(1, 2))).toEqual([1, 2])
+  expect(pipe([1, 2, 3, 4, 5], paged(2, 2))).toEqual([3, 4])
+  expect(pipe([1, 2, 3, 4, 5], paged(3, 2))).toEqual([5])
+  expect(() => pipe([1, 2, 3, 4, 5], paged(4, 2))).toThrow()
+
+  expect(pipe([1, 2, 3, 4, 5, 6], paged(1, 2))).toEqual([1, 2])
+  expect(pipe([1, 2, 3, 4, 5, 6], paged(2, 2))).toEqual([3, 4])
+  expect(pipe([1, 2, 3, 4, 5, 6], paged(3, 2))).toEqual([5, 6])
+  expect(() => pipe([1, 2, 3, 4, 5, 6], paged(4, 2))).toThrow()
+
+  expect(() => pipe([1, 2], paged(0, 2))).toThrow()
+  expect(() => pipe([1, 2], paged(2, 0))).toThrow()
+})
+
+test('arrayEqual', () => {
+  expect(arrayEqual$([1, 2, 3], [1, 2, 3])).toBe(true)
+  expect(arrayEqual$([1, 2, 3], [1, 2, 3, 4])).toBe(false)
+  expect(arrayEqual$([1, 2, 3], [1, 2, 4])).toBe(false)
+  expect(arrayEqual$([1, 2, 3], [1, 2])).toBe(false)
+  expect(arrayEqual$([1, 2, 3], [1, 3, 2])).toBe(false)
+  expect(arrayEqual$([], [])).toBe(true)
+  expect(arrayEqual$([], [1])).toBe(false)
+})
+
+test('unique', () => {
   expect(unique([2, 1, 2])).toEqual([2, 1])
   expect(unique(['a', 1, 'a', 2, '1'])).toEqual(['a', 1, 2, '1'])
   expect(unique([false, true, true, false, 0, 1, 's', 1])).toEqual([
@@ -42,7 +153,87 @@ test('take', () => {
   expect(unique([1, 1, 0, 0, '', ''])).toEqual([1, 0, ''])
 })
 
-test('range', () => {
+test('flatten', () => {
+  expect(flatten([])).toEqual([])
+  expect(flatten([[[[[]]]]])).toEqual([])
+  expect(flatten([1, 2, 3])).toEqual([1, 2, 3])
+  expect(flatten([1, [2, 3]])).toEqual([1, 2, 3])
+  expect(flatten([1, [2, [3]]])).toEqual([1, 2, 3])
+  expect(flatten([1, [2, [3, [4]]]])).toEqual([1, 2, 3, 4])
+  expect(flatten([1, [2, [3, [4, [5]]]]])).toEqual([1, 2, 3, 4, 5])
+  expect(flatten([1, [2, [3], [4], [5]]])).toEqual([1, 2, 3, 4, 5])
+})
+
+test('zipAll', () => {
+  expect(zipAll()).toEqual([])
+  expect(zipAll([])).toEqual([])
+  expect(zipAll([1], [2], [3])).toEqual([[1, 2, 3]])
+  expect(zipAll([1, 2], [3, 4], [5, 6])).toEqual([
+    [1, 3, 5],
+    [2, 4, 6],
+  ])
+  expect(zipAll([1, 2, 3], [4, 5, 6], [7, 8, 9])).toEqual([
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+  ])
+  expect(zipAll([1, 2, 3], [4, 5, 6, 100], [7, 8, 9])).toEqual([
+    [1, 4, 7],
+    [2, 5, 8],
+    [3, 6, 9],
+  ])
+  expect(zipAll([1, 2, 3], [4, 5, 6], [7, 8])).toEqual([
+    [1, 4, 7],
+    [2, 5, 8],
+  ])
+})
+
+test('splitAt', () => {
+  expect(splitAt$([], 0)).toEqual([[], []])
+  expect(splitAt$([], 1)).toEqual([[], []])
+  expect(splitAt$([1], 0)).toEqual([[], [1]])
+  expect(splitAt$([1], 1)).toEqual([[1], []])
+  expect(splitAt$([1, 2, 3], 0)).toEqual([[], [1, 2, 3]])
+  expect(splitAt$([1, 2, 3], 1)).toEqual([[1], [2, 3]])
+  expect(splitAt$([1, 2, 3], 2)).toEqual([[1, 2], [3]])
+  expect(splitAt$([1, 2, 3], 3)).toEqual([[1, 2, 3], []])
+  expect(splitAt$([1, 2, 3], 4)).toEqual([[1, 2, 3], []])
+})
+
+const cmp = (x: number, y: number) => x - y
+
+test('sorted', () => {
+  expect(sorted$([], cmp)).toEqual([])
+  expect(sorted$([1], cmp)).toEqual([1])
+  expect(sorted$([2, 1], cmp)).toEqual([1, 2])
+  expect(sorted$([3, 2, 1], cmp)).toEqual([1, 2, 3])
+  expect(sorted$([3, 2, 1, 4], cmp)).toEqual([1, 2, 3, 4])
+  expect(sorted$([3, 2, 1, 4, 5], cmp)).toEqual([1, 2, 3, 4, 5])
+  expect(sorted$([3, 2, 1, 4, 5, 6], cmp)).toEqual([1, 2, 3, 4, 5, 6])
+  expect(sorted$([3, 2, 1, 4, 5, 6, 7], cmp)).toEqual([1, 2, 3, 4, 5, 6, 7])
+})
+
+test('reversed', () => {
+  expect(reversed([])).toEqual([])
+  expect(reversed([1])).toEqual([1])
+  expect(reversed([1, 2])).toEqual([2, 1])
+  expect(reversed([1, 2, 3])).toEqual([3, 2, 1])
+  expect(reversed([1, 2, 3, 4])).toEqual([4, 3, 2, 1])
+})
+
+test('uniqueSorted', () => {
+  expect(uniqueSorted([])).toEqual([])
+  expect(uniqueSorted([1])).toEqual([1])
+  expect(uniqueSorted([1, 1])).toEqual([1])
+  expect(uniqueSorted([1, 1, 2])).toEqual([1, 2])
+  expect(uniqueSorted([1, 1, 2, 2])).toEqual([1, 2])
+  expect(uniqueSorted([1, 1, 2, 2, 3])).toEqual([1, 2, 3])
+  expect(uniqueSorted([1, 1, 2, 2, 3, 3])).toEqual([1, 2, 3])
+  expect(uniqueSorted([1, 1, 2, 2, 3, 3, 4])).toEqual([1, 2, 3, 4])
+  expect(uniqueSorted([1, 1, 2, 2, 3, 3, 4, 4])).toEqual([1, 2, 3, 4])
+})
+
+test('unique', () => {
   expect(unique([2, 1, 2])).toEqual([2, 1])
   expect(unique(['a', 1, 'a', 2, '1'])).toEqual(['a', 1, 2, '1'])
   expect(unique([false, true, true, false, 0, 1, 's', 1])).toEqual([
@@ -55,427 +246,37 @@ test('range', () => {
   expect(unique([])).toEqual([])
   expect(unique([1])).toEqual([1])
   expect(unique([1, 1, 0, 0, '', ''])).toEqual([1, 0, ''])
-})
-
-test('take', () => {
-  expect(take([2, 1, 2], 2)).toEqual([2, 1])
-  expect(take(['a', 1, 'a', 2, '1'], 5)).toEqual(['a', 1, 'a', 2, '1'])
-  expect(take([1, 2, 3])).toEqual([1])
-  expect(take([1, 2, 3], 5)).toEqual([1, 2, 3])
-  expect(take([1, 2, 3], 0)).toEqual([])
-  expect(take([], 0)).toEqual([])
-  expect(take([1], 2)).toEqual([1])
-  expect(take([1], 0)).toEqual([])
-})
-
-test('drop', () => {
-  expect(drop([1, 2, 3])).toEqual([2, 3])
-  expect(drop([1, 2, 3], 2)).toEqual([3])
-  expect(drop([1, 2, 3], 5)).toEqual([])
-  expect(drop([1, 2, 3], 0)).toEqual([1, 2, 3])
-  expect(drop([], 0)).toEqual([])
-  expect(drop([1], 0)).toEqual([1])
-  expect(drop([1], 2)).toEqual([])
-})
-
-test('min', () => {
-  expect(min([3, 6, 8, 1, 2, 9])).toEqual(1)
-  expect(min([99, 66, 108, 56, 24, 88])).toEqual(24)
-  expect(min([-1, -4, 0, 1, 3])).toEqual(-4)
-  expect(min([1])).toEqual(1)
-  expect(() => min([])).toThrow()
-})
-
-test('max', () => {
-  expect(max([3, 6, 8, 1, 2, 9])).toEqual(9)
-  expect(max([99, 66, 108, 56, 24, 88])).toEqual(108)
-  expect(max([-1, -4, 0, 1, 3])).toEqual(3)
-  expect(max([1])).toEqual(1)
-  expect(() => max([])).toThrow()
-})
-
-// test('zip', () => {
-//   expect(zip([1, 2, 3], ['a', 'b'])).toEqual([
-//     [1, 'a'],
-//     [2, 'b'],
-//   ])
-//   expect(zip([1, 2, 3], ['a', 'b', 'c', 'd', 'e'])).toEqual([
-//     [1, 'a'],
-//     [2, 'b'],
-//     [3, 'c'],
-//   ])
-//   expect(zip([1, 2], ['a', 'b'])).toEqual([
-//     [1, 'a'],
-//     [2, 'b'],
-//   ])
-//   expect(zip([1], ['a'])).toEqual([[1, 'a']])
-//   expect(zip([], [])).toEqual([])
-// })
-
-test('takeWhile', () => {
-  expect(takeWhile([2, 4, 9, 8], x => x % 2 === 0)).toEqual([2, 4])
-  expect(takeWhile([2, 4, 9, 8], x => x % 3 === 0)).toEqual([])
-  expect(takeWhile([1, 2, 3, 7, 4, 5], x => x < 5)).toEqual([1, 2, 3])
-  expect(takeWhile([2, 4, 8], x => x % 2 === 0)).toEqual([2, 4, 8])
-  expect(takeWhile([], x => x % 2 === 0)).toEqual([])
-})
-
-test('dropWhile', () => {
-  expect(dropWhile([2, 4, 9, 8], x => x % 2 === 0)).toEqual([9, 8])
-  expect(dropWhile([2, 4, 9, 8], x => x % 3 === 0)).toEqual([2, 4, 9, 8])
-  expect(dropWhile([1, 2, 3, 7, 4, 5], x => x < 5)).toEqual([7, 4, 5])
-  expect(dropWhile([2, 4, 8], x => x % 2 === 0)).toEqual([])
-  expect(dropWhile([], x => x % 2 === 0)).toEqual([])
+  expect(unique([1, 1, 0, 0, '', '', 's', 's'])).toEqual([1, 0, '', 's'])
 })
 
 test('minIndex', () => {
-  expect(minIndex([3, 6, 8, 1, 2, 9])).toEqual(3)
-  expect(minIndex([99, 66, 108, 56, 24, 88])).toEqual(4)
-  expect(minIndex([-1, -4, 0, 1, 3])).toEqual(1)
-  expect(minIndex([1])).toEqual(0)
   expect(() => minIndex([])).toThrow()
+  expect(minIndex([1, 2, 3])).toEqual(0)
+  expect(minIndex([3, 2, 1])).toEqual(2)
+  expect(minIndex([1, 3, 2])).toEqual(0)
+  expect(minIndex([1, 2, 3, 4])).toEqual(0)
+  expect(minIndex([4, 3, 2, 1])).toEqual(3)
 })
 
 test('maxIndex', () => {
-  expect(maxIndex([3, 6, 8, 1, 2, 9])).toEqual(5)
-  expect(maxIndex([99, 66, 108, 56, 24, 88])).toEqual(2)
-  expect(maxIndex([-1, -4, 0, 1, 3])).toEqual(4)
-  expect(maxIndex([1])).toEqual(0)
   expect(() => maxIndex([])).toThrow()
+  expect(maxIndex([1, 2, 3])).toEqual(2)
+  expect(maxIndex([3, 2, 1])).toEqual(0)
+  expect(maxIndex([1, 3, 2])).toEqual(1)
+  expect(maxIndex([1, 2, 3, 4])).toEqual(3)
+  expect(maxIndex([4, 3, 2, 1])).toEqual(0)
 })
-
-// const objects = [{ n: 1 }, { n: 2 }, { n: 3 }, { n: 0 }]
-
-// test('minBy', () => {
-//   expect(
-//     pipe(
-//       [9, 3, 5, 8, 2, 4],
-//       minBy(x => x % 3),
-//     ),
-//   ).toEqual(9)
-//   expect(pipe([3, 6, 8, 1, 2, 9], x => x + 3)).toEqual(1)
-//   expect(pipe(objects, x => x.n)).toEqual({ n: 0 })
-//   expect(pipe([4], x => x % 3)).toEqual(4)
-//   expect(() => pipe([], x => x % 3)).toThrow()
-// })
-
-// test('maxBy', () => {
-//   expect(maxBy([9, 3, 5, 8, 2, 4], x => x % 3)).toEqual(5)
-//   expect(maxBy([3, 6, 8, 1, 2, 9], x => x + 3)).toEqual(9)
-//   expect(maxBy(objects, x => x.n)).toEqual({ n: 3 })
-//   expect(maxBy([4], x => x % 3)).toEqual(4)
-//   expect(() => maxBy([], x => x % 3)).toThrow()
-// })
 
 test('zipWith', () => {
-  expect(zipWith([1, 2], [10, 20], (x, y) => x + y)).toEqual([11, 22])
-  expect(zipWith([1, 2], [10, 20], (x, y) => x * y)).toEqual([10, 40])
-  expect(zipWith([1, 2], [10, 20], (x, y) => x - y)).toEqual([-9, -18])
-  expect(zipWith([1, 2, 3], [10, 20, 30], (x, y) => x + y)).toEqual([
-    11, 22, 33,
-  ])
-  expect(zipWith([], [], (x, y) => x + y)).toEqual([])
-})
-
-test('sortedUnique', () => {
-  expect(uniqueSorted(['237', '124', '255', '124', '366', '255'])).toEqual([
-    '124',
-    '237',
-    '255',
-    '366',
-  ])
-  expect(uniqueSorted([237, 124, 255, 124, 366, 255])).toEqual([
-    124, 237, 255, 366,
-  ])
-  // expect(uniqueSorted([-7, -7, -8, -3, -3, -6, -2, -4, -4])).toEqual([
-  //   -2, -3, -4, -6, -7, -8,
-  // ])
-  expect(uniqueSorted([])).toEqual([])
-})
-
-test('assignWith', () => {
-  expect(assignWith({ a: 1, b: 2 }, { a: 9, b: 98 }, (x, y) => x + y)).toEqual({
-    a: 10,
-    b: 100,
-  })
-  expect(assignWith({}, {}, (x, y) => x + y)).toEqual({})
-  expect(assignWith({ a: 1, b: 2 }, {}, (x, y) => x + y)).toEqual({
-    a: 1,
-    b: 2,
-  })
-  expect(assignWith({ a: 1, b: 2 }, { a: 9 }, (x, y) => x + y)).toEqual({
-    a: 10,
-    b: 2,
-  })
-  expect(assignWith({ a: 1, b: 2 }, { a: 9, b: 98 }, (x, y) => [x, y])).toEqual(
-    {
-      a: [1, 9],
-      b: [2, 98],
-    },
-  )
-})
-
-test('range', () => {
-  expect(range(0, 0)).toEqual([])
-  expect(range(1, 2)).toEqual([1])
-  expect(range(1, 5)).toEqual([1, 2, 3, 4])
-  expect(() => range(10, 1)).toThrow()
-})
-
-test('groupBy', () => {
-  expect(pipe([6.1, 4.2, 6.3], groupBy(Math.floor))).toEqual({
-    '6': [6.1, 6.3],
-    '4': [4.2],
-  })
-})
-
-test('orderBy', () => {
-  const arr = [
-    { name: 'foo', age: 19 },
-    { name: 'bar', age: 16 },
-    { name: 'buzz', age: 4 },
-  ]
-
-  expect(orderBy(arr, 'age')).toEqual([
-    { name: 'buzz', age: 4 },
-    { name: 'bar', age: 16 },
-    { name: 'foo', age: 19 },
-  ])
-  expect(orderBy(arr, 'name')).toEqual([
-    { name: 'bar', age: 16 },
-    { name: 'buzz', age: 4 },
-    { name: 'foo', age: 19 },
-  ])
-  expect(orderBy([], 'name')).toEqual([])
-  expect(orderBy([{ name: 'bar', age: 16 }], 'name')).toEqual([
-    { name: 'bar', age: 16 },
-  ])
-})
-
-const authors = [
-  { authorId: 1, name: 'David Flanagan', email: 'david.flanagan@gmail.com' },
-  { authorId: 2, name: 'Kathy Sierra', email: 'kathy.sierra@gmail.com' },
-  { authorId: 3, name: 'Erid Freeman', email: 'eric.freeman@gmail.com' },
-  {
-    authorId: 4,
-    name: 'Daniel Higginbotham',
-    email: 'higginbotham.daniel@gmail.com',
-  },
-]
-
-const books = [
-  { bookId: 1, title: 'Javascript The Definitive Guide', mainAuthorId: 1 },
-  { bookId: 2, title: 'Java in a nutshell', mainAuthorId: 1 },
-  { bookId: 3, title: 'Head first Java', mainAuthorId: 2 },
-  { bookId: 4, title: 'Badass  Making Users Awesome', mainAuthorId: 2 },
-  { bookId: 5, title: 'Head first design patterns', mainAuthorId: 3 },
-  { bookId: 6, title: 'Head first design patterns', mainAuthorId: 10 },
-]
-
-test('inner join', () => {
-  const result = [
-    {
-      authorId: 1,
-      name: 'David Flanagan',
-      email: 'david.flanagan@gmail.com',
-      bookId: 1,
-      title: 'Javascript The Definitive Guide',
-      mainAuthorId: 1,
-    },
-    {
-      authorId: 1,
-      name: 'David Flanagan',
-      email: 'david.flanagan@gmail.com',
-      bookId: 2,
-      title: 'Java in a nutshell',
-      mainAuthorId: 1,
-    },
-    {
-      authorId: 2,
-      name: 'Kathy Sierra',
-      email: 'kathy.sierra@gmail.com',
-      bookId: 3,
-      title: 'Head first Java',
-      mainAuthorId: 2,
-    },
-    {
-      authorId: 2,
-      name: 'Kathy Sierra',
-      email: 'kathy.sierra@gmail.com',
-      bookId: 4,
-      title: 'Badass  Making Users Awesome',
-      mainAuthorId: 2,
-    },
-    {
-      authorId: 3,
-      name: 'Erid Freeman',
-      email: 'eric.freeman@gmail.com',
-      bookId: 5,
-      title: 'Head first design patterns',
-      mainAuthorId: 3,
-    },
-  ]
-
-  expect(join(authors, books, 'authorId', 'mainAuthorId')).toEqual(result)
-})
-
-it('rightOuterJoin', () => {
-  const result2 = [
-    {
-      authorId: 1,
-      name: 'David Flanagan',
-      email: 'david.flanagan@gmail.com',
-      bookId: 1,
-      title: 'Javascript The Definitive Guide',
-      mainAuthorId: 1,
-    },
-    {
-      authorId: 1,
-      name: 'David Flanagan',
-      email: 'david.flanagan@gmail.com',
-      bookId: 2,
-      title: 'Java in a nutshell',
-      mainAuthorId: 1,
-    },
-    {
-      authorId: 2,
-      name: 'Kathy Sierra',
-      email: 'kathy.sierra@gmail.com',
-      bookId: 3,
-      title: 'Head first Java',
-      mainAuthorId: 2,
-    },
-    {
-      authorId: 2,
-      name: 'Kathy Sierra',
-      email: 'kathy.sierra@gmail.com',
-      bookId: 4,
-      title: 'Badass  Making Users Awesome',
-      mainAuthorId: 2,
-    },
-    {
-      authorId: 3,
-      name: 'Erid Freeman',
-      email: 'eric.freeman@gmail.com',
-      bookId: 5,
-      title: 'Head first design patterns',
-      mainAuthorId: 3,
-    },
-    { bookId: 6, title: 'Head first design patterns', mainAuthorId: 10 },
-  ]
-  expect(rightOuterJoin(authors, books, 'authorId', 'mainAuthorId')).toEqual(
-    result2,
-  )
-})
-
-it('leftOuterJoin', () => {
-  const result2 = [
-    {
-      authorId: 1,
-      name: 'David Flanagan',
-      email: 'david.flanagan@gmail.com',
-      bookId: 1,
-      title: 'Javascript The Definitive Guide',
-      mainAuthorId: 1,
-    },
-    {
-      authorId: 1,
-      name: 'David Flanagan',
-      email: 'david.flanagan@gmail.com',
-      bookId: 2,
-      title: 'Java in a nutshell',
-      mainAuthorId: 1,
-    },
-    {
-      authorId: 2,
-      name: 'Kathy Sierra',
-      email: 'kathy.sierra@gmail.com',
-      bookId: 3,
-      title: 'Head first Java',
-      mainAuthorId: 2,
-    },
-    {
-      authorId: 2,
-      name: 'Kathy Sierra',
-      email: 'kathy.sierra@gmail.com',
-      bookId: 4,
-      title: 'Badass  Making Users Awesome',
-      mainAuthorId: 2,
-    },
-    {
-      authorId: 3,
-      name: 'Erid Freeman',
-      email: 'eric.freeman@gmail.com',
-      bookId: 5,
-      title: 'Head first design patterns',
-      mainAuthorId: 3,
-    },
-    {
-      authorId: 4,
-      name: 'Daniel Higginbotham',
-      email: 'higginbotham.daniel@gmail.com',
-    },
-  ]
-  expect(leftOuterJoin(authors, books, 'authorId', 'mainAuthorId')).toEqual(
-    result2,
-  )
-})
-
-test('inserAt', () => {
-  const empty: number[] = []
-  insertAt(empty, 0, 100)
-  expect(empty).toEqual([100])
-
-  const arr = [1, 2, 4, 5]
-  insertAt(arr, 1, 10)
-
-  expect(arr).toEqual([1, 10, 2, 4, 5])
-
-  insertAt(arr, 0, 100)
-  expect(arr).toEqual([100, 1, 10, 2, 4, 5])
-
-  insertAt(arr, arr.length - 1, 100)
-  expect(arr).toEqual([100, 1, 10, 2, 4, 100, 5])
-
-  insertAt(arr, arr.length, 200)
-  expect(arr).toEqual([100, 1, 10, 2, 4, 100, 5, 200])
-
-  expect(() => insertAt(arr, -1, 200)).toThrow()
-  expect(() => insertAt(arr, arr.length + 1, 200)).toThrow()
-})
-
-test('removeAt', () => {
-  const arr = [1, 2, 4, 5]
-  removeAt(arr, 0)
-
-  expect(arr).toEqual([2, 4, 5])
-
-  expect(() => removeAt(arr, -1)).toThrow()
-  expect(() => removeAt(arr, arr.length)).toThrow()
-
-  removeAt(arr, arr.length - 1)
-  expect(arr).toEqual([2, 4])
-})
-
-test('replaceAt', () => {
-  const arr = [1, 2, 4, 5]
-  replaceAt(arr, 0, 2)
-
-  expect(arr).toEqual([2, 2, 4, 5])
-
-  expect(() => replaceAt(arr, -1, 6)).toThrow()
-  expect(() => replaceAt(arr, arr.length, 8)).toThrow()
-
-  replaceAt(arr, 1, 10)
-  expect(arr).toEqual([2, 10, 4, 5])
-
-  replaceAt(arr, arr.length - 1, 0)
-  expect(arr).toEqual([2, 10, 4, 0])
-})
-
-test('groupBy', () => {
-  expect(pipe([6.1, 4.2, 6.3], groupBy(Math.floor))).toEqual({
-    '6': [6.1, 6.3],
-    '4': [4.2],
-  })
+  const sub = (x: number, y: number) => x - y
+  expect(zipWith$([], [], sub)).toEqual([])
+  expect(pipe([1, 2, 3], zipWith([4, 5, 6], sub))).toEqual([-3, -3, -3])
+  expect(pipe([1, 2, 3], zipWith([4, 5, 6, 7], sub))).toEqual([-3, -3, -3])
+  expect(pipe([1, 2, 3, 4], zipWith([4, 5, 6], sub))).toEqual([-3, -3, -3])
+  expect(
+    pipe(
+      [1, 2, 3],
+      zipWith([4, 5, 6], (x, y) => x + y),
+    ),
+  ).toEqual([5, 7, 9])
 })
