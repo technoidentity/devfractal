@@ -1,6 +1,5 @@
 export * from './array'
 export * from './function'
-export * from './isEmpty'
 export * from './iter'
 export * from './mapUtils'
 export * from './object'

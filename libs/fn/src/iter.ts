@@ -1,18 +1,17 @@
 import invariant from 'tiny-invariant'
 import { pipe } from './pipe'
-import { Natural } from '../../core/src/specs/commonSpecs'
 
 export function iterator<T>(iter: Iterable<T>) {
   return iter[Symbol.iterator]()
 }
 
-export function* range(start: number, stop?: Natural) {
-  Natural.parse(start)
+export function* range(start: number, stop?: number) {
+  invariant(start >= 0, 'start must be >= 0')
 
   const first = stop ? start : 0
   const last = stop ? stop : start
 
-  Natural.parse(last)
+  invariant(last >= first, 'last must be >= first')
 
   for (let i = first; i < last; i += 1) {
     yield i
@@ -66,17 +65,16 @@ export function filter<T>(pred: (x: T) => boolean) {
   }
 }
 
-export function* repeat<T>(n: Natural, x: T) {
-  Natural.parse(n)
+export function* repeat<T>(n: number, x: T) {
+  invariant(n >= 0, 'n must be >= 0')
 
   for (let i = 0; i < n; i += 1) {
     yield x
   }
 }
 
-export function* repeatedly<T>(n: Natural, f: () => T) {
-  Natural.parse(n)
-
+export function* repeatedly<T>(n: number, f: () => T) {
+  invariant(n >= 0, 'n must be >= 0')
   for (let i = 0; i < n; i += 1) {
     yield f()
   }
@@ -132,9 +130,9 @@ export function skipWhile<T>(f: (x: T) => boolean) {
   }
 }
 
-export function itake<T>(n: Natural) {
+export function itake<T>(n: number) {
   return (arr: Iterable<T>) => {
-    Natural.parse(n)
+    invariant(n >= 0, 'n must be >= 0')
 
     return pipe(
       enumerate(arr),
@@ -143,9 +141,9 @@ export function itake<T>(n: Natural) {
   }
 }
 
-export function skip<T>(n: Natural) {
+export function skip<T>(n: number) {
   return (arr: Iterable<T>) => {
-    Natural.parse(n)
+    invariant(n >= 0, 'n must be >= 0')
 
     return pipe(
       enumerate(arr),
@@ -208,9 +206,9 @@ export function iequal<T>(snd: Iterable<T>) {
   }
 }
 
-export function ichunks<T>(size: Natural) {
+export function ichunks<T>(size: number) {
   return (arr: readonly T[]): T[][] => {
-    Natural.parse(size)
+    invariant(size > 0, 'size must be > 0')
 
     const result: T[][] = []
     for (let i = 0; i < arr.length; i += size) {

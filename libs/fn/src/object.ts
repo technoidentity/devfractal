@@ -70,7 +70,7 @@ export function set<T extends object>(obj: T, ...args: any[]): T {
 
 export function pick<T extends object, K extends keyof T>(
   obj: T,
-  keys: K[],
+  keys: readonly K[],
 ): Pick<T, K> {
   const result = {} as Pick<T, K>
   for (const key of keys) {

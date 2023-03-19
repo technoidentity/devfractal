@@ -1,7 +1,6 @@
 import invariant from 'tiny-invariant'
 import { map, range, toArray } from './iter'
 import { pipe } from './pipe'
-import { Natural } from '@srtp/core'
 
 export function first<T>(arr: readonly T[]): T {
   invariant(arr.length > 0, 'first undefined on an empty array')
@@ -119,9 +118,9 @@ export function arrayEqual<T>(snd: readonly T[]) {
   }
 }
 
-export function chunks<T>(size: Natural) {
+export function chunks<T>(size: number) {
   return (arr: readonly T[]): T[][] => {
-    Natural.parse(size)
+    invariant(size > 0, 'size must be greater than 0')
 
     const result: T[][] = []
     for (let i = 0; i < arr.length; i += size) {
@@ -443,4 +442,10 @@ export function replaceAt<T>(arr: T[], idx: number, value: T): void {
   )
 
   arr[idx] = value
+}
+
+export function each<T>(arr: T[], fn: (val: T, idx: number) => void): void {
+  for (let i = 0; i < arr.length; i += 1) {
+    fn(arr[i], i)
+  }
 }
