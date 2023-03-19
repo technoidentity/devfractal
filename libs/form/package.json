@@ -28,6 +28,7 @@
     "@mantine/dates": "6.0.2",
     "@mantine/form": "6.0.2",
     "@srtp/core": "workspace:*",
+    "@srtp/spec": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/validator": "workspace:*",
     "lodash": "4.17.21",

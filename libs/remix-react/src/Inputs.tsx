@@ -41,7 +41,7 @@ import type {
   TimeInputProps,
 } from '@mantine/dates'
 import { DatePickerInput as MantineDatePicker, TimeInput } from '@mantine/dates'
-import type { GetRawShape } from '@srtp/core'
+import type { GetRawShape } from '@srtp/spec'
 import type { FormSpec, ZodDateRange } from '@srtp/validator'
 import type { ConditionalKeys } from 'type-fest'
 import { z } from 'zod'

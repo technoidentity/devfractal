@@ -1,4 +1,5 @@
-import { isStr, jlog, jstr } from '@srtp/core'
+import { jlog } from '@srtp/core'
+import { isStr, jstr } from '@srtp/spec'
 import type { StatusCodes } from 'http-status-codes'
 import { getReasonPhrase } from 'http-status-codes'
 

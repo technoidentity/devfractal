@@ -47,7 +47,7 @@ import {
 } from '@mantine/dates'
 import type { UseFormReturnType } from '@mantine/form'
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
-import type { GetRawShape } from '@srtp/core'
+import type { GetRawShape } from '@srtp/spec'
 import type { FormSpec } from '@srtp/validator'
 import { capitalize } from 'lodash'
 import React from 'react'

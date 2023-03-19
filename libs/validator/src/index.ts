@@ -1,4 +1,4 @@
-import type { Try } from '@srtp/core'
+import type { Try } from '@srtp/result'
 import { tryFromZod } from '@srtp/core'
 import { z } from 'zod'
 

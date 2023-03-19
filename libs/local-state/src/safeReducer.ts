@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { z } from 'zod'
-import { ensure } from '@srtp/core'
+import { ensure } from '@srtp/spec'
 
 export function action<Type extends string, T extends z.ZodTypeAny>(
   type: Type,

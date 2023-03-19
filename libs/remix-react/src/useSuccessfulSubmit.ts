@@ -1,5 +1,5 @@
 import { useNavigation } from '@remix-run/react'
-import { isNil } from '@srtp/core'
+import { isNil } from '@srtp/spec'
 import React from 'react'
 import { useFormContext } from './FormContext'
 

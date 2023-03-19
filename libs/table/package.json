@@ -26,6 +26,7 @@
     "@emotion/react": "11.10.6",
     "@mantine/core": "6.0.2",
     "@srtp/core": "workspace:*",
+    "@srtp/spec": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@tabler/icons-react": "2.10.0",
     "immer": "9.0.19",

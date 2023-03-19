@@ -32,6 +32,7 @@
     "ts-essentials": "9.3.1",
     "tslib": "2.5.0",
     "@srtp/core": "workspace:*",
+    "@srtp/result": "workspace:*",
     "zod": "3.21.4"
   },
   "devDependencies": {

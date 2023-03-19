@@ -5,7 +5,7 @@ import type { UseFormInput } from '@mantine/form/lib/types'
 
 import type { FormProps as RemixFormProps } from '@remix-run/react'
 import { Form as RemixForm, useSubmit } from '@remix-run/react'
-import { getRawShape } from '@srtp/core'
+import { getRawShape } from '@srtp/spec'
 import type { Errors } from '@srtp/remix-core'
 import type { FormSpec } from '@srtp/validator'
 import React from 'react'

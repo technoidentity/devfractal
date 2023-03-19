@@ -30,6 +30,7 @@
     "@mantine/hooks": "6.0.2",
     "@remix-run/react": "1.14.1",
     "@srtp/core": "workspace:*",
+    "@srtp/spec": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/remix-core": "workspace:*",
     "@srtp/validator": "workspace:*",

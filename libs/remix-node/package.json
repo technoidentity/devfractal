@@ -25,6 +25,8 @@
   "dependencies": {
     "@remix-run/node": "1.14.1",
     "@srtp/core": "workspace:*",
+    "@srtp/spec": "workspace:*",
+    "@srtp/result": "workspace:*",
     "@srtp/remix-core": "workspace:*",
     "immer": "9.0.19",
     "query-string": "8.1.0",

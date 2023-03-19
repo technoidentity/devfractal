@@ -1,4 +1,4 @@
-import { toStr } from '@srtp/core'
+import { toStr } from '@srtp/spec'
 import type { RowBase } from './types'
 
 const formatDate = (date: Date) => {

@@ -1,5 +1,5 @@
 import type { UseFormReturnType } from '@mantine/form'
-import type { GetRawShape } from '@srtp/core'
+import type { GetRawShape } from '@srtp/spec'
 import type { Errors } from '@srtp/remix-core'
 import type { FormSpec } from '@srtp/validator'
 import React from 'react'

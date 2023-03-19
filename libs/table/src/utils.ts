@@ -1,4 +1,4 @@
-import { debugCast, isBool, isDate, isNil, isNum, isStr } from '@srtp/core'
+import { debugCast, isBool, isDate, isNil, isNum, isStr } from '@srtp/spec'
 import { z } from 'zod'
 import type { FilterPredicate, RowBase, Sort } from './types'
 
