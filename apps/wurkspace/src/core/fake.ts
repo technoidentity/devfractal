@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { forEach, map, omit, pipe, range } from '@srtp/fn'
+import { each, map, omit, pipe, range } from '@srtp/fn'
 import Chance from 'chance'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
@@ -179,7 +179,7 @@ export function fake(
     const rec: any = {}
     pipe(
       range(0, n),
-      forEach(() => {
+      each(() => {
         rec[fake(spec._def.keyType, options)] = fake(
           spec._def.valueType,
           options,
@@ -199,7 +199,7 @@ export function fake(
     const map = new Map()
     pipe(
       range(0, n),
-      forEach(() => {
+      each(() => {
         map.set(
           fake(spec._def.keyType, options),
           fake(spec._def.valueType, options),
@@ -219,7 +219,7 @@ export function fake(
     const set = new Set()
     pipe(
       range(0, n),
-      forEach(() => set.add(fake(spec._def.valueType, options))),
+      each(() => set.add(fake(spec._def.valueType, options))),
     )
 
     return set

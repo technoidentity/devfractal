@@ -1,4 +1,4 @@
-import { orderBy as orderByFn, pick as pickFn } from '@srtp/fn'
+import { orderBy as orderByFn, pick as pickFn, pipe } from '@srtp/fn'
 import { produce } from 'immer'
 
 type ManyParams<
@@ -55,7 +55,7 @@ export function db<ID extends string | number, T extends { id: ID }>(
 
     if (orderBy !== undefined) {
       result = [...db]
-      orderByFn(result, orderBy)
+      result = pipe(result, orderByFn(orderBy))
 
       if (order === 'desc') {
         result.reverse()
