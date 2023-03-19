@@ -1,16 +1,10 @@
-import type { Paths} from '@core/api';
+import type { Paths } from '@core/api'
 import { safeQueryFn } from '@core/api'
-import { logIfError } from '@core/utils'
+import { logError } from '@srtp/core'
 import produce from 'immer'
 import React from 'react'
-import type {
-  QueryClient,
-  UseQueryOptions} from 'react-query';
-import {
-  useMutation,
-  useQuery,
-  useQueryClient
-} from 'react-query'
+import type { QueryClient, UseQueryOptions } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import type { z } from 'zod'
 
 type UseSafeQueryArgs<Spec extends z.ZodTypeAny> = Readonly<{
@@ -35,7 +29,7 @@ export function useSafeQuery<Spec extends z.ZodTypeAny>({
 
   const result = useQuery<z.infer<Spec>>(queryKey, fn, opts)
 
-  logIfError(result.error)
+  logError(result.error)
 
   return { ...result, queryKey }
 }
