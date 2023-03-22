@@ -1,5 +1,5 @@
 import invariant from 'tiny-invariant'
-import { all, any, map, minByProp, range, toArray, zip } from './iter'
+import { all, map, minByProp, range, toArray, zip } from './iter'
 import { pipe } from './pipe'
 
 export function first<T>(arr: readonly T[]): T {
@@ -86,19 +86,17 @@ function defaultEq<T>(fst: T, snd: T): boolean {
   return fst === snd
 }
 
-export function arrayEqual<T>(
-  fst: readonly T[],
-  snd: readonly T[],
-  eq = defaultEq,
-): boolean {
-  if (!eq(fst.length, snd.length)) {
-    return false
-  }
+export function arrayEqual<T>(fst: readonly T[]) {
+  return (snd: readonly T[], eq = defaultEq): boolean => {
+    if (fst.length !== snd.length) {
+      return false
+    }
 
-  return pipe(
-    range(fst.length),
-    any(i => eq(fst[i], snd[i])),
-  )
+    return pipe(
+      range(fst.length),
+      all(i => eq(fst[i], snd[i])),
+    )
+  }
 }
 
 type DeepFlattenArgs<T> = ReadonlyArray<T | DeepFlattenArgs<T>>
