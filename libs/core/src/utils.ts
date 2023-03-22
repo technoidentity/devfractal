@@ -14,8 +14,12 @@ export function resultFromZod<Output, Input>(
   return result.success ? ok(result.data) : fail(result.error)
 }
 
+export function jlog(o: unknown): void {
+  console.log(jstr(o))
+}
+
 export function tap<T>(arg: T): T {
-  console.log(jstr(arg))
+  jlog(arg)
   return arg
 }
 
@@ -23,19 +27,9 @@ export function strict<T extends z.ZodRawShape>(o: T) {
   return z.object(o).strict()
 }
 
-export function jlog(o: unknown): void {
-  console.log(jstr(o))
-}
-
 export function logError(error?: unknown): void {
-  if (!error) {
-    return
-  }
-
-  if (isStr(error)) {
-    console.error(error)
-  } else {
-    console.log(jstr(error))
+  if (error) {
+    jlog(error)
   }
 }
 
