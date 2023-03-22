@@ -1,5 +1,5 @@
 import invariant from 'tiny-invariant'
-import { all, map, minByProp, range, toArray, zip } from './iter'
+import { all, any, map, minByProp, range, toArray, zip } from './iter'
 import { pipe } from './pipe'
 
 export function first<T>(arr: readonly T[]): T {
@@ -82,17 +82,23 @@ export function paged(page: number, limit: number) {
   }
 }
 
-export function arrayEqual<T>(snd: readonly T[]) {
-  return (fst: readonly T[]): boolean => {
-    if (fst.length !== snd.length) {
-      return false
-    }
+function defaultEq<T>(fst: T, snd: T): boolean {
+  return fst === snd
+}
 
-    return pipe(
-      range(fst.length),
-      all(i => fst[i] === snd[i]),
-    )
+export function arrayEqual<T>(
+  fst: readonly T[],
+  snd: readonly T[],
+  eq = defaultEq,
+): boolean {
+  if (!eq(fst.length, snd.length)) {
+    return false
   }
+
+  return pipe(
+    range(fst.length),
+    any(i => eq(fst[i], snd[i])),
+  )
 }
 
 type DeepFlattenArgs<T> = ReadonlyArray<T | DeepFlattenArgs<T>>
