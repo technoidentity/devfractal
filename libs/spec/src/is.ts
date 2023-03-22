@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { z } from 'zod'
 
 export function is<T, Spec extends z.ZodType<T>>(
@@ -42,11 +43,11 @@ export const isBool = isOfType<boolean>('boolean')
 export const isFunction = isOfType<Function>('function')
 export const isEmail = (s: unknown): s is string => is(z.string().email(), s)
 export const isNum = isOfType<number>('number')
-export const isInt = (s: unknown): s is number => is(z.number().int(), s)
-export const isDate = (s: unknown): s is Date => is(z.date(), s)
+export const isInt = (s: unknown): s is number => Number.isInteger(s)
+export const isDate = (s: unknown): s is Date => s instanceof Date
 
 export const isObject = (value: unknown): value is object =>
-  !isNull(value) && (typeof value === 'object' || isFunction(value))
+  !isNull(value) && typeof value === 'object'
 
 export const isArray = (value: unknown): value is unknown[] =>
   Array.isArray(value)
