@@ -1179,9 +1179,12 @@ importers:
 
   apps/typescript-examples:
     specifiers:
+      '@srtp/fn': workspace:*
+      '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
       '@types/node': 18.15.3
       '@vitejs/plugin-react-swc': 3.2.0
+      '@vitest/coverage-c8': ^0.29.3
       cross-env: 7.0.3
       eslint: 8.36.0
       eslint-config-srtp: workspace:*
@@ -1195,9 +1198,12 @@ importers:
       tslib: 2.5.0
       typescript: 4.9.5
       vite: 4.1.4
+      vite-plugin-checker: ^0.5.6
       vitest: 0.29.2
       zod: 3.21.4
     dependencies:
+      '@srtp/fn': link:../../libs/fn
+      '@srtp/spec': link:../../libs/spec
       immer: 9.0.19
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
@@ -1208,6 +1214,7 @@ importers:
       '@srtp/tsconfig': link:../../libs/tsconfig
       '@types/node': 18.15.3
       '@vitejs/plugin-react-swc': 3.2.0_vite@4.1.4
+      '@vitest/coverage-c8': 0.29.7_vitest@0.29.2
       cross-env: 7.0.3
       eslint: 8.36.0
       eslint-config-srtp: link:../../libs/eslint-config-srtp
@@ -1216,6 +1223,7 @@ importers:
       rimraf: 4.4.0
       typescript: 4.9.5
       vite: 4.1.4_@types+node@18.15.3
+      vite-plugin-checker: 0.5.6_g6ovitnzxdgucttfowzbmxl5e4
       vitest: 0.29.2
 
   apps/valtio-examples:
@@ -2770,7 +2778,7 @@ importers:
       cross-env: 7.0.3
       eslint: 8.36.0
       eslint-config-prettier: 8.7.0_eslint@8.36.0
-      eslint-config-turbo: 0.0.9_eslint@8.36.0
+      eslint-config-turbo: 0.0.10_eslint@8.36.0
       eslint-plugin-prettier: 4.2.1_eqzx3hpkgx5nnvxls3azrcc7dm
       npm-check-updates: 16.7.12
       prettier: 2.8.4
@@ -11027,6 +11035,17 @@ packages:
       vitest: 0.29.2_happy-dom@8.9.0
     dev: true
 
+  /@vitest/coverage-c8/0.29.7_vitest@0.29.2:
+    resolution: {integrity: sha512-TSubtP9JFBuI/wuApxwknHe40VDkX8hFbBak0OXj4/jCeXrEu5B5GPWcxzyk9YvzXgCaDvoiZV79I7AvhNI9YQ==}
+    peerDependencies:
+      vitest: '>=0.29.0 <1'
+    dependencies:
+      c8: 7.13.0
+      picocolors: 1.0.0
+      std-env: 3.3.1
+      vitest: 0.29.2
+    dev: true
+
   /@vitest/expect/0.29.2:
     resolution: {integrity: sha512-wjrdHB2ANTch3XKRhjWZN0UueFocH0cQbi2tR5Jtq60Nb3YOSmakjdAvUa2JFBu/o8Vjhj5cYbcMXkZxn1NzmA==}
     dependencies:
@@ -14207,6 +14226,15 @@ packages:
       eslint-plugin-promise: 6.1.1_eslint@8.36.0
     dev: true
 
+  /eslint-config-turbo/0.0.10_eslint@8.36.0:
+    resolution: {integrity: sha512-o4ULFZYM1OihSd63eDGEuy9rt6tW4ma6xnW9grnr44BoJwKaGQko2aka9kfqQs0vtmwD1++Os3ThPHETmzkFzA==}
+    peerDependencies:
+      eslint: '>6.6.0'
+    dependencies:
+      eslint: 8.36.0
+      eslint-plugin-turbo: 0.0.10_eslint@8.36.0
+    dev: true
+
   /eslint-config-turbo/0.0.9_eslint@8.29.0:
     resolution: {integrity: sha512-j1cTdx3tRmKo0csyfQKhpuT8dynK9oddbK5nmrShoMpXI2qMbxHLYH7MWAid4FmJN8rYympy3VKw5U63Yazycg==}
     peerDependencies:
@@ -14215,15 +14243,6 @@ packages:
       eslint: 8.29.0
       eslint-plugin-turbo: 0.0.9_eslint@8.29.0
     dev: false
-
-  /eslint-config-turbo/0.0.9_eslint@8.36.0:
-    resolution: {integrity: sha512-j1cTdx3tRmKo0csyfQKhpuT8dynK9oddbK5nmrShoMpXI2qMbxHLYH7MWAid4FmJN8rYympy3VKw5U63Yazycg==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      eslint: 8.36.0
-      eslint-plugin-turbo: 0.0.9_eslint@8.36.0
-    dev: true
 
   /eslint-config-xo-typescript/0.55.1_haq6ulc3vui3hbw2ow7npojefi:
     resolution: {integrity: sha512-iXua+7n9fOp7LzGzvXlcZG0w6cdtscjASGTrAHMj0Rn9voayxF2oRoMIK1QS6ZJb4fMVEQZdU2D6gTKmWhcCQQ==}
@@ -15471,6 +15490,14 @@ packages:
       - typescript
     dev: true
 
+  /eslint-plugin-turbo/0.0.10_eslint@8.36.0:
+    resolution: {integrity: sha512-T7QRwF4rjBQCJD9AHLHn9ShtHCHNkfIZW5Oio92WtQYhoU5jZCU3ynU+ONFXLuvoUx4dJ19WergIyHL+DwL2+g==}
+    peerDependencies:
+      eslint: '>6.6.0'
+    dependencies:
+      eslint: 8.36.0
+    dev: true
+
   /eslint-plugin-turbo/0.0.9_eslint@8.29.0:
     resolution: {integrity: sha512-fEsuSnYU3GLtT+s66mUuzDL1LaSieIx5uk3tPO0ToGv7hI2XzOfP24aPkQItTBGl7kq2JaVkRzPwcnfz8hkp0w==}
     peerDependencies:
@@ -15478,14 +15505,6 @@ packages:
     dependencies:
       eslint: 8.29.0
     dev: false
-
-  /eslint-plugin-turbo/0.0.9_eslint@8.36.0:
-    resolution: {integrity: sha512-fEsuSnYU3GLtT+s66mUuzDL1LaSieIx5uk3tPO0ToGv7hI2XzOfP24aPkQItTBGl7kq2JaVkRzPwcnfz8hkp0w==}
-    peerDependencies:
-      eslint: '>6.6.0'
-    dependencies:
-      eslint: 8.36.0
-    dev: true
 
   /eslint-plugin-unicorn/44.0.2_eslint@8.36.0:
     resolution: {integrity: sha512-GLIDX1wmeEqpGaKcnMcqRvMVsoabeF0Ton0EX4Th5u6Kmf7RM9WBl705AXFEsns56ESkEs0uyelLuUTvz9Tr0w==}
@@ -19377,6 +19396,10 @@ packages:
   /lodash.mergewith/4.6.2:
     resolution: {integrity: sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==}
     dev: false
+
+  /lodash.pick/4.4.0:
+    resolution: {integrity: sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q==}
+    dev: true
 
   /lodash.sortby/4.7.0:
     resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
@@ -24901,7 +24924,6 @@ packages:
 
   /tiny-invariant/1.3.1:
     resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
-    dev: false
 
   /tiny-lru/10.0.1:
     resolution: {integrity: sha512-Vst+6kEsWvb17Zpz14sRJV/f8bUWKhqm6Dc+v08iShmIJ/WxqWytHzCTd6m88pS33rE2zpX34TRmOpAJPloNCA==}
@@ -26122,6 +26144,58 @@ packages:
       - terser
     dev: true
 
+  /vite-plugin-checker/0.5.6_g6ovitnzxdgucttfowzbmxl5e4:
+    resolution: {integrity: sha512-ftRyON0gORUHDxcDt2BErmsikKSkfvl1i2DoP6Jt2zDO9InfvM6tqO1RkXhSjkaXEhKPea6YOnhFaZxW3BzudQ==}
+    engines: {node: '>=14.16'}
+    peerDependencies:
+      eslint: '>=7'
+      meow: ^9.0.0
+      optionator: ^0.9.1
+      stylelint: '>=13'
+      typescript: '*'
+      vite: '>=2.0.0'
+      vls: '*'
+      vti: '*'
+      vue-tsc: '*'
+    peerDependenciesMeta:
+      eslint:
+        optional: true
+      meow:
+        optional: true
+      optionator:
+        optional: true
+      stylelint:
+        optional: true
+      typescript:
+        optional: true
+      vls:
+        optional: true
+      vti:
+        optional: true
+      vue-tsc:
+        optional: true
+    dependencies:
+      '@babel/code-frame': 7.18.6
+      ansi-escapes: 4.3.2
+      chalk: 4.1.2
+      chokidar: 3.5.3
+      commander: 8.3.0
+      eslint: 8.36.0
+      fast-glob: 3.2.12
+      fs-extra: 11.1.0
+      lodash.debounce: 4.0.8
+      lodash.pick: 4.4.0
+      npm-run-path: 4.0.1
+      strip-ansi: 6.0.1
+      tiny-invariant: 1.3.1
+      typescript: 4.9.5
+      vite: 4.1.4_@types+node@18.15.3
+      vscode-languageclient: 7.0.0
+      vscode-languageserver: 7.0.0
+      vscode-languageserver-textdocument: 1.0.8
+      vscode-uri: 3.0.7
+    dev: true
+
   /vite-tsconfig-paths/4.0.7_vwvfc4ezh6jlf6pa67auy3eulu:
     resolution: {integrity: sha512-MwIYaby6kcbQGZqMH+gAK6h0UYQGOkjsuAgw4q6bP/5vWkn8VKvnmLuCQHA2+IzHAJHnE8OFTO4lnJLFMf9+7Q==}
     peerDependencies:
@@ -26348,6 +26422,46 @@ packages:
     dependencies:
       acorn: 8.8.1
       acorn-walk: 8.2.0
+    dev: true
+
+  /vscode-jsonrpc/6.0.0:
+    resolution: {integrity: sha512-wnJA4BnEjOSyFMvjZdpiOwhSq9uDoK8e/kpRJDTaMYzwlkrhG1fwDIZI94CLsLzlCK5cIbMMtFlJlfR57Lavmg==}
+    engines: {node: '>=8.0.0 || >=10.0.0'}
+    dev: true
+
+  /vscode-languageclient/7.0.0:
+    resolution: {integrity: sha512-P9AXdAPlsCgslpP9pRxYPqkNYV7Xq8300/aZDpO35j1fJm/ncize8iGswzYlcvFw5DQUx4eVk+KvfXdL0rehNg==}
+    engines: {vscode: ^1.52.0}
+    dependencies:
+      minimatch: 3.1.2
+      semver: 7.3.8
+      vscode-languageserver-protocol: 3.16.0
+    dev: true
+
+  /vscode-languageserver-protocol/3.16.0:
+    resolution: {integrity: sha512-sdeUoAawceQdgIfTI+sdcwkiK2KU+2cbEYA0agzM2uqaUy2UpnnGHtWTHVEtS0ES4zHU0eMFRGN+oQgDxlD66A==}
+    dependencies:
+      vscode-jsonrpc: 6.0.0
+      vscode-languageserver-types: 3.16.0
+    dev: true
+
+  /vscode-languageserver-textdocument/1.0.8:
+    resolution: {integrity: sha512-1bonkGqQs5/fxGT5UchTgjGVnfysL0O8v1AYMBjqTbWQTFn721zaPGDYFkOKtfDgFiSgXM3KwaG3FMGfW4Ed9Q==}
+    dev: true
+
+  /vscode-languageserver-types/3.16.0:
+    resolution: {integrity: sha512-k8luDIWJWyenLc5ToFQQMaSrqCHiLwyKPHKPQZ5zz21vM+vIVUSvsRpcbiECH4WR88K2XZqc4ScRcZ7nk/jbeA==}
+    dev: true
+
+  /vscode-languageserver/7.0.0:
+    resolution: {integrity: sha512-60HTx5ID+fLRcgdHfmz0LDZAXYEV68fzwG0JWwEPBode9NuMYTIxuYXPg4ngO8i8+Ou0lM7y6GzaYWbiDL0drw==}
+    hasBin: true
+    dependencies:
+      vscode-languageserver-protocol: 3.16.0
+    dev: true
+
+  /vscode-uri/3.0.7:
+    resolution: {integrity: sha512-eOpPHogvorZRobNqJGhapa0JdwaxpjVvyBp0QIUMRMSf8ZAlqOdEquKuRmw9Qwu0qXtJIWqFtMkmvJjUZmMjVA==}
     dev: true
 
   /w3c-xmlserializer/4.0.0:
