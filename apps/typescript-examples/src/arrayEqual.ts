@@ -1,10 +1,12 @@
-import { all } from './all'
-import { range } from './range'
+import { all, pipe, range } from '@srtp/fn'
 
 export function arrayEqual<T>(fst: readonly T[], snd: readonly T[]): boolean {
   if (fst.length !== snd.length) {
     return false
   }
 
-  return all(range(fst.length), i => fst[i] === snd[i])
+  return pipe(
+    range(fst.length),
+    all(i => fst[i] === snd[i]),
+  )
 }

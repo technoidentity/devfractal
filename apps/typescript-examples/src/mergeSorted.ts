@@ -1,4 +1,4 @@
-import { chain$, cons$, empty, iterator, scon } from '@srtp/fn'
+import { chain$, cons$, empty, iterator, snoc } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 
 export function mergeSorted<T>(fst: Iterable<T>, snd: Iterable<T>) {
@@ -10,8 +10,8 @@ function impl<T>(
   snd: Iterator<T>,
   result: Iterable<T> = empty(),
 ): Iterable<T> {
-  const [h, t] = scon(fst)
-  const [h2, t2] = scon(snd)
+  const [h, t] = snoc(fst)
+  const [h2, t2] = snoc(snd)
   if (h == null && h2 == null) {
     return result
   }

@@ -74,7 +74,7 @@ test('find', () => {
 })
 
 test('some', () => {
-  expect(some([], isOdd)).toBeFalsy
+  expect(some([], isOdd)).toBeFalsy()
   expect(some([1, 2, 3], isOdd)).toBeTruthy()
   expect(some([2, 4, 6], isOdd)).toBeFalsy()
 })
