@@ -1,6 +1,6 @@
 import type { LoaderArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import type { Errors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
 import type { Result } from '@srtp/result'
 import { isFail } from '@srtp/result'
@@ -9,7 +9,7 @@ import { z } from 'zod'
 
 type Request = LoaderArgs['request']
 
-export function badRequest<T extends object>(data: Errors<T>) {
+export function badRequest<T extends object>(data: FormErrors<T>) {
   return json(data, { status: 400 })
 }
 
@@ -18,7 +18,7 @@ export function badRequestFromResult<T extends object>(
 ) {
   invariant(isFail(result), 'badRequestFromResult expects a fail result')
 
-  return badRequest<T>({ error: result.error })
+  return badRequest<T>({ formError: result.error })
 }
 
 export function actionResult<T>(
@@ -26,7 +26,7 @@ export function actionResult<T>(
   options?: { redirectUrl: string },
 ) {
   return isFail(result)
-    ? badRequest({ error: result.error })
+    ? badRequest({ formError: result.error })
     : options === undefined
     ? json({})
     : redirect(options.redirectUrl)
