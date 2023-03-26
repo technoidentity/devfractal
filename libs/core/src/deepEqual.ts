@@ -1,4 +1,4 @@
-import { isObject, isArray } from '@srtp/spec'
+import { isArray, isObject } from '@srtp/spec'
 
 function isEquitable(x: unknown): x is { equals(other: unknown): boolean } {
   return isObject(x) && 'equals' in x
@@ -6,6 +6,10 @@ function isEquitable(x: unknown): x is { equals(other: unknown): boolean } {
 
 export function deepEqual<T>(fst: T, snd: T): boolean {
   if (fst === snd) {
+    return true
+  }
+
+  if (Number.isNaN(fst) && Number.isNaN(snd)) {
     return true
   }
 
