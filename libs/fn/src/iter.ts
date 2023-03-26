@@ -1,11 +1,30 @@
 import invariant from 'tiny-invariant'
 import { pipe } from './pipe'
 
+export const isIterable = (x: unknown): x is Iterable<any> =>
+  x != null && typeof (x as any)[Symbol.iterator] === 'function'
+
 export function iterator<T>(iter: Iterable<T>): Iterator<T> {
   return iter[Symbol.iterator]()
 }
 
-export function* range(start: number, stop?: number) {
+export function iterable<T>(iter: Iterator<T>): Iterable<T> {
+  return {
+    [Symbol.iterator]() {
+      return iter
+    },
+  }
+}
+
+export function toIterable<T>(iter: Iterable<T> | Iterator<T>): Iterable<T> {
+  return isIterable(iter) ? iter : iterable(iter)
+}
+
+export function toIterator<T>(iter: Iterable<T> | Iterator<T>): Iterator<T> {
+  return isIterable(iter) ? iter[Symbol.iterator]() : iter
+}
+
+export function* range(start: number, stop?: number): IterableIterator<number> {
   invariant(start >= 0, 'start must be >= 0')
 
   const first = stop ? start : 0
@@ -18,7 +37,7 @@ export function* range(start: number, stop?: number) {
   }
 }
 
-export function* repeat<T>(n: number, x: T) {
+export function* repeat<T>(n: number, x: T): IterableIterator<T> {
   invariant(n >= 0, 'n must be >= 0')
 
   for (let i = 0; i < n; i += 1) {
@@ -26,14 +45,16 @@ export function* repeat<T>(n: number, x: T) {
   }
 }
 
-export function* repeatedly<T>(n: number, f: () => T) {
+export function* repeatedly<T>(n: number, f: () => T): IterableIterator<T> {
   invariant(n >= 0, 'n must be >= 0')
   for (let i = 0; i < n; i += 1) {
     yield f()
   }
 }
 
-export function* enumerate<T>(iter: Iterable<T>) {
+export function* enumerate<T>(
+  iter: Iterable<T>,
+): IterableIterator<readonly [T, number]> {
   let i = 0
   for (const e of iter) {
     yield [e, i] as const
@@ -62,8 +83,8 @@ export function length<T>(iter: Iterable<T>): number {
   return len
 }
 
-export function map<T1, T2>(f: (x: T1) => T2) {
-  return function* (iter: Iterable<T1>) {
+export function map<T, U>(f: (x: T) => U) {
+  return function* (iter: Iterable<T>): IterableIterator<U> {
     for (const e of iter) {
       yield f(e)
     }
@@ -71,7 +92,7 @@ export function map<T1, T2>(f: (x: T1) => T2) {
 }
 
 export function filter<T>(pred: (x: T) => boolean) {
-  return function* (iter: Iterable<T>) {
+  return function* (iter: Iterable<T>): IterableIterator<T> {
     for (const e of iter) {
       if (pred(e)) {
         yield e
@@ -117,29 +138,31 @@ export function findIndex<T>(f: (x: T) => boolean) {
 }
 
 export function take<T>(n: number) {
-  return (arr: Iterable<T>) => {
+  return (arr: Iterable<T>): IterableIterator<T> => {
     invariant(n >= 0, 'n must be >= 0')
 
     return pipe(
       enumerate(arr),
       takeWhile(([_, i]) => i < n),
+      map(([e]) => e),
     )
   }
 }
 
 export function skip<T>(n: number) {
-  return (arr: Iterable<T>) => {
+  return (arr: Iterable<T>): IterableIterator<T> => {
     invariant(n >= 0, 'n must be >= 0')
 
     return pipe(
       enumerate(arr),
       skipWhile(([_, i]) => i < n),
+      map(([e]) => e),
     )
   }
 }
 
 export function takeWhile<T>(f: (x: T) => boolean) {
-  return function* (arr: Iterable<T>) {
+  return function* (arr: Iterable<T>): IterableIterator<T> {
     for (const e of arr) {
       if (!f(e)) {
         break
@@ -151,7 +174,7 @@ export function takeWhile<T>(f: (x: T) => boolean) {
 }
 
 export function skipWhile<T>(f: (x: T) => boolean) {
-  return function* (arr: Iterable<T>) {
+  return function* (arr: Iterable<T>): IterableIterator<T> {
     let skip = true
     for (const e of arr) {
       if (skip && f(e)) {
@@ -189,7 +212,7 @@ export function any<T>(f: (v: T) => boolean) {
 }
 
 export function each(f: (x: unknown) => void) {
-  return (arr: Iterable<unknown>) => {
+  return (arr: Iterable<unknown>): void => {
     for (const e of arr) {
       f(e)
     }
@@ -197,7 +220,7 @@ export function each(f: (x: unknown) => void) {
 }
 
 export function iterSlice<T>(start: number, stop?: number) {
-  return function* (iter: Iterable<T>) {
+  return function* (iter: Iterable<T>): IterableIterator<T> {
     invariant(start >= 0, 'start must be >= 0')
 
     let i = 0
@@ -253,7 +276,7 @@ export function groupBy<T, K extends string | number>(f: (x: T) => K) {
 
 type DeepFlattenArgs<T> = Iterable<T | DeepFlattenArgs<T>>
 
-export function* iterFlatten<T>(arr: DeepFlattenArgs<T>): Generator<T> {
+export function* iterFlatten<T>(arr: DeepFlattenArgs<T>): IterableIterator<T> {
   const isArray = (x: unknown): x is DeepFlattenArgs<any> => Array.isArray(x)
 
   for (const e of arr) {
@@ -266,7 +289,7 @@ export function* iterFlatten<T>(arr: DeepFlattenArgs<T>): Generator<T> {
 }
 
 export function chain<T>(...args: Iterable<T>[]) {
-  return function* (first: Iterable<T>) {
+  return function* (first: Iterable<T>): IterableIterator<T> {
     yield* first
     for (const arr of args) {
       yield* arr
@@ -274,16 +297,16 @@ export function chain<T>(...args: Iterable<T>[]) {
   }
 }
 
-export function flatMap<T1, T2>(f: (x: T1) => Iterable<T2>) {
-  return function* (arr: Iterable<T1>) {
+export function flatMap<T, U>(f: (x: T) => Iterable<U>) {
+  return function* (arr: Iterable<T>) {
     for (const e of arr) {
       yield* f(e)
     }
   }
 }
 
-export function zip<T1>(second: Iterable<T1>) {
-  return function* <T2>(first: Iterable<T2>) {
+export function zip<T>(second: Iterable<T>) {
+  return function* <U>(first: Iterable<U>) {
     const fi = iterator(first)
     const si = iterator(second)
 
@@ -300,12 +323,12 @@ export function zip<T1>(second: Iterable<T1>) {
   }
 }
 
-export function zipLongest<T1, T2>(
-  snd: Iterable<T2>,
-  fstDefault: T1,
-  sndDefault: T2,
+export function zipLongest<T, U>(
+  snd: Iterable<U>,
+  fstDefault: T,
+  sndDefault: U,
 ) {
-  return function* (fst: Iterable<T1>) {
+  return function* (fst: Iterable<T>) {
     const fstIter = iterator(fst)
     const sndIter = iterator(snd)
 
@@ -417,5 +440,31 @@ export function minBy<T>(f: (x: T) => number) {
     )
 }
 
-export const isIterable = (x: unknown): x is Iterable<any> =>
-  x != null && typeof (x as any)[Symbol.iterator] === 'function'
+export function empty<T>(): Iterable<T> {
+  return []
+}
+
+export function snoc<T>(
+  iter: Iterator<T> | Iterable<T>,
+): readonly [head: T | undefined, tail: Iterator<T>] {
+  iter = toIterator(iter)
+  const head = iter.next()
+
+  return [head.value, iter] as const
+}
+
+export function cons<T>(x: T) {
+  return function* (iter: Iterable<T> | Iterator<T>): IterableIterator<T> {
+    yield x
+    yield* toIterable(iter)
+  }
+}
+
+export function match<T, U>(
+  iter: Iterable<T> | Iterator<T>,
+  empty: () => U,
+  nonEmpty: (head: T, tail: Iterator<T>) => U,
+): U {
+  const [head, tail] = snoc(iter)
+  return head === undefined ? empty() : nonEmpty(head, tail)
+}

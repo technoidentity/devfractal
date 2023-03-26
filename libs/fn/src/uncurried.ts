@@ -16,6 +16,7 @@ import {
   all,
   any,
   chain,
+  cons,
   filter,
   findIndex,
   flatMap,
@@ -81,3 +82,4 @@ export const all$ = uncurry(all)
 export const any$ = uncurry(any)
 export const fmin$ = uncurry(fmin)
 export const fmax$ = uncurry(fmax)
+export const cons$ = uncurry(cons)
