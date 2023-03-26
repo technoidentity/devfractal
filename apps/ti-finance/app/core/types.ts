@@ -1,8 +1,8 @@
-import type { Errors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/remix-core'
 
-export type CreateProps<T extends object> = Errors<T>
+export type CreateProps<T extends object> = FormErrors<T>
 
 export type EditProps<T extends object> = Readonly<{
   initialValues: T
-  serverErrors?: Errors<T>
+  serverErrors?: FormErrors<T>
 }>

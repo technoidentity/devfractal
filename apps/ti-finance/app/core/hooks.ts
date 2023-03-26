@@ -1,6 +1,6 @@
 import { useActionData, useLoaderData, useSearchParams } from '@remix-run/react'
 import { isEmpty } from '@srtp/core'
-import type { Errors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/remix-core'
 import queryString from 'query-string'
 import React from 'react'
 import type { z } from 'zod'
@@ -35,7 +35,7 @@ export function useSafeActionData<Spec extends z.ZodTypeAny>(
 
 export function useServerErrors<Spec extends z.AnyZodObject>(
   spec: Spec,
-): Errors<z.infer<Spec>> {
+): FormErrors<z.infer<Spec>> {
   const errSpec = React.useMemo(() => createErrorsSpec(spec), [spec])
   const s = useLatest(errSpec)
   const data = useActionData()

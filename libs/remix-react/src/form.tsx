@@ -5,8 +5,8 @@ import type { UseFormInput } from '@mantine/form/lib/types'
 
 import type { FormProps as RemixFormProps } from '@remix-run/react'
 import { Form as RemixForm, useSubmit } from '@remix-run/react'
+import type { FormErrors } from '@srtp/remix-core'
 import { getRawShape } from '@srtp/spec'
-import type { Errors } from '@srtp/remix-core'
 import type { FormSpec } from '@srtp/validator'
 import React from 'react'
 import invariant from 'tiny-invariant'
@@ -20,7 +20,7 @@ import { getFieldError } from './utils'
 type MyFormProps<Spec extends FormSpec> = Readonly<{
   onSubmit?: (values: z.infer<Spec>) => void
   children: React.ReactNode
-  serverErrors?: Errors<z.infer<Spec>>
+  serverErrors?: FormErrors<z.infer<Spec>>
 }>
 
 type FormProps<Spec extends FormSpec> = MyFormProps<Spec> &

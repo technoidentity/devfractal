@@ -12,7 +12,7 @@ export const useSuccessfulSubmit = () => {
     if (
       navigate.state === 'loading' &&
       Object.keys(serverErrors?.fieldErrors || {}).length === 0 &&
-      isNil(serverErrors?.error)
+      isNil(serverErrors?.formError)
     ) {
       set(true)
     }

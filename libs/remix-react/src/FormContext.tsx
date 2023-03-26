@@ -1,6 +1,6 @@
 import type { UseFormReturnType } from '@mantine/form'
+import type { FormErrors } from '@srtp/remix-core'
 import type { GetRawShape } from '@srtp/spec'
-import type { Errors } from '@srtp/remix-core'
 import type { FormSpec } from '@srtp/validator'
 import React from 'react'
 import type { z } from 'zod'
@@ -16,7 +16,7 @@ export type FormContext<Spec extends FormSpec> = {
     (values: z.infer<Spec>) => z.infer<Spec>
   >
   spec: GetRawShape<Spec>
-  serverErrors?: Errors<z.infer<Spec>>
+  serverErrors?: FormErrors<z.infer<Spec>>
   errMsg?: (key: keyof z.infer<Spec>) => string | undefined
 }
 

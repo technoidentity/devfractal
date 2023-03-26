@@ -1,6 +1,6 @@
 import { Box } from '@mantine/core'
 import type { FormMethod } from '@remix-run/react'
-import type { Errors } from '@srtp/remix-core'
+import type { FormErrors as Errors } from '@srtp/remix-core'
 import type { InputsType } from '@srtp/remix-react'
 import { createForm } from '@srtp/remix-react'
 import type { FormSpec } from '@srtp/validator'
@@ -37,7 +37,7 @@ export function CrudForm<Spec extends FormSpec>({
   return (
     <Box>
       <FormTitle>{title}</FormTitle>
-      <FormErrors error={serverErrors?.error} />
+      <FormErrors error={serverErrors?.formError} />
       <Form
         initialValues={initialValues}
         serverErrors={serverErrors}

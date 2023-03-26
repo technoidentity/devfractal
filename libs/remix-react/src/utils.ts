@@ -1,9 +1,9 @@
 import type { UseFormReturnType } from '@mantine/form'
-import type { Errors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/remix-core'
 
 // @TODO: to .client.ts?
 export function getFieldError<T extends object>(
-  errors: Errors<T> | undefined,
+  errors: FormErrors<T> | undefined,
   form: UseFormReturnType<T, (values: T) => T>,
 ) {
   return (key: keyof T): string | undefined => {
