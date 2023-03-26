@@ -69,6 +69,7 @@ export async function safeActions<
 >(spec: z.ZodEnum<z.Writeable<T>>, args: LoaderArgs, actions: Actions) {
   const formData = await args.request.clone().formData()
   const actionKey = spec.parse(formData.get('_action'))
+  invariant(actionKey in actions, `${actionKey} not supported`)
 
   return actions[actionKey](args)
 }

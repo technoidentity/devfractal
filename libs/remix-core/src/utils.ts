@@ -1,26 +1,19 @@
 import type { z } from 'zod'
 
+// @TODO: `keyof T` means only works with shallow objects.
 export type FieldErrors<T extends object> = Record<keyof T, string>
 
-export type Errors<T extends object> = Readonly<{
+export type FormErrors<T extends object> = Readonly<{
   fieldErrors?: FieldErrors<T>
-  error?: string
+  formError?: string
 }>
-
-export async function fromFormData<Output, Input>(
-  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
-  request: Request,
-) {
-  const values = Object.fromEntries(await request.formData())
-  return spec.safeParse(values)
-}
 
 export const formErrors = <T extends object>(
   error: z.ZodError<T>,
 ): FieldErrors<T> => {
   const results: any = {}
-  error.errors.forEach(error => {
-    results[error.path.join('.')] = error.message
-  })
+  for (const e of error.errors) {
+    results[e.path.join('.')] = e.message
+  }
   return results
 }
