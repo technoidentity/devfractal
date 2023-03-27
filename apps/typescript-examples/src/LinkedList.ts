@@ -22,7 +22,7 @@ export class LinkedList<T> {
     return this.tail?.value
   }
 
-  push(value: T): LinkedList<T> {
+  push(value: T): this {
     const link = { value, next: undefined, prev: this.tail }
     if (this.tail) {
       this.tail.next = link
@@ -51,7 +51,7 @@ export class LinkedList<T> {
     return value
   }
 
-  unshift(value: T): LinkedList<T> {
+  unshift(value: T): this {
     const link = { value, next: this.head, prev: undefined }
     if (this.head) {
       this.head.prev = link

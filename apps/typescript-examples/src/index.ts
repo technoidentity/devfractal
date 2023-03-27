@@ -44,7 +44,7 @@ interface Rectangle {
 export const rectangle = (
   length: number,
   width: number,
-  height: number = 0,
+  height = 0,
 ): Rectangle => {
   const area = length * width
   const perimeter = 2 * (length + width)
@@ -234,8 +234,8 @@ export const findAndReplaceAll = (
   return result
 }
 
-console.log(findAndReplaceAll('foofoxbarfoxfizzfox', 'fox', 'dog'))
-console.log(findAndReplaceAll('foxfox', 'fox', 'dog'))
+// console.log(findAndReplaceAll('foofoxbarfoxfizzfox', 'fox', 'dog'))
+// console.log(findAndReplaceAll('foxfox', 'fox', 'dog'))
 // console.log(stringEquality('dogg', 'dogg'), 'fn')
 // console.log(subStr('hello world new', 4, 9))
 // console.log(getSubStr('hello world new', 2, 5, 8))
