@@ -115,7 +115,7 @@ export const getChessSquareColor = (column: number, row: number) => {
 export const indexOf = (text: string, word: string) => {
   for (let i = 0; i < text.length; i += 1) {
     let j = 0
-    for (j = 0; j < word.length; j += 1) {
+    for (; j < word.length; j += 1) {
       if (text[i + j] !== word[j]) {
         break
       }
@@ -219,7 +219,7 @@ export const findAndReplaceAll = (
   let i = 0
   while (i < text.length) {
     let j = 0
-    for (j = 0; j < oldStr.length; j += 1) {
+    for (; j < oldStr.length; j += 1) {
       if (text[i + j] !== oldStr[j]) {
         result += text[i]
         break
