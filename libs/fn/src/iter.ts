@@ -305,6 +305,14 @@ export function flatMap<T, U>(f: (x: T) => Iterable<U>) {
   }
 }
 
+export function* flatten<T>(
+  arr: Iterable<Iterable<T>> | Iterable<ReadonlyArray<T>>,
+): IterableIterator<T> {
+  for (const e of arr) {
+    yield* e
+  }
+}
+
 export function zip<T>(second: Iterable<T>) {
   return function* <U>(first: Iterable<U>) {
     const fi = iterator(first)
