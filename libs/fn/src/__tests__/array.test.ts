@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
   at,
+  deepFlatten,
   first,
-  flatten,
   insert,
   last,
   maxIndex,
@@ -154,14 +154,14 @@ test('unique', () => {
 })
 
 test('flatten', () => {
-  expect(flatten([])).toEqual([])
-  expect(flatten([[[[[]]]]])).toEqual([])
-  expect(flatten([1, 2, 3])).toEqual([1, 2, 3])
-  expect(flatten([1, [2, 3]])).toEqual([1, 2, 3])
-  expect(flatten([1, [2, [3]]])).toEqual([1, 2, 3])
-  expect(flatten([1, [2, [3, [4]]]])).toEqual([1, 2, 3, 4])
-  expect(flatten([1, [2, [3, [4, [5]]]]])).toEqual([1, 2, 3, 4, 5])
-  expect(flatten([1, [2, [3], [4], [5]]])).toEqual([1, 2, 3, 4, 5])
+  expect(deepFlatten([])).toEqual([])
+  expect(deepFlatten([[[[[]]]]])).toEqual([])
+  expect(deepFlatten([1, 2, 3])).toEqual([1, 2, 3])
+  expect(deepFlatten([1, [2, 3]])).toEqual([1, 2, 3])
+  expect(deepFlatten([1, [2, [3]]])).toEqual([1, 2, 3])
+  expect(deepFlatten([1, [2, [3, [4]]]])).toEqual([1, 2, 3, 4])
+  expect(deepFlatten([1, [2, [3, [4, [5]]]]])).toEqual([1, 2, 3, 4, 5])
+  expect(deepFlatten([1, [2, [3], [4], [5]]])).toEqual([1, 2, 3, 4, 5])
 })
 
 test('zipAll', () => {
