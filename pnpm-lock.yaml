@@ -1179,6 +1179,7 @@ importers:
 
   apps/typescript-examples:
     specifiers:
+      '@faker-js/faker': 7.6.0
       '@srtp/fn': workspace:*
       '@srtp/spec': workspace:*
       '@srtp/tsconfig': workspace:*
@@ -1211,6 +1212,7 @@ importers:
       tslib: 2.5.0
       zod: 3.21.4
     devDependencies:
+      '@faker-js/faker': 7.6.0
       '@srtp/tsconfig': link:../../libs/tsconfig
       '@types/node': 18.15.3
       '@vitejs/plugin-react-swc': 3.2.0_vite@4.1.4
