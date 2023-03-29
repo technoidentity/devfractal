@@ -7,7 +7,7 @@ export function groupBy<T, K extends string | number>(
   for (const v of arr) {
     const k = f(v)
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    result[k] = result[k] === undefined ? [...result[k], v] : [v]
+    result[k] = result[k] !== undefined ? [...result[k], v] : [v]
   }
 
   return result
