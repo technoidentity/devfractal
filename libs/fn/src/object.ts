@@ -1,3 +1,6 @@
+import { map } from './iter'
+import { pipe } from './pipe'
+
 export function get<T extends object, K extends keyof T>(obj: T, key: K): T[K]
 
 export function get<T extends object, K extends keyof T, K2 extends keyof T[K]>(
@@ -79,9 +82,9 @@ export function pick<T extends object, K extends keyof T>(keys: readonly K[]) {
   }
 }
 
-export function pluck<T extends object, K extends keyof T>(key: K) {
-  return (arr: T[]): T[K][] => {
-    return arr.map(x => x[key])
+export function pluck<T extends object, K extends keyof T>(keys: readonly K[]) {
+  return (arr: Iterable<T>): IterableIterator<Pick<T, K>> => {
+    return pipe(arr, map(pick(keys)))
   }
 }
 
@@ -154,24 +157,24 @@ export function omitBy<T>(predicate: (value: T) => boolean) {
   }
 }
 
-// export function mergeWith<T extends object>(
-//   fst: T,
-//   snd: any,
-//   fn: (x: any, y: any) => any,
-// ): Record<keyof T, number> {
-//   const result: any = {}
-//   for (const [key, value] of Object.entries(fst)) {
-//     if (snd.hasOwnProperty(key)) {
-//       const val = fn((fst as any)[key], snd[key])
-//       result[key] = val
-//     } else {
-//       result[key] = value
-//     }
-//   }
-//   for (const [key, value] of Object.entries(snd)) {
-//     if (!result.hasOwnProperty(key)) {
-//       result[key] = value
-//     }
-//   }
-//   return result
-// }
+export function mergeWith<T extends object, U extends object, V>(
+  fst: T,
+  snd: U,
+  fn: (x: T[keyof T], y: U[keyof U]) => V,
+): Record<keyof T | keyof U, V | T[keyof T] | U[keyof U]> {
+  const result: any = {}
+  for (const [key, value] of entries(fst)) {
+    if (Object.hasOwn(snd, key)) {
+      const val = fn(fst[key], snd[key])
+      result[key] = val
+    } else {
+      result[key] = value
+    }
+  }
+  for (const [key, value] of Object.entries(snd)) {
+    if (!Object.hasOwn(result, key)) {
+      result[key] = value
+    }
+  }
+  return result
+}
