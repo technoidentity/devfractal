@@ -1,6 +1,6 @@
-import { isEmail } from '@srtp/spec'
-import { pick } from '@srtp/fn'
 import type { CtxOrReq } from '@srtp/api'
+import { pick$ } from '@srtp/fn'
+import { isEmail } from '@srtp/spec'
 import { addDays } from 'date-fns'
 import type { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
@@ -26,7 +26,7 @@ export const getAuth = async (ctx: CtxOrReq): Promise<Session | null> => {
   }
 
   return {
-    user: pick(user, ['email', 'name', 'image']),
+    user: pick$(user, ['email', 'name', 'image']),
     expires: addDays(new Date(), 1).toISOString(),
   }
 }

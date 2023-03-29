@@ -1,7 +1,7 @@
-import { str, toInt } from '@srtp/spec'
 import { prisma } from '@core/prisma'
-import { omit } from '@srtp/fn'
 import type { Action } from '@prisma/client'
+import { omit$ } from '@srtp/fn'
+import { str, toInt } from '@srtp/spec'
 import type { PendingActionsResponse } from '@ui/responses'
 import type { Args } from './utils'
 
@@ -60,7 +60,7 @@ export const postAction = async (args: Args<'meetingId' | 'action'>) => {
   const meetingId = str(args.meetingId)
 
   return prisma.action.create({
-    data: { meetingId, ...omit(args.action as Action, ['meetingId']) },
+    data: { meetingId, ...omit$(args.action as Action, ['meetingId']) },
   })
 }
 

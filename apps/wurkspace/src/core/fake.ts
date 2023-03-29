@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { each, map, omit, pipe, range } from '@srtp/fn'
+import { each, map, omit$, pipe, range } from '@srtp/fn'
 import Chance from 'chance'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
@@ -77,7 +77,7 @@ function fakeNumber(
   spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
-  const opts = omit(options.ZodNumber!, ['kind'])
+  const opts = omit$(options.ZodNumber!, ['kind'])
   const kind = options.ZodNumber?.kind || spec._def.checks[0]?.kind
   switch (kind) {
     case 'int':
@@ -91,7 +91,7 @@ function fakeString(
   spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
-  const opts = omit(options.ZodNumber!, ['kind'])
+  const opts = omit$(options.ZodNumber!, ['kind'])
   const kind = options.ZodNumber?.kind || spec._def.checks[0]?.kind
 
   switch (kind) {

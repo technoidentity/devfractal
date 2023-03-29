@@ -1,6 +1,6 @@
-import { str } from '@srtp/spec'
 import { prisma } from '@core/prisma'
-import { pick } from '@srtp/fn'
+import { pick$ } from '@srtp/fn'
+import { str } from '@srtp/spec'
 import { addDays } from 'date-fns'
 import type { Session } from 'next-auth'
 import invariant from 'tiny-invariant'
@@ -17,6 +17,6 @@ export const getSessionByUser = async (
 
   return {
     expires: addDays(new Date(), 1).toISOString(),
-    user: pick(user, ['name', 'email', 'image']),
+    user: pick$(user, ['name', 'email', 'image']),
   }
 }

@@ -1,7 +1,7 @@
-import { str, toInt } from '@srtp/spec'
 import { prisma } from '@core/prisma'
-import { omit } from '@srtp/fn'
 import type { Discussion } from '@prisma/client'
+import { omit$ } from '@srtp/fn'
+import { str, toInt } from '@srtp/spec'
 import { z } from 'zod'
 import type { Args } from './utils'
 
@@ -31,7 +31,7 @@ export const postDiscussion = async (
   const meetingId = str(args.meetingId)
 
   return prisma.discussion.create({
-    data: { meetingId, ...omit(args.discussion as Discussion, ['meetingId']) },
+    data: { meetingId, ...omit$(args.discussion as Discussion, ['meetingId']) },
   })
 }
 
