@@ -18,6 +18,7 @@
     "ci": "pnpm turbo run --parallel lint types test"
   },
   "dependencies": {
+    "@preact/signals-core": "^1.2.3",
     "@srtp/fn": "workspace:*",
     "@srtp/spec": "workspace:*",
     "immer": "9.0.19",

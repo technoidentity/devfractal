@@ -1,10 +1,12 @@
 import { faker } from '@faker-js/faker'
+import { computed, signal } from '@preact/signals-core'
 import {
   entries,
   filter,
   flatten,
   groupBy,
   map,
+  mget,
   omit,
   orderBy,
   pipe,
@@ -12,7 +14,9 @@ import {
   skip,
   toArray,
 } from '@srtp/fn'
+import { ensure, toInt } from '@srtp/spec'
 import produce from 'immer'
+import { z } from 'zod'
 
 type User = Readonly<{
   id: number
@@ -37,7 +41,7 @@ function createUser(): User {
   }
 }
 
-function getUsers(n: number) {
+function createUsers(n: number) {
   return pipe(range(n), map(createUser), toArray)
 }
 
@@ -52,7 +56,7 @@ function createTask(userId: number): Task {
   }
 }
 
-function createTasks(userId: number, maxTasksPerUser: number) {
+function createTasksFor(userId: number, maxTasksPerUser: number) {
   const taskCount = faker.datatype.number({ min: 2, max: maxTasksPerUser })
 
   return pipe(
@@ -62,17 +66,23 @@ function createTasks(userId: number, maxTasksPerUser: number) {
   )
 }
 
-export function getTasks(users: Iterable<User>, maxTasksPerUser: number) {
+export function createTasks(users: Iterable<User>, maxTasksPerUser: number) {
   return pipe(
     users,
-    map(u => createTasks(u.id, maxTasksPerUser)),
+    map(u => createTasksFor(u.id, maxTasksPerUser)),
     flatten,
     toArray,
   )
 }
 
-const users = getUsers(5)
-let tasks = getTasks(users, 10)
+const users = signal(createUsers(5))
+const tasks = signal(createTasks(users.value, 10))
+
+const usernames = computed(() => new Map(users.value.map(u => [u.id, u])))
+
+function username(userId: number) {
+  return mget(usernames.value, toInt(userId)).name
+}
 
 type CompletedTodoListResult = Iterable<{
   username: string
@@ -82,64 +92,59 @@ type CompletedTodoListResult = Iterable<{
 export function getCompletedTodoListFor(
   ...userIds: number[]
 ): CompletedTodoListResult {
-  const userMap = users
-    .filter(u => userIds.includes(u.id))
-    .reduce<Record<number, string>>(
-      (acc, u) => ({ ...acc, [u.id]: u.name }),
-      {},
-    )
-
   return pipe(
-    tasks,
+    tasks.value,
     filter(t => userIds.includes(t.userId) && t.completed),
     groupBy(t => t.userId),
     entries,
     map(([userId, todoList]) => ({
-      username: userMap[userId],
+      username: username(userId),
       todoList: todoList.map(omit(['userId'])),
     })),
   )
 }
 
-// console.log([...getCompletedTodoListFor(1000, 1001, 1002)])
-
 export function setCompletedAboveDeadline(userId: number): void {
-  tasks = produce(tasks, draft => {
+  tasks.value = produce(tasks.value, draft => {
     draft
       .filter(t => t.userId === userId && t.deadline < new Date())
       .forEach(t => (t.completed = true))
   })
 }
 
-// console.log(setCompletedAboveDeadline(1000))
-// console.log(
-//   tasks
-//     .filter(t => t.userId === 1000 && t.deadline < new Date())
-//     .map(t => t.completed),
-// )
-
 type MostIncompleteUsersResult = IterableIterator<
   Readonly<{ username: string; count: number }>
 >
 
 export function getMostIncompleteUsers(n: number): MostIncompleteUsersResult {
-  // @TODO: make this reactive
-  const userMap = users.reduce<Record<number, string>>(
-    (acc, u) => ({ ...acc, [u.id]: u.name }),
-    {},
-  )
+  ensure(z.number().int().nonnegative(), n)
+
   return pipe(
-    tasks,
+    tasks.value,
     filter(t => !t.completed),
     groupBy(t => t.userId),
     entries,
     map(([userId, todoList]) => ({
-      username: userMap[userId],
+      username: username(userId),
       count: todoList.length,
     })),
     orderBy('count'),
-    skip(users.length - n),
+    skip(users.value.length - n),
   )
 }
 
-// console.log([...getMostIncompleteUsers(2)])
+// effect(() => {
+//   console.log([...getCompletedTodoListFor(1000, 1001, 1002)])
+
+//   console.log(
+//     tasks.value
+//       .filter(t => t.userId === 1000 && t.deadline < new Date())
+//       .map(t => t.completed),
+//   )
+
+//   console.log([...getMostIncompleteUsers(2)])
+// })
+
+// effect(() => {
+//   console.log(setCompletedAboveDeadline(1000))
+// })
