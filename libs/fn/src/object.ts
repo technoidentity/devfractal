@@ -122,6 +122,12 @@ export function keys<T extends object>(obj: T): (keyof T)[] {
   return Object.keys(obj) as (keyof T)[]
 }
 
+export function entries<K extends string | number, V>(
+  o: Record<K, V>,
+): Array<[K, V]> {
+  return Object.entries(o) as Array<[K, V]>
+}
+
 export function pickBy<T>(predicate: (value: T) => boolean) {
   return (obj: Record<string, any>): object => {
     const resultObj: Record<string, any> = {}

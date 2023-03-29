@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import {
+  entries,
   filter,
   flatten,
   groupBy,
@@ -77,12 +78,6 @@ type CompletedTodoListResult = Iterable<{
   username: string
   todoList: Array<{ title: string; deadline: Date }>
 }>
-
-export function entries<K extends string | number, V>(
-  o: Record<K, V>,
-): Array<[K, V]> {
-  return Object.entries(o) as Array<[K, V]>
-}
 
 export function getCompletedTodoListFor(
   ...userIds: number[]
