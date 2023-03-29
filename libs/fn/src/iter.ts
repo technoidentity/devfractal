@@ -274,6 +274,20 @@ export function groupBy<T, K extends string | number>(f: (x: T) => K) {
   }
 }
 
+export function mapGroupBy<T, K>(f: (x: T) => K) {
+  return (arr: Iterable<T>): Map<K, readonly T[]> => {
+    const result = new Map<K, readonly T[]>()
+
+    for (const v of arr) {
+      const k = f(v)
+      const prev = result.get(k) ?? []
+      result.set(k, [...prev, v])
+    }
+
+    return result
+  }
+}
+
 type DeepFlattenArgs<T> = Iterable<T | DeepFlattenArgs<T>>
 
 export function* iterFlatten<T>(arr: DeepFlattenArgs<T>): IterableIterator<T> {
