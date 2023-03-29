@@ -178,3 +178,10 @@ export function mergeWith<T extends object, U extends object, V>(
   }
   return result
 }
+
+export function index<T extends object, K extends keyof T>(
+  obj: readonly T[],
+  index: K,
+): Map<T[K], T> {
+  return new Map(obj.map(item => [item[index], item]))
+}
