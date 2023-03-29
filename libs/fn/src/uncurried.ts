@@ -38,6 +38,7 @@ import {
   zip,
   zipLongest,
 } from './iter'
+import { buildObject, merge, omit, omitBy, pick, pickBy, pluck } from './object'
 import { pipe } from './pipe'
 
 export function uncurry<Args extends any[], Src, R>(
@@ -83,3 +84,11 @@ export const any$ = uncurry(any)
 export const fmin$ = uncurry(fmin)
 export const fmax$ = uncurry(fmax)
 export const cons$ = uncurry(cons)
+
+export const pick$ = uncurry(pick)
+export const omit$ = uncurry(omit)
+export const pluck$ = uncurry(pluck)
+export const merge$ = uncurry(merge)
+export const buildObject$ = uncurry(buildObject)
+export const pickBy$ = uncurry(pickBy)
+export const omitBy$ = uncurry(omitBy)
