@@ -68,106 +68,104 @@ export function set<T extends object>(obj: T, ...args: any[]): T {
   return result
 }
 
-export function pick<T extends object, K extends keyof T>(
-  obj: T,
-  keys: readonly K[],
-): Pick<T, K> {
-  const result = {} as Pick<T, K>
-  for (const key of keys) {
-    result[key] = obj[key]
-  }
-
-  return result
-}
-
-export function pluck<T extends object, K extends keyof T>(
-  arr: T[],
-  key: K,
-): T[K][] {
-  return arr.map(x => x[key])
-}
-
-export function omit<T extends object, K extends keyof T>(
-  obj: T,
-  keys: K[],
-): Omit<T, K> {
-  const result: any = {}
-  for (const key of Object.keys(obj)) {
-    const k = key as K
-    if (!keys.includes(k)) {
-      result[k] = obj[k]
+export function pick<T extends object, K extends keyof T>(keys: readonly K[]) {
+  return (obj: T): Pick<T, K> => {
+    const result = {} as Pick<T, K>
+    for (const key of keys) {
+      result[key] = obj[key]
     }
-  }
 
-  return result as Omit<T, K>
+    return result
+  }
 }
 
-export function merge<T1, T2>(obj: T1, obj2: T2): T1 & T2 {
-  return { ...obj, ...obj2 }
+export function pluck<T extends object, K extends keyof T>(key: K) {
+  return (arr: T[]): T[K][] => {
+    return arr.map(x => x[key])
+  }
+}
+
+export function omit<T extends object, K extends keyof T>(keys: K[]) {
+  return (obj: T): Omit<T, K> => {
+    const result: any = {}
+    for (const key of Object.keys(obj)) {
+      const k = key as K
+      if (!keys.includes(k)) {
+        result[k] = obj[k]
+      }
+    }
+
+    return result as Omit<T, K>
+  }
+}
+
+export function merge<T1, T2>(obj2: T2) {
+  return (obj: T1): T1 & T2 => {
+    return { ...obj, ...obj2 }
+  }
 }
 
 export function buildObject<T extends object, K extends keyof T, V>(
-  obj: T,
   f: (value: T[K], key: K) => V,
-): Record<K, V> {
-  const result = {} as Record<K, V>
-  for (const key of Object.keys(obj) as K[]) {
-    result[key] = f(obj[key], key)
-  }
+) {
+  return (obj: T): Record<K, V> => {
+    const result = {} as Record<K, V>
+    for (const key of Object.keys(obj) as K[]) {
+      result[key] = f(obj[key], key)
+    }
 
-  return result
+    return result
+  }
 }
 
 export function keys<T extends object>(obj: T): (keyof T)[] {
   return Object.keys(obj) as (keyof T)[]
 }
 
-export function pickBy<T>(
-  obj: Record<string, any>,
-  predicate: (value: T) => boolean,
-): object {
-  const resultObj: Record<string, any> = {}
-  for (const key of Object.keys(obj)) {
-    if (predicate(obj[key])) {
-      resultObj[key] = obj[key]
+export function pickBy<T>(predicate: (value: T) => boolean) {
+  return (obj: Record<string, any>): object => {
+    const resultObj: Record<string, any> = {}
+    for (const key of Object.keys(obj)) {
+      if (predicate(obj[key])) {
+        resultObj[key] = obj[key]
+      }
     }
+    return resultObj
   }
-  return resultObj
 }
 
-export function omitBy<T>(
-  obj: Record<string, any>,
-  predicate: (value: T) => boolean,
-): object {
-  const resultObject: Record<string, any> = {}
+export function omitBy<T>(predicate: (value: T) => boolean) {
+  return (obj: Record<string, any>): object => {
+    const resultObject: Record<string, any> = {}
 
-  for (const key of Object.keys(obj)) {
-    if (!predicate(obj[key])) {
-      resultObject[key] = obj[key]
+    for (const key of Object.keys(obj)) {
+      if (!predicate(obj[key])) {
+        resultObject[key] = obj[key]
+      }
     }
-  }
 
-  return resultObject
+    return resultObject
+  }
 }
 
-export function mergeWith<T extends object>(
-  fst: T,
-  snd: any,
-  fn: (x: any, y: any) => any,
-): Record<keyof T, number> {
-  const result: any = {}
-  for (const [key, value] of Object.entries(fst)) {
-    if (snd.hasOwnProperty(key)) {
-      const val = fn((fst as any)[key], snd[key])
-      result[key] = val
-    } else {
-      result[key] = value
-    }
-  }
-  for (const [key, value] of Object.entries(snd)) {
-    if (!result.hasOwnProperty(key)) {
-      result[key] = value
-    }
-  }
-  return result
-}
+// export function mergeWith<T extends object>(
+//   fst: T,
+//   snd: any,
+//   fn: (x: any, y: any) => any,
+// ): Record<keyof T, number> {
+//   const result: any = {}
+//   for (const [key, value] of Object.entries(fst)) {
+//     if (snd.hasOwnProperty(key)) {
+//       const val = fn((fst as any)[key], snd[key])
+//       result[key] = val
+//     } else {
+//       result[key] = value
+//     }
+//   }
+//   for (const [key, value] of Object.entries(snd)) {
+//     if (!result.hasOwnProperty(key)) {
+//       result[key] = value
+//     }
+//   }
+//   return result
+// }
