@@ -1,13 +1,23 @@
-export function join<T1 extends object, T2 extends object>(
-  primary: readonly T1[],
-  foreign: readonly T2[],
-  primaryKey: keyof T1,
-  foreignKey: keyof T2,
-): readonly (T1 & T2)[] {
-  const result: (T1 & T2)[] = []
+import { index } from './object'
+
+// Uses identity equality. As a Map in javascript uses identity equality
+export function join<
+  P extends object,
+  F extends object,
+  PK extends keyof P,
+  FK extends keyof F,
+>(
+  primary: readonly P[],
+  foreign: readonly F[],
+  primaryKey: PK,
+  foreignKey: FK,
+): Array<P & F> {
+  const result: Array<P & F> = []
+  const primaryIndex = index(primary, primaryKey)
 
   for (const f of foreign) {
-    const found = primary.find(p => (p[primaryKey] as any) === f[foreignKey])
+    const found = primaryIndex.get(f[foreignKey] as any)
+
     if (found) {
       result.push({ ...f, ...found })
     }
@@ -16,50 +26,50 @@ export function join<T1 extends object, T2 extends object>(
   return result
 }
 
-export function rightOuterJoin<T1 extends object, T2 extends object>(
-  primary: readonly T1[],
-  foreign: readonly T2[],
-  primaryKey: keyof T1,
-  foreignKey: keyof T2,
-): any {
-  const result: any = []
+export function rightOuterJoin<T extends object, U extends object>(
+  primary: readonly T[],
+  foreign: readonly U[],
+  primaryKey: keyof T,
+  foreignKey: keyof U,
+): Array<T | U> {
+  const result: Array<T | U> = []
+  const primaryIndex = index(primary, primaryKey)
 
   for (const f of foreign) {
-    const found = primary.find(p => (p[primaryKey] as any) === f[foreignKey])
+    const found = primaryIndex.get(f[foreignKey] as any)
     result.push({ ...f, ...found })
   }
 
   return result
 }
 
-export function leftOuterJoin<T1 extends object, T2 extends object>(
-  primary: readonly T1[],
-  foreign: readonly T2[],
-  primaryKey: keyof T1,
-  foreignKey: keyof T2,
-): any {
-  const result: any = []
+export function leftOuterJoin<T extends object, U extends object>(
+  primary: readonly T[],
+  foreign: readonly U[],
+  primaryKey: keyof T,
+  foreignKey: keyof U,
+): Array<T | U> {
+  const result: Array<T | U> = []
+  const foreignIndex = index(foreign, foreignKey)
 
   for (const p of primary) {
-    const list = foreign.filter(f => (p[primaryKey] as any) === f[foreignKey])
-    if (list.length === 0) {
-      result.push({ ...p })
-    } else {
-      list.forEach(found => result.push({ ...p, ...found }))
-    }
+    const found = foreignIndex.get(p[primaryKey] as any)
+    result.push({ ...p, ...found })
   }
 
   return result
 }
 
-function cmp<T, K extends keyof T>(keys: K[]) {
+type OrderByKeys<T> = Readonly<{ [K in keyof T]: 'asc' | 'desc' }>
+
+export function keyComparer<T, K extends keyof T>(keys: OrderByKeys<T>) {
   return (a: T, b: T) => {
-    for (const key of keys) {
+    for (const key of Object.keys(keys) as K[]) {
       if (a[key] < b[key]) {
-        return -1
+        return keys[key] === 'asc' ? -1 : 1
       }
       if (a[key] > b[key]) {
-        return 1
+        return keys[key] === 'asc' ? 1 : -1
       }
     }
 
@@ -67,8 +77,8 @@ function cmp<T, K extends keyof T>(keys: K[]) {
   }
 }
 
-export function orderBy<T, K extends keyof T>(...keys: K[]) {
+export function orderBy<T, K extends keyof T>(keys: OrderByKeys<T>) {
   return (arr: Iterable<T>): T[] => {
-    return [...arr].sort(cmp<T, K>(keys))
+    return [...arr].sort(keyComparer<T, K>(keys))
   }
 }
