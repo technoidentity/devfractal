@@ -60,11 +60,11 @@ export function leftOuterJoin<T extends object, U extends object>(
   return result
 }
 
-type OrderByKeys<T> = Readonly<{ [K in keyof T]: 'asc' | 'desc' }>
+type Keys<T, K extends keyof T> = { [P in K]?: 'asc' | 'desc' }
 
-export function keyComparer<T, K extends keyof T>(keys: OrderByKeys<T>) {
+export function keyComparer<T, K extends keyof T>(keys: Keys<T, K>) {
   return (a: T, b: T) => {
-    for (const key of Object.keys(keys) as K[]) {
+    for (const key of Object.keys(keys) as Array<K>) {
       if (a[key] < b[key]) {
         return keys[key] === 'asc' ? -1 : 1
       }
@@ -77,8 +77,27 @@ export function keyComparer<T, K extends keyof T>(keys: OrderByKeys<T>) {
   }
 }
 
-export function orderBy<T, K extends keyof T>(keys: OrderByKeys<T>) {
+export function orderByMany<T, K extends keyof T>(keys: Keys<T, K>) {
   return (arr: Iterable<T>): T[] => {
     return [...arr].sort(keyComparer<T, K>(keys))
+  }
+}
+
+function cmp<T, K extends keyof T>(key: K) {
+  return (a: T, b: T) => {
+    if (a[key] < b[key]) {
+      return -1
+    }
+    if (a[key] > b[key]) {
+      return 1
+    }
+
+    return 0
+  }
+}
+
+export function orderBy<T, K extends keyof T>(key: K) {
+  return (arr: Iterable<T>): T[] => {
+    return [...arr].sort(cmp<T, K>(key))
   }
 }

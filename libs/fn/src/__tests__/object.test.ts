@@ -83,18 +83,18 @@ const array = [
 const emptyArr: Record<string, any>[] = []
 
 test('pluck', () => {
-  expect(pluck$(array, ['name', 'age'])).toEqual([
+  expect([...pluck$(array, ['name', 'age'])]).toEqual([
     { name: 'jack', age: 14 },
     { name: 'jill', age: '15' },
     { name: 'Hoo', age: 16 },
   ])
 
-  expect(pluck$(array, ['age'])).toEqual([
+  expect([...pluck$(array, ['age'])]).toEqual([
     { age: 14 },
     { age: '15' },
     { age: 16 },
   ])
-  expect(pluck$(emptyArr, ['age'])).toEqual([])
-  expect(pluck$(array, [''] as any)).toEqual([{}, {}, {}])
-  expect(pluck$(array, ['unknownKey'] as any)).toEqual([{}, {}, {}])
+  expect([...pluck$(emptyArr, ['age'])]).toEqual([])
+  expect([...pluck$(array, [''] as any)]).toEqual([{}, {}, {}])
+  expect([...pluck$(array, ['unknownKey'] as any)]).toEqual([{}, {}, {}])
 })

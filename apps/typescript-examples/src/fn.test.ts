@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { expect, test } from 'vitest'
-import { chunks } from './chunks'
-import { deepFlatten } from './deepFlatten'
-import { groupBy } from './groupBy'
-import { maxBy } from './maxBy'
-import { skipWhile } from './skipWhile'
-import { zip } from './zip'
+import { deepFlatten, skipWhile } from './array'
+import { chunks, groupBy } from './iter'
+import { zip } from './simple'
 
 test('zip', () => {
   expect(zip([1, 2], [3, 4], [5, 6, 7])).toEqual([
@@ -53,53 +51,38 @@ test('deepFlatten', () => {
 })
 
 test('chunks', () => {
-  expect(chunks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3)).toEqual([
+  expect([...chunks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3)]).toEqual([
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
     [10],
   ])
-  expect(chunks([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)).toEqual([
+  expect([...chunks([1, 2, 3, 4, 5, 6, 7, 8, 9], 3)]).toEqual([
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
   ])
-  expect(chunks([1, 2, 3, 4, 5, 6, 7, 8], 3)).toEqual([
+  expect([...chunks([1, 2, 3, 4, 5, 6, 7, 8], 3)]).toEqual([
     [1, 2, 3],
     [4, 5, 6],
     [7, 8],
   ])
-  expect(chunks([1, 2, 3, 4, 5, 6, 7], 3)).toEqual([[1, 2, 3], [4, 5, 6], [7]])
-  expect(chunks([1, 2, 3, 4, 5, 6], 3)).toEqual([
+  expect([...chunks([1, 2, 3, 4, 5, 6, 7], 3)]).toEqual([
+    [1, 2, 3],
+    [4, 5, 6],
+    [7],
+  ])
+  expect([...chunks([1, 2, 3, 4, 5, 6], 3)]).toEqual([
     [1, 2, 3],
     [4, 5, 6],
   ])
-  expect(chunks([1, 2, 3, 4, 5], 3)).toEqual([
+  expect([...chunks([1, 2, 3, 4, 5], 3)]).toEqual([
     [1, 2, 3],
     [4, 5],
   ])
-  expect(chunks([1, 2, 3, 4], 3)).toEqual([[1, 2, 3], [4]])
-  expect(chunks([1, 2, 3], 3)).toEqual([[1, 2, 3]])
-  expect(chunks([1, 2], 3)).toEqual([[1, 2]])
-  expect(chunks([1], 3)).toEqual([[1]])
-  expect(chunks([], 3)).toEqual([])
-})
-
-test('maxBy', () => {
-  expect(
-    maxBy([{ x: 1 }, { x: 3 }, { x: 2 }, { x: 4 }, { x: 0 }, { x: -1 }], 'x'),
-  ).toEqual({ x: 4 })
-
-  expect(
-    maxBy([{ x: 1 }, { x: 3 }, { x: 2 }, { x: 0 }, { x: -1 }, { x: 4 }], 'x'),
-  ).toEqual({ x: 4 })
-
-  expect(
-    maxBy([{ x: 4 }, { x: 1 }, { x: 3 }, { x: 2 }, { x: 0 }, { x: -1 }], 'x'),
-  ).toEqual({ x: 4 })
-
-  expect(maxBy([{ x: 1 }, { x: 3 }, { x: 2 }], 'x')).toEqual({ x: 3 })
-  expect(maxBy([{ x: 1 }, { x: 3 }], 'x')).toEqual({ x: 3 })
-  expect(maxBy([{ x: 1 }], 'x')).toEqual({ x: 1 })
-  expect(() => maxBy([], 'x')).toThrow()
+  expect([...chunks([1, 2, 3, 4], 3)]).toEqual([[1, 2, 3], [4]])
+  expect([...chunks([1, 2, 3], 3)]).toEqual([[1, 2, 3]])
+  expect([...chunks([1, 2], 3)]).toEqual([[1, 2]])
+  expect([...chunks([1], 3)]).toEqual([[1]])
+  expect([...chunks([], 3)]).toEqual([])
 })
