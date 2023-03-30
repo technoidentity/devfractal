@@ -22,6 +22,7 @@
     "zixuanchen.vitest-explorer",
     "teamhub.teamhub",
     "ms-playwright.playwright",
-    "aaron-bond.better-comments"
+    "aaron-bond.better-comments",
+    "meganrogge.template-string-converter"
   ]
 }
