@@ -1,5 +1,4 @@
 import { bool } from '@srtp/fn'
 
-export function compact<T extends readonly unknown[]>(arr: T): T {
-  return arr.filter(bool) as any as T
-}
+export const compact = <T extends unknown[]>(arr: T): T =>
+  arr.filter(bool) as any as T

@@ -4,11 +4,12 @@ import { checked, Natural } from '@srtp/spec'
 export const isPerfect = checked(
   [Natural],
   n =>
+    n ===
     pipe(
       range(1, n),
       filter(i => n % i === 0),
       reduce(plus, 0),
-    ) === n,
+    ),
 )
 
 if (import.meta.vitest) {
