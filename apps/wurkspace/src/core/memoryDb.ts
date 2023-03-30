@@ -1,4 +1,4 @@
-import { orderBy as orderByFn, pick$ as pickFn, pipe } from '@srtp/fn'
+import { orderByKey as orderByFn, pick$ as pickFn, pipe } from '@srtp/fn'
 import { produce } from 'immer'
 
 type ManyParams<

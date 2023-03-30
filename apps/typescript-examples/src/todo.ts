@@ -11,7 +11,7 @@ import {
   orderBy,
   pipe,
   range,
-  skip,
+  take,
   toArray,
 } from '@srtp/fn'
 import { ensure, toInt } from '@srtp/spec'
@@ -128,8 +128,8 @@ export function getMostIncompleteUsers(n: number): MostIncompleteUsersResult {
       username: username(userId),
       count: todoList.length,
     })),
-    orderBy('count'),
-    skip(users.value.length - n),
+    orderBy({ count: 'desc' }),
+    take(n),
   )
 }
 
