@@ -490,3 +490,9 @@ export function match<T, U>(
   const [head, tail] = snoc(iter)
   return head === undefined ? empty() : nonEmpty(head, tail)
 }
+
+export function* reverseIterable<T>(arr: readonly T[]): IterableIterator<T> {
+  for (let i = arr.length - 1; i >= 0; i--) {
+    yield arr[i]
+  }
+}
