@@ -101,3 +101,25 @@ export function orderByKey<T, K extends keyof T>(key: K) {
     return [...arr].sort(cmp<T, K>(key))
   }
 }
+
+export type RenameKeys<
+  T,
+  U extends string, // @TODO: can we remove this?
+  K extends { [k in keyof T]?: U },
+> = {
+  [k in keyof T as K[k] extends U ? K[k] : k]: T[k]
+}
+
+export function rename<
+  T extends object,
+  U extends string,
+  K extends { [k in keyof T]?: U },
+>(obj: T, keys: K): RenameKeys<T, U, K> {
+  const result: any = {}
+
+  for (const key of Object.keys(obj) as Array<keyof T>) {
+    result[keys[key] || key] = obj[key]
+  }
+
+  return result
+}
