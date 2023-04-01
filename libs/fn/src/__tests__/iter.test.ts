@@ -31,6 +31,7 @@ import {
   takeWhile$,
   zip$,
   zipLongest$,
+  zipWith$,
 } from '../uncurried'
 
 test('range', () => {
@@ -333,6 +334,17 @@ test('zipLongest', () => {
   expect(toArray(zipLongest$([1, 2], ['a', 'b'], 100, '200'))).toEqual([
     [1, 'a'],
     [2, 'b'],
+  ])
+})
+
+test('zipWith', () => {
+  const sub = (x: number, y: number) => x - y
+  expect([...zipWith$([], [], sub)]).toEqual([])
+  expect([...zipWith$([1, 2, 3], [4, 5, 6], sub)]).toEqual([-3, -3, -3])
+  expect([...zipWith$([1, 2, 3], [4, 5, 6, 7], sub)]).toEqual([-3, -3, -3])
+  expect([...zipWith$([1, 2, 3, 4], [4, 5, 6], sub)]).toEqual([-3, -3, -3])
+  expect([...zipWith$([1, 2, 3], [4, 5, 6], (x, y) => x + y)]).toEqual([
+    5, 7, 9,
   ])
 })
 

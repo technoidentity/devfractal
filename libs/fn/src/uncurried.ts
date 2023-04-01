@@ -10,7 +10,6 @@ import {
   sorted,
   splitAt,
   unshift,
-  zipWith,
 } from './array'
 import {
   all,
@@ -37,6 +36,7 @@ import {
   takeWhile,
   zip,
   zipLongest,
+  zipWith,
 } from './iter'
 import { buildObject, merge, omit, omitBy, pick, pickBy, pluck } from './object'
 import { pipe } from './pipe'

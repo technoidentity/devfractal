@@ -1,8 +1,9 @@
 import invariant from 'tiny-invariant'
 import { pipe } from './pipe'
 
-export const isIterable = (x: unknown): x is Iterable<any> =>
-  x != null && typeof (x as any)[Symbol.iterator] === 'function'
+export function isIterable(x: unknown): x is Iterable<any> {
+  return x != null && typeof (x as any)[Symbol.iterator] === 'function'
+}
 
 export function iterator<T>(iter: Iterable<T>): Iterator<T> {
   return iter[Symbol.iterator]()
@@ -494,5 +495,21 @@ export function match<T, U>(
 export function* reverseIterable<T>(arr: readonly T[]): IterableIterator<T> {
   for (let i = arr.length - 1; i >= 0; i--) {
     yield arr[i]
+  }
+}
+
+export function zipWith<T1, T2, T3>(
+  snd: Iterable<T2>,
+  fn: (v1: T1, v2: T2) => T3,
+) {
+  return (fst: Iterable<T1>): T3[] => {
+    const result = pipe(
+      fst,
+      zip(snd),
+      map(([v1, v2]) => fn(v1, v2)),
+      toArray,
+    )
+
+    return result
   }
 }

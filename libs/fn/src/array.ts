@@ -1,5 +1,5 @@
 import invariant from 'tiny-invariant'
-import { all, map, minByProp, range, toArray, zip } from './iter'
+import { all, map, minByProp, range, toArray } from './iter'
 import { pipe } from './pipe'
 
 export function first<T>(arr: readonly T[]): T {
@@ -32,10 +32,9 @@ export function slice(start?: number, end?: number) {
   return <T>(arr: readonly T[]): T[] => arr.slice(start, end)
 }
 
-export const push =
-  <T>(...v: T[]) =>
-  (arr: readonly T[]): T[] =>
-    [...arr, ...v]
+export function push<T>(...v: T[]) {
+  return (arr: readonly T[]): T[] => [...arr, ...v]
+}
 
 export function pop<T>(arr: readonly T[]): T[] {
   return arr.slice(0, arr.length - 1)
@@ -70,7 +69,9 @@ export function remove(index: number) {
   }
 }
 
-export const copy = <T>(arr: readonly T[]): T[] => [...arr]
+export function copy<T>(arr: readonly T[]): T[] {
+  return [...arr]
+}
 
 export function paged(page: number, limit: number) {
   return <T>(arr: readonly T[]): T[] => {
@@ -87,16 +88,13 @@ function defaultEq<T>(fst: T, snd: T): boolean {
 }
 
 export function arrayEqual<T>(fst: readonly T[]) {
-  return (snd: readonly T[], eq = defaultEq): boolean => {
-    if (fst.length !== snd.length) {
-      return false
-    }
-
-    return pipe(
-      range(fst.length),
-      all(i => eq(fst[i], snd[i])),
-    )
-  }
+  return (snd: readonly T[], eq = defaultEq): boolean =>
+    fst.length !== snd.length
+      ? false
+      : pipe(
+          range(fst.length),
+          all(i => eq(fst[i], snd[i])),
+        )
 }
 
 type DeepFlattenArgs<T> = ReadonlyArray<T | DeepFlattenArgs<T>>
@@ -132,16 +130,16 @@ export function splitAt<T>(index: number) {
 }
 
 export function sorted<T>(f: (a: T, b: T) => number) {
-  return (arr: readonly T[]): T[] => {
+  return (arr: Iterable<T>): T[] => {
     return [...arr].sort(f)
   }
 }
 
-export function reversed<T>(arr: readonly T[]): T[] {
+export function reversed<T>(arr: Iterable<T>): T[] {
   return [...arr].reverse()
 }
 
-export function uniqueSorted<T>(arr: readonly T[]): T[] {
+export function uniqueSorted<T>(arr: Iterable<T>): T[] {
   const result: T[] = []
   for (const e of arr) {
     if (last$(result) !== e) {
@@ -152,7 +150,7 @@ export function uniqueSorted<T>(arr: readonly T[]): T[] {
   return result
 }
 
-export function unique<T>(arr: readonly T[]): T[] {
+export function unique<T>(arr: Iterable<T>): T[] {
   const result: T[] = []
   for (const e of arr) {
     if (!result.includes(e)) {
@@ -187,20 +185,4 @@ export const maxIndex = (arr: number[]): number => {
   }
 
   return mi
-}
-
-export function zipWith<T1, T2, T3>(
-  snd: readonly T2[],
-  fn: (v1: T1, v2: T2) => T3,
-) {
-  return (fst: readonly T1[]): T3[] => {
-    const result = pipe(
-      fst,
-      zip(snd),
-      map(([v1, v2]) => fn(v1, v2)),
-      toArray,
-    )
-
-    return result
-  }
 }

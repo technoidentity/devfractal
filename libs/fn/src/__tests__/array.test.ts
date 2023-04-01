@@ -20,12 +20,11 @@ import {
   uniqueSorted,
   unshift,
   zipAll,
-  zipWith,
 } from '../array'
 
 import { expect, test } from 'vitest'
 import { pipe } from '../pipe'
-import { arrayEqual$, sorted$, splitAt$, zipWith$ } from '../uncurried'
+import { arrayEqual$, sorted$, splitAt$ } from '../uncurried'
 
 test('first', () => {
   expect(first([1])).toBe(1)
@@ -265,18 +264,4 @@ test('maxIndex', () => {
   expect(maxIndex([1, 3, 2])).toEqual(1)
   expect(maxIndex([1, 2, 3, 4])).toEqual(3)
   expect(maxIndex([4, 3, 2, 1])).toEqual(0)
-})
-
-test('zipWith', () => {
-  const sub = (x: number, y: number) => x - y
-  expect(zipWith$([], [], sub)).toEqual([])
-  expect(pipe([1, 2, 3], zipWith([4, 5, 6], sub))).toEqual([-3, -3, -3])
-  expect(pipe([1, 2, 3], zipWith([4, 5, 6, 7], sub))).toEqual([-3, -3, -3])
-  expect(pipe([1, 2, 3, 4], zipWith([4, 5, 6], sub))).toEqual([-3, -3, -3])
-  expect(
-    pipe(
-      [1, 2, 3],
-      zipWith([4, 5, 6], (x, y) => x + y),
-    ),
-  ).toEqual([5, 7, 9])
 })
