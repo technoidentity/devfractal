@@ -313,7 +313,7 @@ export function chain<T>(...args: Iterable<T>[]) {
 }
 
 export function flatMap<T, U>(f: (x: T) => Iterable<U>) {
-  return function* (arr: Iterable<T>) {
+  return function* (arr: Iterable<T>): IterableIterator<U> {
     for (const e of arr) {
       yield* f(e)
     }
