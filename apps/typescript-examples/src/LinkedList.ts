@@ -1,8 +1,4 @@
-type Link<T> = {
-  value: T
-  next: Link<T> | undefined
-  prev: Link<T> | undefined
-}
+import type { Link } from './link'
 
 export class LinkedList<T> {
   head: Link<T> | undefined
