@@ -1,8 +1,8 @@
 import invariant from 'tiny-invariant'
 
-export function map<T1, T2>(f: (x: T1) => T2) {
-  return (arr: readonly T1[]): T2[] => {
-    const result: T2[] = []
+export function map<T, U>(f: (x: T) => U) {
+  return (arr: readonly T[]): U[] => {
+    const result: U[] = []
     for (const e of arr) {
       result.push(f(e))
     }
@@ -24,8 +24,8 @@ export function filter<T>(pred: (v: T) => boolean) {
   }
 }
 
-export function reduce<T1, T2>(f: (x: T1, acc: T2) => T2, init: T2) {
-  return (arr: readonly T1[]): T2 => {
+export function reduce<T, U>(f: (x: T, acc: U) => U, init: U) {
+  return (arr: readonly T[]): U => {
     let result = init
     for (const e of arr) {
       result = f(e, result)

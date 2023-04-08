@@ -1,7 +1,8 @@
+import { checked } from '@srtp/spec'
 import { z } from 'zod'
-export function isLeap(year: number): boolean {
-  return year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)
-}
+
+export const isLeap = (year: number): boolean =>
+  year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)
 
 export function daysInMonth(month: number, year: number): number {
   switch (month) {
@@ -19,13 +20,10 @@ export function daysInMonth(month: number, year: number): number {
   }
 }
 
-function isMonthValid(month: number): boolean {
-  return month >= 1 && month <= 12
-}
+const isMonthValid = (month: number) => month >= 1 && month <= 12
 
-function isDayValid(year: number, month: number, day: number): boolean {
-  return day >= 1 && day <= daysInMonth(month, year)
-}
+const isDayValid = (year: number, month: number, day: number) =>
+  day >= 1 && day <= daysInMonth(month, year)
 
 const DateOnly = z.object({
   year: z.number(),
@@ -34,6 +32,8 @@ const DateOnly = z.object({
 })
 type DateOnly = z.infer<typeof DateOnly>
 
-export function isDateValid({ year, month, day }: DateOnly): boolean {
-  return year >= 1642 && isMonthValid(month) && isDayValid(year, month, day)
-}
+export const isDateValid = checked(
+  [DateOnly],
+  ({ year, month, day }: DateOnly) =>
+    year >= 1642 && isMonthValid(month) && isDayValid(year, month, day),
+)
