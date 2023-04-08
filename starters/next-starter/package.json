@@ -12,7 +12,7 @@
     "lint:dev": "pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "pnpm types --watch",
-    "ci": "pnpm turbo lint types"
+    "cd": "pnpm turbo lint types"
   },
   "dependencies": {
     "@chakra-ui/react": "2.4.9",

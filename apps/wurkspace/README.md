@@ -139,7 +139,7 @@ git pull
 git checkout <your-branch>
 git rebase main
 pnpm install
-pnpm ci
+pnpm cd
 ```
 
 ## Approach for creating pages for the app

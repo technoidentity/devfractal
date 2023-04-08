@@ -15,7 +15,7 @@
     "test": "vitest run",
     "test:dev": "vitest dev",
     "coverage": "vitest run --coverage",
-    "ci": "pnpm turbo lint types test"
+    "cd": "pnpm turbo lint types test"
   },
   "dependencies": {
     "immer": "9.0.19",
@@ -24,7 +24,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@types/node": "^18.15.3",
+    "@types/node": "18.15.3",
     "@typescript-eslint/eslint-plugin": "5.55.0",
     "@typescript-eslint/parser": "5.55.0",
     "cross-env": "7.0.3",

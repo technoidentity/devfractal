@@ -16,7 +16,7 @@
     "rs": "node -r esbuild-register",
     "ro": "node -r esbuild-register src/index.ts",
     "dev": "nodemon -x node -r esbuild-register src/index.ts",
-    "ci": "pnpm turbo build test"
+    "cd": "pnpm turbo build test"
   },
   "author": "Pervez Iqbal",
   "license": "ISC",

@@ -22,7 +22,7 @@
     "db:sql": "pnpm prisma migrate dev --create-only",
     "db:studio": "pnpm prisma studio",
     "db:repl": "pnpm prisma-repl",
-    "ci": "pnpm turbo types lint"
+    "cd": "pnpm turbo types lint"
   },
   "dependencies": {
     "@emotion/react": "11.10.6",

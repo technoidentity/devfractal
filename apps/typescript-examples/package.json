@@ -15,10 +15,10 @@
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
     "dev": "vite --clearScreen false",
-    "ci": "pnpm turbo run --parallel lint types test"
+    "cd": "pnpm turbo run --parallel lint types test"
   },
   "dependencies": {
-    "@preact/signals-core": "^1.2.3",
+    "@preact/signals-core": "1.2.3",
     "@srtp/fn": "workspace:*",
     "@srtp/spec": "workspace:*",
     "immer": "9.0.19",
