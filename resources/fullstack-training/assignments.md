@@ -2,7 +2,12 @@
 
 1. Read chapters 3,4 and 5 from
    [Eloquent Javascript](https://eloquentjavascript.net/)
-2. Read [Destructuring](https://exploringjs.com/impatient-js/ch_destructuring.html)
+2. [Destructuring](https://exploringjs.com/impatient-js/ch_destructuring.html)
+3. [generators]()
+4. [classes]()
+5. [higher order functions]()
+6. [array methods]()
+7. [object methods]()
 
 ## Typescript
 
@@ -24,8 +29,10 @@
 
 ## CSS
 
-1. [Learn CSS](https://web.dev/learn/css/)
-2. [Learn Responsive Web Design](https://scrimba.com/learn/responsive)
+1. [Introduction to HTML and CSS](https://scrimba.com/learn/introhtmlcss)
+2. [Conquerring CSS Layouts](https://courses.kevinpowell.co/conquering-responsive-layouts)
+3. [Build a space travel website](https://scrimba.com/learn/spacetravel)
+4. [Learn CSS](https://web.dev/learn/css/)
 
 ## SQL
 

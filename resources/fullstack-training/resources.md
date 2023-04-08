@@ -42,3 +42,4 @@
 
 1. [Nodejs offical guides](https://nodejs.org/en/docs/guides)
 2. [libuv Design](http://docs.libuv.org/en/v1.x/design.html)
+3. [Shell Scripting with Node.js](https://exploringjs.com/nodejs-shell-scripting/)
