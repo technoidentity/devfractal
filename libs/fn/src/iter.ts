@@ -134,6 +134,7 @@ export function findIndex<T>(f: (x: T) => boolean) {
       }
       i += 1
     }
+
     return -1
   }
 }
@@ -247,7 +248,7 @@ export function iterEqual<T>(snd: Iterable<T>) {
       const fstNext = fstIter.next()
       const sndNext = sndIter.next()
 
-      if (fstNext.done || sndNext.done) {
+      if (fstNext.done && sndNext.done) {
         return true
       }
 
@@ -263,12 +264,16 @@ export function iterEqual<T>(snd: Iterable<T>) {
 }
 
 export function groupBy<T, K extends string | number>(f: (x: T) => K) {
-  return (arr: Iterable<T>): Record<K, readonly T[]> => {
-    const result: Record<K, readonly T[]> = {} as any
+  return (arr: Iterable<T>): Record<K, T[]> => {
+    const result: Record<K, T[]> = {} as any
 
     for (const v of arr) {
       const k = f(v)
-      result[k] = result[k] ? [...result[k], v] : [v]
+      if (!result[k]) {
+        result[k] = [v]
+      } else {
+        result[k].push(v)
+      }
     }
 
     return result
@@ -276,13 +281,16 @@ export function groupBy<T, K extends string | number>(f: (x: T) => K) {
 }
 
 export function mapGroupBy<T, K>(f: (x: T) => K) {
-  return (arr: Iterable<T>): Map<K, readonly T[]> => {
-    const result = new Map<K, readonly T[]>()
+  return (arr: Iterable<T>): Map<K, T[]> => {
+    const result = new Map<K, T[]>()
 
     for (const v of arr) {
       const k = f(v)
-      const prev = result.get(k) ?? []
-      result.set(k, [...prev, v])
+      if (!result.has(k)) {
+        result.set(k, [v])
+      } else {
+        result.get(k)!.push(v)
+      }
     }
 
     return result
