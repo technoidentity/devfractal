@@ -8,7 +8,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "coverage": "vitest run --coverage",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
-    "lint": "eslint --max-warnings=0 --cache src tests --ext .ts,.tsx",
+    "lint": "eslint --max-warnings=0 --cache src --ext .ts,.tsx",
     "serve": "vite preview",
     "test:dev": "vitest dev",
     "test": "vitest run",
