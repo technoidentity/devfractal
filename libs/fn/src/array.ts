@@ -48,24 +48,41 @@ export function shift<T>(arr: readonly T[]): T[] {
   return arr.slice(1)
 }
 
+export function pushTo<T>(
+  src: readonly T[],
+  from: number = 0,
+  to: number = src.length,
+) {
+  return (dest: T[]): T[] => {
+    // mutates 'dest' returns the same
+    for (let i = from; i < to; i++) {
+      dest.push(src[i])
+    }
+
+    return dest
+  }
+}
+
 export function insert<T>(index: number, ...value: T[]) {
   return (arr: readonly T[]): T[] => {
     invariant(index >= 0 && index <= arr.length, 'index out of bounds')
-    return [...arr.slice(0, index), ...value, ...arr.slice(index)]
+
+    return pipe([], pushTo(arr, 0, index), pushTo(value), pushTo(arr, index))
   }
 }
 
 export function replace<T>(index: number, value: T) {
   return (arr: readonly T[]): T[] => {
     invariant(index >= 0 && index < arr.length, 'index out of bounds')
-    return [...arr.slice(0, index), value, ...arr.slice(index + 1)]
+
+    return pipe([], pushTo(arr, 0, index), push(value), pushTo(arr, index + 1))
   }
 }
 
 export function remove(index: number) {
   return <T>(arr: readonly T[]): T[] => {
     invariant(index >= 0 && index < arr.length, 'index out of bounds')
-    return [...arr.slice(0, index), ...arr.slice(index + 1)]
+    return pipe([], pushTo(arr, 0, index), pushTo(arr, index + 1))
   }
 }
 
@@ -185,4 +202,14 @@ export const maxIndex = (arr: number[]): number => {
   }
 
   return mi
+}
+
+export function* islice<T>(
+  arr: readonly T[],
+  from: number = 0,
+  to: number = arr.length,
+): IterableIterator<T> {
+  for (let i = from; i < to; i++) {
+    yield arr[i]
+  }
 }
