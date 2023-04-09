@@ -103,42 +103,42 @@ test('findIndex', () => {
   expect(findIndex$([], x => x % 2 === 0)).toEqual(-1)
   expect(findIndex$([1, 2, 3], x => x % 2 === 0)).toEqual(1)
   expect(findIndex$([1, 2, 3], x => x % 2 === 1)).toEqual(0)
-  expect(findIndex$([1, 2, 3, 4], x => x === 4)).toEqual(-1)
+  expect(findIndex$([1, 2, 3, 4], x => x === 5)).toEqual(-1)
 })
 
 test('take', () => {
-  expect(take$([2, 1, 2], 2)).toEqual([2, 1])
-  expect(take$(['a', 1, 'a', 2, '1'], 5)).toEqual(['a', 1, 'a', 2, '1'])
-  expect(take$([1, 2, 3], 5)).toEqual([1, 2, 3])
-  expect(take$([1, 2, 3], 0)).toEqual([])
-  expect(take$([], 0)).toEqual([])
-  expect(take$([1], 2)).toEqual([1])
-  expect(take$([1], 0)).toEqual([])
+  expect([...take$([2, 1, 2], 2)]).toEqual([2, 1])
+  expect([...take$(['a', 1, 'a', 2, '1'], 5)]).toEqual(['a', 1, 'a', 2, '1'])
+  expect([...take$([1, 2, 3], 5)]).toEqual([1, 2, 3])
+  expect([...take$([1, 2, 3], 0)]).toEqual([])
+  expect([...take$([], 0)]).toEqual([])
+  expect([...take$([1], 2)]).toEqual([1])
+  expect([...take$([1], 0)]).toEqual([])
 })
 
 test('skip', () => {
-  expect(skip$([1, 2, 3], 2)).toEqual([3])
-  expect(skip$([1, 2, 3], 5)).toEqual([])
-  expect(skip$([1, 2, 3], 0)).toEqual([1, 2, 3])
-  expect(skip$([], 0)).toEqual([])
-  expect(skip$([1], 0)).toEqual([1])
-  expect(skip$([1], 2)).toEqual([])
+  expect([...skip$([1, 2, 3], 2)]).toEqual([3])
+  expect([...skip$([1, 2, 3], 5)]).toEqual([])
+  expect([...skip$([1, 2, 3], 0)]).toEqual([1, 2, 3])
+  expect([...skip$([], 0)]).toEqual([])
+  expect([...skip$([1], 0)]).toEqual([1])
+  expect([...skip$([1], 2)]).toEqual([])
 })
 
 test('takeWhile', () => {
-  expect(takeWhile$([2, 4, 9, 8], x => x % 2 === 0)).toEqual([2, 4])
-  expect(takeWhile$([2, 4, 9, 8], x => x % 3 === 0)).toEqual([])
-  expect(takeWhile$([1, 2, 3, 7, 4, 5], x => x < 5)).toEqual([1, 2, 3])
-  expect(takeWhile$([2, 4, 8], x => x % 2 === 0)).toEqual([2, 4, 8])
-  expect(takeWhile$([], x => x % 2 === 0)).toEqual([])
+  expect([...takeWhile$([2, 4, 9, 8], x => x % 2 === 0)]).toEqual([2, 4])
+  expect([...takeWhile$([2, 4, 9, 8], x => x % 3 === 0)]).toEqual([])
+  expect([...takeWhile$([1, 2, 3, 7, 4, 5], x => x < 5)]).toEqual([1, 2, 3])
+  expect([...takeWhile$([2, 4, 8], x => x % 2 === 0)]).toEqual([2, 4, 8])
+  expect([...takeWhile$([], x => x % 2 === 0)]).toEqual([])
 })
 
 test('skipWhile', () => {
-  expect(skipWhile$([2, 4, 9, 8], x => x % 2 === 0)).toEqual([9, 8])
-  expect(skipWhile$([2, 4, 9, 8], x => x % 3 === 0)).toEqual([2, 4, 9, 8])
-  expect(skipWhile$([1, 2, 3, 7, 4, 5], x => x < 5)).toEqual([7, 4, 5])
-  expect(skipWhile$([2, 4, 8], x => x % 2 === 0)).toEqual([])
-  expect(skipWhile$([], x => x % 2 === 0)).toEqual([])
+  expect([...skipWhile$([2, 4, 9, 8], x => x % 2 === 0)]).toEqual([9, 8])
+  expect([...skipWhile$([2, 4, 9, 8], x => x % 3 === 0)]).toEqual([2, 4, 9, 8])
+  expect([...skipWhile$([1, 2, 3, 7, 4, 5], x => x < 5)]).toEqual([7, 4, 5])
+  expect([...skipWhile$([2, 4, 8], x => x % 2 === 0)]).toEqual([])
+  expect([...skipWhile$([], x => x % 2 === 0)]).toEqual([])
 })
 
 test('all', () => {
@@ -166,14 +166,14 @@ test('min', () => {
 })
 
 test('iterSlice', () => {
-  expect(iterSlice$([1, 2, 3, 4, 5], 2, 4)).toEqual([3, 4])
-  expect(iterSlice$([1, 2, 3, 4, 5], 0, 4)).toEqual([1, 2, 3, 4])
-  expect(iterSlice$([1, 2, 3, 4, 5], 2, 5)).toEqual([3, 4, 5])
-  expect(iterSlice$([1, 2, 3, 4, 5], 0, 5)).toEqual([1, 2, 3, 4, 5])
-  expect(iterSlice$([1, 2, 3, 4, 5], 0, 0)).toEqual([])
-  expect(iterSlice$([1, 2, 3, 4, 5], 0, 1)).toEqual([1])
-  expect(iterSlice$([1, 2, 3, 4, 5], 4)).toEqual([5])
-  expect(iterSlice$([], 0, 0)).toEqual([])
+  expect([...iterSlice$([1, 2, 3, 4, 5], 2, 4)]).toEqual([3, 4])
+  expect([...iterSlice$([1, 2, 3, 4, 5], 0, 4)]).toEqual([1, 2, 3, 4])
+  expect([...iterSlice$([1, 2, 3, 4, 5], 2, 5)]).toEqual([3, 4, 5])
+  expect([...iterSlice$([1, 2, 3, 4, 5], 0, 5)]).toEqual([1, 2, 3, 4, 5])
+  expect([...iterSlice$([1, 2, 3, 4, 5], 0, 0)]).toEqual([])
+  expect([...iterSlice$([1, 2, 3, 4, 5], 0, 1)]).toEqual([1])
+  expect([...iterSlice$([1, 2, 3, 4, 5], 4)]).toEqual([5])
+  expect([...iterSlice$([], 0, 0)]).toEqual([])
 })
 
 test('iterEqual', () => {
@@ -272,23 +272,23 @@ test('groupBy', () => {
 })
 
 test('iterFlatten', () => {
-  expect(iterFlatten([])).toEqual([])
-  expect(iterFlatten([1, 2, 3])).toEqual([1, 2, 3])
-  expect(
-    iterFlatten([
+  expect([...iterFlatten([])]).toEqual([])
+  expect([...iterFlatten([1, 2, 3])]).toEqual([1, 2, 3])
+  expect([
+    ...iterFlatten([
       [1, 2],
       [3, 4, [5, 6, [7, 8]]],
     ]),
-  ).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
+  ]).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
 })
-test.only('chain', () => {
+test('chain', () => {
   expect(toArray(chain$([], []))).toEqual([])
   expect(toArray(chain$([1, 2, 3], []))).toEqual([1, 2, 3])
   expect(toArray(chain$([], [1, 2, 3]))).toEqual([1, 2, 3])
   expect(toArray(chain$([1, 2, 3], [4, 5, 6]))).toEqual([1, 2, 3, 4, 5, 6])
-  // expect(toArray(chain$([1, 2, 3], [4, 5, 6], [7, 8, 9]))).toEqual([
-  //   1, 2, 3, 4, 5, 6, 7, 8, 9,
-  // ])
+  expect(toArray(chain$([1, 2, 3], [4, 5, 6], [7, 8, 9]))).toEqual([
+    1, 2, 3, 4, 5, 6, 7, 8, 9,
+  ])
 })
 
 test('flatMap', () => {
