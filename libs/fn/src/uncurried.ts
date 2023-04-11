@@ -47,6 +47,14 @@ export function uncurry<Args extends any[], Src, R>(
   return (src: Src, ...args: Args) => pipe(src, f(...args))
 }
 
+export function p<Args extends any[], Src, R>(
+  f: (src: Src, ...args: Args) => R,
+) {
+  return (...args: Args) =>
+    (src: Src): R =>
+      f(src, ...args)
+}
+
 export const map$ = uncurry(map)
 export const filter$ = uncurry(filter)
 export const iterEqual$ = uncurry(iterEqual)
