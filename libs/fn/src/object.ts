@@ -1,22 +1,22 @@
 import { map } from './iter'
 import { pipe } from './pipe'
 
-export function get<T extends object, K extends keyof T>(obj: T, key: K): T[K]
+export function oget<T extends object, K extends keyof T>(obj: T, key: K): T[K]
 
-export function get<T extends object, K extends keyof T, K2 extends keyof T[K]>(
-  obj: T,
-  key: K,
-  key2: K2,
-): T[K][K2]
+export function oget<
+  T extends object,
+  K extends keyof T,
+  K2 extends keyof T[K],
+>(obj: T, key: K, key2: K2): T[K][K2]
 
-export function get<
+export function oget<
   T extends object,
   K extends keyof T,
   K2 extends keyof T[K],
   K3 extends keyof T[K][K2],
 >(obj: T, key: K, key2: K2, key3: K3): T[K][K2][K3]
 
-export function get<
+export function oget<
   T extends object,
   K extends keyof T,
   K2 extends keyof T[K],
@@ -24,7 +24,7 @@ export function get<
   K4 extends keyof T[K][K2][K3],
 >(obj: T, key: K, key2: K2, key3: K3, key4: K4): T[K][K2][K3][K4]
 
-export function get<T extends object>(obj: T, ...keys: string[]): any {
+export function oget<T extends object>(obj: T, ...keys: string[]): any {
   let result: any = obj
   for (const key of keys) {
     result = result[key]
@@ -33,27 +33,26 @@ export function get<T extends object>(obj: T, ...keys: string[]): any {
   return result
 }
 
-export function set<T extends object, K extends keyof T>(
+export function oset<T extends object, K extends keyof T>(
   obj: T,
   key: K,
   value: T[K],
 ): T
 
-export function set<T extends object, K extends keyof T, K2 extends keyof T[K]>(
-  obj: T,
-  key: K,
-  key2: K2,
-  value: T[K][K2],
-): T
+export function oset<
+  T extends object,
+  K extends keyof T,
+  K2 extends keyof T[K],
+>(obj: T, key: K, key2: K2, value: T[K][K2]): T
 
-export function set<
+export function oset<
   T extends object,
   K extends keyof T,
   K2 extends keyof T[K],
   K3 extends keyof T[K][K2],
 >(obj: T, key: K, key2: K2, key3: K3, value: T[K][K2][K3]): T
 
-export function set<
+export function oset<
   T extends object,
   K extends keyof T,
   K2 extends keyof T[K],
@@ -61,7 +60,7 @@ export function set<
   K4 extends keyof T[K][K2][K3],
 >(obj: T, key: K, key2: K2, key3: K3, key4: K4, value: T[K][K2][K3][K4]): T
 
-export function set<T extends object>(obj: T, ...args: any[]): T {
+export function oset<T extends object>(obj: T, ...args: any[]): T {
   let result: any = { ...obj }
   for (let i = 0; i < args.length - 1; i += 1) {
     result = result[args[i]]

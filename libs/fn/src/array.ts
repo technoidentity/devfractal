@@ -20,16 +20,12 @@ export function last$<T>(arr: readonly T[]): T | undefined {
   return arr.at(-1)
 }
 
-export function at(index: number) {
+export function aget(index: number) {
   return <T>(arr: readonly T[]): T => {
     const r = arr.at(index)
     invariant(r !== undefined, 'index out of bounds')
     return r
   }
-}
-
-export function slice(start?: number, end?: number) {
-  return <T>(arr: readonly T[]): T[] => arr.slice(start, end)
 }
 
 export function push<T>(...v: T[]) {
@@ -96,7 +92,7 @@ export function paged(page: number, limit: number) {
     invariant(page > 0, 'page must be greater than 0')
     invariant((page - 1) * limit < arr.length, 'page out of bounds')
 
-    return slice((page - 1) * limit, page * limit)(arr)
+    return arr.slice((page - 1) * limit, page * limit)
   }
 }
 

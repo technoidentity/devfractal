@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
-  at,
+  aget,
   deepFlatten,
   first,
   insert,
@@ -15,7 +15,6 @@ import {
   replace,
   reversed,
   shift,
-  slice,
   unique,
   uniqueSorted,
   unshift,
@@ -39,27 +38,27 @@ test('last', () => {
 })
 
 test('at', () => {
-  expect(pipe([1], at(0))).toBe(1)
-  expect(pipe([1, 2, 3], at(0))).toBe(1)
-  expect(pipe([1, 2, 3], at(1))).toBe(2)
-  expect(pipe([1, 2, 3], at(2))).toBe(3)
-  expect(() => pipe([1, 2, 3], at(3))).toThrow()
-  expect(pipe([1, 2, 3], at(-1))).toBe(3)
-  expect(() => pipe([], at(0))).toThrow()
-  expect(() => pipe([], at(0))).toThrow()
+  expect(pipe([1], aget(0))).toBe(1)
+  expect(pipe([1, 2, 3], aget(0))).toBe(1)
+  expect(pipe([1, 2, 3], aget(1))).toBe(2)
+  expect(pipe([1, 2, 3], aget(2))).toBe(3)
+  expect(() => pipe([1, 2, 3], aget(3))).toThrow()
+  expect(pipe([1, 2, 3], aget(-1))).toBe(3)
+  expect(() => pipe([], aget(0))).toThrow()
+  expect(() => pipe([], aget(0))).toThrow()
 })
 
-test('slice', () => {
-  expect(pipe([], slice(0))).toEqual([])
-  expect(pipe([1, 2, 3, 4, 5], slice(0, 2))).toEqual([1, 2])
-  expect(pipe([1, 2, 3, 4, 5], slice(2))).toEqual([3, 4, 5])
-  expect(pipe([1, 2, 3, 4, 5], slice(2, 4))).toEqual([3, 4])
-  expect(pipe([1, 2, 3, 4, 5], slice(0, 6))).toEqual([1, 2, 3, 4, 5])
-  expect(pipe([1, 2, 3, 4, 5], slice(5))).toEqual([])
-  expect(pipe([1, 2, 3, 4, 5], slice(0, -1))).toEqual([1, 2, 3, 4])
-  expect(pipe([1, 2, 3, 4, 5], slice(0, -2))).toEqual([1, 2, 3])
-  expect(pipe([1, 2, 3, 4, 5], slice(0, -6))).toEqual([])
-})
+// test('slice', () => {
+//   expect(pipe([], slice(0))).toEqual([])
+//   expect(pipe([1, 2, 3, 4, 5], slice(0, 2))).toEqual([1, 2])
+//   expect(pipe([1, 2, 3, 4, 5], slice(2))).toEqual([3, 4, 5])
+//   expect(pipe([1, 2, 3, 4, 5], slice(2, 4))).toEqual([3, 4])
+//   expect(pipe([1, 2, 3, 4, 5], slice(0, 6))).toEqual([1, 2, 3, 4, 5])
+//   expect(pipe([1, 2, 3, 4, 5], slice(5))).toEqual([])
+//   expect(pipe([1, 2, 3, 4, 5], slice(0, -1))).toEqual([1, 2, 3, 4])
+//   expect(pipe([1, 2, 3, 4, 5], slice(0, -2))).toEqual([1, 2, 3])
+//   expect(pipe([1, 2, 3, 4, 5], slice(0, -6))).toEqual([])
+// })
 
 test('push', () => {
   expect(pipe([], push(2))).toEqual([2])

@@ -1,12 +1,11 @@
 import {
   arrayEqual,
-  at,
+  aget,
   insert,
   paged,
   push,
   remove,
   replace,
-  slice,
   sorted,
   splitAt,
   unshift,
@@ -71,10 +70,9 @@ export const chain$ = unpipe(chain)
 export const takeWhile$ = unpipe(takeWhile)
 export const skipWhile$ = unpipe(skipWhile)
 
-export const at$ = unpipe(at)
+export const at$ = unpipe(aget)
 export const take$ = unpipe(take)
 export const skip$ = unpipe(skip)
-export const slice$ = unpipe(slice)
 export const insert$ = unpipe(insert)
 export const replace$ = unpipe(replace)
 export const remove$ = unpipe(remove)

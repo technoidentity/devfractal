@@ -1,7 +1,7 @@
 import { index } from './object'
 
 // Uses identity equality. As a Map in javascript uses identity equality
-export function join<
+export function innerJoin<
   P extends object,
   F extends object,
   PK extends keyof P,
