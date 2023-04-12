@@ -1,0 +1,55 @@
+{
+  "name": "@srtp/signals",
+  "version": "1.0.0",
+  "description": "convenient utility functions for @preact/signal",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [],
+  "author": "Pervez Iqbal",
+  "license": "MIT",
+  "scripts": {
+    "upd": "pnpm ncu -u",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
+    "types:dev": "tsc --noEmit -p . --watch",
+    "types": "tsc --noEmit -p .",
+    "lint": "eslint --fix --max-warnings=0 --cache src --ext .ts,.tsx",
+    "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
+    "test": "vitest run",
+    "test:dev": "vitest dev",
+    "coverage": "vitest run --coverage",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "@preact/signals": "^1.1.3",
+    "@srtp/core": "workspace:*",
+    "@srtp/local-state": "workspace:*",
+    "@srtp/spec": "workspace:*",
+    "immer": "9.0.19",
+    "jotai": "2.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tiny-invariant": "1.3.1",
+    "tiny-warning": "1.0.3",
+    "tslib": "2.5.0",
+    "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@srtp/tsconfig": "workspace:*",
+    "@types/node": "18.15.3",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "cross-env": "7.0.3",
+    "eslint": "8.36.0",
+    "eslint-config-srtp": "workspace:*",
+    "prettier": "2.8.4",
+    "tsup": "6.6.3",
+    "typescript": "4.9.5",
+    "vitest": "0.29.2"
+  }
+}
