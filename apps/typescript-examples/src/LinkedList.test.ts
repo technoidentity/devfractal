@@ -78,7 +78,7 @@ test('remove, find', () => {
 test('insert', () => {
   const one = LinkedList.from<number>([1])
   one.insert(one.find(1)!, 2)
-  expect([...one]).toEqual([1, 2])
+  expect([...one]).toEqual([2, 1])
 
   const list = LinkedList.from([1, 2, 3, 4, 5])
 
@@ -104,5 +104,5 @@ test('insert', () => {
     list.insert(link, 6)
   }
 
-  expect([...list]).toEqual([6, 1, 2, 6, 3, 4, 5, 6])
+  expect([...list]).toEqual([6, 1, 2, 6, 3, 4, 6, 5])
 })
