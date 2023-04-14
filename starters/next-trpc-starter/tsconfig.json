@@ -20,7 +20,6 @@
     "noUnusedParameters": true,
     "outDir": "dist",
     "sourceMap": true,
-    "suppressImplicitAnyIndexErrors": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",

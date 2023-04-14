@@ -23,7 +23,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "suppressImplicitAnyIndexErrors": true,
     "strict": true,
     "strictPropertyInitialization": true,
     "target": "ESNext",

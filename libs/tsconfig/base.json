@@ -20,7 +20,7 @@
     "noEmit": true,
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
-    "importsNotUsedAsValues": "error",
+    "verbatimModuleSyntax": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

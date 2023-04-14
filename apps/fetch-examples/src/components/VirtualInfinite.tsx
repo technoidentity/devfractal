@@ -81,8 +81,8 @@ export const TodoList = () => {
                 onItemsRendered={onItemsRendered}
                 ref={ref}
                 itemSize={40}
-                width={width}
-                height={height}
+                width={width || 1280}
+                height={height || 720}
               >
                 {TodoItem}
               </FixedSizeList>
