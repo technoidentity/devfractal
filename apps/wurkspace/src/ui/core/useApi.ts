@@ -1,7 +1,7 @@
 import type { Paths } from '@core/api'
 import { safeQueryFn } from '@core/api'
 import { logError } from '@srtp/core'
-import produce from 'immer'
+import { produce } from 'immer'
 import React from 'react'
 import type { QueryClient, UseQueryOptions } from 'react-query'
 import { useMutation, useQuery, useQueryClient } from 'react-query'

@@ -15,7 +15,7 @@ import {
   toArray,
 } from '@srtp/fn'
 import { ensure, toInt } from '@srtp/spec'
-import produce from 'immer'
+import { produce } from 'immer'
 import { z } from 'zod'
 
 type User = Readonly<{

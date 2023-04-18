@@ -1,6 +1,6 @@
 import { is } from '@srtp/spec'
 import type { Draft } from 'immer'
-import produce from 'immer'
+import { produce } from 'immer'
 import type { Getter, PrimitiveAtom, WritableAtom } from 'jotai'
 import { atom } from 'jotai'
 import { selectAtom } from 'jotai/utils'

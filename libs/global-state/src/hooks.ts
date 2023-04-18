@@ -1,5 +1,5 @@
 import type { Draft } from 'immer'
-import produce from 'immer'
+import { produce } from 'immer'
 import type { Atom, PrimitiveAtom, WritableAtom } from 'jotai'
 import { useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'

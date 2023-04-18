@@ -1,4 +1,4 @@
-import produce from 'immer'
+import { produce } from 'immer'
 import { z } from 'zod'
 import { ensure } from '@srtp/spec'
 

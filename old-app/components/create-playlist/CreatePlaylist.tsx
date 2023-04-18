@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react'
-import produce from 'immer'
+import { produce } from 'immer'
 import React from 'react'
 import { AddPlaylistForm } from './AddPlaylistForm'
 import type { CreateVideo } from './AddPlaylistVideoForm'

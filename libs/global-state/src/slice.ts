@@ -1,7 +1,7 @@
 import type { Handlers } from '@srtp/local-state'
 import { getReducer } from '@srtp/local-state'
 import type { Draft } from 'immer'
-import produce from 'immer'
+import { produce } from 'immer'
 import { useSetAtom } from 'jotai'
 import { atomWithReducer } from 'jotai/utils'
 

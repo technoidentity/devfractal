@@ -2,7 +2,7 @@ import type { Action } from '@specs/action'
 import type { Discussion } from '@specs/discussion'
 import type { Category } from '@specs/enums'
 import { addDays } from 'date-fns'
-import produce from 'immer'
+import { produce } from 'immer'
 import { v4 as uuid } from 'uuid'
 
 export const categories: readonly Category[] = [
