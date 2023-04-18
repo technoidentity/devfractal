@@ -4,7 +4,7 @@ export type Handlers<State> = Record<
   string,
   (state: Draft<State>, payload: any) => void
 >
-
+// @TODO: Support multiple parameters
 type Payload<S extends Handlers<any>, A extends keyof S> = Parameters<S[A]>[1]
 
 export type Action<S extends Handlers<any>, A extends keyof S> = Payload<

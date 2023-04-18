@@ -12,14 +12,14 @@ type Reducer<State, Hs extends Handlers<State>> = (
 ) => void
 
 export function getActionCreators<State, Hs extends Handlers<State>>(
-  slices: Hs,
-) {
+  handlers: Hs,
+): ActionCreators<State, Hs> {
   const actionCreators: any = {}
-  for (const type of Object.keys(slices)) {
+  for (const type of Object.keys(handlers)) {
     actionCreators[type] = (payload: any) => ({ type, payload })
   }
 
-  return actionCreators as ActionCreators<State, Hs>
+  return actionCreators
 }
 
 export function getActions<State, Hs extends Handlers<State>>(
@@ -35,11 +35,12 @@ export function getActions<State, Hs extends Handlers<State>>(
   return result
 }
 
+// @TODO: support many arguments as payload
 export function getReducer<State, Hs extends Handlers<State>>(
-  slices: Hs,
+  handlers: Hs,
 ): Reducer<State, Hs> {
   return (state, action) => {
-    return slices[action.type](
+    return handlers[action.type](
       state,
       'payload' in action ? action.payload : undefined,
     )
@@ -49,7 +50,7 @@ export function getReducer<State, Hs extends Handlers<State>>(
 export function state$<State, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
-) {
+): readonly [Reducer<State, Hs>, ActionCreators<State, Hs>, State] {
   return [
     getReducer<State, Hs>(handlers),
     getActionCreators<State, Hs>(handlers),
@@ -65,7 +66,7 @@ export function useState$<State, Hs extends Handlers<State>>(
       initialState: State,
     ]
   >,
-) {
+): readonly [State, Actions<State, Hs>] {
   const [reducer, actionCreators, initialState] = args
   const [state, dispatch] = useImmerReducer(reducer, initialState)
 
@@ -77,16 +78,23 @@ export function useState$<State, Hs extends Handlers<State>>(
   return [state, actions] as const
 }
 
-// returns a react hook
+// @TODO: support initial state function
+export function useState<State, Hs extends Handlers<State>>(
+  initialState: State,
+  handlers: Hs,
+): readonly [State, Actions<State, Hs>] {
+  // deliberate empty dependency array to avoid re-creating the state$ function
+  const stateActions = React.useMemo(
+    () => state$<State, Hs>(initialState, handlers),
+    [],
+  )
+
+  return useState$(stateActions)
+}
+
 export function state<State, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
-) {
-  return () =>
-    useState$(
-      React.useMemo(
-        () => state$(initialState, handlers),
-        [initialState, handlers],
-      ),
-    )
+): () => readonly [State, Actions<State, Hs>] {
+  return () => useState(initialState, handlers)
 }

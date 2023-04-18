@@ -14,7 +14,7 @@ import {
   PendingActionsResponse,
   PreviousMeetingsResponse,
   UpComingMeetingsResponse,
-  UsersResponse
+  UsersResponse,
 } from './responses'
 
 const queries = {

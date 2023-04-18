@@ -102,11 +102,11 @@ export function filter<T>(pred: (x: T) => boolean) {
   }
 }
 
-export function reduce<T1, T2>(f: (x: T1, acc: T2) => T2, init: T2) {
-  return (arr: Iterable<T1>): T2 => {
+export function reduce<T, U>(f: (acc: U, x: T) => U, init: U) {
+  return (arr: Iterable<T>): U => {
     let result = init
     for (const e of arr) {
-      result = f(e, result)
+      result = f(result, e)
     }
 
     return result
@@ -506,11 +506,8 @@ export function* reverseIterable<T>(arr: readonly T[]): IterableIterator<T> {
   }
 }
 
-export function zipWith<T1, T2, T3>(
-  snd: Iterable<T2>,
-  fn: (v1: T1, v2: T2) => T3,
-) {
-  return (fst: Iterable<T1>): T3[] => {
+export function zipWith<T, U, T3>(snd: Iterable<U>, fn: (v1: T, v2: U) => T3) {
+  return (fst: Iterable<T>): T3[] => {
     const result = pipe(
       fst,
       zip(snd),
