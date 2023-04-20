@@ -1,14 +1,16 @@
-import { QueryClient, type QueryClientConfig } from '@tanstack/react-query'
+import {
+  QueryClient,
+  type QueryClientConfig,
+  type QueryFunction,
+} from '@tanstack/react-query'
 
 // @TODO: this should be import.meta.env.DEV?
 const isProd = process.env.NODE_ENV === 'production'
 
-type OnError = NonNullable<
-  NonNullable<QueryClientConfig['defaultOptions']>['queries']
->['onError']
 export function createQueryClient(
   options: QueryClientConfig & {
-    onError: OnError
+    onError: (error: unknown) => void
+    queryFn: QueryFunction
   },
 ) {
   return new QueryClient({

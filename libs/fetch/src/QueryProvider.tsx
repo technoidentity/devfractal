@@ -1,16 +1,29 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 import { createQueryClient } from './queryClient'
+import { queryFn, type ToUrl } from './queryFn'
 
-type Children = Readonly<{ children: React.ReactNode }>
+type QueryProviderProps = Readonly<{
+  children: React.ReactNode
+  basePathOrToUrl: string | ToUrl
+}>
 
-const queryClient = createQueryClient({
-  onError: error => {
-    console.error(error)
-  },
-})
+export const QueryProvider = ({
+  basePathOrToUrl,
+  children,
+}: QueryProviderProps) => {
+  const queryClient = React.useMemo(
+    () =>
+      createQueryClient({
+        onError: error => {
+          console.error(error)
+        },
+        queryFn: queryFn(basePathOrToUrl),
+      }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
 
-export const QueryProvider = ({ children }: Children) => {
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   )

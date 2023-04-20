@@ -16,7 +16,7 @@ export const useInterval = (fn: () => void, delay: number) => {
   }, [delay])
 }
 
-export const useSignal = () => {
+export const useGate = () => {
   const signalled = React.useRef(false)
 
   const signal = React.useCallback(() => {
