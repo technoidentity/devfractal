@@ -4,8 +4,7 @@ import { HStack } from '@chakra-ui/react'
 import type { LoaderFunctionArgs, RouteObject } from 'react-router-dom'
 import { NavLink, Outlet } from 'react-router-dom'
 import { z } from 'zod'
-import { For } from '../core/For'
-import { loader, useGet } from '../core/useGet'
+import { For, loader, useGet } from '../core'
 
 const AuthorsSpec = z.array(
   z.object({
@@ -45,8 +44,7 @@ const AuthorBooksSpec = z.array(
   }),
 )
 
-const getQueryKey = (params: LoaderFunctionArgs['params']) =>
-
+const getQueryKey = (params: LoaderFunctionArgs['params']) => {}
 
 const AuthorBooks = () => {
   const books = useGet(AuthorBooksSpec)
@@ -70,4 +68,3 @@ export const authorsRouter: RouteObject = {
     },
   ],
 }
-
