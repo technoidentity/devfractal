@@ -1,4 +1,3 @@
-import React from 'react'
 import { map, pipe, range, toArray } from '@srtp/fn'
 import { HStack, Select } from '@chakra-ui/react'
 

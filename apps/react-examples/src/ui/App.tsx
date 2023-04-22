@@ -2,4 +2,4 @@ import { enableMapSet } from 'immer'
 
 enableMapSet()
 
-export const App = () => <h1>Hello World</h1>
+export const App = () => <h1>I am the app!</h1>

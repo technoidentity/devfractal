@@ -7,7 +7,6 @@ import {
   Input,
   ButtonGroup,
 } from '@chakra-ui/react'
-import React from 'react'
 
 export const LoginForm = () => {
   return (

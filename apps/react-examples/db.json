@@ -1,0 +1,92 @@
+{
+  "authors": [
+    {
+      "id": 1,
+      "name": "Jane Austen",
+      "birthdate": "1775-12-16"
+    },
+    {
+      "id": 2,
+      "name": "Ernest Hemingway",
+      "birthdate": "1899-07-21"
+    },
+    {
+      "id": 3,
+      "name": "Gabriel Garcia Marquez",
+      "birthdate": "1927-03-06"
+    },
+    {
+      "id": 4,
+      "name": "Agatha Christie",
+      "birthdate": "1890-09-15"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "title": "Pride and Prejudice",
+      "year": "1813",
+      "authorId": 1
+    },
+    {
+      "id": 2,
+      "title": "Sense and Sensibility",
+      "year": "1811",
+      "authorId": 1
+    },
+    {
+      "id": 3,
+      "title": "Emma",
+      "year": "1815",
+      "authorId": 1
+    },
+    {
+      "id": 4,
+      "title": "For Whom the Bell Tolls",
+      "year": "1940",
+      "authorId": 2
+    },
+    {
+      "id": 5,
+      "title": "The Sun Also Rises",
+      "year": "1926",
+      "authorId": 2
+    },
+    {
+      "id": 6,
+      "title": "A Farewell to Arms",
+      "year": "1929",
+      "authorId": 2
+    },
+    {
+      "id": 7,
+      "title": "One Hundred Years of Solitude",
+      "year": "1967",
+      "authorId": 3
+    },
+    {
+      "id": 8,
+      "title": "Love in the Time of Cholera",
+      "year": "1985",
+      "authorId": 3
+    },
+    {
+      "id": 9,
+      "title": "Murder on the Orient Express",
+      "year": "1934",
+      "authorId": 4
+    },
+    {
+      "id": 10,
+      "title": "Death on the Nile",
+      "year": "1937",
+      "authorId": 4
+    },
+    {
+      "id": 11,
+      "title": "And Then There Were None",
+      "year": "1939",
+      "authorId": 4
+    }
+  ]
+}
