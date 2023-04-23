@@ -1,0 +1,15 @@
+node_modules
+dist
+.cache
+coverage
+.eslintrc.js
+.eslintrc.cjs
+build
+**/prisma-client/**
+vite.config.ts
+next.config.js
+vitest.workspace.ts
+vitest.config.ts
+postcss.config.js
+tailwind.config.js
+**/dist/**

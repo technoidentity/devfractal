@@ -1,0 +1,31 @@
+{
+  "name": "@ti/vanilla-fastify",
+  "private": true,
+  "description": "basic fastify server",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf .turbo node_modules dist",
+    "dev": "tsx --watch src/index.ts",
+    "types": "tsc --noEmit -p .",
+    "types:dev": "tsc --noEmit -p . --watch",
+    "lint": "eslint --fix --max-warnings=0 --cache src --ext .ts"
+  },
+  "dependencies": {
+    "@fastify/type-provider-typebox": "3.1.0",
+    "@sinclair/typebox": "0.28.5",
+    "fastify": "4.15.0"
+  },
+  "devDependencies": {
+    "@tsconfig/esm": "1.0.3",
+    "@tsconfig/node-lts": "18.12.1",
+    "@tsconfig/node18": "2.0.0",
+    "@tsconfig/strictest": "2.0.1",
+    "@types/node": "18.16.0",
+    "eslint": "8.39.0",
+    "pino-pretty": "10.0.0",
+    "prettier": "2.8.8",
+    "tsx": "3.12.6",
+    "typescript": "5.0.4"
+  }
+}
