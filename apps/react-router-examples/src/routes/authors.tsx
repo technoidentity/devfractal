@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { HStack } from '@chakra-ui/react'
 
-import type { LoaderFunctionArgs, RouteObject } from 'react-router-dom'
-import { NavLink, Outlet } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
+import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { For, loader, useGet } from '../core'
 
@@ -13,8 +13,9 @@ const AuthorsSpec = z.array(
   }),
 )
 
+const authorsKey = 'authors'
 const Authors = () => {
-  const authors = useGet(AuthorsSpec)
+  const authors = useGet(AuthorsSpec, [authorsKey])
 
   return (
     <HStack align="flex-start" p="5" spacing="80">
@@ -44,10 +45,11 @@ const AuthorBooksSpec = z.array(
   }),
 )
 
-const getQueryKey = (params: LoaderFunctionArgs['params']) => {}
-
 const AuthorBooks = () => {
-  const books = useGet(AuthorBooksSpec)
+  const params = useParams()
+  const id = z.number().int().parse(params.id)
+
+  const books = useGet(AuthorBooksSpec, [authorsKey, id, 'books'])
 
   return (
     <ul>
@@ -57,7 +59,7 @@ const AuthorBooks = () => {
 }
 
 export const authorsRouter: RouteObject = {
-  path: 'authors',
+  path: 'authorsKey',
   Component: Authors,
   loader,
   children: [
