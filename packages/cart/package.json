@@ -27,16 +27,16 @@
   },
   "dependencies": {
     "@srtp/core": "workspace:*",
-    "@types/node": "18.15.11",
+    "@types/node": "18.16.0",
     "tslib": "2.5.0",
     "zod": "3.21.4"
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "18.15.11",
-    "eslint": "8.38.0",
+    "eslint": "8.39.0",
     "eslint-config-srtp": "workspace:*",
-    "prettier": "2.8.7",
+    "prettier": "2.8.8",
     "rimraf": "5.0.0",
     "tsup": "6.7.0",
     "typescript": "5.0.4",

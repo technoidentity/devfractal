@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "fs": "0.0.1-security",
-    "glob": "10.2.1",
+    "glob": "10.2.2",
     "gray-matter": "4.0.3",
-    "next": "^13.3.0",
+    "next": "^13.3.1",
     "next-mdx-remote": "4.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -35,16 +35,16 @@
     "tslib": "2.5.0"
   },
   "devDependencies": {
-    "@previewjs/config-helper-nextjs": "1.0.12",
+    "@previewjs/config-helper-nextjs": "1.0.13",
     "@srtp/tsconfig": "workspace:*",
     "@types/glob": "8.1.0",
-    "@types/node": "18.15.11",
-    "@types/react": "18.0.37",
+    "@types/node": "18.16.0",
+    "@types/react": "18.0.38",
     "@types/react-dom": "18.0.11",
     "cross-env": "7.0.3",
-    "eslint": "8.38.0",
+    "eslint": "8.39.0",
     "eslint-config-srtp": "workspace:*",
-    "npm-check-updates": "16.10.8",
+    "npm-check-updates": "16.10.9",
     "typescript": "5.0.4"
   }
 }

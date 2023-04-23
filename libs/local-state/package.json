@@ -36,13 +36,13 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "18.15.11",
-    "@types/react": "18.0.37",
+    "@types/node": "18.16.0",
+    "@types/react": "18.0.38",
     "@types/react-dom": "18.0.11",
     "cross-env": "7.0.3",
-    "eslint": "8.38.0",
+    "eslint": "8.39.0",
     "eslint-config-srtp": "workspace:*",
-    "prettier": "2.8.7",
+    "prettier": "2.8.8",
     "tsup": "6.7.0",
     "typescript": "5.0.4",
     "vitest": "0.30.1"

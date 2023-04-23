@@ -10,8 +10,8 @@
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",
     "confusing-browser-globals": "1.0.11",
-    "eslint": "8.38.0",
-    "eslint-config-next": "13.3.0",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.1",
     "eslint-config-prettier": "8.8.0",
     "eslint-config-turbo": "1.9.3",
     "eslint-plugin-import": "2.27.5",
@@ -20,10 +20,10 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-unicorn": "46.0.0",
-    "prettier": "2.8.7",
+    "prettier": "2.8.8",
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "npm-check-updates": "^16.10.8"
+    "npm-check-updates": "^16.10.9"
   }
 }
