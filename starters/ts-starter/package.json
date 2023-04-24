@@ -32,7 +32,6 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-config-turbo": "^1.9.3",
     "eslint-plugin-prettier": "4.2.1",
-    "npm-check-updates": "16.10.9",
     "prettier": "2.8.8",
     "rimraf": "5.0.0",
     "turbo": "1.9.3",

@@ -3,5 +3,11 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
   },
-  extends: ["ti"],
-};
+  extends: ['srtp'],
+  rules: {
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/no-floating-promises': 'off',
+    '@typescript-eslint/require-await': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
+  },
+}

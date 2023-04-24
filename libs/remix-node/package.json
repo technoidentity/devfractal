@@ -42,7 +42,6 @@
     "@types/node": "18.16.0",
     "cross-env": "7.0.3",
     "eslint": "8.39.0",
-    "npm-check-updates": "16.10.9",
     "prettier": "2.8.8",
     "rimraf": "5.0.0",
     "tsup": "6.7.0",

@@ -23,6 +23,8 @@
   },
   "devDependencies": {
     "@types/node": "18.16.0",
+    "eslint": "8.39.0",
+    "eslint-config-srtp": "workspace:*",
     "fastify-tsconfig": "1.0.1",
     "prettier": "2.8.8",
     "tsx": "3.12.6",

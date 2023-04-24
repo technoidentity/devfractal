@@ -22,8 +22,5 @@
     "eslint-plugin-unicorn": "46.0.0",
     "prettier": "2.8.8",
     "typescript": "5.0.4"
-  },
-  "devDependencies": {
-    "npm-check-updates": "^16.10.9"
   }
 }

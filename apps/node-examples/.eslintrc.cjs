@@ -4,9 +4,8 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   extends: ['srtp'],
+
   rules: {
-    'no-void': 'off',
-    'import/no-default-export': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/require-await': 'off',

@@ -70,7 +70,6 @@
     "cross-env": "7.0.3",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
-    "npm-check-updates": "16.10.9",
     "prettier": "2.8.8",
     "prisma": "4.13.0",
     "rimraf": "5.0.0",

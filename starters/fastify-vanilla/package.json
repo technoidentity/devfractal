@@ -23,6 +23,7 @@
     "@tsconfig/strictest": "2.0.1",
     "@types/node": "18.16.0",
     "eslint": "8.39.0",
+    "eslint-config-srtp": "workspace:*",
     "pino-pretty": "10.0.0",
     "prettier": "2.8.8",
     "tsx": "3.12.6",

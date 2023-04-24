@@ -3,5 +3,8 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
   },
-  extends: ["ti"],
-};
+  extends: ['srtp'],
+  rules: {
+    'import/no-deprecated': 'off',
+  },
+}

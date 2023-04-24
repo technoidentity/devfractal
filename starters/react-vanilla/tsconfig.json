@@ -5,6 +5,6 @@
     "types": ["node"]
   },
 
-  "include": ["src", "tests", "__previewjs__/Wrapper.tsx", "vite.config.ts"],
+  "include": ["src", "__previewjs__/Wrapper.tsx", "vite.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

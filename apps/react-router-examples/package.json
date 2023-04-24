@@ -57,7 +57,6 @@
     "cross-env": "7.0.3",
     "eslint-config-srtp": "workspace:*",
     "json-server": "0.17.3",
-    "npm-check-updates": "16.10.9",
     "prettier": "2.8.8",
     "rimraf": "5.0.0",
     "typescript": "5.0.4",

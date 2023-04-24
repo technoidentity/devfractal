@@ -1,19 +1,18 @@
 {
-  "name": "@ti/express-api",
+  "name": "node-examples",
   "private": true,
-  "description": "express zod api app",
+  "description": "node examples",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "clean": "rimraf .turbo node_modules dist",
     "types": "npx tsc -p .",
     "types:dev": "tsc --noEmit -p . --watch",
+    "lint": "eslint --ext .ts src",
     "dev": "tsx --watch src/index.ts"
   },
   "dependencies": {
-    "express": "4.18.2",
-    "express-zod-api": "10.3.2",
     "tiny-invariant": "1.3.1",
-    "tiny-warning": "1.0.3",
     "zod": "3.21.4"
   },
   "devDependencies": {
