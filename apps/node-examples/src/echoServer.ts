@@ -4,8 +4,9 @@ const server = createServer(socket => {
   console.log('Client connected')
 
   socket.on('data', data => {
-    console.log(`Received: ${data.toString()}`)
-    socket.write(`Echo: ${JSON.stringify(data)}`)
+    const str = data.toString('utf8')
+    console.log(`Received: ${str}`)
+    socket.write(`Echo: ${str}`)
   })
 
   socket.on('close', () => {

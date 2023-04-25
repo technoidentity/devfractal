@@ -1,7 +1,8 @@
 import type { Server, ServerResponse } from 'node:http'
 import { createServer } from 'node:http'
-import * as querystring from 'node:querystring'
-import * as url from 'node:url'
+import qs from 'query-string'
+
+import { filter$, iterSlice$, pipe, toArray } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 import { PostTodo, Todo, TodoID } from './todoSpec'
@@ -22,28 +23,32 @@ const Query = z.object({
   completed: z.boolean().optional(),
 })
 
-function getTodos(url: url.UrlWithParsedQuery) {
-  const { limit, page, title, completed } = Query.parse(url.query)
+function getTodos(url: URL) {
+  const { limit, page, title, completed } = pipe(
+    url.searchParams.entries(),
+    Object.fromEntries,
+    Query.parse,
+  )
 
-  let result = todos
+  let result = todos as Iterable<Todo>
 
-  if (title) {
-    result = result.filter(todo =>
+  if (title !== undefined) {
+    result = filter$(result, todo =>
       todo.title.toLowerCase().includes(title.toLowerCase()),
     )
   }
 
   if (completed !== undefined) {
-    result = result.filter(todo => todo.completed === completed)
+    result = filter$(result, todo => todo.completed === completed)
   }
 
-  if (page && limit) {
+  if (page !== undefined && limit != undefined) {
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
-    result = result.slice(startIndex, endIndex)
+    result = iterSlice$(result, startIndex, endIndex)
   }
 
-  return result
+  return toArray(result)
 }
 
 function sendJson(
@@ -56,8 +61,14 @@ function sendJson(
   res.end(JSON.stringify(body))
 }
 
-function sendError(res: ServerResponse, error: Error, statusCode: number) {
+function sendError(
+  res: ServerResponse,
+  error: unknown,
+  statusCode: number = 400,
+) {
   res.statusCode = statusCode
+
+  invariant(error instanceof Error, 'Error must be an instance of Error')
   res.end(error.message)
 }
 
@@ -68,7 +79,7 @@ function parseBody(
 ) {
   let body = ''
   req.on('data', chunk => (body += chunk.toString()))
-  req.on('end', () => cb(null, spec.parse(querystring.parse(body))))
+  req.on('end', () => cb(null, spec.parse(qs.parse(body))))
   req.on('error', cb)
 }
 
@@ -76,8 +87,8 @@ const server: Server = createServer((req, res) => {
   try {
     invariant(req.url, 'URL is required')
 
-    const parsedUrl = url.parse(req.url, true)
-    const method = Method.parse(parsedUrl)
+    const parsedUrl = new URL(req.url)
+    const method = Method.parse(req.method)
     const pathname = z.string().parse(parsedUrl.pathname)
 
     invariant(pathname.startsWith('/'), 'Path must start with /')
@@ -86,12 +97,12 @@ const server: Server = createServer((req, res) => {
       try {
         sendJson(res, getTodos(parsedUrl))
       } catch (err) {
-        sendError(res, err as Error, 400)
+        sendError(res, err as Error)
       }
     } else if (method === 'POST' && pathname === '/todos') {
       parseBody(req, PostTodo, (err, body) => {
         if (err) {
-          sendError(res, err, 400)
+          sendError(res, err)
         } else {
           const newTodo = { ...body, id: ++currentId }
           todos.push(newTodo)
@@ -104,7 +115,7 @@ const server: Server = createServer((req, res) => {
 
         parseBody(req, Todo, (err, body) => {
           if (err) {
-            sendError(res, err, 400)
+            sendError(res, err)
           } else {
             try {
               invariant(todoID === body.id, 'Todo ID must match')
@@ -114,12 +125,12 @@ const server: Server = createServer((req, res) => {
               todos[todoIndex] = body
               sendJson(res, body)
             } catch (err) {
-              sendError(res, err as Error, 400)
+              sendError(res, err as Error)
             }
           }
         })
       } catch (err) {
-        sendError(res, err as Error, 400)
+        sendError(res, err as Error)
       }
     } else if (method === 'DELETE' && /^\/todos\/\d+$/.test(pathname)) {
       try {
@@ -131,7 +142,7 @@ const server: Server = createServer((req, res) => {
         todos.splice(todoIndex, 1)
         sendJson(res, null, 204)
       } catch (err) {
-        sendError(res, err as Error, 400)
+        sendError(res, err as Error)
       }
     }
   } catch (e) {

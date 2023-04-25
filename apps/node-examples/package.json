@@ -13,9 +13,13 @@
   },
   "dependencies": {
     "@planetscale/database": "1.7.0",
+    "@srtp/core": "workspace:*",
+    "@srtp/fn": "workspace:*",
+    "@srtp/spec": "workspace:*",
     "better-sqlite3": "8.3.0",
     "kysely": "0.24.2",
     "kysely-planetscale": "1.3.0",
+    "query-string": "8.1.0",
     "sqlite3": "5.1.6",
     "tiny-invariant": "1.3.1",
     "undici": "5.22.0",
