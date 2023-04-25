@@ -1,14 +1,12 @@
-### Correctness
+### Make sure the code passes all CI/CD checks.
 
-1.  Make sure the code is simple and there's no unnecessary complexity.
-2.  Make sure data is either immutable or not shared.
-3.  All global data should be immutable.
-4.  Mutability is handled through pointers.
-5.  Make sure the code is as strongly typed as possible. There are no uses of
-    'top' type like 'any' or 'object'.
-6.  MAke sure computations are pure functions. There are no side effects like
-    mutating global state or making network requests.
-7.  Make sure effect functions have no computation/logic.
+1.  Make sure the code is formatted correctly.
+
+2.  Make sure the code passes all unit and integrations tests.
+
+3.  Make sure the code passes all linting checks.
+
+4.  Make sure the code passes all typesafety checks.
 
 ### Error Handling
 
@@ -25,6 +23,31 @@
 
 5. Make sure all data from external world, like user input, network requests,
    etc are fully validated. All validation must happen at boundaries.
+
+### Testing
+
+1.  Make sure all complex code has accompanying tests.
+
+2.  Make sure all user facing API's have integration tests.
+
+3.  Make sure all developer facing API's have unit tests.
+
+### Correctness
+
+1.  Make sure the code is simple and there's no unnecessary complexity.
+
+2.  Make sure data is either immutable or not shared.
+
+3.  All global data should be immutable.
+
+4.  Mutability is handled through pointers.
+
+5.  Make sure the code is as strongly typed as possible. There are no uses of
+    'top' type like 'any' or 'object'.
+6.  MAke sure computations are pure functions. There are no side effects like
+    mutating global state or making network requests.
+
+7.  Make sure effect functions have no computation/logic.
 
 ### Generic
 
@@ -52,24 +75,11 @@
 7. Prefer channels or async enumerable if available.
 8. Make sure asynchronous code and parallel code are separated.
 
-### Testing
-
-1.  Make sure all complex code has accompanying tests.
-2.  Make sure all user facing API's have integration tests.
-3.  Make sure all developer facing API's have unit tests.
-
 ### Performance
 
 1.  Make sure there are no obvious performance concerns.
 2.  Make sure algorithms with right time complexity are used.
 3.  Make sure immutability doesn't cause serious performance concerns.
-
-### Make sure the code passes all CI/CD checks.
-
-1.  Make sure the code is formatted correctly.
-2.  Make sure the code passes all unit and integrations tests.
-3.  Make sure the code passes all linting checks.
-4.  Make sure the code passes all typesafety checks.
 
 ### Metrics
 
