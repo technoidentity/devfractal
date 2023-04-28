@@ -6,6 +6,8 @@ module.exports = {
   extends: ['srtp'],
 
   rules: {
+    '@typescript-eslint/unbound-method': 'off',
+    'import/no-deprecated': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/require-await': 'off',

@@ -42,7 +42,7 @@ function getTodos(url: URL) {
     result = filter$(result, todo => todo.completed === completed)
   }
 
-  if (page !== undefined && limit != undefined) {
+  if (page !== undefined && limit !== undefined) {
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
     result = iterSlice$(result, startIndex, endIndex)

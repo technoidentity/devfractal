@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 import { cast } from '@srtp/spec'
 import fs from 'node:fs'
 import { argv } from 'node:process'
