@@ -14,7 +14,8 @@
 
     > answers : a, c, d, e
 
-2.  **In theory, functional programming is writing programs using functions that:**
+2.  **In theory, functional programming is writing programs using functions
+    that:**
 
     a. never return a value
 
@@ -55,7 +56,8 @@
 
     > answer: yes
 
-5.  **Which of the following options apply to referentially transparent code:(can select multiple)**
+5.  **Which of the following options apply to referentially transparent
+    code:(can select multiple)**
 
     a. It can throw an Exception
 
@@ -87,11 +89,14 @@
 
     > answer : a
 
-7.  **The relation between two sets, domain and codomain, is said to be a function, if**
+7.  **The relation between two sets, domain and codomain, is said to be a
+    function, if**
 
-    a. each element of the domain set has at least one corresponding element in the codomain
+    a. each element of the domain set has at least one corresponding element in
+    the codomain
 
-    b. each element of the domain set has exactly one corresponding element in the codomain set
+    b. each element of the domain set has exactly one corresponding element in
+    the codomain set
 
     c. domain and codomain sets have no common elements
 
@@ -105,9 +110,11 @@
 
     b. Two elements of the codomain cannot correspond to same element of domain
 
-    c. Few elements of the codomain may not have any corresponding element in domain
+    c. Few elements of the codomain may not have any corresponding element in
+    domain
 
-    d. An element of the domain cannot correspond to multiple elements in the codomain
+    d. An element of the domain cannot correspond to multiple elements in the
+    codomain
 
     > answers : b,c
 
@@ -145,11 +152,13 @@
 
     d. It may or may not return a value.
 
-    e. When called with the same argument, it must always return the same result.
+    e. When called with the same argument, it must always return the same
+    result.
 
     > answers : a, e
 
-12. **A function that depends on its argument "a" and any non-mutating final class variable "b" can become pure function by:**
+12. **A function that depends on its argument "a" and any non-mutating final
+    class variable "b" can become pure function by:**
 
     a. considering b as a supplemental argument.
 
@@ -161,9 +170,11 @@
 
     > answer: either a or b
 
-13. **Which of the following principle can be used to create functions that can be manipulated, like passed as arguments to other methods?**
+13. **Which of the following principle can be used to create functions that can
+    be manipulated, like passed as arguments to other methods?**
 
-    a. define an interface with a single method then implement this method in an anonymous class
+    a. define an interface with a single method then implement this method in an
+    anonymous class
 
     b. define them as static functions
 
@@ -173,13 +184,16 @@
 
     > answer : a
 
-14. **How to create a method to triple an integer value using the following interface:**
+14. **How to create a method to triple an integer value using the following
+    interface:**
 
             public interface Function {
                 int apply(int arg);
             }
 
-15. **Function composition is a binary operation on functions, just as addition is a binary operation on numbers. So you can compose two functions f1, f2 (created using the above interface Function) programmatically as:**
+15. **Function composition is a binary operation on functions, just as addition
+    is a binary operation on numbers. So you can compose two functions f1, f2
+    (created using the above interface Function) programmatically as:**
 
             a. Function compose(final Function f1, final Function f2) {
                   return new Function() {
@@ -220,8 +234,8 @@
 
          > answer : d
 
-16. **In functional programming, composing functions is powerful because functions can be composed without being evaluated. True or false?**
-
+16. **In functional programming, composing functions is powerful because
+    functions can be composed without being evaluated. True or false?**
 
     > answer : b
 

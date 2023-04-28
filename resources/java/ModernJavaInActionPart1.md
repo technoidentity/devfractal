@@ -1,35 +1,29 @@
+1.  Which of the following programming concepts are central to the design of
+    Java 8:
 
-1. Which of the following programming concepts are central to the design of Java 8:
+    a. Streams API b. The ability to pass methods (your code) as arguments to
+    other methods c. Parallelism simplified d. All of the above
 
-    a. Streams API
-    b. The ability to pass methods (your code) as arguments to other methods
-    c. Parallelism simplified
-    d. All of the above
+    > answer : d
 
-    >answer : d
+2.  The method reference :: syntax means a. use the method as a value b. use the
+    method as a operator c. use the method as is d. use the method as static
 
+    > answer : a
 
-
-2. The method reference :: syntax means
-   a. use the method as a value
-   b. use the method as a operator
-   c. use the method as is
-   d. use the method as static
-
-    >answer : a
-
-
-3. Write the code to filter all the hidden files in a directory:
+3.  Write the code to filter all the hidden files in a directory:
 
          a. File hiddenFiles = new File(".").listFiles(File::isHidden);
          b. File[] hiddenFiles = new File(".").listFiles(File::isHidden);
          c. File[] hiddenFiles = new File(".").listFiles(isHidden);
          d. File hiddenFiles = new  File(".").listFiles(isHidden);
 
-    >answer : b
+    > answer : b
 
-
-4. Consider a variable `inventory` that contains  a `List` of apples and a class `Apple` that includes methods `getColor()` and `getWeight()`. Which of the following is a better way to write method(s) that returns the list of filtered apples based on color or weight:
+4.  Consider a variable `inventory` that contains a `List` of apples and a class
+    `Apple` that includes methods `getColor()` and `getWeight()`. Which of the
+    following is a better way to write method(s) that returns the list of
+    filtered apples based on color or weight:
 
          a. write two filter methods: one that filters apples based on color and
             another that filters apples based on weight
@@ -42,44 +36,40 @@
 
     > answer : b
 
-5. Lambdas should be used for(can select multiple):
-   a. methods that are used only once or twice
-   b. methods that are short
-   c. methods that consist of multiple lines
-   d. methods that are difficult to define
+5.  Lambdas should be used for(can select multiple): a. methods that are used
+    only once or twice b. methods that are short c. methods that consist of
+    multiple lines d. methods that are difficult to define
 
-  > answers : a,b
+> answers : a,b
 
+7.  Which of the following is true regarding Streams API(can select multiple):
+    a. It provides internal iteration b. It provides external iteration c. It
+    supports parallel processing on multi core computers d. It uses
+    multi-threaded code that is error-prone and difficult
 
-7. Which of the following is true regarding Streams API(can select multiple):
-   a. It provides internal iteration
-   b. It provides external iteration
-   c. It supports parallel processing on multi core computers
-   d. It uses multi-threaded code that is error-prone and difficult
+    > answer : a,c
 
-   >answer : a,c
-
-8. The parallelism using Streams API works only if the methods passed to library methods:
-   a. have no interaction during execution between components
-   b. have mutable shared objects
-   c. use functions as first-class values
-   d. use multiple threads
-
-   > answer : a
-
-9. If an interface method is preceded by the keyword _default_, then it means that:
-    a. an implementing class doesn’t need to implement it
-    b. all concrete classes must implement it
-    c. only one concrete class can implement it
-    d. an implementing class must implement it
+8.  The parallelism using Streams API works only if the methods passed to
+    library methods: a. have no interaction during execution between components
+    b. have mutable shared objects c. use functions as first-class values d. use
+    multiple threads
 
     > answer : a
 
-10. The behavior parameterization means:
-    a. the ability to define a method that takes multiple behaviors as parameters and returns the same result
-    b. the ability to define a method that takes multiple behaviors as parameters and uses them to accomplish different behaviors.
-    c. the ability to define a method that takes a single parameter and returns different behaviors as the result
-    d. the ability to define a method that is implemented by multiple classes
+9.  If an interface method is preceded by the keyword _default_, then it means
+    that: a. an implementing class doesn’t need to implement it b. all concrete
+    classes must implement it c. only one concrete class can implement it d. an
+    implementing class must implement it
+
+    > answer : a
+
+10. The behavior parameterization means: a. the ability to define a method that
+    takes multiple behaviors as parameters and returns the same result b. the
+    ability to define a method that takes multiple behaviors as parameters and
+    uses them to accomplish different behaviors. c. the ability to define a
+    method that takes a single parameter and returns different behaviors as the
+    result d. the ability to define a method that is implemented by multiple
+    classes
 
     > answer : b
 
@@ -94,18 +84,20 @@
 
     If we need to filter apples based on multiple different criteria, then:
 
-    a. we need to declare multiple `test` methods in the `ApplePredicate` to represent different selection criteria
-    b. we need to create multiple `filterApples()` methods to represent different selection criteria
-    c. We need to declare multiple implementations of `ApplePredicate` to represent different selection criteria and then create and pass `ApplePredicate` object corresponding to the selected criteria to the `filterApples()` method
-    d. we need to pass multiple parameters to represent different selection criteria
+    a. we need to declare multiple `test` methods in the `ApplePredicate` to
+    represent different selection criteria b. we need to create multiple
+    `filterApples()` methods to represent different selection criteria c. We
+    need to declare multiple implementations of `ApplePredicate` to represent
+    different selection criteria and then create and pass `ApplePredicate`
+    object corresponding to the selected criteria to the `filterApples()` method
+    d. we need to pass multiple parameters to represent different selection
+    criteria
 
     > answer : c
 
-12. Anonymous classes allow you to
-    a. extend multiple classes
-    b. define nested classes
-    c. instantiate multiple classes at the same time
-    d. declare and instantiate a class at the same time
+12. Anonymous classes allow you to a. extend multiple classes b. define nested
+    classes c. instantiate multiple classes at the same time d. declare and
+    instantiate a class at the same time
 
     > answer : d
 
@@ -124,60 +116,53 @@
 
     > answer : c
 
-14. The basic syntax of a lambda is
-    a. (parameters) -> expression
-    b. (parameters) -> { statements; }
-    c. both
-    d. none
+14. The basic syntax of a lambda is a. (parameters) -> expression b.
+    (parameters) -> { statements; } c. both d. none
 
     > answer : c
 
-15. A lambda is (multiple selection):
-    a. a function
-    b. a class
-    c. a built in library
-    d. boilerplate code for an interface
-    e. anonymous
-    f. predefined
+15. A lambda is (multiple selection): a. a function b. a class c. a built in
+    library d. boilerplate code for an interface e. anonymous f. predefined
 
-   > answers : a,e
+> answers : a,e
 
-  16. which of the following are not valid lambda expressions?(multiple selection)
+16. which of the following are not valid lambda expressions?(multiple selection)
 
-            a. (Integer i) -> return "Abc" + i;
-            b. (String s) -> { "xyz"; }
-            c. () -> {}
-            d. (String s) -> s.length()
-            e. (int a, int b) -> a * b
+          a. (Integer i) -> return "Abc" + i;
+          b. (String s) -> { "xyz"; }
+          c. () -> {}
+          d. (String s) -> s.length()
+          e. (int a, int b) -> a * b
+
 
     > answer: a,b
 
-  17. Which of these interfaces are functional interfaces?(multiple selection)
+17. Which of these interfaces are functional interfaces?(multiple selection)
 
-            a. public interface Adder {
-                 int add(int a, int b);
-               }
-            b. public interface SmartAdder extends Adder {
-                 int add(double a, double b);
-               }
-            c. public interface Nothing {
-               }
-            d. public interface Comparator<T> {
-                 int compare(T o1, T o2);
-               }
-            e. public interface Runnable {
-                 void run();
-               }
+          a. public interface Adder {
+               int add(int a, int b);
+             }
+          b. public interface SmartAdder extends Adder {
+               int add(double a, double b);
+             }
+          c. public interface Nothing {
+             }
+          d. public interface Comparator<T> {
+               int compare(T o1, T o2);
+             }
+          e. public interface Runnable {
+               void run();
+             }
 
-      > answers :a,d,e
+    > answers :a,d,e
 
 18. Consider the code:
 
         public static void process(Runnable r) {
           r.run();
         }
-    which of the following is valid:
 
+    which of the following is valid:
 
         a. process(System.out.println("Hello World"));
         b. process({} -> System.out.println("Hello World"));
@@ -213,36 +198,36 @@
 
     > answer : a,b
 
-  21. If @FunctionalInterface annotation is used to annotate a non functional interface, then
-      a. nothing happens
-      b. warning message is displayed
-      c. error message is displayed
-      d. runtime error occurs
+21. If @FunctionalInterface annotation is used to annotate a non functional
+    interface, then a. nothing happens b. warning message is displayed c. error
+    message is displayed d. runtime error occurs
 
-      > answer : c
+    > answer : c
 
-  22. How can you use `Consumer<T>` interface  to create a method `forEach` using lambda to print all the elements of the list:
+22. How can you use `Consumer<T>` interface to create a method `forEach` using
+    lambda to print all the elements of the list:
 
-            a. public <T> void forEach(List<T> list, Consumer<T> c) {
-                for(T t: list) {
-                    c.print(t);
-                }
-               }
-            b. public <T> void forEach(List<T> list) {
-                for(T t: list) {
-                    print(t);
-                }
-               }
-            c. public void forEach(List list, Consumer c) {
-                for(t: list) {
-                    System.out.println(t);
-                }
-               }
-            d. public <T> void forEach(List<T> list, Consumer<T> c) {
-                for(T t: list) {
-                    c.accept(t);
-                }
-               }
+          a. public <T> void forEach(List<T> list, Consumer<T> c) {
+              for(T t: list) {
+                  c.print(t);
+              }
+             }
+          b. public <T> void forEach(List<T> list) {
+              for(T t: list) {
+                  print(t);
+              }
+             }
+          c. public void forEach(List list, Consumer c) {
+              for(t: list) {
+                  System.out.println(t);
+              }
+             }
+          d. public <T> void forEach(List<T> list, Consumer<T> c) {
+              for(T t: list) {
+                  c.accept(t);
+              }
+             }
+
 
     answer : d
 
@@ -263,27 +248,22 @@
 
         answer : a
 
-24. Which functional interface would you use for the lambda-expression signatures T -> R
-    a. IntBinaryOperator
-    b. Function<T, R>
-    c. Consumer<T>
-    d. BiFunction<T, U, R>
+24. Which functional interface would you use for the lambda-expression
+    signatures T -> R a. IntBinaryOperator b. Function<T, R> c. Consumer<T> d.
+    BiFunction<T, U, R>
 
     answer : b
 
-25. What will be the matching functional interface for the lambda expression : (List<String> list) -> list.isEmpty()
-    a. Function<String,Integer>
-    b. Predicate<List>
-    c. ToIntFunction<String>
-    d. Predicate<List<String>>
+25. What will be the matching functional interface for the lambda expression :
+    (List<String> list) -> list.isEmpty() a. Function<String,Integer> b.
+    Predicate<List> c. ToIntFunction<String> d. Predicate<List<String>>
 
     answer : d
 
-26. Which of the following is not valid?
-    a. Object o = () -> { System.out.println("Tricky example"); };
-    b. Predicate<String> p = (String s) -> list.add(s);
-    c. Consumer<String> b = (String s) -> list.add(s);
-    d. Runnable r = () -> { System.out.println("Tricky example"); };
+26. Which of the following is not valid? a. Object o = () -> {
+    System.out.println("Tricky example"); }; b. Predicate<String> p = (String s)
+    -> list.add(s); c. Consumer<String> b = (String s) -> list.add(s); d.
+    Runnable r = () -> { System.out.println("Tricky example"); };
 
     answer : a
 
@@ -299,29 +279,32 @@
 
     answer : d
 
-28. Which of the following are true?(can select multiple)
-    a. Lambda expressions can capture local variables that are assigned to only once.
-    b. The Java compiler deduces what functional interface to associate with a lambda expression from its surrounding context
-    c. the same lambda expression can be associated with different functional interfaces if they have a compatible abstract method signature.
-    d. The functional interfaces are not allowed to throw a checked exception
+28. Which of the following are true?(can select multiple) a. Lambda expressions
+    can capture local variables that are assigned to only once. b. The Java
+    compiler deduces what functional interface to associate with a lambda
+    expression from its surrounding context c. the same lambda expression can be
+    associated with different functional interfaces if they have a compatible
+    abstract method signature. d. The functional interfaces are not allowed to
+    throw a checked exception
 
     answer : all are true.
 
-29. If you have a two-argument constructor, Apple (Color color, Integer weight) , it fits
-the signature of the:
+29. If you have a two-argument constructor, Apple (Color color, Integer weight)
+    , it fits the signature of the:
 
-        a. BiFunction<Color, Integer> c = Apple::new;
-           Apple a = c.apply(GREEN, 110);
-        b. Function<Color, Integer> c = Apple::new;
-           Apple a = c.apply(GREEN, 110);
-        c. BiFunction<Color, Integer, Apple> c = Apple::new;
-           Apple a = c.apply(GREEN, 110);
-        d. Function<Color, Integer, Apple> c = Apple:new;
-           Apple a = c.apply(GREEN, 110);
+            a. BiFunction<Color, Integer> c = Apple::new;
+               Apple a = c.apply(GREEN, 110);
+            b. Function<Color, Integer> c = Apple::new;
+               Apple a = c.apply(GREEN, 110);
+            c. BiFunction<Color, Integer, Apple> c = Apple::new;
+               Apple a = c.apply(GREEN, 110);
+            d. Function<Color, Integer, Apple> c = Apple:new;
+               Apple a = c.apply(GREEN, 110);
 
-        answer  : c
+            answer  : c
 
-30. How can you sort a list of apples in variable `inventory` with different ordering strategies using lambdas and `sort()`:
+30. How can you sort a list of apples in variable `inventory` with different
+    ordering strategies using lambdas and `sort()`:
 
         a. inventory.sort(Apple::getWeight);
         b. inventory.sort(a1.getWeight().compareTo(a2.getWeight()));
@@ -330,7 +313,8 @@ the signature of the:
 
         answer : c
 
-31. Consider the various utility methods that do text transformation on a letter represented as a String :
+31. Consider the various utility methods that do text transformation on a letter
+    represented as a String :
 
         public class Letter{
 
@@ -352,4 +336,3 @@ the signature of the:
         addHeader.andThen(Letter::checkSpelling).andThen(Letter::addFooter);
 
     answer : d
-

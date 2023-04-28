@@ -9,15 +9,13 @@ const videos = [
   },
   {
     id: 1,
-    src:
-      'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',
+    src: 'https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4',
     title: 'Styled components',
     duration: '10s',
   },
   {
     id: 2,
-    src:
-      'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
+    src: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4',
     title: 'React Hooks',
     duration: '17s',
   },

@@ -43,11 +43,11 @@ pnpm test
 
 7. Unless you need state, prefer `Iterable` to arrays.
 
-8. Prefer using higher order functions like `map`, `filter`, `reduce`
-   over for loops.
+8. Prefer using higher order functions like `map`, `filter`, `reduce` over for
+   loops.
 
-9. Prefer using higher order functions like `map`, `filter`, `reduce`
-   over for loops.
+9. Prefer using higher order functions like `map`, `filter`, `reduce` over for
+   loops.
 
 10. Prefer for-of loop to iterate over iterables including arrays and sets.
 

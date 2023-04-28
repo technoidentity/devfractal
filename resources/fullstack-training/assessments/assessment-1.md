@@ -6,20 +6,22 @@
 
    ```typescript
    function factorial(n: number): number {
-     let fact = 1;
+     let fact = 1
      for (let i = 1; i <= n; i++) {
-       fact *= i;
+       fact *= i
      }
-     console.log(fact);
-     return fact;
+     console.log(fact)
+     return fact
    }
    ```
 
-4. What are some of the advantages of data over traditional OO programming in a garbage collected language?
+4. What are some of the advantages of data over traditional OO programming in a
+   garbage collected language?
 
 5. What is structural typing? Give an example.
 
-6. Can you guess the name of the following functions and their function by their signature?
+6. Can you guess the name of the following functions and their function by their
+   signature?
 
    ```typescript
    function foo<T, U(x: readonly T[], f: (x: T) => U): U[]
@@ -51,29 +53,32 @@
 
     ```typescript
     type Person = {
-      name: string;
-      age: number;
+      name: string
+      age: number
       address: {
-        street: string;
-        city: string;
-        state: string;
-        zip: string;
-      };
-      phoneNumbers: string[];
-    };
+        street: string
+        city: string
+        state: string
+        zip: string
+      }
+      phoneNumbers: string[]
+    }
     ```
 
 12. Write the following one line javascript functions. Don't use typescript
 
     ```javascript
-    const merge = (obj1, obj2) => _;
-    const insert = (arr, index, value) => _;
-    const set = (obj, key, value) => _;
-    const sum = arr => _;
-    const shalloClone = arr => _;
+    const merge = (obj1, obj2) => _
+    const insert = (arr, index, value) => _
+    const set = (obj, key, value) => _
+    const sum = arr => _
+    const shalloClone = arr => _
     ```
 
-13. Write a function to rename properties of an object in javascript. The function should take an object and an object with old and new property names as arguments. The function should return a new object with the renamed properties. DO NOT use typescript
+13. Write a function to rename properties of an object in javascript. The
+    function should take an object and an object with old and new property names
+    as arguments. The function should return a new object with the renamed
+    properties. DO NOT use typescript
 
     ```javascript
     const rename = (obj, { oldName: 'newName' }) => //...

@@ -55,23 +55,15 @@
           "name": "courseToStudent_course_id_courses_id_fk",
           "tableFrom": "courseToStudent",
           "tableTo": "courses",
-          "columnsFrom": [
-            "course_id"
-          ],
-          "columnsTo": [
-            "id"
-          ]
+          "columnsFrom": ["course_id"],
+          "columnsTo": ["id"]
         },
         "courseToStudent_student_id_students_id_fk": {
           "name": "courseToStudent_student_id_students_id_fk",
           "tableFrom": "courseToStudent",
           "tableTo": "students",
-          "columnsFrom": [
-            "student_id"
-          ],
-          "columnsTo": [
-            "id"
-          ]
+          "columnsFrom": ["student_id"],
+          "columnsTo": ["id"]
         }
       },
       "compositePrimaryKeys": {}
@@ -112,12 +104,8 @@
           "name": "courses_teacher_id_teachers_id_fk",
           "tableFrom": "courses",
           "tableTo": "teachers",
-          "columnsFrom": [
-            "teacher_id"
-          ],
-          "columnsTo": [
-            "id"
-          ]
+          "columnsFrom": ["teacher_id"],
+          "columnsTo": ["id"]
         }
       },
       "compositePrimaryKeys": {}
@@ -179,12 +167,8 @@
           "name": "tasks_course_id_courses_id_fk",
           "tableFrom": "tasks",
           "tableTo": "courses",
-          "columnsFrom": [
-            "course_id"
-          ],
-          "columnsTo": [
-            "id"
-          ]
+          "columnsFrom": ["course_id"],
+          "columnsTo": ["id"]
         }
       },
       "compositePrimaryKeys": {}

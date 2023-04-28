@@ -39,7 +39,7 @@ export let links: LinksFunction = () => {
   ]
 }
 
-type DocumentProps =  Readonly<{
+type DocumentProps = Readonly<{
   children: React.ReactNode
 }>
 

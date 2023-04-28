@@ -8,7 +8,6 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 
-
 interface AddPlaylistFormValues {
   onSubmit(value: string): void
 }

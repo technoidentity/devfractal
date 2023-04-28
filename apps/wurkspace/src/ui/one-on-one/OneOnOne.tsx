@@ -1,5 +1,5 @@
 import { useDisclosure } from '@chakra-ui/react'
-import type { Card} from '@specs/oneOnOne';
+import type { Card } from '@specs/oneOnOne'
 import { isAction, isDiscussion } from '@specs/oneOnOne'
 import type { Action } from '@specs/action'
 import type { Discussion } from '@specs/discussion'

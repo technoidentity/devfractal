@@ -2,9 +2,9 @@ import { capitalize } from '@srtp/fn'
 import { useInterval } from '@ui/core/useInterval'
 import { EndMeetAlert } from '@ui/alerts/EndMeetAlert'
 import { StartMeetAlert } from '@ui/alerts/StartMeetAlert'
-import type { Duration} from 'date-fns';
+import type { Duration } from 'date-fns'
 import { intervalToDuration } from 'date-fns'
-import type { Dispatch, SetStateAction} from 'react';
+import type { Dispatch, SetStateAction } from 'react'
 import React, { useState } from 'react'
 import { FiClock } from 'react-icons/fi'
 

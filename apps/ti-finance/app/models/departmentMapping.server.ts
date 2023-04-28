@@ -4,11 +4,9 @@ import type {
   CreateMappingSpec,
   MappingSearchSpec,
   MappingSpec,
-  SpendSearchSpec} from '~/common';
-import {
-  entityExists,
-  entityNotFound
+  SpendSearchSpec,
 } from '~/common'
+import { entityExists, entityNotFound } from '~/common'
 import { prisma } from '~/db.server'
 import { dbTry } from '../common'
 

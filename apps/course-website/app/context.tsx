@@ -15,6 +15,6 @@ export type ClientStyleContextData = Readonly<{
   reset(): void
 }>
 
-export const ClientStyleContext = createContext<ClientStyleContextData | undefined>(
-  undefined,
-)
+export const ClientStyleContext = createContext<
+  ClientStyleContextData | undefined
+>(undefined)

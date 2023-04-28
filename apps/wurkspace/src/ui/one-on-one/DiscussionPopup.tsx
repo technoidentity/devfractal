@@ -1,5 +1,4 @@
-import type {
-  useDisclosure} from '@chakra-ui/react';
+import type { useDisclosure } from '@chakra-ui/react'
 import {
   Box,
   Circle,

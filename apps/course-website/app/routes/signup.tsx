@@ -54,7 +54,6 @@ export const action: ActionFunction = async ({ request }) => {
   }
   const user = await register({ username, password })
 
-
   if (!user) return null
   return createUserSession(user.id, redirectTo)
 }

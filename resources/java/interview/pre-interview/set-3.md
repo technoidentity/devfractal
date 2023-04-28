@@ -11,27 +11,19 @@ for(int i = 0; i < 10; ++i) {
 System.out.println(result);
 ```
 
-a) 15
-b) 20
-c) 25
-d) 30
+a) 15 b) 20 c) 25 d) 30
 
-   Answer: c
+Answer: c
 
 2. We can create an array of ints in Java using
 
-a) new Array<int>(10)
-b) new Array<Integer>(10)
-c) new int[10]
-d) new [10]int
-  
-  Answer: c
+a) new Array<int>(10) b) new Array<Integer>(10) c) new int[10] d) new [10]int
+
+Answer: c
 
 3. If we define `x` with the statement `var x = 100;`, what is the type of x?
 
-a) anything can be assigned to `x`, including string or boolean
-b) int
-c) Object
+a) anything can be assigned to `x`, including string or boolean b) int c) Object
 d) Var
 
 Answer: b
@@ -58,12 +50,6 @@ Foo foo = bar;
 
 Select all the statements that are legal
 
-a) `foo.f()`
-b) `foo.g()`
-c) `bar.f()`
-d) `bar.g()`
+a) `foo.f()` b) `foo.g()` c) `bar.f()` d) `bar.g()`
 
 Answer: a, c, d
-
-
-

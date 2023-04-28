@@ -5,7 +5,7 @@ import { Discussion } from '@specs/discussion'
 import { Employee } from '@specs/employee'
 import { Meeting } from '@specs/meeting'
 import { User } from '@specs/user'
-import type { TypeOf} from 'zod';
+import type { TypeOf } from 'zod'
 import { nullable, z } from 'zod'
 
 export type CalendarEvent = TypeOf<typeof CalendarEvent>

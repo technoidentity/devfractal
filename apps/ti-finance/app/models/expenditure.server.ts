@@ -2,11 +2,9 @@ import type { Expenditure } from '@prisma/client'
 import type {
   CreateExpenditureSpec,
   ExpenditureSearchSpec,
-  ExpenditureSpec} from '~/common';
-import {
-  entityExists,
-  entityNotFound
+  ExpenditureSpec,
 } from '~/common'
+import { entityExists, entityNotFound } from '~/common'
 
 import { prisma } from '~/db.server'
 import { dbTry } from '../common'

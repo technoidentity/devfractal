@@ -73,7 +73,9 @@ interface PlaylistPageProps {
   readonly playlist: readonly Video[]
 }
 
-export const getServerSideProps: GetServerSideProps<PlaylistPageProps> = async () => {
+export const getServerSideProps: GetServerSideProps<
+  PlaylistPageProps
+> = async () => {
   // Fetch data from external API
   // const res = await fetch('http://localhost:3000/api/videos/videos')
   // const playlist = await res.json()

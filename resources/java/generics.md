@@ -1,31 +1,33 @@
-1. **A generic type declaration can contain**
+1.  **A generic type declaration can contain**
 
-   a. only one type parameter
+    a. only one type parameter
 
-   b. multiple type parameters, separated by commas
+    b. multiple type parameters, separated by commas
 
-   c. multiple type parameters, separated by colons
+    c. multiple type parameters, separated by colons
 
-   d. no parameters
+    d. no parameters
 
-   > answer:b
+    > answer:b
 
-2. **Which of the following is true:**
+2.  **Which of the following is true:**
 
-   a. a generic class has only one class definition
+    a. a generic class has only one class definition
 
-   b. a separate class is generated for each parameterized object
+    b. a separate class is generated for each parameterized object
 
-   > answer:a
+    > answer:a
 
-3. **Which of the following is true?**
+3.  **Which of the following is true?**
 
-    a. A generic class with a type parameter T can define static fields of type T and use T anywhere within a static method.
-    b. A type parameter cannot be used when creating objects and arrays.
+    a. A generic class with a type parameter T can define static fields of type
+    T and use T anywhere within a static method. b. A type parameter cannot be
+    used when creating objects and arrays.
 
     > answer: b
 
-5.  **A type bound can express multiple dependencies by declaring that the type parameter extends multiple interfaces as**
+4.  **A type bound can express multiple dependencies by declaring that the type
+    parameter extends multiple interfaces as**
 
          a. interface A<T extends B ? C ? D> {}
 
@@ -35,9 +37,10 @@
 
          d. interface A<T extends B>,<T extends C><T extends D> {}
 
-      > answer:c
+    > answer:c
 
-6. **Which of the following declares a `List` type that matches the type _"Number or any of its subtypes"_:**
+5.  **Which of the following declares a `List` type that matches the type
+    _"Number or any of its subtypes"_:**
 
     a. List< Number >
 
@@ -49,7 +52,8 @@
 
     > answer:c
 
-7.  **Which of the following declares a `List` type that matches the type _"Integer or any of its super types"_:**
+6.  **Which of the following declares a `List` type that matches the type
+    _"Integer or any of its super types"_:**
 
     a. List< Number >
 
@@ -61,19 +65,21 @@
 
     > answer:d
 
-8.  **The type `List<? extends Number & Serializable>`**
+7.  **The type `List<? extends Number & Serializable>`**
 
     a. defines a `List` of type `Number` or any of its subtypes
 
     b. defines a `List` of type `Serializable` or any of its subtypes
 
-    c. defines a `List` of type `Number` and `Serializable` or any of its subtypes
+    c. defines a `List` of type `Number` and `Serializable` or any of its
+    subtypes
 
     d. gives a compile time error
 
     > answer:d
 
-9.  **How do you write a method that takes an array of objects and a collection and puts all objects in the array into the collection?**
+8.  **How do you write a method that takes an array of objects and a collection
+    and puts all objects in the array into the collection?**
 
         a. static void fromArrayToCollection(Object[] a, Collection<Object> c)
 
@@ -85,7 +91,7 @@
 
     > answer:c
 
-10. **Consider this generic method that simply returns its argument:**
+9.  **Consider this generic method that simply returns its argument:**
 
         <T> T passThrough(T obj) {
             return obj;
@@ -108,7 +114,7 @@
 
     > answer:a,b,c,e
 
-11. **Which of the following statements are correct?**
+10. **Which of the following statements are correct?**
 
     a. The erasure of a bounded type parameter is its first bound
 
@@ -122,7 +128,7 @@
 
     > answer:a,b,c
 
-12. **Two generic methods have override-equivalent signatures if**
+11. **Two generic methods have override-equivalent signatures if**
 
     a. their names are different
 
@@ -130,11 +136,13 @@
 
     c. the erasures of their signatures are different
 
-    d. their signatures are the same OR the erasures of their signatures are the same
+    d. their signatures are the same OR the erasures of their signatures are the
+    same
 
     > answer:d
 
-13. **What happens if two generic methods have same name and same override-equivalent signatures:**
+12. **What happens if two generic methods have same name and same
+    override-equivalent signatures:**
 
     a. the methods are overloaded
 
@@ -142,11 +150,13 @@
 
     > answer:b
 
-14. **Which of the following statements are true:**
+13. **Which of the following statements are true:**
 
-    a. The two generic methods are overloaded if they have same name but do not have override-equivalent signatures.
+    a. The two generic methods are overloaded if they have same name but do not
+    have override-equivalent signatures.
 
-    b. Subtype method overrides a super type method if the two methods have the same name and have override-equivalent signatures.
+    b. Subtype method overrides a super type method if the two methods have the
+    same name and have override-equivalent signatures.
 
     c. The following two methods will be overloaded
 
@@ -168,7 +178,7 @@
 
     > answer:a,b,d
 
-15. **How many methods are overridden by the Derived class below:**
+14. **How many methods are overridden by the Derived class below:**
 
         class Base<T> {
              void m(int x) {}
@@ -193,7 +203,7 @@
 
     > answer:b
 
-16. **Consider the following code:**
+15. **Consider the following code:**
 
         void m(String key, Object val) {
                  ...
@@ -205,7 +215,6 @@
     **In each of the following method invocations, which m() method is called:**
 
     a. m("hello", "world");
-
 
     (i) non-generic form of m()
 

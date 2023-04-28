@@ -11,27 +11,23 @@ for(int i = 0; i < 10; ++i) {
 System.out.println(result);
 ```
 
-a) 15
-b) 20
-c) 25
-d) 30
+a) 15 b) 20 c) 25 d) 30
 
 Answer: b
 
 2. How do you get the number of elements in a collection in Java?
 
-a) coll.length()
-b) coll.length
-c) arr.size()
-d) arr.size
+a) coll.length() b) coll.length c) arr.size() d) arr.size
 
 Answer: c
 
-3. Is it possible to use Java 5 for loop `for(int e : coll)` with an array too not just collections. True?
+3. Is it possible to use Java 5 for loop `for(int e : coll)` with an array too
+   not just collections. True?
 
 Answer: Yes
 
-4. If we need to call `Collections.sort(coll)`, then the collection element type must support Comparable interface. True?
+4. If we need to call `Collections.sort(coll)`, then the collection element type
+   must support Comparable interface. True?
 
 Answer: Yes
 
@@ -52,9 +48,8 @@ finally(Exception e) {
 
 Which of the following are true.
 
-a) if `f` throws, output will be 'first second '
-b) if `f` throws, output will be 'second third'
-c) if `f` doesn't throw output will be 'first third'
-d) if `f` doesn't throw output will be 'first'
+a) if `f` throws, output will be 'first second ' b) if `f` throws, output will
+be 'second third' c) if `f` doesn't throw output will be 'first third' d) if `f`
+doesn't throw output will be 'first'
 
 Answer b, c

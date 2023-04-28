@@ -1,7 +1,7 @@
 import { ActionCard } from '@ui/action-card'
 import { DiscussionCard } from '@ui/discussion-card'
 import type { NextPage } from 'next'
-import type { Dispatch, SetStateAction} from 'react';
+import type { Dispatch, SetStateAction } from 'react'
 import { useState } from 'react'
 import { BsFillLightningChargeFill, BsPlusLg } from 'react-icons/bs'
 

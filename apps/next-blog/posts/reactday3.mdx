@@ -4,28 +4,33 @@ tags:
   - react
   - javasscript
   - HTML
-excerpt: React allows to represent a view as data. React has ability to treat a view as a function which takes props as data and returns data as value.
+excerpt:
+  React allows to represent a view as data. React has ability to treat a view as
+  a function which takes props as data and returns data as value.
 ---
 
-- React allows to represent a view as data. React has ability to treat a view as a function which takes props as data and returns data
-  as value.
+- React allows to represent a view as data. React has ability to treat a view as
+  a function which takes props as data and returns data as value.
 
   <Image src="/images/workflow_jsx.jpeg" width={750} height={500} />
 
-> A web page is nothing but collection of react components. Each component is nothing but a function which takes data and returns a view.
+> A web page is nothing but collection of react components. Each component is
+> nothing but a function which takes data and returns a view.
 
 **Component:** <br/>
 
-- A React component can be described as a function which takes a value(props) and returns a value(jsx Element).
+- A React component can be described as a function which takes a value(props)
+  and returns a value(jsx Element).
 
 - JSX Element can be created using React.createElement.
 
 ```jsx
 const HelloWorld = () =>
-  React.createElement("div", { style: { color: "red" } }, "Hello world");
+  React.createElement('div', { style: { color: 'red' } }, 'Hello world')
 ```
 
-> Above is a react component is nothing but a pure function where does not have any side effects and returns a JSX element
+> Above is a react component is nothing but a pure function where does not have
+> any side effects and returns a JSX element
 
 React.createElement() takes three arguments. They are:
 
@@ -34,13 +39,17 @@ React.createElement() takes three arguments. They are:
 - **children**: anything that need to be displayed on the screen.
 
 ```jsx
-const root = createRoot(document.getElementById("root"));
-root.render(React.createElement(HelloWorld));
+const root = createRoot(document.getElementById('root'))
+root.render(React.createElement(HelloWorld))
 ```
 
-> document.getElementById will give a DOM Object.That DOM object will be passed to createRoot which is a react function. As we can see we dont have to invoke HelloWorld all by ourself where react will take care of rendering it by itself.
+> document.getElementById will give a DOM Object.That DOM object will be passed
+> to createRoot which is a react function. As we can see we dont have to invoke
+> HelloWorld all by ourself where react will take care of rendering it by
+> itself.
 
-JSX Element is nothing but a javascript object which consists of _tags_, _attributes_ and _children_.
+JSX Element is nothing but a javascript object which consists of _tags_,
+_attributes_ and _children_.
 
 React component always take one parameter which is a prop object.For example
 
@@ -48,39 +57,41 @@ React component always take one parameter which is a prop object.For example
 
 ```jsx
 const HelloWorld = ({ message }) =>
-  React.createElement("div", { style: { color: "red" } }, message);
+  React.createElement('div', { style: { color: 'red' } }, message)
 
-const root = createRoot(document.getElementById("root"));
-root.render(React.createElement(HelloWorld, { message: "hello" }));
+const root = createRoot(document.getElementById('root'))
+root.render(React.createElement(HelloWorld, { message: 'hello' }))
 ```
 
 React enables XML like syntax in order to create JSX Elements in simpler syntax.
 
 ```jsx
-const HelloWorld = () => <div>Hello world</div>;
+const HelloWorld = () => <div>Hello world</div>
 ```
 
-> `<div>Hello world</div>` This would internally converted into `React.createElement('div',{},"Hello world")`
+> `<div>Hello world</div>` This would internally converted into
+> `React.createElement('div',{},"Hello world")`
 
 We can write any javascript expression with in our JSX by using {}
 
 ```jsx
-const HelloWorld = ({ message }) => <div>{message}</div>;
+const HelloWorld = ({ message }) => <div>{message}</div>
 ```
 
-React component with proper naming conventions and props followed by types is as follows
+React component with proper naming conventions and props followed by types is as
+follows
 
 ```jsx
 type HelloWorldProps = Readonly<{
   message: string,
-}>;
+}>
 
 const HelloWorld = ({ message }: HelloWorldProps) => (
   <div>{message.toUpperCase().trim()}</div>
-);
+)
 
-const root = createRoot(document.getElementById("root"));
-root.render(<HelloWorld message=" hello world " />);
+const root = createRoot(document.getElementById('root'))
+root.render(<HelloWorld message=" hello world " />)
 ```
 
 ## **Counter**
@@ -116,7 +127,10 @@ const root = createRoot(document.getElementById('root'))
 root.render(<Counter count={10}/>)
 ```
 
-> The above Counter component takes a value as prop returns a JSX Element and does not do anything else such as changing a value or changing a view is refered as a **Stateless Component**. A Stateless component always refered as a **Pure Function**.
+> The above Counter component takes a value as prop returns a JSX Element and
+> does not do anything else such as changing a value or changing a view is
+> refered as a **Stateless Component**. A Stateless component always refered as
+> a **Pure Function**.
 
 ```
 
