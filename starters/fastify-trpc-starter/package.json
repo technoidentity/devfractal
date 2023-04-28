@@ -4,7 +4,6 @@
   "description": "trpc with fastify",
   "main": "index.js",
   "scripts": {
-    "upd": "pnpm ncu -u",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "build": "npx tsc -p .",
     "types": "npx tsc --noEmit -p .",

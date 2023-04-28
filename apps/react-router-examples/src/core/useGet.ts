@@ -45,7 +45,6 @@ export const loader = (args: LoaderFunctionArgs) => {
   const queryKey =
     Object.keys(args.params).length !== 0 ? [...paths, args.params] : paths
 
-  console.log({ pathname, queryKey })
   return queryClient.ensureQueryData({
     queryKey,
     queryFn: () => get(`/api${pathname}`),

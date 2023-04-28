@@ -59,7 +59,7 @@ const AuthorBooks = () => {
 }
 
 export const authorsRouter: RouteObject = {
-  path: 'authorsKey',
+  path: 'authors',
   Component: Authors,
   loader,
   children: [

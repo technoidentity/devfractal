@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "upd": "pnpm ncu -u",
     "build": "vite build",
-    "web:dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false",
+    "web:dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
     "dev": "concurrently pnpm:web:dev pnpm:db",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
@@ -17,7 +16,7 @@
     "serve": "vite preview",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
-    "db": "json-server --watch db.json"
+    "db": "json-server --port 8080 --watch db.json"
   },
   "dependencies": {
     "@chakra-ui/react": "2.5.5",

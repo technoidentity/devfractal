@@ -13,7 +13,6 @@
   "author": "Pervez Iqbal",
   "license": "MIT",
   "scripts": {
-    "upd": "pnpm ncu -u",
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts",
     "types:dev": "tsc --noEmit -p . --watch",

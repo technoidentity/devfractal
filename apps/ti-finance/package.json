@@ -4,7 +4,6 @@
   "sideEffects": false,
   "scripts": {
     "boot": "pnpm docker && pnpm db! && pnpm dev",
-    "upd": "pnpm ncu -u",
     "build": "run-s build:*",
     "clean": "pnpm rimraf .turbo node_modules dist public/build",
     "build:remix": "remix build",

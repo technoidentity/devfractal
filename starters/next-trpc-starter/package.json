@@ -8,7 +8,6 @@
     "postinstall": "pnpm db:types",
     "lint": "next lint",
     "start": "next start",
-    "upd": "pnpm ncu -u",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev!": "pnpm db! && pnpm dev",
     "types": "pnpm db:types && tsc --noEmit -p .",

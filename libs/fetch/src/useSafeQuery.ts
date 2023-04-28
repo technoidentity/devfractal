@@ -1,52 +1,47 @@
-import { type QueryKey, type UseQueryOptions } from '@tanstack/react-query'
-import { ensure } from '@srtp/spec'
-
-import { useQuery } from '@tanstack/react-query'
-import type { z } from 'zod'
+import { logError } from '@srtp/core'
+import {
+  useQuery,
+  useQueryClient,
+  type UseQueryOptions,
+} from '@tanstack/react-query'
 import React from 'react'
+import invariant from 'tiny-invariant'
+import type { z } from 'zod'
+import type { Paths } from './queryFn'
 
-type QueryOptions<Data, TQueryKey extends QueryKey> = Omit<
-  UseQueryOptions<unknown, Error, Data, TQueryKey>,
-  'queryKey' | 'queryFn'
+type Query = Record<
+  string | number,
+  string | number | boolean | null | undefined
 >
-
-type SafeQueryArgs<
-  Spec extends z.ZodTypeAny,
-  Args extends any[],
-  TQueryKey extends QueryKey,
-> = Readonly<{
+type UseSafeQueryArgs<Spec extends z.ZodTypeAny> = Readonly<{
+  queryKey: [Paths, Query?]
   spec: Spec
-  key: (...args: Args) => TQueryKey
-  fetcher?: (args: { queryKey: TQueryKey }) => Promise<z.infer<Spec>>
+  // @TODO: better typing
+  options?: Omit<UseQueryOptions, 'queryKey'>
 }>
 
-export function safeQuery<
-  Spec extends z.ZodTypeAny,
-  Args extends any[],
-  TQueryKey extends QueryKey,
->({ spec, key, fetcher }: SafeQueryArgs<Spec, Args, TQueryKey>) {
-  return (
-    options: QueryOptions<z.infer<Spec>, TQueryKey> &
-      (Args extends [] ? { keys?: undefined } : { keys: Args }),
-  ) => {
-    const selectFn = options.select
-    // @TODO: use useEvent instead
-    const select =
-      selectFn !== undefined
-        ? React.useCallback(
-            (data: z.infer<Spec>) => selectFn(data),
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            [],
-          )
-        : undefined
+export function useSafeQuery<Spec extends z.ZodTypeAny>({
+  spec,
+  queryKey,
+  options,
+}: UseSafeQueryArgs<Spec>) {
+  const qc = useQueryClient()
+  const fn = options?.queryFn ?? qc.getDefaultOptions().queries?.queryFn
 
-    const queryKey = key(...(options.keys as any))
+  invariant(fn, 'queryFn is required')
 
-    const result = useQuery({ ...options, queryKey, queryFn: fetcher, select })
+  const opts = React.useMemo(() => {
+    const enabled = queryKey.every(p => !!p) && options?.enabled
+    return { ...options, enabled }
+  }, [options, queryKey])
 
-    ensure(spec, result.data)
-    // @TODO: ensure(Error, spec.error)
+  const result = useQuery<z.infer<Spec>>(queryKey, fn, opts)
 
-    return result
-  }
+  const data = React.useMemo(() => spec.parse(result.data), [result.data, spec])
+
+  React.useEffect(() => {
+    logError(result.error)
+  }, [result.error])
+
+  return { ...result, data }
 }

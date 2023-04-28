@@ -2,7 +2,6 @@
   "name": "form-examples",
   "version": "0.0.1",
   "scripts": {
-    "upd": "pnpm ncu -u",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "vite",
     "build": "pnpm types && vite build",

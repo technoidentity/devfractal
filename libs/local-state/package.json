@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "upd": "pnpm ncu -u",
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
     "types:dev": "tsc --noEmit -p . --watch",

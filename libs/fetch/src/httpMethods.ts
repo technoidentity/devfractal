@@ -45,8 +45,8 @@ export const patch =
 
 export const del =
   <Spec extends z.ZodTypeAny>(config?: Options<Spec>) =>
-  (url: string): Promise<z.infer<Spec>> => {
-    const resp = axios.delete(url, config)
+  async (url: string): Promise<z.infer<Spec>> => {
+    const resp = (await axios.delete(url, config)).data
     const spec = config?.spec
 
     return spec ? spec.parse(resp) : (resp as z.infer<Spec>)

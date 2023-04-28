@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "upd": "pnpm ncu -u",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "dotenv -e .env.development -- next dev",
     "cdev": "pnpm db:seed && pnpm dev",

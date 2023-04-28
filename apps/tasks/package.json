@@ -3,7 +3,6 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "upd": "pnpm ncu -u",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
     "build": "remix build",

@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "upd": "pnpm ncu -u",
     "build": "vite build",
     "dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false",
     "types:dev": "tsc --noEmit -p . --watch",

@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "upd": "pnpm ncu -u",
     "clean": "rimraf .turbo node_modules dist",
     "dev": "vite",
     "build": "pnpm types && vite build",

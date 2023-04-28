@@ -52,7 +52,6 @@
     "typescript": "5.0.4"
   },
   "scripts": {
-    "upd": "pnpm ncu -u",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
