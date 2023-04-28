@@ -20,7 +20,7 @@
     "@tsconfig/esm": "1.0.3",
     "@tsconfig/node-lts": "18.12.1",
     "@tsconfig/strictest": "2.0.1",
-    "@types/node": "18.16.0",
+    "@types/node": "18.16.2",
     "eslint": "8.39.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.8",

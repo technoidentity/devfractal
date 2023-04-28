@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "@fastify/type-provider-typebox": "3.1.0",
-    "@sinclair/typebox": "0.28.5",
-    "fastify": "4.15.0"
+    "@sinclair/typebox": "0.28.8",
+    "fastify": "4.17.0"
   },
   "devDependencies": {
     "@tsconfig/esm": "1.0.3",
     "@tsconfig/node-lts": "18.12.1",
     "@tsconfig/node18": "2.0.0",
     "@tsconfig/strictest": "2.0.1",
-    "@types/node": "18.16.0",
+    "@types/node": "18.16.2",
     "eslint": "8.39.0",
     "eslint-config-srtp": "workspace:*",
     "pino-pretty": "10.0.0",

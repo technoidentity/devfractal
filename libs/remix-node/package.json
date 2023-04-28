@@ -38,7 +38,7 @@
   "devDependencies": {
     "@remix-run/eslint-config": "1.15.0",
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "18.16.0",
+    "@types/node": "18.16.2",
     "cross-env": "7.0.3",
     "eslint": "8.39.0",
     "prettier": "2.8.8",
@@ -46,7 +46,7 @@
     "tsup": "6.7.0",
     "turbo": "1.9.3",
     "typescript": "5.0.4",
-    "vite": "4.3.1",
+    "vite": "4.3.3",
     "vitest": "0.30.1"
   }
 }

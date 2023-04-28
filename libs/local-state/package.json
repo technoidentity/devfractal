@@ -35,9 +35,9 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "18.16.0",
-    "@types/react": "18.0.38",
-    "@types/react-dom": "18.0.11",
+    "@types/node": "18.16.2",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.1",
     "cross-env": "7.0.3",
     "eslint": "8.39.0",
     "eslint-config-srtp": "workspace:*",
