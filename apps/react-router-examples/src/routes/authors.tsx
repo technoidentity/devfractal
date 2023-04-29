@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { HStack } from '@chakra-ui/react'
-
 import type { RouteObject } from 'react-router-dom'
-import { NavLink, Outlet, useParams } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
+
 import { z } from 'zod'
-import { For, loader, useGet, useSafeParams } from '../core'
+import { For, loaderQueryCreator, queryClient } from '../core'
 
 const AuthorsSpec = z.array(
   z.object({
@@ -13,9 +12,14 @@ const AuthorsSpec = z.array(
   }),
 )
 
-const authorsKey = 'authors'
+const getLoaders = loaderQueryCreator(queryClient, { base: '/api' })
+
+const [authorsLoader, useAuthors] = getLoaders({ spec: AuthorsSpec }, () => [
+  'authors',
+])
+
 const Authors = () => {
-  const authors = useGet(AuthorsSpec, [authorsKey])
+  const [authors] = useAuthors()
 
   return (
     <HStack align="flex-start" p="5" spacing="80">
@@ -36,7 +40,7 @@ const Authors = () => {
   )
 }
 
-const AuthorBooksSpec = z.array(
+const BooksSpec = z.array(
   z.object({
     id: z.number().int(),
     title: z.string(),
@@ -45,12 +49,16 @@ const AuthorBooksSpec = z.array(
   }),
 )
 
-const ID = z.object({ id: z.coerce.number().int() })
+const [booksLoader, useBooks] = getLoaders(
+  {
+    spec: BooksSpec,
+    paramsSpec: z.object({ id: z.coerce.number().int() }),
+  },
+  ({ id }) => ['authors', id, 'books'],
+)
 
 const AuthorBooks = () => {
-  const { id } = useSafeParams(ID)
-
-  const books = useGet(AuthorBooksSpec, [authorsKey, id, 'books'])
+  const [books] = useBooks()
 
   return (
     <ul>
@@ -62,12 +70,8 @@ const AuthorBooks = () => {
 export const authorsRouter: RouteObject = {
   path: 'authors',
   Component: Authors,
-  loader,
+  loader: authorsLoader,
   children: [
-    {
-      path: ':id/books',
-      Component: AuthorBooks,
-      loader,
-    },
+    { path: ':id/books', Component: AuthorBooks, loader: booksLoader },
   ],
 }

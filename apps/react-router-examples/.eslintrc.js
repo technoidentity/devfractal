@@ -4,4 +4,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   extends: ['srtp'],
+  "rules": {
+    "@typescript-eslint/naming-convention": "off",
 }

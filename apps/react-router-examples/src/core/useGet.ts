@@ -1,27 +1,31 @@
+import type { QueryFunctionContext } from '@tanstack/react-query'
 import { QueryClient, useQuery } from '@tanstack/react-query'
 import type { LoaderFunctionArgs } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 import wretch from 'wretch'
 import type { z } from 'zod'
 
 type Stringable = string | number | Date | boolean
 
-export type Query = {
-  queryKey: Stringable[]
-  queryFn: () => Promise<unknown>
-}
+export type Query = Readonly<{
+  key: Stringable[]
+  fn?: (args: QueryFunctionContext<readonly Stringable[]>) => Promise<unknown>
+}>
 
-export const url = (keys: Stringable[]) => `/api/${keys.join('/')}`
-export const get = (url: string) => wretch(url).get().json()
+export const url = (keys: readonly Stringable[]) => `/api/${keys.join('/')}`
 
-export const useGet = <Spec extends z.ZodType<any, any>>(
-  spec: Spec,
-  queryKey: Stringable[],
-): z.infer<Spec> => {
-  const queryFn = () => get(url(queryKey))
+export const sget = (url: string) => wretch(url).get().json()
 
-  const { data } = useQuery({ queryKey, queryFn })
+export function useLoader<Spec extends z.ZodType<any, any>>(q: Query) {
+  return (spec: Spec): z.infer<Spec> => {
+    const initialData = useLoaderData()
 
-  return spec.parse(data)
+    const queryFn = q.fn ?? (q => sget(url(q.queryKey)))
+
+    const { data } = useQuery({ queryKey: q.key, queryFn, initialData })
+
+    return spec.parse(data)
+  }
 }
 
 export const queryClient = new QueryClient({
@@ -45,6 +49,10 @@ export const loader = (args: LoaderFunctionArgs) => {
 
   return queryClient.ensureQueryData({
     queryKey,
-    queryFn: () => get(`/api${pathname}`),
+    queryFn: () => sget(`/api${pathname}`),
   })
 }
+
+// export function query(q: Query) {
+//   return { loader(q), useLoader }
+// }

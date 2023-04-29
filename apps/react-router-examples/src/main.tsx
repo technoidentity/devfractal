@@ -12,11 +12,11 @@ const root = createRoot(document.getElementById('root')!)
 const router = createBrowserRouter([rootRouter])
 
 root.render(
-  <Suspense fallback={<Heading>Loading...</Heading>}>
-    <ChakraProvider>
+  <ChakraProvider>
+    <Suspense fallback={<Heading>Loading...</Heading>}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
-    </ChakraProvider>
-  </Suspense>,
+    </Suspense>
+  </ChakraProvider>,
 )
