@@ -5,7 +5,7 @@ import axios from 'redaxios'
 
 import type { Todo } from '@srtp/todo'
 import { itemCount, limit, pageCount } from '../common'
-import { get } from '../get'
+import { rqGet } from '../get'
 
 export const getPagedTodos = async ({
   queryKey,
@@ -35,7 +35,7 @@ const getInfiniteTodos = async ({ pageParam = 1 }) => {
   }
 }
 
-export const useTodos = () => useQuery(['todos'], get)
+export const useTodos = () => useQuery(['todos'], rqGet)
 
 export const usePagedTodos = (page: number) =>
   useQuery(['todos', page], getPagedTodos, { keepPreviousData: true })

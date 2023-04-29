@@ -2,14 +2,14 @@ import { ChakraProvider, Heading } from '@chakra-ui/react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './index.css'
-import { routes } from './routes'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from './core/useGet'
+import { queryClient } from './core'
 import { Suspense } from 'react'
+import { rootRouter } from './routes'
 
 const root = createRoot(document.getElementById('root')!)
 
-const router = createBrowserRouter(routes)
+const router = createBrowserRouter([rootRouter])
 
 root.render(
   <Suspense fallback={<Heading>Loading...</Heading>}>

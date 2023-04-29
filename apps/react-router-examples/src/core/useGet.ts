@@ -10,7 +10,7 @@ export type Query = {
   queryFn: () => Promise<unknown>
 }
 
-export const url = (keys: Stringable[]) => `/ap/${keys.join('/')}}`
+export const url = (keys: Stringable[]) => `/api/${keys.join('/')}`
 export const get = (url: string) => wretch(url).get().json()
 
 export const useGet = <Spec extends z.ZodType<any, any>>(
@@ -36,8 +36,6 @@ export const queryClient = new QueryClient({
     },
   },
 })
-
-// export const loader = (query: Query) => queryClient.ensureQueryData(query)
 
 export const loader = (args: LoaderFunctionArgs) => {
   const pathname = new URL(args.request.url).pathname

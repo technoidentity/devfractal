@@ -4,7 +4,7 @@ import { HStack } from '@chakra-ui/react'
 import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import { For, loader, useGet } from '../core'
+import { For, loader, useGet, useSafeParams } from '../core'
 
 const AuthorsSpec = z.array(
   z.object({
@@ -38,16 +38,17 @@ const Authors = () => {
 
 const AuthorBooksSpec = z.array(
   z.object({
-    id: z.number(),
+    id: z.number().int(),
     title: z.string(),
-    year: z.number(),
+    year: z.coerce.number(),
     authorId: z.number(),
   }),
 )
 
+const ID = z.object({ id: z.coerce.number().int() })
+
 const AuthorBooks = () => {
-  const params = useParams()
-  const id = z.number().int().parse(params.id)
+  const { id } = useSafeParams(ID)
 
   const books = useGet(AuthorBooksSpec, [authorsKey, id, 'books'])
 
