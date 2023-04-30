@@ -2,8 +2,10 @@ import { HStack } from '@chakra-ui/react'
 import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet } from 'react-router-dom'
 
+import { QueryFunctionContext } from '@tanstack/react-query'
+import wretch from 'wretch'
 import { z } from 'zod'
-import { For, loaderQueryCreator, queryClient } from '../core'
+import { For, loaderQuery, queryClient } from '../core'
 
 const AuthorsSpec = z.array(
   z.object({
@@ -12,11 +14,16 @@ const AuthorsSpec = z.array(
   }),
 )
 
-const getLoaders = loaderQueryCreator(queryClient, { base: '/api' })
+const queryFn = ({ queryKey }: QueryFunctionContext) =>
+  wretch(`/api/${queryKey.join('/')}`)
+    .get()
+    .json()
 
-const [authorsLoader, useAuthors] = getLoaders({ spec: AuthorsSpec }, () => [
-  'authors',
-])
+const [authorsLoader, useAuthors] = loaderQuery(
+  queryClient,
+  { response: AuthorsSpec },
+  () => ({ queryKey: ['authors'], queryFn }),
+)
 
 const Authors = () => {
   const [authors] = useAuthors()
@@ -49,12 +56,13 @@ const BooksSpec = z.array(
   }),
 )
 
-const [booksLoader, useBooks] = getLoaders(
+const [booksLoader, useBooks] = loaderQuery(
+  queryClient,
   {
-    spec: BooksSpec,
-    paramsSpec: z.object({ id: z.coerce.number().int() }),
+    response: BooksSpec,
+    params: z.object({ id: z.coerce.number().int() }),
   },
-  ({ id }) => ['authors', id, 'books'],
+  ({ id }) => ({ queryKey: ['authors', id, 'books'], queryFn: queryFn }),
 )
 
 const AuthorBooks = () => {
