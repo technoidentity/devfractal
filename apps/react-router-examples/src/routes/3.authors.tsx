@@ -2,7 +2,7 @@ import { HStack } from '@chakra-ui/react'
 import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet } from 'react-router-dom'
 
-import { QueryFunctionContext } from '@tanstack/react-query'
+import type { QueryFunctionContext } from '@tanstack/react-query'
 import wretch from 'wretch'
 import { z } from 'zod'
 import { For, loaderQuery, queryClient } from '../core'
@@ -62,7 +62,7 @@ const [booksLoader, useBooks] = loaderQuery(
     response: BooksSpec,
     params: z.object({ id: z.coerce.number().int() }),
   },
-  ({ id }) => ({ queryKey: ['authors', id, 'books'], queryFn: queryFn }),
+  ({ id }) => ({ queryKey: ['authors', id, 'books'], queryFn }),
 )
 
 const AuthorBooks = () => {

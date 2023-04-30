@@ -1,11 +1,6 @@
 import { HStack } from '@chakra-ui/react'
-import {
-  LoaderFunctionArgs,
-  NavLink,
-  Outlet,
-  RouteObject,
-  useLoaderData,
-} from 'react-router-dom'
+import type { LoaderFunctionArgs, RouteObject } from 'react-router-dom'
+import { NavLink, Outlet, useLoaderData } from 'react-router-dom'
 
 import { cast } from '@srtp/spec'
 import wretch from 'wretch'

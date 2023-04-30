@@ -16,8 +16,8 @@ export const url = (keys: readonly Stringable[]) => `/api/${keys.join('/')}`
 
 export const sget = (url: string) => wretch(url).get().json()
 
-export function useLoader<Spec extends z.ZodType<any, any>>(q: Query) {
-  return (spec: Spec): z.infer<Spec> => {
+export function getLoader<Spec extends z.ZodType<any, any>>(q: Query) {
+  return function useSafeQuery(spec: Spec): z.infer<Spec> {
     const initialData = useLoaderData()
 
     const queryFn = q.fn ?? (q => sget(url(q.queryKey)))

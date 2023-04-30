@@ -1,8 +1,10 @@
 import { HStack } from '@chakra-ui/react'
-import { NavLink, Outlet, RouteObject, useParams } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
+import { NavLink, Outlet, useParams } from 'react-router-dom'
 
 import { cast } from '@srtp/spec'
-import { QueryFunctionContext, useQuery } from '@tanstack/react-query'
+import type { QueryFunctionContext } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import wretch from 'wretch'
 import { z } from 'zod'
 import { For } from '../core'
@@ -58,7 +60,7 @@ type BooksParams = z.infer<typeof BooksParamsSpec>
 
 const booksQuery = ({ id }: BooksParams) => ({
   queryKey: ['authors', id, 'books'],
-  queryFn: queryFn,
+  queryFn,
 })
 
 const AuthorBooks = () => {

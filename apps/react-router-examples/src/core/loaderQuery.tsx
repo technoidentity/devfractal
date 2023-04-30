@@ -5,8 +5,8 @@ import type {
   QueryFunctionContext,
 } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
+import type { LoaderFunctionArgs } from 'react-router-dom'
 import {
-  LoaderFunctionArgs,
   useLoaderData,
   useLocation,
   useParams,
@@ -123,8 +123,8 @@ export function loaderQueryCreator(
       queryClient,
       specs,
       (params: z.infer<ParamsSpec>, path: string) => {
-        let q = query(params, path)
-        return isArray(q) ? { queryFn, queryKey: q } : q
+        const queryKey = query(params, path)
+        return isArray(queryKey) ? { queryFn, queryKey } : queryKey
       },
     )
   }
