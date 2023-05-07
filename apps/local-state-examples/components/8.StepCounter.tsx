@@ -1,5 +1,6 @@
 import { Box, Input, Text } from '@chakra-ui/react'
 import { cstate } from '@srtp/local-state'
+import { isNum } from '@srtp/spec'
 import React, { type ChangeEvent } from 'react'
 
 const initial = { step: 1, count: 0 }
@@ -10,7 +11,10 @@ const useStep = cstate(initial, {
   },
 
   setStep: (evt: ChangeEvent<HTMLInputElement>) => state => {
-    state.step = +evt.target.value
+    const step = +evt.target.value || 1
+    if (isNum(step)) {
+      state.step = step
+    }
   },
 })
 
@@ -31,7 +35,7 @@ export const StepCounter = () => {
   return (
     <Box>
       <Text>{count}</Text>
-      <Input onChange={setStep} />
+      <Input type="number" onChange={setStep} />
     </Box>
   )
 }
