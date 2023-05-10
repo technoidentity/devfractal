@@ -44,6 +44,7 @@ export function cycle<T>(arr: T[]): Iterable<T> {
   return {
     *[Symbol.iterator]() {
       let i = 0
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       while (true) {
         yield arr[i]
         i = (i + 1) % arr.length
