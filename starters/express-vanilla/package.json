@@ -17,13 +17,13 @@
   },
   "devDependencies": {
     "@tsconfig/esm": "1.0.3",
-    "@tsconfig/node-lts": "18.12.1",
+    "@tsconfig/node-lts": "18.12.2",
     "@tsconfig/strictest": "2.0.1",
     "@types/express": "4.17.17",
-    "@types/node": "18.16.2",
+    "@types/node": "20.1.4",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.8",
-    "tsx": "3.12.6",
+    "tsx": "3.12.7",
     "typescript": "5.0.4"
   }
 }
