@@ -1,5 +1,6 @@
 import type { z } from 'zod'
 
+// @TODO: T shouldn't be here?
 export function cast<T, Spec extends z.ZodType<T>>(
   spec: Spec,
   v: unknown,
