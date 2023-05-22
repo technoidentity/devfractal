@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "web:dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false",
-    "dev": "concurrently pnpm:web:dev pnpm:db",
+    "dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
     "lint": "eslint --max-warnings=0 --cache src tests --ext .ts,.tsx",
@@ -15,8 +14,7 @@
     "coverage": "vitest run --coverage",
     "serve": "vite preview",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "deploy": "vercel deploy dist --team=turborepo --confirm",
-    "db": "json-server ./db.js"
+    "deploy": "vercel deploy dist --team=turborepo --confirm"
   },
   "dependencies": {
     "@chakra-ui/react": "2.6.1",
