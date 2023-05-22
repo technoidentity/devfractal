@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 
-import { is } from '@srtp/spec'
 import type { FieldSpec } from '@srtp/validator'
 import {
   boolean,
@@ -15,41 +14,34 @@ import React from 'react'
 import { z } from 'zod'
 import { safeUpdateState } from './safeState'
 
-export function safePrimitive<Spec extends FieldSpec>(spec: Spec) {
+// @TODO: if value doesn't satisfy spec, does nothing
+export function primitive<Spec extends FieldSpec>(spec: Spec) {
   const useState = safeUpdateState(z.object({ value: spec }))
 
   type Value = z.infer<Spec>
 
-  const isFn = (v: unknown): v is (v: Value) => Value => {
-    return typeof v === 'function'
-  }
-
   return function usePrimitiveState(initialValue?: Value) {
-    const [{ value }, { setValue }] = useState({
+    const [state, { setValue }] = useState({
       value: initialValue || defaultValue(spec),
     })
 
     const update = React.useCallback(
-      (vfn: Value | ((_: Value) => Value)) => {
-        setValue(state =>
-          is(spec, state.value)
-            ? spec.parse(isFn(vfn) ? vfn(state.value) : vfn)
-            : state,
-        )
+      (vfn: (_: Value) => Value) => {
+        setValue(vfn)
       },
       [setValue],
     )
 
-    return [value, update] as const
+    return [state.value as Value, update] as const
   }
 }
 
-export const useBoolean = safePrimitive(boolean())
-export const useNumber = safePrimitive(number())
-export const useInt = safePrimitive(int())
-export const useDate = safePrimitive(date())
-export const useString = safePrimitive(string())
-export const useDateRange = safePrimitive(dateRange())
+export const useBoolean = primitive(boolean())
+export const useNumber = primitive(number())
+export const useInt = primitive(int())
+export const useDate = primitive(date())
+export const useString = primitive(string())
+export const useDateRange = primitive(dateRange())
 
 export function useToggle(value: boolean) {
   const [v, update] = useBoolean(value)
