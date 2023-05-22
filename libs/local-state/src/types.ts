@@ -29,3 +29,20 @@ export type Actions<State, Hs extends Handlers<State>> = {
     ? () => void
     : (payload: Payload<Hs, A>) => void
 }
+
+export type Primitive =
+  | null
+  | undefined
+  | string
+  | number
+  | boolean
+  | symbol
+  | bigint
+
+export type ShallowObject = Record<keyof object, Primitive>
+
+export type UpdateHandlers<T extends ShallowObject> = {
+  [K in keyof T & string as `set${Capitalize<K>}`]: (
+    fn: (value: T[K]) => T[K] | undefined,
+  ) => void
+} & { update: (fn: (update: T) => Partial<T> | undefined) => void }

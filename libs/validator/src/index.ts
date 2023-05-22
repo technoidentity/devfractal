@@ -1,5 +1,8 @@
-import type { Try } from '@srtp/result'
+/* eslint-disable no-underscore-dangle */
 import { tryFromZod } from '@srtp/core'
+import type { Try } from '@srtp/result'
+import invariant from 'tiny-invariant'
+import type { ZodEnum, ZodNativeEnum } from 'zod'
 import { z } from 'zod'
 
 export const number = (defaultValue?: number) =>
@@ -113,4 +116,31 @@ export function fieldValidate<Spec extends FieldSpec>(
 ): Try<z.infer<Spec>> {
   const r = schema.safeParse(value)
   return tryFromZod(r)
+}
+
+export function defaultValue<Spec extends FieldSpec>(
+  spec: Spec,
+): z.infer<Spec> {
+  switch (spec._def.typeName) {
+    case 'ZodDefault':
+      return (spec as any)._def.defaultValue
+    case 'ZodString':
+      return ''
+    case 'ZodNumber':
+      return 0
+    case 'ZodBoolean':
+      return false
+    case 'ZodBigInt':
+      return 0n
+    case 'ZodDate':
+      return new Date()
+    case 'ZodEnum':
+      return (spec as ZodEnum<any>)._def.values[0]
+    case 'ZodNativeEnum':
+      return (spec as ZodNativeEnum<any>)._def.values[0]
+    case 'ZodOptional':
+      return undefined
+    default:
+      invariant(false, 'defaultValue not implemented for this type')
+  }
 }
