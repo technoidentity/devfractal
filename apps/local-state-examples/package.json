@@ -21,6 +21,7 @@
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
+    "@srtp/validator": "workspace:*",
     "@srtp/todo": "workspace:*",
     "core-js": "3.30.2",
     "framer-motion": "10.12.10",
