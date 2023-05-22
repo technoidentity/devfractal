@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@emotion/react": "11.11.0",
-    "@mantine/core": "6.0.10",
+    "@mantine/core": "6.0.11",
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
-    "@tabler/icons-react": "2.18.0",
+    "@tabler/icons-react": "2.20.0",
     "immer": "10.0.2",
     "lodash": "4.17.21",
     "lodash-es": "4.17.21",
@@ -37,8 +37,8 @@
     "tabler-icons-react": "1.56.0",
     "tiny-invariant": "1.3.1",
     "tiny-warning": "1.0.3",
-    "tslib": "2.5.0",
-    "type-fest": "3.10.0",
+    "tslib": "2.5.2",
+    "type-fest": "3.11.0",
     "use-immer": "0.9.0",
     "zod": "3.21.4"
   },
@@ -46,15 +46,15 @@
     "@srtp/tsconfig": "workspace:*",
     "@types/lodash": "4.14.194",
     "@types/lodash-es": "4.17.7",
-    "@types/node": "20.1.4",
+    "@types/node": "20.2.3",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "cross-env": "7.0.3",
-    "eslint": "8.40.0",
+    "eslint": "8.41.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.8",
     "tsup": "6.7.0",
     "typescript": "5.0.4",
-    "vitest": "0.31.0"
+    "vitest": "0.31.1"
   }
 }
