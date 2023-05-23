@@ -63,7 +63,7 @@ module.exports = {
     '@typescript-eslint/no-unnecessary-type-arguments': 'warn',
     '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
     '@typescript-eslint/no-unused-expressions': 'warn',
-    'no-console': 'warn',
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-debugger': 'warn',
 
     '@typescript-eslint/adjacent-overload-signatures': 'error',
