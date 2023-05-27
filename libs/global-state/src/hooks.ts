@@ -3,6 +3,7 @@ import { produce } from 'immer'
 import type { Atom, PrimitiveAtom, WritableAtom } from 'jotai'
 import { useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'
+import { signal } from './signal'
 
 export function useValue<Value>(
   signal: Atom<Value> | Atom<Promise<Value>> | Atom<Value | Promise<Value>>,
@@ -10,7 +11,7 @@ export function useValue<Value>(
   return useAtomValue(signal)
 }
 
-export function useSlice<
+export function useSignal<
   Value,
   Args extends unknown[],
   Result extends void | Promise<void>,
@@ -39,4 +40,9 @@ export function actionHook<Value, Args extends unknown[]>(
     const set = useImmerSetAtom(signal)
     return set(draft => fn(draft, ...args))
   }
+}
+
+export function useLocalSignal<Value extends object>(initialValue: Value) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useSignal(React.useMemo(() => signal(initialValue), []))
 }
