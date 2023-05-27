@@ -8,7 +8,7 @@ import { z } from 'zod'
 import type { ImmerSetter, ImmerWrite, Read, Write } from './types'
 
 // change it to extends object?
-export function signal<Value extends Object>(initialValue: Value) {
+export function signal<Value>(initialValue: Value) {
   return atom(initialValue)
 }
 

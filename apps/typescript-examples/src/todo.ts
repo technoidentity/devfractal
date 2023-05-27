@@ -108,7 +108,9 @@ export function setCompletedAboveDeadline(userId: number): void {
   tasks.value = produce(tasks.value, draft => {
     draft
       .filter(t => t.userId === userId && t.deadline < new Date())
-      .forEach(t => (t.completed = true))
+      .forEach(t => {
+        t.completed = true
+      })
   })
 }
 

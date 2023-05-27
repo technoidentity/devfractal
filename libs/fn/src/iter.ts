@@ -140,26 +140,32 @@ export function findIndex<T>(f: (x: T) => boolean) {
 }
 
 export function take<T>(n: number) {
-  return (arr: Iterable<T>): IterableIterator<T> => {
+  return function* (arr: Iterable<T>) {
     invariant(n >= 0, 'n must be >= 0')
 
-    return pipe(
-      enumerate(arr),
-      takeWhile(([_, i]) => i < n),
-      map(([e]) => e),
-    )
+    let i = 0
+    for (const e of arr) {
+      if (i >= n) {
+        break
+      }
+
+      yield e
+      i += 1
+    }
   }
 }
 
 export function skip<T>(n: number) {
-  return (arr: Iterable<T>): IterableIterator<T> => {
+  return function* (arr: Iterable<T>): IterableIterator<T> {
     invariant(n >= 0, 'n must be >= 0')
 
-    return pipe(
-      enumerate(arr),
-      skipWhile(([_, i]) => i < n),
-      map(([e]) => e),
-    )
+    let i = 0
+    for (const e of arr) {
+      if (i >= n) {
+        yield e
+      }
+      i += 1
+    }
   }
 }
 
