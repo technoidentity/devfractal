@@ -25,12 +25,12 @@
     "@mantine/notifications": "6.0.11",
     "@srtp/core": "workspace:*",
     "@srtp/table": "workspace:*",
-    "@tanstack/query-core": "4.29.7",
-    "@tanstack/react-query": "4.29.7",
+    "@tanstack/query-core": "4.29.11",
+    "@tanstack/react-query": "4.29.11",
     "dayjs": "1.11.7",
     "immer": "10.0.2",
     "jotai": "2.1.0",
-    "jotai-tanstack-query": "0.7.0",
+    "jotai-tanstack-query": "0.7.1",
     "lodash": "4.17.21",
     "query-string": "8.1.0",
     "react": "18.2.0",
@@ -44,12 +44,12 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@babel/core": "7.21.8",
+    "@babel/core": "7.22.1",
     "@srtp/tsconfig": "workspace:*",
     "@testing-library/react": "14.0.0",
-    "@types/lodash": "4.14.194",
-    "@types/node": "20.2.3",
-    "@types/react": "18.2.6",
+    "@types/lodash": "4.14.195",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "@vitejs/plugin-react-swc": "3.3.1",
     "cross-env": "7.0.3",
@@ -58,7 +58,7 @@
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
     "typescript": "5.0.4",
-    "vite": "4.3.8",
+    "vite": "4.3.9",
     "vitest": "0.31.1"
   }
 }

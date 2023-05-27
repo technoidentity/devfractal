@@ -33,16 +33,16 @@
   "devDependencies": {
     "@remix-run/eslint-config": "1.16.1",
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.2.3",
-    "@types/react": "18.2.6",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.7",
     "cross-env": "7.0.3",
     "eslint": "8.41.0",
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
     "tsup": "6.7.0",
-    "turbo": "1.9.8",
+    "turbo": "1.9.9",
     "typescript": "5.0.4",
-    "vite": "4.3.8",
+    "vite": "4.3.9",
     "vitest": "0.31.1"
   }
 }

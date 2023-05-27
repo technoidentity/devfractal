@@ -30,11 +30,11 @@
     "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/todo": "workspace:*",
-    "@tanstack/react-query": "4.29.7",
-    "framer-motion": "10.12.12",
+    "@tanstack/react-query": "4.29.11",
+    "framer-motion": "10.12.16",
     "immer": "10.0.2",
     "jotai": "2.1.0",
-    "jotai-tanstack-query": "0.7.0",
+    "jotai-tanstack-query": "0.7.1",
     "query-string": "8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -52,8 +52,8 @@
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@testing-library/react": "14.0.0",
-    "@types/node": "20.2.3",
-    "@types/react": "18.2.6",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.7",
     "@types/react-beautiful-dnd": "13.1.4",
     "@types/react-dom": "18.2.4",
     "@types/react-virtualized-auto-sizer": "1.0.1",
@@ -68,7 +68,7 @@
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
     "typescript": "5.0.4",
-    "vite": "4.3.8",
+    "vite": "4.3.9",
     "vitest": "0.31.1"
   }
 }

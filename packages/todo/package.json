@@ -27,7 +27,7 @@
   "dependencies": {
     "@srtp/core": "workspace:*",
     "@srtp/spec": "workspace:*",
-    "@types/node": "20.2.3",
+    "@types/node": "20.2.5",
     "tslib": "2.5.2",
     "zod": "3.21.4"
   },

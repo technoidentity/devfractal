@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.2.3",
+    "@types/node": "20.2.5",
     "cross-env": "7.0.3",
     "eslint": "8.41.0",
     "eslint-config-srtp": "workspace:*",

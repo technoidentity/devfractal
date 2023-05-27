@@ -7,9 +7,9 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@conform-to/dom": "^0.6.2",
-    "@conform-to/react": "0.6.2",
-    "@conform-to/zod": "0.6.2",
+    "@conform-to/dom": "0.6.3",
+    "@conform-to/react": "0.6.3",
+    "@conform-to/zod": "0.6.3",
     "@headlessui/react": "1.7.14",
     "@heroicons/react": "2.0.18",
     "react": "18.2.0",
@@ -19,11 +19,11 @@
   },
   "devDependencies": {
     "@rollup/plugin-replace": "5.0.2",
-    "@types/node": "~20.2.3",
-    "@types/react": "18.2.6",
+    "@types/node": "~20.2.5",
+    "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "@vitejs/plugin-react": "4.0.0",
     "typescript": "5.0.4",
-    "vite": "4.3.8"
+    "vite": "4.3.9"
   }
 }

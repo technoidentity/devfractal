@@ -22,7 +22,7 @@
     "fs": "0.0.1-security",
     "glob": "10.2.6",
     "gray-matter": "4.0.3",
-    "next": "13.4.3",
+    "next": "13.4.4",
     "next-mdx-remote": "4.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -34,11 +34,11 @@
     "tslib": "2.5.2"
   },
   "devDependencies": {
-    "@previewjs/config-helper-nextjs": "1.0.17",
+    "@previewjs/config-helper-nextjs": "1.0.18",
     "@srtp/tsconfig": "workspace:*",
     "@types/glob": "8.1.0",
-    "@types/node": "20.2.3",
-    "@types/react": "18.2.6",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "cross-env": "7.0.3",
     "eslint": "8.41.0",
