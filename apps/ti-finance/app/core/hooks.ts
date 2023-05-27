@@ -1,10 +1,11 @@
 import { useActionData, useLoaderData, useSearchParams } from '@remix-run/react'
 import { isEmpty } from '@srtp/core'
 import type { FormErrors } from '@srtp/remix-core'
-import queryString from 'query-string'
+import qs from 'query-string'
 import React from 'react'
 import type { z } from 'zod'
 import { createErrorsSpec } from './errorsSpec'
+import { cast } from '@srtp/spec'
 
 export function useLatest<T>(v: T) {
   const ref = React.useRef(v)
@@ -50,23 +51,36 @@ export function useServerErrors<Spec extends z.AnyZodObject>(
   }, [data, s])
 }
 
-const defaultOptions: queryString.StringifyOptions = {
+const defaultOptions: qs.StringifyOptions = {
   arrayFormat: 'index',
   skipNull: true,
   skipEmptyString: true,
 }
 
+export const searchToObject = (search: URLSearchParams) =>
+  Object.fromEntries(search.entries())
+
 export function useSearch<Spec extends z.AnyZodObject>(
   spec: Spec,
-  options?: queryString.StringifyOptions,
-) {
+  options?: qs.StringifyOptions,
+): readonly [z.infer<Spec> | undefined, (values: z.infer<Spec>) => void] {
   const [search, set] = useSearchParams()
+
   const setSearch = React.useCallback(
-    (values: Partial<z.infer<Spec>>) => {
-      set(queryString.stringify(values, { ...defaultOptions, ...options }))
-    },
-    [options, set],
+    (values: z.infer<Spec>) =>
+      set(
+        qs.stringify(cast(spec, values), {
+          ...defaultOptions,
+          ...options,
+        }),
+      ),
+    [options, set, spec],
   )
 
-  return [search, setSearch] as const
+  const searchValue = React.useMemo(() => {
+    const result = spec.safeParse(searchToObject(search))
+    return result.success ? (result.data as z.infer<Spec>) : undefined
+  }, [search, spec])
+
+  return [searchValue, setSearch] as const
 }
