@@ -50,6 +50,7 @@ export type QueryFn<Params extends object, Search extends object> = (
   path: string,
   search: Search,
 ) => QueryResult
+
 export function loaderQuery<
   ResponseSpec extends z.ZodTypeAny,
   ParamsSpec extends z.AnyZodObject,
