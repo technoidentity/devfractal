@@ -5,6 +5,7 @@ import React from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import { useSearch } from './4.authors'
+import { useActionData } from 'react-router-dom'
 
 export type Obj = Record<string, any>
 export type Form<T extends Obj> = ReturnType<typeof useForm<T>>[0]
@@ -18,7 +19,9 @@ function useClientForm<Schema extends z.AnyZodObject>(
   schema: Schema,
   onSuccess: (values: z.infer<Schema>) => void,
 ): ClientFormState<z.infer<Schema>> {
+  const lastSubmission = useActionData() as any
   const [form, fieldset] = useForm<z.infer<Schema>>({
+    lastSubmission,
     shouldValidate: 'onBlur',
     onValidate: ({ formData }) => parse(formData, { schema }),
     onSubmit(event, { formData }) {
