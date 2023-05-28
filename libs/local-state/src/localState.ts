@@ -95,6 +95,6 @@ export function useState<State, Hs extends Handlers<State>>(
 export function state<State, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
-): () => readonly [State, Actions<State, Hs>] {
-  return () => useState(initialState, handlers)
+): (initialState?: Partial<State>) => readonly [State, Actions<State, Hs>] {
+  return moreState => useState({ ...initialState, ...moreState }, handlers)
 }
