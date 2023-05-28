@@ -1,6 +1,5 @@
 import { parse } from '@conform-to/zod'
-import { isFunction } from '@srtp/spec'
-import { type ActionFunctionArgs, json } from 'react-router-dom'
+import { json, type ActionFunctionArgs } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 
