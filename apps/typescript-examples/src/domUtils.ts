@@ -18,9 +18,9 @@ export type ElementOptions = Readonly<{
   className?: string
   id?: string
   children?: Iterable<HTMLElement>
-}> & {}
+}>
 
-export function element(tagName: string, options?: ElementOptions) {
+export function createElement(tagName: string, options?: ElementOptions) {
   const e = document.createElement(tagName)
   if (options?.className) {
     e.className = options.className

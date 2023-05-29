@@ -1,10 +1,16 @@
+import invariant from 'tiny-invariant'
+import {
+  appendChildren,
+  createElement,
+  getElement,
+  getSelector,
+} from './domUtils'
+import './ticTacToeStyles.css'
 import { range } from '@srtp/fn'
 import { toInt, toStr } from '@srtp/spec'
-import invariant from 'tiny-invariant'
-import { appendChildren, element, getElement } from './domUtils'
 
 type Player = 'X' | 'O'
-// impossible states avoided by construction
+
 type GameResult = Player | 'Tie' | undefined
 
 type Board = {
@@ -14,91 +20,104 @@ type Board = {
   result: GameResult
 }
 
-const initialGameState = (size: number): Board => ({
-  size,
-  cells: Array(size * size).fill(undefined),
-  turn: 'X',
-  result: undefined,
-})
-
-const getRow = (i: number) => Math.floor(i / SIZE)
-const getColumn = (i: number) => i % SIZE
-
-const isTied = () => gameState.cells.every(c => !!c)
-
-const isWinner = (id: number, player: Player): boolean => {
-  const rng = [...range(SIZE)]
-  const row = rng.map(j => getRow(id) * SIZE + j)
-  const column = rng.map(j => getColumn(id) + j * SIZE)
-  const diagonal = rng.map(i => i * (SIZE + 1))
-  const antiDiagonal = rng.map(i => (i + 1) * (SIZE - 1))
-
-  return [row, column, diagonal, antiDiagonal].some(line =>
-    line.every(i => gameState.cells[i] === player),
-  )
+const initialGameState = (size: number): Board => {
+  return {
+    size,
+    cells: Array(size * size).fill(undefined),
+    turn: 'X',
+    result: undefined,
+  }
 }
 
-function updateResult(i: number) {
-  if (isWinner(i, gameState.turn)) {
-    gameState.result = gameState.turn
-  } else if (isTied()) {
-    gameState.result = 'Tie'
-  } else {
-    return
+function ticTacToe(size: number): void {
+  const gameState = initialGameState(size)
+
+  const getRow = (i: number) => Math.floor(i / size)
+  const getColumn = (i: number) => i % size
+
+  const isTied = () => gameState.cells.every(c => !!c)
+
+  const isWinner = (id: number, player: Player): boolean => {
+    const rng = [...range(size)]
+    const row = rng.map(j => getRow(id) * size + j)
+    const column = rng.map(j => getColumn(id) + j * size)
+    const diagonal = rng.map(i => i * (size + 1))
+    const antiDiagonal = rng.map(i => (i + 1) * (size - 1))
+
+    return [row, column, diagonal, antiDiagonal].some(line =>
+      line.every(i => gameState.cells[i] === player),
+    )
   }
 
-  const winnerElement = document.querySelector('.winner')
-  invariant(winnerElement instanceof HTMLElement)
-  winnerElement.innerText =
-    gameState.result === 'Tie' ? 'Game Tied' : `${gameState.result} wins!`
-}
-
-function updateTurn() {
-  gameState.turn = gameState.turn === 'X' ? 'O' : 'X'
-}
-
-function updateCell(cell: HTMLElement, i: number) {
-  if (gameState.cells[i]) {
-    return
+  function updateResult(i: number) {
+    if (isWinner(i, gameState.turn)) {
+      gameState.result = gameState.turn
+    } else if (isTied()) {
+      gameState.result = 'Tie'
+    }
   }
 
-  gameState.cells[i] = gameState.turn
-  cell.innerText = gameState.turn
-}
-const handleClick = (e: MouseEvent) => {
-  if (gameState.result !== undefined) {
-    return
+  function updateTurn() {
+    gameState.turn = gameState.turn === 'X' ? 'O' : 'X'
   }
 
-  const cell = e.target
-  if (!(cell instanceof HTMLElement) || cell.className !== 'cell') {
-    return
+  function updateResultUI() {
+    if (!gameState.result) {
+      return
+    }
+    const winnerElement = getSelector('.winner')
+    invariant(winnerElement instanceof HTMLElement)
+
+    winnerElement.innerText =
+      gameState.result === 'Tie' ? 'Game Tied' : `${gameState.result} wins!`
   }
-  const i = toInt(cell.id)
 
-  updateCell(cell, i)
-  updateResult(i)
-  updateTurn()
-}
+  function updateCell(cell: HTMLElement, i: number) {
+    if (gameState.cells[i]) {
+      return
+    }
 
-const createSquares = (n: number) =>
-  [...range(n * n)].map(i =>
-    element('button', { className: 'cell', id: toStr(i) }),
-  )
+    gameState.cells[i] = gameState.turn
+    cell.innerText = gameState.turn
+  }
 
-const createBoard = (n: number) => {
+  const handleClick = (e: MouseEvent) => {
+    if (gameState.result !== undefined) {
+      return
+    }
+
+    const cell = e.target
+    if (!(cell instanceof HTMLElement) || cell.className !== 'cell') {
+      return
+    }
+
+    const id = toInt(cell.id)
+
+    updateCell(cell, id)
+    updateResult(id)
+    updateResultUI()
+    updateTurn()
+  }
+
   const container = getElement('root')
 
-  const board = element('div', { className: 'board' })
-  board.onclick = handleClick
-  container.appendChild(board)
+  const createSquares = (n: number) =>
+    [...range(n * n)].map(i =>
+      createElement('button', { className: 'cell', id: toStr(i) }),
+    )
 
-  appendChildren(board, createSquares(n))
+  const createBoard = (container: HTMLElement, n: number) => {
+    const board = createElement('div', { className: 'board' })
+    board.onclick = handleClick
+    container.appendChild(board)
 
-  const winner = element('div', { className: 'winner' })
-  container.appendChild(winner)
+    appendChildren(board, createSquares(n))
+
+    const winner = createElement('div', { className: 'winner' })
+    container.appendChild(winner)
+  }
+
+  createBoard(container, size)
 }
 
-const SIZE = 5
-const gameState = initialGameState(SIZE)
-createBoard(SIZE)
+ticTacToe(5)
