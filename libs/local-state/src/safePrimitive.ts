@@ -21,18 +21,25 @@ export function primitive<Spec extends FieldSpec>(spec: Spec) {
   type Value = z.infer<Spec>
 
   return function usePrimitiveState(initialValue?: Value) {
-    const [state, { setValue }] = useState({
+    const [state, { updateValue, setValue }] = useState({
       value: initialValue || defaultValue(spec),
     })
 
     const update = React.useCallback(
       (vfn: (_: Value) => Value) => {
-        setValue(vfn)
+        updateValue(vfn)
+      },
+      [updateValue],
+    )
+
+    const set = React.useCallback(
+      (v: Value) => {
+        setValue(v)
       },
       [setValue],
     )
 
-    return [state.value as Value, update] as const
+    return [state.value as Value, update, set] as const
   }
 }
 
