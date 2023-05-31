@@ -7,8 +7,12 @@ import {
   Input,
   ButtonGroup,
 } from '@chakra-ui/react'
+import { useInputState } from '@srtp/local-state'
 
 export const LoginForm = () => {
+  const [email, setEmail] = useInputState('')
+  const [password, setPassword] = useInputState('')
+
   return (
     <Flex alignItems="center" justifyContent="center" mt="20px">
       <Box
@@ -22,11 +26,11 @@ export const LoginForm = () => {
         <form>
           <FormControl>
             <FormLabel htmlFor="title">Email</FormLabel>
-            <Input type="email" />
+            <Input type="email" value={email} onChange={setEmail} />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="title">Password</FormLabel>
-            <Input type="password" />
+            <Input type="password" value={password} onChange={setPassword} />
           </FormControl>
           <ButtonGroup gap="2" mt="10px">
             <Button colorScheme="blackAlpha" type="submit">

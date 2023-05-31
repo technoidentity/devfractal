@@ -28,6 +28,9 @@ export function useUpdate<T extends ShallowObject>(
       ) => {
         set(s => ({ ...s, [key]: fn((s as any)[key]) }))
       }
+      handlers[`set${capitalize(key)}$`] = (v: T[keyof T]) => {
+        set(s => ({ ...s, [key]: v }))
+      }
     }
 
     invariant(
