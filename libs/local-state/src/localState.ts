@@ -6,14 +6,15 @@ import React from 'react'
 import { useImmerReducer } from 'use-immer'
 import type { ActionCreators, Actions, ActionsFrom, Handlers } from './types'
 
-type Reducer<State, Hs extends Handlers<State>> = (
+type Reducer<State extends object, Hs extends Handlers<State>> = (
   state: Draft<State>,
   action: ActionsFrom<State, Hs>,
 ) => void
 
-export function getActionCreators<State, Hs extends Handlers<State>>(
-  handlers: Hs,
-): ActionCreators<State, Hs> {
+export function getActionCreators<
+  State extends object,
+  Hs extends Handlers<State>,
+>(handlers: Hs): ActionCreators<State, Hs> {
   const actionCreators: any = {}
   for (const type of Object.keys(handlers)) {
     actionCreators[type] = (payload: any) => ({ type, payload })
@@ -22,32 +23,31 @@ export function getActionCreators<State, Hs extends Handlers<State>>(
   return actionCreators
 }
 
-export function getActions<State, Hs extends Handlers<State>>(
+export function getActions<State extends object, Hs extends Handlers<State>>(
   actionCreators: ActionCreators<State, Hs>,
   dispatch: React.Dispatch<ActionsFrom<State, Hs>>,
-) {
+): Actions<State, Hs> {
   const result = {} as any
   for (const type of Object.keys(actionCreators)) {
     result[type] = (...args: any[]) => {
-      dispatch((actionCreators[type] as any)(...args))
+      dispatch((actionCreators[type] as any)(args))
     }
   }
   return result
 }
 
 // @TODO: support many arguments as payload
-export function getReducer<State, Hs extends Handlers<State>>(
+export function getReducer<State extends object, Hs extends Handlers<State>>(
   handlers: Hs,
 ): Reducer<State, Hs> {
   return (state, action) => {
-    return handlers[action.type](
-      state,
-      'payload' in action ? action.payload : undefined,
-    )
+    return 'payload' in action
+      ? handlers[action.type](state, ...action.payload)
+      : handlers[action.type](state)
   }
 }
 
-export function state$<State, Hs extends Handlers<State>>(
+export function state$<State extends object, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
 ): readonly [Reducer<State, Hs>, ActionCreators<State, Hs>, State] {
@@ -58,7 +58,7 @@ export function state$<State, Hs extends Handlers<State>>(
   ] as const
 }
 
-export function useState$<State, Hs extends Handlers<State>>(
+export function useState$<State extends object, Hs extends Handlers<State>>(
   args: Readonly<
     [
       reducer: Reducer<State, Hs>,
@@ -79,7 +79,7 @@ export function useState$<State, Hs extends Handlers<State>>(
 }
 
 // @TODO: support initial state function
-export function useState<State, Hs extends Handlers<State>>(
+export function useState<State extends object, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
 ): readonly [State, Actions<State, Hs>] {
@@ -92,9 +92,52 @@ export function useState<State, Hs extends Handlers<State>>(
   return useState$(stateActions)
 }
 
-export function state<State, Hs extends Handlers<State>>(
+export type EventHandlers<State, Props, Hs extends Handlers<State>> = Record<
+  string,
+  (
+    state: State,
+    actions: Actions<State, Hs>,
+    props: Props,
+    ...payload: any[]
+  ) => void
+>
+
+export function useEventHandlers<
+  Props extends object,
+  State,
+  Hs extends Handlers<State>,
+  EHs extends EventHandlers<State, Props, Hs>,
+>(
+  [state, actions]: [state: State, actions: Actions<State, Hs>],
+  props: Props,
+  handlers: EHs,
+) {
+  const stateRef = React.useRef(state)
+  const propsRef = React.useRef(props)
+
+  React.useEffect(() => {
+    stateRef.current = state
+    propsRef.current = props
+  })
+
+  return React.useMemo(() => {
+    const result = {} as any
+    for (const type of Object.keys(handlers)) {
+      result[type] = (...args: any[]) => {
+        handlers[type](stateRef.current, actions, propsRef.current, ...args)
+      }
+    }
+    return result
+  }, [])
+}
+
+// @TODO: Support array too?
+export function state<State extends object, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
 ): (initialState?: Partial<State>) => readonly [State, Actions<State, Hs>] {
-  return moreState => useState({ ...initialState, ...moreState }, handlers)
+  return moreState => {
+    const state = moreState ? { ...initialState, ...moreState } : initialState
+    return useState(state, handlers)
+  }
 }
