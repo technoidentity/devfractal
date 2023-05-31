@@ -20,9 +20,9 @@
   "dependencies": {
     "@fastify/autoload": "5.7.1",
     "@fastify/websocket": "8.1.0",
-    "@trpc/server": "10.28.0",
+    "@trpc/server": "10.28.1",
     "close-with-grace": "1.2.0",
-    "dotenv": "16.0.3",
+    "dotenv": "16.1.1",
     "esbuild": "0.17.19",
     "esbuild-register": "3.4.2",
     "eslint": "8.41.0",

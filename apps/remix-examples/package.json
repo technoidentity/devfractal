@@ -21,13 +21,13 @@
   "dependencies": {
     "@emotion/react": "11.11.0",
     "@emotion/server": "11.11.0",
-    "@mantine/core": "6.0.11",
-    "@mantine/dates": "6.0.11",
-    "@mantine/form": "6.0.11",
-    "@mantine/hooks": "6.0.11",
-    "@mantine/modals": "6.0.11",
-    "@mantine/notifications": "6.0.11",
-    "@mantine/remix": "6.0.11",
+    "@mantine/core": "6.0.13",
+    "@mantine/dates": "6.0.13",
+    "@mantine/form": "6.0.13",
+    "@mantine/hooks": "6.0.13",
+    "@mantine/modals": "6.0.13",
+    "@mantine/notifications": "6.0.13",
+    "@mantine/remix": "6.0.13",
     "@remix-run/node": "1.16.1",
     "@remix-run/react": "1.16.1",
     "@remix-run/serve": "1.16.1",
@@ -47,10 +47,10 @@
     "eslint": "8.41.0",
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
-    "turbo": "1.9.9",
+    "turbo": "1.10.0",
     "typescript": "5.0.4",
     "vite": "4.3.9",
-    "vitest": "0.31.1"
+    "vitest": "0.31.3"
   },
   "engines": {
     "node": ">=14"

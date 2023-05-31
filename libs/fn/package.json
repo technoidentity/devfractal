@@ -31,13 +31,13 @@
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "20.2.5",
-    "@vitest/coverage-c8": "0.31.1",
+    "@vitest/coverage-c8": "0.31.3",
     "cross-env": "7.0.3",
     "eslint": "8.41.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.8",
     "tsup": "6.7.0",
     "typescript": "5.0.4",
-    "vitest": "0.31.1"
+    "vitest": "0.31.3"
   }
 }

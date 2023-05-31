@@ -13,14 +13,14 @@
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
-    "drizzle-orm": "0.26.1",
+    "drizzle-orm": "0.26.3",
     "eslint-config-next": "13.4.4",
     "immer": "10.0.2",
     "kysely": "0.25.0",
     "next": "13.4.4",
     "next-fetch": "1.0.1",
     "pg": "8.11.0",
-    "postcss": "8.4.23",
+    "postcss": "8.4.24",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.2",
@@ -38,7 +38,7 @@
     "eslint": "8.41.0",
     "prettier": "2.8.8",
     "rimraf": "5.0.1",
-    "turbo": "1.9.9",
+    "turbo": "1.10.0",
     "typescript": "5.0.4"
   }
 }
