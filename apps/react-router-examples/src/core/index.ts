@@ -1,5 +1,5 @@
 export * from './For'
-export * from './useEvent'
+export * from '../../../../libs/local-state/src/useEvent'
 export * from './useGet'
 export * from './useSafeParams'
 export * from './loaderQuery'

@@ -74,7 +74,7 @@ export const TodoList = () => {
       >
         {({ onItemsRendered, ref }) => (
           <AutoSizer>
-            {({ height, width }) => (
+            {({ width, height }) => (
               <FixedSizeList
                 itemData={todoList}
                 itemCount={itemCount}

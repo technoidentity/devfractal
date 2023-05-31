@@ -1,16 +1,15 @@
 import { state } from '@srtp/local-state'
 import { AccordionView } from './AccordianView'
 
-type State = 'about' | 'ety'
-
-const initial = 'about'
-
-const useAccordian = state(initial as State, {
-  toggle: state => (state === 'ety' ? 'about' : 'ety'),
-})
+const useAccordian = state(
+  { state: 'about' },
+  {
+    toggle: ({ state }) => (state === 'ety' ? 'about' : 'ety'),
+  },
+)
 
 export const Accordian = () => {
-  const [state, { toggle }] = useAccordian()
+  const [{ state }, { toggle }] = useAccordian()
 
   return (
     <AccordionView

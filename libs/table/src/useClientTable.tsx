@@ -30,7 +30,7 @@ function useClientTableHandlers<Row extends RowBase>() {
   )
 }
 
-function useLocalState<State, Hs extends Handlers<State>>(
+function useLocalState<State extends object, Hs extends Handlers<State>>(
   initialState: State,
   handlers: Hs,
 ) {
