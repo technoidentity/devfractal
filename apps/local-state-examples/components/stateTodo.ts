@@ -1,8 +1,8 @@
-import { cstate } from '@srtp/local-state'
+import { pstate } from '@srtp/local-state'
 import type { CreateTodo, Todo } from '@srtp/todo'
 import { createTodo, initialState } from '@srtp/todo'
 
-export const useTodo = cstate(initialState, {
+export const useTodo = pstate(initialState, {
   createTodo: (todo: CreateTodo) => state => {
     const created = createTodo(todo)
     state.todos.set(created.id, created)

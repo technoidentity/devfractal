@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { cstate } from '@srtp/local-state/src/fastLocalState'
+import { pstate } from '@srtp/local-state/src/fastLocalState'
 
 type Todo = {
   id: number
@@ -25,7 +25,7 @@ const initialState: TodosState = {
   error: undefined,
 }
 
-export const useTodo = cstate(initialState, {
+export const useTodo = pstate(initialState, {
   FETCH_TODOS_REQUEST: () => state => {
     state.loading = true
     state.error = undefined

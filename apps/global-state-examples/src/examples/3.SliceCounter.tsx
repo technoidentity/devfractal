@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Box, Button, Container, Text } from '@chakra-ui/react'
-import { slice, useDispatch, useValue } from '@srtp/global-state'
+import { Box, Button, Text } from '@chakra-ui/react'
+import { Flex } from '@mantine/core'
+import { slice, useValue } from '@srtp/global-state'
 
-const counter = slice(
+const [counterAtom, useActions] = slice(
   { count: 100 },
   {
     inc(draft) {
@@ -11,31 +12,45 @@ const counter = slice(
     dec(draft) {
       draft.count--
     },
+    by(draft, n: number) {
+      draft.count += n
+    },
   },
 )
 
 const Counter = () => {
-  const { count } = useValue(counter)
+  const { count } = useValue(counterAtom)
 
-  return <Text>{count}</Text>
+  return (
+    <Text fontSize="3xl" m="2" fontWeight="bold">
+      {count}
+    </Text>
+  )
 }
 
 const Buttons = () => {
-  const dispatch = useDispatch(counter)
+  const actions = useActions()
 
   return (
     <Box>
-      <Button onClick={() => dispatch({ type: 'inc' })}>+</Button>
-      <Button onClick={() => dispatch({ type: 'dec' })}>-</Button>
+      <Button ml="2" onClick={() => actions.inc()}>
+        +
+      </Button>
+      <Button ml="2" onClick={() => actions.dec()}>
+        -
+      </Button>
+      <Button ml="2" onClick={() => actions.by(10)}>
+        +10
+      </Button>
     </Box>
   )
 }
 
 export function SliceCounter() {
   return (
-    <Container>
+    <Flex direction="column" align="flex-start">
       <Counter />
       <Buttons />
-    </Container>
+    </Flex>
   )
 }

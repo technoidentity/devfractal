@@ -1,11 +1,11 @@
 import { Box, Input, Text } from '@chakra-ui/react'
-import { cstate } from '@srtp/local-state'
+import { pstate, type PHandlers } from '@srtp/local-state'
 import { isNum } from '@srtp/spec'
 import React, { type ChangeEvent } from 'react'
 
 const initial = { step: 1, count: 0 }
 
-const useStep = cstate(initial, {
+const handlers = {
   next: () => state => {
     state.count += state.step
   },
@@ -16,7 +16,9 @@ const useStep = cstate(initial, {
       state.step = step
     }
   },
-})
+} satisfies PHandlers<typeof initial, {}>
+
+const useStep = pstate(initial, handlers)
 
 const useSecondInterval = (next: () => void) => {
   React.useEffect(() => {
