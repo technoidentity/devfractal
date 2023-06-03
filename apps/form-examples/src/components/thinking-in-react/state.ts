@@ -1,9 +1,10 @@
-import { computed, signal } from '@srtp/global-state'
+import { computed } from '@srtp/global-state'
 import { PRODUCTS } from '../../utils/data'
 import { categorizedProducts } from '../../utils/dataTransform'
+import { atom } from 'jotai'
 
-export const textAtom = signal('')
-export const stockedAtom = signal(false)
+export const textAtom = atom('')
+export const stockedAtom = atom(false)
 
 export const searchProductsAtom = computed(get =>
   get(textAtom).trim() === ''

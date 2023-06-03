@@ -1,15 +1,11 @@
 import type { Getter } from '@srtp/global-state'
-import {
-  signal,
-  signalWithHooks,
-  useAction,
-  useValue,
-} from '@srtp/global-state'
+import { atomWithHooks, useAction, useValue } from '@srtp/global-state'
 import type { CreateTodo, Filter, State, Todo } from '@srtp/todo'
 import { createTodo, initialState } from '@srtp/todo'
 import type { Draft } from 'immer'
+import { atom } from 'jotai'
 
-const filterAtom = signal<Filter>('All')
+const filterAtom = atom<Filter>('All')
 
 export const useFilterValue = () => {
   return useValue(filterAtom)
@@ -20,7 +16,7 @@ export const useUpdateFilter = () => {
 }
 
 type TodoState = State['todos']
-const [todosAtom, useTodoAction, useTodoValue] = signalWithHooks(
+const [todosAtom, useTodoAction, useTodoValue] = atomWithHooks(
   initialState.todos,
 )
 

@@ -9,20 +9,15 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { a, useTransition } from '@react-spring/web'
+import { atoms, computed, useAction, useValue } from '@srtp/global-state'
 import type { PrimitiveAtom } from 'jotai'
+import { atom } from 'jotai'
 import type { FormEvent } from 'react'
-import {
-  computed,
-  signal,
-  signals,
-  useAction,
-  useValue,
-} from '@srtp/global-state'
 
 type Todo = Readonly<{ title: string; completed: boolean }>
 
-const filterAtom = signal('all')
-const todosAtom = signals<Todo>()
+const filterAtom = atom('all')
+const todosAtom = atoms<Todo>()
 
 const filteredAtom = computed(get => {
   const filter = get(filterAtom)
@@ -105,7 +100,7 @@ const TodoList = () => {
     const title = e.currentTarget.inputTitle.value
     e.currentTarget.inputTitle.value = ''
 
-    setTodos(prev => [...prev, signal<Todo>({ title, completed: false })])
+    setTodos(prev => [...prev, atom<Todo>({ title, completed: false })])
   }
 
   return (

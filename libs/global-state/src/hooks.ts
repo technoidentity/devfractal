@@ -1,27 +1,16 @@
 import type { Draft } from 'immer'
 import { produce } from 'immer'
-import type { Atom, PrimitiveAtom, WritableAtom } from 'jotai'
-import { useAtomValue, useSetAtom } from 'jotai'
+import type { PrimitiveAtom, WritableAtom } from 'jotai'
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'
-import { signal } from './signal'
-
-export function useValue<Value>(
-  signal: Atom<Value> | Atom<Promise<Value>> | Atom<Value | Promise<Value>>,
-) {
-  return useAtomValue(signal)
-}
-
-export function useSignal<
-  Value,
-  Args extends unknown[],
-  Result extends void | Promise<void>,
->(atom: WritableAtom<Value, Args, Result>) {
-  return [useValue(atom), useAction(atom)]
-}
+import { computed } from './signal'
+import type { Read } from './types'
+import { useEvent } from '@srtp/local-state'
 
 export const useAction = useSetAtom
+export const useValue = useAtomValue
 
-export function useImmerSetAtom<Value, Result>(
+export function useImmerAction<Value, Result>(
   atom: WritableAtom<Value, [(value: Value) => Value], Result>,
 ) {
   const setState = useSetAtom(atom)
@@ -37,12 +26,29 @@ export function actionHook<Value, Args extends unknown[]>(
   fn: (draft: Draft<Value>, ...args: Args) => void,
 ) {
   return function useAction(...args: Args) {
-    const set = useImmerSetAtom(signal)
+    const set = useImmerAction(signal)
     return set(draft => fn(draft, ...args))
   }
 }
 
-export function useLocalSignal<Value extends object>(initialValue: Value) {
+export function useLocalAtom<Value>(initialValue: Value) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  return useSignal(React.useMemo(() => signal(initialValue), []))
+  return React.useMemo(() => atom(initialValue), [])
+}
+
+export function useComputed<Value>(read: Read<Value>) {
+  const reader = useEvent(read)
+  const comp = React.useMemo(() => computed(reader), [reader])
+
+  return useValue(comp)
+}
+
+export function useLocal<Value>(initialValue: Value) {
+  const signal = useLocalAtom(initialValue)
+  const [value, set] = useAtom(signal)
+
+  const useComp = <Result>(fn: (value: Value) => Result) =>
+    useComputed(get => fn(get(signal)))
+
+  return [value, set, useComp, signal] as const
 }

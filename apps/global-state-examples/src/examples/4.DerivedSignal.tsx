@@ -1,7 +1,8 @@
 import { Box, Button, Text } from '@chakra-ui/react'
-import { derived, signal, useAction, useValue } from '@srtp/global-state'
+import { derived, useAction, useValue } from '@srtp/global-state'
+import { atom } from 'jotai'
 
-const countAtom = signal(100)
+const countAtom = atom(100)
 
 const decrementCountAtom = derived(
   get => get(countAtom),

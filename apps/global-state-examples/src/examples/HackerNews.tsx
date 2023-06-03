@@ -10,7 +10,8 @@ import {
 import { a, useSpring } from '@react-spring/web'
 import Parser from 'html-react-parser'
 import { Suspense } from 'react'
-import { computed, signal, useAction, useValue } from '@srtp/global-state'
+import { computed, useAction, useValue } from '@srtp/global-state'
+import { atom } from 'jotai'
 
 type PostData = Readonly<{
   by: string
@@ -26,7 +27,7 @@ type PostData = Readonly<{
   url?: string
 }>
 
-const postId = signal(9001)
+const postId = atom(9001)
 const postData = computed(async get => {
   const id = get(postId)
   const response = await fetch(

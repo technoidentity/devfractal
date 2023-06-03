@@ -1,8 +1,8 @@
 import { Text } from '@chakra-ui/react'
-import { computed, signal, useAction, useValue } from '@srtp/global-state'
-import { Provider } from 'jotai'
+import { computed, useAction, useValue } from '@srtp/global-state'
+import { Provider, atom } from 'jotai'
 
-const textAtom = signal('hello')
+const textAtom = atom('hello')
 const textLenAtom = computed(get => get(textAtom).length)
 const uppercaseAtom = computed(get => get(textAtom).toUpperCase())
 

@@ -5,16 +5,16 @@ import {
   action,
   computed,
   derived,
-  signal,
   useAction,
   useValue,
 } from '@srtp/global-state'
+import { atom } from 'jotai'
 
-const countAtom = signal(0)
+const countAtom = atom(0)
 
-export const countryAtom = signal('Japan')
-export const citiesAtom = signal(['Tokyo', 'Kyoto', 'Osaka'])
-export const mangaAtom = signal({
+export const countryAtom = atom('Japan')
+export const citiesAtom = atom(['Tokyo', 'Kyoto', 'Osaka'])
+export const mangaAtom = atom({
   'Dragon Ball': 1984,
   'One Piece': 1997,
   Naruto: 1999,
@@ -38,9 +38,9 @@ export function DoubleCounter() {
   return <h2>{doubledCount}</h2>
 }
 
-const count1 = signal(1)
-const count2 = signal(2)
-const count3 = signal(3)
+const count1 = atom(1)
+const count2 = atom(2)
+const count3 = atom(3)
 
 export const sum = computed(get => get(count1) + get(count2) + get(count3))
 
@@ -70,7 +70,7 @@ export function Controls() {
   return <button onClick={() => multiply(3)}>triple</button>
 }
 
-const urlAtom = signal('https://json.host.com')
+const urlAtom = atom('https://json.host.com')
 const fetchUrlAtom = computed(async get => {
   const response = await fetch(get(urlAtom))
   return await response.json()

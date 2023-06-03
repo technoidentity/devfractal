@@ -1,6 +1,7 @@
-import { computed, signal, useValue } from '@srtp/global-state'
+import { computed, useValue } from '@srtp/global-state'
+import { atom } from 'jotai'
 
-const urlSignal = signal('https://jsonplaceholder.typicode.com/posts/1')
+const urlSignal = atom('https://jsonplaceholder.typicode.com/posts/1')
 
 const fetchUrlSignal = computed(async get => {
   const response = await fetch(get(urlSignal))

@@ -1,15 +1,16 @@
-import { action, computed, signal } from '@srtp/global-state'
+import { action, computed } from '@srtp/global-state'
 
 import { original } from 'immer'
 import type { CartItem } from './CartList'
 import { fakeProductList } from './fakeProducts'
 import type { Product } from './ProductList'
+import { atom } from 'jotai'
 type Category = string
 
 export const fakeProducts = fakeProductList(10)
 
-export const cartAtom = signal<CartItem[]>([])
-export const selectedCategoryAtom = signal<Category>('all')
+export const cartAtom = atom<CartItem[]>([])
+export const selectedCategoryAtom = atom<Category>('all')
 
 export const filteredProductsAtom = computed(get =>
   get(selectedCategoryAtom) === 'all'

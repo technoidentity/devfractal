@@ -2,19 +2,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Box, Button, Text } from '@chakra-ui/react'
 import { delay } from '@srtp/core'
-import {
-  asyncSignal,
-  computed,
-  derived,
-  signal,
-  useAction,
-  useValue,
-} from '@srtp/global-state'
+import { computed, derived, useAction, useValue } from '@srtp/global-state'
+import { atom } from 'jotai'
 import { Suspense } from 'react'
 
-const countAtom = signal(1)
+const countAtom = atom(1)
 
-const asyncAtom = asyncSignal(async get => {
+const asyncAtom = atom(async get => {
   await delay(300)
   return get(countAtom) * 2
 })

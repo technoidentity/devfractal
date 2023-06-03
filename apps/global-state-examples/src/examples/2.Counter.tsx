@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Heading, Text } from '@chakra-ui/react'
 import React from 'react'
-import { action, signal, useAction, useValue } from '@srtp/global-state'
+import { action, useAction, useValue } from '@srtp/global-state'
+import { atom } from 'jotai'
 
-const counterAtom = signal(0)
+const counterAtom = atom(0)
 
 const incAtom = action((get, set) => {
   const next = get(counterAtom) + 1
