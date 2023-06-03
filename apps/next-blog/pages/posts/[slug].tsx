@@ -19,13 +19,14 @@ interface MdxPost {
 
 // eslint-disable-next-line import/no-default-export
 export default function PostPage({ post }: { post: MdxPost }) {
+  const components = { Youtube, Image } as any
   return (
     <>
       <Head>
         <title>{post.meta.slug}</title>
       </Head>
       <h1>{post.meta.title}</h1>
-      <MDXRemote {...post.source} components={{ Youtube, Image }} />
+      <MDXRemote {...post.source} components={components} />
     </>
   )
 }
