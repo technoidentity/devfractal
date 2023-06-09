@@ -33,18 +33,18 @@
     "immer": "10.0.2",
     "tiny-invariant": "1.3.1",
     "tiny-warning": "1.0.3",
-    "tslib": "2.5.2",
+    "tslib": "2.5.3",
     "zod": "3.21.4"
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "20.2.5",
     "cross-env": "7.0.3",
-    "eslint": "8.41.0",
+    "eslint": "8.42.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.8",
     "tsup": "6.7.0",
     "typescript": "5.1.3",
-    "vitest": "0.31.4"
+    "vitest": "0.32.0"
   }
 }

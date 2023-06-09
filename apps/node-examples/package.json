@@ -33,12 +33,12 @@
     "@types/better-sqlite3": "7.6.4",
     "@types/node": "20.2.5",
     "@types/supertest": "2.0.12",
-    "eslint": "8.41.0",
+    "eslint": "8.42.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "2.8.8",
     "supertest": "6.3.3",
     "tsx": "3.12.7",
     "typescript": "5.1.3",
-    "vitest": "0.31.4"
+    "vitest": "0.32.0"
   }
 }

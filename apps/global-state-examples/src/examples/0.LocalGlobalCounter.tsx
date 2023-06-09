@@ -3,13 +3,6 @@ import { useLocal } from '@srtp/global-state'
 import { useEvent } from '@srtp/local-state'
 import { Provider } from 'jotai'
 
-// const Input = () => {
-//   const text = useValue(textAtom)
-//   const setText = useAction(textAtom)
-
-//   return <input value={text} onChange={e => setText(e.target.value)} />
-// }
-
 const CharCount = ({ len }: { len: number }) => {
   return <Text>Length: {len}</Text>
 }

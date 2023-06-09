@@ -32,7 +32,13 @@
     "strict": true,
     "strictPropertyInitialization": true,
     "target": "ES2022",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true
   },
 
   "exclude": ["node_modules"]
