@@ -34,7 +34,7 @@ export async function action({ request }: ActionArgs) {
 }
 
 export default function useLoginPage() {
-  const actionData = useActionData()
+  const actionData: any = useActionData()
   const [searchParams] = useSearchParams()
   return <Signin searchParams={searchParams} actionData={actionData} />
 }

@@ -59,7 +59,7 @@ export const action: ActionFunction = async ({ request }) => {
 }
 
 export default function useSignup() {
-  const data = useActionData()
+  const data: any = useActionData()
   const [showPassword, setShowPassword] = useState(false)
 
   const handleShowPassword = (password: boolean) => {

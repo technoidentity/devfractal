@@ -35,10 +35,10 @@
     "useDefineForClassFields": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
-    "exactOptionalPropertyTypes": true,
+    // "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true
+    "noPropertyAccessFromIndexSignature": true
+    // "noUncheckedIndexedAccess": true
   },
 
   "exclude": ["node_modules"]

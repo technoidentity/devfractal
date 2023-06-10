@@ -329,8 +329,10 @@ export function createForm<Spec extends FormSpec>(
     children: React.ReactNode
     initialValues?: z.infer<Spec>
   }) => {
+    const init = initialValues || initial
+    invariant(init, 'initialValues or createForm initial required')
     const form = useForm({
-      initialValues: initialValues || initial,
+      initialValues: init,
       validate: zodResolver(spec),
     })
 

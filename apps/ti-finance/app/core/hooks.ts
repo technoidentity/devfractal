@@ -39,7 +39,7 @@ export function useServerErrors<Spec extends z.AnyZodObject>(
 ): FormErrors<z.infer<Spec>> {
   const errSpec = React.useMemo(() => createErrorsSpec(spec), [spec])
   const s = useLatest(errSpec)
-  const data = useActionData()
+  const data: any = useActionData()
 
   return React.useMemo(() => {
     //@TODO: currently assuming empty object return from action on success

@@ -4,6 +4,6 @@ import { deserialize } from 'superjson'
 export function useGet<F extends (...args: any[]) => any>(): Required<
   Awaited<ReturnType<F>>
 >['__srtp__type'] {
-  const data = useLoaderData()
+  const data: any = useLoaderData()
   return deserialize(data)
 }

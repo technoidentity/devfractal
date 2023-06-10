@@ -94,7 +94,7 @@ export const loader = async ({ request }: ActionArgs) => {
 }
 
 export default function App() {
-  const user = useLoaderData()
+  const user: any = useLoaderData()
 
   return (
     <Document>

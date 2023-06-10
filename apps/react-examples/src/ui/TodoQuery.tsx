@@ -239,7 +239,7 @@ export const TodoApp = () => {
   const [add] = useAddTodo(queryClient)
   const [toggle] = useToggle(queryClient)
 
-  const [activeTab, , setActiveTab] = useString(tabs[0])
+  const [activeTab, setActiveTab] = useString(tabs[0])
 
   invariant(data !== undefined, 'todoList should be defined')
 
@@ -252,7 +252,11 @@ export const TodoApp = () => {
         </Text>
       </Flex>
 
-      <Tabs tabs={tabs} onTabChange={setActiveTab} activeTab={activeTab} />
+      <Tabs
+        tabs={tabs}
+        onTabChange={tab => setActiveTab(_ => tab)}
+        activeTab={activeTab}
+      />
 
       <Heading as="h2" size="lg" p="2">
         Todo List

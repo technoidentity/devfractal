@@ -19,7 +19,7 @@ export function debugCast<T, Spec extends z.ZodType<T>>(
   spec: Spec,
   v: unknown,
 ): T {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env['NODE_ENV'] === 'development') {
     return spec.parse(v)
   }
   return v as T

@@ -2,6 +2,7 @@ import { globSync as sync } from 'glob'
 import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
+import invariant from 'tiny-invariant'
 
 export interface PostMeta {
   excerpt: string
@@ -25,7 +26,9 @@ export const getSlugs = (): string[] => {
   return paths.map((path: string) => {
     const slugs = path.split('/')
     const fileName = slugs[slugs.length - 1]
+    invariant(fileName, 'fileName is undefined')
     const [slug, _ext] = fileName.split('.')
+    invariant(slug, 'slug is undefined')
     return slug
   })
 }
@@ -39,10 +42,10 @@ export const getPostFromSlug = (slug: string) => {
     content,
     meta: {
       slug,
-      excerpt: data.excerpt ?? '',
-      tags: data.tags ?? [],
-      title: data.title,
-      date: (data.date ?? new Date()).toString(),
+      excerpt: data['excerpt'] ?? '',
+      tags: data['tags'] ?? [],
+      title: data['title'],
+      date: (data['date'] ?? new Date()).toString(),
     },
   }
 }

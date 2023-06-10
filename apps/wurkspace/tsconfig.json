@@ -1,6 +1,7 @@
 {
   "extends": "@srtp/tsconfig/next.json",
   "compilerOptions": {
+    "noPropertyAccessFromIndexSignature": false,
     "types": ["node", "jest"],
     "baseUrl": ".",
     "paths": {

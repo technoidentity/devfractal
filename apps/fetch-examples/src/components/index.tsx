@@ -11,7 +11,7 @@ import React, { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { TodoList } from './client/Virtual'
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env['NODE_ENV'] === 'production'
 
 const queryClient = new QueryClient({
   defaultOptions: {

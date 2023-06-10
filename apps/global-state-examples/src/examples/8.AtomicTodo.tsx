@@ -97,8 +97,8 @@ const TodoList = () => {
   const add = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const title = e.currentTarget.inputTitle.value
-    e.currentTarget.inputTitle.value = ''
+    const title = e.currentTarget['inputTitle'].value
+    e.currentTarget['inputTitle'].value = ''
 
     setTodos(prev => [...prev, atom<Todo>({ title, completed: false })])
   }

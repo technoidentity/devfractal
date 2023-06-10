@@ -18,7 +18,7 @@ function useClientTableHandlers<Row extends RowBase>() {
           state.sort = { order, orderBy: castDraft(accessor) }
         },
 
-        handleSearch(state, search?: string | undefined) {
+        handleSearch(state, search: string) {
           state.search = search
         },
 
