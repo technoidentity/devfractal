@@ -14,27 +14,26 @@ import React from 'react'
 import { z } from 'zod'
 import { safeUpdateState } from './safeState'
 
-// @TODO: if value doesn't satisfy spec, does nothing
 export function primitive<Spec extends FieldSpec>(spec: Spec) {
   const useState = safeUpdateState(z.object({ value: spec }))
 
   type Value = z.infer<Spec>
 
   return function usePrimitiveState(initialValue?: Value) {
-    const [state, { updateValue, setValue }] = useState({
+    const [state, { setValue }] = useState({
       value: initialValue || defaultValue(spec),
     })
 
     const update = React.useCallback(
       (vfn: (_: Value) => Value) => {
-        updateValue(vfn)
+        setValue(vfn)
       },
-      [updateValue],
+      [setValue],
     )
 
     const set = React.useCallback(
       (v: Value) => {
-        setValue(v)
+        setValue(() => v)
       },
       [setValue],
     )
@@ -58,4 +57,12 @@ export function useToggle(value: boolean) {
   const reset = React.useCallback(() => update(_ => false), [update])
 
   return [v, { set, reset, toggle }] as const
+}
+
+export function useEnumValue<
+  Spec extends z.ZodEnum<any> | z.ZodNativeEnum<any>,
+>(spec: Spec, value: z.infer<Spec>) {
+  const useEnum = React.useMemo(() => primitive(spec), [])
+
+  return useEnum(value)
 }
