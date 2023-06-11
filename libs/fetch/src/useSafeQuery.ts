@@ -28,7 +28,7 @@ type Query = Record<
   string | number | boolean | null | undefined
 >
 
-type UseSafeQueryArgs<Spec extends z.ZodTypeAny> = Omit<
+export type UseSafeQueryArgs<Spec extends z.ZodTypeAny> = Omit<
   UseQueryOptions,
   'queryKey'
 > &

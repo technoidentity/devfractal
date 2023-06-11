@@ -28,6 +28,7 @@
     "@srtp/global-state": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
+    "@srtp/fetch": "workspace:*",
     "@tanstack/react-query": "4.29.12",
     "framer-motion": "10.12.16",
     "immer": "10.0.2",
