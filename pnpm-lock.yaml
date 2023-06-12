@@ -1130,6 +1130,9 @@ importers:
       '@emotion/styled':
         specifier: 11.11.0
         version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.9)(react@18.2.0)
+      '@formkit/auto-animate':
+        specifier: 1.0.0-beta.6
+        version: 1.0.0-beta.6
       '@mantine/form':
         specifier: 6.0.13
         version: 6.0.13(react@18.2.0)
@@ -1157,6 +1160,9 @@ importers:
       '@tanstack/react-query':
         specifier: 4.29.12
         version: 4.29.12(react-dom@18.2.0)(react@18.2.0)
+      chance:
+        specifier: 1.1.11
+        version: 1.1.11
       framer-motion:
         specifier: 10.12.16
         version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
@@ -1203,6 +1209,9 @@ importers:
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
+      '@types/chance':
+        specifier: 1.1.3
+        version: 1.1.3
       '@types/node':
         specifier: 20.2.5
         version: 20.2.5
@@ -1221,6 +1230,9 @@ importers:
       eslint-config-srtp:
         specifier: workspace:*
         version: link:../../libs/eslint-config-srtp
+      json-server:
+        specifier: 0.17.3
+        version: 0.17.3
       prettier:
         specifier: 2.8.8
         version: 2.8.8
@@ -1538,7 +1550,7 @@ importers:
     devDependencies:
       '@remix-run/dev':
         specifier: 1.17.0
-        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)
+        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)(ts-node@10.9.1)
       '@remix-run/eslint-config':
         specifier: 1.17.0
         version: 1.17.0(eslint@8.42.0)(react@18.2.0)(typescript@5.1.3)
@@ -1605,7 +1617,7 @@ importers:
     devDependencies:
       '@remix-run/dev':
         specifier: 1.17.0
-        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)
+        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)(ts-node@10.9.1)
       '@remix-run/eslint-config':
         specifier: 1.17.0
         version: 1.17.0(eslint@8.42.0)(react@18.2.0)(typescript@5.1.3)
@@ -4849,7 +4861,7 @@ importers:
         version: 1.35.0
       '@remix-run/dev':
         specifier: 1.17.0
-        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)
+        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)(ts-node@10.9.1)
       '@remix-run/eslint-config':
         specifier: 1.17.0
         version: 1.17.0(eslint@8.42.0)(react@18.2.0)(typescript@5.1.3)
@@ -5048,7 +5060,7 @@ importers:
     devDependencies:
       '@remix-run/dev':
         specifier: 1.17.0
-        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)
+        version: 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)(ts-node@10.9.1)
       '@remix-run/eslint-config':
         specifier: 1.17.0
         version: 1.17.0(eslint@8.42.0)(react@18.2.0)(typescript@5.1.3)
@@ -8469,6 +8481,10 @@ packages:
       tabbable: 6.1.2
     dev: false
 
+  /@formkit/auto-animate@1.0.0-beta.6:
+    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
+    dev: false
+
   /@gar/promisify@1.1.3:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
 
@@ -10985,7 +11001,7 @@ packages:
   /@remix-run/css-bundle@1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5):
     resolution: {integrity: sha512-uQNxO60qcV3+S/ASjmxan1PoJlu9EVWNQ9g16jAHEfj/XA0DpCdGVU87GhkdnFGJee6OyLeg7fO4jPKZ+dvKbA==}
     dependencies:
-      '@remix-run/dev': 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)
+      '@remix-run/dev': 1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)(ts-node@10.9.1)
     transitivePeerDependencies:
       - '@remix-run/serve'
       - '@types/node'
@@ -11001,84 +11017,6 @@ packages:
       - ts-node
       - utf-8-validate
     dev: false
-
-  /@remix-run/dev@1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5):
-    resolution: {integrity: sha512-UczyZdcUfQCS8a53VT4UtGFUCLYPKFiMwfvZMMgDL6kbWnYrknvXkXICqG26QbyR3bKDR6JPm5I6wVsmTGp+vQ==}
-    engines: {node: '>=14'}
-    hasBin: true
-    peerDependencies:
-      '@remix-run/serve': ^1.17.0
-    peerDependenciesMeta:
-      '@remix-run/serve':
-        optional: true
-    dependencies:
-      '@babel/core': 7.22.5
-      '@babel/generator': 7.22.5
-      '@babel/parser': 7.22.5
-      '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.5)
-      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.5)
-      '@babel/preset-env': 7.22.5(@babel/core@7.22.5)
-      '@babel/preset-typescript': 7.22.5(@babel/core@7.22.5)
-      '@babel/traverse': 7.22.5
-      '@babel/types': 7.22.5
-      '@npmcli/package-json': 2.0.0
-      '@remix-run/serve': 1.17.0
-      '@remix-run/server-runtime': 1.17.0
-      '@vanilla-extract/integration': 6.2.1(@types/node@20.2.5)
-      arg: 5.0.2
-      cacache: 15.3.0
-      chalk: 4.1.2
-      chokidar: 3.5.3
-      dotenv: 16.1.4
-      esbuild: 0.17.6
-      esbuild-plugin-polyfill-node: 0.2.0(esbuild@0.17.6)
-      execa: 5.1.1
-      exit-hook: 2.2.1
-      express: 4.18.2
-      fast-glob: 3.2.11
-      fs-extra: 10.1.0
-      get-port: 5.1.1
-      gunzip-maybe: 1.4.2
-      inquirer: 8.2.5
-      jsesc: 3.0.2
-      json5: 2.2.3
-      lodash: 4.17.21
-      lodash.debounce: 4.0.8
-      lru-cache: 7.18.3
-      minimatch: 9.0.1
-      node-fetch: 2.6.11
-      ora: 5.4.1
-      picomatch: 2.3.1
-      postcss: 8.4.24
-      postcss-discard-duplicates: 5.1.0(postcss@8.4.24)
-      postcss-load-config: 4.0.1(postcss@8.4.24)(ts-node@10.9.1)
-      postcss-modules: 6.0.0(postcss@8.4.24)
-      prettier: 2.8.8
-      pretty-ms: 7.0.1
-      proxy-agent: 5.0.0
-      react-refresh: 0.14.0
-      recast: 0.21.5
-      remark-frontmatter: 4.0.1
-      remark-mdx-frontmatter: 1.1.1
-      semver: 7.5.1
-      sort-package-json: 1.57.0
-      tar-fs: 2.1.1
-      tsconfig-paths: 4.2.0
-      ws: 7.5.9
-      xdm: 2.1.0
-    transitivePeerDependencies:
-      - '@types/node'
-      - bluebird
-      - bufferutil
-      - encoding
-      - less
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - ts-node
-      - utf-8-validate
 
   /@remix-run/dev@1.17.0(@remix-run/serve@1.17.0)(@types/node@20.2.5)(ts-node@10.9.1):
     resolution: {integrity: sha512-UczyZdcUfQCS8a53VT4UtGFUCLYPKFiMwfvZMMgDL6kbWnYrknvXkXICqG26QbyR3bKDR6JPm5I6wVsmTGp+vQ==}
@@ -11157,7 +11095,6 @@ packages:
       - terser
       - ts-node
       - utf-8-validate
-    dev: true
 
   /@remix-run/eslint-config@1.17.0(eslint@8.42.0)(react@18.2.0)(typescript@5.1.3):
     resolution: {integrity: sha512-tOIRQN1knA529DbZab/oCh5v3aMJh34auj6H9L7R/fFeOocqhQPK3EZCqdkw5GDNKjFCrfcSUMFuLVBD8Ye5Zw==}
@@ -16094,7 +16031,7 @@ packages:
       eslint-plugin-promise: ^6.0.0
     dependencies:
       eslint: 8.42.0
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.42.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.9)(eslint-import-resolver-webpack@0.13.2)(eslint@8.42.0)
       eslint-plugin-n: 15.7.0(eslint@8.42.0)
       eslint-plugin-promise: 6.1.1(eslint@8.42.0)
     dev: true
@@ -16328,39 +16265,6 @@ packages:
       semver: 7.5.1
       typescript: 5.1.3
     transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.59.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.42.0):
-    resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
-    engines: {node: '>=4'}
-    peerDependencies:
-      '@typescript-eslint/parser': '*'
-      eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-    peerDependenciesMeta:
-      '@typescript-eslint/parser':
-        optional: true
-    dependencies:
-      '@typescript-eslint/parser': 5.59.9(eslint@8.42.0)(typescript@5.1.3)
-      array-includes: 3.1.6
-      array.prototype.flat: 1.3.1
-      array.prototype.flatmap: 1.3.1
-      debug: 3.2.7(supports-color@5.5.0)
-      doctrine: 2.1.0
-      eslint: 8.42.0
-      eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.59.9)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-webpack@0.13.2)(eslint@8.42.0)
-      has: 1.0.3
-      is-core-module: 2.12.1
-      is-glob: 4.0.3
-      minimatch: 3.1.2
-      object.values: 1.1.6
-      resolve: 1.22.2
-      semver: 6.3.0
-      tsconfig-paths: 3.14.2
-    transitivePeerDependencies:
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
       - supports-color
     dev: true
 
@@ -25362,7 +25266,7 @@ packages:
       eslint: 8.42.0
       eslint-config-standard: 17.1.0(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.7.0)(eslint-plugin-promise@6.1.1)(eslint@8.42.0)
       eslint-config-standard-jsx: 11.0.0(eslint-plugin-react@7.32.2)(eslint@8.42.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.42.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.9)(eslint-import-resolver-webpack@0.13.2)(eslint@8.42.0)
       eslint-plugin-n: 15.7.0(eslint@8.42.0)
       eslint-plugin-promise: 6.1.1(eslint@8.42.0)
       eslint-plugin-react: 7.32.2(eslint@8.42.0)

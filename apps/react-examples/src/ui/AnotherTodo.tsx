@@ -125,7 +125,7 @@ const useTabValue = primitive(FilterValue)
 
 export const TodoApp = () => {
   const [{ todoList }, { add }] = useTodoList()
-  const [activeTab, setActiveTab] = useTabValue(tabs[0])
+  const [activeTab, , setActiveTab] = useTabValue(tabs[0])
 
   return (
     <ChakraProvider>
@@ -136,11 +136,7 @@ export const TodoApp = () => {
         </Text>
       </Flex>
 
-      <Tabs
-        tabs={tabs}
-        onTabChange={tab => setActiveTab(() => tab as FilterValue)}
-        activeTab={activeTab}
-      />
+      <Tabs tabs={tabs} onTabChange={setActiveTab} activeTab={activeTab} />
 
       <Heading as="h2" size="lg" p="2">
         Todo List
