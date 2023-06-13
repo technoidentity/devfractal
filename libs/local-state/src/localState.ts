@@ -4,7 +4,13 @@
 import type { Draft } from 'immer'
 import React from 'react'
 import { useImmerReducer } from 'use-immer'
-import type { ActionCreators, Actions, ActionsFrom, Handlers } from './types'
+import type {
+  ActionCreators,
+  Actions,
+  ActionsFrom,
+  Effect,
+  Handlers,
+} from './types'
 
 type Reducer<State extends object, Hs extends Handlers<State>> = (
   state: Draft<State>,
@@ -132,12 +138,27 @@ export function useEventHandlers<
 }
 
 // @TODO: Support array too?
-export function state<State extends object, Hs extends Handlers<State>>(
+export function state<
+  State extends object,
+  Hs extends Handlers<State>,
+  Result extends any[],
+>(
   initialState: State,
   handlers: Hs,
+  effect?: Effect<State, Result>,
 ): (initialState?: Partial<State>) => readonly [State, Actions<State, Hs>] {
+  const useLocalStateEffect = effect
+    ? (state: State) => {
+        const selector = React.useMemo(() => effect.selector(state), [state])
+        React.useEffect(() => {
+          effect.effect(selector)
+        }, [selector])
+      }
+    : () => {}
   return moreState => {
     const state = moreState ? { ...initialState, ...moreState } : initialState
+    useLocalStateEffect(state)
+
     return useState(state, handlers)
   }
 }

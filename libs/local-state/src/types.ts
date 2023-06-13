@@ -1,5 +1,12 @@
 import type { Draft } from 'immer'
 
+export type Effect<State extends object, Result> = Readonly<{
+  selector: (state: State) => Result
+  effect: (result: Result) => void
+}>
+
+export type Effects<State extends object> = readonly Effect<State, any>[]
+
 export type Handlers<State> = Record<
   string,
   (state: Draft<State>, ...payload: any[]) => void
