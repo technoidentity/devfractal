@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "6eda2dc7-644c-4da5-815a-ee2cd1455bd5",
+  "id": "787edff0-dfd9-4107-8207-745ebcfeb8c9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "admin": {
@@ -55,15 +55,23 @@
           "name": "courseToStudent_course_id_courses_id_fk",
           "tableFrom": "courseToStudent",
           "tableTo": "courses",
-          "columnsFrom": ["course_id"],
-          "columnsTo": ["id"]
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "id"
+          ]
         },
         "courseToStudent_student_id_students_id_fk": {
           "name": "courseToStudent_student_id_students_id_fk",
           "tableFrom": "courseToStudent",
           "tableTo": "students",
-          "columnsFrom": ["student_id"],
-          "columnsTo": ["id"]
+          "columnsFrom": [
+            "student_id"
+          ],
+          "columnsTo": [
+            "id"
+          ]
         }
       },
       "compositePrimaryKeys": {}
@@ -104,8 +112,12 @@
           "name": "courses_teacher_id_teachers_id_fk",
           "tableFrom": "courses",
           "tableTo": "teachers",
-          "columnsFrom": ["teacher_id"],
-          "columnsTo": ["id"]
+          "columnsFrom": [
+            "teacher_id"
+          ],
+          "columnsTo": [
+            "id"
+          ]
         }
       },
       "compositePrimaryKeys": {}
@@ -167,8 +179,12 @@
           "name": "tasks_course_id_courses_id_fk",
           "tableFrom": "tasks",
           "tableTo": "courses",
-          "columnsFrom": ["course_id"],
-          "columnsTo": ["id"]
+          "columnsFrom": [
+            "course_id"
+          ],
+          "columnsTo": [
+            "id"
+          ]
         }
       },
       "compositePrimaryKeys": {}

@@ -1,13 +1,11 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
 import Database from 'better-sqlite3'
+import { drizzle } from 'drizzle-orm/better-sqlite3'
+import { teachers } from './db/schema'
 
-const users = sqliteTable('users', {
-  id: integer('id').primaryKey(),
-  fullName: text('full_name'),
-})
-
-const sqlite = new Database('sqlite.db')
+const sqlite = new Database('file:sqlite.db')
 const db = drizzle(sqlite)
 
-export const allUsers = db.select().from(users).all()
+db.insert(teachers).values({ email: 'foo@bar.com' }).run()
+
+export const allUsers = db.select().from(teachers).all()
+console.log(allUsers)

@@ -5,5 +5,5 @@ import Database from 'better-sqlite3'
 const sqlite = new Database('sqlite.db')
 const db = drizzle(sqlite)
 
-// this will automatically run needed migrations on the database
+// this will automatically run necessary migrations on the database
 migrate(db, { migrationsFolder: './migrations' })
