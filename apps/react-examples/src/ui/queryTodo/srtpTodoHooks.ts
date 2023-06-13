@@ -1,8 +1,8 @@
-import type { QueryClient } from '@tanstack/react-query'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useOptimistic, useOptimisticImmer } from '@srtp/fetch'
+import { useQuery } from '@tanstack/react-query'
 import invariant from 'tiny-invariant'
-import { todoApi } from './todoApi'
 import type { Todo } from './todo'
+import { todoApi } from './todoApi'
 
 export function useTodoList() {
   const result = useQuery({
@@ -15,85 +15,29 @@ export function useTodoList() {
 }
 
 let dummyID = -1
-export function useAddTodo(queryClient: QueryClient) {
-  const mutation = useMutation({
-    mutationFn: (title: string) => todoApi.post({ title, completed: false }),
-    onMutate: async (title: string) => {
-      await queryClient.cancelQueries(['todos'])
-      const previousTodos = queryClient.getQueryData(['todos'])
-      queryClient.setQueryData(['todos'], old => [
-        ...(old as Todo[]),
-        { id: dummyID--, title, completed: false },
-      ])
-      return { previousTodos }
+export function useAddTodo() {
+  return useOptimisticImmer<Todo, string, Todo[]>(
+    ['todos'],
+    title => todoApi.post({ title, completed: false }),
+    (draft, title) => {
+      draft.push({ id: dummyID--, title, completed: false })
     },
-    onError: (err, _, context) => {
-      console.error(err)
-
-      queryClient.setQueryData(['todos'], context?.previousTodos)
-    },
-    // on sucess replace previous dummy todo with actual todo
-    onSuccess: (todo, _) => {
-      queryClient.setQueryData(['todos'], old =>
-        (old as Todo[]).map(t => (t.id === todo.id ? todo : t)),
-      )
-    },
-
-    onSettled: async () => {
-      await queryClient.invalidateQueries(['todos'])
-    },
-  })
-
-  return [mutation.mutate, mutation] as const
+  )
 }
 
-export function useToggle(queryClient: QueryClient) {
-  const mutation = useMutation({
-    mutationFn: (todo: Todo) =>
-      todoApi.patch({ ...todo, completed: !todo.completed }),
-    onMutate: async (todo: Todo) => {
-      await queryClient.cancelQueries(['todos'])
-      const previousTodos = queryClient.getQueryData(['todos'])
-      queryClient.setQueryData(['todos'], old =>
-        (old as Todo[]).map(t =>
-          t.id === todo.id ? { ...t, completed: !t.completed } : t,
-        ),
-      )
-      return { previousTodos }
-    },
-    onError: (err, _, context) => {
-      console.error(err)
-
-      queryClient.setQueryData(['todos'], context?.previousTodos)
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries(['todos'])
-    },
-  })
-
-  return [mutation.mutate, mutation] as const
+export function useToggle() {
+  return useOptimistic(
+    ['todos'],
+    (todo: Todo) => todoApi.patch({ ...todo, completed: !todo.completed }),
+    (old: Todo[], todo) =>
+      old.map(t => (t.id === todo.id ? { ...t, completed: !t.completed } : t)),
+  )
 }
 
-export function useDelete(queryClient: QueryClient, id: number) {
-  const mutation = useMutation({
-    mutationFn: () => todoApi.delete({ id }),
-    onMutate: async (id: number) => {
-      await queryClient.cancelQueries(['todos'])
-      const previousTodos = queryClient.getQueryData(['todos'])
-      queryClient.setQueryData(['todos'], old =>
-        (old as Todo[]).filter(todo => todo.id !== id),
-      )
-      return { previousTodos }
-    },
-    onError: (err, _, context) => {
-      console.error(err)
-
-      queryClient.setQueryData(['todos'], context?.previousTodos)
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries(['todos'])
-    },
-  })
-
-  return [mutation.mutate, mutation]
+export function useDelete() {
+  return useOptimistic(
+    ['todos'],
+    (id: number) => todoApi.delete({ id }),
+    (old: Todo[], id: number) => old.filter(todo => todo.id !== id),
+  )
 }

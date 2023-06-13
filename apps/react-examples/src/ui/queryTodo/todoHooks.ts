@@ -1,41 +1,42 @@
-import type { QueryClient } from '@tanstack/react-query'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import invariant from 'tiny-invariant'
-import { todoApi } from './todoApi'
+import { useSafeQuery } from '@srtp/fetch'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { Todo } from './todo'
+import { TodoList } from './todo'
+import { todoApi } from './todoApi'
 
 export function useTodoList() {
-  const result = useQuery({
-    queryKey: ['todos'],
+  return useSafeQuery({
+    paths: ['todos'],
+    spec: TodoList,
     queryFn: () => todoApi.getAll(),
   })
-
-  invariant(result.status === 'success', 'should be success')
-  return result
 }
 
 let dummyID = -1
-export function useAddTodo(queryClient: QueryClient) {
+export function useAddTodo() {
+  const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: (title: string) => todoApi.post({ title, completed: false }),
     onMutate: async (title: string) => {
       await queryClient.cancelQueries(['todos'])
-      const previousTodos = queryClient.getQueryData(['todos'])
-      queryClient.setQueryData(['todos'], old => [
-        ...(old as Todo[]),
+      const previous = queryClient.getQueryData(['todos'])
+      queryClient.setQueryData(['todos'], (old: Todo[] | undefined) => [
+        ...(old || []),
         { id: dummyID--, title, completed: false },
       ])
-      return { previousTodos }
+      return { previous }
     },
     onError: (err, _, context) => {
       console.error(err)
 
-      queryClient.setQueryData(['todos'], context?.previousTodos)
+      queryClient.setQueryData(['todos'], context?.previous)
     },
     // on sucess replace previous dummy todo with actual todo
     onSuccess: (todo, _) => {
-      queryClient.setQueryData(['todos'], old =>
-        (old as Todo[]).map(t => (t.id === todo.id ? todo : t)),
+      queryClient.setQueryData(
+        ['todos'],
+        (old: Todo[] | undefined) =>
+          old?.map(t => (t.id === todo.id ? todo : t)) ?? [],
       )
     },
 
@@ -47,24 +48,27 @@ export function useAddTodo(queryClient: QueryClient) {
   return [mutation.mutate, mutation] as const
 }
 
-export function useToggle(queryClient: QueryClient) {
+export function useToggle() {
+  const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: (todo: Todo) =>
       todoApi.patch({ ...todo, completed: !todo.completed }),
     onMutate: async (todo: Todo) => {
       await queryClient.cancelQueries(['todos'])
-      const previousTodos = queryClient.getQueryData(['todos'])
-      queryClient.setQueryData(['todos'], old =>
-        (old as Todo[]).map(t =>
-          t.id === todo.id ? { ...t, completed: !t.completed } : t,
-        ),
+      const previous = queryClient.getQueryData(['todos'])
+      queryClient.setQueryData(
+        ['todos'],
+        (old: Todo[] | undefined) =>
+          old?.map(t =>
+            t.id === todo.id ? { ...t, completed: !t.completed } : t,
+          ) || [],
       )
-      return { previousTodos }
+      return { previous }
     },
     onError: (err, _, context) => {
       console.error(err)
 
-      queryClient.setQueryData(['todos'], context?.previousTodos)
+      queryClient.setQueryData(['todos'], context?.previous)
     },
     onSettled: async () => {
       await queryClient.invalidateQueries(['todos'])
@@ -74,21 +78,23 @@ export function useToggle(queryClient: QueryClient) {
   return [mutation.mutate, mutation] as const
 }
 
-export function useDelete(queryClient: QueryClient, id: number) {
+export function useDelete(id: number) {
+  const queryClient = useQueryClient()
   const mutation = useMutation({
     mutationFn: () => todoApi.delete({ id }),
     onMutate: async (id: number) => {
       await queryClient.cancelQueries(['todos'])
-      const previousTodos = queryClient.getQueryData(['todos'])
-      queryClient.setQueryData(['todos'], old =>
-        (old as Todo[]).filter(todo => todo.id !== id),
+      const previous = queryClient.getQueryData(['todos'])
+      queryClient.setQueryData(
+        ['todos'],
+        (old: Todo[] | undefined) => old?.filter(todo => todo.id !== id) || [],
       )
-      return { previousTodos }
+      return { previous }
     },
     onError: (err, _, context) => {
       console.error(err)
 
-      queryClient.setQueryData(['todos'], context?.previousTodos)
+      queryClient.setQueryData(['todos'], context?.previous)
     },
     onSettled: async () => {
       await queryClient.invalidateQueries(['todos'])

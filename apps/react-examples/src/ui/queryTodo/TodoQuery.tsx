@@ -11,41 +11,51 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useEvent, useInputState, useString } from '@srtp/local-state'
-import { useQueryClient } from '@tanstack/react-query'
 import type { KeyboardEvent } from 'react'
+
 import type { Todo } from './todo'
-import { useAddTodo, useTodoList, useToggle } from './todoHooks'
+import {
+  useAddTodo,
+  useDelete,
+  useTodoList,
+  useToggle,
+} from './stateQueryTodoHooks'
 
 type TodoItemProps = Readonly<{
   todo: Todo
 }>
 
 const TodoItem = ({ todo }: TodoItemProps) => {
-  const queryClient = useQueryClient()
-  const [toggle] = useToggle(queryClient)
+  const [toggle] = useToggle()
+  const [remove] = useDelete()
 
   return (
-    <ListItem display="flex" gap="2">
+    <ListItem display="flex" justifyContent="space-between" m="2">
       <Checkbox
         isDisabled={todo.id < 0}
         isChecked={todo.completed}
-        onChange={() => toggle(todo)}
+        onChange={() => toggle(todo.id)}
       />
       <Text>{todo.title}</Text>
+      <Button colorScheme="red" size="sm" onClick={() => remove(todo.id)}>
+        Delete
+      </Button>
     </ListItem>
   )
 }
 
 const AddTodo = () => {
-  const queryClient = useQueryClient()
-  const [add] = useAddTodo(queryClient)
+  const [add] = useAddTodo()
 
   const [text, setText] = useInputState('')
 
+  const submit = useEvent(() => {
+    add(text)
+    setText('')
+  })
   const keyDown = useEvent((evt: KeyboardEvent<HTMLInputElement>) => {
     if (evt.key === 'Enter' && text.trim() !== '') {
-      add(text)
-      setText('')
+      submit()
     }
   })
 
@@ -59,7 +69,7 @@ const AddTodo = () => {
         onChange={setText}
       />
 
-      <Button colorScheme="blue" mt="2" ml="3" onClick={() => add(text)}>
+      <Button colorScheme="blue" mt="2" ml="3" onClick={submit}>
         Add
       </Button>
     </Flex>
@@ -97,8 +107,6 @@ const tabs = ['All', 'Incomplete', 'Completed']
 export const TodoQueryApp = () => {
   const [activeTab, setActiveTab] = useString(tabs[0])
   const { data } = useTodoList()
-
-  console.log('rendering')
 
   return (
     <ChakraProvider>
