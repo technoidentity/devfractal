@@ -3,6 +3,7 @@ import type {
   UseMutationOptions,
 } from '@tanstack/react-query'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { produce, type Draft } from 'immer'
 
 export type MutationOptions<TData, TVariables, TQueryData = TData[]> = Omit<
   UseMutationOptions<TData, Error, TVariables, { previous: TQueryData }>,
@@ -12,7 +13,7 @@ export type MutationOptions<TData, TVariables, TQueryData = TData[]> = Omit<
 export function useOptimistic<TData, TVariables, TQueryData>(
   invalidateQuery: any[],
   mutationFn: MutationFunction<TData, TVariables>,
-  setData: (old: TQueryData, newValue: TData) => TQueryData,
+  setData: (old: TQueryData, newValue: TVariables) => TQueryData,
   options?: MutationOptions<TData, TVariables, TQueryData>,
 ) {
   const qc = useQueryClient()
@@ -49,4 +50,18 @@ export function useOptimistic<TData, TVariables, TQueryData>(
   } satisfies UseMutationOptions<TData, Error, TVariables, { previous: TQueryData }>)
 
   return [mutation.mutate, mutation] as const
+}
+
+export function useOptimisticImmer<TData, TVariables, TQueryData>(
+  invalidateQuery: any[],
+  mutationFn: MutationFunction<TData, TVariables>,
+  setData: (old: Draft<TQueryData>, newValue: TVariables) => void,
+  options?: MutationOptions<TData, TVariables, TQueryData>,
+) {
+  return useOptimistic<TData, TVariables, TQueryData>(
+    invalidateQuery,
+    mutationFn,
+    (old, newValue) => produce(old, draft => setData(draft, newValue)),
+    options,
+  )
 }

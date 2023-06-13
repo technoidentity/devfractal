@@ -16,7 +16,10 @@ export function usePost<TData extends { id: unknown }, TVariables>(
   )
 }
 
-export function usePatch<TData extends { id: unknown }, TVariables>(
+export function usePatch<
+  TData extends { id: unknown },
+  TVariables extends Partial<TData>,
+>(
   invalidateQuery: any[],
   mutationFn: MutationFunction<TData, TVariables>,
   options?: MutationOptions<TData, TVariables>,
@@ -24,7 +27,8 @@ export function usePatch<TData extends { id: unknown }, TVariables>(
   return useOptimistic(
     invalidateQuery,
     mutationFn,
-    (old, newValue) => old.map(t => (t.id === newValue.id ? newValue : t)),
+    (old, newValue) =>
+      old.map(t => (t.id === newValue.id ? { ...t, ...newValue } : t)),
     options,
   )
 }

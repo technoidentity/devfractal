@@ -57,7 +57,10 @@ export function useSafeQuery<Spec extends z.ZodTypeAny>({
   const queryKey = query ? [...paths, query] : paths
   const result = useQuery<z.infer<Spec>>(queryKey, fn, opts)
 
-  const data = React.useMemo(() => spec.parse(result.data), [result.data, spec])
+  const data: z.infer<Spec> = React.useMemo(
+    () => spec.parse(result.data),
+    [result.data, spec],
+  )
 
   return { ...result, data }
 }
