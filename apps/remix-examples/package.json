@@ -28,21 +28,21 @@
     "@mantine/modals": "6.0.13",
     "@mantine/notifications": "6.0.13",
     "@mantine/remix": "6.0.13",
-    "@remix-run/node": "1.17.0",
-    "@remix-run/react": "1.17.0",
-    "@remix-run/serve": "1.17.0",
+    "@remix-run/node": "1.17.1",
+    "@remix-run/react": "1.17.1",
+    "@remix-run/serve": "1.17.1",
     "dayjs": "1.11.8",
     "isbot": "3.6.10",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@remix-run/dev": "1.17.0",
-    "@remix-run/eslint-config": "1.17.0",
+    "@remix-run/dev": "1.17.1",
+    "@remix-run/eslint-config": "1.17.1",
     "@testing-library/react": "14.0.0",
-    "@types/node": "20.2.5",
-    "@types/react": "18.2.9",
-    "@types/react-dom": "18.2.4",
+    "@types/node": "20.3.1",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
     "cross-env": "7.0.3",
     "eslint": "8.42.0",
     "prettier": "2.8.8",
@@ -50,7 +50,7 @@
     "turbo": "1.10.3",
     "typescript": "5.1.3",
     "vite": "4.3.9",
-    "vitest": "0.32.0"
+    "vitest": "0.32.1"
   },
   "engines": {
     "node": ">=14"

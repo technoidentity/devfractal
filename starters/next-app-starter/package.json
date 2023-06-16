@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "@planetscale/database": "1.7.0",
-    "@types/react": "18.2.9",
-    "@types/react-dom": "18.2.4",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
     "autoprefixer": "10.4.14",
     "drizzle-orm": "0.26.5",
-    "eslint-config-next": "13.4.4",
+    "eslint-config-next": "13.4.6",
     "immer": "10.0.2",
     "kysely": "0.25.0",
-    "next": "13.4.4",
+    "next": "13.4.6",
     "next-fetch": "1.0.1",
     "pg": "8.11.0",
     "postcss": "8.4.24",
@@ -31,7 +31,7 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@types/node": "20.2.5",
+    "@types/node": "20.3.1",
     "@types/pg": "8.10.2",
     "cross-env": "7.0.3",
     "drizzle-kit": "0.18.1",
