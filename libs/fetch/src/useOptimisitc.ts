@@ -16,15 +16,15 @@ export async function mutation<T>(mut: MutationDescription<T>) {
   return res.data
 }
 
-export type MutationAction<TData, TQueryData, TVariables> = (
+export type MutationAction<TData, TVariables, TQueryData> = (
   old: Draft<TQueryData>,
   api: typeof mutationApi,
   arg: TVariables,
 ) => MutationDescription<TData>
 
-export function useMutationDescription<TData, TQueryData, TVariables>(
+export function useDescribeMutation<TData, TVariables, TQueryData>(
   invalidateQuery: any[],
-  fn: MutationAction<TData, TQueryData, TVariables>,
+  fn: MutationAction<TData, TVariables, TQueryData>,
 ) {
   const result = React.useRef<MutationDescription<TData>>()
 
@@ -38,7 +38,7 @@ export function useMutationDescription<TData, TQueryData, TVariables>(
     return mutation(result.current)
   }
 
-  return useOptimisticValue<TData, TQueryData, TVariables>(
+  return useOptimisticValue<TData, TVariables, TQueryData>(
     invalidateQuery,
     mutationFn,
     setData,
