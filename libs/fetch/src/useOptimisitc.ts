@@ -5,12 +5,52 @@ import type {
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { produce, type Draft } from 'immer'
 
+import React from 'react'
+import redaxios from 'redaxios'
+import invariant from 'tiny-invariant'
+import type { MutationDescription } from './mutationApi'
+import { mutationApi } from './mutationApi'
+
+export async function mutation<T>(mut: MutationDescription<T>) {
+  const res = await redaxios[mut.type](mut.path, mut.payload)
+  return res.data
+}
+
+export type MutationAction<TData, TQueryData, TVariables> = (
+  old: Draft<TQueryData>,
+  api: typeof mutationApi,
+  arg: TVariables,
+) => MutationDescription<TData>
+
+export function useMutationDescription<TData, TQueryData, TVariables>(
+  invalidateQuery: any[],
+  fn: MutationAction<TData, TQueryData, TVariables>,
+) {
+  const result = React.useRef<MutationDescription<TData>>()
+
+  const setData = (old: any, values: any): any =>
+    produce(old, (draft: any) => {
+      result.current = fn(draft, mutationApi, values)
+    })
+
+  const mutationFn = () => {
+    invariant(result.current, 'mutation description is undefined')
+    return mutation(result.current)
+  }
+
+  return useOptimisticValue<TData, TQueryData, TVariables>(
+    invalidateQuery,
+    mutationFn,
+    setData,
+  )
+}
+
 export type MutationOptions<TData, TVariables, TQueryData = TData[]> = Omit<
   UseMutationOptions<TData, Error, TVariables, { previous: TQueryData }>,
   'mutationFn'
 >
 
-export function useOptimistic<TData, TVariables, TQueryData>(
+export function useOptimisticValue<TData, TVariables, TQueryData>(
   invalidateQuery: any[],
   mutationFn: MutationFunction<TData, TVariables>,
   setData: (old: TQueryData, newValue: TVariables) => TQueryData,
@@ -52,13 +92,13 @@ export function useOptimistic<TData, TVariables, TQueryData>(
   return [mutation.mutate, mutation] as const
 }
 
-export function useOptimisticImmer<TData, TVariables, TQueryData>(
+export function useOptimistic<TData, TVariables, TQueryData>(
   invalidateQuery: any[],
   mutationFn: MutationFunction<TData, TVariables>,
   setData: (old: Draft<TQueryData>, newValue: TVariables) => void,
   options?: MutationOptions<TData, TVariables, TQueryData>,
 ) {
-  return useOptimistic<TData, TVariables, TQueryData>(
+  return useOptimisticValue<TData, TVariables, TQueryData>(
     invalidateQuery,
     mutationFn,
     (old, newValue) => produce(old, draft => setData(draft, newValue)),

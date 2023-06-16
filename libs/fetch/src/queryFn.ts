@@ -3,7 +3,7 @@ import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
 import qs from 'query-string'
 
 import { z } from 'zod'
-import { get$ } from './httpMethods'
+import { get$ } from './safeHttp'
 import invariant from 'tiny-invariant'
 
 const { stringify } = qs

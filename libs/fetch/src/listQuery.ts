@@ -1,14 +1,14 @@
 import type { MutationFunction } from '@tanstack/react-query'
 import type { MutationOptions } from './useOptimisitc'
-import { useOptimistic } from './useOptimisitc'
+import { useOptimisticValue } from './useOptimisitc'
 
 let dummyID = -1
-export function usePost<TData extends { id: unknown }, TVariables>(
+export function usePost<TData extends { id: unknown }>(
   invalidateQuery: any[],
-  mutationFn: MutationFunction<TData, TVariables>,
-  options?: MutationOptions<TData, TVariables>,
+  mutationFn: MutationFunction<TData, Omit<TData, 'id'>>,
+  options?: MutationOptions<TData, Omit<TData, 'id'>>,
 ) {
-  return useOptimistic(
+  return useOptimisticValue(
     invalidateQuery,
     mutationFn,
     (old, newValue) => [...old, { id: --dummyID, ...(newValue as any) }],
@@ -16,15 +16,12 @@ export function usePost<TData extends { id: unknown }, TVariables>(
   )
 }
 
-export function usePatch<
-  TData extends { id: unknown },
-  TVariables extends Partial<TData>,
->(
+export function usePatch<TData extends { id: unknown }>(
   invalidateQuery: any[],
-  mutationFn: MutationFunction<TData, TVariables>,
-  options?: MutationOptions<TData, TVariables>,
+  mutationFn: MutationFunction<TData, Partial<TData>>,
+  options?: MutationOptions<TData, Partial<TData>>,
 ) {
-  return useOptimistic(
+  return useOptimisticValue(
     invalidateQuery,
     mutationFn,
     (old, newValue) =>
@@ -33,13 +30,25 @@ export function usePatch<
   )
 }
 
-// @TODO: Unfortunately, currently delete mutationFn must return back the deleted item.
+export function usePut<TData extends { id: unknown }>(
+  invalidateQuery: any[],
+  mutationFn: MutationFunction<TData, TData>,
+  options?: MutationOptions<TData, TData>,
+) {
+  return useOptimisticValue(
+    invalidateQuery,
+    mutationFn,
+    (old, newValue) => old.map(t => (t.id === newValue.id ? newValue : t)),
+    options,
+  )
+}
+
 export function useDelete<TData extends { id: unknown }, TVariables>(
   invalidateQuery: any[],
   mutationFn: MutationFunction<TVariables, TVariables>,
   options?: MutationOptions<TVariables, TVariables, TData[]>,
 ) {
-  return useOptimistic(
+  return useOptimisticValue(
     invalidateQuery,
     mutationFn,
     (old, id) => old.filter(t => t.id !== id),
