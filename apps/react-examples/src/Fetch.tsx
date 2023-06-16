@@ -80,7 +80,7 @@ export function useFetch<T>(url: string) {
       .catch(error => {
         dispatch({ type: 'setError', error })
       })
-  }, [url])
+  }, [dispatch, url])
 
   return state
 }

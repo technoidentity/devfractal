@@ -1,4 +1,4 @@
-import { useOptimistic, useOptimisticImmer } from '@srtp/fetch'
+import { useOptimistic, useOptimisticValue } from '@srtp/fetch'
 import { useQuery } from '@tanstack/react-query'
 import invariant from 'tiny-invariant'
 import type { Todo } from './todo'
@@ -16,7 +16,7 @@ export function useTodoList() {
 
 let dummyID = -1
 export function useAddTodo() {
-  return useOptimisticImmer<Todo, string, Todo[]>(
+  return useOptimistic<Todo, string, Todo[]>(
     ['todos'],
     title => todoApi.post({ title, completed: false }),
     (draft, title) => {
@@ -26,7 +26,7 @@ export function useAddTodo() {
 }
 
 export function useToggle() {
-  return useOptimistic(
+  return useOptimisticValue(
     ['todos'],
     (todo: Todo) => todoApi.patch({ ...todo, completed: !todo.completed }),
     (old: Todo[], todo) =>
@@ -35,7 +35,7 @@ export function useToggle() {
 }
 
 export function useDelete() {
-  return useOptimistic(
+  return useOptimisticValue(
     ['todos'],
     (id: number) => todoApi.delete({ id }),
     (old: Todo[], id: number) => old.filter(todo => todo.id !== id),

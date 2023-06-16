@@ -1,4 +1,4 @@
-import { useMutationByDescription, useSafeQuery } from '@srtp/fetch'
+import { useDescribeMutation, useSafeQuery } from '@srtp/fetch'
 import invariant from 'tiny-invariant'
 import { TodoList, type Todo } from './todo'
 import { todoApi } from './todoApi'
@@ -15,7 +15,7 @@ export function useTodoList() {
 
 let dummyID = -1
 export function useAddTodo() {
-  return useMutationByDescription<Omit<Todo, 'id'>, string, Todo[]>(
+  return useDescribeMutation<Omit<Todo, 'id'>, string, Todo[]>(
     ['todos'],
     (draft, { post }, title) => {
       draft.push({ id: dummyID--, title, completed: false })
@@ -26,7 +26,7 @@ export function useAddTodo() {
 }
 
 export function useToggle() {
-  return useMutationByDescription<Todo, number, Todo[]>(
+  return useDescribeMutation<Todo, number, Todo[]>(
     ['todos'],
     (old: Todo[], { patch }, id: number) => {
       const todo = old.find(t => t.id === id)
@@ -39,7 +39,7 @@ export function useToggle() {
 }
 
 export function useDelete() {
-  return useMutationByDescription<undefined, number, Todo[]>(
+  return useDescribeMutation<undefined, number, Todo[]>(
     ['todos'],
     (old, { remove }, id: number) => {
       const index = old.findIndex(t => t.id === id)
