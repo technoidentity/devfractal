@@ -62,6 +62,7 @@ export function useToggle(value: boolean) {
 export function useEnumValue<
   Spec extends z.ZodEnum<any> | z.ZodNativeEnum<any>,
 >(spec: Spec, value: z.infer<Spec>) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const useEnum = React.useMemo(() => primitive(spec), [])
 
   return useEnum(value)
