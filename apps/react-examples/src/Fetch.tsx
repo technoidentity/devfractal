@@ -6,8 +6,8 @@ import { useImmerReducer } from 'use-immer'
 
 type FetchState<T> = Readonly<{
   isFetching: boolean
-  data?: T | undefined
-  error?: Error | undefined
+  data: T | undefined
+  error: Error | undefined
 }>
 
 type FetchAction<T> =
