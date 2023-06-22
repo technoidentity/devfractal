@@ -19,6 +19,12 @@ export type Write<Args extends unknown[], Result> = (
 
 // copied types end here
 
+// type ValidRecipeReturnType<State> =
+//   | State
+//   | void
+//   | undefined
+//   | (State extends undefined ? typeof nothing : never)
+
 export type ImmerSetter = <Value, Args extends unknown[], Result>(
   atom: WritableAtom<Value, Args, Result>,
   fn: Value | ((draft: Draft<Value>, ...args: Args) => Value | void),
