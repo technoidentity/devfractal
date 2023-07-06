@@ -16,7 +16,7 @@
     "test": "vitest run",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
-    "web:dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false"
+    "web:dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false"
   },
   "dependencies": {
     "@chakra-ui/react": "2.7.0",
@@ -28,6 +28,7 @@
     "@srtp/fetch": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/local-state": "workspace:*",
+    "@srtp/global-state": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/todo": "workspace:*",
     "@tanstack/react-query": "4.29.14",

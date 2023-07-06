@@ -32,11 +32,5 @@
     "target": "ESNext",
     "types": ["node", "vite/client"]
   },
-  "include": [
-    "src",
-    "mocks",
-    "tests",
-    "__previewjs__",
-    "../../libs/local-state/src/useEvent.ts"
-  ]
+  "include": ["src", "mocks", "tests", "__previewjs__"]
 }

@@ -28,6 +28,7 @@
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/global-state": "workspace:*",
+    "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/validator": "workspace:*",
     "@tanstack/react-query": "4.29.14",
