@@ -143,7 +143,7 @@ module.exports = {
     'no-throw-literal': 'error',
     'no-undef-init': 'error',
     'no-undef': 'off',
-    'no-underscore-dangle': 'error',
+    'no-underscore-dangle': 'off',
     'no-unexpected-multiline': 'error',
     'no-unreachable': 'error',
     'no-unsafe-finally': 'error',
