@@ -12,12 +12,6 @@ export type Handlers<State> = Record<
   (state: Draft<State>, ...payload: any[]) => void
 >
 
-type Tail<T extends any[]> = ((...args: T) => any) extends (
-  head: any,
-  ...tail: infer TT
-) => any
-  ? TT
-  : []
 type Payload<S extends Handlers<any>, A extends keyof S> = Tail<
   Parameters<S[A]>
 >
