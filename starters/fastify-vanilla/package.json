@@ -21,11 +21,11 @@
     "@tsconfig/node-lts": "18.12.3",
     "@tsconfig/node18": "18.2.0",
     "@tsconfig/strictest": "2.0.1",
-    "@types/node": "20.4.0",
+    "@types/node": "20.4.1",
     "eslint": "8.44.0",
     "eslint-config-srtp": "workspace:*",
     "pino-pretty": "10.0.1",
-    "prettier": "3.0.0",
+    "prettier": "2.8.8",
     "tsx": "3.12.7",
     "typescript": "5.1.6"
   }

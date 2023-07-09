@@ -6,9 +6,8 @@ import type {
   MappingSpec,
   SpendSearchSpec,
 } from '~/common'
-import { entityExists, entityNotFound } from '~/common'
+import { dbTry, entityExists, entityNotFound } from '~/common'
 import { prisma } from '~/db.server'
-import { dbTry } from '../common'
 
 export function getDepartmentList() {
   return prisma.department.findMany()

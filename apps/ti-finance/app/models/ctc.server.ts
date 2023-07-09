@@ -1,8 +1,7 @@
 import type { Ctc } from '@prisma/client'
 import type { CreateCtcSpec } from '~/common'
-import { entityExists, entityNotFound } from '~/common'
+import { dbTry, entityExists, entityNotFound } from '~/common'
 import { prisma } from '~/db.server'
-import { dbTry } from '../common'
 
 export async function getCtcList() {
   return (

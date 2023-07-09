@@ -4,10 +4,9 @@ import type {
   ExpenditureSearchSpec,
   ExpenditureSpec,
 } from '~/common'
-import { entityExists, entityNotFound } from '~/common'
+import { dbTry, entityExists, entityNotFound } from '~/common'
 
 import { prisma } from '~/db.server'
-import { dbTry } from '../common'
 
 function getWhere(q?: ExpenditureSearchSpec) {
   if (q === undefined) return undefined

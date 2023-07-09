@@ -3,7 +3,7 @@ import { Box, Button, Heading, Input } from '@chakra-ui/react'
 import type { RouteObject } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import { authorsRouter } from './4.authors'
-import { ConformExample } from './5.conform'
+// import { ConformExample } from './5.conform'
 import { aboutRouter } from './about'
 import { rootIndexRouter } from './rootIndex'
 
@@ -42,7 +42,7 @@ export const rootRouter: RouteObject = {
     rootIndexRouter,
     aboutRouter,
     authorsRouter,
-    { path: 'form', element: <ConformExample /> },
+    // { path: 'form', element: <ConformExample /> },
     { path: 'product', element: <Product /> },
     { path: 'signup', element: <SignupForm /> },
     { path: '*', element: <h1>Not Found</h1> },
