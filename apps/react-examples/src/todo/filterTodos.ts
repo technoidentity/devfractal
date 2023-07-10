@@ -1,14 +1,10 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+import { exhaustive } from 'exhaustive'
 import type { Filter, Todo } from './types'
 
-export const filterTodos = (todos: readonly Todo[], fltr: Filter) => {
-  switch (fltr) {
-    case 'All':
-      return todos
-
-    case 'Active':
-      return todos.filter(todo => !todo.completed)
-
-    case 'Completed':
-      return todos.filter(todo => todo.completed)
-  }
-}
+export const filterTodos = (todos: readonly Todo[], fltr: Filter) =>
+  exhaustive(fltr, {
+    All: () => todos,
+    Active: () => todos.filter(todo => !todo.completed),
+    Completed: () => todos.filter(todo => todo.completed),
+  })

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { atom } from 'jotai'
 import type { Filter, Todo } from './types'
 import { computed } from '@srtp/global-state'
 import { action } from '@srtp/global-state'
+import { exhaustive } from 'exhaustive'
 
 const todoList: readonly Todo[] = [
   { id: 1, text: 'Learn React', completed: false },
@@ -18,17 +20,14 @@ export const filteredTodosAtom = computed(get => {
   const filter = get(filterAtom)
   const todoList = get(todoListAtom)
 
-  switch (filter) {
-    case 'All':
-      return todoList
-    case 'Active':
-      return todoList.filter(todo => !todo.completed)
-    case 'Completed':
-      return todoList.filter(todo => todo.completed)
-  }
+  return exhaustive(filter, {
+    All: () => todoList,
+    Active: () => todoList.filter(todo => !todo.completed),
+    Completed: () => todoList.filter(todo => todo.completed),
+  })
 })
 
-export const toggleAtom = action(todoListAtom, (_, state, id: number) => {
+export const toggleAtom = action(todoListAtom, ({ state }, id: number) => {
   const todo = state.find(todo => todo.id === id)
   if (todo) {
     todo.completed = !todo.completed
@@ -36,6 +35,6 @@ export const toggleAtom = action(todoListAtom, (_, state, id: number) => {
 })
 
 let nextID = 100
-export const addTodoAtom = action(todoListAtom, (_, state, text: string) => {
+export const addTodoAtom = action(todoListAtom, ({ state }, text: string) => {
   state.push({ id: nextID++, text, completed: false })
 })

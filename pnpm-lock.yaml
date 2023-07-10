@@ -1166,6 +1166,9 @@ importers:
       chance:
         specifier: 1.1.11
         version: 1.1.11
+      exhaustive:
+        specifier: 1.1.1
+        version: 1.1.1
       framer-motion:
         specifier: 10.12.18
         version: 10.12.18(react-dom@18.2.0)(react@18.2.0)

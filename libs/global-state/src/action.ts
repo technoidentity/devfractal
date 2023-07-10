@@ -1,12 +1,12 @@
 import { is } from '@srtp/spec'
 import type { Draft } from 'immer'
 import { produce } from 'immer'
-import type { Getter, WritableAtom } from 'jotai'
+import type { Getter, Setter, WritableAtom } from 'jotai'
 import { atom } from 'jotai'
 import { z } from 'zod'
 import type { ImmerSetter, ImmerWrite } from './types'
 
-export function immerAction<Args extends unknown[], Result extends void>(
+export function immerAction<Args extends unknown[], Result>(
   write: ImmerWrite<Args, Result>,
 ): WritableAtom<null, Args, Result> {
   const anAtom: any = atom(null, (get, set, ...args: Args) => {
@@ -16,31 +16,41 @@ export function immerAction<Args extends unknown[], Result extends void>(
       return set(atom, ...(value as any))
     }
 
-    return write(get, setter, ...args)
+    return write({ set: setter, get }, ...args)
   })
 
   return anAtom
 }
 
-export function atomAction<Value, Args extends unknown[], Result extends void>(
+export function atomAction<Value, Args extends unknown[], Result>(
   signal: WritableAtom<Value, any, Result>,
-  fn: (get: Getter, draft: Draft<Value>, ...args: Args) => void,
+  fn: (
+    api: { state: Draft<Value>; get: Getter; set: Setter },
+    ...args: Args
+  ) => void,
 ) {
-  return atom(null, (get, set, ...args: Args) => {
-    const value = produce(get(signal), draft => fn(get, draft, ...args))
-    return set(signal, value)
-  })
+  return atom(null, (get, set, ...args: Args) =>
+    set(
+      signal,
+      produce(get(signal), draft => fn({ state: draft, get, set }, ...args)),
+    ),
+  )
 }
 
-export function action<Args extends unknown[], Result extends void>(
+export function action<Args extends unknown[], Result>(
   write: ImmerWrite<Args, Result>,
 ): WritableAtom<null, Args, Result>
 
-export function action<Value, Args extends unknown[], Result extends void>(
+export function action<Value, Args extends unknown[], Result>(
   signal: WritableAtom<Value, any, Result>,
-  fn: (get: Getter, draft: Draft<Value>, ...args: Args) => void,
+  fn: (
+    api: { state: Draft<Value>; get: Getter; set: Setter },
+    ...args: Args
+  ) => void,
 ): WritableAtom<null, Args, Result>
 
-export function action(...args: [any] | [any, any]): any {
+export function action<Args extends unknown[], Result>(
+  ...args: [any] | [any, any]
+): WritableAtom<null, Args, Result> {
   return args.length === 1 ? immerAction(...args) : atomAction(...args)
 }

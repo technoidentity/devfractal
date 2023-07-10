@@ -17,22 +17,14 @@ export type Write<Args extends unknown[], Result> = (
   ...args: Args
 ) => Result
 
-// copied types end here
-
-// type ValidRecipeReturnType<State> =
-//   | State
-//   | void
-//   | undefined
-//   | (State extends undefined ? typeof nothing : never)
-
 export type ImmerSetter = <Value, Args extends unknown[], Result>(
   atom: WritableAtom<Value, Args, Result>,
   fn: Value | ((draft: Draft<Value>, ...args: Args) => Value | void),
 ) => Result
 
-export type ImmerWrite<
-  Args extends unknown[],
-  Result extends void | Promise<void>,
-> = (get: Getter, set: ImmerSetter, ...args: Args) => Result
+export type ImmerWrite<Args extends unknown[], Result> = (
+  api: Readonly<{ set: ImmerSetter; get: Getter }>,
+  ...args: Args
+) => Result
 
 export type { Atom, Getter, PrimitiveAtom, WritableAtom } from 'jotai'

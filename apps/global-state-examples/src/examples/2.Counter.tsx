@@ -6,12 +6,12 @@ import { atom } from 'jotai'
 
 const counterAtom = atom(0)
 
-const incAtom = action((get, set) => {
+const incAtom = action(({ set, get }) => {
   const next = get(counterAtom) + 1
   set(counterAtom, next)
 })
 
-const decAtom = action((get, set) => {
+const decAtom = action(({ set, get }) => {
   const next = get(counterAtom) - 1
   if (next >= 0) {
     set(counterAtom, next)

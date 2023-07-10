@@ -18,16 +18,16 @@ export const filteredProductsAtom = computed(get =>
     : fakeProducts.filter(item => item.category === get(selectedCategoryAtom)),
 )
 
-export const addToCart = action(cartAtom, (_, draft, product: Product) => {
-  const cartIndex = draft.findIndex(item => original(item)?.product === product)
+export const addToCart = action(cartAtom, ({ state }, product: Product) => {
+  const cartIndex = state.findIndex(item => original(item)?.product === product)
   if (cartIndex === -1) {
-    draft.push({ product, count: 1 })
+    state.push({ product, count: 1 })
   } else {
-    draft[cartIndex].count += 1
+    state[cartIndex].count += 1
   }
 })
 
-export const removeFromCart = action((_, set, cartItem: CartItem) =>
+export const removeFromCart = action(({ set }, cartItem: CartItem) =>
   set(cartAtom, draft => {
     const index = draft.findIndex(item => original(item) === cartItem)
     console.log({ index })
@@ -39,21 +39,21 @@ export const removeFromCart = action((_, set, cartItem: CartItem) =>
 
 export const incrementQuantity = action(
   cartAtom,
-  (_, draft, cartItem: CartItem) => {
-    const index = draft.findIndex(item => original(item) === cartItem)
-    draft[index].count += 1
+  ({ state }, cartItem: CartItem) => {
+    const index = state.findIndex(item => original(item) === cartItem)
+    state[index].count += 1
   },
 )
 
 export const decrementQuantity = action(
   cartAtom,
-  (_, draft, cartItem: CartItem) => {
-    const index = draft.findIndex(item => original(item) === cartItem)
-    draft[index].count -= 1
+  ({ state }, cartItem: CartItem) => {
+    const index = state.findIndex(item => original(item) === cartItem)
+    state[index].count -= 1
   },
 )
 
-export const selectCategory = action((_, set, category: Category) => {
+export const selectCategory = action(({ set }, category: Category) => {
   set(selectedCategoryAtom, category)
 })
 

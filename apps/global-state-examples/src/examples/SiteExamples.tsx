@@ -61,7 +61,7 @@ export function DecCounter() {
   )
 }
 
-const multiplyCountAtom = action((get, set, by: number) =>
+const multiplyCountAtom = action(({ set, get }, by: number) =>
   set(countAtom, get(countAtom) * by),
 )
 
