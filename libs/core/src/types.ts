@@ -20,3 +20,17 @@ export type Tail<T extends any[]> = ((...args: T) => any) extends (
 ) => any
   ? TT
   : []
+
+export type TagUnion<T, K extends keyof T> = T extends Record<K, T[K]>
+  ? T[K]
+  : never
+
+export type FromUnion<
+  T,
+  K extends keyof T,
+  V extends TagUnion<T, K>,
+> = T extends Record<K, V> ? T : never
+
+export type ExactKeys<T, U> = [keyof T] extends [keyof U]
+  ? T
+  : { [Key in keyof U]: Key extends keyof T ? T[Key] : never }
