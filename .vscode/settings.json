@@ -57,5 +57,11 @@
 
   "js/ts.implicitProjectConfig.checkJs": false,
 
-  "testing.automaticallyOpenPeekView": "never"
+  "testing.automaticallyOpenPeekView": "never",
+  "grammarly.selectors": [
+    {
+      "language": "plaintext",
+      "scheme": "file"
+    }
+  ]
 }

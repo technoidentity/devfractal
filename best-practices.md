@@ -18,16 +18,15 @@
 14. When in doubt, use `tiny-invariant` for runtime assertions.
 15. Prefer for-of loops over for loops.
 16. Use for-of(over Object.keys) instead of for-in loop.
-17. Prefer for-of over foreach.
-18. Almost always specify return types for functions.
-19. Use `zod` and `tiny-invariant` to assert assumptions and to fix typesafety.
+17. Almost always specify return types for functions.
+18. Use `zod` and `tiny-invariant` to assert assumptions and to fix type safety.
     issues. Never use `any`.
-20. Generally, avoid invariants in library code.
+19. Generally, avoid invariants in library code.
 
 ## Asynchrony
 
 1. Prefer async/await to promises.
-2. Prefer for await of and async iterables where possible.
+2. Prefer for await of and async iterable where possible.
 3. Avoid floating promises.
 4. Always handle promise errors at boundaries. Create and use a reusable layer
    for handling errors at boundaries.
@@ -37,7 +36,7 @@
 1. Use React.ComponentProps for HTML elements and React components.
 2. Organize folders by feature(domain) instead of by type(components, hooks,
    routes etc).
-3. Use Suspense. Use Loading components judicisously.
+3. Use Suspense. Use Loading components judiciously.
 4. Use Error Boundaries. Use `react-error-boundary`. Use `react-error-overlay`
    for dev.
 5. Make sure you have Suspense/ErrorBoundary components judiciously placed at
@@ -46,10 +45,10 @@
    at the page level. Use `react-error-boundary` to throw exceptions from event
    handlers.
 7. Reusable components should be controlled components.
-8. Prefer uncontrolled components for page level components or 'app' components.
+8. Prefer uncontrolled components for page-level components or 'app' components.
 9. Always use `key` attribute for lists.
-10. Nearly never use useEffect, if you do, always encapsulate it.
-11. Prefer event handlers for side effects. Not useEffect.
+10. Nearly never use `useEffect`, if you do, always encapsulate it.
+11. Prefer event handlers for side effects. Not `useEffect`.
 12. Understand the advantages of colocation.
 
 ### React State Management Best Practices
@@ -59,27 +58,28 @@
 3. Retain shared state in a parent component.
 4. Retain sub tree state in context especially if need UI API like html.
 5. For page state use url. Use Jotai only if needed, avoid context.
-6. For global state use global-state library and signals.
-7. Store rarely changing config state in cotext.
+6. For the global state use `global-state` library and signals.
+7. Store rarely changing config state in context.
 8. Store auth state in context.
 9. Avoid using useState. Use local-state library or use useReducer
-10. If using useState, use function form of setState: setFoo(old => old / 2)
-11. Avoid stales closures problem. use `useEvent`.
-12. Avoid useEffect for synchronizing state. Use `useSignal` instead.
-13. Don't synchronize state with props. Use `key` attribute trick instead.
+10. If using `useState`, use the function form of setState: setFoo(old => old
+    / 2)
+11. Avoid stale closures problems. use `useEvent`.
+12. Avoid `useEffect` for the synchronizing state. Use `useSignal` instead.
+13. Don't synchronize the state with props. Use `key` attribute trick instead.
 14. Remember each component is nothing more than a 'pure render' and 'side
     effects' using hooks. Effects include state, asynchrony(event handlers, API
-    calls), external world like local storage.
+    calls), and external world like local storage.
 
 ### React Performance
 
 1. Split components according to state, to avoid unnecessary renders.
-2. Store state in component close to where it is used.
+2. Store state in the component close to where it is used.
 3. Use `useMemo` for expensive computations.
 4. Use `useEvent` for callbacks where necessary.
-5. Use `children` trick to avoid rerenders when necessary.
+5. Use the `children` trick to avoid rerenders when necessary.
 6. Consider `lazy` loading.
-7. Use virtual list for large lists.
+7. Use virtual lists for large lists.
 8. Split actions and values in separate contexts.
 
 ### Fetch
@@ -87,15 +87,15 @@
 1. Fetch data either using `@tanstack/react-query` or use `react-router``s
    loader and mutations.
 2. Identity queries and mutation cohesion.
-3. Don't fetch in the top level components unless avoiding waterfalls is
+3. Don't fetch in the top-level components unless avoiding waterfalls is
    necessary. Always fetch exactly where needed.
 4. Try fixing waterfalls with react-router's 'loader'.
 5. Or use Suspense with ` react-query``s  `useQueryies`.
 6. If possible, centralize query objects passed to react-query.
-7. Identify all queries effected by mutations and invalidate them.
+7. Identify all queries affected by mutations and invalidate them.
 8. Prefer `loaders` to `useQuery` where possible.
-9. When using mutations, consider optimistic update.
-10. Use useTransistion and loading indicators.
+9. When using mutations, consider optimistic updates.
+10. Use `useTransition` and loading indicators.
 11. Use toasts for failed mutations.
 12. Prefer pagination to infinite scrolling.
 
