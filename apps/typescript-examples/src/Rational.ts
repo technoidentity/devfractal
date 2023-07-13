@@ -1,7 +1,10 @@
 import invariant from 'tiny-invariant'
 
 export class Rational {
-  constructor(readonly numerator: number, readonly denominator: number) {
+  constructor(
+    readonly numerator: number,
+    readonly denominator: number,
+  ) {
     invariant(denominator !== 0)
   }
 

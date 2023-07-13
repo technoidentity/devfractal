@@ -115,7 +115,7 @@ function useState$<State, Props, Hs extends PHandlers<State, Props>>(
 export function usePState<
   State,
   Hs extends PHandlers<State, Props>,
-  Props = {},
+  Props = object,
 >(
   initialState: State,
   handlers: Hs,

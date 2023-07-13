@@ -27,7 +27,7 @@ export const getSlugs = (): string[] => {
     const slugs = path.split('/')
     const fileName = slugs[slugs.length - 1]
     invariant(fileName, 'fileName is undefined')
-    const [slug, _ext] = fileName.split('.')
+    const [slug] = fileName.split('.')
     invariant(slug, 'slug is undefined')
     return slug
   })

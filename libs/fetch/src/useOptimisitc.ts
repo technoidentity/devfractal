@@ -87,7 +87,12 @@ export function useOptimisticValue<TData, TVariables, TQueryData>(
     onError: (err, _, context) => error(err, context),
     onSuccess: onSettled,
     ...options,
-  } satisfies UseMutationOptions<TData, Error, TVariables, { previous: TQueryData }>)
+  } satisfies UseMutationOptions<
+    TData,
+    Error,
+    TVariables,
+    { previous: TQueryData }
+  >)
 
   return [mutation.mutate, mutation] as const
 }

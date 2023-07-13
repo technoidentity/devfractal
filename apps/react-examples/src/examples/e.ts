@@ -3,6 +3,8 @@ import { z } from 'zod'
 import { ensure, is } from '@srtp/spec'
 import { createStore } from './redux'
 
+type Fn = (...args: any[]) => any
+
 const Tag = z.union([z.string(), z.function()])
 type Tag = z.infer<typeof Tag>
 
@@ -15,7 +17,7 @@ const Props: z.ZodType<Props> = z.lazy(() =>
   ),
 )
 
-type Element = { tag: string | Function; props: Props }
+type Element = { tag: string | Fn; props: Props }
 const Element: z.ZodType<Element> = z.object({ tag: Tag, props: Props })
 
 const Children = z.union([
@@ -27,7 +29,7 @@ const Children = z.union([
 type Children = z.infer<typeof Children>
 
 export function e(
-  tag: string | Function,
+  tag: string | Fn,
   ...rest:
     | [attrs: Record<string, unknown> | null, children: Children]
     | [attrs: Record<string, unknown>]

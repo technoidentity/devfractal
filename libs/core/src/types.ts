@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type Prettify<T> = T & {}
 
 export type Stringify<T extends object> = {

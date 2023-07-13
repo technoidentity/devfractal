@@ -25,7 +25,7 @@ function useClientTableHandlers<Row extends RowBase>() {
         setPage(state, page: number) {
           state.page = page
         },
-      } satisfies Handlers<ClientTableState<Row>>),
+      }) satisfies Handlers<ClientTableState<Row>>,
     [],
   )
 }

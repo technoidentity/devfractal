@@ -6,7 +6,7 @@ import { todoReducer } from './reducer'
 
 export type ReducerContext = {
   state: State
-  dispatch: Function
+  dispatch: React.Dispatch<any>
 }
 
 const Context = React.createContext<ReducerContext | undefined>(undefined)

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { z } from 'zod'
 
+type Fn = (...args: any[]) => any
+
 export function is<T, Spec extends z.ZodType<T>>(
   spec: Spec,
   v: unknown,
@@ -31,7 +33,7 @@ const primitiveTypeNames = [
 type PrimitiveTypeNames = typeof primitiveTypeNames
 type PrimitiveTypeName = PrimitiveTypeNames[number]
 
-function isOfType<T extends Primitive | Function>(
+function isOfType<T extends Primitive | Fn>(
   type: PrimitiveTypeName | 'function',
 ) {
   return (value: unknown): value is T => typeof value === type
@@ -40,7 +42,7 @@ function isOfType<T extends Primitive | Function>(
 export const isStr = isOfType<string>('string')
 export const isFloat = (n: unknown): n is number => isNum(n) && !isInt(n)
 export const isBool = isOfType<boolean>('boolean')
-export const isFunction = isOfType<Function>('function')
+export const isFunction = isOfType<Fn>('function')
 export const isEmail = (s: unknown): s is string => is(z.string().email(), s)
 export const isNum = isOfType<number>('number')
 export const isInt = (s: unknown): s is number => Number.isInteger(s)

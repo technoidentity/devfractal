@@ -168,9 +168,9 @@ export function flink<const Paths extends Segments>(
 // }
 
 export type QueryArgs<Ep extends Endpoint> = (Ep extends { request: unknown }
-  ? { query: z.infer<Ep['request'] & {}> }
+  ? { query: z.infer<Ep['request'] & object> }
   : { query?: undefined }) &
-  ({} extends Params<Ep['path']>
+  (object extends Params<Ep['path']>
     ? { path?: undefined }
     : { path: Params<Ep['path']> })
 
@@ -180,7 +180,7 @@ export function createEndPointQuery<Ep extends Endpoint>(
 ) {
   return (
     options: QueryArgs<Ep>,
-  ): UseQueryResult<z.infer<Ep['response'] & {}>> => {
+  ): UseQueryResult<z.infer<Ep['response'] & object>> => {
     const path = flink<Ep['path']>(endpoint.path)(options.path)
     const query = options.query
     const url = query

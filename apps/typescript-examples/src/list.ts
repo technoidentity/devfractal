@@ -10,7 +10,7 @@ export function cons<T>(head: T, tail: Tail<T> | Nil): List<T> {
 }
 
 export function fcons<T>(head: T, tail: Tail<T> | Nil): Tail<T> {
-  return () => ({ head, tail: tail === nil ? () => nil : tail } as const)
+  return () => ({ head, tail: tail === nil ? () => nil : tail }) as const
 }
 
 export function isNil<T>(list: List<T>): list is Nil {

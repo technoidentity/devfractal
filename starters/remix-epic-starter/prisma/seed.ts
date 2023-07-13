@@ -28,7 +28,7 @@ async function seed() {
 	// hosts who are renters also
 	const totalUsers = 40
 	console.time(`👤 Created ${totalUsers} users...`)
-	const users = await Promise.all(
+	await Promise.all(
 		Array.from({ length: totalUsers }, async (_, index) => {
 			const userData = createUser()
 			const user = await prisma.user.create({
@@ -126,8 +126,3 @@ seed()
 	.finally(async () => {
 		await prisma.$disconnect()
 	})
-
-/*
-eslint
-	@typescript-eslint/no-unused-vars: "off",
-*/

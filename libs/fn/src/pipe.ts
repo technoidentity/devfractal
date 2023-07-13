@@ -1,5 +1,7 @@
 // Copied from fp-ts
 /* eslint-disable prefer-rest-params */
+
+type Fn = (...args: any[]) => any
 export function pipe<A>(a: A): A
 export function pipe<A, B>(a: A, ab: (a: A) => B): B
 export function pipe<A, B, C>(a: A, ab: (a: A) => B, bc: (b: B) => C): C
@@ -269,14 +271,14 @@ export function pipe<
 ): T
 export function pipe(
   a: unknown,
-  ab?: Function,
-  bc?: Function,
-  cd?: Function,
-  de?: Function,
-  ef?: Function,
-  fg?: Function,
-  gh?: Function,
-  hi?: Function,
+  ab?: Fn,
+  bc?: Fn,
+  cd?: Fn,
+  de?: Fn,
+  ef?: Fn,
+  fg?: Fn,
+  gh?: Fn,
+  hi?: Fn,
 ): unknown {
   switch (arguments.length) {
     case 1:

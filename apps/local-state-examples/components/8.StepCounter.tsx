@@ -16,7 +16,7 @@ const handlers = {
       state.step = step
     }
   },
-} satisfies PHandlers<typeof initial, {}>
+} satisfies PHandlers<typeof initial, object>
 
 const useStep = pstate(initial, handlers)
 

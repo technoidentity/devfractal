@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { Provider, atom, createStore, useAtomValue } from 'jotai'
 import { RESET, atomWithStorage } from 'jotai/utils'
 import React from 'react'

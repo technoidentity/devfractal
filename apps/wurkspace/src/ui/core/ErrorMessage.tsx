@@ -1,6 +1,7 @@
 import { isStr, jstr } from '@srtp/spec'
 
 export type ErrorMessageProps = Readonly<{
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   error: Error | string | Record<string, unknown> | unknown
 }>
 
