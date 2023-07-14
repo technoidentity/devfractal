@@ -46,7 +46,7 @@ importers:
         version: 0.33.0(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
       zx:
         specifier: 7.2.3
         version: 7.2.3
@@ -391,7 +391,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/form-examples:
     dependencies:
@@ -569,7 +569,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/global-state-examples:
     dependencies:
@@ -723,7 +723,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/javascript-examples:
     devDependencies:
@@ -959,7 +959,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/next-blog:
     dependencies:
@@ -1117,7 +1117,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/react-examples:
     dependencies:
@@ -1256,7 +1256,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/react-router-examples:
     dependencies:
@@ -1407,7 +1407,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/redux-examples:
     dependencies:
@@ -1507,7 +1507,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/remix-examples:
     dependencies:
@@ -1601,7 +1601,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/supa-auth:
     dependencies:
@@ -1650,7 +1650,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/tasks:
     dependencies:
@@ -2091,7 +2091,7 @@ importers:
         version: 0.6.1(eslint@8.44.0)(typescript@5.1.6)(vite@4.4.3)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/ui-examples:
     dependencies:
@@ -2318,7 +2318,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   apps/wurkspace:
     dependencies:
@@ -2665,7 +2665,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/core:
     dependencies:
@@ -2726,7 +2726,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/eslint-config-srtp:
     dependencies:
@@ -2853,7 +2853,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/fn:
     dependencies:
@@ -2893,7 +2893,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/form:
     dependencies:
@@ -2987,7 +2987,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/global-state:
     dependencies:
@@ -3057,7 +3057,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/local-state:
     dependencies:
@@ -3079,6 +3079,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      react-error-boundary:
+        specifier: 4.0.10
+        version: 4.0.10(react@18.2.0)
       tiny-invariant:
         specifier: 1.3.1
         version: 1.3.1
@@ -3127,7 +3130,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/next-api:
     dependencies:
@@ -3206,7 +3209,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/remix-core:
     dependencies:
@@ -3270,7 +3273,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/remix-node:
     dependencies:
@@ -3346,7 +3349,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/remix-react:
     dependencies:
@@ -3443,7 +3446,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/result:
     dependencies:
@@ -3483,7 +3486,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/spec:
     dependencies:
@@ -3526,7 +3529,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/table:
     dependencies:
@@ -3626,7 +3629,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   libs/tsconfig: {}
 
@@ -3683,7 +3686,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   packages/cart:
     dependencies:
@@ -3723,7 +3726,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   packages/todo:
     dependencies:
@@ -3766,7 +3769,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   starters/express-api:
     dependencies:
@@ -3912,7 +3915,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
       wait-port:
         specifier: 1.0.4
         version: 1.0.4
@@ -4643,7 +4646,7 @@ importers:
         version: 5.1.6
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
       xo:
         specifier: 0.54.2
         version: 0.54.2(webpack@5.88.1)
@@ -5111,7 +5114,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   starters/ts-app:
     dependencies:
@@ -5221,7 +5224,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
   starters/vite-starter:
     dependencies:
@@ -5366,7 +5369,7 @@ importers:
         version: 4.4.3(@types/node@20.4.2)
       vitest:
         specifier: 0.33.0
-        version: 0.33.0(happy-dom@10.3.2)
+        version: 0.33.0(jsdom@22.1.0)
 
 packages:
 
@@ -12667,10 +12670,6 @@ packages:
     resolution: {integrity: sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==}
     dev: true
 
-  /@types/node@20.4.1:
-    resolution: {integrity: sha512-JIzsAvJeA/5iY6Y/OxZbv1lUcc8dNSE77lb2gnBH+/PJ3lFR1Ccvgwl5JWnHAkNHcRsT0TbpVOsiMKZ1F/yyJg==}
-    dev: true
-
   /@types/node@20.4.2:
     resolution: {integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==}
 
@@ -13351,7 +13350,7 @@ packages:
       magic-string: 0.30.1
       picocolors: 1.0.0
       std-env: 3.3.3
-      vitest: 0.33.0(happy-dom@10.3.2)
+      vitest: 0.33.0(jsdom@22.1.0)
     dev: true
 
   /@vitest/expect@0.33.0:
@@ -16645,7 +16644,7 @@ packages:
       eslint-plugin-promise: ^6.0.0
     dependencies:
       eslint: 8.44.0
-      eslint-plugin-import: 2.27.5(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
+      eslint-plugin-import: 2.27.5(eslint@8.44.0)
       eslint-plugin-n: 15.7.0(eslint@8.44.0)
       eslint-plugin-promise: 6.1.1(eslint@8.44.0)
     dev: true
@@ -16763,7 +16762,7 @@ packages:
       array-find: 1.0.0
       debug: 3.2.7(supports-color@5.5.0)
       enhanced-resolve: 0.9.1
-      eslint-plugin-import: 2.27.5(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
       find-root: 1.1.0
       has: 1.0.3
       interpret: 1.4.0
@@ -16805,6 +16804,36 @@ packages:
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5)(eslint@8.44.0)
     transitivePeerDependencies:
       - supports-color
+
+  /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0):
+    resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint:
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 5.61.0(eslint@8.44.0)(typescript@5.1.6)
+      debug: 3.2.7(supports-color@5.5.0)
+      eslint: 8.44.0
+      eslint-import-resolver-node: 0.3.7
+      eslint-import-resolver-webpack: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.88.1)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /eslint-module-utils@2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0):
     resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
@@ -16936,6 +16965,39 @@ packages:
       - supports-color
     dev: true
 
+  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0):
+    resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 5.61.0(eslint@8.44.0)(typescript@5.1.6)
+      array-includes: 3.1.6
+      array.prototype.flat: 1.3.1
+      array.prototype.flatmap: 1.3.1
+      debug: 3.2.7(supports-color@5.5.0)
+      doctrine: 2.1.0
+      eslint: 8.44.0
+      eslint-import-resolver-node: 0.3.7
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
+      has: 1.0.3
+      is-core-module: 2.12.1
+      is-glob: 4.0.3
+      minimatch: 3.1.2
+      object.values: 1.1.6
+      resolve: 1.22.2
+      semver: 6.3.1
+      tsconfig-paths: 3.14.2
+    transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
   /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
@@ -17001,7 +17063,7 @@ packages:
       - eslint-import-resolver-webpack
       - supports-color
 
-  /eslint-plugin-import@2.27.5(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0):
+  /eslint-plugin-import@2.27.5(eslint@8.44.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -17018,7 +17080,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.44.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
       has: 1.0.3
       is-core-module: 2.12.1
       is-glob: 4.0.3
@@ -17911,6 +17973,7 @@ packages:
       yargs-parser: 21.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /fastify-cors@6.0.3:
     resolution: {integrity: sha512-fMbXubKKyBHHCfSBtsCi3+7VyVRdhJQmGes5gM+eGKkRErCdm0NaYO0ozd31BQBL1ycoTIjbqOZhJo4RTF/Vlg==}
@@ -20391,7 +20454,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.4.1
+      '@types/node': 20.4.2
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -26087,7 +26150,7 @@ packages:
       eslint: 8.44.0
       eslint-config-standard: 17.1.0(eslint-plugin-import@2.27.5)(eslint-plugin-n@15.7.0)(eslint-plugin-promise@6.1.1)(eslint@8.44.0)
       eslint-config-standard-jsx: 11.0.0(eslint-plugin-react@7.32.2)(eslint@8.44.0)
-      eslint-plugin-import: 2.27.5(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
+      eslint-plugin-import: 2.27.5(eslint@8.44.0)
       eslint-plugin-n: 15.7.0(eslint@8.44.0)
       eslint-plugin-promise: 6.1.1(eslint@8.44.0)
       eslint-plugin-react: 7.32.2(eslint@8.44.0)
@@ -28770,7 +28833,7 @@ packages:
       eslint-import-resolver-webpack: 0.13.2(eslint-plugin-import@2.27.5)(webpack@5.88.1)
       eslint-plugin-ava: 14.0.0(eslint@8.44.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.44.0)
-      eslint-plugin-import: 2.27.5(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.61.0)(eslint-import-resolver-webpack@0.13.2)(eslint@8.44.0)
       eslint-plugin-n: 15.7.0(eslint@8.44.0)
       eslint-plugin-no-use-extend-native: 0.5.0
       eslint-plugin-prettier: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.44.0)(prettier@2.8.8)
@@ -28794,7 +28857,6 @@ packages:
       typescript: 5.1.6
       webpack: 5.88.1(esbuild@0.18.12)
     transitivePeerDependencies:
-      - '@typescript-eslint/parser'
       - eslint-import-resolver-typescript
       - supports-color
     dev: true
