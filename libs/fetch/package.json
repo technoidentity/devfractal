@@ -25,6 +25,7 @@
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
+    "@srtp/validator": "workspace:*",
     "@tanstack/react-query": "4.29.19",
     "immer": "10.0.2",
     "query-string": "8.1.0",

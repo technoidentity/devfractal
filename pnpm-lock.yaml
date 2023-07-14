@@ -2787,6 +2787,9 @@ importers:
       '@srtp/spec':
         specifier: workspace:*
         version: link:../spec
+      '@srtp/validator':
+        specifier: workspace:*
+        version: link:../validator
       '@tanstack/react-query':
         specifier: 4.29.19
         version: 4.29.19(react-dom@18.2.0)(react@18.2.0)
