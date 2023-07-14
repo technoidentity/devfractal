@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import type { UnionToIntersection } from '@srtp/core'
 import { capitalize } from '@srtp/fn'
 import { cast, isObject } from '@srtp/spec'

@@ -18,7 +18,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "pnpm db:types && remix dev",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix app --ext .ts,.tsx",
-    "lint": "eslint --max-warnings=0 --cache app --ext .ts,.tsx",
+    "lint": "eslint --report-unused-disable-directives --max-warnings=0 --cache app --ext .ts,.tsx",
     "rs": "node -r esbuild-register",
     "start": "remix-serve build",
     "types:dev": "pnpm db:types && tsc --noEmit -p . --watch",

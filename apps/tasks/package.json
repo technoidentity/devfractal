@@ -9,7 +9,7 @@
     "dev": "npm-run-all build --parallel \"dev:*\"",
     "dev:node": "cross-env NODE_ENV=development nodemon --require dotenv/config ./server.ts --watch ./server.ts",
     "dev:remix": "remix watch",
-    "lint": "eslint --max-warnings=0 --cache src --ext .ts,.tsx",
+    "lint": "eslint --report-unused-disable-directives --max-warnings=0 --cache src --ext .ts,.tsx",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "start": "cross-env NODE_ENV=production node ./server.js"
   },
