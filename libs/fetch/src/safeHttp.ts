@@ -1,59 +1,43 @@
+import { cast } from '@srtp/spec'
 import type { Options as RedaxiosOptions } from 'redaxios'
 import axios from 'redaxios'
 import type { z } from 'zod'
 
-export type Options<Spec extends z.ZodTypeAny> = RedaxiosOptions & {
-  // Response spec
+export type SafeHttpOptions<Spec extends z.ZodTypeAny> = RedaxiosOptions & {
   readonly spec: Spec
+  axios?: ReturnType<typeof axios.create>
+}
+
+const defaultAxios = axios.create()
+
+export const safeHttp = async <Spec extends z.ZodTypeAny>(
+  config: SafeHttpOptions<Spec>,
+) => {
+  const apiCall = config.axios ?? defaultAxios
+  cast(config.spec, (await apiCall(config)).data)
 }
 
 export const get =
-  <Spec extends z.ZodTypeAny>(config?: Options<Spec>) =>
-  async (url: string): Promise<z.infer<Spec>> => {
-    const resp = (await axios.get(url, config)).data
-    const spec = config?.spec
-
-    return spec ? spec.parse(resp) : (resp as z.infer<Spec>)
-  }
+  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
+  async (url: string): Promise<z.infer<Spec>> =>
+    safeHttp({ ...config, url, method: 'get' })
 
 export const post =
-  <Spec extends z.ZodTypeAny>(config?: Options<Spec>) =>
-  async (url: string, body: unknown): Promise<z.infer<Spec>> => {
-    const resp = (await axios.post(url, body, config)).data
-    const spec = config?.spec
-
-    return spec ? spec.parse(resp) : (resp as z.infer<Spec>)
-  }
+  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
+  async (url: string, body: unknown): Promise<z.infer<Spec>> =>
+    safeHttp({ ...config, url, method: 'post', data: body })
 
 export const put =
-  <Spec extends z.ZodTypeAny>(config?: Options<Spec>) =>
-  async (url: string, body: unknown): Promise<z.infer<Spec>> => {
-    const resp = (await axios.put(url, body, config)).data
-    const spec = config?.spec
-
-    return spec ? spec.parse(resp) : (resp as z.infer<Spec>)
-  }
+  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
+  async (url: string, body: unknown): Promise<z.infer<Spec>> =>
+    safeHttp({ ...config, url, method: 'put', data: body })
 
 export const patch =
-  <Spec extends z.ZodTypeAny>(config?: Options<Spec>) =>
-  async (url: string, body: unknown): Promise<z.infer<Spec>> => {
-    const resp = (await axios.patch(url, body, config)).data
-    const spec = config?.spec
-
-    return spec ? spec.parse(resp) : (resp as z.infer<Spec>)
-  }
+  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
+  async (url: string, body: unknown): Promise<z.infer<Spec>> =>
+    safeHttp({ ...config, url, method: 'patch', data: body })
 
 export const del =
-  <Spec extends z.ZodTypeAny>(config?: Options<Spec>) =>
-  async (url: string): Promise<z.infer<Spec>> => {
-    const resp = (await axios.delete(url, config)).data
-    const spec = config?.spec
-
-    return spec ? spec.parse(resp) : (resp as z.infer<Spec>)
-  }
-
-export const put$ = put()
-export const post$ = post()
-export const get$ = get()
-export const patch$ = patch()
-export const del$ = del()
+  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
+  async (url: string): Promise<z.infer<Spec>> =>
+    safeHttp({ ...config, url, method: 'delete' })
