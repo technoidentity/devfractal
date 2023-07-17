@@ -62,3 +62,4 @@ public/build
 .eslintcache
 .history
 **/supabase/.branches
+.parcel-cache/
