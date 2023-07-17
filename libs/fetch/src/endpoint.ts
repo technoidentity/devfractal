@@ -31,7 +31,7 @@ export type GetEpRequest<Ep extends EndpointBase> = z.infer<
 
 export type GetEpParams<Ep extends EndpointBase> = Params<Ep['path']>
 
-type PathBase = ReadonlyArray<string | Record<string, ZodPrimitive>>
+export type PathBase = ReadonlyArray<string | Record<string, ZodPrimitive>>
 
 export function path<const Path extends PathBase>(path: Path) {
   return path
@@ -196,10 +196,16 @@ export type Params<Paths extends PathBase> = ParamsFromFieldSpecs<
   ParamsFieldsSchema<Paths>
 >
 
+const orderedEntries = <T extends object>(obj: T) =>
+  Object.entries(obj).sort(([a], [b]) => a.localeCompare(b))
+
+const orderedKeys = <T extends object>(obj: T) =>
+  orderedEntries(obj).map(([k]) => k)
+
 // return parameterized route like /users/:id/posts/:postId
 export function route<Path extends PathBase>(path: Path): string {
   const segments = path.map(e =>
-    isObject(e) ? `:${Object.keys(e).join('/:')}` : `${e}`,
+    isObject(e) ? `:${orderedKeys(e).join('/:')}` : `${e}`,
   )
 
   return `/${segments.join('/')}`
@@ -215,35 +221,27 @@ export function linkfn<const Paths extends PathBase>(
       const value = v as string
       url = url.replace(`:${k}`, `${value}`)
     }
+    invariant(!url.includes(':'), `url ${url} still contains :`)
     return url
   }
 }
 
-export function pathsfn<const Paths extends PathBase>(
-  path: Paths,
-): (params?: Params<Paths>) => string[] {
-  return params => {
-    const segments = path.flatMap(e =>
-      isObject(e) ? Object.keys(e).map(e => `:${e}`) : e,
-    )
-
-    const paths = segments.map(e => {
-      if (e.startsWith(':')) {
-        const key = e.slice(1)
-        invariant(params, `params does not contain ${key}`)
-
-        const value = (params as any)[key]
-        invariant(value, `params does not contain ${key}`)
-        return value
-      }
-      return e
-    })
-
-    return paths
+export const keysfn = <const Path extends PathBase>(
+  path: Path,
+  params: Params<Path>,
+) => {
+  const keys: string[] = []
+  for (const segment of path) {
+    if (isObject(segment)) {
+      const values = orderedEntries(segment).map(([key, value]) => {
+        const r = value.parse((params as any)[key])
+        return r != null ? r.toString() : ''
+      })
+      keys.push(...values)
+    } else {
+      keys.push(segment)
+    }
   }
-}
 
-export const keysfn =
-  <const Paths extends PathBase>(path: Paths) =>
-  (params: Params<Paths>) =>
-    linkfn(path)(params).split('/')
+  return keys.filter(k => k !== '')
+}
