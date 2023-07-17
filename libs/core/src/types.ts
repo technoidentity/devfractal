@@ -35,3 +35,15 @@ export type FromUnion<
 export type ExactKeys<T, U> = [keyof T] extends [keyof U]
   ? T
   : { [Key in keyof U]: Key extends keyof T ? T[Key] : never }
+
+export type Obj = Record<string, any>
+
+export type PickRequired<Props extends Obj> = {
+  [K in keyof Props as undefined extends Props[K] ? never : K]: Props[K]
+}
+
+export type RemoveEmpty<T extends Obj, R> = keyof T extends never
+  ? () => R
+  : (args: T) => R
+
+export type FnArgs<Args extends Obj, R> = RemoveEmpty<PickRequired<Args>, R>
