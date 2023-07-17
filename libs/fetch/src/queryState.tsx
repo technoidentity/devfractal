@@ -5,9 +5,10 @@ import {
 } from '@tanstack/react-query'
 import redaxios from 'redaxios'
 import type { Schema, z } from 'zod'
-import { keysfn, type Params, type PathBase } from './endpoint'
+import type { Params, PathBase } from './endpoint'
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
 import { useSafeQuery, type UseSafeQueryArgs } from './useSafeQuery'
+import { keysfn } from './epFn'
 
 export type MutationHandler = (
   api: typeof ApiDescriptions,

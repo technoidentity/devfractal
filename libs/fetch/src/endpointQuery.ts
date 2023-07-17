@@ -8,7 +8,8 @@ import qs from 'query-string'
 import axios from 'redaxios'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-import { linkfn, type EndpointBase, type Params } from './endpoint'
+import type { EndpointBase, Params } from './endpoint'
+import { linkfn } from './epFn'
 
 export type QueryArgs<Ep extends EndpointBase> = (Ep extends {
   request: never

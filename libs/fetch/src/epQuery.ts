@@ -11,17 +11,17 @@ import {
 } from '@tanstack/react-query'
 import axios from 'redaxios'
 import { type z } from 'zod'
-import {
-  linkfn,
-  type EndpointBase,
-  type GetEpResponse,
-  type GetPathArg,
-  type GetRequestArg,
+import type {
+  EndpointBase,
+  GetEpResponse,
+  GetPathArg,
+  GetRequestArg,
 } from './endpoint'
 
 import qs from 'query-string'
 import React from 'react'
 import invariant from 'tiny-invariant'
+import { linkfn } from './epFn'
 
 export type QueryArgs<Ep extends EndpointBase> = GetRequestArg<Ep> &
   GetPathArg<Ep>

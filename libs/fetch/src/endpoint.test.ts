@@ -1,7 +1,8 @@
 import { test } from 'vitest'
 import { z } from 'zod'
-import { linkfn, route } from './endpoint'
+import { linkfn, route } from './epFn'
 
+// @TODO:
 test('endpoint', () => {
   const fn = linkfn([
     'users',

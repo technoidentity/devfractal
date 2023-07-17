@@ -1,14 +1,14 @@
 import { cast } from '@srtp/spec'
 import axios, { type Options as RedaxiosOptions, type Response } from 'redaxios'
 import { subst } from 'urlcat'
-import {
-  route,
-  type EndpointBase,
-  type EndpointsBase,
-  type GetEpResponse,
-  type GetPathArg,
-  type GetRequestArg,
+import type {
+  EndpointBase,
+  EndpointsBase,
+  GetEpResponse,
+  GetPathArg,
+  GetRequestArg,
 } from './endpoint'
+import { route } from './epFn'
 
 type AxiosInstance = ReturnType<typeof axios.create>
 
