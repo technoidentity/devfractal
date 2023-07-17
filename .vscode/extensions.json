@@ -23,6 +23,7 @@
     "teamhub.teamhub",
     "ms-playwright.playwright",
     "aaron-bond.better-comments",
-    "meganrogge.template-string-converter"
+    "meganrogge.template-string-converter",
+    "yoavbls.pretty-ts-errors"
   ]
 }
