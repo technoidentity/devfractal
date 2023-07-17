@@ -19,6 +19,7 @@
     "web:dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false"
   },
   "dependencies": {
+    "@chakra-ui/icons": "2.0.19",
     "@chakra-ui/react": "2.7.1",
     "@chakra-ui/styled-system": "2.9.1",
     "@emotion/react": "11.11.1",
@@ -31,6 +32,7 @@
     "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/todo": "workspace:*",
+    "@srtp/validator": "workspace:*",
     "@tanstack/react-query": "4.29.19",
     "framer-motion": "10.12.20",
     "immer": "10.0.2",
@@ -47,6 +49,7 @@
     "tiny-invariant": "1.3.1",
     "tiny-warning": "1.0.3",
     "tslib": "2.6.0",
+    "urlcat": "3.1.0",
     "use-immer": "0.9.0",
     "zod": "3.21.4"
   },

@@ -241,6 +241,9 @@ importers:
 
   apps/fetch-examples:
     dependencies:
+      '@chakra-ui/icons':
+        specifier: 2.0.19
+        version: 2.0.19(@chakra-ui/system@2.5.8)(react@18.2.0)
       '@chakra-ui/react':
         specifier: 2.7.1
         version: 2.7.1(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.15)(framer-motion@10.12.20)(react-dom@18.2.0)(react@18.2.0)
@@ -277,6 +280,9 @@ importers:
       '@srtp/todo':
         specifier: workspace:*
         version: link:../../packages/todo
+      '@srtp/validator':
+        specifier: workspace:*
+        version: link:../../libs/validator
       '@tanstack/react-query':
         specifier: 4.29.19
         version: 4.29.19(react-dom@18.2.0)(react@18.2.0)
@@ -325,6 +331,9 @@ importers:
       tslib:
         specifier: 2.6.0
         version: 2.6.0
+      urlcat:
+        specifier: 3.1.0
+        version: 3.1.0
       use-immer:
         specifier: 0.9.0
         version: 0.9.0(immer@10.0.2)(react@18.2.0)
