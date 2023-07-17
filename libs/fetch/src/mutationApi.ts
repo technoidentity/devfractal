@@ -6,7 +6,7 @@ export type MutationDescription<T> = {
   payload: T
 }
 
-export const mutationApi = {
+export const ApiDescriptions = {
   post: <T>(path: string, payload: T): MutationDescription<T> => ({
     type: 'post',
     path,

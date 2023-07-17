@@ -1,6 +1,6 @@
 import type { MutationFunction } from '@tanstack/react-query'
-import type { MutationOptions } from './useOptimisitc'
-import { useOptimisticValue } from './useOptimisitc'
+import type { UseOptimisticMutationOptions } from './useOptimistic'
+import { useOptimisticValue } from './useOptimistic'
 
 export function useOnePatch<
   TData extends { id: unknown },
@@ -8,7 +8,7 @@ export function useOnePatch<
 >(
   invalidateQuery: any[],
   mutationFn: MutationFunction<TData, TVariables>,
-  options?: MutationOptions<TData, TVariables>,
+  options?: UseOptimisticMutationOptions<TData, TVariables>,
 ) {
   return useOptimisticValue(
     invalidateQuery,

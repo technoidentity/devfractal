@@ -6,11 +6,11 @@ import {
 import redaxios from 'redaxios'
 import type { Schema } from 'zod'
 import type { z } from 'zod'
-import { mutationApi, type MutationDescription } from './mutationApi'
+import { ApiDescriptions, type MutationDescription } from './mutationApi'
 import { useSafeQuery, type UseSafeQueryArgs } from './useSafeQuery'
 
 export type MutationHandler = (
-  api: typeof mutationApi,
+  api: typeof ApiDescriptions,
   variables: any,
 ) => MutationDescription<any>
 
@@ -41,7 +41,7 @@ export const queryState = <QuerySpec extends z.ZodTypeAny, Hs extends Handlers>(
     type TVariables = Parameters<Hs[Key][1]>[1]
 
     const mutationFn: MutationFunction<TData, TVariables> = variables =>
-      apiMethod(fn(mutationApi, variables), spec)
+      apiMethod(fn(ApiDescriptions, variables), spec)
 
     const mutate = useTanstackMutation({
       mutationFn,
