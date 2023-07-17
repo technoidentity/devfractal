@@ -16,8 +16,8 @@ export type QueryArgs<Ep extends EndpointBase> = (Ep extends {
   ? { query: z.infer<Ep['request'] & object> }
   : { query?: undefined }) &
   (object extends Params<Ep['path']>
-    ? { params?: undefined } | undefined
-    : { params: Params<Ep['path']> })
+    ? { request?: undefined } | undefined
+    : { request: Params<Ep['path']> })
 
 export function createEndPointQuery<Ep extends EndpointBase>(
   endpoint: Ep,
@@ -26,7 +26,7 @@ export function createEndPointQuery<Ep extends EndpointBase>(
   return (
     options: QueryArgs<Ep>,
   ): UseQueryResult<z.infer<Ep['response'] & object>> => {
-    const path = linkfn<Ep['path']>(endpoint.path)(options.params)
+    const path = linkfn<Ep['path']>(endpoint.path)(options.request)
     const query = options.query
     const url = query
       ? `${baseUrl}${path}?${qs.stringify(query)}`
@@ -52,14 +52,14 @@ export type MutationArgs<Ep extends EndpointBase> = (Ep extends {
   ? { body: z.infer<Ep['request'] & object> }
   : { body?: undefined }) &
   (keyof Params<Ep['path']> extends never
-    ? { params?: undefined } | undefined
-    : { params: Params<Ep['path']> })
+    ? { request?: undefined } | undefined
+    : { request: Params<Ep['path']> })
 
 export function createEndpointMutation<Ep extends EndpointBase>(endpoint: Ep) {
   return () =>
     useMutation({
       mutationFn: (options: MutationArgs<Ep>) => {
-        const key = linkfn<Ep['path']>(endpoint.path)(options.params)
+        const key = linkfn<Ep['path']>(endpoint.path)(options.request)
         return axios[endpoint.method](key, options.body)
       },
     })
