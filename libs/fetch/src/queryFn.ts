@@ -3,7 +3,7 @@ import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
 import qs from 'query-string'
 
 import { z } from 'zod'
-import { get$ } from './safeHttp'
+import { get } from './safeHttp'
 import invariant from 'tiny-invariant'
 
 const { stringify } = qs
@@ -52,7 +52,7 @@ export const queryFn =
     const rest = last ? queryKey.slice(0, -1) : queryKey
     const paths = cast(Paths, rest)
 
-    return get$(toUrl(paths, qs))
+    return get({ spec: z.any() })(toUrl(paths, qs))
   }
 
 // Should be used only with raw useQuery
