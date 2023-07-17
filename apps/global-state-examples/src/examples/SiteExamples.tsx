@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-return-await */
-/* eslint-disable @typescript-eslint/no-misused-promises */
+
 import {
   action,
   computed,

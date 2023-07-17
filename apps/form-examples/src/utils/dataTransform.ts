@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import type { Products } from './types'
 
 export const categorizedProducts = (data: Products) => {

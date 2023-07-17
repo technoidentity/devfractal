@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Text } from '@chakra-ui/react'
 import { Flex } from '@mantine/core'
 import { slice, useValue } from '@srtp/global-state'

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { expect, test } from 'vitest'
 import { LinkedList } from './LinkedList'
 
@@ -51,8 +50,8 @@ test('remove, find', () => {
   expect(one.last).toBe(1)
   expect(one.find(1)).not.toBe(undefined)
   expect(one.findBy(v => v === 1)).not.toBe(undefined)
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  one.remove(one.find(1)!)
+  const e = one.find(1)
+  e && one.remove(e)
   expect(one.length).toBe(0)
   expect(one.first).toBe(undefined)
   expect(one.last).toBe(undefined)
@@ -77,7 +76,8 @@ test('remove, find', () => {
 
 test('insert', () => {
   const one = LinkedList.from<number>([1])
-  one.insert(one.find(1)!, 2)
+  const e = one.find(1)
+  e && one.insert(e, 2)
   expect([...one]).toEqual([2, 1])
 
   const list = LinkedList.from([1, 2, 3, 4, 5])

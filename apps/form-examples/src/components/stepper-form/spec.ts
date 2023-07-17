@@ -1,4 +1,3 @@
-/* eslint-disable no-redeclare */
 import { z } from 'zod'
 
 // const Library = z.enum(['react', 'ng', 'svelte', 'vue'])

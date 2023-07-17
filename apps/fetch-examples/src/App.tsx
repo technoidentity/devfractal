@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { EndpointTodoApp } from './fetch/EndpointTodo'
+import { QueryTodoApp } from './fetch/QueryTodo'
 
 const isProd = import.meta.env['NODE_ENV'] === 'production'
 
@@ -40,7 +40,7 @@ export const App = () => {
       <Suspense fallback={<Heading>Loading...</Heading>}>
         <QueryClientProvider client={queryClient}>
           <ChakraProvider>
-            <EndpointTodoApp />
+            <QueryTodoApp />
           </ChakraProvider>
         </QueryClientProvider>
       </Suspense>

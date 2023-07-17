@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { range } from 'lodash'
 
 export function t<T>(arr: T[], index: number, element: T): T[] {

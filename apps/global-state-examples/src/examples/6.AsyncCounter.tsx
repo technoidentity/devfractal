@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/require-await */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import { Box, Button, Text } from '@chakra-ui/react'
 import { delay } from '@srtp/core'
 import { computed, derived, useAction, useValue } from '@srtp/global-state'
