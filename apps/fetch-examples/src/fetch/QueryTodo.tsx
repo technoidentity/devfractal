@@ -1,37 +1,41 @@
-import { ErrorMessage, Loading } from './common'
-
-import { Box, Button, Checkbox, Heading, Input } from '@chakra-ui/react'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import type { KeyboardEvent } from 'react'
-import type { Todo } from './types'
-import { TodoList } from './types'
-import { get, patch, post } from './utils'
+import { CloseIcon } from '@chakra-ui/icons'
+import {
+  Button,
+  Checkbox,
+  Container,
+  Flex,
+  Heading,
+  Input,
+} from '@chakra-ui/react'
 import { useInputState } from '@srtp/local-state'
 import { cast } from '@srtp/spec'
+import type { KeyboardEvent } from 'react'
+import { epMutation, epQuery } from '@srtp/fetch'
+import { todoEndpoints } from './todoEndpoints'
+import type { Todo } from './types'
+import { TodoList } from './types'
 
 type TodoItemProps = Readonly<{
   todo: Todo
   onToggle: (todo: Todo) => void
+  onDelete: (todoId: number) => void
 }>
 
-const TodoItem = ({ todo, onToggle }: TodoItemProps) => {
+const TodoItem = ({ todo, onToggle, onDelete }: TodoItemProps) => {
   return (
-    <Box mb="2" alignItems="baseline" gap="2">
-      <Checkbox
-        isChecked={todo.completed}
-        onChange={() => {
-          onToggle(todo)
-        }}
-      >
+    <Flex placeItems="baseline" mb="2" alignItems="baseline" gap="4">
+      <Checkbox isChecked={todo.completed} onChange={() => onToggle(todo)}>
         {todo.title}
       </Checkbox>
-    </Box>
+
+      <Button size="xs" onClick={() => onDelete(todo.id)}>
+        <CloseIcon color="red.500" />
+      </Button>
+    </Flex>
   )
 }
 
-export type AddTodoProps = Readonly<{
-  onAdd: (title: string) => void
-}>
+export type AddTodoProps = Readonly<{ onAdd: (title: string) => void }>
 
 const AddTodo = ({ onAdd }: AddTodoProps) => {
   const [title, setTitle] = useInputState('')
@@ -50,7 +54,7 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
   }
 
   return (
-    <Box m="2" alignItems="baseline" gap="2">
+    <Flex direction="row" m="2" alignItems="baseline" gap="2">
       <Input
         type="text"
         value={title}
@@ -60,53 +64,65 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
       />
 
       <Button onClick={submit}>Add</Button>
-    </Box>
+    </Flex>
   )
 }
 
-const todoUrl = '/api/todos'
-const todoIdUrl = (id: number) => `${todoUrl}/${id}`
+const baseUrl = '/api'
+
+const useTodoQuery = epQuery(todoEndpoints.getTodos, baseUrl)
+const useToggleTodo = epMutation(todoEndpoints.updateTodo, baseUrl)
+const useAddTodo = epMutation(todoEndpoints.addTodo, baseUrl)
+const useDeleteTodo = epMutation(todoEndpoints.removeTodo, baseUrl)
 
 export const QueryTodoApp = () => {
-  const { data, error, refetch } = useQuery({
-    queryKey: [todoUrl],
-    queryFn: () => get(todoUrl),
-  })
+  const { data, invalidateKey } = useTodoQuery({})
 
-  const toggleTodo = useMutation({
-    mutationFn: (todo: Todo) =>
-      patch(todoIdUrl(todo.id), { id: todo.id, completed: !todo.completed }),
-    onSettled: () => refetch(),
-  })
+  const toggleTodo = useToggleTodo((todo: Todo) => ({
+    path: { id: todo.id },
+    request: { ...todo, completed: !todo.completed },
+    invalidateKey,
+  }))
 
-  const addTodo = useMutation({
-    mutationFn: (title: string) => post(todoUrl, { title, completed: false }),
-    onSettled: () => refetch(),
-  })
+  const addTodo = useAddTodo((title: string) => ({
+    request: { title, completed: false },
+    invalidateKey,
+  }))
 
-  if (error) {
-    return <ErrorMessage error={error as Error} />
-  }
+  const deleteTodo = useDeleteTodo((id: number) => ({
+    path: { id },
+    request: undefined,
+    invalidateKey,
+  }))
 
-  if (data) {
-    const todosList = cast(TodoList, data)
+  const todosList = cast(TodoList, data)
 
-    return (
-      <>
-        <Heading as="h2" m="2" fontSize="2xl" fontWeight="semibold">
-          Todos List
-        </Heading>
+  console.count()
 
-        <AddTodo onAdd={addTodo.mutate} />
+  return (
+    <Container>
+      <Heading
+        as="h2"
+        m="2"
+        fontSize="2xl"
+        fontWeight="semibold"
+        textAlign="center"
+      >
+        Todos List
+      </Heading>
 
-        <div>
-          {todosList.map(todo => (
-            <TodoItem key={todo.id} todo={todo} onToggle={toggleTodo.mutate} />
-          ))}
-        </div>
-      </>
-    )
-  }
+      <AddTodo onAdd={addTodo.mutate} />
 
-  return <Loading />
+      <div>
+        {todosList.map(todo => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggle={toggleTodo.mutate}
+            onDelete={deleteTodo.mutate}
+          />
+        ))}
+      </div>
+    </Container>
+  )
 }

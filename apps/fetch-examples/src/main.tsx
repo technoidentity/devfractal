@@ -1,15 +1,12 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 
-import './index.css'
-import './fetch/restEndpoints'
+import invariant from 'tiny-invariant'
 import { App } from './App'
+import './fetch/restQueries'
+import './index.css'
 
-const root = createRoot(document.getElementById('root')!)
+const container = document.getElementById('root')
+invariant(container, 'Root container not found')
+const root = createRoot(container)
 
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+root.render(<App />)
