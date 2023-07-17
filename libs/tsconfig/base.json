@@ -35,8 +35,8 @@
     "useDefineForClassFields": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true
+    "noImplicitOverride": true
+    // "noPropertyAccessFromIndexSignature": false
     // "exactOptionalPropertyTypes": true,
     // "noUncheckedIndexedAccess": true
   },
