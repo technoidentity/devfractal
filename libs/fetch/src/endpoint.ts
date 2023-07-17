@@ -10,6 +10,7 @@ export type QueryMethod = 'get'
 export type HttpMethod = QueryMethod | MutationMethod
 
 export type QueryEndpointBase = EndpointBase<'get'>
+
 export type PostEndpointBase = EndpointBase<'post'>
 export type PutEndpointBase = EndpointBase<'put'>
 export type DeleteEndpointBase = EndpointBase<'delete'>
@@ -28,15 +29,27 @@ export type GetEpRequest<Ep extends EndpointBase> = z.infer<
   Ep['request'] & object
 >
 
-type Segments = ReadonlyArray<string | Record<string, ZodPrimitive>>
+export type GetEpParams<Ep extends EndpointBase> = Params<Ep['path']>
 
-export function path<const Path extends Segments>(path: Path) {
+type PathBase = ReadonlyArray<string | Record<string, ZodPrimitive>>
+
+export function path<const Path extends PathBase>(path: Path) {
   return path
 }
 
+export type GetPathArg<Ep extends EndpointBase> = object extends Params<
+  Ep['path']
+>
+  ? { path?: undefined }
+  : { path: Params<Ep['path']> }
+
+export type GetRequestArg<Ep extends EndpointBase> = Ep extends Ep['request']
+  ? { request?: undefined }
+  : { request: z.infer<Ep['request'] & object> }
+
 export type Endpoint<
   Method extends HttpMethod,
-  Path extends Segments,
+  Path extends PathBase,
   Request extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 > = {
@@ -48,7 +61,7 @@ export type Endpoint<
 
 export type EndpointBase<M extends HttpMethod = HttpMethod> = Endpoint<
   M,
-  Segments,
+  PathBase,
   z.ZodTypeAny,
   z.ZodTypeAny
 >
@@ -64,7 +77,7 @@ export type EndpointsBase<M extends HttpMethod = HttpMethod> = Record<
 
 export function ep<
   Method extends HttpMethod,
-  Path extends Segments,
+  Path extends PathBase,
   Request extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -81,7 +94,7 @@ export function eps<const Eps extends EndpointsBase>(eps: Eps): Eps {
 }
 
 export function epGet<
-  Path extends Segments,
+  Path extends PathBase,
   Search extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -90,13 +103,13 @@ export function epGet<
   search: Search,
 ): Endpoint<'get', Path, Search, Response>
 
-export function epGet<Path extends Segments, Response extends z.ZodTypeAny>(
+export function epGet<Path extends PathBase, Response extends z.ZodTypeAny>(
   path: Path,
   res: Response,
 ): Endpoint<'get', Path, z.ZodUndefined, Response>
 
 export function epGet<
-  Path extends Segments,
+  Path extends PathBase,
   Search extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -113,7 +126,7 @@ export function epGet<
 }
 
 export function epPost<
-  Path extends Segments,
+  Path extends PathBase,
   Body extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -125,7 +138,7 @@ export function epPost<
 }
 
 export function epPut<
-  Path extends Segments,
+  Path extends PathBase,
   Body extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -137,7 +150,7 @@ export function epPut<
 }
 
 export function epPatch<
-  Path extends Segments,
+  Path extends PathBase,
   Body extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -148,16 +161,16 @@ export function epPatch<
   return { path, method: 'patch', request: body, response: res } as const
 }
 
-export function epDelete<Path extends Segments, Response extends z.ZodTypeAny>(
+export function epDelete<Path extends PathBase, Response extends z.ZodTypeAny>(
   path: Path,
   res: Response,
 ): Endpoint<'delete', Path, z.ZodUndefined, Response>
 
-export function epDelete<Path extends Segments>(
+export function epDelete<Path extends PathBase>(
   path: Path,
 ): Endpoint<'delete', Path, z.ZodUndefined, z.ZodUndefined>
 
-export function epDelete<Path extends Segments, Response extends z.ZodTypeAny>(
+export function epDelete<Path extends PathBase, Response extends z.ZodTypeAny>(
   path: Path,
   res?: Response,
 ): Endpoint<'delete', Path, z.ZodUndefined, Response> {
@@ -169,7 +182,7 @@ export function epDelete<Path extends Segments, Response extends z.ZodTypeAny>(
   } as const as any
 }
 
-export type ParamsFieldsSchema<Path extends Segments> = UnionToIntersection<
+export type ParamsFieldsSchema<Path extends PathBase> = UnionToIntersection<
   {
     [K in keyof Path]: Path[K] extends string ? never : Path[K]
   }[number]
@@ -179,12 +192,12 @@ export type ParamsFromFieldSpecs<Paths extends ParamsFieldsSchema<any>> = {
   [K in keyof Paths]: z.infer<Paths[K]>
 }
 
-export type Params<Paths extends Segments> = ParamsFromFieldSpecs<
+export type Params<Paths extends PathBase> = ParamsFromFieldSpecs<
   ParamsFieldsSchema<Paths>
 >
 
 // return parameterized route like /users/:id/posts/:postId
-export function route<Path extends Segments>(path: Path): string {
+export function route<Path extends PathBase>(path: Path): string {
   const segments = path.map(e =>
     isObject(e) ? `:${Object.keys(e).join('/:')}` : `${e}`,
   )
@@ -193,7 +206,7 @@ export function route<Path extends Segments>(path: Path): string {
 }
 
 // return a function that takes params and returns a url
-export function linkfn<const Paths extends Segments>(
+export function linkfn<const Paths extends PathBase>(
   path: Paths,
 ): (params?: Params<Paths>) => string {
   return params => {
@@ -206,7 +219,7 @@ export function linkfn<const Paths extends Segments>(
   }
 }
 
-export function pathsfn<const Paths extends Segments>(
+export function pathsfn<const Paths extends PathBase>(
   path: Paths,
 ): (params?: Params<Paths>) => string[] {
   return params => {
@@ -231,6 +244,6 @@ export function pathsfn<const Paths extends Segments>(
 }
 
 export const keysfn =
-  <const Paths extends Segments>(path: Paths) =>
+  <const Paths extends PathBase>(path: Paths) =>
   (params: Params<Paths>) =>
     linkfn(path)(params).split('/')
