@@ -1,21 +1,24 @@
+/* eslint-disable @typescript-eslint/prefer-function-type */
 import { capitalize } from '@srtp/local-state'
-import type { useQuery, useMutation } from '@tanstack/react-query'
-import type { EndpointBase, EndpointsBase } from './endpoint'
+import type { UseMutationResult } from '@tanstack/react-query'
+import type { EndpointBase, EndpointsBase, GetEpResponse } from './endpoint'
 import {
+  epMutation,
+  epQuery,
   type QueryArgs,
-  type MutationArgs,
-  createEndPointQuery,
-  createEndpointMutation,
-} from './endpointQuery'
+  type UseEpMutationOptions,
+  type UseEpQueryResult,
+} from './epQuery'
 
 export type QueryFn<Ep extends EndpointBase> = (
   options: QueryArgs<Ep>,
-) => ReturnType<typeof useQuery>
+) => UseEpQueryResult<Ep>
 
-export type MutationFn<Ep extends EndpointBase> = (
-  options: MutationArgs<Ep>,
-) => ReturnType<typeof useMutation>
-
+export type MutationFn<Ep extends EndpointBase> = {
+  <TVariables, TContext>(
+    options: UseEpMutationOptions<Ep, TVariables, TContext>,
+  ): UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
+}
 export type Queries<Ep extends EndpointsBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? K
@@ -35,16 +38,16 @@ export type Hookify<R extends Record<string, unknown>> = {
 export type EndpointApi<Ep extends EndpointsBase> = Hookify<Queries<Ep>> &
   Hookify<Mutations<Ep>>
 
-export function createEndpointApi<Eps extends EndpointsBase>(
+export function createEpApi<Eps extends EndpointsBase>(
   endpoints: Eps,
-  baseUrl: string = '/api',
+  baseUrl: string,
 ): EndpointApi<Eps> {
   const queries: any = Object.fromEntries(
     Object.entries(endpoints)
       .filter(([, endpoint]) => endpoint.method === 'get')
       .map(([key, endpoint]) => [
         `use${capitalize(key)}`,
-        createEndPointQuery(endpoint, baseUrl),
+        epQuery(endpoint as EndpointBase, baseUrl),
       ]),
   )
 
@@ -53,7 +56,7 @@ export function createEndpointApi<Eps extends EndpointsBase>(
       .filter(([, endpoint]) => endpoint.method !== 'get')
       .map(([key, endpoint]) => [
         `use${capitalize(key)}`,
-        createEndpointMutation(endpoint),
+        epMutation(endpoint as EndpointBase, baseUrl),
       ]),
   )
 
