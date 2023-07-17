@@ -1,4 +1,4 @@
-import { jstr } from '@srtp/spec'
+import { isFunction, jstr } from '@srtp/spec'
 import React from 'react'
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
@@ -13,8 +13,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 
   const setValue = (value: T | ((val: T) => T)) => {
     try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value
+      const valueToStore = isFunction(value) ? value(storedValue) : value
 
       setStoredValue(valueToStore)
       window.localStorage.setItem(key, jstr(valueToStore))
