@@ -1,6 +1,6 @@
 import { Todo } from '@srtp/todo'
 import { z } from 'zod'
-import { type EndpointBase } from '@srtp/fetch'
+import { epHttp, type EndpointBase } from '@srtp/fetch'
 
 export const todoEndpoints = {
   getTodos: {
@@ -23,8 +23,15 @@ export const todoEndpoints = {
 
   updateTodo: {
     path: ['todos', { id: z.number() }],
-    method: 'put',
+    method: 'patch',
     request: Todo,
     response: Todo,
   },
 } as const satisfies Record<string, EndpointBase>
+
+// const todoHttp = epHttp(todoEndpoints)
+
+// todoHttp.updateTodo({
+//   path: { id: 1 },
+//   request: { id: 1, title: 'hello', completed: false },
+// })

@@ -78,22 +78,28 @@ const useDeleteTodo = epMutation(todoEndpoints.removeTodo, baseUrl)
 export const QueryTodoApp = () => {
   const { data, invalidateKey } = useTodoQuery({})
 
-  const toggleTodo = useToggleTodo((todo: Todo) => ({
-    path: { id: todo.id },
-    request: { ...todo, completed: !todo.completed },
-    invalidateKey,
-  }))
+  const toggleTodo = useToggleTodo({
+    action: (todo: Todo) => ({
+      path: { id: todo.id },
+      request: { ...todo, completed: !todo.completed },
+      invalidateKey,
+    }),
+  })
 
-  const addTodo = useAddTodo((title: string) => ({
-    request: { title, completed: false },
-    invalidateKey,
-  }))
+  const addTodo = useAddTodo({
+    action: (title: string) => ({
+      request: { title, completed: false },
+      invalidateKey,
+    }),
+  })
 
-  const deleteTodo = useDeleteTodo((id: number) => ({
-    path: { id },
-    request: undefined,
-    invalidateKey,
-  }))
+  const deleteTodo = useDeleteTodo({
+    action: (id: number) => ({
+      path: { id },
+      request: undefined,
+      invalidateKey,
+    }),
+  })
 
   const todosList = cast(TodoList, data)
 

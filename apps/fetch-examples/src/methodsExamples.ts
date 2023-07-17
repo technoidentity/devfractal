@@ -21,4 +21,4 @@ await put({ spec: todo })(`/api/todos/${todos[1].id}`, {
   completed: true,
 }).then(console.log)
 
-await del()(`/api/todos/${todos[0].id}`).then(console.log)
+await del({ spec: z.any() })(`/api/todos/${todos[0].id}`).then(console.log)
