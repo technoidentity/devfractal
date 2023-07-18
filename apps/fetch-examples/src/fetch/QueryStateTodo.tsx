@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,

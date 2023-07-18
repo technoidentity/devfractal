@@ -31,7 +31,7 @@ const defaultOptions: qs.StringifyOptions = {
 const searchToObject = (search: URLSearchParams) =>
   Object.fromEntries(search.entries())
 
-export function useSearch<Spec extends z.AnyZodObject>(
+export function useSearch<Spec extends z.ZodTypeAny>(
   spec: Spec,
   options?: qs.StringifyOptions,
 ): readonly [z.infer<Spec> | undefined, (values: z.infer<Spec>) => void] {
