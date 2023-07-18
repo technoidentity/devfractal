@@ -184,3 +184,9 @@ export function index<T extends object, K extends keyof T>(
 ): Map<T[K], T> {
   return new Map(obj.map(item => [item[index], item]))
 }
+
+export const orderedEntries = <T extends object>(obj: T) =>
+  Object.entries(obj).sort(([a], [b]) => a.localeCompare(b))
+
+export const orderedKeys = <T extends object>(obj: T) =>
+  orderedEntries(obj).map(([k]) => k)
