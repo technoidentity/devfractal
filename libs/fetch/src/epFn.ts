@@ -1,12 +1,8 @@
 import { cast, isObject } from '@srtp/spec'
 import invariant from 'tiny-invariant'
 import type { Params, PathBase } from './endpoint'
-
-const orderedEntries = <T extends object>(obj: T) =>
-  Object.entries(obj).sort(([a], [b]) => a.localeCompare(b))
-
-const orderedKeys = <T extends object>(obj: T) =>
-  orderedEntries(obj).map(([k]) => k)
+import { z } from 'zod'
+import { orderedKeys, orderedEntries } from '@srtp/fn'
 
 // return parameterized route like /users/:id/posts/:postId
 export function route<Path extends PathBase>(path: Path): string {
@@ -48,4 +44,19 @@ export const keysfn = <const Path extends PathBase>(
   }
 
   return keys
+}
+
+// Too much of a hack?
+export function paramsSpec<Path extends PathBase>(
+  path: Path,
+): z.Schema<Params<Path>> {
+  const rawSchema = {} as any
+
+  for (const e of path) {
+    if (isObject(e)) {
+      Object.assign(rawSchema, e)
+    }
+  }
+
+  return z.object(rawSchema) as any
 }
