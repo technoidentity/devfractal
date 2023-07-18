@@ -11,7 +11,7 @@ export function is<T, Spec extends z.ZodType<T>>(
 }
 
 // from sindresorhus/is
-export type Primitive =
+export type OptPrimitive =
   | null
   | undefined
   | string
@@ -33,7 +33,7 @@ const primitiveTypeNames = [
 type PrimitiveTypeNames = typeof primitiveTypeNames
 type PrimitiveTypeName = PrimitiveTypeNames[number]
 
-function isOfType<T extends Primitive | Fn>(
+function isOfType<T extends OptPrimitive | Fn>(
   type: PrimitiveTypeName | 'function',
 ) {
   return (value: unknown): value is T => typeof value === type

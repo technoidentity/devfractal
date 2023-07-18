@@ -72,7 +72,7 @@ export const nil = z.union([z.null(), z.undefined()])
 
 export const oneOf = z.enum
 
-export type ZodPrimitive =
+export type ZodValidatorPrimitive =
   | z.ZodNumber
   | z.ZodString
   | z.ZodBoolean
@@ -83,10 +83,10 @@ export type ZodPrimitive =
   | z.ZodNativeEnum<any>
 
 export type FieldSpec =
-  | z.ZodOptional<z.ZodDefault<ZodPrimitive>>
-  | z.ZodOptional<ZodPrimitive>
-  | z.ZodDefault<ZodPrimitive>
-  | ZodPrimitive
+  | z.ZodOptional<z.ZodDefault<ZodValidatorPrimitive>>
+  | z.ZodOptional<ZodValidatorPrimitive>
+  | z.ZodDefault<ZodValidatorPrimitive>
+  | ZodValidatorPrimitive
   | ZodDateRange // only to support DateRangePicker
 
 export function empty<T extends FieldSpec>(spec: T) {
