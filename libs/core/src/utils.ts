@@ -29,7 +29,7 @@ export function strict<T extends z.ZodRawShape>(o: T) {
 
 export function logError(error?: unknown): void {
   if (error) {
-    jlog(error)
+    console.error(error)
   }
 }
 
@@ -45,4 +45,20 @@ export function isEmpty(x: unknown): boolean {
     (isArray(x) && x.length === 0) ||
     (isObject(x) && Object.keys(x).length === 0)
   )
+}
+
+export function isEmptyString(x: unknown): boolean {
+  return x === undefined || x === null || (isStr(x) && x.trim() === '')
+}
+
+export function isNonEmptyString(x: unknown): x is string {
+  return isStr(x) && x.trim() !== ''
+}
+
+export function isKey<T extends object>(obj: T, k: PropertyKey): k is keyof T {
+  return k in obj
+}
+
+export function hasKey<T extends object>(obj: T, k: PropertyKey): k is keyof T {
+  return k in obj && obj.hasOwnProperty(k)
 }
