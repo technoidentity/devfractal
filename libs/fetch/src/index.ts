@@ -17,4 +17,6 @@ export * from './restEndpoints'
 export * from './safeHttp'
 export * from './safeQuery'
 export * from './url'
+export * from './queryState'
+
 export * from './useOptimistic'

@@ -3,7 +3,7 @@ import { urlcat } from './url'
 
 export type ApiOptions = Omit<BaseFetchOptions, 'body'>
 
-export function baseApi(fetcher = baseFetch) {
+export function createBaseApi(fetcher = baseFetch) {
   return {
     get: (url: string, query?: Record<string, string>, options?: ApiOptions) =>
       fetcher(urlcat(url, '', query), { ...options, method: 'GET' }),

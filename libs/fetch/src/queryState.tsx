@@ -1,87 +1,100 @@
 import {
   useQueryClient,
   useMutation as useTanstackMutation,
+  useQuery as useTanstackQuery,
   type MutationFunction,
+  type QueryKey,
+  type UseMutationOptions,
+  type UseQueryOptions,
 } from '@tanstack/react-query'
-import redaxios from 'redaxios'
-import type { Schema, z } from 'zod'
 import type { Params, PathBase } from './endpoint'
-import { ApiDescriptions, type MutationDescription } from './mutationApi'
-import { useSafeQuery, type UseSafeQueryArgs } from './useSafeQuery'
 import { keysfn } from './epFn'
 
-export type MutationHandler = (
-  api: typeof ApiDescriptions,
-  variables: any,
-) => MutationDescription<any>
+export type Handlers = Record<string, MutationFunction<any, any>>
 
-export type Handlers = Record<
-  string,
-  { response: z.ZodTypeAny; action: MutationHandler }
->
-
-async function apiMethod<T>(
-  mut: MutationDescription<T>,
-  spec: Schema<T>,
-): Promise<T> {
-  const res = await redaxios[mut.type](mut.path, mut.payload)
-  return spec.parse(res.data)
+export type Actions<Hs extends Handlers> = {
+  [Key in keyof Hs as `use${Capitalize<Key & string>}`]: <TContext>(
+    options?: UseMutationOptions<
+      Awaited<ReturnType<Hs[Key]>>,
+      Error,
+      Parameters<Hs[Key]>[0],
+      TContext
+    >,
+  ) => readonly [
+    (variables: Parameters<Hs[Key]>[0]) => Promise<void>,
+    ReturnType<
+      typeof useTanstackMutation<
+        ReturnType<Hs[Key]>,
+        Error,
+        Parameters<Hs[Key]>[0],
+        TContext
+      >
+    >,
+  ]
 }
 
-export const simpleQueryState = <
-  Path extends PathBase,
-  QuerySpec extends z.ZodTypeAny,
-  Hs extends Handlers,
->(
+export const queryState = <Path extends PathBase, Hs extends Handlers>(
   path: Path,
-  queryOptions: UseSafeQueryArgs<QuerySpec>,
+  queryOptions: Omit<UseQueryOptions, 'queryKey'>,
   mutationHandlers: Hs,
 ) => {
-  let invalidateKey: string[]
+  let invalidateKey: QueryKey
+
   const useQuery = (
-    params: Params<Path>,
-    moreQueryOptions: Partial<UseSafeQueryArgs<QuerySpec>>,
+    options: { params: Params<Path> } & Partial<typeof queryOptions>,
   ) => {
-    invalidateKey = keysfn(path, params)
-    return useSafeQuery({
+    invalidateKey = keysfn(path, options.params)
+    return useTanstackQuery({
+      queryKey: invalidateKey,
       ...queryOptions,
-      ...moreQueryOptions,
-      paths: invalidateKey,
+      ...options,
     })
   }
 
-  const useMutation = <Key extends keyof Hs>(key: Key) => {
-    const qc = useQueryClient()
-    const spec = mutationHandlers[key].response
-    const fn = mutationHandlers[key].action
+  const action = <Key extends keyof Hs>(key: Key) => {
+    type TData = ReturnType<Hs[Key]>
+    type TVariables = Parameters<Hs[Key]>[0]
+    type MutationFn = MutationFunction<TData, TVariables>
 
-    type TData = z.infer<Hs[Key]['response']>
-    type TVariables = Parameters<Hs[Key]['action']>[1]
+    return function useMutation<TContext>(
+      options?: UseMutationOptions<TData, Error, TVariables, TContext>,
+    ) {
+      const qc = useQueryClient()
 
-    const mutationFn: MutationFunction<TData, TVariables> = variables =>
-      apiMethod(fn(ApiDescriptions, variables), spec)
+      const mutate = useTanstackMutation({
+        ...options,
 
-    const mutate = useTanstackMutation({
-      mutationFn,
-      onSettled: () => qc.invalidateQueries(invalidateKey),
-    })
+        mutationFn: mutationHandlers[key] as MutationFn,
 
-    return [mutate.mutate, mutate] as const
+        onSettled: (...args) => {
+          qc.invalidateQueries(invalidateKey).catch(console.error)
+          if (options?.onSettled) {
+            options.onSettled(...args)
+          }
+        },
+      })
+
+      return [mutate.mutate, mutate] as const
+    }
   }
 
-  return [useQuery, useMutation] as const
+  const actions: Actions<Hs> = Object.keys(mutationHandlers).reduce(
+    (acc, key) => {
+      acc[key] = action(key)
+      return acc
+    },
+    {} as any,
+  )
+
+  return [useQuery, actions] as const
 }
 
-// const [useTestQuery, useTestMutation] = simpleQueryState(
-//   { spec: z.any(), paths: [''], queryFn: () => Promise.resolve({}) },
+// const api = createApi()
+// const [useTestQuery, actions] = simpleQueryState(
+//   ['test', { id: z.number() }],
+//   { queryFn: () => Promise.resolve({}) },
 //   {
-//     test: {
-//       response: z.number(),
-//       action: (api, variables: number) => api.post('/test', variables),
-//     },
-//     test2: {
-//       response: z.string(),
-//       action: (api, variables: string) => api.post('/test2', variables),
-//     },
+//     test: (variables: number) => api.post('/test', { variables }),
+//     test2: (variables: string) => api.post('/test2', { variables }),
 //   },
 // )

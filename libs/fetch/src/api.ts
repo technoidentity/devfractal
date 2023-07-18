@@ -1,8 +1,8 @@
-import { baseApi, type ApiOptions } from './baseApi'
+import { createBaseApi, type ApiOptions } from './baseApi'
 import { baseFetch } from './baseFetch'
 
-export function api(fetcher = baseFetch) {
-  const base = baseApi(fetcher)
+export function createApi(fetcher = baseFetch) {
+  const base = createBaseApi(fetcher)
 
   return {
     get: async (
