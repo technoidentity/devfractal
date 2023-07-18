@@ -3,7 +3,7 @@ import axios, { type Options as RedaxiosOptions, type Response } from 'redaxios'
 import { subst } from 'urlcat'
 import type {
   EndpointBase,
-  EndpointsBase,
+  EndpointRecordBase,
   GetEpResponse,
   GetPathArg,
   GetRequestArg,
@@ -43,7 +43,7 @@ async function apiCall<Ep extends EndpointBase>({
   return [responseData, response as Response<GetEpResponse<Ep>>] as const
 }
 
-export type EpHttpResult<Eps extends EndpointsBase> = {
+export type EpHttpResult<Eps extends EndpointRecordBase> = {
   [K in keyof Eps]: (
     args: EpHttpArgs<Eps[K]>,
   ) => Promise<
@@ -53,7 +53,7 @@ export type EpHttpResult<Eps extends EndpointsBase> = {
 
 const defaultAxios = axios.create()
 
-export function epHttp<Eps extends EndpointsBase>(
+export function epHttp<Eps extends EndpointRecordBase>(
   eps: Eps,
   axios: AxiosInstance = defaultAxios,
 ): EpHttpResult<Eps> {

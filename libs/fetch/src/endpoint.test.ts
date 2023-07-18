@@ -1,6 +1,7 @@
-import { test } from 'vitest'
+import { expect, test } from 'vitest'
 import { z } from 'zod'
-import { linkfn, route } from './epFn'
+import { linkfn, paramsSpec, route } from './epFn'
+import { path } from './endpoint'
 
 // @TODO:
 test('endpoint', () => {
@@ -18,7 +19,22 @@ test('endpoint', () => {
     { postId: z.number() },
   ])
 
-  console.log({ r })
+  expect(r).toEqual('/users/:id/posts/:postId')
   const url = fn({ id: 1, postId: 2 })
-  console.log({ url })
+  expect(url).toEqual('/users/1/posts/2')
+})
+
+test('params', () => {
+  const p = path([
+    'hello',
+    { id: z.number() },
+    'world',
+    { a: z.string(), b: z.number() },
+    'universe',
+    { c: z.boolean() },
+  ])
+
+  const schema = paramsSpec(p)
+  const v = schema.parse({ id: 100, a: 'hello', b: 200, c: true })
+  expect(v).toEqual({ id: 100, a: 'hello', b: 200, c: true })
 })

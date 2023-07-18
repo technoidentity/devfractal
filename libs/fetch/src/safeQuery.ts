@@ -64,3 +64,5 @@ export function useSafeQuery<Spec extends z.ZodTypeAny>({
 
   return { ...result, data }
 }
+
+// export function useSafeMutation<Spec extends z.ZodTypeAny>() {}

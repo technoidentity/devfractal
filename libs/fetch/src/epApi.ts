@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/prefer-function-type */
 import { capitalize } from '@srtp/local-state'
 import type { UseMutationResult } from '@tanstack/react-query'
-import type { EndpointBase, EndpointsBase, GetEpResponse } from './endpoint'
+import type {
+  EndpointBase,
+  EndpointRecordBase,
+  GetEpResponse,
+} from './endpoint'
 import {
   epMutation,
   epQuery,
@@ -19,13 +23,13 @@ export type MutationFn<Ep extends EndpointBase> = {
     options: UseEpMutationOptions<Ep, TVariables, TContext>,
   ): UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
 }
-export type Queries<Ep extends EndpointsBase> = {
+export type Queries<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? K
     : never]: QueryFn<Ep[K]>
 }
 
-export type Mutations<Ep extends EndpointsBase> = {
+export type Mutations<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? never
     : K]: MutationFn<Ep[K]>
@@ -35,10 +39,10 @@ export type Hookify<R extends Record<string, unknown>> = {
   readonly [K in keyof R as `use${Capitalize<K & string>}`]: R[K]
 }
 
-export type EndpointApi<Ep extends EndpointsBase> = Hookify<Queries<Ep>> &
+export type EndpointApi<Ep extends EndpointRecordBase> = Hookify<Queries<Ep>> &
   Hookify<Mutations<Ep>>
 
-export function createEpApi<Eps extends EndpointsBase>(
+export function createEpApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
   baseUrl: string,
 ): EndpointApi<Eps> {

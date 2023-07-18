@@ -1,49 +1,29 @@
-import type { UnionToIntersection } from '@srtp/core'
+import type { Prettify, UnionToIntersection } from '@srtp/core'
+import { ZodFundamental } from '@srtp/spec'
 import { z } from 'zod'
 
-export type ZodPrimitive = z.ZodString | z.ZodNumber | z.ZodBoolean | z.ZodDate
+export const HttpMethod = z.enum(['get', 'post', 'put', 'delete', 'patch'])
+export type HttpMethod = z.infer<typeof HttpMethod>
 
-export type MutationMethod = 'post' | 'put' | 'delete' | 'patch'
-export type QueryMethod = 'get'
-export type HttpMethod = QueryMethod | MutationMethod
+export type PathBase = ReadonlyArray<string | Record<string, ZodFundamental>>
 
-export type QueryEndpointBase = EndpointBase<'get'>
+export const Endpoint = <
+  ReqSpec extends z.ZodTypeAny,
+  ResSpec extends z.ZodTypeAny,
+>(
+  request: ReqSpec,
+  response: ResSpec,
+) =>
+  z.object({
+    path: z.array(z.union([z.string(), z.record(z.string(), ZodFundamental)])),
+    method: HttpMethod,
+    request,
+    response,
+  })
 
-export type PostEndpointBase = EndpointBase<'post'>
-export type PutEndpointBase = EndpointBase<'put'>
-export type DeleteEndpointBase = EndpointBase<'delete'>
-export type PatchEndpointBase = EndpointBase<'patch'>
-
-export type MutationEndpointBase =
-  | PostEndpointBase
-  | PutEndpointBase
-  | DeleteEndpointBase
-  | PatchEndpointBase
-
-export type GetEpResponse<Ep extends EndpointBase> = z.infer<
-  Ep['response'] & object
->
-export type GetEpRequest<Ep extends EndpointBase> = z.infer<
-  Ep['request'] & object
->
-
-export type GetEpParams<Ep extends EndpointBase> = Params<Ep['path']>
-
-export type PathBase = ReadonlyArray<string | Record<string, ZodPrimitive>>
-
-export function path<const Path extends PathBase>(path: Path) {
-  return path
-}
-
-export type GetPathArg<Ep extends EndpointBase> = object extends Params<
-  Ep['path']
->
-  ? { path?: undefined }
-  : { path: Params<Ep['path']> }
-
-export type GetRequestArg<Ep extends EndpointBase> = Ep extends Ep['request']
-  ? { request?: undefined }
-  : { request: z.infer<Ep['request'] & object> }
+// type Endpoint<ReqSpec extends z.ZodTypeAny, ResSpec extends z.ZodTypeAny> = z.infer<
+//   ReturnType<typeof Endpoint<ReqSpec, ResSpec>>
+// >
 
 export type Endpoint<
   Method extends HttpMethod,
@@ -64,14 +44,51 @@ export type EndpointBase<M extends HttpMethod = HttpMethod> = Endpoint<
   z.ZodTypeAny
 >
 
-export function endpoint<const Ep extends EndpointBase>(ep: Ep): Ep {
-  return ep
-}
-
-export type EndpointsBase<M extends HttpMethod = HttpMethod> = Record<
+export type EndpointRecordBase<M extends HttpMethod = HttpMethod> = Record<
   string,
   EndpointBase<M>
 >
+
+export type GetEpRequest<Ep extends EndpointBase> = z.infer<
+  Ep['request'] & object
+>
+
+export type GetEpResponse<Ep extends EndpointBase> = z.infer<
+  Ep['response'] & object
+>
+
+export type GetEpPath<Ep extends EndpointBase> = Params<Ep['path']>
+
+export type GetPathArg<Ep extends EndpointBase> = object extends Params<
+  Ep['path']
+>
+  ? { path?: undefined }
+  : { path: Params<Ep['path']> }
+
+export type GetRequestArg<Ep extends EndpointBase> = Ep extends Ep['request']
+  ? { request?: undefined }
+  : { request: z.infer<Ep['request'] & object> }
+
+export type ParamsRawSchema<Path extends PathBase> = UnionToIntersection<
+  {
+    [K in keyof Path]: Path[K] extends string ? never : Path[K]
+  }[number]
+>
+
+export type ParamsFromFieldSpecs<Paths extends ParamsRawSchema<any>> =
+  Prettify<{ [K in keyof Paths]: z.infer<Paths[K]> }>
+
+export type Params<Paths extends PathBase> = ParamsFromFieldSpecs<
+  ParamsRawSchema<Paths>
+>
+
+export function path<const Path extends PathBase>(path: Path) {
+  return path
+}
+
+export function endpoint<const Ep extends EndpointBase>(ep: Ep): Ep {
+  return ep
+}
 
 export function ep<
   Method extends HttpMethod,
@@ -87,7 +104,7 @@ export function ep<
   return { path, method, request: req, response: res } as const
 }
 
-export function eps<const Eps extends EndpointsBase>(eps: Eps): Eps {
+export function eps<const Eps extends EndpointRecordBase>(eps: Eps): Eps {
   return eps
 }
 
@@ -179,17 +196,3 @@ export function epDelete<Path extends PathBase, Response extends z.ZodTypeAny>(
     response: res ?? z.undefined(),
   } as const as any
 }
-
-export type ParamsFieldsSchema<Path extends PathBase> = UnionToIntersection<
-  {
-    [K in keyof Path]: Path[K] extends string ? never : Path[K]
-  }[number]
->
-
-export type ParamsFromFieldSpecs<Paths extends ParamsFieldsSchema<any>> = {
-  [K in keyof Paths]: z.infer<Paths[K]>
-}
-
-export type Params<Paths extends PathBase> = ParamsFromFieldSpecs<
-  ParamsFieldsSchema<Paths>
->

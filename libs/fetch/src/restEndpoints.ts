@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { type ZodPrimitive } from './endpoint'
+import type { ZodFundamental } from '@srtp/spec'
 
 export function restEndpoints<
-  Spec extends z.ZodRawShape & { id: ZodPrimitive },
+  Spec extends z.ZodRawShape & { id: ZodFundamental },
   Search extends z.ZodRawShape | z.AnyZodObject,
 >(rawSpec: Spec, search: Search, segment: string) {
   const spec = z.object(rawSpec)
