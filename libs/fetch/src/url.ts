@@ -1,9 +1,9 @@
 import { isKey } from '@srtp/core'
-import type { Primitive } from '@srtp/spec'
+import { debug, type Primitive } from '@srtp/spec'
 import invariant from 'tiny-invariant'
 
 type SearchObj = Record<string, Primitive | Primitive[]>
-const dummyURL = 'https://localhost'
+const dummyOrigin = 'https://dummy.url'
 
 export function toSearchParams(obj: SearchObj) {
   const params = new URLSearchParams()
@@ -44,7 +44,7 @@ export function fromSearch(urlSearchParams: URLSearchParams) {
   return obj
 }
 
-export function substPath(
+function substPath(
   pathTemplate: string,
   params: Record<string, Primitive>,
 ): string {
@@ -65,33 +65,45 @@ export function toPath(
   params: Record<string, Primitive>,
 ): string {
   const path = substPath(pathTemplate, params)
-  return new URL(path, dummyURL).pathname
+  return new URL(path, dummyOrigin).pathname
 }
 
-toPath('/users/:id', { id: 1 })
-
-export function toURL(baseUrl: string, path: string, search?: SearchObj): URL {
+export function toURL(origin: string, path: string, search?: SearchObj): URL {
   const qs = toSearch(search || {})
-  const url = new URL(path, baseUrl)
+  const url = new URL(path, origin)
   url.search = qs
 
   return url
 }
 
-export function urlcat(
-  baseUrl: string,
-  path: string,
-  search?: SearchObj,
-): string {
-  return toURL(baseUrl, path, search).toString()
+toURL('http://localhost', '/users', { id: 1 })
+
+export function urlcat(base: string, path: string, search?: SearchObj): string {
+  if (base.startsWith('http')) {
+    const url = new URL(base)
+    return toURL(url.origin, join(url.pathname, path), search).toString()
+  }
+
+  const url = toURL(dummyOrigin, join(base, path), search).toString()
+  return url.slice(dummyOrigin.length)
 }
 
 function join(path1: string, path2: string): string {
-  const p1 = path1.endsWith('/') ? path1.slice(0, -'/'.length) : path1
-  const p2 = path2.startsWith('/') ? path2.slice('/'.length) : path2
+  const p1 = path1.endsWith('/') ? path1.slice(0, -1) : path1
+  const p2 = path2.startsWith('/') ? path2.slice(1) : path2
+
+  debug(!p1.endsWith('/'), `${path1} ends with mutiple /`)
+  debug(!p2.startsWith('/'), `${path1} starts with mutiple /`)
+
   return p1 === '' || p2 === '' ? p1 + p2 : `${p1}/${p2}`
 }
 
 export function joinPaths(...paths: string[]) {
-  return paths.reduce((acc, cur) => join(acc, cur))
+  if (paths.length === 0) {
+    return '/'
+  }
+
+  const result = paths.reduce(join)
+
+  return result.startsWith('/') ? result : `/${result}`
 }
