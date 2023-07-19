@@ -190,3 +190,11 @@ export const orderedEntries = <T extends object>(obj: T) =>
 
 export const orderedKeys = <T extends object>(obj: T) =>
   orderedEntries(obj).map(([k]) => k)
+
+export type EntriesSource = {
+  entries(): IterableIterator<[string, unknown]>
+}
+
+export function entriesToObject(search: EntriesSource) {
+  return Object.fromEntries(search.entries())
+}

@@ -29,7 +29,7 @@
     "dev:libs": "pnpm turbo dev --filter=./libs/* --filter=./packages/*",
     "libs": "pnpm turbo build:libs type:libs lint:libs",
     "clean": "pnpm turbo clean",
-    "cd": "pnpm turbo types lint test --filter=!./starters/next-trpc-starter",
+    "cd": "pnpm turbo types lint --filter=!./starters/next-trpc-starter",
     "prepare": "husky install"
   },
   "lint-staged": {

@@ -20,6 +20,13 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-unicorn": "47.0.0",
+    "eslint-plugin-playwright": "latest",
+    "eslint-plugin-no-only-tests": "latest",
+    "eslint-plugin-testing-library": "latest",
+    "@tanstack/eslint-plugin-query": "latest",
+    "eslint-plugin-typescript-sort-keys": "latest",
+    "eslint-plugin-vitest-globals": "latest",
+    "eslint-plugin-node": "latest",
     "prettier": "3.0.0",
     "typescript": "5.1.6"
   }
