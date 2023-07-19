@@ -5,7 +5,7 @@ import invariant from 'tiny-invariant'
 type SearchObj = Record<string, Primitive | Primitive[]>
 const dummyOrigin = 'https://dummy.url'
 
-export function toSearchParams(obj: SearchObj) {
+export function toSearchParams(obj: SearchObj): URLSearchParams {
   const params = new URLSearchParams()
 
   for (const [key, value] of Object.entries(obj)) {
@@ -21,12 +21,11 @@ export function toSearchParams(obj: SearchObj) {
   return params
 }
 
-export function toSearch(obj: SearchObj) {
-  const params = toSearchParams(obj)
-  return params.toString()
+export function toSearch(obj: SearchObj): string {
+  return toSearchParams(obj).toString()
 }
 
-export function fromSearch(urlSearchParams: URLSearchParams) {
+export function fromSearch(urlSearchParams: URLSearchParams): object {
   const obj = {} as any
 
   for (const [key, value] of urlSearchParams.entries()) {
@@ -76,15 +75,13 @@ export function toURL(origin: string, path: string, search?: SearchObj): URL {
   return url
 }
 
-toURL('http://localhost', '/users', { id: 1 })
-
 export function urlcat(base: string, path: string, search?: SearchObj): string {
   if (base.startsWith('http')) {
     const url = new URL(base)
-    return toURL(url.origin, join(url.pathname, path), search).toString()
+    return toURL(url.origin, join(url.pathname, path), search).href
   }
 
-  const url = toURL(dummyOrigin, join(base, path), search).toString()
+  const url = toURL(dummyOrigin, join(base, path), search).href
   return url.slice(dummyOrigin.length)
 }
 
