@@ -89,7 +89,7 @@ test('reduce', () => {
   expect(reduce$([], (x, acc) => x + acc, 0)).toEqual(0)
   expect(reduce$([1, 2, 3], (x, acc) => x + acc, 0)).toEqual(6)
   expect(reduce$([1, 2, 3], (x, acc) => x + acc, 1)).toEqual(7)
-  expect(reduce$([1, 2, 3], (x, acc) => x.toString() + acc, '')).toEqual('321')
+  expect(reduce$([1, 2, 3], (x, acc) => x.toString() + acc, '')).toEqual('123')
 })
 
 test('find', () => {

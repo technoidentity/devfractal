@@ -3,16 +3,14 @@ import { useNavigate } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 
-type ErrorsContext<T> = {
-  errors: T | undefined
-}
+type ErrorsContext<T> = Readonly<{ errors: T | undefined }>
 
-type FormProps<FormValues, ServerResult> = {
+type FormProps<FormValues, ServerResult> = Readonly<{
   readonly navigateTo?: string
   readonly onResponse?: (response: unknown) => void
   readonly action: string | ((values: FormValues) => Promise<ServerResult>)
   children: React.ReactNode
-}
+}>
 
 export function createForm<
   FormSpec extends z.AnyZodObject,

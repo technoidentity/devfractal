@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEvent } from '@srtp/local-state'
+import { useEvent } from '@srtp/react'
 
 export type ForProps<T> = Readonly<{
   list: readonly T[]

@@ -25,8 +25,6 @@ export function snakeCaseToCamelCase(str: string): string {
   }
   const [firstWord, ...remWords] = str.split('_')
   return firstWord + remWords.map(capitalize).join('')
-  // return remWords.reduce((result, word) => result + capitalize(word),
-  //                         firstWord)
 }
 
 export function snakeCaseToPascalCase(str: string): string {
@@ -34,7 +32,6 @@ export function snakeCaseToPascalCase(str: string): string {
     return ''
   }
   return str.split('_').map(capitalize).join('')
-  // return str.split('_').reduce((result, word) => result + capitalize(word), '')
 }
 
 export function camelCaseToSnakeCase(str: string): string {
