@@ -7,7 +7,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { z } from 'zod'
-import { createSearchForm } from './ClientForm'
+import { createSearchForm } from '../core/ClientForm'
 
 const schema = z.object({
   name: z.string(),

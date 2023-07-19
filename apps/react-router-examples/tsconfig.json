@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@core": ["src/core"]
+    },
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "checkJs": false,

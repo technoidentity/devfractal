@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Heading, Input } from '@chakra-ui/react'
-import { createEpApi } from '@srtp/fetch'
+import { createEpApi } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
 import { todoEndpoints } from './todoEndpoints'

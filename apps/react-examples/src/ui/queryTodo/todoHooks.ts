@@ -1,4 +1,4 @@
-import { useSafeQuery } from '@srtp/fetch'
+import { useSafeQuery } from '@srtp/query'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { Todo } from './todo'
 import { TodoList } from './todo'

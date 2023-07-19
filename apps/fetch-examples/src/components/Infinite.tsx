@@ -1,6 +1,6 @@
 import { Box, Button } from '@chakra-ui/react'
 import React from 'react'
-import { useInfiniteLoader } from '@srtp/fetch'
+import { useInfiniteLoader } from '@srtp/query'
 import type { Filter, Todo } from '@srtp/todo'
 import { filteredTodos } from './common'
 import { FilterView, TodoListView } from './components'

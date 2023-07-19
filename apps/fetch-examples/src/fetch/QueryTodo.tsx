@@ -10,7 +10,7 @@ import {
 import { useInputState } from '@srtp/react'
 import { cast } from '@srtp/spec'
 import type { KeyboardEvent } from 'react'
-import { epMutation, epQuery } from '@srtp/fetch'
+import { epMutation, epQuery } from '@srtp/query'
 import { todoEndpoints } from './todoEndpoints'
 import type { Todo } from './types'
 import { TodoList } from './types'

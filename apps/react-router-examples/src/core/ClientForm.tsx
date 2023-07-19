@@ -5,7 +5,7 @@ import React from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import { useActionData } from 'react-router-dom'
-import { useSafeSearch } from './useSafeSearch'
+import { safeSearch } from '@srtp/router'
 
 export type Obj = Record<string, any>
 export type Form<T extends Obj> = ReturnType<typeof useForm<T>>[0]
@@ -65,13 +65,15 @@ export type SearchFormProps<Schema extends z.AnyZodObject> = Readonly<{
   children: React.ReactNode
   onSuccess?: (values: z.infer<Schema>) => void
 }>
+
 export function searchForm<Schema extends z.AnyZodObject>(schema: Schema) {
   const ClientForm = clientForm(schema)
+  const useSearch = safeSearch(schema)
 
   return function SearchForm<Schema extends z.AnyZodObject>(
     props: SearchFormProps<Schema>,
   ) {
-    const [search, setSearch] = useSafeSearch(schema)
+    const [search, setSearch] = useSearch()
 
     const onSuccess = React.useMemo(() => {
       return (values: z.infer<Schema>) => {

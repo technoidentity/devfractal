@@ -3,9 +3,10 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './index.css'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from './core'
+
 import { Suspense } from 'react'
 import { rootRouter } from './routes'
+import { queryClient } from '@srtp/router'
 
 const root = createRoot(document.getElementById('root')!)
 

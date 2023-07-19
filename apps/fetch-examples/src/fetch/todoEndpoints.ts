@@ -1,6 +1,6 @@
-import { type EndpointBase } from '@srtp/fetch'
 import { Todo } from '@srtp/todo'
 import { z } from 'zod'
+import type { EndpointBase } from '@srtp/endpoint'
 
 export const todoEndpoints = {
   getTodos: {

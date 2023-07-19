@@ -13,7 +13,7 @@
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "tsc --noEmit -p . --watch",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:dev": "vitest dev",
     "coverage": "vitest run --coverage",
     "cd": "pnpm turbo lint types"

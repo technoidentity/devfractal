@@ -1,4 +1,4 @@
-import { del, get, post, put } from '@srtp/fetch'
+import { del, get, post, put } from '@srtp/web'
 import { z } from 'zod'
 
 const todo = z.object({

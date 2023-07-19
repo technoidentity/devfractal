@@ -13,7 +13,8 @@ import { cast } from '@srtp/spec'
 import type { KeyboardEvent } from 'react'
 import type { Todo } from './types'
 import { TodoList } from './types'
-import { createApi, queryState } from '@srtp/fetch'
+import { queryState } from '@srtp/query'
+import { createApi } from '@srtp/web'
 
 type TodoItemProps = Readonly<{
   todo: Todo

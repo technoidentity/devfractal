@@ -2,10 +2,9 @@ import { HStack } from '@chakra-ui/react'
 import type { LoaderFunctionArgs, RouteObject } from 'react-router-dom'
 import { NavLink, Outlet, useLoaderData } from 'react-router-dom'
 
+import { For, api } from '@core'
 import { cast } from '@srtp/spec'
-import wretch from 'wretch'
 import { z } from 'zod'
-import { For } from '../core'
 
 const AuthorsSpec = z.array(
   z.object({
@@ -15,9 +14,7 @@ const AuthorsSpec = z.array(
 )
 
 const queryFn = ({ queryKey }: { queryKey: readonly unknown[] }) =>
-  wretch(`/api/${queryKey.join('/')}`)
-    .get()
-    .json()
+  api.get(`/api/${queryKey.join('/')}`)
 
 const authorsLoader = () => queryFn({ queryKey: ['authors'] })
 

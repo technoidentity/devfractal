@@ -58,7 +58,7 @@
     "@remix-run/react": "1.18.1",
     "@remix-run/server-runtime": "1.18.1",
     "@srtp/core": "workspace:*",
-    "@srtp/fetch": "workspace:*",
+    "@srtp/query": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/form": "workspace:*",
     "@srtp/local-state": "workspace:*",

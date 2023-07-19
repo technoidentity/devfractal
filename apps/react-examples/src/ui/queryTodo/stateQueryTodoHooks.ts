@@ -1,4 +1,4 @@
-import { useDescribeMutation, useSafeQuery } from '@srtp/fetch'
+import { useDescribeMutation, useSafeQuery } from '@srtp/query'
 import invariant from 'tiny-invariant'
 import { TodoList, type Todo } from './todo'
 import { todoApi } from './todoApi'

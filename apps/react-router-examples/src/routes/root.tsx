@@ -8,7 +8,7 @@ import { aboutRouter } from './about'
 import { rootIndexRouter } from './rootIndex'
 
 import { conform, useForm } from '@conform-to/react'
-import { SignupForm } from '../core/6.SearchForm'
+import { SignupForm } from './6.SearchForm'
 
 function Product() {
   const [form] = useForm({

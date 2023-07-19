@@ -262,6 +262,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
+      '@srtp/endpoint':
+        specifier: workspace:*
+        version: link:../../libs/endpoint
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
@@ -286,6 +289,9 @@ importers:
       '@srtp/validator':
         specifier: workspace:*
         version: link:../../libs/validator
+      '@srtp/web':
+        specifier: workspace:*
+        version: link:../../libs/web
       '@tanstack/react-query':
         specifier: 4.29.19
         version: 4.29.19(react-dom@18.2.0)(react@18.2.0)

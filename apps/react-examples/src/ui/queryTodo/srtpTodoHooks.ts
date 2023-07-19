@@ -1,4 +1,4 @@
-import { useOptimistic, useOptimisticValue } from '@srtp/fetch'
+import { useOptimistic, useOptimisticValue } from '@srtp/query'
 import { useQuery } from '@tanstack/react-query'
 import invariant from 'tiny-invariant'
 import type { Todo } from './todo'

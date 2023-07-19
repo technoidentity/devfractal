@@ -5,9 +5,9 @@ import { NavLink, Outlet, useParams } from 'react-router-dom'
 import { cast } from '@srtp/spec'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
-import wretch from 'wretch'
+
 import { z } from 'zod'
-import { For } from '../core'
+import { For, api } from '@core'
 
 const AuthorsSpec = z.array(
   z.object({
@@ -17,9 +17,7 @@ const AuthorsSpec = z.array(
 )
 
 const queryFn = ({ queryKey }: QueryFunctionContext) =>
-  wretch(`/api/${queryKey.join('/')}`)
-    .get()
-    .json()
+  api.get(`/api/${queryKey.join('/')}`)
 
 const authorsQuery = () => ({ queryKey: ['authors'], queryFn })
 
