@@ -31,6 +31,7 @@
     "@reactivex/ix-esnext-esm": "5.0.0",
     "@srtp/core": "workspace:*",
     "@srtp/form": "workspace:*",
+    "@srtp/react": "workspace:*",
     "@srtp/global-state": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/todo": "workspace:*",

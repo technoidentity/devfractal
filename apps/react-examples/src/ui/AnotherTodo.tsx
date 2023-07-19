@@ -11,8 +11,9 @@ import {
 } from '@chakra-ui/react'
 import type { KeyboardEvent } from 'react'
 
-import { primitive, state, useEvent, useInputState } from '@srtp/local-state'
+import { primitive, state } from '@srtp/local-state'
 import { z } from 'zod'
+import { useEvent, useInputState } from '@srtp/react'
 
 type Todo = Readonly<{
   id: number

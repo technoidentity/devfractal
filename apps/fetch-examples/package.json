@@ -30,6 +30,7 @@
     "@srtp/fn": "workspace:*",
     "@srtp/global-state": "workspace:*",
     "@srtp/local-state": "workspace:*",
+    "@srtp/react": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/todo": "workspace:*",
     "@srtp/validator": "workspace:*",

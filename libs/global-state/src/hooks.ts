@@ -5,7 +5,7 @@ import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'
 import { computed } from './signal'
 import type { Read } from './types'
-import { useEvent } from '@srtp/local-state'
+import { useEvent } from '@srtp/react'
 
 export const useAction = useSetAtom
 export const useValue = useAtomValue

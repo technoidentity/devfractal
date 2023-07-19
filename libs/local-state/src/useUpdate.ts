@@ -2,11 +2,7 @@ import { isFunction } from '@srtp/spec'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ShallowObject, UpdateHandlers } from './types'
-
-// @TODO: create string utils
-export function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
+import { capitalize } from '@srtp/fn'
 
 export function useUpdate<T extends ShallowObject>(
   initialState: T | (() => T),

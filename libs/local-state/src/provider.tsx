@@ -3,9 +3,7 @@ import type { Dispatch, ReducerAction } from 'react'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import { useImmerReducer } from 'use-immer'
-
-export const useIsomorphicEffect =
-  typeof document !== 'undefined' ? React.useLayoutEffect : React.useEffect
+import { useIsomorphicEffect } from '@srtp/react'
 
 type Actions<S, A> = (prevState: Draft<S>, action: A) => void
 

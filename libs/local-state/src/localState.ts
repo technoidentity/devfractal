@@ -42,7 +42,6 @@ export function getActions<State extends object, Hs extends Handlers<State>>(
   return result
 }
 
-// @TODO: support many arguments as payload
 export function getReducer<State extends object, Hs extends Handlers<State>>(
   handlers: Hs,
 ): Reducer<State, Hs> {

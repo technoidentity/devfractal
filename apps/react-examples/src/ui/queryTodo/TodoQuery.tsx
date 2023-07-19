@@ -10,7 +10,7 @@ import {
   ListItem,
   Text,
 } from '@chakra-ui/react'
-import { useEvent, useInputState, useString } from '@srtp/local-state'
+import { useString } from '@srtp/local-state'
 import type { KeyboardEvent } from 'react'
 
 import type { Todo } from './todo'
@@ -20,6 +20,7 @@ import {
   useTodoList,
   useToggle,
 } from './stateQueryTodoHooks'
+import { useEvent, useInputState } from '@srtp/react'
 
 type TodoItemProps = Readonly<{
   todo: Todo

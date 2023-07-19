@@ -11,10 +11,11 @@ import {
 } from '@chakra-ui/react'
 import type { KeyboardEvent } from 'react'
 
-import { useEvent, useInputState, useString } from '@srtp/local-state'
+import { useString } from '@srtp/local-state'
 import { slice } from '@srtp/global-state'
 
 import './index.css'
+import { useEvent, useInputState } from '@srtp/react'
 
 const todoList: readonly Todo[] = [
   { id: 1, title: 'Learn React', done: false },

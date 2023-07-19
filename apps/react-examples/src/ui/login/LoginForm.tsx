@@ -7,7 +7,7 @@ import {
   Input,
   ButtonGroup,
 } from '@chakra-ui/react'
-import { useInputState } from '@srtp/local-state'
+import { useInputState } from '@srtp/react'
 
 export const LoginForm = () => {
   const [email, setEmail] = useInputState('')

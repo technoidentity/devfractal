@@ -18,7 +18,7 @@
   "scripts": {
     "upd": "pnpm add -g @pnpm/exe; pnpm --latest --recursive update",
     "types": "pnpm turbo types --filter=!next-trpc-starter",
-    "lint": "pnpm turbo lint --fix",
+    "lint": "pnpm turbo lint -- --fix",
     "build": "pnpm turbo build --filter=!@srtp/wurkspace --filter=!next-trpc-starter",
     "test": "pnpm vitest run",
     "dev": "pnpm turbo dev --filter=!@srtp/wurkspace",
@@ -29,7 +29,7 @@
     "dev:libs": "pnpm turbo dev --filter=./libs/* --filter=./packages/*",
     "libs": "pnpm turbo build:libs type:libs lint:libs",
     "clean": "pnpm turbo clean",
-    "cd": "pnpm turbo types lint --filter=!./starters/next-trpc-starter",
+    "cd": "pnpm turbo types lint test --filter=!./starters/next-trpc-starter",
     "prepare": "husky install"
   },
   "lint-staged": {

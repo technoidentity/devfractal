@@ -8,7 +8,7 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
-import { useInputState } from '@srtp/local-state'
+import { useInputState } from '@srtp/react'
 import { cast } from '@srtp/spec'
 import type { KeyboardEvent } from 'react'
 import type { Todo } from './types'

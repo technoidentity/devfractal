@@ -27,6 +27,7 @@
   "dependencies": {
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
+    "@srtp/react": "workspace:*",
     "@srtp/spec": "workspace:*",
     "immer": "10.0.2",
     "jotai": "2.2.2",

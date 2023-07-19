@@ -1,5 +1,5 @@
 {
-  "name": "@srtp/local-state",
+  "name": "@srtp/react",
   "version": "1.0.0",
   "description": "reducer utilities for local state management",
   "main": "./dist/index.js",
@@ -25,7 +25,6 @@
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/spec": "workspace:*",
-    "@srtp/react": "workspace:*",
     "@srtp/validator": "workspace:*",
     "immer": "10.0.2",
     "react": "18.2.0",

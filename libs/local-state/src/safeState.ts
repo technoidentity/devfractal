@@ -2,7 +2,7 @@ import React from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import type { UpdateHandlers } from './types'
-import { capitalize } from './useUpdate'
+import { capitalize } from '@srtp/fn'
 
 export function safeUpdateState<Spec extends z.AnyZodObject>(spec: Spec) {
   type T = z.infer<Spec>

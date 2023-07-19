@@ -7,7 +7,7 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
-import { useInputState } from '@srtp/local-state'
+import { useInputState } from '@srtp/react'
 import { cast } from '@srtp/spec'
 import type { KeyboardEvent } from 'react'
 import { epMutation, epQuery } from '@srtp/fetch'
@@ -80,7 +80,7 @@ export const QueryTodoApp = () => {
 
   const toggleTodo = useToggleTodo({
     action: (todo: Todo) => ({
-      path: { id: todo.id },
+      params: { id: todo.id },
       request: { ...todo, completed: !todo.completed },
       invalidateKey,
     }),
@@ -95,7 +95,7 @@ export const QueryTodoApp = () => {
 
   const deleteTodo = useDeleteTodo({
     action: (id: number) => ({
-      path: { id },
+      params: { id },
       request: undefined,
       invalidateKey,
     }),

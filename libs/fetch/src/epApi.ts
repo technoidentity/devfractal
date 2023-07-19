@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-function-type */
-import { capitalize } from '@srtp/local-state'
+import { capitalize } from '@srtp/fn'
 import type { UseMutationResult } from '@tanstack/react-query'
 import type {
   EndpointBase,

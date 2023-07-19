@@ -7,7 +7,7 @@ import type { Todo } from './types'
 import { TodoList } from './types'
 import { useFetch } from './useFetch'
 import { useMutation } from './useMutation'
-import { useInputState } from '@srtp/local-state'
+import { useInputState } from '@srtp/react'
 
 const todoUrl = '/api/todos'
 const todoIdUrl = (id: number) => `${todoUrl}/${id}`

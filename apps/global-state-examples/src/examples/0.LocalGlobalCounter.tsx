@@ -1,6 +1,6 @@
 import { Input, Text } from '@chakra-ui/react'
 import { useLocal } from '@srtp/global-state'
-import { useEvent } from '@srtp/local-state'
+import { useEvent } from '@srtp/react'
 import { Provider } from 'jotai'
 
 const CharCount = ({ len }: { len: number }) => {

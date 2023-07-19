@@ -1,6 +1,6 @@
 import { Box, Button, Checkbox, Heading, Input } from '@chakra-ui/react'
 import { createEpApi } from '@srtp/fetch'
-import { useInputState } from '@srtp/local-state'
+import { useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
 import { todoEndpoints } from './todoEndpoints'
 import { TodoList, type Todo } from './types'
@@ -78,7 +78,7 @@ export const EndpointTodoApp = () => {
 
   const toggleTodo = api.useUpdateTodo({
     action: (todo: Todo) => ({
-      path: { id: todo.id },
+      params: { id: todo.id },
       request: { ...todo, completed: !todo.completed },
       invalidateKey,
     }),
