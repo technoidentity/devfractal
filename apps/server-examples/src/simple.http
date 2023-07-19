@@ -1,0 +1,34 @@
+
+GET  http://localhost:8080/todos?limit=20&page=2&completed=true
+
+###
+
+POST http://localhost:8080/todos
+
+{
+  "title": "Learn Go",
+  "completed": false
+}
+
+###
+
+PUT http://localhost:8080/todos/1
+
+{
+  "id": 1,
+  "title": "Learn Go",
+  "completed": true
+}
+
+###
+
+PATCH http://localhost:8080/todos/2
+
+{
+  "completed": true
+}
+
+###
+
+DELETE http://localhost:8080/todos/1
+
