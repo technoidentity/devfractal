@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    // "paths": {
-    //   "@core": ["src/core"],
-    //   "@reducer": ["../../packages/reducer/src"]
-    // },
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "checkJs": false,
