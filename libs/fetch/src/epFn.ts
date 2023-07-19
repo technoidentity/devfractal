@@ -5,6 +5,8 @@ import { z } from 'zod'
 import { orderedKeys, orderedEntries } from '@srtp/fn'
 
 // return parameterized route like /users/:id/posts/:postId
+// give a synonym for route
+
 export function route<Path extends PathBase>(path: Path): string {
   const segments = path.map(e =>
     isObject(e) ? `:${orderedKeys(e).join('/:')}` : `${e}`,

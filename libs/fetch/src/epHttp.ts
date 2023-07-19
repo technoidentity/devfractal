@@ -5,14 +5,14 @@ import type {
   EndpointBase,
   EndpointRecordBase,
   GetEpResponse,
-  GetPathArg,
+  GetParamsArg,
   GetRequestArg,
 } from './endpoint'
 import { route } from './epFn'
 
 type AxiosInstance = ReturnType<typeof axios.create>
 
-type EpHttpArgs<Ep extends EndpointBase> = GetPathArg<Ep> &
+type EpHttpArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
   GetRequestArg<Ep> & { options?: Omit<RedaxiosOptions, 'url'> }
 
 type ApiCallsArgs<Ep extends EndpointBase> = EpHttpArgs<Ep> & {
@@ -23,7 +23,7 @@ type ApiCallsArgs<Ep extends EndpointBase> = EpHttpArgs<Ep> & {
 async function apiCall<Ep extends EndpointBase>({
   ep,
   axios,
-  path: params,
+  params: params,
   request,
   options,
 }: ApiCallsArgs<Ep>): Promise<

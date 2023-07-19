@@ -14,7 +14,7 @@ import { type z } from 'zod'
 import type {
   EndpointBase,
   GetEpResponse,
-  GetPathArg,
+  GetParamsArg,
   GetRequestArg,
 } from './endpoint'
 
@@ -24,7 +24,7 @@ import invariant from 'tiny-invariant'
 import { linkfn } from './epFn'
 
 export type QueryArgs<Ep extends EndpointBase> = GetRequestArg<Ep> &
-  GetPathArg<Ep>
+  GetParamsArg<Ep>
 
 const createQfn = (url: string) => async () => {
   try {
@@ -56,7 +56,7 @@ export function epQuery<Ep extends EndpointBase>(
   return function useEpQuery(options: QueryArgs<Ep>): UseEpQueryResult<Ep> {
     // const url = urlcat(baseUrl, route(endpoint.path), options.path)
 
-    const path = linkfn<Ep['path']>(endpoint.path)(options.path)
+    const path = linkfn<Ep['path']>(endpoint.path)(options.params)
     const query = options.request
     const url = formUrl(baseUrl, path, query)
 
@@ -76,7 +76,7 @@ export function epQuery<Ep extends EndpointBase>(
   }
 }
 
-export type MutationDescription<Ep extends EndpointBase> = GetPathArg<Ep> &
+export type MutationDescription<Ep extends EndpointBase> = GetParamsArg<Ep> &
   GetRequestArg<Ep>
 
 export type UseEpMutationOptions<
@@ -97,7 +97,7 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
     const qc = useQueryClient()
 
     const mutationFn: MutationFunction<TData, TVariables> = async variables => {
-      const { path, request } = options.action(variables)
+      const { params: path, request } = options.action(variables)
 
       const key = linkfn<Ep['path']>(ep.path)(path)
       const url = `${baseUrl}${key}`

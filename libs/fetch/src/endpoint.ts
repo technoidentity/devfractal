@@ -59,11 +59,11 @@ export type GetEpResponse<Ep extends EndpointBase> = z.infer<
 
 export type GetEpPath<Ep extends EndpointBase> = Params<Ep['path']>
 
-export type GetPathArg<Ep extends EndpointBase> = object extends Params<
+export type GetParamsArg<Ep extends EndpointBase> = object extends Params<
   Ep['path']
 >
-  ? { path?: undefined }
-  : { path: Params<Ep['path']> }
+  ? { params?: undefined }
+  : { params: Params<Ep['path']> }
 
 export type GetRequestArg<Ep extends EndpointBase> = Ep extends Ep['request']
   ? { request?: undefined }
