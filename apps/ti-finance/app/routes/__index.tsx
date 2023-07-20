@@ -1,13 +1,12 @@
-import type { LoaderArgs } from '@remix-run/server-runtime'
 import { AppProvider } from '~/common'
-import { AppIntroPage, HomePage } from '~/features/app'
 import { SignedIn, SignedOut } from '~/core'
+import { AppIntroPage, HomePage } from '~/features/app'
 
-import { prisma } from '~/db.server'
 import { sjson } from '@srtp/remix-node'
 import { useGet } from '@srtp/remix-react'
+import { prisma } from '~/db.server'
 
-export async function loader(_: LoaderArgs) {
+export async function loader() {
   const users = await prisma.user.findMany({
     select: { tiId: true, username: true },
   })

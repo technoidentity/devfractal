@@ -1305,6 +1305,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
+      '@srtp/endpoint':
+        specifier: workspace:*
+        version: link:../../libs/endpoint
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn

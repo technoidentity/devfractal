@@ -170,11 +170,13 @@ export function mergeWith<T extends object, U extends object, V>(
       result[key] = value
     }
   }
+
   for (const [key, value] of entries(snd)) {
     if (!Object.hasOwn(result, key)) {
       result[key] = value
     }
   }
+
   return result
 }
 

@@ -8,7 +8,8 @@
     "noEmit": true,
     "target": "es2022",
     "module": "ESNext",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "exactOptionalPropertyTypes": false
   },
   "include": ["src", "tests"]
 }
