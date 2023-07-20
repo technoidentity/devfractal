@@ -22,7 +22,7 @@ export const todoEndpoints = {
   updateTodo: {
     path: ['todos', { id: z.coerce.number() }],
     method: 'patch',
-    request: Todo,
+    request: Todo.omit({ id: true }).partial(),
     response: Todo,
   },
 } as const satisfies Record<string, EndpointBase>
