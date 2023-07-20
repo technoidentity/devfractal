@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server'
 import {} from '@srtp/endpoint'
 import { cast } from '@srtp/spec'
-import { Hono, type Handler } from 'hono'
+import { Hono } from 'hono'
 import { badRequest, notFound } from './errors'
 import {
   Filters,
@@ -18,7 +18,6 @@ initializeFakeTodoTable()
 
 const app = new Hono()
 
-type T = Parameters<Handler>
 app.get('/todos', c => {
   const filters = cast(Filters, c.req.query())
 
