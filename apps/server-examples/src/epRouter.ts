@@ -1,0 +1,64 @@
+import {
+  paramsSpec,
+  route,
+  type EndpointBase,
+  type EndpointRecordBase,
+  type GetEpResponse,
+  type GetParamsArg,
+  type GetRequestArg,
+} from '@srtp/endpoint'
+import { cast } from '@srtp/spec'
+import { Hono, type Context } from 'hono'
+
+type EpsHandlerArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
+  GetRequestArg<Ep> & { c: Context }
+
+type EpHandler<Ep extends EndpointBase> = (
+  args: EpsHandlerArgs<Ep>,
+) => GetEpResponse<Ep>
+
+export type EpsHandlers<Eps extends EndpointRecordBase> = {
+  [K in keyof Eps]: EpHandler<Eps[K]>
+}
+
+export type SEpsHandlers<Eps extends EndpointRecordBase> = Partial<
+  EpsHandlers<Eps>
+>
+
+function epHandler<Ep extends EndpointBase>(ep: Ep, fn: EpHandler<Ep>) {
+  return async (c: Context) => {
+    let args = { c } as any
+
+    const ps = paramsSpec(ep.path)
+    if (ps) {
+      args.params = cast(ps, c.req.param())
+    }
+
+    if (ep.request) {
+      const req = ep.method === 'get' ? c.req.query() : await c.req.json()
+      args.request = cast(ep.request, req)
+    }
+
+    const response = fn(args)
+    if (ep.response) {
+      cast(ep.response, response)
+    }
+
+    return c.json({ data: response })
+  }
+}
+
+export function epRouter<Eps extends EndpointRecordBase>(
+  eps: Eps,
+  handlers: EpsHandlers<Eps>,
+) {
+  const app = new Hono()
+
+  for (const [name, ep] of Object.entries(eps)) {
+    const path = route(ep.path)
+    const method = app[ep.method] as any
+    method(path, epHandler(ep, handlers[name] as any))
+  }
+
+  return app
+}
