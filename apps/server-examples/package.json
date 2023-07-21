@@ -7,7 +7,7 @@
     "types:dev": "tsc --noEmit -p . --watch"
   },
   "dependencies": {
-    "@faker-js/faker": "^8.0.2",
+    "@faker-js/faker": "8.0.2",
     "@hono/node-server": "1.1.0",
     "@srtp/core": "workspace:*",
     "@srtp/endpoint": "workspace:*",
