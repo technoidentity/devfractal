@@ -59,7 +59,7 @@ const Home: NextPage = () => {
 
 export default Home
 
-const AuthShowcase: React.FC = () => {
+const AuthShowcase = () => {
   const { data: sessionData } = useSession()
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(

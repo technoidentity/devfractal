@@ -43,8 +43,8 @@
 4.  Mutability is handled through pointers.
 
 5.  Make sure the code is as strongly typed as possible. There are no uses of
-    'top' type like 'any' or 'object'.
-6.  MAke sure computations are pure functions. There are no side effects like
+    the 'top' type like 'any' or 'object'.
+6.  Make sure computations are pure functions. There are no side effects like
     mutating the global state or making network requests.
 
 7.  Make sure effect functions have no computation/logic.

@@ -4,31 +4,35 @@ import type { State } from '@srtp/todo'
 import { initialState } from '@srtp/todo'
 import { todoReducer } from './reducer'
 
-export type ReducerContext = {
-  state: State
-  dispatch: React.Dispatch<any>
-}
+export type StateContext = State
 
-const Context = React.createContext<ReducerContext | undefined>(undefined)
+export type DispatchContext = React.Dispatch<any>
+
+const StateContext = React.createContext<StateContext | undefined>(undefined)
+const DispatchContext = React.createContext<DispatchContext | undefined>(
+  undefined,
+)
 
 export const ReducerProvider = ({ children }: any) => {
   const [state, dispatch] = React.useReducer(todoReducer, initialState)
 
-  const value = React.useMemo(() => ({ state, dispatch }), [state])
-
-  return <Context.Provider value={value}>{children}</Context.Provider>
+  return (
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>{children}</StateContext.Provider>
+    </DispatchContext.Provider>
+  )
 }
 
 export const useState = () => {
-  const ctx = React.useContext(Context)
+  const ctx = React.useContext(StateContext)
   invariant(ctx !== undefined, 'Use ReducerProvider somewhere')
 
-  return ctx.state
+  return ctx
 }
 
 export const useDispatch = () => {
-  const ctx = React.useContext(Context)
+  const ctx = React.useContext(DispatchContext)
   invariant(ctx !== undefined, 'Use ReducerProvider somewhere')
 
-  return ctx.dispatch
+  return ctx
 }
