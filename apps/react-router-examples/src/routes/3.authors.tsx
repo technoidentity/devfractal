@@ -4,8 +4,9 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { z } from 'zod'
-import { For, api } from '@core'
+import { api } from '@core'
 import { loaderQuery, queryClient } from '@srtp/router'
+import { For } from '@srtp/react'
 
 const AuthorsSpec = z.array(
   z.object({

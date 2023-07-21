@@ -7,7 +7,8 @@ import type { QueryFunctionContext } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 
 import { z } from 'zod'
-import { For, api } from '@core'
+import { api } from '@core'
+import { For } from '@srtp/react'
 
 const AuthorsSpec = z.array(
   z.object({

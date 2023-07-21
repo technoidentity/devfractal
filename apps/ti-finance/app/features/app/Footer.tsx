@@ -48,7 +48,7 @@ interface FooterCenteredProps {
 export function FooterCentered({ links }: FooterCenteredProps) {
   const { classes } = useStyles()
   const items = links.map(link => (
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
+     
     <Anchor
       key={link.label}
       href={link.link}

@@ -11,7 +11,7 @@ const root = createRoot(container)
 
 if (import.meta.env.DEV) {
   const { worker } = await import('./mocks/browser')
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
   worker.start({ onUnhandledRequest: 'bypass' }).catch(console.error)
 }
 

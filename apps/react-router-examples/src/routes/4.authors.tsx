@@ -4,8 +4,9 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 import React from 'react'
 import { z } from 'zod'
-import { For } from 'src/core'
+
 import { loaderQueryCreator, queryClient, useSafeSearch } from '@srtp/router'
+import { For } from '@srtp/react'
 
 const AuthorsSpec = z.array(
   z.object({
