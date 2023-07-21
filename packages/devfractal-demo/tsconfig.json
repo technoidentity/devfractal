@@ -1,0 +1,13 @@
+{
+  "extends": "@srtp/tsconfig/react.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@core": ["src/core"],
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx",
+    "types": ["node", "vite/client"]
+  },
+  "include": ["src", "tests", "__previewjs__"]
+}
