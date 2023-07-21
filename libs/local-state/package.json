@@ -24,8 +24,8 @@
   "dependencies": {
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
-    "@srtp/spec": "workspace:*",
     "@srtp/react": "workspace:*",
+    "@srtp/spec": "workspace:*",
     "@srtp/validator": "workspace:*",
     "immer": "10.0.2",
     "react": "18.2.0",
@@ -43,7 +43,7 @@
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "cross-env": "7.0.3",
-    "eslint": "8.44.0",
+    "eslint": "8.45.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.0",
     "tsup": "7.1.0",

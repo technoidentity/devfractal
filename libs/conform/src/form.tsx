@@ -46,6 +46,7 @@ export function createForm<
           method: 'POST',
           body: JSON.stringify(values),
           headers: {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             'Content-Type': 'application/json',
           },
         })

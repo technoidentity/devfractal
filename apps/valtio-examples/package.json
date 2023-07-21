@@ -19,14 +19,14 @@
     "dev": "vite --host 0.0.0.0 --port 3001 --clearScreen false"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.7.1",
+    "@chakra-ui/react": "2.8.0",
     "@chakra-ui/styled-system": "2.9.1",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/todo": "workspace:*",
-    "framer-motion": "10.12.20",
+    "framer-motion": "10.13.0",
     "immer": "10.0.2",
     "jotai": "2.2.2",
     "react": "18.2.0",
@@ -36,7 +36,7 @@
     "tiny-warning": "1.0.3",
     "tslib": "2.6.0",
     "use-immer": "0.9.0",
-    "valtio": "1.10.7",
+    "valtio": "1.11.0",
     "zod": "3.21.4"
   },
   "devDependencies": {
@@ -47,12 +47,12 @@
     "@types/react-dom": "18.2.7",
     "@vitejs/plugin-react": "4.0.3",
     "cross-env": "7.0.3",
-    "eslint": "8.44.0",
+    "eslint": "8.45.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.0",
     "rimraf": "5.0.1",
     "typescript": "5.1.6",
-    "vite": "4.4.3",
+    "vite": "4.4.6",
     "vitest": "0.33.0"
   }
 }

@@ -22,8 +22,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@conform-to/react": "0.7.3",
-    "@conform-to/zod": "0.7.3",
+    "@conform-to/react": "0.7.4",
+    "@conform-to/zod": "0.7.4",
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/router": "workspace:^",
@@ -31,7 +31,7 @@
     "@srtp/validator": "workspace:*",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.14.1",
+    "react-router-dom": "6.14.2",
     "tiny-invariant": "1.3.1",
     "tiny-warning": "1.0.3",
     "tslib": "2.6.0",
@@ -44,7 +44,7 @@
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "cross-env": "7.0.3",
-    "eslint": "8.44.0",
+    "eslint": "8.45.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.0",
     "tsup": "7.1.0",

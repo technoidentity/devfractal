@@ -40,7 +40,7 @@
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "20.4.2",
     "cross-env": "7.0.3",
-    "eslint": "8.44.0",
+    "eslint": "8.45.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.0",
     "tsup": "7.1.0",

@@ -19,7 +19,6 @@
       "outputs": ["types", "dist/**"]
     },
     "lint": {
-      "dependsOn": ["types"],
       "outputs": []
     },
     "clean": {

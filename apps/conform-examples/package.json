@@ -7,14 +7,14 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@conform-to/dom": "0.7.3",
-    "@conform-to/react": "0.7.3",
-    "@conform-to/zod": "0.7.3",
+    "@conform-to/dom": "0.7.4",
+    "@conform-to/react": "0.7.4",
+    "@conform-to/zod": "0.7.4",
     "@headlessui/react": "1.7.15",
     "@heroicons/react": "2.0.18",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.14.1",
+    "react-router-dom": "6.14.2",
     "zod": "3.21.4"
   },
   "devDependencies": {
@@ -24,6 +24,6 @@
     "@types/react-dom": "18.2.7",
     "@vitejs/plugin-react": "4.0.3",
     "typescript": "5.1.6",
-    "vite": "4.4.3"
+    "vite": "4.4.6"
   }
 }
