@@ -7,6 +7,7 @@ import { createRoot } from 'react-dom/client'
 import invariant from 'tiny-invariant'
 import './globals.css'
 // import { rootRouter } from './routes'
+import './todoRouter'
 
 const container = document.createElement('div')
 invariant(container, 'container not found')

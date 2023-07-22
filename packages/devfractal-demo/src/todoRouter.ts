@@ -1,3 +1,4 @@
+import { api } from '@/core'
 import { isEmpty } from '@srtp/core'
 import type {
   EndpointBase,
@@ -6,17 +7,15 @@ import type {
   PathBase,
 } from '@srtp/endpoint'
 import { linkfn, paramsSpec, route } from '@srtp/endpoint'
-import { safeActionData, safeLoaderData } from '@srtp/router'
+import { safeActionData, safeLoaderData, safeSearch } from '@srtp/router'
 import { cast } from '@srtp/spec'
-import { createApi, toPath } from '@srtp/web'
+import { toPath } from '@srtp/web'
 import {
   type ActionFunction,
   type LoaderFunction,
   type RouteObject,
 } from 'react-router-dom'
 import { z } from 'zod'
-
-const api = createApi()
 
 export function epPath<Path extends PathBase>(pathDef: Path) {
   const path = route(pathDef)
@@ -121,3 +120,63 @@ export function epRouteUtils<
     link,
   }
 }
+
+export type PageBase = Required<Pick<EndpointBase, 'path' | 'request'>>
+export type PageRecordBase = Record<string, PageBase>
+
+type PageResult<Page extends PageBase> = {
+  path: string
+  link: (params?: Params<Page['path']>) => string
+  useParams: () => Params<Page['path']>
+  useSearch: ReturnType<typeof safeSearch<Page['request']>>
+}
+
+export function page<const Page extends PageBase>(
+  args: Page,
+): PageResult<Page> {
+  const { link, path, useParams } = epPath<Page['path']>(args.path)
+  const useSearch = safeSearch(args.request ?? z.unknown())
+
+  return { path, link, useParams, useSearch }
+}
+
+export type PagesResult<Pages extends PageRecordBase> = {
+  [K in keyof Pages]: PageResult<Pages[K]>
+}
+
+export function pages<Pages extends PageRecordBase>(
+  pages: Pages,
+): PagesResult<Pages> {
+  const result: any = {}
+
+  for (const key of Object.keys(pages)) {
+    result[key] = page(pages[key])
+  }
+
+  return result
+}
+
+const todoPageDefs = {
+  list: { path: ['todos'], request: z.object({}) },
+  view: { path: ['todos', ':id'], request: z.object({}) },
+
+  create: {
+    path: ['todos', 'create'],
+    request: z.object({
+      title: z.string(),
+      description: z.string(),
+    }),
+  },
+
+  edit: {
+    path: ['todos', ':id', 'edit'],
+    request: z.object({
+      title: z.string(),
+      description: z.string(),
+    }),
+  },
+} satisfies PageRecordBase
+
+const todoPages = pages(todoPageDefs)
+
+console.log(todoPages.create.path)
