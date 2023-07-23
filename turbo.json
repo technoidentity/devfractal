@@ -1,6 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": [
+    "FASTIFY_CLOSE_GRACE_DELAY",
+    "PORT",
     "NODE_ENV",
     "NEXT_PUBLIC_API_MOCKING",
     "NEXT_PUBLIC_SUPABASE_URL",

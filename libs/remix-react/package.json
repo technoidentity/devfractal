@@ -27,7 +27,7 @@
     "@mantine/dates": "6.0.17",
     "@mantine/form": "6.0.17",
     "@mantine/hooks": "6.0.17",
-    "@remix-run/react": "1.19.0",
+    "@remix-run/react": "1.19.1",
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/remix-core": "workspace:*",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.4.2",
+    "@types/node": "20.4.4",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
     "cross-env": "7.0.3",

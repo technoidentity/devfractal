@@ -31,9 +31,9 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@remix-run/eslint-config": "1.19.0",
+    "@remix-run/eslint-config": "1.19.1",
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.4.2",
+    "@types/node": "20.4.4",
     "@types/react": "18.2.15",
     "cross-env": "7.0.3",
     "eslint": "8.45.0",

@@ -21,7 +21,7 @@
     "@tsconfig/node-lts": "18.12.3",
     "@tsconfig/node18": "18.2.0",
     "@tsconfig/strictest": "2.0.1",
-    "@types/node": "20.4.2",
+    "@types/node": "20.4.4",
     "eslint": "8.45.0",
     "eslint-config-srtp": "workspace:*",
     "pino-pretty": "10.1.0",

@@ -31,7 +31,7 @@
     "@tsconfig/node-lts": "18.12.3",
     "@tsconfig/strictest": "2.0.1",
     "@types/better-sqlite3": "7.6.4",
-    "@types/node": "20.4.2",
+    "@types/node": "20.4.4",
     "@types/supertest": "2.0.12",
     "eslint": "8.45.0",
     "eslint-config-srtp": "workspace:*",
