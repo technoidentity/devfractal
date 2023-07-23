@@ -1,4 +1,3 @@
-import { Heading } from '@chakra-ui/react'
 import { queryClient } from '@srtp/router'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { Suspense } from 'react'
@@ -16,7 +15,7 @@ const root = createRoot(container)
 // const router = createBrowserRouter([rootRouter])
 
 root.render(
-  <Suspense fallback={<Heading>Loading...</Heading>}>
+  <Suspense fallback={<h1>Loading...</h1>}>
     <QueryClientProvider client={queryClient}>
       {/* <RouterProvider router={router} /> */}
     </QueryClientProvider>

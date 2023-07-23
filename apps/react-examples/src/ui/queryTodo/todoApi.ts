@@ -1,4 +1,4 @@
-import axios from 'redaxios'
+import { axios, urlcat } from '@srtp/web'
 
 type Todo = Readonly<{
   id: number
@@ -26,33 +26,54 @@ const delay = () => {
 export const todoApi = {
   async getAll() {
     await delay()
-    const { data } = await axios.get<Todo[]>(`${BASE_URL}/todos`)
-    return data
+    const [data] = await axios({
+      method: 'get',
+      url: urlcat(BASE_URL, '/todos'),
+    })
+
+    return data as Todo[]
   },
 
   async post(todo: Create<Todo>): Promise<Todo> {
     await delay()
-    return axios.post<Todo>(`${BASE_URL}/todos`, todo).then(({ data }) => data)
+    return (
+      await axios({
+        method: 'post',
+        url: urlcat(BASE_URL, '/todos'),
+        body: todo,
+      })
+    )[0] as Todo
   },
 
   async put(todo: Todo): Promise<Todo> {
     await delay()
-    return axios
-      .put<Todo>(`${BASE_URL}/todos/${todo.id}`, todo)
-      .then(({ data }) => data)
+    return (
+      await axios({
+        method: 'put',
+        url: urlcat(BASE_URL, `todos/${todo.id}`),
+        body: todo,
+      })
+    )[0] as Todo
   },
 
   async patch(todo: Update<Todo>): Promise<Todo> {
     await delay()
-    const result = await axios
-      .patch<Todo>(`${BASE_URL}/todos/${todo.id}`, todo)
-      .then(({ data }) => data)
+    const result = (
+      await axios({
+        method: 'patch',
+        url: urlcat(BASE_URL, `/todos/${todo.id}`),
+        body: todo,
+      })
+    )[0] as Todo
 
     return result
   },
 
   async delete(todo: Delete<Todo>): Promise<void> {
     await delay()
-    await axios.delete(`${BASE_URL}/todos/${todo.id}`)
+    await axios({
+      method: 'delete',
+      url: urlcat(BASE_URL, `/todos/${todo.id}`),
+    })
   },
 }
