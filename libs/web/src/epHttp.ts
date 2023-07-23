@@ -7,7 +7,7 @@ import type {
 } from '@srtp/endpoint'
 import { route } from '@srtp/endpoint'
 import { cast } from '@srtp/spec'
-import type { BaseFetchOptions, baseFetch } from './baseFetch'
+import { baseFetch, type BaseFetchOptions } from './baseFetch'
 import { toPath } from './url'
 
 type EpHttpArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
@@ -48,9 +48,9 @@ export type EpHttpResult<Eps extends EndpointRecordBase> = {
   ) => Promise<readonly [GetEpResponse<Eps[K]>, Response]>
 }
 
-export function epHttp<Eps extends EndpointRecordBase>(
+export function createEpApi<Eps extends EndpointRecordBase>(
   eps: Eps,
-  axios: typeof baseFetch,
+  axios: typeof baseFetch = baseFetch,
 ): EpHttpResult<Eps> {
   const api = {} as any
 
