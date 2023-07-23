@@ -11,7 +11,10 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
-    // 'turbo',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
+
+    'turbo',
+    'plugin:playwright/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -24,21 +27,22 @@ module.exports = {
     'react',
     'import',
     'jsx-a11y',
+    'no-only-tests',
     'unicorn',
     'prettier',
+    '@tanstack/query',
   ],
   settings: {
     react: { version: 'detect' },
   },
   rules: {
+    'no-only-tests/no-only-tests': 'error',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
     ],
     'no-useless-constructor': 'off',
-    '@typescript-eslint/consistent-type-imports': 'warn',
     '@typescript-eslint/restrict-plus-operands': 'off',
-    'prettier/prettier': ['warn', { endOfLine: 'auto' }],
     '@typescript-eslint/member-ordering': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-parameter-properties': 'off',
@@ -49,6 +53,11 @@ module.exports = {
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
+    '@typescript-eslint/no-useless-constructor': 'off',
+    '@typescript-eslint/promise-function-async': 'off',
+
+    '@typescript-eslint/consistent-type-imports': 'warn',
+    'prettier/prettier': ['warn', { endOfLine: 'auto' }],
 
     '@typescript-eslint/no-unnecessary-type-arguments': 'warn',
     '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
@@ -69,7 +78,7 @@ module.exports = {
     '@typescript-eslint/no-this-alias': 'warn',
     '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'warn',
     '@typescript-eslint/no-unnecessary-qualifier': 'warn',
-    '@typescript-eslint/no-useless-constructor': 'off',
+
     '@typescript-eslint/no-var-requires': 'warn',
     '@typescript-eslint/prefer-for-of': 'warn',
     '@typescript-eslint/prefer-function-type': 'warn',
@@ -77,7 +86,7 @@ module.exports = {
     '@typescript-eslint/prefer-namespace-keyword': 'warn',
     '@typescript-eslint/prefer-readonly': 'warn',
     '@typescript-eslint/prefer-string-starts-ends-with': 'warn',
-    '@typescript-eslint/promise-function-async': 'off',
+
     '@typescript-eslint/require-array-sort-compare': 'warn',
     '@typescript-eslint/unified-signatures': 'warn',
 
@@ -202,6 +211,7 @@ module.exports = {
 
     'react/jsx-key': 'warn',
     'react/jsx-no-bind': 'off',
+    'react/react-in-jsx-scope': 'off',
     'react/jsx-no-comment-textnodes': 'warn',
     'react/jsx-no-duplicate-props': 'warn',
     'react/jsx-no-target-blank': 'warn',
@@ -212,7 +222,7 @@ module.exports = {
     'react/no-direct-mutation-state': 'warn',
     'react/no-is-mounted': 'warn',
     'react/no-typos': 'warn',
-    'react/react-in-jsx-scope': 'off',
+
     'react/require-render-return': 'warn',
     'react/style-prop-object': 'warn',
 

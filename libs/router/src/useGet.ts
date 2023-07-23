@@ -48,6 +48,7 @@ export const loader = (args: LoaderFunctionArgs) => {
     Object.keys(args.params).length !== 0 ? [...paths, args.params] : paths
 
   return queryClient.ensureQueryData({
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey,
     queryFn: () => sget(`/api${pathname}`),
   })

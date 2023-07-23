@@ -84,7 +84,11 @@ export function loaderQuery<
     const options = query(params, location.pathname, search)
 
     const initialData = useLoaderData()
-    const result = useQuery(options.queryKey, options.queryFn, { initialData })
+    const result = useQuery({
+      queryKey: options.queryKey,
+      queryFn: options.queryFn,
+      initialData,
+    })
 
     const data: z.infer<ResponseSpec> = cast(specs.response, result.data)
     return [data, result] as const
