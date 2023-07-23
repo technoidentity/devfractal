@@ -1,10 +1,10 @@
 import { Box, Flex, Spinner } from '@chakra-ui/react'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
-import qs from 'query-string'
 import React, { Suspense, useTransition } from 'react'
-import axios from 'redaxios'
+
 import type { Filter, Todo } from '@srtp/todo'
+import { axios, urlcat } from '@srtp/web'
 import { itemCount, pageCount } from './common'
 import { FilterView, Pagination, TodoListView } from './components'
 
@@ -17,10 +17,11 @@ const [resAtom] = atomsWithQuery(get => ({
 
   queryFn: async ({ queryKey: [, page, limit, filter] }) => {
     const completed = filter === 'All' ? undefined : filter === 'Completed'
-    const q = qs.stringify({ _limit: limit, _page: page, completed })
 
-    const res = await axios.get(`api/todos?${q}`)
-    const data = res.data as readonly Todo[]
+    const [data, res] = await axios({
+      method: 'get',
+      url: urlcat('api/todos', '', { _limit: limit, _page: page, completed }),
+    })
 
     const ic = itemCount(res)
     return { data, itemCount: ic, pageCount: pageCount(ic, Number(limit)) }
@@ -33,7 +34,7 @@ const pageCountAtom = atom(async get => (await get(resAtom)).pageCount)
 
 export const TodoListComp = () => {
   const todoList = useAtomValue(todoListAtom)
-  return <TodoListView todoList={todoList} />
+  return <TodoListView todoList={todoList as Todo[]} />
 }
 
 export const TodoList = () => {

@@ -1,35 +1,40 @@
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import qs from 'query-string'
-import axios from 'redaxios'
 
 import type { Todo } from '@srtp/todo'
+import { axios, urlcat } from '@srtp/web'
 import { itemCount, limit, pageCount } from '../common'
 import { rqGet } from '../get'
 
 export const getPagedTodos = async ({
   queryKey,
 }: QueryFunctionContext<[string, number, number?]>) => {
-  const q = qs.stringify({ _page: queryKey[1], _limit: queryKey[2] || limit })
-
-  const res = await axios.get(`api/todos?${q}`)
+  const [data, res] = await axios({
+    method: 'get',
+    url: urlcat(`api/todos?`, '', {
+      _page: queryKey[1],
+      _limit: queryKey[2] || limit,
+    }),
+  })
 
   const ic = itemCount(res)
 
   return {
-    page: res.data as Todo[],
+    page: data as Todo[],
     pageCount: pageCount(ic, limit),
     itemCount: ic,
   }
 }
 
 const getInfiniteTodos = async ({ pageParam = 1 }) => {
-  const q = qs.stringify({ _limit: limit, _page: pageParam })
-  const res = await axios.get(`api/todos?${q}`)
+  const [data, res] = await axios({
+    method: 'get',
+    url: urlcat(`api/todos`, '', { _limit: limit, _page: pageParam }),
+  })
 
   const ic = itemCount(res)
   return {
-    data: res.data,
+    data: data as Todo[],
     itemCount: ic,
     pageCount: pageCount(ic, limit),
   }

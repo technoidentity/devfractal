@@ -1,5 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react'
-import type { Filter } from '@srtp/todo'
+import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import { filteredTodos, pageCount } from '../common'
@@ -16,7 +16,8 @@ const useTodoList = () => {
   const { data } = useTodos()
 
   const filtered = React.useMemo(
-    () => (data === undefined ? undefined : filteredTodos(data, filter)),
+    () =>
+      data === undefined ? undefined : filteredTodos(data as Todo[], filter),
 
     [data, filter],
   )

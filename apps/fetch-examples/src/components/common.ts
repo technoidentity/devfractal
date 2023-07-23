@@ -1,15 +1,14 @@
-import type { Response } from 'redaxios'
 import type { Filter, Todo } from '@srtp/todo'
 
 export const limit = 15
 
-export const itemCount = (res: Response<any>) =>
+export const itemCount = (res: Response) =>
   Math.floor(Number(res.headers.get('X-Total-Count') ?? 1))
 
 export const pageCount = (itemCount: number, limit: number) =>
   Math.floor((itemCount + limit - 1) / limit)
 
-export const pageFromLink = (res: Response<any>, rel: string) => {
+export const pageFromLink = (res: Response, rel: string) => {
   const link = res.headers
     .get('Link')
     ?.split(', ')

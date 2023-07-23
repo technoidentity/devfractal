@@ -1,20 +1,21 @@
 // Mutations
 
 import type { Todo } from '@srtp/todo'
+import { axios } from '@srtp/web'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React from 'react'
-import axios from 'redaxios'
 
 export const del = async (todoId: number) =>
-  (await axios.delete(`/api/todos/${todoId}`)).data
+  (await axios({ method: 'delete', url: `/api/todos/${todoId}` }))[0]
 
 export const toggle = async (todo: Todo) =>
   (
-    await axios.patch(`/api/todos/${todo.id}`, {
-      ...todo,
-      completed: !todo.completed,
+    await axios({
+      method: 'patch',
+      url: `/api/todos/${todo.id}`,
+      body: { ...todo, completed: !todo.completed },
     })
-  ).data
+  )[0]
 
 const useInvalidateTodos = () => {
   const queryClient = useQueryClient()

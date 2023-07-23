@@ -5,9 +5,9 @@ import type { Filter, Todo } from '@srtp/todo'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
 import { Suspense, useTransition } from 'react'
-import axios from 'redaxios'
 import { filteredTodos, pageCount } from '../common'
 import { FilterView, Pagination, TodoListView } from '../components'
+import { axios } from '@srtp/web'
 
 const limitAtom = atom(15)
 const pageAtom = atom(1)
@@ -24,7 +24,7 @@ const [todosAtom] = atomsWithQuery(() => {
   return {
     queryKey: ['todos'],
     queryFn: async () =>
-      (await axios.get(`/api/todos`)).data as readonly Todo[],
+      (await axios({ method: 'get', url: `/api/todos` }))[0] as readonly Todo[],
   }
 })
 
