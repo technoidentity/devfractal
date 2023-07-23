@@ -1,21 +1,18 @@
-import qs from 'query-string'
 import { useSearchParams } from 'react-router-dom'
 
 import { cast } from '@srtp/spec'
 import type { z } from 'zod'
 import React from 'react'
 import { entriesToObject } from '@srtp/fn'
+import { toSearch } from '@srtp/web'
 
-const defaultOptions: qs.StringifyOptions = {
-  arrayFormat: 'index',
-  skipNull: true,
-  skipEmptyString: true,
-}
+// const defaultOptions: qs.StringifyOptions = {
+//   arrayFormat: 'index',
+//   skipNull: true,
+//   skipEmptyString: true,
+// }
 
-export function safeSearch<Spec extends z.ZodTypeAny>(
-  spec: Spec,
-  options?: qs.StringifyOptions,
-) {
+export function safeSearch<Spec extends z.ZodTypeAny>(spec: Spec) {
   return function useSearch(): readonly [
     z.infer<Spec> | undefined,
     (values: z.infer<Spec>) => void,
@@ -24,7 +21,7 @@ export function safeSearch<Spec extends z.ZodTypeAny>(
 
     const setSearch = React.useCallback(
       (values: z.infer<Spec>) => {
-        set(qs.stringify(cast(spec, values), { ...defaultOptions, ...options }))
+        set(toSearch(cast(spec, values)))
       },
       [set],
     )
@@ -38,11 +35,8 @@ export function safeSearch<Spec extends z.ZodTypeAny>(
   }
 }
 
-export function useSafeSearch<Spec extends z.ZodTypeAny>(
-  spec: Spec,
-  options?: qs.StringifyOptions,
-) {
+export function useSafeSearch<Spec extends z.ZodTypeAny>(spec: Spec) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const useSearch = React.useMemo(() => safeSearch(spec, options), [])
+  const useSearch = React.useMemo(() => safeSearch(spec), [])
   return useSearch()
 }

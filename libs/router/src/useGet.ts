@@ -2,8 +2,8 @@ import type { QueryFunctionContext } from '@tanstack/react-query'
 import { QueryClient, useQuery } from '@tanstack/react-query'
 import type { LoaderFunctionArgs } from 'react-router-dom'
 import { useLoaderData } from 'react-router-dom'
-import wretch from 'wretch'
 import type { z } from 'zod'
+import { api } from './api'
 
 type Stringable = string | number | Date | boolean
 
@@ -14,7 +14,7 @@ export type Query = Readonly<{
 
 export const url = (keys: readonly Stringable[]) => `/api/${keys.join('/')}`
 
-export const sget = (url: string) => wretch(url).get().json()
+export const sget = (url: string) => api.get(url)
 
 export function getLoader<Spec extends z.ZodType<any, any>>(q: Query) {
   return function useSafeQuery(spec: Spec): z.infer<Spec> {

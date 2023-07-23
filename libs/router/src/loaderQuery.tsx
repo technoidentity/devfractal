@@ -12,8 +12,9 @@ import {
   useParams,
   useSearchParams,
 } from 'react-router-dom'
-import wretch from 'wretch'
+
 import type { z } from 'zod'
+import { api } from './api'
 
 export type ToUrlFn = (qc: QueryFunctionContext) => string
 
@@ -33,7 +34,7 @@ export const qfnFromBase = (base: string) =>
   )
 
 export const qfnFromUrl = (urlFn: ToUrlFn) => (qc: QueryFunctionContext) =>
-  wretch(urlFn(qc)).get().json()
+  api.get(urlFn(qc))
 
 type Specs<
   Spec extends z.ZodTypeAny,
