@@ -2,7 +2,9 @@ import { isKey } from '@srtp/core'
 import { debug, type Primitive } from '@srtp/spec'
 import invariant from 'tiny-invariant'
 
-type SearchObj = Record<string, Primitive | Primitive[]>
+// type SearchObj = Record<string, Primitive | Primitive[]>
+export type SearchObj = object
+
 const dummyOrigin = 'https://dummy.url'
 
 export function toSearchParams(obj: SearchObj): URLSearchParams {
@@ -95,6 +97,7 @@ function join(path1: string, path2: string): string {
   return p1 === '' || p2 === '' ? p1 + p2 : `${p1}/${p2}`
 }
 
+// @TODO: This has to be good as it's to concatenate queryKeys
 export function joinPaths(...paths: string[]) {
   if (paths.length === 0) {
     return '/'

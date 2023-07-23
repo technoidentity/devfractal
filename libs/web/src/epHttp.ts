@@ -7,55 +7,50 @@ import type {
 } from '@srtp/endpoint'
 import { route } from '@srtp/endpoint'
 import { cast } from '@srtp/spec'
-import axios, { type Options as RedaxiosOptions, type Response } from 'redaxios'
-import { subst } from 'urlcat'
-
-type AxiosInstance = ReturnType<typeof axios.create>
+import type { BaseFetchOptions, baseFetch } from './baseFetch'
+import { toPath } from './url'
 
 type EpHttpArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
-  GetRequestArg<Ep> & { options?: Omit<RedaxiosOptions, 'url'> }
+  GetRequestArg<Ep> & { options?: BaseFetchOptions }
 
 type ApiCallsArgs<Ep extends EndpointBase> = EpHttpArgs<Ep> & {
   ep: Ep
-  axios: AxiosInstance
+  axios: typeof baseFetch
 }
 
 async function apiCall<Ep extends EndpointBase>({
   ep,
   axios,
-  params: params,
+  params,
   request,
   options,
-}: ApiCallsArgs<Ep>): Promise<
-  readonly [GetEpResponse<Ep>, Response<GetEpResponse<Ep>>]
-> {
+}: ApiCallsArgs<Ep>): Promise<readonly [GetEpResponse<Ep>, Response]> {
   const path = route(ep.path)
-  const url = params ? subst(path, params) : path
-  const data = ep.request ? (ep.request, request) : request
+  const ps = params ?? {}
+  const url = params ? toPath(path, ps) : path
+  const reqBody = ep.request ? (ep.request, request) : request
   const method = ep.method
 
-  const response = await axios({ ...options, method, url, data })
+  const [resBody, response] = await axios(url, {
+    ...options,
+    method,
+    body: reqBody,
+  })
 
-  const responseData = ep.response
-    ? cast(ep.response, response.data)
-    : response.data
+  const responseData = ep.response ? cast(ep.response, resBody) : resBody
 
-  return [responseData, response as Response<GetEpResponse<Ep>>] as const
+  return [responseData, response] as const
 }
 
 export type EpHttpResult<Eps extends EndpointRecordBase> = {
   [K in keyof Eps]: (
     args: EpHttpArgs<Eps[K]>,
-  ) => Promise<
-    readonly [GetEpResponse<Eps[K]>, Response<GetEpResponse<Eps[K]>>]
-  >
+  ) => Promise<readonly [GetEpResponse<Eps[K]>, Response]>
 }
-
-const defaultAxios = axios.create()
 
 export function epHttp<Eps extends EndpointRecordBase>(
   eps: Eps,
-  axios: AxiosInstance = defaultAxios,
+  axios: typeof baseFetch,
 ): EpHttpResult<Eps> {
   const api = {} as any
 
