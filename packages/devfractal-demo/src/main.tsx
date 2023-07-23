@@ -9,6 +9,11 @@ import './globals.css'
 import './todoRouter'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = await import('./mocks/browser')
+  await worker.start({ onUnhandledRequest: 'bypass' })
+}
+
 const container = document.createElement('div')
 invariant(container, 'container not found')
 const root = createRoot(container)
