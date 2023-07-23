@@ -3,11 +3,13 @@ import {
   useMutation as useTanstackMutation,
   type MutationFunction,
 } from '@tanstack/react-query'
-import redaxios from 'redaxios'
+
 import type { Schema } from 'zod'
 import type { z } from 'zod'
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
 import { useSafeQuery, type UseSafeQueryArgs } from './safeQuery'
+import { axios } from '@srtp/web'
+import { cast } from '@srtp/spec'
 
 export type MutationHandler = (
   api: typeof ApiDescriptions,
@@ -23,8 +25,12 @@ async function apiMethod<T>(
   mut: MutationDescription<T>,
   spec: Schema<T>,
 ): Promise<T> {
-  const res = await redaxios[mut.type](mut.path, mut.payload)
-  return spec.parse(res.data)
+  const [data] = await axios({
+    method: mut.type,
+    url: mut.path,
+    body: mut.payload,
+  })
+  return cast(spec, data)
 }
 
 export const simpleQueryState = <

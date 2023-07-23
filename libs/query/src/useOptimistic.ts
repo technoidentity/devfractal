@@ -10,14 +10,19 @@ import {
 import { produce, type Draft } from 'immer'
 
 import React from 'react'
-import redaxios from 'redaxios'
+
 import invariant from 'tiny-invariant'
 import type { MutationDescription } from './mutationApi'
 import { ApiDescriptions } from './mutationApi'
+import { axios } from '@srtp/web'
 
 async function defaultMutation<T>(mut: MutationDescription<T>) {
-  const res = await redaxios[mut.type](mut.path, mut.payload)
-  return res.data
+  const [data] = await axios({
+    url: mut.path,
+    method: mut.type,
+    body: mut.payload,
+  })
+  return data
 }
 
 export type MutationAction<TData, TVariables, TQueryData> = (
@@ -51,7 +56,7 @@ export function useDescribeMutation<TData, TVariables, TQueryData>(
 
   const mutationFn = () => {
     invariant(result.current, 'mutation description is undefined')
-    return mutation(result.current)
+    return mutation(result.current) as any
   }
 
   return useOptimisticValue<TData, TVariables, TQueryData>(

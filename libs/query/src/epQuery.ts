@@ -9,7 +9,7 @@ import {
   type UseMutationResult,
   type UseQueryResult,
 } from '@tanstack/react-query'
-import axios from 'redaxios'
+
 import { type z } from 'zod'
 import type {
   EndpointBase,
@@ -18,25 +18,16 @@ import type {
   GetRequestArg,
 } from '@srtp/endpoint'
 
-import qs from 'query-string'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import { linkfn } from '@srtp/endpoint'
+import { axios, urlcat } from '@srtp/web'
+import { api } from './api'
 
 export type QueryArgs<Ep extends EndpointBase> = GetRequestArg<Ep> &
   GetParamsArg<Ep>
 
-const createQfn = (url: string) => async () => {
-  try {
-    const res = await axios.get(url)
-    return res.data
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error
-    }
-    throw new Error(`Unknown error fetching from ${url}`, { cause: error })
-  }
-}
+const createQfn = (url: string) => async () => api.get(url)
 
 export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<{
   result: UseQueryResult<z.infer<Ep['response'] & object>, Error>
@@ -45,8 +36,7 @@ export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<{
 }>
 
 const formUrl = (baseUrl: string, path: string, query?: object) => {
-  const url = `${baseUrl}${path}`
-  return query ? `${url}?${qs.stringify(query)}` : url
+  return urlcat(baseUrl, path, query)
 }
 
 export function epQuery<Ep extends EndpointBase>(
@@ -63,10 +53,7 @@ export function epQuery<Ep extends EndpointBase>(
     // @TODO: what should be the path? split or concat?
     const queryKey = query ? [path, query] : [path]
 
-    const result = useQuery<z.infer<Ep['response'] & object>, Error>({
-      queryKey,
-      queryFn: createQfn(url),
-    })
+    const result: any = useQuery({ queryKey, queryFn: createQfn(url) })
 
     invariant(endpoint.response, 'endpoint must have a response schema')
 
@@ -101,11 +88,13 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
 
       const key = linkfn<Ep['path']>(ep.path)(path)
       const url = `${baseUrl}${key}`
-      const response = await axios[ep.method](url, request)
+      const [data] = await axios({
+        method: ep.method,
+        url,
+        body: request,
+      })
 
-      const result = ep.response
-        ? cast(ep.response, response.data)
-        : response.data
+      const result = ep.response ? cast(ep.response, data) : data
       return result
     }
 

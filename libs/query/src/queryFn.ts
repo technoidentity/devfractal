@@ -1,13 +1,11 @@
 import { cast } from '@srtp/spec'
 import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
-import qs from 'query-string'
 
 // @TODO: should be web?
-import { get } from '@srtp/web'
-import invariant from 'tiny-invariant'
-import { z } from 'zod'
 
-const { stringify } = qs
+import { joinPaths, urlcat } from '@srtp/web'
+import { z } from 'zod'
+import { api } from './api'
 
 export const Paths = z.array(z.string().or(z.number()).nullish())
 export type Paths = Readonly<z.infer<typeof Paths>>
@@ -16,32 +14,23 @@ const toUrl = (
   basePath: string,
   paths: Paths,
   query?: Record<string, any>,
-  options?: qs.StringifyOptions,
 ): string => {
-  const bp = basePath.trim()
-  invariant(!bp.endsWith('/'), 'basePath should not end with /')
-
-  const qs = stringify(query || {}, options)
-  const q = qs.length > 0 ? `?${qs}` : ''
-  return `${bp}/${paths.join('/')}${q}`
+  const ps = (paths ?? []) as string[]
+  return urlcat(basePath, joinPaths(...ps), query)
 }
 
 export const createToUrl =
   (basePath: string) =>
-  (
-    paths: Paths,
-    query?: Record<string, any>,
-    options?: qs.StringifyOptions,
-  ): string =>
-    toUrl(basePath, paths, query, options)
+  (paths: Paths, query?: Record<string, any>): string =>
+    toUrl(basePath, paths, query)
 
 export type ToUrl = ReturnType<typeof createToUrl>
 
 export const queryFn =
   (basePathOrToUrl: ToUrl | string) =>
-  <T, TQueryKey extends QueryKey = QueryKey | [...Paths, Record<string, any>]>({
+  <TQueryKey extends QueryKey = QueryKey | [...Paths, Record<string, any>]>({
     queryKey,
-  }: QueryFunctionContext<TQueryKey>): Promise<T> => {
+  }: QueryFunctionContext<TQueryKey>): Promise<unknown> => {
     const toUrl =
       typeof basePathOrToUrl === 'string'
         ? createToUrl(basePathOrToUrl)
@@ -53,7 +42,7 @@ export const queryFn =
     const rest = last ? queryKey.slice(0, -1) : queryKey
     const paths = cast(Paths, rest)
 
-    return get({ spec: z.any() })(toUrl(paths, qs))
+    return api.get(toUrl(paths, qs))
   }
 
 // Should be used only with raw useQuery
@@ -69,5 +58,5 @@ export const safeQueryFn = function safeQueryFn<
       ? createToUrl(toUrlOrbasePath)
       : toUrlOrbasePath
 
-  return async context => spec.parse(await queryFn(toUrl)(context))
+  return async context => cast(spec, await queryFn(toUrl)(context))
 }

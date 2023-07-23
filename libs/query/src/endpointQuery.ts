@@ -6,10 +6,11 @@ import {
   useQuery,
   type UseQueryResult,
 } from '@tanstack/react-query'
-import qs from 'query-string'
-import axios from 'redaxios'
+
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
+import { api } from './api'
+import { axios, urlcat } from '@srtp/web'
 
 export type QueryArgs<Ep extends EndpointBase> = (Ep extends {
   request: never
@@ -29,21 +30,17 @@ export function createEndPointQuery<Ep extends EndpointBase>(
   ): UseQueryResult<z.infer<Ep['response'] & object>> => {
     const path = linkfn<Ep['path']>(endpoint.path)(options.request)
     const query = options.query
-    const url = query
-      ? `${baseUrl}${path}?${qs.stringify(query)}`
-      : `${baseUrl}${path}`
+    const url = urlcat(baseUrl, path, query)
 
     const queryKey = query ? [path, query] : [path]
 
-    const queryFn = () => axios.get(url).then(r => r.data)
+    const queryFn = () => api.get(url)
 
-    const result = useQuery({ queryKey, queryFn })
+    const result = useQuery<any>({ queryKey, queryFn })
 
     invariant(endpoint.response, 'endpoint must have a response schema')
 
-    const data = cast(endpoint.response, result.data)
-
-    return { ...result, data }
+    return { ...result, data: cast(endpoint.response, result.data) }
   }
 }
 
@@ -59,9 +56,15 @@ export type MutationArgs<Ep extends EndpointBase> = (Ep extends {
 export function createEndpointMutation<Ep extends EndpointBase>(endpoint: Ep) {
   return () =>
     useMutation({
-      mutationFn: (options: MutationArgs<Ep>) => {
+      mutationFn: async (options: MutationArgs<Ep>) => {
         const key = linkfn<Ep['path']>(endpoint.path)(options.request)
-        return axios[endpoint.method](key, options.body)
+        const [data] = await axios({
+          method: endpoint.method,
+          url: key,
+          body: options.body,
+        })
+
+        return data
       },
     })
 }
