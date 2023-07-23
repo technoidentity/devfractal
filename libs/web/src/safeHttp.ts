@@ -1,43 +1,60 @@
 import { cast } from '@srtp/spec'
-import type { Options as RedaxiosOptions } from 'redaxios'
-import axios from 'redaxios'
+
 import type { z } from 'zod'
+import { createBaseApi, type ApiOptions } from './baseApi'
+import { baseFetch } from './baseFetch'
 
-export type SafeHttpOptions<Spec extends z.ZodTypeAny> = RedaxiosOptions & {
-  readonly spec: Spec
-  axios?: ReturnType<typeof axios.create>
+export function createSafeApi(fetcher = baseFetch) {
+  const api = createBaseApi(fetcher)
+  return {
+    get:
+      <Spec extends z.ZodTypeAny>(spec: Spec) =>
+      async (
+        url: string,
+        query?: Record<string, string>,
+        options?: ApiOptions,
+      ): Promise<readonly [z.infer<Spec>, Response]> => {
+        const [data, response] = await api.get(url, query, options)
+        return [cast(spec, data), response] as const
+      },
+    post:
+      <Spec extends z.ZodTypeAny>(spec: Spec) =>
+      async (
+        url: string,
+        body: unknown,
+        options?: ApiOptions,
+      ): Promise<readonly [z.infer<Spec>, Response]> => {
+        const [data, response] = await api.post(url, body, options)
+        return [cast(spec, data), response] as const
+      },
+
+    put:
+      <Spec extends z.ZodTypeAny>(spec: Spec) =>
+      async (
+        url: string,
+        body: unknown,
+        options?: ApiOptions,
+      ): Promise<readonly [z.infer<Spec>, Response]> => {
+        const [data, response] = await api.put(url, body, options)
+        return [cast(spec, data), response] as const
+      },
+
+    patch:
+      <Spec extends z.ZodTypeAny>(spec: Spec) =>
+      async (
+        url: string,
+        body: unknown,
+        options?: ApiOptions,
+      ): Promise<readonly [z.infer<Spec>, Response]> => {
+        const [data, response] = await api.patch(url, body, options)
+        return [cast(spec, data), response] as const
+      },
+
+    del:
+      <Spec extends z.ZodTypeAny>(spec: Spec) =>
+      async (url: string, options?: ApiOptions): Promise<z.infer<Spec>> => {
+        const [data, response] = await api.delete(url, options)
+        return [cast(spec, data), response] as const
+      },
+  }
 }
-
-const defaultAxios = axios.create()
-
-export const safeHttp = async <Spec extends z.ZodTypeAny>(
-  config: SafeHttpOptions<Spec>,
-) => {
-  const apiCall = config.axios ?? defaultAxios
-  cast(config.spec, (await apiCall(config)).data)
-}
-
-export const get =
-  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
-  async (url: string): Promise<z.infer<Spec>> =>
-    safeHttp({ ...config, url, method: 'get' })
-
-export const post =
-  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
-  async (url: string, body: unknown): Promise<z.infer<Spec>> =>
-    safeHttp({ ...config, url, method: 'post', data: body })
-
-export const put =
-  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
-  async (url: string, body: unknown): Promise<z.infer<Spec>> =>
-    safeHttp({ ...config, url, method: 'put', data: body })
-
-export const patch =
-  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
-  async (url: string, body: unknown): Promise<z.infer<Spec>> =>
-    safeHttp({ ...config, url, method: 'patch', data: body })
-
-export const del =
-  <Spec extends z.ZodTypeAny>(config: SafeHttpOptions<Spec>) =>
-  async (url: string): Promise<z.infer<Spec>> =>
-    safeHttp({ ...config, url, method: 'delete' })
