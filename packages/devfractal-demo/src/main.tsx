@@ -7,6 +7,7 @@ import invariant from 'tiny-invariant'
 import './globals.css'
 // import { rootRouter } from './routes'
 import './todoRouter'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const container = document.createElement('div')
 invariant(container, 'container not found')
@@ -18,6 +19,8 @@ root.render(
   <Suspense fallback={<h1>Loading...</h1>}>
     <QueryClientProvider client={queryClient}>
       {/* <RouterProvider router={router} /> */}
+      {/* @TODO: enable only in dev mode */}
+      <ReactQueryDevtools position="bottom-right" />
     </QueryClientProvider>
   </Suspense>,
 )

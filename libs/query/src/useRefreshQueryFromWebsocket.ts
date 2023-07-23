@@ -3,11 +3,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import React from 'react'
 import { z } from 'zod'
 import { date, boolean, int, string } from '@srtp/validator'
-
-// @TODO: move to core?
-const logAsyncError = (promise: Promise<any>) => {
-  promise.catch(console.error)
-}
+import { logAsyncError } from '@srtp/core'
 
 const Stringly = z.union([string(), int(), boolean(), date()])
 

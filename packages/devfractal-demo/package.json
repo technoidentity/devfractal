@@ -96,6 +96,7 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
+    "@tanstack/react-query-devtools": "4.32.0",
     "@testing-library/react": "14.0.0",
     "@types/node": "20.4.2",
     "@types/react": "18.2.15",

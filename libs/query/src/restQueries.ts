@@ -2,7 +2,7 @@ import type { z } from 'zod'
 
 import { restEndpoints } from '@srtp/endpoint'
 import type { ZodFundamental } from '@srtp/spec'
-import { createEpApi } from './epApi'
+import { createEpApi } from './ep/epApi'
 
 export function restQueries<
   Spec extends z.ZodRawShape & { id: ZodFundamental },
