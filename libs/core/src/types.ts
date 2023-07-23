@@ -49,3 +49,9 @@ export type RemoveEmpty<T extends Obj, R> = keyof T extends never
 export type FnArgs<Args extends Obj, R> = RemoveEmpty<PickRequired<Args>, R>
 
 export type KeyOf<T> = Extract<keyof T, string>
+
+export type GetArgOptional<T, K extends string> = Record<K, T> extends {
+  [key in K]: never
+}
+  ? { [key in K]?: undefined }
+  : { [key in K]: T }
