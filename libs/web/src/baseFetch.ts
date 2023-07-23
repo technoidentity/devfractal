@@ -110,3 +110,12 @@ export async function baseFetch(
   const error = await getResponseBody(response)
   throw new ResponseError(response, error)
 }
+
+// transition function
+export type AxiosOptions = BaseFetchOptions & { url: string }
+
+export function axios(
+  options: AxiosOptions,
+): Promise<readonly [unknown, Response]> {
+  return baseFetch(options.url, options)
+}
