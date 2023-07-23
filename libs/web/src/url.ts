@@ -94,7 +94,8 @@ function join(path1: string, path2: string): string {
   debug(!p1.endsWith('/'), `${path1} ends with mutiple /`)
   debug(!p2.startsWith('/'), `${path1} starts with mutiple /`)
 
-  return p1 === '' || p2 === '' ? p1 + p2 : `${p1}/${p2}`
+  const result = p1 === '' || p2 === '' ? p1 + p2 : `${p1}/${p2}`
+  return result.endsWith('/') ? result.slice(0, -1) : result
 }
 
 // @TODO: This has to be good as it's to concatenate queryKeys
@@ -103,7 +104,11 @@ export function joinPaths(...paths: string[]) {
     return '/'
   }
 
-  const result = paths.reduce(join)
+  let result = paths.reduce(join)
 
-  return result.startsWith('/') ? result : `/${result}`
+  if (!result.startsWith('/')) {
+    result = `/${result}`
+  }
+
+  return result
 }

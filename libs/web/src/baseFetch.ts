@@ -1,5 +1,19 @@
-import { isKey } from '@srtp/core'
+import { isEmpty, isKey } from '@srtp/core'
 import { isObject, isStr } from '@srtp/spec'
+import { getReasonPhrase } from 'http-status-codes'
+export class ResponseError extends Error {
+  constructor(
+    readonly response: Response,
+    readonly error: unknown,
+    options?: ErrorOptions,
+  ) {
+    const statusText = isEmpty(response.statusText)
+      ? getReasonPhrase(response.status)
+      : response.statusText
+    super(statusText, options)
+    this.name = 'HTTPError'
+  }
+}
 
 export class UnauthorizedError extends Error {
   constructor(
@@ -7,16 +21,7 @@ export class UnauthorizedError extends Error {
     options?: ErrorOptions,
   ) {
     super(`Fetch Error: Unauthorized(status: ${response.status}`, options)
-  }
-}
-
-export class ResponseError extends Error {
-  constructor(
-    readonly response: Response,
-    readonly error: unknown,
-    options?: ErrorOptions,
-  ) {
-    super('Response Error', options)
+    this.name = 'UnauthorizedError'
   }
 }
 
@@ -69,17 +74,17 @@ export function getDefaultFetchConfig(
 }
 
 export async function getResponseBody(response: Response): Promise<unknown> {
-  if (response.headers.get('Content-Type')?.includes('application/json')) {
+  const contentType = response.headers?.get('Content-Type')
+
+  if (contentType?.includes('application/json')) {
     return response.json()
   }
 
-  if (response.headers.get('Content-Type')?.includes('text/plain')) {
+  if (contentType?.includes('text/plain')) {
     return response.text()
   }
 
-  if (
-    response.headers.get('Content-Type')?.includes('application/octet-stream')
-  ) {
+  if (contentType?.includes('application/octet-stream')) {
     return response.blob()
   }
 
