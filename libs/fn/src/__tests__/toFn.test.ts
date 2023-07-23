@@ -1,6 +1,7 @@
 import { expectTypeOf, test } from 'vitest'
 import { toFn } from '../toFn'
 
+// eslint-disable-next-line playwright/expect-expect
 test('methodToFn', () => {
   class Point {
     readonly x: number
@@ -16,6 +17,7 @@ test('methodToFn', () => {
   }
 
   const distance = toFn(Point, 'distance')
+
   expectTypeOf(
     distance(new Point(1, 2), new Point(3, 4)),
   ).toEqualTypeOf<number>()

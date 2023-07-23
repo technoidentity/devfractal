@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
+import invariant from 'tiny-invariant'
 import { expect, test } from 'vitest'
 import { LinkedList } from './LinkedList'
 
@@ -51,7 +51,8 @@ test('remove, find', () => {
   expect(one.find(1)).not.toBe(undefined)
   expect(one.findBy(v => v === 1)).not.toBe(undefined)
   const e = one.find(1)
-  e && one.remove(e)
+  invariant(e)
+  one.remove(e)
   expect(one.length).toBe(0)
   expect(one.first).toBe(undefined)
   expect(one.last).toBe(undefined)
@@ -59,17 +60,20 @@ test('remove, find', () => {
   const list = LinkedList.from([1, 2, 3, 4, 5])
 
   let link = list.find(1)
-  link && list.remove(link)
+  invariant(link)
+  list.remove(link)
 
   expect([...list]).toEqual([2, 3, 4, 5])
 
   link = list.findBy(v => v === 5)
-  link && list.remove(link)
+  invariant(link)
+  list.remove(link)
 
   expect([...list]).toEqual([2, 3, 4])
 
   link = list.find(3)
-  link && list.remove(link)
+  invariant(link)
+  list.remove(link)
 
   expect([...list]).toEqual([2, 4])
 })
@@ -77,32 +81,30 @@ test('remove, find', () => {
 test('insert', () => {
   const one = LinkedList.from<number>([1])
   const e = one.find(1)
-  e && one.insert(e, 2)
+  invariant(e)
+  one.insert(e, 2)
   expect([...one]).toEqual([2, 1])
 
   const list = LinkedList.from([1, 2, 3, 4, 5])
 
   let link = list.find(3)
   expect(link).not.toBe(undefined)
-  if (link) {
-    list.insert(link, 6)
-  }
+  invariant(link)
+  list.insert(link, 6)
 
   expect([...list]).toEqual([1, 2, 6, 3, 4, 5])
 
   link = list.find(1)
   expect(link).not.toBe(undefined)
-  if (link) {
-    list.insert(link, 6)
-  }
+  invariant(link)
+  list.insert(link, 6)
 
   expect([...list]).toEqual([6, 1, 2, 6, 3, 4, 5])
 
   link = list.find(5)
   expect(link).not.toBe(undefined)
-  if (link) {
-    list.insert(link, 6)
-  }
+  invariant(link)
+  list.insert(link, 6)
 
   expect([...list]).toEqual([6, 1, 2, 6, 3, 4, 6, 5])
 })

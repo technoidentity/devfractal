@@ -21,7 +21,7 @@
       "outputs": ["types", "dist/**"]
     },
     "lint": {
-      "outputs": []
+      "outputs": [".eslintcache"]
     },
     "clean": {
       "outputs": []
