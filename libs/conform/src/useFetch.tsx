@@ -1,7 +1,7 @@
 import { delay } from '@srtp/core'
 import { state$, useState$ } from '@srtp/local-state'
+import { axios } from '@srtp/web'
 import React from 'react'
-import axios from 'redaxios'
 
 type FetchState = Readonly<{
   data?: unknown
@@ -34,10 +34,10 @@ export function useFetch(url: string): FetchState {
     let cancelled = false
 
     delay(5000)
-      .then(async () => axios.get(url))
-      .then(res => {
+      .then(async () => axios({ method: 'get', url }))
+      .then(([data]) => {
         if (!cancelled) {
-          actions.success(res.data)
+          actions.success(data)
         }
       })
       .catch(err => {
