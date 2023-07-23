@@ -51,5 +51,5 @@ test('deepEqual', () => {
         num: 1,
       },
     ),
-  )
+  ).toBeTruthy()
 })

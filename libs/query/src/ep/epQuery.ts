@@ -22,12 +22,12 @@ import React from 'react'
 import invariant from 'tiny-invariant'
 import { linkfn } from '@srtp/endpoint'
 import { axios, urlcat } from '@srtp/web'
-import { api } from './api'
+import { defaultApi } from '../api'
 
 export type QueryArgs<Ep extends EndpointBase> = GetRequestArg<Ep> &
   GetParamsArg<Ep>
 
-const createQfn = (url: string) => async () => api.get(url)
+const createQfn = (url: string) => async () => defaultApi.get(url)
 
 export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<{
   result: UseQueryResult<z.infer<Ep['response'] & object>, Error>
@@ -98,7 +98,8 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       return result
     }
 
-    return useMutation<TData, Error, TVariables, TContext>(mutationFn, {
+    return useMutation<TData, Error, TVariables, TContext>({
+      mutationFn,
       ...options,
       onSettled: (data, error, variables, context) => {
         if (options?.invalidateKey) {

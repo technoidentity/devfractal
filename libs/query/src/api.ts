@@ -1,3 +1,3 @@
 import { createApi } from '@srtp/web'
 
-export const api = createApi()
+export const defaultApi = createApi()

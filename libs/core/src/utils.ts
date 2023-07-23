@@ -62,3 +62,7 @@ export function isKey<T extends object>(obj: T, k: PropertyKey): k is keyof T {
 export function hasKey<T extends object>(obj: T, k: PropertyKey): k is keyof T {
   return k in obj && obj.hasOwnProperty(k)
 }
+
+export const logAsyncError = (promise: Promise<any>) => {
+  promise.catch(console.error)
+}

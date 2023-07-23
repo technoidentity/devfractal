@@ -9,7 +9,7 @@ import {
 
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-import { api } from './api'
+import { defaultApi } from '../api'
 import { axios, urlcat } from '@srtp/web'
 
 export type QueryArgs<Ep extends EndpointBase> = (Ep extends {
@@ -34,7 +34,7 @@ export function createEndPointQuery<Ep extends EndpointBase>(
 
     const queryKey = query ? [path, query] : [path]
 
-    const queryFn = () => api.get(url)
+    const queryFn = () => defaultApi.get(url)
 
     const result = useQuery<any>({ queryKey, queryFn })
 

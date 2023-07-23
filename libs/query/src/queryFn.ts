@@ -5,7 +5,7 @@ import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
 
 import { joinPaths, urlcat } from '@srtp/web'
 import { z } from 'zod'
-import { api } from './api'
+import { defaultApi } from './api'
 
 export const Paths = z.array(z.string().or(z.number()).nullish())
 export type Paths = Readonly<z.infer<typeof Paths>>
@@ -42,7 +42,7 @@ export const queryFn =
     const rest = last ? queryKey.slice(0, -1) : queryKey
     const paths = cast(Paths, rest)
 
-    return api.get(toUrl(paths, qs))
+    return defaultApi.get(toUrl(paths, qs))
   }
 
 // Should be used only with raw useQuery
