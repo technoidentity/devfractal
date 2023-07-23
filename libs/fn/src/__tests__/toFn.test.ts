@@ -1,7 +1,6 @@
 import { expectTypeOf, test } from 'vitest'
 import { toFn } from '../toFn'
 
-// eslint-disable-next-line playwright/expect-expect
 test('methodToFn', () => {
   class Point {
     readonly x: number

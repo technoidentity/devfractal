@@ -14,7 +14,7 @@ module.exports = {
     'plugin:@tanstack/eslint-plugin-query/recommended',
 
     'turbo',
-    'plugin:playwright/recommended',
+    // 'plugin:playwright/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

@@ -1,6 +1,9 @@
-import { afterAll, afterEach, beforeAll } from 'vitest'
+import { afterAll, afterEach, beforeAll, expect } from 'vitest'
+import matchers from '@testing-library/jest-dom/matchers'
 
 import { server } from './mocks/server'
+
+expect.extend(matchers)
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen())
