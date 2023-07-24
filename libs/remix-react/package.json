@@ -31,6 +31,7 @@
     "@srtp/core": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/remix-core": "workspace:*",
+    "@srtp/react": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/validator": "workspace:*",
     "query-string": "8.1.0",

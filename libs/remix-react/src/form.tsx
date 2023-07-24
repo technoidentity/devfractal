@@ -105,17 +105,17 @@ export function createForm<Spec extends FormSpec>(
           serverErrors,
           errMsg,
           spec: getRawShape(spec),
-        } as const),
+        }) as const,
       [errMsg, form, serverErrors],
     )
 
     return (
       <Provider form={form}>
-        <FormContext.Provider value={value}>
+        <FormContext value={value}>
           <MyRemixForm {...props} onSubmit={onSubmit} form={form}>
             {children}
           </MyRemixForm>
-        </FormContext.Provider>
+        </FormContext>
       </Provider>
     )
   }

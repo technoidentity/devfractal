@@ -43,15 +43,15 @@ export function createInputsGroup<Spec extends FormSpec>(spec: Spec) {
           form,
           useContext: useMantineFormContext,
           spec: getRawShape(spec),
-        } as const),
+        }) as const,
       [form],
     )
 
     return (
       <MantineProvider form={form}>
-        <FormContext.Provider value={value}>
+        <FormContext value={value}>
           <form>{children}</form>
-        </FormContext.Provider>
+        </FormContext>
       </MantineProvider>
     )
   }

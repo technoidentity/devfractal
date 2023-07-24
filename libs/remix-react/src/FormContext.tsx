@@ -1,10 +1,9 @@
 import type { UseFormReturnType } from '@mantine/form'
+import { context } from '@srtp/react'
 import type { FormErrors } from '@srtp/remix-core'
 import type { GetRawShape } from '@srtp/spec'
 import type { FormSpec } from '@srtp/validator'
-import React from 'react'
 import type { z } from 'zod'
-import { useSafeContext } from './useSafeContext'
 
 export type FormContext<Spec extends FormSpec> = {
   form: UseFormReturnType<
@@ -20,9 +19,6 @@ export type FormContext<Spec extends FormSpec> = {
   errMsg?: (key: keyof z.infer<Spec>) => string | undefined
 }
 
-export const FormContext = React.createContext<FormContext<any> | undefined>(
-  undefined,
-)
-
-export const useFormContext = <Spec extends FormSpec>(): FormContext<Spec> =>
-  useSafeContext(FormContext, 'use FormContext')
+export const [FormContext, useFormContext] = context<FormContext<any>>({
+  errorMessage: 'use FormContext Provider',
+})

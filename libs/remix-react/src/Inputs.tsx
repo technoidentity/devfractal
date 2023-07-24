@@ -49,8 +49,8 @@ import { useFormContext } from './FormContext'
 
 type Named<T, Name = string> = T & Readonly<{ name: Name }>
 
-export const Str = <Spec extends FormSpec>(props: Named<TextInputProps>) => {
-  const { form, errMsg, spec } = useFormContext<Spec>()
+export const Str = (props: Named<TextInputProps>) => {
+  const { form, errMsg, spec } = useFormContext()
 
   return (
     <TextInput
