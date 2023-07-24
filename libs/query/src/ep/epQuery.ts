@@ -10,24 +10,25 @@ import {
   type UseQueryResult,
 } from '@tanstack/react-query'
 
-import { type z } from 'zod'
 import type {
   EndpointBase,
+  EndpointRecordBase,
   GetEpResponse,
   GetParamsArg,
   GetRequestArg,
 } from '@srtp/endpoint'
+import { type z } from 'zod'
 
+import { keysfn, linkfn } from '@srtp/endpoint'
+import { axios, joinPaths, urlcat } from '@srtp/web'
 import React from 'react'
 import invariant from 'tiny-invariant'
-import { linkfn } from '@srtp/endpoint'
-import { axios, urlcat } from '@srtp/web'
 import { defaultApi } from '../api'
 
 export type QueryArgs<Ep extends EndpointBase> = GetRequestArg<Ep> &
   GetParamsArg<Ep>
 
-const createQfn = (url: string) => async () => defaultApi.get(url)
+const createQfn = (url: string) => () => defaultApi.get(url)
 
 export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<{
   result: UseQueryResult<z.infer<Ep['response'] & object>, Error>
@@ -39,17 +40,22 @@ export function epQuery<Ep extends EndpointBase>(
   endpoint: Ep,
   baseUrl: string,
 ) {
+  invariant(endpoint.method === 'get', 'endpoint must be a GET endpoint')
+
   return function useEpQuery(options: QueryArgs<Ep>): UseEpQueryResult<Ep> {
-    // const url = urlcat(baseUrl, route(endpoint.path), options.path)
+    const paths = keysfn(endpoint.path, options.params)
 
-    const path = linkfn<Ep['path']>(endpoint.path)(options.params)
-    const query = options.request
-    const url = urlcat(baseUrl, path, query)
+    const query = endpoint.request
+      ? cast(endpoint.request, options.request)
+      : options.request
 
-    // @TODO: what should be the path? split or concat?
-    const queryKey = query ? [path, query] : [path]
+    const url = urlcat(baseUrl, joinPaths(paths), query)
 
-    const result: any = useQuery({ queryKey, queryFn: createQfn(url) })
+    const queryKey = query ? [paths, query] : paths
+
+    const queryFn = React.useMemo(() => createQfn(url), [url])
+
+    const result: any = useQuery({ ...options, queryKey, queryFn })
 
     invariant(endpoint.response, 'endpoint must have a response schema')
 
@@ -57,6 +63,27 @@ export function epQuery<Ep extends EndpointBase>(
 
     return { data, result, invalidateKey: queryKey }
   }
+}
+
+export type EpQueriesHooks<Eps extends EndpointRecordBase> = {
+  [K in keyof Eps as `use${Capitalize<K & string>}Query`]: (
+    options: QueryArgs<Eps[K]>,
+  ) => UseEpQueryResult<Eps[K]>
+}
+
+export function epQueries<Eps extends EndpointRecordBase>(
+  eps: Eps,
+  baseUrl: string,
+): EpQueriesHooks<Eps> {
+  const result: any = {}
+  for (const key of Object.keys(eps)) {
+    const ep = eps[key]
+
+    invariant(ep.method === 'get', 'endpoint must be a GET endpoint')
+    result[key] = epQuery(ep, baseUrl)
+  }
+
+  return result
 }
 
 export type MutationDescription<Ep extends EndpointBase> = GetParamsArg<Ep> &
@@ -72,6 +99,8 @@ export type UseEpMutationOptions<
 }
 
 export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
+  invariant(ep.method !== 'get', 'endpoint must be a GET endpoint')
+
   type TData = GetEpResponse<Ep>
 
   return function useEpMutationBase<TVariables, TContext>(
@@ -181,4 +210,25 @@ export function epOptimistic<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       },
     )
   }
+}
+
+export type EpMutationsHooks<Eps extends EndpointRecordBase> = {
+  [K in keyof Eps as `use${Capitalize<K & string>}Mutation`]: (
+    options: UseEpMutationOptions<Eps[K], any, any>,
+  ) => UseMutationResult<GetEpResponse<Eps[K]>, Error, any, any>
+}
+
+export function epMutations<Eps extends EndpointRecordBase>(
+  eps: Eps,
+  baseUrl: string,
+): EpMutationsHooks<Eps> {
+  const result: any = {}
+  for (const key of Object.keys(eps)) {
+    const ep = eps[key]
+
+    invariant(ep.method !== 'get', 'endpoint must be a GET endpoint')
+    result[key] = epMutation(ep, baseUrl)
+  }
+
+  return result
 }
