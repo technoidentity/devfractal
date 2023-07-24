@@ -33,3 +33,17 @@ export const useDeferredEvent = <F extends (...args: any[]) => any>(fn: F) => {
 
   return [isPending, deferredFn] as const
 }
+
+export function useAsyncEvent<F extends (...args: any[]) => Promise<any>>(
+  fn: F,
+  onError?: (err: unknown) => void,
+) {
+  const { showBoundary } = useErrorBoundary()
+
+  return useEvent((...args: Parameters<F>) =>
+    fn(...args).catch(error => {
+      onError?.(error)
+      showBoundary(error)
+    }),
+  )
+}
