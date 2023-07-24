@@ -20,6 +20,9 @@ const queryClient = new QueryClient({
       useErrorBoundary: true,
       suspense: true,
     },
+    mutations: {
+      useErrorBoundary: true,
+    },
   },
 })
 

@@ -26,13 +26,18 @@ export function createQueryClient({
   }
 
   return new QueryClient({
-    queryCache: new QueryCache({
-      onError,
-    }),
+    queryCache: new QueryCache({ onError }),
     ...options,
     defaultOptions: {
       ...options.defaultOptions,
-      queries,
+      queries: {
+        ...queries,
+        ...options.defaultOptions?.queries,
+      },
+      mutations: {
+        useErrorBoundary: true,
+        ...options.defaultOptions?.mutations,
+      },
     },
   })
 }

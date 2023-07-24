@@ -16,7 +16,7 @@ const toUrl = (
   query?: Record<string, any>,
 ): string => {
   const ps = (paths ?? []) as string[]
-  return urlcat(basePath, joinPaths(...ps), query)
+  return urlcat(basePath, joinPaths(ps), query)
 }
 
 export const createToUrl =

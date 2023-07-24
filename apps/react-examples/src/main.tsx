@@ -15,6 +15,9 @@ const qc = new QueryClient({
       suspense: true,
       useErrorBoundary: true,
     },
+    mutations: {
+      useErrorBoundary: true,
+    },
   },
 })
 

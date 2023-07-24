@@ -4,13 +4,12 @@ import {
   useQuery,
   type QueryKey,
   type UseMutationOptions,
-  type UseQueryOptions,
   type UseMutationResult,
+  type UseQueryOptions,
 } from '@tanstack/react-query'
 import React from 'react'
 import type { z } from 'zod'
 import type { Paths } from './queryFn'
-import { useErrorBoundary } from 'react-error-boundary'
 
 type Query = Record<
   string | number,
@@ -78,17 +77,12 @@ export function useSafeMutation<
 ): UseMutationResult<z.infer<Spec>, TError, TVariables, TContext> {
   // eslint-disable-next-line @tanstack/query/prefer-query-object-syntax
   const result = useMutation(options)
-  const { showBoundary } = useErrorBoundary()
 
   React.useEffect(() => {
     if (result.data) {
-      try {
-        ensure(spec, result.data)
-      } catch (error) {
-        showBoundary(error)
-      }
+      ensure(spec, result.data)
     }
-  }, [result.data, showBoundary, spec])
+  }, [result.data, spec])
 
   return result
 }
