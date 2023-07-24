@@ -35,10 +35,6 @@ export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<{
   invalidateKey: QueryKey
 }>
 
-const formUrl = (baseUrl: string, path: string, query?: object) => {
-  return urlcat(baseUrl, path, query)
-}
-
 export function epQuery<Ep extends EndpointBase>(
   endpoint: Ep,
   baseUrl: string,
@@ -48,7 +44,7 @@ export function epQuery<Ep extends EndpointBase>(
 
     const path = linkfn<Ep['path']>(endpoint.path)(options.params)
     const query = options.request
-    const url = formUrl(baseUrl, path, query)
+    const url = urlcat(baseUrl, path, query)
 
     // @TODO: what should be the path? split or concat?
     const queryKey = query ? [path, query] : [path]
