@@ -3,7 +3,7 @@ import type { Dispatch, ReducerAction } from 'react'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import { useImmerReducer } from 'use-immer'
-import { useIsomorphicEffect } from '@srtp/react'
+import { context, useIsomorphicEffect } from '@srtp/react'
 
 type Actions<S, A> = (prevState: Draft<S>, action: A) => void
 
@@ -17,35 +17,22 @@ export function tree$<R extends Actions<any, any>>(
   initialState: State<R>,
   actions: R,
 ) {
-  const StateContext = React.createContext<State<R> | undefined>(undefined)
+  const [StateContext, useValue] = context<State<R>>({
+    errorMessage: 'Missing tree Provider',
+  })
 
-  const DispatchContext = React.createContext<
-    Dispatch<ReducerAction<R>> | undefined
-  >(undefined)
+  const [DispatchContext, useDispatch] = context<Dispatch<ReducerAction<R>>>({
+    errorMessage: 'Missing tree Provider',
+  })
 
   const Provider = ({ children }: { children: React.ReactNode }) => {
     const [state, dispatch] = useImmerReducer(actions, initialState)
 
     return (
-      <StateContext.Provider value={state}>
-        <DispatchContext.Provider value={dispatch}>
-          {children}
-        </DispatchContext.Provider>
-      </StateContext.Provider>
+      <StateContext value={state}>
+        <DispatchContext value={dispatch}>{children}</DispatchContext>
+      </StateContext>
     )
-  }
-
-  const useValue = () => {
-    const ctx = React.useContext(StateContext)
-    invariant(ctx !== undefined, 'Need slice Provider')
-    return ctx
-  }
-
-  const useDispatch = () => {
-    const ctx = React.useContext(DispatchContext)
-    invariant(ctx !== undefined, 'Need slice Provider')
-
-    return ctx
   }
 
   function useAction<Args extends any[]>(

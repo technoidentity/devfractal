@@ -1,25 +1,19 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Button, ButtonGroup, Container } from '@chakra-ui/react'
-import React, { useContext } from 'react'
-import invariant from 'tiny-invariant'
+import { context } from '@srtp/react'
+import React from 'react'
 
-type WizardContext =
-  | {
-      activePageIdx: number
-      steps: number
-      handlePrevious(): void
-      handleNext(): void
-      setSteps(steps: number): void
-    }
-  | undefined
-
-const WizardContext = React.createContext<WizardContext | undefined>(undefined)
-
-export const useWizard = () => {
-  const context = useContext(WizardContext)
-  invariant(context !== undefined, 'wizard provider must be used')
-  return context
+type WizardContext = {
+  activePageIdx: number
+  steps: number
+  handlePrevious(): void
+  handleNext(): void
+  setSteps(steps: number): void
 }
+
+const [WizardContext, useWizard] = context<WizardContext>({
+  errorMessage: 'missing WizardContext Provider',
+})
 
 export const ButtonPrev = () => {
   const { handlePrevious, activePageIdx } = useWizard()
@@ -124,9 +118,9 @@ export const Wizard = ({ children }: WizardProps) => {
   )
 
   return (
-    <WizardContext.Provider value={context}>
+    <WizardContext value={context}>
       <Container w="400px">{children}</Container>
-    </WizardContext.Provider>
+    </WizardContext>
   )
 }
 
