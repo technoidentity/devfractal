@@ -9,7 +9,7 @@ export const rqGet = async <Key extends readonly unknown[]>(
   return (
     await axios({
       method: 'get',
-      url: urlcat('/api', joinPaths(...keys)),
+      url: urlcat('/api', joinPaths(keys)),
     })
   )[0]
 }

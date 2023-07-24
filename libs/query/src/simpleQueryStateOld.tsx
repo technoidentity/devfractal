@@ -35,13 +35,16 @@ async function apiMethod<T>(
 
 export const simpleQueryState = <
   QuerySpec extends z.ZodTypeAny,
+  TQueryFnData,
   Hs extends Handlers,
 >(
-  queryOptions: UseSafeQueryArgs<QuerySpec>,
+  queryOptions: UseSafeQueryArgs<QuerySpec, TQueryFnData>,
   mutationHandlers: Hs,
 ) => {
   const useQuery = (
-    moreQueryOptions: Partial<Omit<UseSafeQueryArgs<QuerySpec>, 'queryKey'>>,
+    moreQueryOptions: Partial<
+      Omit<UseSafeQueryArgs<QuerySpec, TQueryFnData>, 'queryKey'>
+    >,
   ) => {
     return useSafeQuery({ ...queryOptions, ...moreQueryOptions })
   }

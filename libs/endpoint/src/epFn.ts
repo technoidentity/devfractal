@@ -30,8 +30,8 @@ export function linkfn<const Paths extends PathBase>(
 
 export function keysfn<const Path extends PathBase>(
   path: Path,
-  params: Params<Path>,
-) {
+  params?: Params<Path>,
+): string[] {
   const keys: string[] = []
   for (const segment of path) {
     const values = isObject(segment)

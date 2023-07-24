@@ -1,7 +1,7 @@
 import type { Draft } from 'immer'
 import type { Dispatch, ReducerAction } from 'react'
 import React from 'react'
-import invariant from 'tiny-invariant'
+
 import { useImmerReducer } from 'use-immer'
 import { context, useIsomorphicEffect } from '@srtp/react'
 

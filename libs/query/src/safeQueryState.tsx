@@ -60,25 +60,29 @@ async function apiMethod<T>(
 type QueryStateArgs<
   Path extends PathBase,
   QuerySpec extends z.ZodTypeAny,
+  TQueryFnData,
   Hs extends Handlers,
 > = {
   path: Path
-  queryOptions: Omit<UseSafeQueryArgs<QuerySpec>, 'paths'>
+  queryOptions: Omit<UseSafeQueryArgs<QuerySpec, TQueryFnData>, 'paths'>
   mutationHandlers: Hs
 }
 export const queryState = <
   Path extends PathBase,
   QuerySpec extends z.ZodTypeAny,
+  TQueryFnData,
   Hs extends Handlers,
 >({
   path,
   queryOptions,
   mutationHandlers,
-}: QueryStateArgs<Path, QuerySpec, Hs>) => {
+}: QueryStateArgs<Path, QuerySpec, TQueryFnData, Hs>) => {
   let invalidateKey: string[]
 
   const useQuery = (
-    options: { params: Params<Path> } & Partial<UseSafeQueryArgs<QuerySpec>>,
+    options: { params: Params<Path> } & Partial<
+      UseSafeQueryArgs<QuerySpec, TQueryFnData>
+    >,
   ) => {
     invalidateKey = keysfn(path, options.params)
     return useSafeQuery({

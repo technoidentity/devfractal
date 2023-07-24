@@ -98,8 +98,7 @@ function join(path1: string, path2: string): string {
   return result.endsWith('/') ? result.slice(0, -1) : result
 }
 
-// @TODO: This has to be good as it's to concatenate queryKeys
-export function joinPaths(...paths: string[]) {
+export function joinPaths(paths: string[]) {
   if (paths.length === 0) {
     return '/'
   }
