@@ -51,24 +51,26 @@ describe('urlcat', () => {
 
 describe('joinPaths', () => {
   test('should join paths correctly', () => {
-    expect(joinPaths('/path1', 'path2', '/path3')).toEqual('/path1/path2/path3')
-    expect(joinPaths('path1', 'path2', 'path3')).toEqual('/path1/path2/path3')
-    expect(joinPaths('/path1/', '/path2/', '/path3/')).toEqual(
+    expect(joinPaths(['/path1', 'path2', '/path3'])).toEqual(
+      '/path1/path2/path3',
+    )
+    expect(joinPaths(['path1', 'path2', 'path3'])).toEqual('/path1/path2/path3')
+    expect(joinPaths(['/path1/', '/path2/', '/path3/'])).toEqual(
       '/path1/path2/path3',
     )
   })
 
   test('should return a single slash if no paths are provided', () => {
-    expect(joinPaths()).toEqual('/')
+    expect(joinPaths([])).toEqual('/')
   })
 
   test('should handle empty paths correctly', () => {
-    expect(joinPaths('', '', '')).toEqual('/')
-    expect(joinPaths('/path1', '', '/path3')).toEqual('/path1/path3')
-    expect(joinPaths('/path1/', '/path2/', '/path3/', '')).toEqual(
+    expect(joinPaths(['', '', ''])).toEqual('/')
+    expect(joinPaths(['/path1', '', '/path3'])).toEqual('/path1/path3')
+    expect(joinPaths(['/path1/', '/path2/', '/path3/', ''])).toEqual(
       '/path1/path2/path3',
     )
-    expect(joinPaths('', '/path1/', '/path2/', '/path3/', '')).toEqual(
+    expect(joinPaths(['', '/path1/', '/path2/', '/path3/', ''])).toEqual(
       '/path1/path2/path3',
     )
   })

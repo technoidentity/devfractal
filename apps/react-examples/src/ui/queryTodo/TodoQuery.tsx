@@ -107,7 +107,7 @@ const tabs = ['All', 'Incomplete', 'Completed']
 
 export const TodoQueryApp = () => {
   const [activeTab, setActiveTab] = useString(tabs[0])
-  const { data } = useTodoList()
+  const [data] = useTodoList()
 
   return (
     <ChakraProvider>
