@@ -32,10 +32,8 @@ export function AppProvider({
   )
 
   return (
-    <DepartmentsContext.Provider value={depValue}>
-      <UsersContext.Provider value={usersValue}>
-        {children}
-      </UsersContext.Provider>
-    </DepartmentsContext.Provider>
+    <DepartmentsContext value={depValue}>
+      <UsersContext value={usersValue}>{children}</UsersContext>
+    </DepartmentsContext>
   )
 }

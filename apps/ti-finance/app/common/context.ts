@@ -1,7 +1,7 @@
 import { mget } from '@srtp/fn'
-import { useSafeContext } from '@srtp/remix-react'
-import React, { createContext } from 'react'
+import React from 'react'
 import { capitalize } from './stringUtil'
+import { context } from '@srtp/react'
 
 type User = { tiId: string; username: string }
 type Department = { id: number; name: string }
@@ -16,19 +16,15 @@ type UsersContext = {
   usersMap: Map<string, User>
 }
 
-export const DepartmentsContext = createContext<DepartmentsContext | undefined>(
-  undefined,
+export const [DepartmentsContext, useDepartments] = context<DepartmentsContext>(
+  {
+    errorMessage: 'use DepartmentsContext Provider',
+  },
 )
 
-export const UsersContext = createContext<UsersContext | undefined>(undefined)
-
-export function useDepartments() {
-  return useSafeContext(DepartmentsContext, 'use DepartmentsContext')
-}
-
-export function useUsers() {
-  return useSafeContext(UsersContext, 'use UsersContext')
-}
+export const [UsersContext, useUsers] = context<UsersContext>({
+  errorMessage: 'use UsersContext Provider',
+})
 
 export function useUserName() {
   const { usersMap } = useUsers()
