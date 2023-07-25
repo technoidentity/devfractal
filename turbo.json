@@ -24,6 +24,8 @@
       "outputs": [".eslintcache"]
     },
     "clean": {
+      "cache": false,
+      "persistent": false,
       "outputs": []
     },
     "upd": {

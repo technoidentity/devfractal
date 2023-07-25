@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
     "@conform-to/dom": "0.7.4",
@@ -20,10 +21,12 @@
   "devDependencies": {
     "@rollup/plugin-replace": "5.0.2",
     "@types/node": "20.4.4",
-    "@types/react": "18.2.15",
+    "@types/react": "18.2.16",
     "@types/react-dom": "18.2.7",
     "@vitejs/plugin-react": "4.0.3",
+    "prettier": "3.0.0",
+    "rimraf": "5.0.1",
     "typescript": "5.1.6",
-    "vite": "4.4.6"
+    "vite": "4.4.7"
   }
 }

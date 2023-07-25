@@ -27,6 +27,7 @@
     "eslint-config-srtp": "workspace:*",
     "fastify-tsconfig": "1.0.1",
     "prettier": "3.0.0",
+    "rimraf": "5.0.1",
     "tsx": "3.12.7",
     "typescript": "5.1.6"
   }
