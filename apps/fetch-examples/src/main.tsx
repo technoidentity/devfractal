@@ -19,6 +19,11 @@ const client = new QueryClient({
   },
 })
 
+if (import.meta.env.DEV) {
+  const { worker } = await import('./mocks/browser')
+  await worker.start()
+}
+
 root.render(
   <ErrorBoundary fallback={<h1>Something went wrong</h1>}>
     <Suspense fallback={<h1>Loading...</h1>}>
