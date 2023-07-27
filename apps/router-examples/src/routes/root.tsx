@@ -49,7 +49,8 @@ export const rootRouter: RouteObject = {
   ],
   element: (
     <Box p="10">
-      <Heading pb={2}>Books Library</Heading> <Outlet />{' '}
+      <Heading pb={2}>Books Library</Heading>
+      <Outlet />
     </Box>
   ),
 }

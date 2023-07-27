@@ -356,6 +356,9 @@ importers:
         specifier: 3.21.4
         version: 3.21.4
     devDependencies:
+      '@faker-js/faker':
+        specifier: 8.0.2
+        version: 8.0.2
       '@srtp/tsconfig':
         specifier: workspace:*
         version: link:../../libs/tsconfig
@@ -401,6 +404,9 @@ importers:
       json-server:
         specifier: 0.17.3
         version: 0.17.3
+      msw:
+        specifier: 1.2.3
+        version: 1.2.3(typescript@5.1.6)
       prettier:
         specifier: 3.0.0
         version: 3.0.0
@@ -26488,7 +26494,7 @@ packages:
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
-      chokidar: 3.5.2
+      chokidar: 3.5.3
     dev: true
 
   /saxes@6.0.0:
