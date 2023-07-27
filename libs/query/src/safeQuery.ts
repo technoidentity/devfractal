@@ -1,7 +1,9 @@
-import { cast, ensure } from '@srtp/spec'
+import { useEvent } from '@srtp/react'
+import { cast } from '@srtp/spec'
 import {
   useMutation,
   useQuery,
+  useQueryClient,
   type QueryKey,
   type UseMutationOptions,
   type UseMutationResult,
@@ -9,18 +11,19 @@ import {
 } from '@tanstack/react-query'
 import React from 'react'
 import type { z } from 'zod'
-import type { Paths } from './queryFn'
+import type { Paths } from './review/queryFn'
+
+// @TODO: Make sure only Error is thrown, else convert it to Error
 
 type Query = Record<
   string | number,
   string | number | boolean | null | undefined
 >
 
-export type UseSafeQueryArgs<
-  Spec extends z.ZodTypeAny,
-  TQueryFnData,
-  TError = unknown,
-> = Omit<UseQueryOptions<TQueryFnData, TError, z.infer<Spec>>, 'queryKey'> &
+export type UseSafeQueryArgs<Spec extends z.ZodTypeAny, TQueryFnData> = Omit<
+  UseQueryOptions<TQueryFnData, Error, z.infer<Spec>>,
+  'queryKey'
+> &
   Readonly<{
     paths: Paths
     spec: Spec
@@ -32,14 +35,13 @@ export type UseSafeQueryArgs<
 export function useQueryBase<
   Spec extends z.ZodTypeAny,
   TQueryFnData,
-  TError = unknown,
   TQueryKey extends QueryKey = QueryKey,
 >(
   spec: Spec,
-  options: UseQueryOptions<TQueryFnData, TError, z.infer<Spec>, TQueryKey>,
+  options: UseQueryOptions<TQueryFnData, Error, z.infer<Spec>, TQueryKey>,
 ) {
   // eslint-disable-next-line @tanstack/query/prefer-query-object-syntax
-  const result = useQuery<TQueryFnData, TError, z.infer<Spec>, TQueryKey>(
+  const result = useQuery<TQueryFnData, Error, z.infer<Spec>, TQueryKey>(
     options,
   )
 
@@ -47,42 +49,47 @@ export function useQueryBase<
   return [data, result] as const
 }
 
-export function useSafeQuery<
-  Spec extends z.ZodTypeAny,
-  TQueryFnData,
-  TError = unknown,
->({
+export function useSafeQuery<Spec extends z.ZodTypeAny, TQueryFnData>({
   spec,
   paths,
   query,
   ...options
-}: UseSafeQueryArgs<Spec, TQueryFnData, TError>) {
+}: UseSafeQueryArgs<Spec, TQueryFnData>) {
   const opts = React.useMemo(() => {
     const enabled = (paths.every(p => !!p) && options?.enabled) || true
     return { ...options, enabled }
   }, [options, paths])
 
   const queryKey = query ? [...paths, query] : paths
-  return useQueryBase<Spec, TQueryFnData, TError>(spec, { queryKey, ...opts })
+
+  const result = useQueryBase<Spec, TQueryFnData>(spec, { queryKey, ...opts })
+  return [...result, queryKey] as const
 }
 
 export function useSafeMutation<
   Spec extends z.ZodTypeAny,
-  TError = unknown,
   TVariables = void,
   TContext = unknown,
 >(
   spec: Spec,
-  options: UseMutationOptions<z.infer<Spec>, TError, TVariables, TContext>,
-): UseMutationResult<z.infer<Spec>, TError, TVariables, TContext> {
+  options: UseMutationOptions<z.infer<Spec>, Error, TVariables, TContext>,
+): UseMutationResult<z.infer<Spec>, Error, TVariables, TContext> {
+  // Currently useMutatation doesn't track result unlike useQuery.
+  // So the following destructuring is safe.
   // eslint-disable-next-line @tanstack/query/prefer-query-object-syntax
-  const result = useMutation(options)
+  const { data, ...result } = useMutation(options)
 
-  React.useEffect(() => {
-    if (result.data) {
-      ensure(spec, result.data)
-    }
-  }, [result.data, spec])
+  // Need to make sure that the data returned by mutation is of type Spec
+  const typedData: typeof data = React.useMemo(
+    () => (data ? cast(spec, data) : undefined),
+    [data, spec],
+  )
 
-  return result
+  return { data: typedData, ...result }
+}
+
+export const useInvalidate = (key: QueryKey) => {
+  const qc = useQueryClient()
+
+  return useEvent(() => qc.invalidateQueries(key).catch(console.error))
 }

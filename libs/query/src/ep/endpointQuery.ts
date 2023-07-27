@@ -1,4 +1,4 @@
-import type { EndpointBase, Params } from '@srtp/endpoint'
+import type { EndpointBase, GetEpResponse, Params } from '@srtp/endpoint'
 import { linkfn } from '@srtp/endpoint'
 import { cast } from '@srtp/spec'
 import {
@@ -25,18 +25,16 @@ export function createEndPointQuery<Ep extends EndpointBase>(
   endpoint: Ep,
   baseUrl: string,
 ) {
-  return (
-    options: QueryArgs<Ep>,
-  ): UseQueryResult<z.infer<Ep['response'] & object>> => {
+  return (options: QueryArgs<Ep>): UseQueryResult<GetEpResponse<Ep>> => {
     const path = linkfn<Ep['path']>(endpoint.path)(options.request)
     const query = options.query
     const url = urlcat(baseUrl, path, query)
 
     const queryKey = query ? [path, query] : [path]
 
-    const queryFn = () => defaultApi.get(url)
+    const queryFn = () => defaultApi.get(url) as Promise<GetEpResponse<Ep>>
 
-    const result = useQuery<any>({ queryKey, queryFn })
+    const result = useQuery({ queryKey, queryFn })
 
     invariant(endpoint.response, 'endpoint must have a response schema')
 

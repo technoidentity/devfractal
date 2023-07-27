@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-function-type */
 import type {
   EndpointBase,
   EndpointRecordBase,
@@ -10,29 +9,43 @@ import {
   epMutation,
   epQuery,
   type QueryArgs,
-  type UseEpMutationOptions,
+  type MutationArgs,
   type UseEpQueryResult,
+  epOptimistic,
+  type UseOptimisticArgs,
 } from './epQuery'
 
-export type QueryFn<Ep extends EndpointBase> = (
-  options: QueryArgs<Ep>,
+export type QueryFn<Ep extends EndpointBase> = <TQueryFnData>(
+  options: QueryArgs<Ep, TQueryFnData>,
 ) => UseEpQueryResult<Ep>
 
-export type MutationFn<Ep extends EndpointBase> = {
-  <TVariables, TContext>(
-    options: UseEpMutationOptions<Ep, TVariables, TContext>,
-  ): UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
-}
 export type Queries<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? K
     : never]: QueryFn<Ep[K]>
 }
 
+export type MutationFn<Ep extends EndpointBase> = <TVariables, TContext>(
+  options: MutationArgs<Ep, TVariables, TContext>,
+) => UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
+
 export type Mutations<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? never
     : K]: MutationFn<Ep[K]>
+}
+
+export type OptimisticMutationFn<Ep extends EndpointBase> = <
+  TVariables,
+  TContext,
+>(
+  options: UseOptimisticArgs<Ep, TVariables, TContext>,
+) => UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
+
+export type OptimisticMutations<Ep extends EndpointRecordBase> = {
+  readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
+    ? never
+    : K]: OptimisticMutationFn<Ep[K]>
 }
 
 export type Hookify<R extends Record<string, unknown>> = {
@@ -42,27 +55,72 @@ export type Hookify<R extends Record<string, unknown>> = {
 export type EndpointApi<Ep extends EndpointRecordBase> = Hookify<Queries<Ep>> &
   Hookify<Mutations<Ep>>
 
+export type OptimisticEndpointApi<Ep extends EndpointRecordBase> = Hookify<
+  Queries<Ep>
+> &
+  Hookify<OptimisticMutations<Ep>>
+
+function createGetApi<Eps extends EndpointRecordBase>(
+  endpoints: Eps,
+  baseUrl: string,
+) {
+  const getEndpoints = Object.entries(endpoints).filter(
+    ([, endpoint]) => endpoint.method === 'get',
+  )
+  return Object.fromEntries(
+    getEndpoints.map(([key, endpoint]) => [
+      `use${capitalize(key)}`,
+      epQuery(endpoint, baseUrl),
+    ]),
+  )
+}
+
+function createMutationsApi<Eps extends EndpointRecordBase>(
+  endpoints: Eps,
+  baseUrl: string,
+) {
+  const mutationEndponts = Object.entries(endpoints).filter(
+    ([, endpoint]) => endpoint.method !== 'get',
+  )
+  return Object.fromEntries(
+    mutationEndponts.map(([key, endpoint]) => [
+      `use${capitalize(key)}`,
+      epMutation(endpoint, baseUrl),
+    ]),
+  )
+}
+
 export function createEpApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
   baseUrl: string,
 ): EndpointApi<Eps> {
-  const queries: any = Object.fromEntries(
-    Object.entries(endpoints)
-      .filter(([, endpoint]) => endpoint.method === 'get')
-      .map(([key, endpoint]) => [
-        `use${capitalize(key)}`,
-        epQuery(endpoint as EndpointBase, baseUrl),
-      ]),
-  )
+  const queries = createGetApi(endpoints, baseUrl)
+  const mutations = createMutationsApi(endpoints, baseUrl)
 
-  const mutations: any = Object.fromEntries(
-    Object.entries(endpoints)
-      .filter(([, endpoint]) => endpoint.method !== 'get')
-      .map(([key, endpoint]) => [
-        `use${capitalize(key)}`,
-        epMutation(endpoint as EndpointBase, baseUrl),
-      ]),
-  )
+  return { ...queries, ...mutations } as any
+}
 
-  return { ...queries, ...mutations }
+function createOptimisticMutationsApi<Eps extends EndpointRecordBase>(
+  endpoints: Eps,
+  baseUrl: string,
+) {
+  const mutationEndponts = Object.entries(endpoints).filter(
+    ([, endpoint]) => endpoint.method !== 'get',
+  )
+  return Object.fromEntries(
+    mutationEndponts.map(([key, endpoint]) => [
+      `use${capitalize(key)}`,
+      epOptimistic(endpoint, baseUrl),
+    ]),
+  )
+}
+
+export function createEpOptomisticApi<Eps extends EndpointRecordBase>(
+  endpoints: Eps,
+  baseUrl: string,
+): OptimisticEndpointApi<Eps> {
+  const queries = createGetApi(endpoints, baseUrl)
+  const mutations = createOptimisticMutationsApi(endpoints, baseUrl)
+
+  return { ...queries, ...mutations } as any
 }

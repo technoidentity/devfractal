@@ -1,12 +1,12 @@
 import { cast } from '@srtp/spec'
 import {
   useMutation,
-  useQuery,
   useQueryClient,
   type MutationFunction,
   type QueryKey,
   type UseMutationOptions,
   type UseMutationResult,
+  type UseQueryOptions,
   type UseQueryResult,
 } from '@tanstack/react-query'
 
@@ -17,57 +17,64 @@ import type {
   GetParamsArg,
   GetRequestArg,
 } from '@srtp/endpoint'
-import { type z } from 'zod'
 
 import { keysfn, linkfn } from '@srtp/endpoint'
 import { axios, joinPaths, urlcat } from '@srtp/web'
 import React from 'react'
 import invariant from 'tiny-invariant'
+import type { z } from 'zod'
 import { defaultApi } from '../api'
+import { useSafeQuery } from '../safeQuery'
+import { useEvent } from '@srtp/react'
+import { buildObject$ } from '@srtp/fn'
 
-export type QueryArgs<Ep extends EndpointBase> = GetRequestArg<Ep> &
-  GetParamsArg<Ep>
+export type QueryArgs<
+  Ep extends EndpointBase,
+  TQueryFnData,
+> = GetRequestArg<Ep> &
+  GetParamsArg<Ep> &
+  Omit<UseQueryOptions<TQueryFnData, Error, GetEpResponse<Ep>>, 'queryKey'>
 
-const createQfn = (url: string) => () => defaultApi.get(url)
+export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<
+  [
+    result: UseQueryResult<z.infer<Ep['response'] & object>, Error>,
+    data: z.infer<Ep['response'] & object>,
+    invalidateKey: QueryKey,
+  ]
+>
 
-export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<{
-  result: UseQueryResult<z.infer<Ep['response'] & object>, Error>
-  data: z.infer<Ep['response'] & object>
-  invalidateKey: QueryKey
-}>
+export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
+  invariant(ep.method === 'get', 'endpoint must be a GET endpoint')
 
-export function epQuery<Ep extends EndpointBase>(
-  endpoint: Ep,
-  baseUrl: string,
-) {
-  invariant(endpoint.method === 'get', 'endpoint must be a GET endpoint')
+  return function useEpQuery<TQueryFnData>(
+    options: QueryArgs<Ep, TQueryFnData>,
+  ) {
+    const paths = keysfn(ep.path, options.params)
 
-  return function useEpQuery(options: QueryArgs<Ep>): UseEpQueryResult<Ep> {
-    const paths = keysfn(endpoint.path, options.params)
-
-    const query = endpoint.request
-      ? cast(endpoint.request, options.request)
+    const query = ep.request
+      ? cast(ep.request, options.request)
       : options.request
 
-    const url = urlcat(baseUrl, joinPaths(paths), query)
+    const url = React.useMemo(
+      () => urlcat(baseUrl, joinPaths(paths), query),
+      [paths, query],
+    )
+    const queryFn = useEvent(() => defaultApi.get(url) as Promise<TQueryFnData>)
 
-    const queryKey = query ? [paths, query] : paths
-
-    const queryFn = React.useMemo(() => createQfn(url), [url])
-
-    const result: any = useQuery({ ...options, queryKey, queryFn })
-
-    invariant(endpoint.response, 'endpoint must have a response schema')
-
-    const data = cast(endpoint.response, result.data)
-
-    return { data, result, invalidateKey: queryKey }
+    invariant(ep.response, 'endpoint must have a response schema')
+    return useSafeQuery({
+      paths,
+      query,
+      spec: ep.response,
+      queryFn,
+      ...options,
+    })
   }
 }
 
 export type EpQueriesHooks<Eps extends EndpointRecordBase> = {
-  [K in keyof Eps as `use${Capitalize<K & string>}Query`]: (
-    options: QueryArgs<Eps[K]>,
+  [K in keyof Eps as `use${Capitalize<K & string>}Query`]: <TQueryFnData>(
+    options: QueryArgs<Eps[K], TQueryFnData>,
   ) => UseEpQueryResult<Eps[K]>
 }
 
@@ -75,21 +82,13 @@ export function epQueries<Eps extends EndpointRecordBase>(
   eps: Eps,
   baseUrl: string,
 ): EpQueriesHooks<Eps> {
-  const result: any = {}
-  for (const key of Object.keys(eps)) {
-    const ep = eps[key]
-
-    invariant(ep.method === 'get', 'endpoint must be a GET endpoint')
-    result[key] = epQuery(ep, baseUrl)
-  }
-
-  return result
+  return buildObject$(eps, ep => epQuery(ep, baseUrl)) as any
 }
 
 export type MutationDescription<Ep extends EndpointBase> = GetParamsArg<Ep> &
   GetRequestArg<Ep>
 
-export type UseEpMutationOptions<
+export type MutationArgs<
   Ep extends EndpointBase,
   TVariables,
   TContext,
@@ -104,28 +103,25 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   type TData = GetEpResponse<Ep>
 
   return function useEpMutationBase<TVariables, TContext>(
-    options: UseEpMutationOptions<Ep, TVariables, TContext>,
-  ): UseMutationResult<TData, Error, TVariables> {
+    options: MutationArgs<Ep, TVariables, TContext>,
+  ): UseMutationResult<TData, Error, TVariables, TContext> {
     const qc = useQueryClient()
 
     const mutationFn: MutationFunction<TData, TVariables> = async variables => {
-      const { params: path, request } = options.action(variables)
+      const { params, request } = options.action(variables)
 
-      const key = linkfn<Ep['path']>(ep.path)(path)
-      const url = `${baseUrl}${key}`
-      const [data] = await axios({
-        method: ep.method,
-        url,
-        body: request,
-      })
+      const key = linkfn<Ep['path']>(ep.path)(params)
+      const url = urlcat(baseUrl, key)
+      const [data] = await axios({ method: ep.method, url, body: request })
 
-      const result = ep.response ? cast(ep.response, data) : data
-      return result
+      // this should be fine as there is no 'select' option like useQuery
+      return ep.response ? cast(ep.response, data) : data
     }
 
     return useMutation<TData, Error, TVariables, TContext>({
       mutationFn,
       ...options,
+
       onSettled: (data, error, variables, context) => {
         if (options?.invalidateKey) {
           qc.invalidateQueries(options?.invalidateKey).catch(console.error)
@@ -138,10 +134,10 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   }
 }
 
-export function useEpQuery<Ep extends EndpointBase>(
+export function useEpQuery<Ep extends EndpointBase, TQueryFnData>(
   endpoint: Ep,
   baseUrl: string,
-  options: QueryArgs<Ep>,
+  options: QueryArgs<Ep, TQueryFnData>,
 ) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const useHook = React.useMemo(() => epQuery(endpoint, baseUrl), [])
@@ -151,24 +147,31 @@ export function useEpQuery<Ep extends EndpointBase>(
 export function useEpMutation<Ep extends EndpointBase, TVariables, TContext>(
   endpoint: Ep,
   baseUrl: string,
-  options: UseEpMutationOptions<Ep, TVariables, TContext>,
+  options: MutationArgs<Ep, TVariables, TContext>,
 ) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const useHook = React.useMemo(() => epMutation(endpoint, baseUrl), [])
   return useHook(options)
 }
 
-export const useInvalidate = (key: QueryKey) => {
-  const qc = useQueryClient()
-
-  return () => qc.invalidateQueries(key).catch(console.error)
+export type EpMutationsHooks<Eps extends EndpointRecordBase> = {
+  [K in keyof Eps as `use${Capitalize<K & string>}Mutation`]: (
+    options: MutationArgs<Eps[K], any, any>,
+  ) => UseMutationResult<GetEpResponse<Eps[K]>, Error, any, any>
 }
 
-type UseEpOptimisticOptions<
+export function epMutations<Eps extends EndpointRecordBase>(
+  eps: Eps,
+  baseUrl: string,
+): EpMutationsHooks<Eps> {
+  return buildObject$(eps, ep => epMutation(ep, baseUrl)) as any
+}
+
+export type UseOptimisticArgs<
   Ep extends EndpointBase,
   TVariables,
   TQueryData,
-> = UseEpMutationOptions<Ep, TVariables, { previous: TQueryData }> & {
+> = MutationArgs<Ep, TVariables, { previous: TQueryData }> & {
   mutation: (variables: TVariables) => MutationDescription<Ep>
   update: (old: TQueryData, newValue: TVariables) => TQueryData
   invalidateKey: QueryKey
@@ -176,7 +179,7 @@ type UseEpOptimisticOptions<
 
 export function epOptimistic<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   return function useEpOptimistic<TVariables, TQueryData>(
-    options: UseEpOptimisticOptions<Ep, TVariables, TQueryData>,
+    options: UseOptimisticArgs<Ep, TVariables, TQueryData>,
   ) {
     const qc = useQueryClient()
 
@@ -212,23 +215,9 @@ export function epOptimistic<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   }
 }
 
-export type EpMutationsHooks<Eps extends EndpointRecordBase> = {
-  [K in keyof Eps as `use${Capitalize<K & string>}Mutation`]: (
-    options: UseEpMutationOptions<Eps[K], any, any>,
-  ) => UseMutationResult<GetEpResponse<Eps[K]>, Error, any, any>
-}
-
-export function epMutations<Eps extends EndpointRecordBase>(
+export function epOptimisticMutations<Eps extends EndpointRecordBase>(
   eps: Eps,
   baseUrl: string,
-): EpMutationsHooks<Eps> {
-  const result: any = {}
-  for (const key of Object.keys(eps)) {
-    const ep = eps[key]
-
-    invariant(ep.method !== 'get', 'endpoint must be a GET endpoint')
-    result[key] = epMutation(ep, baseUrl)
-  }
-
-  return result
+) {
+  return buildObject$(eps, ep => epOptimistic(ep, baseUrl)) as any
 }

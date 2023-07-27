@@ -10,7 +10,7 @@ import {
 import type { z } from 'zod'
 import { type Schema } from 'zod'
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
-import { useSafeQuery, type UseSafeQueryArgs } from './safeQuery'
+import { useSafeQuery, type UseSafeQueryArgs } from '../safeQuery'
 import { axios } from '@srtp/web'
 
 export type MutationHandler = (

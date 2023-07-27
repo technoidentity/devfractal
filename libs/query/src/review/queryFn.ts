@@ -5,7 +5,7 @@ import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
 
 import { joinPaths, urlcat } from '@srtp/web'
 import { z } from 'zod'
-import { defaultApi } from './api'
+import { defaultApi } from '../api'
 
 export const Paths = z.array(z.string().or(z.number()).nullish())
 export type Paths = Readonly<z.infer<typeof Paths>>
