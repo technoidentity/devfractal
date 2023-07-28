@@ -7,13 +7,11 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
-import { useInputState } from '@srtp/react'
-import { cast } from '@srtp/spec'
-import type { KeyboardEvent } from 'react'
 import { epMutation, epQuery } from '@srtp/query'
+import { useInputState } from '@srtp/react'
+import type { KeyboardEvent } from 'react'
 import { todoEndpoints } from './todoEndpoints'
 import type { Todo } from './types'
-import { TodoList } from './types'
 
 type TodoItemProps = Readonly<{
   todo: Todo
@@ -76,7 +74,9 @@ const useAddTodo = epMutation(todoEndpoints.addTodo, baseUrl)
 const useDeleteTodo = epMutation(todoEndpoints.removeTodo, baseUrl)
 
 export const QueryTodoApp = () => {
-  const [data, , invalidateKey] = useTodoQuery({})
+  const [todoList, , invalidateKey] = useTodoQuery({
+    request: { limit: 10, page: 1 },
+  })
 
   const toggleTodo = useToggleTodo({
     action: (todo: Todo) => ({
@@ -101,8 +101,6 @@ export const QueryTodoApp = () => {
     }),
   })
 
-  const todosList = cast(TodoList, data)
-
   console.count()
 
   return (
@@ -120,7 +118,7 @@ export const QueryTodoApp = () => {
       <AddTodo onAdd={addTodo.mutate} />
 
       <div>
-        {todosList.map(todo => (
+        {todoList.map(todo => (
           <TodoItem
             key={todo.id}
             todo={todo}

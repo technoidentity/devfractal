@@ -5,16 +5,18 @@ import {
   type QueryFunction,
 } from '@tanstack/react-query'
 
+export type CreateQueryClientOptions = QueryClientConfig & {
+  isProd: boolean
+  onError: (error: unknown) => void
+  queryFn: QueryFunction
+}
+
 export function createQueryClient({
   isProd,
   onError,
   queryFn,
   ...options
-}: QueryClientConfig & {
-  isProd: boolean
-  onError: (error: unknown) => void
-  queryFn: QueryFunction
-}) {
+}: CreateQueryClientOptions): QueryClient {
   const queries = {
     refetchOnWindowFocus: isProd,
     retry: isProd ? 3 : 0,

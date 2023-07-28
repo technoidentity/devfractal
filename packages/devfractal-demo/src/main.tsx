@@ -2,12 +2,12 @@ import { queryClient } from '@srtp/router'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-// import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import './globals.css'
-// import { rootRouter } from './routes'
 import './todoRouter'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+// import { rootRouter } from './routes'
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = await import('./mocks/browser')

@@ -1,18 +1,32 @@
-import { Todo } from '@srtp/todo'
-import { z } from 'zod'
 import type { EndpointBase } from '@srtp/endpoint'
+import {} from '@srtp/endpoint'
+import { boolean, number, string } from '@srtp/validator'
+import { z } from 'zod'
+
+export const Todo = z.object({
+  id: number(),
+  title: string(),
+  completed: boolean(),
+})
+export type Todo = z.infer<typeof Todo>
+
+export const Filters = z.object({
+  page: number().default(1),
+  limit: number().default(10),
+  search: string().optional(),
+  completed: boolean().optional(),
+})
+export type Filters = z.infer<typeof Filters>
 
 export const todoEndpoints = {
   getTodos: {
     path: ['todos'],
+    request: Filters,
     response: z.array(Todo),
     method: 'get',
   },
 
-  removeTodo: {
-    path: ['todos', { id: z.number() }],
-    method: 'delete',
-  },
+  removeTodo: { path: ['todos', { id: z.coerce.number() }], method: 'delete' },
 
   addTodo: {
     path: ['todos'],
@@ -22,16 +36,9 @@ export const todoEndpoints = {
   },
 
   updateTodo: {
-    path: ['todos', { id: z.number() }],
+    path: ['todos', { id: z.coerce.number() }],
     method: 'patch',
     request: Todo.omit({ id: true }).partial(),
     response: Todo,
   },
 } as const satisfies Record<string, EndpointBase>
-
-// const todoHttp = epHttp(todoEndpoints)
-
-// todoHttp.updateTodo({
-//   path: { id: 1 },
-//   request: { id: 1, title: 'hello', completed: false },
-// })

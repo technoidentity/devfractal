@@ -2,7 +2,7 @@ import { delay } from '@srtp/core'
 import { epQuery, useSafeMutation } from '@srtp/query'
 import { jstr } from '@srtp/spec'
 import { z } from 'zod'
-import { todoEndpoints } from './todoEndpoints'
+import { todoEndpoints } from './fetch/todoEndpoints'
 
 const Todo = z.object({
   title: z.string(),

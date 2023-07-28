@@ -3486,6 +3486,9 @@ importers:
       '@srtp/react':
         specifier: workspace:*
         version: link:../react
+      '@srtp/result':
+        specifier: workspace:*
+        version: link:../result
       '@srtp/spec':
         specifier: workspace:*
         version: link:../spec
