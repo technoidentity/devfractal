@@ -8,10 +8,13 @@ import {
   type UseMutationOptions,
   type UseMutationResult,
   type UseQueryOptions,
+  type UseQueryResult,
 } from '@tanstack/react-query'
 import React from 'react'
 import type { z } from 'zod'
 import type { Paths } from './review/queryFn'
+import { useErrorBoundary } from 'react-error-boundary'
+import { toError } from '@srtp/result'
 
 // @TODO: Make sure only Error is thrown, else convert it to Error
 
@@ -20,15 +23,11 @@ type Query = Record<
   string | number | boolean | null | undefined
 >
 
-export type UseSafeQueryArgs<Spec extends z.ZodTypeAny, TQueryFnData> = Omit<
-  UseQueryOptions<TQueryFnData, Error, z.infer<Spec>>,
-  'queryKey'
-> &
-  Readonly<{
-    paths: Paths
-    spec: Spec
-    query?: Query
-  }>
+export type UseSafeQueryArgs<
+  Spec extends z.ZodTypeAny,
+  TQueryFnData,
+> = Readonly<{ paths: Paths; spec: Spec; query?: Query }> &
+  Omit<UseQueryOptions<TQueryFnData, Error, z.infer<Spec>>, 'queryKey'>
 
 // Currently Spec checks value returned by select;
 // not what's fetched from the server, for performance reasons.
@@ -39,7 +38,7 @@ export function useQueryBase<
 >(
   spec: Spec,
   options: UseQueryOptions<TQueryFnData, Error, z.infer<Spec>, TQueryKey>,
-) {
+): readonly [z.infer<Spec>, UseQueryResult<TQueryFnData, Error>] {
   // eslint-disable-next-line @tanstack/query/prefer-query-object-syntax
   const result = useQuery<TQueryFnData, Error, z.infer<Spec>, TQueryKey>(
     options,
@@ -49,12 +48,18 @@ export function useQueryBase<
   return [data, result] as const
 }
 
+export type UseSafeQueryResult<Spec extends z.ZodTypeAny> = readonly [
+  data: z.infer<Spec>,
+  invalidateKey: QueryKey,
+  result: UseQueryResult<z.infer<Spec>, Error>,
+]
+
 export function useSafeQuery<Spec extends z.ZodTypeAny, TQueryFnData>({
   spec,
   paths,
   query,
   ...options
-}: UseSafeQueryArgs<Spec, TQueryFnData>) {
+}: UseSafeQueryArgs<Spec, TQueryFnData>): UseSafeQueryResult<Spec> {
   const opts = React.useMemo(() => {
     const enabled = (paths.every(p => !!p) && options?.enabled) || true
     return { ...options, enabled }
@@ -62,8 +67,11 @@ export function useSafeQuery<Spec extends z.ZodTypeAny, TQueryFnData>({
 
   const queryKey = query ? [...paths, query] : paths
 
-  const result = useQueryBase<Spec, TQueryFnData>(spec, { queryKey, ...opts })
-  return [...result, queryKey] as const
+  const [data, result] = useQueryBase<Spec, TQueryFnData>(spec, {
+    queryKey,
+    ...opts,
+  })
+  return [data, queryKey, result] as const
 }
 
 export function useSafeMutation<
@@ -85,11 +93,20 @@ export function useSafeMutation<
     [data, spec],
   )
 
-  return { data: typedData, ...result }
+  return { ...result, data: typedData }
 }
 
-export const useInvalidate = (key: QueryKey) => {
+export function useShowBoundary() {
+  const { showBoundary } = useErrorBoundary()
+
+  return useEvent((error: unknown) => {
+    showBoundary(toError(error))
+  })
+}
+
+export function useInvalidate(key: QueryKey) {
+  const showBoundary = useShowBoundary()
   const qc = useQueryClient()
 
-  return useEvent(() => qc.invalidateQueries(key).catch(console.error))
+  return useEvent(() => qc.invalidateQueries(key).catch(showBoundary))
 }
