@@ -76,7 +76,7 @@ const useAddTodo = epMutation(todoEndpoints.addTodo, baseUrl)
 const useDeleteTodo = epMutation(todoEndpoints.removeTodo, baseUrl)
 
 export const QueryTodoApp = () => {
-  const { data, invalidateKey } = useTodoQuery({})
+  const [data, , invalidateKey] = useTodoQuery({})
 
   const toggleTodo = useToggleTodo({
     action: (todo: Todo) => ({

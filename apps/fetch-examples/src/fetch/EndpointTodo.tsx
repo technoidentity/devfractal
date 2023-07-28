@@ -74,7 +74,7 @@ const api = createEpApi(todoEndpoints, '/api')
 // api.useDeleteTodo({ path: { id: 1 } })
 
 export const EndpointTodoApp = () => {
-  const { data, invalidateKey } = api.useGetTodos({})
+  const [data, , invalidateKey] = api.useGetTodos({})
 
   const toggleTodo = api.useUpdateTodo({
     action: (todo: Todo) => ({
