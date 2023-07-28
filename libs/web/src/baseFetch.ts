@@ -33,9 +33,11 @@ export type BaseFetchOptions = Omit<FetchOptions, 'body'> & {
 export function getDefaultFetchConfig(
   options?: BaseFetchOptions,
 ): BaseFetchOptions {
+  const method = options?.method ?? (options?.body ? 'POST' : 'GET')
+
   const config: BaseFetchOptions = {
-    method: options?.body ? 'POST' : 'GET',
     ...options,
+    method: method.toUpperCase(),
   }
 
   if (!options || !options.body) {
