@@ -7,7 +7,6 @@ import {
   type UseMutationOptions,
   type UseMutationResult,
   type UseQueryOptions,
-  type UseQueryResult,
 } from '@tanstack/react-query'
 
 import type {
@@ -19,14 +18,13 @@ import type {
 } from '@srtp/endpoint'
 
 import { keysfn, linkfn } from '@srtp/endpoint'
+import { buildObject$ } from '@srtp/fn'
+import { useEvent } from '@srtp/react'
 import { axios, joinPaths, urlcat } from '@srtp/web'
 import React from 'react'
 import invariant from 'tiny-invariant'
-import type { z } from 'zod'
 import { defaultApi } from '../api'
-import { useSafeQuery } from '../safeQuery'
-import { useEvent } from '@srtp/react'
-import { buildObject$ } from '@srtp/fn'
+import { useSafeQuery, type UseSafeQueryResult } from '../safeQuery'
 
 export type QueryArgs<
   Ep extends EndpointBase,
@@ -35,12 +33,8 @@ export type QueryArgs<
   GetParamsArg<Ep> &
   Omit<UseQueryOptions<TQueryFnData, Error, GetEpResponse<Ep>>, 'queryKey'>
 
-export type UseEpQueryResult<Ep extends EndpointBase> = Readonly<
-  [
-    result: UseQueryResult<z.infer<Ep['response'] & object>, Error>,
-    data: z.infer<Ep['response'] & object>,
-    invalidateKey: QueryKey,
-  ]
+export type UseEpQueryResult<Ep extends EndpointBase> = UseSafeQueryResult<
+  Ep['response'] & object
 >
 
 export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
@@ -48,7 +42,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
 
   return function useEpQuery<TQueryFnData>(
     options: QueryArgs<Ep, TQueryFnData>,
-  ) {
+  ): UseEpQueryResult<Ep> {
     const paths = keysfn(ep.path, options.params)
 
     const query = ep.request
@@ -62,7 +56,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
     const queryFn = useEvent(() => defaultApi.get(url) as Promise<TQueryFnData>)
 
     invariant(ep.response, 'endpoint must have a response schema')
-    return useSafeQuery({
+    return useSafeQuery<Ep['response'] & object, TQueryFnData>({
       paths,
       query,
       spec: ep.response,
@@ -134,6 +128,57 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   }
 }
 
+type TData<Ep extends EndpointBase> = GetEpResponse<Ep>
+type TVariables<Ep extends EndpointBase> = GetParamsArg<Ep> & GetRequestArg<Ep>
+
+export type ApiMutationArgs<Ep extends EndpointBase, TContext> = Omit<
+  MutationArgs<Ep, TVariables<Ep>, TContext>,
+  'action'
+>
+
+export type UseApiMutationResult<
+  Ep extends EndpointBase,
+  TContext,
+> = UseMutationResult<TData<Ep>, Error, TVariables<Ep>, TContext>
+
+export function apiMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
+  invariant(ep.method !== 'get', 'endpoint must be a GET endpoint')
+
+  return function useEpMutationBase<TContext>(
+    options: ApiMutationArgs<Ep, TContext>,
+  ): UseMutationResult<TData<Ep>, Error, TVariables<Ep>, TContext> {
+    const qc = useQueryClient()
+
+    const mutationFn: MutationFunction<
+      TData<Ep>,
+      TVariables<Ep>
+    > = async variables => {
+      const { params, request } = variables
+
+      const key = linkfn<Ep['path']>(ep.path)(params)
+      const url = urlcat(baseUrl, key)
+      const [data] = await axios({ method: ep.method, url, body: request })
+
+      // this should be fine as there is no 'select' option like useQuery
+      return ep.response ? cast(ep.response, data) : data
+    }
+
+    return useMutation<TData<Ep>, Error, TVariables<Ep>, TContext>({
+      mutationFn,
+      ...options,
+
+      onSettled: (data, error, variables, context) => {
+        if (options?.invalidateKey) {
+          qc.invalidateQueries(options?.invalidateKey).catch(console.error)
+        }
+        if (options?.onSettled) {
+          options.onSettled(data, error, variables, context)
+        }
+      },
+    })
+  }
+}
+
 export function useEpQuery<Ep extends EndpointBase, TQueryFnData>(
   endpoint: Ep,
   baseUrl: string,
@@ -151,6 +196,16 @@ export function useEpMutation<Ep extends EndpointBase, TVariables, TContext>(
 ) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const useHook = React.useMemo(() => epMutation(endpoint, baseUrl), [])
+  return useHook(options)
+}
+
+export function useApiMutation<Ep extends EndpointBase, TContext>(
+  endpoint: Ep,
+  baseUrl: string,
+  options: ApiMutationArgs<Ep, TContext>,
+) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const useHook = React.useMemo(() => apiMutation(endpoint, baseUrl), [])
   return useHook(options)
 }
 
@@ -214,6 +269,8 @@ export function epOptimistic<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
     )
   }
 }
+
+// @TODO: apiOptimistic
 
 export function epOptimisticMutations<Eps extends EndpointRecordBase>(
   eps: Eps,

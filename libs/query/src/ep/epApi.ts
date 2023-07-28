@@ -6,12 +6,13 @@ import type {
 import { capitalize } from '@srtp/fn'
 import type { UseMutationResult } from '@tanstack/react-query'
 import {
-  epMutation,
-  epQuery,
-  type QueryArgs,
-  type MutationArgs,
-  type UseEpQueryResult,
+  apiMutation,
   epOptimistic,
+  epQuery,
+  type ApiMutationArgs,
+  type QueryArgs,
+  type UseApiMutationResult,
+  type UseEpQueryResult,
   type UseOptimisticArgs,
 } from './epQuery'
 
@@ -25,27 +26,14 @@ export type Queries<Ep extends EndpointRecordBase> = {
     : never]: QueryFn<Ep[K]>
 }
 
-export type MutationFn<Ep extends EndpointBase> = <TVariables, TContext>(
-  options: MutationArgs<Ep, TVariables, TContext>,
-) => UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
+export type MutationFn<Ep extends EndpointBase> = <TContext>(
+  options: ApiMutationArgs<Ep, TContext>,
+) => UseApiMutationResult<Ep, TContext>
 
 export type Mutations<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? never
     : K]: MutationFn<Ep[K]>
-}
-
-export type OptimisticMutationFn<Ep extends EndpointBase> = <
-  TVariables,
-  TContext,
->(
-  options: UseOptimisticArgs<Ep, TVariables, TContext>,
-) => UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
-
-export type OptimisticMutations<Ep extends EndpointRecordBase> = {
-  readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
-    ? never
-    : K]: OptimisticMutationFn<Ep[K]>
 }
 
 export type Hookify<R extends Record<string, unknown>> = {
@@ -54,11 +42,6 @@ export type Hookify<R extends Record<string, unknown>> = {
 
 export type EndpointApi<Ep extends EndpointRecordBase> = Hookify<Queries<Ep>> &
   Hookify<Mutations<Ep>>
-
-export type OptimisticEndpointApi<Ep extends EndpointRecordBase> = Hookify<
-  Queries<Ep>
-> &
-  Hookify<OptimisticMutations<Ep>>
 
 function createGetApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
@@ -85,7 +68,7 @@ function createMutationsApi<Eps extends EndpointRecordBase>(
   return Object.fromEntries(
     mutationEndponts.map(([key, endpoint]) => [
       `use${capitalize(key)}`,
-      epMutation(endpoint, baseUrl),
+      apiMutation(endpoint, baseUrl),
     ]),
   )
 }
@@ -99,6 +82,24 @@ export function createEpApi<Eps extends EndpointRecordBase>(
 
   return { ...queries, ...mutations } as any
 }
+
+export type OptimisticMutationFn<Ep extends EndpointBase> = <
+  TVariables,
+  TContext,
+>(
+  options: UseOptimisticArgs<Ep, TVariables, TContext>,
+) => UseMutationResult<GetEpResponse<Ep>, Error, TVariables>
+
+export type OptimisticMutations<Ep extends EndpointRecordBase> = {
+  readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
+    ? never
+    : K]: OptimisticMutationFn<Ep[K]>
+}
+
+export type OptimisticEndpointApi<Ep extends EndpointRecordBase> = Hookify<
+  Queries<Ep>
+> &
+  Hookify<OptimisticMutations<Ep>>
 
 function createOptimisticMutationsApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
