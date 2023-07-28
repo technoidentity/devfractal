@@ -42,11 +42,11 @@ export type PickRequired<Props extends Obj> = {
   [K in keyof Props as undefined extends Props[K] ? never : K]: Props[K]
 }
 
-export type RemoveEmpty<T extends Obj, R> = keyof T extends never
+export type RemoveEmptyFn<Arg extends Obj, R> = keyof Arg extends never
   ? () => R
-  : (args: T) => R
+  : (args: Arg) => R
 
-export type FnArgs<Args extends Obj, R> = RemoveEmpty<PickRequired<Args>, R>
+export type FnArgs<Args extends Obj, R> = RemoveEmptyFn<PickRequired<Args>, R>
 
 export type KeyOf<T> = Extract<keyof T, string>
 
@@ -55,3 +55,14 @@ export type GetArgOptional<T, K extends string> = Record<K, T> extends {
 }
   ? { [key in K]?: undefined }
   : { [key in K]: T }
+
+export type UnionToRecord<U extends { type: string }> = {
+  [E in U as E['type']]: E
+}
+
+type UndefinedKeys<T> = {
+  [key in keyof T]: undefined extends T[key] ? key : never
+}[keyof T]
+
+export type MakeUndefinedOptional<T> = Partial<Pick<T, UndefinedKeys<T>>> &
+  Omit<T, UndefinedKeys<T>>
