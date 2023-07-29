@@ -7,28 +7,31 @@ import type {
 } from '@srtp/endpoint'
 import { linkfn, paramsSpec, route } from '@srtp/endpoint'
 
+import { buildObject$ } from '@srtp/fn'
 import { cast } from '@srtp/spec'
-import { createApi, toPath } from '@srtp/web'
+import { http, toPath } from '@srtp/web'
 import {
   type ActionFunction,
   type LoaderFunction,
   type RouteObject,
 } from 'react-router-dom'
 import { z } from 'zod'
-import { safeActionData, safeLoaderData } from './hooks'
+import { safeActionData, safeLoaderData, safeParams } from './hooks'
 
-const api = createApi()
+const api = http
+
+export type EpPathResult<Path extends PathBase> = Readonly<{
+  path: string
+  link: (params?: Params<Path>) => string
+  useParams: () => Params<Path>
+}>
 
 export function epPath<Path extends PathBase>(pathDef: Path) {
   const path = route(pathDef)
   const link = linkfn(pathDef)
 
-  const useParams = (): Params<Path> => {
-    const params = useParams()
-
-    const result: any = pathDef ? cast(paramsSpec(pathDef), params) : params
-    return result
-  }
+  const spec = pathDef ? paramsSpec(pathDef) : z.unknown()
+  const useParams = safeParams(spec) as () => Params<Path>
 
   return { path, link, useParams }
 }
@@ -121,4 +124,18 @@ export function epRouteUtils<
     useParams,
     link,
   }
+}
+
+export type EpRouteObjectBase = Record<string, EpRouteObject<any, any, any>>
+
+export type EpRouterResult<EpRoute extends EpRouteObjectBase> = {
+  [K in keyof EpRoute]: EpRouteResult<
+    EpRoute[K]['path'],
+    EpRoute[K]['epLoader'],
+    EpRoute[K]['epAction']
+  >
+}
+
+export function epRouter<EpRoute extends EpRouteObjectBase>(routes: EpRoute) {
+  return buildObject$(routes, value => epRouteUtils(value))
 }
