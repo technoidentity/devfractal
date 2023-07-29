@@ -3948,6 +3948,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../core
+      '@srtp/endpoint':
+        specifier: workspace:*
+        version: link:../endpoint
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn

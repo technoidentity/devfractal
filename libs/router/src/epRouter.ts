@@ -6,7 +6,7 @@ import type {
   PathBase,
 } from '@srtp/endpoint'
 import { linkfn, paramsSpec, route } from '@srtp/endpoint'
-import { safeActionData, safeLoaderData } from '@srtp/router'
+
 import { cast } from '@srtp/spec'
 import { createApi, toPath } from '@srtp/web'
 import {
@@ -15,6 +15,7 @@ import {
   type RouteObject,
 } from 'react-router-dom'
 import { z } from 'zod'
+import { safeActionData, safeLoaderData } from './hooks'
 
 const api = createApi()
 

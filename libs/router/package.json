@@ -27,6 +27,7 @@
     "@srtp/spec": "workspace:*",
     "@srtp/validator": "workspace:*",
     "@srtp/web": "workspace:*",
+    "@srtp/endpoint": "workspace:*",
     "@tanstack/react-query": "4.32.0",
     "immer": "10.0.2",
     "react": "18.2.0",
