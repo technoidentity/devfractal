@@ -1,3 +1,1 @@
-import { createApi } from '@srtp/web'
-
-export const api = createApi()
+export { http as api } from '@srtp/web'

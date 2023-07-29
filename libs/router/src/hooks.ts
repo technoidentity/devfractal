@@ -23,11 +23,13 @@ export function safeNavigate<Path extends PathBase>(path: Path) {
   }
 }
 
+export type UseSearchResult<Spec extends z.ZodTypeAny> = readonly [
+  z.infer<Spec> | undefined,
+  (values: z.infer<Spec>) => void,
+]
+
 export function safeSearch<Spec extends z.ZodTypeAny>(spec: Spec) {
-  return function useSearch(): readonly [
-    z.infer<Spec> | undefined,
-    (values: z.infer<Spec>) => void,
-  ] {
+  return function useSearch(): UseSearchResult<Spec> {
     const [search, set] = useSearchParams()
 
     const setSearch = React.useCallback(
