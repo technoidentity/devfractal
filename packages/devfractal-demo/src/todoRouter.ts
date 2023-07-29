@@ -6,7 +6,12 @@ import type {
   PathBase,
 } from '@srtp/endpoint'
 import { linkfn, paramsSpec, route } from '@srtp/endpoint'
-import { safeActionData, safeLoaderData, safeSearch } from '@srtp/router'
+import {
+  safeActionData,
+  safeLoaderData,
+  safeParams,
+  safeSearch,
+} from '@srtp/router'
 import { cast } from '@srtp/spec'
 import { http, toPath } from '@srtp/web'
 import {
@@ -21,13 +26,8 @@ const api = http
 export function epPath<Path extends PathBase>(pathDef: Path) {
   const path = route(pathDef)
   const link = linkfn(pathDef)
-
-  const useParams = (): Params<Path> => {
-    const params = useParams()
-
-    const result: any = pathDef ? cast(paramsSpec(pathDef), params) : params
-    return result
-  }
+  const spec = pathDef ? paramsSpec(pathDef) : z.undefined()
+  const useParams = safeParams(spec) as () => Params<Path>
 
   return { path, link, useParams }
 }
