@@ -16,28 +16,37 @@ import {
   type RouteObject,
 } from 'react-router-dom'
 import { z } from 'zod'
-import { safeActionData, safeLoaderData, safeParams } from './hooks'
+import {
+  safeActionData,
+  safeLoaderData,
+  safeNavigate,
+  safeParams,
+} from './hooks'
 
 const api = http
 
 export type EpPathResult<Path extends PathBase> = Readonly<{
   path: string
-  link: (params?: Params<Path>) => string
+  link: (params: Params<Path>) => string
   useParams: () => Params<Path>
+  useNavigate: () => (params: Params<Path>) => void
 }>
 
-export function epPath<Path extends PathBase>(pathDef: Path) {
+export function epPath<Path extends PathBase>(
+  pathDef: Path,
+): EpPathResult<Path> {
   const path = route(pathDef)
   const link = linkfn(pathDef)
 
-  const spec = pathDef ? paramsSpec(pathDef) : z.unknown()
+  const spec = pathDef ? paramsSpec(pathDef) : z.never()
   const useParams = safeParams(spec) as () => Params<Path>
 
-  return { path, link, useParams }
+  const useNavigate = safeNavigate(pathDef)
+  return { path, link, useParams, useNavigate }
 }
 
 export function epLoader<Ep extends EndpointBase>(ep: Ep) {
-  const useLoaderData = safeLoaderData(ep.response ?? z.unknown())
+  const useLoaderData = safeLoaderData(ep.response ?? z.never())
 
   const loader: LoaderFunction = args => {
     const params: any = ep.path
@@ -56,7 +65,7 @@ export function epLoader<Ep extends EndpointBase>(ep: Ep) {
 }
 
 export function epAction<Ep extends EndpointBase>(ep: Ep) {
-  const useActionData = safeActionData(ep.response ?? z.unknown())
+  const useActionData = safeActionData(ep.response ?? z.never())
 
   const action: ActionFunction = async args => {
     const params: any = ep.path
@@ -95,7 +104,7 @@ type EpRouteResult<
   action: ActionFunction
   route: RouteObject
   useParams: () => Params<Path>
-  link: (params?: Params<Path>) => string
+  link: (params: Params<Path>) => string
   useLoaderData: () => GetEpResponse<LoaderEp>
   useActionData: () => GetEpResponse<ActionEp>
 }

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
+import { linkfn, type Params, type PathBase } from '@srtp/endpoint'
 import { entriesToObject } from '@srtp/fn'
 import { cast } from '@srtp/spec'
 import { toSearch } from '@srtp/web'
@@ -7,10 +8,20 @@ import React from 'react'
 import {
   useActionData,
   useLoaderData,
+  useNavigate,
   useParams as useReactRouterParams,
   useSearchParams,
 } from 'react-router-dom'
 import type { z } from 'zod'
+import { useEvent } from '@srtp/react'
+
+export function safeNavigate<Path extends PathBase>(path: Path) {
+  return function useSafeNavigate() {
+    const navigate = useNavigate()
+
+    return useEvent((values: Params<Path>) => navigate(linkfn(path)(values)))
+  }
+}
 
 export function safeSearch<Spec extends z.ZodTypeAny>(spec: Spec) {
   return function useSearch(): readonly [

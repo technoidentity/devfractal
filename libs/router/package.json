@@ -24,6 +24,7 @@
   "dependencies": {
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
+    "@srtp/react": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/validator": "workspace:*",
     "@srtp/web": "workspace:*",

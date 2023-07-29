@@ -3954,6 +3954,9 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
+      '@srtp/react':
+        specifier: workspace:*
+        version: link:../react
       '@srtp/spec':
         specifier: workspace:*
         version: link:../spec
