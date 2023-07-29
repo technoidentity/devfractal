@@ -1,9 +1,9 @@
-import { baseFetch, type BaseFetchOptions } from './baseFetch'
+import { fetch$, type BaseFetchOptions } from './fetch$'
 import { urlcat } from './url'
 
 export type ApiOptions = Omit<BaseFetchOptions, 'body'>
 
-export function createBaseApi(fetcher = baseFetch) {
+export function createHttp$(fetcher = fetch$) {
   return {
     get: (url: string, query?: Record<string, string>, options?: ApiOptions) =>
       fetcher(urlcat(url, '', query), { ...options, method: 'GET' }),
@@ -21,3 +21,5 @@ export function createBaseApi(fetcher = baseFetch) {
       fetcher(url, { ...options, method: 'DELETE' }),
   }
 }
+
+export const http$ = createHttp$()

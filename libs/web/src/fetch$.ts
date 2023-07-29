@@ -97,7 +97,7 @@ export async function getResponseBody(response: Response): Promise<unknown> {
   return response.body
 }
 
-export async function baseFetch(
+export async function fetch$(
   url: string,
   options?: BaseFetchOptions,
 ): Promise<readonly [unknown, Response]> {
@@ -124,5 +124,5 @@ export type AxiosOptions = BaseFetchOptions & { url: string }
 export function axios(
   options: AxiosOptions,
 ): Promise<readonly [unknown, Response]> {
-  return baseFetch(options.url, options)
+  return fetch$(options.url, options)
 }

@@ -1,11 +1,11 @@
 import { cast } from '@srtp/spec'
 
 import type { z } from 'zod'
-import { createBaseApi, type ApiOptions } from './baseApi'
-import { baseFetch } from './baseFetch'
+import { createHttp$, type ApiOptions } from './http$'
+import { fetch$ } from './fetch$'
 
-export function createSafeApi(fetcher = baseFetch) {
-  const api = createBaseApi(fetcher)
+export function createSafeHttp(fetcher = fetch$) {
+  const api = createHttp$(fetcher)
   return {
     get:
       <Spec extends z.ZodTypeAny>(spec: Spec) =>
@@ -58,3 +58,5 @@ export function createSafeApi(fetcher = baseFetch) {
       },
   }
 }
+
+export const safeHttp = createSafeHttp()

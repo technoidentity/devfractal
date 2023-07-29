@@ -1,4 +1,3 @@
-import { api } from '@/core'
 import { isEmpty } from '@srtp/core'
 import type {
   EndpointBase,
@@ -9,13 +8,15 @@ import type {
 import { linkfn, paramsSpec, route } from '@srtp/endpoint'
 import { safeActionData, safeLoaderData, safeSearch } from '@srtp/router'
 import { cast } from '@srtp/spec'
-import { toPath } from '@srtp/web'
+import { http, toPath } from '@srtp/web'
 import {
   type ActionFunction,
   type LoaderFunction,
   type RouteObject,
 } from 'react-router-dom'
 import { z } from 'zod'
+
+const api = http
 
 export function epPath<Path extends PathBase>(pathDef: Path) {
   const path = route(pathDef)

@@ -1,9 +1,11 @@
+import { http } from '@srtp/web'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { QueryClient, useQuery } from '@tanstack/react-query'
 import type { LoaderFunctionArgs } from 'react-router-dom'
 import { useLoaderData } from 'react-router-dom'
 import type { z } from 'zod'
-import { api } from './api'
+
+const api = http
 
 type Stringable = string | number | Date | boolean
 

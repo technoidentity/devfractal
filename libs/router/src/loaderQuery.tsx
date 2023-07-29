@@ -1,4 +1,5 @@
 import { bool, cast } from '@srtp/spec'
+import { http } from '@srtp/web'
 import type {
   QueryClient,
   QueryFunction,
@@ -14,7 +15,8 @@ import {
 } from 'react-router-dom'
 
 import type { z } from 'zod'
-import { api } from './api'
+
+const api = http
 
 export type ToUrlFn = (qc: QueryFunctionContext) => string
 

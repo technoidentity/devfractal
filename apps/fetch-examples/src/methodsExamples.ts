@@ -1,4 +1,4 @@
-import { createSafeApi } from '@srtp/web'
+import { safeHttp } from '@srtp/web'
 import { z } from 'zod'
 
 const todo = z.object({
@@ -7,7 +7,8 @@ const todo = z.object({
   completed: z.boolean(),
 })
 
-const api = createSafeApi()
+const api = safeHttp
+
 const [todos] = await api.get(z.array(todo))('/api/todos?_limit=5')
 console.table(todos)
 

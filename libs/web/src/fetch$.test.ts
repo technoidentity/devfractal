@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { ResponseError, UnauthorizedError, baseFetch } from './baseFetch'
+import { ResponseError, UnauthorizedError, fetch$ } from './fetch$'
 
 describe('baseFetch', () => {
   beforeEach(() => {
@@ -18,7 +18,7 @@ describe('baseFetch', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/todos/1',
     )
     expect(data).toEqual(mockResponse.json())
@@ -37,7 +37,7 @@ describe('baseFetch', () => {
     global.fetch = mockFetch
 
     try {
-      await baseFetch('https://jsonplaceholder.typicode.com/todos/invalid')
+      await fetch$('https://jsonplaceholder.typicode.com/todos/invalid')
     } catch (err) {
       const error = err as ResponseError
       expect(error).toBeInstanceOf(ResponseError)
@@ -63,7 +63,7 @@ describe('baseFetch', () => {
     global.fetch = mockFetch
 
     try {
-      await baseFetch('https://jsonplaceholder.typicode.com/posts', {
+      await fetch$('https://jsonplaceholder.typicode.com/posts', {
         headers: { Authorization: 'Bearer invalid_token' },
       })
     } catch (err) {
@@ -86,7 +86,7 @@ describe('baseFetch', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/posts/1',
       {
         method: 'DELETE',
@@ -110,7 +110,7 @@ describe('baseFetch', () => {
       const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
       global.fetch = mockFetch
 
-      const [data, response] = await baseFetch(
+      const [data, response] = await fetch$(
         'https://jsonplaceholder.typicode.com/posts/1',
         {
           method,
@@ -147,7 +147,7 @@ describe('Todo API', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/todos/1',
     )
 
@@ -171,7 +171,7 @@ describe('Todo API', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/todos',
     )
 
@@ -195,7 +195,7 @@ describe('Todo API', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/todos',
       {
         method: 'POST',
@@ -224,7 +224,7 @@ describe('Todo API', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/todos/1',
       {
         method: 'PUT',
@@ -250,7 +250,7 @@ describe('Todo API', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/todos/1',
       {
         method: 'DELETE',

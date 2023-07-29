@@ -1,8 +1,8 @@
-import { createBaseApi, type ApiOptions } from './baseApi'
-import { baseFetch } from './baseFetch'
+import { createHttp$, type ApiOptions } from './http$'
+import { fetch$ } from './fetch$'
 
-export function createApi(fetcher = baseFetch) {
-  const base = createBaseApi(fetcher)
+export function createHttp(fetcher = fetch$) {
+  const base = createHttp$(fetcher)
 
   return {
     get: async (
@@ -24,3 +24,5 @@ export function createApi(fetcher = baseFetch) {
       (await base.delete(url, options))[0],
   }
 }
+
+export const http = createHttp()

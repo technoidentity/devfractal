@@ -8,13 +8,14 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
+import { queryState } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import { cast } from '@srtp/spec'
 import type { KeyboardEvent } from 'react'
-import { queryState } from '@srtp/query'
-import { createApi } from '@srtp/web'
-import { Todo } from './todoEndpoints'
+
+import { http } from '@srtp/web'
 import { z } from 'zod'
+import { Todo } from './todoEndpoints'
 
 const TodoList = z.array(Todo)
 
@@ -73,7 +74,7 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
 
 const baseUrl = '/api'
 
-const api = createApi()
+const api = http
 
 const [useTodoQuery, actions] = queryState(
   ['todos'],

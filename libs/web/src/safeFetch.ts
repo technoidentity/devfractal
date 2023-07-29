@@ -1,5 +1,5 @@
 import type z from 'zod'
-import { baseFetch, type AxiosOptions } from './baseFetch'
+import { fetch$, type AxiosOptions } from './fetch$'
 
 export class SafeFetchError extends Error {
   constructor(message: string, cause: z.ZodError) {
@@ -11,7 +11,7 @@ export async function safeAxios<Spec extends z.ZodTypeAny>(
   options: AxiosOptions,
   spec: Spec,
 ): Promise<readonly [z.infer<Spec>, Response]> {
-  const [data, response] = await baseFetch(options.url, options)
+  const [data, response] = await fetch$(options.url, options)
   const result = spec.safeParse(data)
   if (result.success) {
     return [result.data, response] as const
@@ -26,7 +26,7 @@ export async function safeFetch<Spec extends z.ZodTypeAny>(
   url: string,
   spec: Spec,
 ): Promise<readonly [z.infer<Spec>, Response]> {
-  const [data, response] = await baseFetch(url)
+  const [data, response] = await fetch$(url)
   const result = spec.safeParse(data)
   if (result.success) {
     return [result.data, response] as const

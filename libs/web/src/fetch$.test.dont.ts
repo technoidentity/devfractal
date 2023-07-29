@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest'
-import type { ResponseError } from './baseFetch'
-import { baseFetch } from './baseFetch'
+import type { ResponseError } from './fetch$'
+import { fetch$ } from './fetch$'
 
 describe('baseFetch', () => {
   test('should handle successful requests correctly', async () => {
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/todos/1',
     )
     expect(data).toBeDefined()
@@ -14,7 +14,7 @@ describe('baseFetch', () => {
 
   test('should handle failed requests correctly', async () => {
     try {
-      await baseFetch('https://jsonplaceholder.typicode.com/todos/invalid')
+      await fetch$('https://jsonplaceholder.typicode.com/todos/invalid')
     } catch (err) {
       const error = err as ResponseError
       expect(error).toBeInstanceOf(Error)
@@ -29,7 +29,7 @@ describe('baseFetch', () => {
 
   test('should handle unauthorized requests correctly', async () => {
     try {
-      await baseFetch('https://jsonplaceholder.typicode.com/posts', {
+      await fetch$('https://jsonplaceholder.typicode.com/posts', {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         headers: { Authorization: 'Bearer invalid_token' },
       })
@@ -44,7 +44,7 @@ describe('baseFetch', () => {
   })
 
   test('should handle empty responses correctly', async () => {
-    const [data, response] = await baseFetch(
+    const [data, response] = await fetch$(
       'https://jsonplaceholder.typicode.com/posts/1',
       { method: 'DELETE' },
     )

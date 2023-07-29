@@ -7,7 +7,7 @@ import type {
 } from '@srtp/endpoint'
 import { route } from '@srtp/endpoint'
 import { cast } from '@srtp/spec'
-import { baseFetch, type BaseFetchOptions } from './baseFetch'
+import { fetch$, type BaseFetchOptions } from './fetch$'
 import { toPath } from './url'
 
 type EpHttpArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
@@ -15,10 +15,10 @@ type EpHttpArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
 
 type ApiCallsArgs<Ep extends EndpointBase> = EpHttpArgs<Ep> & {
   ep: Ep
-  axios: typeof baseFetch
+  axios: typeof fetch$
 }
 
-async function apiCall<Ep extends EndpointBase>({
+async function epAxios<Ep extends EndpointBase>({
   ep,
   axios,
   params,
@@ -48,15 +48,15 @@ export type EpHttpResult<Eps extends EndpointRecordBase> = {
   ) => Promise<readonly [GetEpResponse<Eps[K]>, Response]>
 }
 
-export function createEpApi<Eps extends EndpointRecordBase>(
+export function createEpHttp<Eps extends EndpointRecordBase>(
   eps: Eps,
-  axios: typeof baseFetch = baseFetch,
+  axios: typeof fetch$ = fetch$,
 ): EpHttpResult<Eps> {
   const api = {} as any
 
   for (const [key, ep] of Object.entries(eps)) {
     api[key] = (args: EpHttpArgs<any>) => {
-      return apiCall({ ...args, ep, axios } as ApiCallsArgs<any>)
+      return epAxios({ ...args, ep, axios } as ApiCallsArgs<any>)
     }
   }
 
