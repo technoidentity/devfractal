@@ -21,6 +21,11 @@
     "db": "json-server --port 8080 --watch db.json"
   },
   "dependencies": {
+    "@chakra-ui/icons": "2.1.0",
+    "@chakra-ui/react": "2.8.0",
+    "@chakra-ui/styled-system": "2.9.1",
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
     "@conform-to/react": "0.7.4",
     "@conform-to/zod": "0.7.4",
     "@dnd-kit/core": "6.0.8",

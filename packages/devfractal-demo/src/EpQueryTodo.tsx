@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -8,13 +7,11 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
+import { createEpApi } from '@srtp/query'
 import { useInputState } from '@srtp/react'
-import { cast } from '@srtp/spec'
 import type { KeyboardEvent } from 'react'
-import type { Todo } from './types'
-import { TodoList } from './types'
-import { queryState } from '@srtp/query'
-import { createApi } from '@srtp/web'
+import type { Todo } from './todoEndpoints'
+import { todoEndpoints } from './todoEndpoints'
 
 type TodoItemProps = Readonly<{
   todo: Todo
@@ -71,37 +68,28 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
 
 const baseUrl = '/api'
 
-const api = createApi()
-
-const [useTodoQuery, actions] = queryState(
-  ['todos'],
-  { queryFn: () => api.get(`${baseUrl}/todos`) },
-  {
-    toggleTodo: (todo: Todo) => {
-      return api.patch(`${baseUrl}/todos/${todo.id}`, {
-        ...todo,
-        completed: !todo.completed,
-      })
-    },
-
-    addTodo: (title: string) => {
-      return api.post(`${baseUrl}/todos`, { title, completed: false })
-    },
-
-    deleteTodo: (id: number) => {
-      return api.delete(`${baseUrl}/todos/${id}`)
-    },
-  },
-)
+const api = createEpApi(todoEndpoints, baseUrl)
 
 export const QueryTodoApp = () => {
-  const { data } = useTodoQuery({ params: {} })
+  const [todoList, invalidateKey] = api.useGetTodos({
+    request: { limit: 10, page: 2 },
+  })
 
-  const [toggleTodo] = actions.useToggleTodo()
-  const [addTodo] = actions.useAddTodo()
-  const [deleteTodo] = actions.useDeleteTodo()
+  const toggleTodo = api.useUpdateTodo({ invalidateKey })
+  const addTodo = api.useAddTodo({ invalidateKey })
+  const deleteTodo = api.useRemoveTodo({ invalidateKey })
 
-  const todosList = cast(TodoList, data)
+  const onToggle = (todo: Todo) =>
+    toggleTodo.mutate({
+      params: { id: todo.id },
+      request: { ...todo, completed: !todo.completed },
+    })
+
+  const onAdd = (title: string) =>
+    addTodo.mutate({ request: { title, completed: false } })
+
+  const onDelete = (id: number) =>
+    deleteTodo.mutate({ params: { id }, request: undefined })
 
   console.count()
 
@@ -117,15 +105,15 @@ export const QueryTodoApp = () => {
         Todos List
       </Heading>
 
-      <AddTodo onAdd={addTodo} />
+      <AddTodo onAdd={onAdd} />
 
       <div>
-        {todosList.map(todo => (
+        {todoList.map(todo => (
           <TodoItem
             key={todo.id}
             todo={todo}
-            onToggle={toggleTodo}
-            onDelete={deleteTodo}
+            onToggle={onToggle}
+            onDelete={onDelete}
           />
         ))}
       </div>

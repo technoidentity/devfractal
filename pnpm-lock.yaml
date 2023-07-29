@@ -4416,6 +4416,15 @@ importers:
 
   packages/devfractal-demo:
     dependencies:
+      '@chakra-ui/icons':
+        specifier: 2.1.0
+        version: 2.1.0(@chakra-ui/system@2.6.0)(react@18.2.0)
+      '@chakra-ui/react':
+        specifier: 2.8.0
+        version: 2.8.0(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.16)(framer-motion@10.13.1)(react-dom@18.2.0)(react@18.2.0)
+      '@chakra-ui/styled-system':
+        specifier: 2.9.1
+        version: 2.9.1
       '@conform-to/react':
         specifier: 0.7.4
         version: 0.7.4(react@18.2.0)
@@ -4425,6 +4434,12 @@ importers:
       '@dnd-kit/core':
         specifier: 6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@emotion/react':
+        specifier: 11.11.1
+        version: 11.11.1(@types/react@18.2.16)(react@18.2.0)
+      '@emotion/styled':
+        specifier: 11.11.0
+        version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.16)(react@18.2.0)
       '@formkit/auto-animate':
         specifier: 0.7.0
         version: 0.7.0

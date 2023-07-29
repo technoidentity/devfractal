@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -7,11 +8,15 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
-import { epMutation, epQuery } from '@srtp/query'
 import { useInputState } from '@srtp/react'
+import { cast } from '@srtp/spec'
 import type { KeyboardEvent } from 'react'
-import { todoEndpoints } from './todoEndpoints'
-import type { Todo } from './types'
+import { queryState } from '@srtp/query'
+import { createApi } from '@srtp/web'
+import { Todo } from './todoEndpoints'
+import { z } from 'zod'
+
+const TodoList = z.array(Todo)
 
 type TodoItemProps = Readonly<{
   todo: Todo
@@ -68,38 +73,37 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
 
 const baseUrl = '/api'
 
-const useTodoQuery = epQuery(todoEndpoints.getTodos, baseUrl)
-const useToggleTodo = epMutation(todoEndpoints.updateTodo, baseUrl)
-const useAddTodo = epMutation(todoEndpoints.addTodo, baseUrl)
-const useDeleteTodo = epMutation(todoEndpoints.removeTodo, baseUrl)
+const api = createApi()
+
+const [useTodoQuery, actions] = queryState(
+  ['todos'],
+  { queryFn: () => api.get(`${baseUrl}/todos`) },
+  {
+    toggleTodo: (todo: Todo) => {
+      return api.patch(`${baseUrl}/todos/${todo.id}`, {
+        ...todo,
+        completed: !todo.completed,
+      })
+    },
+
+    addTodo: (title: string) => {
+      return api.post(`${baseUrl}/todos`, { title, completed: false })
+    },
+
+    deleteTodo: (id: number) => {
+      return api.delete(`${baseUrl}/todos/${id}`)
+    },
+  },
+)
 
 export const QueryTodoApp = () => {
-  const [todoList, , invalidateKey] = useTodoQuery({
-    request: { limit: 10, page: 1 },
-  })
+  const { data } = useTodoQuery({ params: {} })
 
-  const toggleTodo = useToggleTodo({
-    action: (todo: Todo) => ({
-      params: { id: todo.id },
-      request: { ...todo, completed: !todo.completed },
-      invalidateKey,
-    }),
-  })
+  const [toggleTodo] = actions.useToggleTodo()
+  const [addTodo] = actions.useAddTodo()
+  const [deleteTodo] = actions.useDeleteTodo()
 
-  const addTodo = useAddTodo({
-    action: (title: string) => ({
-      request: { title, completed: false },
-      invalidateKey,
-    }),
-  })
-
-  const deleteTodo = useDeleteTodo({
-    action: (id: number) => ({
-      params: { id },
-      request: undefined,
-      invalidateKey,
-    }),
-  })
+  const todosList = cast(TodoList, data)
 
   console.count()
 
@@ -115,15 +119,15 @@ export const QueryTodoApp = () => {
         Todos List
       </Heading>
 
-      <AddTodo onAdd={addTodo.mutate} />
+      <AddTodo onAdd={addTodo} />
 
       <div>
-        {todoList.map(todo => (
+        {todosList.map(todo => (
           <TodoItem
             key={todo.id}
             todo={todo}
-            onToggle={toggleTodo.mutate}
-            onDelete={deleteTodo.mutate}
+            onToggle={toggleTodo}
+            onDelete={deleteTodo}
           />
         ))}
       </div>

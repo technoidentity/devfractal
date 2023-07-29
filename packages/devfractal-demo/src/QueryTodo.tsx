@@ -7,11 +7,11 @@ import {
   Heading,
   Input,
 } from '@chakra-ui/react'
-import { createEpApi } from '@srtp/query'
+import { epMutation, epQuery } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
+import type { Todo } from './todoEndpoints'
 import { todoEndpoints } from './todoEndpoints'
-import type { Todo } from './types'
 
 type TodoItemProps = Readonly<{
   todo: Todo
@@ -68,28 +68,38 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
 
 const baseUrl = '/api'
 
-const api = createEpApi(todoEndpoints, baseUrl)
+const useTodoQuery = epQuery(todoEndpoints.getTodos, baseUrl)
+const useToggleTodo = epMutation(todoEndpoints.updateTodo, baseUrl)
+const useAddTodo = epMutation(todoEndpoints.addTodo, baseUrl)
+const useDeleteTodo = epMutation(todoEndpoints.removeTodo, baseUrl)
 
 export const QueryTodoApp = () => {
-  const [todoList, invalidateKey] = api.useGetTodos({
-    request: { limit: 10, page: 2 },
+  const [todoList, , invalidateKey] = useTodoQuery({
+    request: { limit: 10, page: 1 },
   })
 
-  const toggleTodo = api.useUpdateTodo({ invalidateKey })
-  const addTodo = api.useAddTodo({ invalidateKey })
-  const deleteTodo = api.useRemoveTodo({ invalidateKey })
-
-  const onToggle = (todo: Todo) =>
-    toggleTodo.mutate({
+  const toggleTodo = useToggleTodo({
+    action: (todo: Todo) => ({
       params: { id: todo.id },
       request: { ...todo, completed: !todo.completed },
-    })
+      invalidateKey,
+    }),
+  })
 
-  const onAdd = (title: string) =>
-    addTodo.mutate({ request: { title, completed: false } })
+  const addTodo = useAddTodo({
+    action: (title: string) => ({
+      request: { title, completed: false },
+      invalidateKey,
+    }),
+  })
 
-  const onDelete = (id: number) =>
-    deleteTodo.mutate({ params: { id }, request: undefined })
+  const deleteTodo = useDeleteTodo({
+    action: (id: number) => ({
+      params: { id },
+      request: undefined,
+      invalidateKey,
+    }),
+  })
 
   console.count()
 
@@ -105,15 +115,15 @@ export const QueryTodoApp = () => {
         Todos List
       </Heading>
 
-      <AddTodo onAdd={onAdd} />
+      <AddTodo onAdd={addTodo.mutate} />
 
       <div>
         {todoList.map(todo => (
           <TodoItem
             key={todo.id}
             todo={todo}
-            onToggle={onToggle}
-            onDelete={onDelete}
+            onToggle={toggleTodo.mutate}
+            onDelete={deleteTodo.mutate}
           />
         ))}
       </div>
