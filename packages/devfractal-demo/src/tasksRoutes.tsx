@@ -1,5 +1,5 @@
 import { Pre } from '@srtp/react'
-import { pages, type PageRecordBase } from '@srtp/router'
+import { pages } from '@srtp/router'
 import { number, string } from '@srtp/validator'
 import { type RouteObject } from 'react-router-dom'
 import { z } from 'zod'
