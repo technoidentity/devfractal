@@ -21,10 +21,6 @@ export const Endpoint = <
     response,
   })
 
-// type Endpoint<ReqSpec extends z.ZodTypeAny, ResSpec extends z.ZodTypeAny> = z.infer<
-//   ReturnType<typeof Endpoint<ReqSpec, ResSpec>>
-// >
-
 export type Endpoint<
   Method extends HttpMethod,
   Path extends PathBase,
@@ -49,6 +45,7 @@ export type EndpointRecordBase<M extends HttpMethod = HttpMethod> = Record<
   EndpointBase<M>
 >
 
+// @TODO: handle undefined differently
 export type GetEpRequest<Ep extends EndpointBase> = z.infer<
   Ep['request'] & object
 >

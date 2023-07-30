@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEvent } from './useEvent'
 
 export const useInterval = (fn: () => void, delay: number) => {
   const callback = React.useRef<() => void>(fn)
@@ -19,9 +20,9 @@ export const useInterval = (fn: () => void, delay: number) => {
 export const useGate = () => {
   const signalled = React.useRef(false)
 
-  const signal = React.useCallback(() => {
+  const signal = useEvent(() => {
     signalled.current = true
-  }, [])
+  })
 
   return [signalled, signal] as const
 }

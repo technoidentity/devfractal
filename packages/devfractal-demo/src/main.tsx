@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import './globals.css'
 import { tasksRoutes } from './tasksRoutes'
+import { ErrorBoundary } from 'react-error-boundary'
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = await import('./mocks/browser')
@@ -22,10 +23,12 @@ const root = createRoot(container)
 const router = createBrowserRouter(tasksRoutes)
 
 root.render(
-  <Suspense fallback={<h1>Loading...</h1>}>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools position="bottom-right" />
-    </QueryClientProvider>
-  </Suspense>,
+  <ErrorBoundary fallback={<div>Error</div>}>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools position="bottom-right" />
+      </QueryClientProvider>
+    </Suspense>
+  </ErrorBoundary>,
 )

@@ -1,4 +1,5 @@
 export * from './For'
+export * from './Pre'
 export * from './context'
 export * from './forwarRef'
 export * from './hooks'
