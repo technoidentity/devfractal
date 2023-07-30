@@ -66,3 +66,19 @@ type UndefinedKeys<T> = {
 
 export type MakeUndefinedOptional<T> = Partial<Pick<T, UndefinedKeys<T>>> &
   Omit<T, UndefinedKeys<T>>
+
+export type IsEmpty<T> = keyof T extends never ? true : false
+export type IsNonEmpty<T> = keyof T extends never ? false : true
+export type IsUndefined<T> = T extends undefined ? true : false
+export type IsDefined<T> = T extends undefined ? false : true
+export type IsNever<T> = [T] extends [never] ? true : false
+
+export type If<Cond extends boolean, Then, Else> = Cond extends true
+  ? Then
+  : Else
+
+export type Iff<Cond extends boolean, Then> = Cond extends true ? Then : object
+
+export type IfFnArg<Cond extends boolean, Arg, R> = Cond extends true
+  ? (arg: Arg) => R
+  : () => R
