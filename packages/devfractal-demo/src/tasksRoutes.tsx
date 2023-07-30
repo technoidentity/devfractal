@@ -1,32 +1,14 @@
-import { pages } from '@srtp/router'
-import { jstr } from '@srtp/spec'
+import { Pre } from '@srtp/react'
+import { pages, type PageRecordBase } from '@srtp/router'
+import { number, string } from '@srtp/validator'
 import { type RouteObject } from 'react-router-dom'
-import { number, z } from 'zod'
+import { z } from 'zod'
 
 const Filters = z.object({
-  search: z.string().optional(),
+  search: string().optional(),
   page: number().optional(),
   perPage: number().optional(),
 })
-
-const tasksApp = pages({
-  tasksList: { path: ['tasks'], request: Filters },
-  taskView: { path: ['tasks', { id: number() }] },
-  taskEdit: { path: ['tasks', { id: number() }, 'edit'] },
-  taskCreate: { path: ['tasks', 'create'] },
-  usersList: { path: ['users'] },
-  userView: { path: ['users', { id: number() }] },
-  userEdit: { path: ['users', { id: number() }, 'edit'] },
-  userCreate: { path: ['users', 'create'] },
-  userTasksList: {
-    path: ['users', { id: number() }, 'tasks'],
-    request: Filters,
-  },
-})
-
-export const Pre = ({ children }: { readonly children?: object }) => (
-  <pre>{jstr(children) || 'empty value'}</pre>
-)
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()
@@ -34,7 +16,7 @@ const TasksList = () => {
   return (
     <div>
       <h1>Tasks List</h1>
-      <Pre>{{ search }} </Pre>
+      <Pre value={search} />
     </div>
   )
 }
@@ -45,7 +27,7 @@ const TaskView = () => {
   return (
     <div>
       <h1>Task View</h1>
-      <Pre>{{ params }}</Pre>
+      <Pre value={params} />
     </div>
   )
 }
@@ -56,7 +38,7 @@ const TaskEdit = () => {
   return (
     <div>
       <h1>Task Edit </h1>
-      <Pre>{{ params }}</Pre>
+      <Pre value={params} />
     </div>
   )
 }
@@ -70,7 +52,7 @@ const UserView = () => {
   return (
     <div>
       <h1>User View </h1>
-      <Pre>{{ params }}</Pre>
+      <Pre value={params} />
     </div>
   )
 }
@@ -81,7 +63,7 @@ const UserEdit = () => {
   return (
     <div>
       <div>User Edit </div>
-      <Pre>{{ params }}</Pre>
+      <Pre value={params} />
     </div>
   )
 }
@@ -93,20 +75,52 @@ const UserTasksList = () => {
   return (
     <div>
       <h1>User Tasks List </h1>
-      <Pre>{{ search }} </Pre>
+      <Pre value={search} />
     </div>
   )
 }
 
-export const tasksRoutes: RouteObject[] = [
-  { path: tasksApp.tasksList.path, element: <TasksList /> },
-  { path: tasksApp.taskView.path, element: <TaskView /> },
-  { path: tasksApp.taskEdit.path, element: <TaskEdit /> },
-  { path: tasksApp.taskCreate.path, element: <TaskCreate /> },
-  { path: tasksApp.usersList.path, element: <UsersList /> },
-  { path: tasksApp.userView.path, element: <UserView /> },
-  { path: tasksApp.userEdit.path, element: <UserEdit /> },
-  { path: tasksApp.userCreate.path, element: <UserCreate /> },
-  { path: tasksApp.userTasksList.path, element: <UserTasksList /> },
-  { path: '*', element: <div>Invalid Path</div> },
-]
+const tasksApp = pages({
+  tasksList: {
+    path: ['tasks'],
+    request: Filters,
+    element: <TasksList />,
+  },
+
+  taskView: {
+    path: ['tasks', { id: number() }],
+    element: <TaskView />,
+  },
+
+  taskEdit: {
+    path: ['tasks', { id: number() }, 'edit'],
+    element: <TaskEdit />,
+  },
+  taskCreate: {
+    path: ['tasks', 'create'],
+    element: <TaskCreate />,
+  },
+  usersList: {
+    path: ['users'],
+    element: <UsersList />,
+  },
+  userView: {
+    path: ['users', { id: number() }],
+    element: <UserView />,
+  },
+  userEdit: {
+    path: ['users', { id: number() }, 'edit'],
+    element: <UserEdit />,
+  },
+  userCreate: {
+    path: ['users', 'create'],
+    element: <UserCreate />,
+  },
+  userTasksList: {
+    path: ['users', { id: number() }, 'tasks'],
+    request: Filters,
+    element: <UserTasksList />,
+  },
+})
+
+export const tasksRoutes: RouteObject[] = tasksApp.routes
