@@ -1,4 +1,3 @@
-import { isEmpty } from '@srtp/core'
 import type {
   EndpointBase,
   GetEpResponse,
@@ -7,6 +6,7 @@ import type {
 } from '@srtp/endpoint'
 import { linkfn, paramsSpec, route } from '@srtp/endpoint'
 
+import type { IfFnArg, Iff, IsDefined, IsNonEmpty } from '@srtp/core'
 import { buildObject$ } from '@srtp/fn'
 import { cast } from '@srtp/spec'
 import { http, toPath } from '@srtp/web'
@@ -15,6 +15,7 @@ import {
   type LoaderFunction,
   type RouteObject,
 } from 'react-router-dom'
+import invariant from 'tiny-invariant'
 import { z } from 'zod'
 import {
   safeActionData,
@@ -25,28 +26,44 @@ import {
 
 const api = http
 
-export type EpPathResult<Path extends PathBase> = Readonly<{
-  path: string
-  link: (params: Params<Path>) => string
-  useParams: () => Params<Path>
-  useNavigate: () => (params: Params<Path>) => void
-}>
+export type NavigateResult<Path extends PathBase> = IfFnArg<
+  IsNonEmpty<Params<Path>>,
+  Params<Path>,
+  void
+>
 
-export function epPath<Path extends PathBase>(
+export type EpPathResult<Path extends PathBase> = {
+  path: string
+  useNavigate: () => NavigateResult<Path>
+} & Iff<
+  IsNonEmpty<Params<Path>>,
+  {
+    link: (params: Params<Path>) => string
+    useParams: () => Params<Path>
+  }
+>
+
+export function routerPath<Path extends PathBase>(
   pathDef: Path,
 ): EpPathResult<Path> {
-  const path = route(pathDef)
-  const link = linkfn(pathDef)
+  const spec = paramsSpec(pathDef)
 
-  const spec = pathDef ? paramsSpec(pathDef) : z.never()
-  const useParams = safeParams(spec) as () => Params<Path>
-
-  const useNavigate = safeNavigate(pathDef)
-  return { path, link, useParams, useNavigate }
+  return {
+    path: route(pathDef),
+    link: linkfn(pathDef),
+    useParams: safeParams(spec) as () => Params<Path>,
+    useNavigate: safeNavigate(pathDef) as () => NavigateResult<Path>,
+  }
 }
 
-export function epLoader<Ep extends EndpointBase>(ep: Ep) {
-  const useLoaderData = safeLoaderData(ep.response ?? z.never())
+export type EpLoaderResult<Ep extends EndpointBase> = {
+  useLoaderData: () => GetEpResponse<Ep>
+  loader: LoaderFunction
+}
+
+export function epLoader<Ep extends EndpointBase>(ep: Ep): EpLoaderResult<Ep> {
+  const responseSpec = ep.response
+  invariant(responseSpec, 'epLoader requires an endpoint with a response spec')
 
   const loader: LoaderFunction = args => {
     const params: any = ep.path
@@ -56,21 +73,28 @@ export function epLoader<Ep extends EndpointBase>(ep: Ep) {
     const path = toPath(route(ep.path), params)
 
     const query = Object.fromEntries(new URL(args.request.url).searchParams)
-    const result = isEmpty(query) ? api.get(path) : api.get(path, query)
+    const result = api.get(path, query)
 
-    return ep.response ? cast(ep.response, result) : result
+    return cast(responseSpec, result)
   }
 
-  return { useLoaderData, loader }
+  return {
+    loader,
+    useLoaderData: safeLoaderData(responseSpec),
+  }
 }
 
-export function epAction<Ep extends EndpointBase>(ep: Ep) {
-  const useActionData = safeActionData(ep.response ?? z.never())
+export type EpActionResult<Ep extends EndpointBase> = {
+  useActionData: () => GetEpResponse<Ep>
+  action: ActionFunction
+}
+
+export function epAction<Ep extends EndpointBase>(ep: Ep): EpActionResult<Ep> {
+  const useActionData = safeActionData(ep.response ?? z.undefined())
 
   const action: ActionFunction = async args => {
-    const params: any = ep.path
-      ? cast(paramsSpec(ep.path), args.params)
-      : args.params
+    const pspec = paramsSpec(ep.path) ?? z.undefined()
+    const params = cast(pspec, args.params)
 
     const path = toPath(route(ep.path), params)
 
@@ -85,29 +109,39 @@ export function epAction<Ep extends EndpointBase>(ep: Ep) {
   return { useActionData, action }
 }
 
-export type EpRouteObject<
-  Path extends PathBase,
-  LoaderEp extends EndpointBase,
-  ActionEp extends EndpointBase,
-> = RouteObject & {
-  path: Path
-  epLoader: LoaderEp
-  epAction: ActionEp
-}
+// @TODO: epActions, taking multiple endpoints and returning a single action
 
-type EpRouteResult<
+type EpRouterArgs<
   Path extends PathBase,
   LoaderEp extends EndpointBase,
   ActionEp extends EndpointBase,
 > = {
-  loader: LoaderFunction
-  action: ActionFunction
-  route: RouteObject
-  useParams: () => Params<Path>
-  link: (params: Params<Path>) => string
-  useLoaderData: () => GetEpResponse<LoaderEp>
-  useActionData: () => GetEpResponse<ActionEp>
+  path: Path
+  loader?: LoaderEp
+  action?: ActionEp
 }
+
+export type EpRouteObject<
+  Path extends PathBase,
+  LoaderEp extends EndpointBase,
+  ActionEp extends EndpointBase,
+> = RouteObject & EpRouterArgs<Path, LoaderEp, ActionEp>
+
+type EpRouteResult<
+  Path extends PathBase,
+  LoaderEp extends EndpointBase | undefined,
+  ActionEp extends EndpointBase | undefined,
+> = {
+  route: RouteObject
+} & Omit<EpPathResult<Path>, 'path'> &
+  Iff<
+    IsDefined<LoaderEp>,
+    { useLoaderData: () => GetEpResponse<LoaderEp & object> }
+  > &
+  Iff<
+    IsDefined<ActionEp>,
+    { useActionData: () => GetEpResponse<ActionEp & object> }
+  >
 
 export function epRouteUtils<
   Path extends PathBase,
@@ -115,36 +149,40 @@ export function epRouteUtils<
   ActionEp extends EndpointBase,
 >(
   args: EpRouteObject<Path, LoaderEp, ActionEp>,
-): EpRouteResult<Path, LoaderEp, ActionEp> {
-  const { path: pathDef, ...routeArgs } = args
+): EpRouteResult<Path, (typeof args)['loader'], (typeof args)['action']> {
+  const { path: pathDef, loader: epl, action: epa, ...routeArgs } = args
 
-  const { link, path, useParams } = epPath(pathDef)
-  const routeObject: RouteObject = { path, ...routeArgs }
+  const { path, ...utils } = routerPath(pathDef)
+  const loaderUtils = epl ? epLoader(epl) : undefined
+  const actionUtils = epa ? epAction(epa) : undefined
 
-  const { useLoaderData, loader } = epLoader(args.epLoader)
-  const { useActionData, action } = epAction(args.epAction)
+  const routeObject = {
+    ...routeArgs,
+    path,
+    loader: loaderUtils?.loader,
+    action: actionUtils?.action,
+  }
 
   return {
     route: routeObject,
-    useLoaderData,
-    loader,
-    useActionData,
-    action,
-    useParams,
-    link,
+    ...utils,
+    useLoaderData: loaderUtils?.useLoaderData,
+    useActionData: actionUtils?.useActionData,
   }
 }
 
-export type EpRouteObjectBase = Record<string, EpRouteObject<any, any, any>>
+export type EpRouteRecordBase = Record<string, EpRouteObject<any, any, any>>
 
-export type EpRouterResult<EpRoute extends EpRouteObjectBase> = {
+export type EpRouterResult<EpRoute extends EpRouteRecordBase> = {
   [K in keyof EpRoute]: EpRouteResult<
     EpRoute[K]['path'],
-    EpRoute[K]['epLoader'],
-    EpRoute[K]['epAction']
+    EpRoute[K]['loader'],
+    EpRoute[K]['action']
   >
 }
 
-export function epRouter<EpRoute extends EpRouteObjectBase>(routes: EpRoute) {
-  return buildObject$(routes, value => epRouteUtils(value))
+export function epRouter<EpRoute extends EpRouteRecordBase>(
+  routes: EpRoute,
+): EpRouterResult<EpRoute> {
+  return buildObject$(routes, value => epRouteUtils(value)) as any
 }
