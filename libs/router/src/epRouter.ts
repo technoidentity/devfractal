@@ -1,12 +1,7 @@
-import type {
-  EndpointBase,
-  GetEpResponse,
-  Params,
-  PathBase,
-} from '@srtp/endpoint'
-import { linkfn, paramsSpec, route } from '@srtp/endpoint'
+import type { EndpointBase, GetEpResponse, PathBase } from '@srtp/endpoint'
+import { paramsSpec, route } from '@srtp/endpoint'
 
-import type { IfFnArg, Iff, IsDefined, IsNonEmpty } from '@srtp/core'
+import type { Iff, IsDefined } from '@srtp/core'
 import { buildObject$ } from '@srtp/fn'
 import { cast } from '@srtp/spec'
 import { http, toPath } from '@srtp/web'
@@ -20,41 +15,12 @@ import { z } from 'zod'
 import {
   safeActionData,
   safeLoaderData,
-  safeNavigate,
-  safeParams,
+  safeSearch,
+  type UseSearchResult,
 } from './hooks'
+import { routerPath, type EpPathResult } from './routerPath'
 
 const api = http
-
-export type NavigateResult<Path extends PathBase> = IfFnArg<
-  IsNonEmpty<Params<Path>>,
-  Params<Path>,
-  void
->
-
-export type EpPathResult<Path extends PathBase> = {
-  path: string
-  useNavigate: () => NavigateResult<Path>
-} & Iff<
-  IsNonEmpty<Params<Path>>,
-  {
-    link: (params: Params<Path>) => string
-    useParams: () => Params<Path>
-  }
->
-
-export function routerPath<Path extends PathBase>(
-  pathDef: Path,
-): EpPathResult<Path> {
-  const spec = paramsSpec(pathDef)
-
-  return {
-    path: route(pathDef),
-    link: linkfn(pathDef),
-    useParams: safeParams(spec) as () => Params<Path>,
-    useNavigate: safeNavigate(pathDef) as () => NavigateResult<Path>,
-  }
-}
 
 export type EpLoaderResult<Ep extends EndpointBase> = {
   useLoaderData: () => GetEpResponse<Ep>
@@ -113,27 +79,35 @@ export function epAction<Ep extends EndpointBase>(ep: Ep): EpActionResult<Ep> {
 
 type EpRouterArgs<
   Path extends PathBase,
+  SearchSpec extends z.ZodTypeAny | undefined,
   LoaderEp extends EndpointBase,
   ActionEp extends EndpointBase,
 > = {
   path: Path
+  search?: SearchSpec
   loader?: LoaderEp
   action?: ActionEp
 }
 
 export type EpRouteObject<
   Path extends PathBase,
+  SearchSpec extends z.ZodTypeAny | undefined,
   LoaderEp extends EndpointBase,
   ActionEp extends EndpointBase,
-> = RouteObject & EpRouterArgs<Path, LoaderEp, ActionEp>
+> = RouteObject & EpRouterArgs<Path, SearchSpec, LoaderEp, ActionEp>
 
 type EpRouteResult<
   Path extends PathBase,
+  SearchSpec extends z.ZodTypeAny | undefined,
   LoaderEp extends EndpointBase | undefined,
   ActionEp extends EndpointBase | undefined,
 > = {
   route: RouteObject
 } & Omit<EpPathResult<Path>, 'path'> &
+  Iff<
+    IsDefined<SearchSpec>,
+    { useSearch: () => UseSearchResult<SearchSpec & object> }
+  > &
   Iff<
     IsDefined<LoaderEp>,
     { useLoaderData: () => GetEpResponse<LoaderEp & object> }
@@ -145,16 +119,24 @@ type EpRouteResult<
 
 export function epRouteUtils<
   Path extends PathBase,
+  SearchSpec extends z.ZodTypeAny | undefined,
   LoaderEp extends EndpointBase,
   ActionEp extends EndpointBase,
 >(
-  args: EpRouteObject<Path, LoaderEp, ActionEp>,
-): EpRouteResult<Path, (typeof args)['loader'], (typeof args)['action']> {
-  const { path: pathDef, loader: epl, action: epa, ...routeArgs } = args
+  args: EpRouteObject<Path, SearchSpec, LoaderEp, ActionEp>,
+): EpRouteResult<
+  Path,
+  SearchSpec,
+  (typeof args)['loader'],
+  (typeof args)['action']
+> {
+  const { path: pathDef, search, loader: epl, action: epa, ...routeArgs } = args
 
   const { path, ...utils } = routerPath(pathDef)
   const loaderUtils = epl ? epLoader(epl) : undefined
   const actionUtils = epa ? epAction(epa) : undefined
+
+  const useSearch: any = search ? safeSearch(search) : undefined
 
   const routeObject = {
     ...routeArgs,
@@ -168,21 +150,27 @@ export function epRouteUtils<
     ...utils,
     useLoaderData: loaderUtils?.useLoaderData,
     useActionData: actionUtils?.useActionData,
+    useSearch,
   }
 }
 
-export type EpRouteRecordBase = Record<string, EpRouteObject<any, any, any>>
+export type EpRouteRecordBase = Record<
+  string,
+  EpRouteObject<any, any, any, any>
+>
 
-export type EpRouterResult<EpRoute extends EpRouteRecordBase> = {
-  [K in keyof EpRoute]: EpRouteResult<
-    EpRoute[K]['path'],
-    EpRoute[K]['loader'],
-    EpRoute[K]['action']
+export type EpRouterResult<EpRoutes extends EpRouteRecordBase> = {
+  [K in keyof EpRoutes]: EpRouteResult<
+    EpRoutes[K]['path'],
+    EpRoutes[K]['search'],
+    EpRoutes[K]['loader'],
+    EpRoutes[K]['action']
   >
-}
+} & { routes: RouteObject[] }
 
-export function epRouter<EpRoute extends EpRouteRecordBase>(
-  routes: EpRoute,
-): EpRouterResult<EpRoute> {
-  return buildObject$(routes, value => epRouteUtils(value)) as any
+export function epRouter<EpRoutes extends EpRouteRecordBase>(
+  routes: EpRoutes,
+): EpRouterResult<EpRoutes> {
+  const utils = buildObject$(routes, value => epRouteUtils(value))
+  return { ...(utils as any), routes: Object.values(utils).map(t => t.route) }
 }

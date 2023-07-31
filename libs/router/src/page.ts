@@ -2,9 +2,9 @@
 import type { Iff, IsNonEmpty } from '@srtp/core'
 import { type EndpointBase } from '@srtp/endpoint'
 import { buildObject$ } from '@srtp/fn'
-import { routerPath, type EpPathResult } from './epRouter'
 import { safeSearch, type UseSearchResult } from './hooks'
 import type { RouteObject } from 'react-router-dom'
+import { routerPath, type EpPathResult } from './routerPath'
 
 export type PageBase = Omit<RouteObject, 'path'> &
   Pick<EndpointBase, 'path' | 'request'>
