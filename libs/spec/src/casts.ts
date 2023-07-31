@@ -1,4 +1,6 @@
 import type { z } from 'zod'
+import { jstr } from './typeCasts'
+import { formatErrors } from './formatError'
 
 export class CastError extends Error {
   constructor(
@@ -6,12 +8,11 @@ export class CastError extends Error {
     readonly object: unknown,
     readonly zodError: z.ZodError,
   ) {
+    const formatted = jstr(formatErrors(zodError))
+    const specStr = jstr(spec)
+    const objectStr = jstr(object)
     super(
-      `${zodError.message}\n\n value: ${JSON.stringify(
-        object,
-        null,
-        2,
-      )}\n\n spec: ${JSON.stringify(spec, null, 2)}`,
+      `${zodError.message}\n\nformattedError: ${formatted}\n\nvalue: ${objectStr}\n\nspec: ${specStr}`,
     )
 
     this.name = 'CastError'
@@ -29,6 +30,7 @@ export function cast<Spec extends z.ZodTypeAny>(
 
     throw new CastError(spec, v, result.error)
   }
+
   return spec.parse(v)
 }
 
