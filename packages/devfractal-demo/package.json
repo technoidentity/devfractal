@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "build": "vite build",
-    "web:dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
-    "server:dev": "tsx --watch src/server.ts",
-    "dev": "concurrently pnpm:web:dev pnpm:db",
+    "client:dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
+    "server:dev": "tsx --watch src/examples/server/index.ts",
+    "dev": "concurrently pnpm:client:dev pnpm:server:dev",
     "types:dev": "tsc --noEmit -p . --watch",
     "types": "tsc --noEmit -p .",
     "lint": "eslint --report-unused-disable-directives --max-warnings=0 --cache src --ext .ts,.tsx",
@@ -18,7 +18,7 @@
     "serve": "vite preview",
     "clean": "rimraf .turbo node_modules dist",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
-    "db": "json-server --port 8080 --watch db.json"
+    "db:dev": "json-server --port 8080 --watch db.json"
   },
   "dependencies": {
     "@chakra-ui/icons": "2.1.0",

@@ -70,13 +70,13 @@ const AddTask = ({ onAdd }: AddTaskProps) => {
 const tasks = createEpApi(taskEndpoints, '/api')
 
 export const QueryTaskApp = () => {
-  const [taskList] = tasks.useGetTasks({
+  const [taskList, invalidateKey] = tasks.useGetTasks({
     request: { limit: 10, page: 1 },
   })
 
-  const toggleTask = tasks.useUpdateTask({})
-  const addTask = tasks.useAddTask({})
-  const removeTask = tasks.useRemoveTask({})
+  const toggleTask = tasks.useUpdateTask({ invalidateKey })
+  const addTask = tasks.useAddTask({ invalidateKey })
+  const removeTask = tasks.useRemoveTask({ invalidateKey })
 
   function onToggle(task: Task) {
     toggleTask.mutate({

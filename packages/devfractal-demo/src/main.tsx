@@ -4,22 +4,33 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ErrorBoundary } from 'react-error-boundary'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+  RouterProvider,
+  createBrowserRouter,
+  type RouteObject,
+} from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import { tasksRoutes } from './examples/router/tasksRoutes'
 import './globals.css'
+import { QueryTaskApp } from './examples/query/TasksClient'
 
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = await import('./mocks/browser')
-  await worker.start({ onUnhandledRequest: 'bypass' })
-}
+// if (process.env.NODE_ENV === 'development') {
+//   const { worker } = await import('./mocks/browser')
+//   await worker.start({ onUnhandledRequest: 'bypass' })
+// }
 
 const container = document.getElementById('root')
 
 invariant(container, 'container not found')
 const root = createRoot(container)
 
-const router = createBrowserRouter(tasksRoutes)
+const indexRoute: RouteObject = {
+  path: '/',
+  element: <QueryTaskApp />,
+  index: true,
+}
+
+const router = createBrowserRouter([...tasksRoutes, indexRoute])
 
 root.render(
   <ErrorBoundary fallback={<div>Error</div>}>

@@ -7,7 +7,7 @@ import type { Filters, Task } from '../specs'
 const tasksTable = new Map<number, Task>()
 
 let nextId: number
-export function initializeFakeTasksTable(N = 100) {
+export function initializeFakeTasksTable(N = 10) {
   for (let i = 0; i < N; i++) {
     tasksTable.set(i, {
       id: i,
@@ -58,5 +58,6 @@ export const removeTask = (id: number) => {
   }
 
   tasksTable.delete(id)
+
   return task
 }
