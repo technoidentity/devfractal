@@ -25,11 +25,10 @@
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
+    "@srtp/endpoint": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/result": "workspace:*",
     "@srtp/spec": "workspace:*",
-    "@srtp/endpoint": "workspace:*",
-    "@srtp/server": "workspace:*",
     "hono": "3.3.4",
     "http-status-codes": "2.2.0",
     "immer": "10.0.2",
@@ -40,9 +39,9 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.4.4",
+    "@types/node": "20.4.5",
     "cross-env": "7.0.3",
-    "eslint": "8.45.0",
+    "eslint": "8.46.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.0",
     "rimraf": "5.0.1",

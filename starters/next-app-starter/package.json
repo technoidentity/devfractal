@@ -10,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@planetscale/database": "1.9.0",
-    "@types/react": "18.2.16",
+    "@planetscale/database": "1.10.0",
+    "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
     "drizzle-orm": "0.27.2",
@@ -32,14 +32,14 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@types/node": "20.4.4",
+    "@types/node": "20.4.5",
     "@types/pg": "8.10.2",
     "cross-env": "7.0.3",
-    "drizzle-kit": "0.19.11",
-    "eslint": "8.45.0",
+    "drizzle-kit": "0.19.12",
+    "eslint": "8.46.0",
     "prettier": "3.0.0",
     "rimraf": "5.0.1",
-    "turbo": "1.10.11",
+    "turbo": "1.10.12",
     "typescript": "5.1.6"
   }
 }
