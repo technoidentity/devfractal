@@ -9,6 +9,7 @@ import {
 } from '@srtp/endpoint'
 import { cast } from '@srtp/spec'
 import { Hono, type Context } from 'hono'
+import { logger } from 'hono/logger'
 
 type EpsHandlerArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
   GetRequestArg<Ep> & { c: Context }
@@ -27,7 +28,7 @@ export type SEpsHandlers<Eps extends EndpointRecordBase> = Partial<
 
 function epHandler<Ep extends EndpointBase>(ep: Ep, fn: EpHandler<Ep>) {
   return async (c: Context) => {
-    let args = { c } as any
+    const args = { c } as any
 
     const ps = paramsSpec(ep.path)
     if (ps) {
@@ -44,7 +45,7 @@ function epHandler<Ep extends EndpointBase>(ep: Ep, fn: EpHandler<Ep>) {
       cast(ep.response, response)
     }
 
-    return c.json({ data: response })
+    return c.json(response)
   }
 }
 
@@ -53,6 +54,7 @@ export function epRouter<Eps extends EndpointRecordBase>(
   handlers: EpsHandlers<Eps>,
 ) {
   const app = new Hono()
+  app.use('*', logger())
 
   for (const [name, ep] of Object.entries(eps)) {
     const path = route(ep.path)
