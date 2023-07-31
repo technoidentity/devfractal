@@ -8,7 +8,7 @@ import invariant from 'tiny-invariant'
 import './globals.css'
 
 import { ErrorBoundary } from 'react-error-boundary'
-import { tasksRoutes } from './examples/tasksRoutes'
+import { tasksRoutes } from './examples/router/tasksRoutes'
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = await import('./mocks/browser')

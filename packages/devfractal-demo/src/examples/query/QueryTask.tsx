@@ -10,32 +10,31 @@ import {
 import { epMutation, epQuery } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
-import type { Todo } from './todoEndpoints'
-import { todoEndpoints } from './todoEndpoints'
+import { taskEndpoints, type Task } from '../tasksEndpoints'
 
-type TodoItemProps = Readonly<{
-  todo: Todo
-  onToggle: (todo: Todo) => void
-  onDelete: (todoId: number) => void
+type TaskItemProps = Readonly<{
+  task: Task
+  onToggle: (task: Task) => void
+  onDelete: (taskId: number) => void
 }>
 
-const TodoItem = ({ todo, onToggle, onDelete }: TodoItemProps) => {
+const TaskItem = ({ task, onToggle, onDelete }: TaskItemProps) => {
   return (
     <Flex placeItems="baseline" mb="2" alignItems="baseline" gap="4">
-      <Checkbox isChecked={todo.completed} onChange={() => onToggle(todo)}>
-        {todo.title}
+      <Checkbox isChecked={task.completed} onChange={() => onToggle(task)}>
+        {task.title}
       </Checkbox>
 
-      <Button size="xs" onClick={() => onDelete(todo.id)}>
+      <Button size="xs" onClick={() => onDelete(task.id)}>
         <CloseIcon color="red.500" />
       </Button>
     </Flex>
   )
 }
 
-export type AddTodoProps = Readonly<{ onAdd: (title: string) => void }>
+export type AddTaskProps = Readonly<{ onAdd: (title: string) => void }>
 
-const AddTodo = ({ onAdd }: AddTodoProps) => {
+const AddTask = ({ onAdd }: AddTaskProps) => {
   const [title, setTitle] = useInputState('')
 
   const submit = () => {
@@ -56,7 +55,7 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
       <Input
         type="text"
         value={title}
-        placeholder="Enter todo title..."
+        placeholder="Enter task title..."
         onKeyDown={keyDown}
         onChange={setTitle}
       />
@@ -68,40 +67,38 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
 
 const baseUrl = '/api'
 
-const useTodoQuery = epQuery(todoEndpoints.getTodos, baseUrl)
-const useToggleTodo = epMutation(todoEndpoints.updateTodo, baseUrl)
-const useAddTodo = epMutation(todoEndpoints.addTodo, baseUrl)
-const useDeleteTodo = epMutation(todoEndpoints.removeTodo, baseUrl)
+const useTaskQuery = epQuery(taskEndpoints.getTasks, baseUrl)
+const useToggleTask = epMutation(taskEndpoints.updateTask, baseUrl)
+const useAddTask = epMutation(taskEndpoints.addTask, baseUrl)
+const useDeleteTask = epMutation(taskEndpoints.removeTask, baseUrl)
 
-export const QueryTodoApp = () => {
-  const [todoList, , invalidateKey] = useTodoQuery({
+export const QueryTaskApp = () => {
+  const [tasks, , invalidateKey] = useTaskQuery({
     request: { limit: 10, page: 1 },
   })
 
-  const toggleTodo = useToggleTodo({
-    action: (todo: Todo) => ({
-      params: { id: todo.id },
-      request: { ...todo, completed: !todo.completed },
+  const toggleTask = useToggleTask({
+    action: (task: Task) => ({
+      params: { id: task.id },
+      request: { ...task, completed: !task.completed },
       invalidateKey,
     }),
   })
 
-  const addTodo = useAddTodo({
+  const addTask = useAddTask({
     action: (title: string) => ({
       request: { title, completed: false },
       invalidateKey,
     }),
   })
 
-  const deleteTodo = useDeleteTodo({
+  const deleteTask = useDeleteTask({
     action: (id: number) => ({
       params: { id },
       request: undefined,
       invalidateKey,
     }),
   })
-
-  console.count()
 
   return (
     <Container>
@@ -112,18 +109,18 @@ export const QueryTodoApp = () => {
         fontWeight="semibold"
         textAlign="center"
       >
-        Todos List
+        Tasks
       </Heading>
 
-      <AddTodo onAdd={addTodo.mutate} />
+      <AddTask onAdd={addTask.mutate} />
 
       <div>
-        {todoList.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggle={toggleTodo.mutate}
-            onDelete={deleteTodo.mutate}
+        {tasks.map(task => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            onToggle={toggleTask.mutate}
+            onDelete={deleteTask.mutate}
           />
         ))}
       </div>

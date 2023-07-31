@@ -3,12 +3,12 @@ import {} from '@srtp/endpoint'
 import { boolean, number, string } from '@srtp/validator'
 import { z } from 'zod'
 
-export const Todo = z.object({
+export const Task = z.object({
   id: number(),
   title: string(),
   completed: boolean(),
 })
-export type Todo = z.infer<typeof Todo>
+export type Task = z.infer<typeof Task>
 
 export const Filters = z.object({
   page: number().default(1),
@@ -18,27 +18,27 @@ export const Filters = z.object({
 })
 export type Filters = z.infer<typeof Filters>
 
-export const todoEndpoints = {
-  getTodos: {
-    path: ['todos'],
+export const taskEndpoints = {
+  getTasks: {
+    path: ['tasks'],
     request: Filters,
-    response: z.array(Todo),
+    response: z.array(Task),
     method: 'get',
   },
 
-  removeTodo: { path: ['todos', { id: z.coerce.number() }], method: 'delete' },
+  removeTask: { path: ['tasks', { id: z.coerce.number() }], method: 'delete' },
 
-  addTodo: {
-    path: ['todos'],
+  addTask: {
+    path: ['tasks'],
     method: 'post',
-    request: Todo.omit({ id: true }),
-    response: Todo,
+    request: Task.omit({ id: true }),
+    response: Task,
   },
 
-  updateTodo: {
-    path: ['todos', { id: z.coerce.number() }],
+  updateTask: {
+    path: ['tasks', { id: z.coerce.number() }],
     method: 'patch',
-    request: Todo.omit({ id: true }).partial(),
-    response: Todo,
+    request: Task.omit({ id: true }).partial(),
+    response: Task,
   },
 } as const satisfies Record<string, EndpointBase>

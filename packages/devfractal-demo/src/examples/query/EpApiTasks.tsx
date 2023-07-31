@@ -10,32 +10,32 @@ import {
 import { createEpApi } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
-import type { Todo } from './todoEndpoints'
-import { todoEndpoints } from './todoEndpoints'
+import type { Task } from '../tasksEndpoints'
+import { taskEndpoints } from '../tasksEndpoints'
 
-type TodoItemProps = Readonly<{
-  todo: Todo
-  onToggle: (todo: Todo) => void
-  onRemove: (todoId: number) => void
+type TaskItemProps = Readonly<{
+  task: Task
+  onToggle: (task: Task) => void
+  onRemove: (taskId: number) => void
 }>
 
-const TodoItem = ({ todo, onToggle, onRemove }: TodoItemProps) => {
+const TaskItem = ({ task, onToggle, onRemove }: TaskItemProps) => {
   return (
     <Flex placeItems="baseline" mb="2" alignItems="baseline" gap="4">
-      <Checkbox isChecked={todo.completed} onChange={() => onToggle(todo)}>
-        {todo.title}
+      <Checkbox isChecked={task.completed} onChange={() => onToggle(task)}>
+        {task.title}
       </Checkbox>
 
-      <Button size="xs" onClick={() => onRemove(todo.id)}>
+      <Button size="xs" onClick={() => onRemove(task.id)}>
         <CloseIcon color="red.500" />
       </Button>
     </Flex>
   )
 }
 
-export type AddTodoProps = Readonly<{ onAdd: (title: string) => void }>
+export type AddTaskProps = Readonly<{ onAdd: (title: string) => void }>
 
-const AddTodo = ({ onAdd }: AddTodoProps) => {
+const AddTask = ({ onAdd }: AddTaskProps) => {
   const [title, setTitle] = useInputState('')
 
   const submit = () => {
@@ -56,7 +56,7 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
       <Input
         type="text"
         value={title}
-        placeholder="Enter todo title..."
+        placeholder="Enter task title..."
         onKeyDown={keyDown}
         onChange={setTitle}
       />
@@ -66,30 +66,30 @@ const AddTodo = ({ onAdd }: AddTodoProps) => {
   )
 }
 
-const todos = createEpApi(todoEndpoints, '/api')
+const tasks = createEpApi(taskEndpoints, '/api')
 
-export const QueryTodoApp = () => {
-  const [todoList] = todos.useGetTodos({
+export const QueryTaskApp = () => {
+  const [taskList] = tasks.useGetTasks({
     request: { limit: 10, page: 1 },
   })
 
-  const toggleTodo = todos.useUpdateTodo({})
-  const addTodo = todos.useAddTodo({})
-  const removeTodo = todos.useRemoveTodo({})
+  const toggleTask = tasks.useUpdateTask({})
+  const addTask = tasks.useAddTask({})
+  const removeTask = tasks.useRemoveTask({})
 
-  function onToggle(todo: Todo) {
-    toggleTodo.mutate({
-      params: { id: todo.id },
-      request: { ...todo, completed: !todo.completed },
+  function onToggle(task: Task) {
+    toggleTask.mutate({
+      params: { id: task.id },
+      request: { ...task, completed: !task.completed },
     })
   }
 
   function onRemove(id: number) {
-    removeTodo.mutate({ params: { id }, request: undefined })
+    removeTask.mutate({ params: { id }, request: undefined })
   }
 
   function onAdd(title: string) {
-    addTodo.mutate({ request: { title, completed: false } })
+    addTask.mutate({ request: { title, completed: false } })
   }
 
   return (
@@ -101,16 +101,16 @@ export const QueryTodoApp = () => {
         fontWeight="semibold"
         textAlign="center"
       >
-        Todos List
+        Tasks List
       </Heading>
 
-      <AddTodo onAdd={onAdd} />
+      <AddTask onAdd={onAdd} />
 
       <div>
-        {todoList.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
+        {taskList.map(task => (
+          <TaskItem
+            key={task.id}
+            task={task}
             onToggle={onToggle}
             onRemove={onRemove}
           />
