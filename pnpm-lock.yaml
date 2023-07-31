@@ -4039,6 +4039,9 @@ importers:
 
   libs/server:
     dependencies:
+      '@srtp/endpoint':
+        specifier: workspace:*
+        version: link:../endpoint
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
@@ -4048,9 +4051,12 @@ importers:
       '@srtp/spec':
         specifier: workspace:*
         version: link:../spec
-      exhaustive:
-        specifier: 1.1.1
-        version: 1.1.1
+      hono:
+        specifier: 3.3.4
+        version: 3.3.4
+      http-status-codes:
+        specifier: 2.2.0
+        version: 2.2.0
       immer:
         specifier: 10.0.2
         version: 10.0.2
@@ -20236,6 +20242,11 @@ packages:
 
   /hono@3.3.3:
     resolution: {integrity: sha512-k/KQw4GVvyJJT/qgbpLCeRSe7JT4USWkQkzXDNsRMbpWrrncT2Dj2rQQObDxnYZOYziZickgXvJHy+wuxsaunA==}
+    engines: {node: '>=16.0.0'}
+    dev: false
+
+  /hono@3.3.4:
+    resolution: {integrity: sha512-lqvcsQrXS0bSydj/MkOXi3opAwrlauIjZefhXMMRj9prABfBWdrYHSrWk/xfxgxNPs4yuEMh2Z5zV0L2b1Jmdw==}
     engines: {node: '>=16.0.0'}
     dev: false
 

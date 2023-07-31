@@ -11,11 +11,10 @@ import {
 import { queryState } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import { cast } from '@srtp/spec'
-import type { KeyboardEvent } from 'react'
-
 import { http } from '@srtp/web'
+import type { KeyboardEvent } from 'react'
 import { z } from 'zod'
-import { Task } from '../tasksEndpoints'
+import { Task } from '../specs'
 
 const TaskList = z.array(Task)
 

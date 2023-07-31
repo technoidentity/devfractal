@@ -10,8 +10,9 @@ import {
 import { createEpApi } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
-import type { Task } from '../tasksEndpoints'
+
 import { taskEndpoints } from '../tasksEndpoints'
+import type { Task } from '../specs'
 
 type TaskItemProps = Readonly<{
   task: Task

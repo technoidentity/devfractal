@@ -1,7 +1,7 @@
 import {} from '@srtp/endpoint'
 
 import { Hono } from 'hono'
-import { throwBadRequest, throwCast, throwNotFound } from './errors'
+import { throwBadRequest, throwCast, throwNotFound } from '@srtp/server'
 import {
   Filters,
   Todo,

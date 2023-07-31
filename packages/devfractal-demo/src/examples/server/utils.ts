@@ -1,16 +1,14 @@
 import { filter, iterSlice, pipe, sorted, toArray } from '@srtp/fn'
-import type { Filters, Todo } from './todoDb'
+import type { Filters, Task } from '../specs'
 
 export function paginate<T>(page: number, limit: number) {
   return (list: Iterable<T>) => {
-    const start = (page - 1) * limit
-    const end = page * limit
-    return pipe(list, iterSlice(start, end))
+    return pipe(list, iterSlice((page - 1) * limit, page * limit))
   }
 }
 
 export function applyFilters(
-  list: Iterable<Todo>,
+  list: Iterable<Task>,
   { limit, page, completed, search }: Filters,
 ) {
   return pipe(
