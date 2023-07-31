@@ -3,7 +3,7 @@ import type {
   EndpointRecordBase,
   GetEpResponse,
 } from '@srtp/endpoint'
-import { capitalize } from '@srtp/fn'
+import { capitalize, entries, filter, map, pipe } from '@srtp/fn'
 import type { UseMutationResult } from '@tanstack/react-query'
 import {
   apiMutation,
@@ -47,14 +47,15 @@ function createGetApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
   baseUrl: string,
 ) {
-  const getEndpoints = Object.entries(endpoints).filter(
-    ([, endpoint]) => endpoint.method === 'get',
-  )
-  return Object.fromEntries(
-    getEndpoints.map(([key, endpoint]) => [
+  return pipe(
+    endpoints,
+    entries,
+    filter(([, endpoint]) => endpoint.method === 'get'),
+    map(([key, endpoint]) => [
       `use${capitalize(key)}`,
       epQuery(endpoint, baseUrl),
     ]),
+    Object.fromEntries,
   )
 }
 
@@ -62,14 +63,15 @@ function createMutationsApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
   baseUrl: string,
 ) {
-  const mutationEndponts = Object.entries(endpoints).filter(
-    ([, endpoint]) => endpoint.method !== 'get',
-  )
-  return Object.fromEntries(
-    mutationEndponts.map(([key, endpoint]) => [
+  return pipe(
+    endpoints,
+    entries,
+    filter(([, endpoint]) => endpoint.method !== 'get'),
+    map(([key, endpoint]) => [
       `use${capitalize(key)}`,
       apiMutation(endpoint, baseUrl),
     ]),
+    Object.fromEntries,
   )
 }
 
@@ -80,7 +82,7 @@ export function createEpApi<Eps extends EndpointRecordBase>(
   const queries = createGetApi(endpoints, baseUrl)
   const mutations = createMutationsApi(endpoints, baseUrl)
 
-  return { ...queries, ...mutations } as any
+  return { ...queries, ...mutations }
 }
 
 export type OptimisticMutationFn<Ep extends EndpointBase> = <
@@ -105,14 +107,15 @@ function createOptimisticMutationsApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
   baseUrl: string,
 ) {
-  const mutationEndponts = Object.entries(endpoints).filter(
-    ([, endpoint]) => endpoint.method !== 'get',
-  )
-  return Object.fromEntries(
-    mutationEndponts.map(([key, endpoint]) => [
+  return pipe(
+    endpoints,
+    entries,
+    filter(([, endpoint]) => endpoint.method !== 'get'),
+    map(([key, endpoint]) => [
       `use${capitalize(key)}`,
       epOptimistic(endpoint, baseUrl),
     ]),
+    Object.fromEntries,
   )
 }
 
@@ -123,5 +126,5 @@ export function createEpOptomisticApi<Eps extends EndpointRecordBase>(
   const queries = createGetApi(endpoints, baseUrl)
   const mutations = createOptimisticMutationsApi(endpoints, baseUrl)
 
-  return { ...queries, ...mutations } as any
+  return { ...queries, ...mutations }
 }
