@@ -11,7 +11,8 @@ import {
 } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import { tasksRoutes } from './examples/router/tasksRoutes'
-import './globals.css'
+// import './globals.css'
+import { ChakraProvider } from '@chakra-ui/react'
 import { QueryTaskApp } from './examples/query/TasksClient'
 
 // if (process.env.NODE_ENV === 'development') {
@@ -33,12 +34,14 @@ const indexRoute: RouteObject = {
 const router = createBrowserRouter([...tasksRoutes, indexRoute])
 
 root.render(
-  <ErrorBoundary fallback={<div>Error</div>}>
-    <Suspense fallback={<h1>Loading...</h1>}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools position="bottom-right" />
-      </QueryClientProvider>
-    </Suspense>
-  </ErrorBoundary>,
+  <ChakraProvider>
+    <ErrorBoundary fallback={<div>Error</div>}>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools position="bottom-right" />
+        </QueryClientProvider>
+      </Suspense>
+    </ErrorBoundary>
+  </ChakraProvider>,
 )
