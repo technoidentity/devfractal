@@ -101,12 +101,13 @@ libraries.
 
 ### `validator` library
 
-simplified and generic validation helpers using `zod`. This will allow many of
-the following scenarios where strict zod validation is usually not suitable.
+simplified and generic validation helpers using `zod` where strict validation is
+usually not suitable.
 
 ## `forms` library(mantine based)
 
 1. Integrate state, validation and above UI components.
+
 2. Support common patterns for forms.
 
 ## `table` library(mantine based)
@@ -182,7 +183,7 @@ abstractions._
 
 1. Use headless components for accessible components: radix-ui.
 
-2. Integrate with a tailwind for themeable and extensible components
+2. Integrate with `tailwind` for themeable and extensible components.
 
 3. Use shadcn/ui for most `ui` components.
 
