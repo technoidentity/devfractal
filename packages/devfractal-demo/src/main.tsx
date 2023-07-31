@@ -6,8 +6,9 @@ import { createRoot } from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import './globals.css'
-import { tasksRoutes } from './tasksRoutes'
+
 import { ErrorBoundary } from 'react-error-boundary'
+import { tasksRoutes } from './examples/tasksRoutes'
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = await import('./mocks/browser')
@@ -15,7 +16,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const container = document.getElementById('root')
-console.log(container)
 
 invariant(container, 'container not found')
 const root = createRoot(container)
