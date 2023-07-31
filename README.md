@@ -1,24 +1,24 @@
 # Devfractal
 
-`devfractal` is a library for creating web applications using react and node. It
-has the following goals.
+`devfractal` is a library for creating web applications using `react` and
+`node`. It has the following goals.
 
-1. to help you write good software by default, software that's simple, correct,
+1. to help you write good software by default; software that's simple, correct,
    generic and fast.
 
 2. to be kind to developers of all skill levels.
 
 3. best practices must be simpler to follow than to break. Best practices will
-   be based on current wisdom of the react community.
+   be based on the current wisdom of the react community.
 
-4. not to reinvent the wheel unless required. Most of the utilities are thin
+4. Do not reinvent the wheel unless necessary. Most of the utilities are thin
    wrappers over popular modern libraries.
 
 ### `local-state` library
 
 1.  **state**: Use this when you have complex state management.
 
-    - You will avoid a lot of pitfalls with react like stale closures.
+    - You will avoid a lot of pitfalls with `react` like stale closures.
     - state management is separated from the component, allowing components to
       be simpler.
     - event handlers are safer, simpler and faster(avoid rerenders).
@@ -33,21 +33,21 @@ has the following goals.
 4.  hooks for collections: `useArray`, `useSet`, `useMap` for rare occasions
     where performance is everything.
 
-    - Internally maintains a mutable collection. You don't have to worry about
-      it as behaves the same as an immutable collection and works well with the
-      react model.
+    - Internally maintains a mutable collection. It behaves similar to an
+      immutable collection and works well with the react model.
 
-5.  hooks for simpler scenarios: `useInt`, `useBoolean` etc and `useUpdate` when
-    you need **state** but doesn't have any logic.
+5.  `useUpdate` when you need **state** but doesn't have any logic.
+
+6.  hooks for simpler scenarios: `useInt`, `useBoolean` etc
 
 ### `global-state` library
 
-1.  Simple **atom/computed/action** abstraction remaining closer to true
-    reactive model.
+1.  Simple **atom/computed/action** abstraction remaining closer to the true
+    reactive model. For advanced scenarios can use `derived`.
 
 2.  **slice**: similar to **state** above, only global.
 
-3.  Avoids lots of issues with atom-based libraries like jotai.
+3.  Avoids lots of issues with atom-based libraries like `jotai`.
 
 4.  **hooks-based API**: You could easily construct an excellent hook-based API,
     where **state** could be
@@ -73,14 +73,14 @@ libraries.
 
 4. Safe query operations.
 
-5. **Optimistic updates**: Also supports mutations by returning descriptions.
+5. **Optimistic updates**: Supports mutations by returning descriptions.
 
-6. **queryState** similar to slice and state
+6. **queryState**: similar to but for queries/mutations.
 
 7. Good defaults for **queryClient** and **QueryProvider**.
 
-8. Integrates react-router's **loader** and **query** so that you get all of the
-   benefits of **loader** as well as `react-query`.
+8. Integrates `react-router`'s **loader** and **query** so that you get all of
+   the benefits of **loader** as well as `react-query`.
 
 9. queries and mutations based on endpoint abstraction.
 
@@ -89,20 +89,20 @@ libraries.
 
 ### `router` library
 
-1. route abstraction. Allows safe and declarative configuration of routes.
+1. `page` abstraction. Allows safe and declarative configuration of pages.
 
 2. public and protected routes.
 
 3. safe access to params and search.
 
-4. `routerState` is similar to state/slice.
+4. `routerState` is similar to `slice`/`state`.
 
 5. queries and mutations using endpoint abstraction.
 
 ### `validator` library
 
-simplified and generic validation helpers using zod. This will allow many of the
-following scenarios. Strict zod validation is usually not suitable.
+simplified and generic validation helpers using `zod`. This will allow many of
+the following scenarios where strict zod validation is usually not suitable.
 
 ## `forms` library(mantine based)
 
@@ -111,9 +111,9 @@ following scenarios. Strict zod validation is usually not suitable.
 
 ## `table` library(mantine based)
 
-1. client-side table.
+1. client-side table with client-side pagination etc.
 
-2. server-side table.
+2. server-side table with server-side pagination etc.
 
 3. Support most common operations like filtering, ordering, selection, and
    actions etc.
@@ -126,16 +126,16 @@ following scenarios. Strict zod validation is usually not suitable.
 
 ### `fn` library
 
-1. Support lazy evaluation of higher-order functions
+1. Support lazy evaluation of higher-order functions.
 
-2. Support most common functions including database-like operations
+2. Support most common functions including database-like operations.
 
-3. Support for internalization of dates through adobe date library
+3. Support for internalization of dates through adobe date library\*.
 
 ### `spec` library
 
-1. Common abstractions to use specifications using zod. This has small helpers
-   which will allow you to write software similar to Eiffel.
+1. Common abstractions to use specifications using `zod`. Small helpers which
+   will allow you to write robust software based on principles from Eiffel.
 
 2. Makes your pure functions safer by allowing you to satisfy the specification
    accurately.
@@ -144,14 +144,14 @@ following scenarios. Strict zod validation is usually not suitable.
 
 1. Helpers for creating actions.
 
-2. Helpers for forms and form validations.
+2. forms and form validations helpers.
 
 3. Abstractions for responses and **json** transformers.
 
 ### Error handling support
 
 1. Almost all abstractions are designed with error handling in mind and strive
-   to be safe using zod specifications.
+   to be safe using `zod` specifications.
 
 2. Wrap up almost every external system to allow for zod specification
    validations. All of your code will be typesafe.
@@ -165,16 +165,6 @@ following scenarios. Strict zod validation is usually not suitable.
 _Lots of examples are available and are planned for all of the above
 abstractions._
 
-## Partial implementation
-
-### `ui` library
-
-1. Use headless components for accessible components: radix-ui.
-
-2. Integrate with a tailwind for themeable and extensible components
-
-3. Use shadcn/ui for most `ui` components.
-
 ### `server`(mini trpc) library
 
 1. Use `endpoint` abstraction to implement server-side calls using express.
@@ -185,6 +175,16 @@ abstractions._
 
 4. Typsafe client code which always remains in sync with the server API. Similar
    to `trpc`.
+
+## Partial implementation
+
+### `ui` library
+
+1. Use headless components for accessible components: radix-ui.
+
+2. Integrate with a tailwind for themeable and extensible components
+
+3. Use shadcn/ui for most `ui` components.
 
 ## Planned
 
@@ -203,10 +203,6 @@ Integration of table and `ui` libraries.
 2. Support abstractions for both server-side as well as client-side.
 
 3. RBAC: role-based authorization and control.
-
-### `router` library
-
-- safe route paths
 
 ## Starter projects
 
