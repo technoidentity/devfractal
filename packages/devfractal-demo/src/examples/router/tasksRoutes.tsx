@@ -1,14 +1,8 @@
 import { Pre } from '@srtp/react'
 import { pages } from '@srtp/router'
-import { number, string } from '@srtp/validator'
+import { number } from '@srtp/validator'
 import { type RouteObject } from 'react-router-dom'
-import { z } from 'zod'
-
-const Filters = z.object({
-  search: string().optional(),
-  page: number().optional(),
-  perPage: number().optional(),
-})
+import { Filters } from '../specs'
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()
