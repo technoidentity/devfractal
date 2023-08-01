@@ -3,7 +3,7 @@ module.exports = {
   parserOptions: {
     tsconfigRootDir: __dirname,
   },
-  extends: ['srtp'],
+  extends: ['srtp', 'plugin:storybook/recommended'],
   rules: {
     '@typescript-eslint/naming-convention': 'off',
     'unicorn/filename-case': 'off',
