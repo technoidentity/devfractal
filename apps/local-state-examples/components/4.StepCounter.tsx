@@ -34,3 +34,10 @@ export const StepCounter = () => {
     </Box>
   )
 }
+
+export const DoubleStepCounter = () => (
+  <>
+    <StepCounter />
+    <StepCounter />
+  </>
+)

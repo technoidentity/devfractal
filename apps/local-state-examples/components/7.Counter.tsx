@@ -5,8 +5,12 @@ import { state } from '@srtp/local-state'
 const initialState = { count: 1 }
 
 const handlers = {
-  inc: state => state.count++,
-  dec: state => state.count--,
+  inc: state => {
+    state.count++
+  },
+  dec: state => {
+    state.count--
+  },
 } satisfies Handlers<typeof initialState>
 
 const useCounter = state(initialState, handlers)

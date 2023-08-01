@@ -36,7 +36,7 @@ export type PagesResult<Pages extends PageRecordBase> = Readonly<{
   [K in keyof Pages]: PageResult<Pages[K]>
 }> & { routes: RouteObject[] }
 
-export function pages<Pages extends PageRecordBase>(
+export function pages<const Pages extends PageRecordBase>(
   ps: Pages,
 ): PagesResult<Pages> {
   const utils = buildObject$(ps, v => page(v))

@@ -47,3 +47,10 @@ export const Counters = () => (
     <Add10 />
   </Provider>
 )
+
+export const DoubleCounters = () => (
+  <>
+    <Counters />
+    <Counters />
+  </>
+)

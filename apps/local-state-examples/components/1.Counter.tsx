@@ -4,8 +4,12 @@ import { state } from '@srtp/local-state'
 const useCounter = state(
   { count: 1 },
   {
-    inc: state => state.count++,
-    dec: state => state.count--,
+    inc: state => {
+      state.count++
+    },
+    dec: state => {
+      state.count--
+    },
   },
 )
 
