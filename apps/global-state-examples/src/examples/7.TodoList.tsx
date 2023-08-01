@@ -81,5 +81,3 @@ export const TodoList = () => {
     </>
   )
 }
-
-// Will start class in 5 min,
