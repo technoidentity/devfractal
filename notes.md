@@ -1,7 +1,7 @@
 1. error handling, result, try, promise
 2. type safety, typescript, zod
 3. state, useUpdateState, usePrimitive
-4. useEvent
+4. useEvent, useDeferredEvent, useAsyncEvent
 5. Context
 6. global state, reactive programming
 7. global - ecart
