@@ -34,7 +34,7 @@ export type QueryArgs<
   Omit<UseQueryOptions<TQueryFnData, Error, GetEpResponse<Ep>>, 'queryKey'>
 
 export type UseEpQueryResult<Ep extends EndpointBase> = UseSafeQueryResult<
-  Ep['response'] & object
+  NonNullable<Ep['response']>
 >
 
 export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
@@ -43,7 +43,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   return function useEpQuery<TQueryFnData>(
     options: QueryArgs<Ep, TQueryFnData>,
   ): UseEpQueryResult<Ep> {
-    const paths = keysfn(ep.path, options.params)
+    const paths = keysfn<Ep['path']>(ep.path, options.params)
 
     const query = ep.request
       ? cast(ep.request, options.request)
@@ -56,7 +56,8 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
     const queryFn = useEvent(() => defaultApi.get(url) as Promise<TQueryFnData>)
 
     invariant(ep.response, 'endpoint must have a response schema')
-    return useSafeQuery<Ep['response'] & object, TQueryFnData>({
+    // @TODO: replace above with ep.repsonse = z.ZodUndefined() when not defined?
+    return useSafeQuery<Ep['response'], TQueryFnData>({
       paths,
       query,
       spec: ep.response,

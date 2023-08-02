@@ -1,8 +1,8 @@
 import { Pre } from '@srtp/react'
 import { pages } from '@srtp/router'
 import { number } from '@srtp/validator'
-import { type RouteObject } from 'react-router-dom'
 import { Filters } from '../specs'
+import { path } from '@srtp/endpoint'
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()
@@ -20,8 +20,7 @@ const TaskView = () => {
 
   return (
     <div>
-      <h1>Task View</h1>
-      <Pre value={params} />
+      <h1>Task View</h1> <Pre value={params} />{' '}
     </div>
   )
 }
@@ -76,45 +75,45 @@ const UserTasksList = () => {
 
 const tasksApp = pages({
   tasksList: {
-    path: ['tasks'],
+    path: path(['tasks']),
     request: Filters,
     element: <TasksList />,
   },
 
   taskView: {
-    path: ['tasks', { id: number() }],
+    path: path(['tasks', { id: number() }]),
     element: <TaskView />,
   },
 
   taskEdit: {
-    path: ['tasks', { id: number() }, 'edit'],
+    path: path(['tasks', { id: number() }, 'edit']),
     element: <TaskEdit />,
   },
   taskCreate: {
-    path: ['tasks', 'create'],
+    path: path(['tasks', 'create']),
     element: <TaskCreate />,
   },
   usersList: {
-    path: ['users'],
+    path: path(['users']),
     element: <UsersList />,
   },
   userView: {
-    path: ['users', { id: number() }],
+    path: path(['users', { id: number() }]),
     element: <UserView />,
   },
   userEdit: {
-    path: ['users', { id: number() }, 'edit'],
+    path: path(['users', { id: number() }, 'edit']),
     element: <UserEdit />,
   },
   userCreate: {
-    path: ['users', 'create'],
+    path: path(['users', 'create']),
     element: <UserCreate />,
   },
   userTasksList: {
-    path: ['users', { id: number() }, 'tasks'],
+    path: path(['users', { id: number() }, 'tasks']),
     request: Filters,
     element: <UserTasksList />,
   },
 })
 
-export const tasksRoutes: RouteObject[] = tasksApp.routes
+export const tasksRoutes = tasksApp.routes

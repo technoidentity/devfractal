@@ -9,7 +9,7 @@ import type { ImmerSetter, ImmerWrite } from './types'
 export function immerAction<Args extends unknown[], Result>(
   write: ImmerWrite<Args, Result>,
 ): WritableAtom<null, Args, Result> {
-  const anAtom: any = atom(null, (get, set, ...args: Args) => {
+  return atom(null, (get, set, ...args: Args) => {
     const setter: ImmerSetter = (atom, fn) => {
       const value = produce(get(atom), is(z.function(), fn) ? fn : () => fn)
 
@@ -18,8 +18,6 @@ export function immerAction<Args extends unknown[], Result>(
 
     return write({ set: setter, get }, ...args)
   })
-
-  return anAtom
 }
 
 export function atomAction<Value, Args extends unknown[], Result>(

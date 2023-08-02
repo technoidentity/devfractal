@@ -106,15 +106,15 @@ type EpRouteResult<
 } & Omit<EpPathResult<Path>, 'path'> &
   Iff<
     IsDefined<SearchSpec>,
-    { useSearch: () => UseSearchResult<SearchSpec & object> }
+    { useSearch: () => UseSearchResult<NonNullable<SearchSpec>> }
   > &
   Iff<
     IsDefined<LoaderEp>,
-    { useLoaderData: () => GetEpResponse<LoaderEp & object> }
+    { useLoaderData: () => GetEpResponse<NonNullable<LoaderEp>> }
   > &
   Iff<
     IsDefined<ActionEp>,
-    { useActionData: () => GetEpResponse<ActionEp & object> }
+    { useActionData: () => GetEpResponse<NonNullable<ActionEp>> }
   >
 
 export function epRouteUtils<

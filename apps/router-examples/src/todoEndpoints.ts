@@ -16,6 +16,7 @@ export const Filters = z.object({
   search: string().optional(),
   completed: boolean().optional(),
 })
+
 export type Filters = z.infer<typeof Filters>
 
 export const todoEndpoints = {
@@ -26,7 +27,12 @@ export const todoEndpoints = {
     method: 'get',
   },
 
-  removeTodo: { path: ['todos', { id: z.coerce.number() }], method: 'delete' },
+  removeTodo: {
+    path: ['todos', { id: z.coerce.number() }],
+    method: 'delete',
+    request: z.undefined(),
+    response: z.undefined(),
+  },
 
   addTodo: {
     path: ['todos'],

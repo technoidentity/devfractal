@@ -7,7 +7,8 @@ import type { RouteObject } from 'react-router-dom'
 import { routerPath, type EpPathResult } from './routerPath'
 
 export type PageBase = Omit<RouteObject, 'path'> &
-  Pick<EndpointBase, 'path' | 'request'>
+  Pick<EndpointBase, 'path'> &
+  Partial<Pick<EndpointBase, 'request'>>
 
 export type PageResult<Page extends PageBase> = { route: RouteObject } & (Omit<
   EpPathResult<Page['path']>,
@@ -15,10 +16,12 @@ export type PageResult<Page extends PageBase> = { route: RouteObject } & (Omit<
 > &
   Iff<
     IsNonEmpty<Page['request']>,
-    { useSearch: () => UseSearchResult<Page['request'] & object> }
+    { useSearch: () => UseSearchResult<NonNullable<Page['request']>> }
   >)
 
-export function page<Page extends PageBase>(page: Page): PageResult<Page> {
+export function page<const Page extends PageBase>(
+  page: Page,
+): PageResult<Page> {
   const { path, request, ...routeArgs } = page
 
   const { path: routePath, ...pathUtils } = routerPath<Page['path']>(path)

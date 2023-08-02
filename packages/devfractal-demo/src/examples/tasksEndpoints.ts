@@ -1,30 +1,18 @@
-import type { EndpointBase } from '@srtp/endpoint'
-import {} from '@srtp/endpoint'
+import { epDelete, epGet, epPatch, epPost, eps } from '@srtp/endpoint'
 
 import { z } from 'zod'
 import { Filters, Task } from './specs'
 
-export const taskEndpoints = {
-  getTasks: {
-    path: ['tasks'],
-    request: Filters,
-    response: z.array(Task),
-    method: 'get',
-  },
+export const taskEndpoints = eps({
+  getTasks: epGet(['tasks'], z.array(Task), Filters),
 
-  removeTask: { path: ['tasks', { id: z.coerce.number() }], method: 'delete' },
+  removeTask: epDelete(['tasks', { id: z.coerce.number() }]),
 
-  addTask: {
-    path: ['tasks'],
-    method: 'post',
-    request: Task.omit({ id: true }),
-    response: Task,
-  },
+  addTask: epPost(['tasks'], Task.omit({ id: true }), Task),
 
-  updateTask: {
-    path: ['tasks', { id: z.coerce.number() }],
-    method: 'patch',
-    request: Task.omit({ id: true }).partial(),
-    response: Task,
-  },
-} as const satisfies Record<string, EndpointBase>
+  updateTask: epPatch(
+    ['tasks', { id: z.coerce.number() }],
+    Task.partial(),
+    Task,
+  ),
+})

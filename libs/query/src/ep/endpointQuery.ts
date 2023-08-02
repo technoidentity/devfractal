@@ -15,7 +15,7 @@ import { axios, urlcat } from '@srtp/web'
 export type QueryArgs<Ep extends EndpointBase> = (Ep extends {
   request: never
 }
-  ? { query: z.infer<Ep['request'] & object> }
+  ? { query: z.infer<NonNullable<Ep['request']>> }
   : { query?: undefined }) &
   (object extends Params<Ep['path']>
     ? { request?: undefined } | undefined
@@ -45,7 +45,7 @@ export function createEndPointQuery<Ep extends EndpointBase>(
 export type MutationArgs<Ep extends EndpointBase> = (Ep extends {
   request: unknown
 }
-  ? { body: z.infer<Ep['request'] & object> }
+  ? { body: z.infer<NonNullable<Ep['request']>> }
   : { body?: undefined }) &
   (keyof Params<Ep['path']> extends never
     ? { request?: undefined } | undefined

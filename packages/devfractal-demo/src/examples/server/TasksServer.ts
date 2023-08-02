@@ -8,7 +8,9 @@ import { taskEndpoints } from '../tasksEndpoints'
 const taskHandlers = {
   getTasks: ({ request: filters }) => tasksList(filters),
 
-  removeTask: ({ params: { id } }) => removeTask(id),
+  removeTask: ({ params: { id } }) => {
+    removeTask(id)
+  },
 
   addTask: ({ request: body }): Task => {
     const todo = createTask(body)
