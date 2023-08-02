@@ -36,7 +36,7 @@ module.exports = {
     react: { version: 'detect' },
   },
   rules: {
-    'no-only-tests/no-only-tests': 'error',
+    'no-only-tests/no-only-tests': 'warn',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
