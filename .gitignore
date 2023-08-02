@@ -63,3 +63,4 @@ public/build
 .history
 **/supabase/.branches
 .parcel-cache/
+.idea/
