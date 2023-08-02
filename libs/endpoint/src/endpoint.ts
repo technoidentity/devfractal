@@ -1,13 +1,14 @@
-import type { Prettify, UnionToIntersection } from '@srtp/core'
+import type { UnionToIntersection } from '@srtp/core'
 import { ZodFundamental } from '@srtp/spec'
 import { z } from 'zod'
 
 export const HttpMethod = z.enum(['get', 'post', 'put', 'delete', 'patch'])
 export type HttpMethod = z.infer<typeof HttpMethod>
 
-export type PathBase = ReadonlyArray<string | Record<string, ZodFundamental>>
+type ZodPath = Record<string, ZodFundamental>
+export type PathBase = ReadonlyArray<string | ZodPath>
 
-export const Endpoint = <
+export const endpointSpec = <
   ReqSpec extends z.ZodTypeAny,
   ResSpec extends z.ZodTypeAny,
 >(
@@ -26,12 +27,12 @@ export type Endpoint<
   Path extends PathBase,
   Request extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
-> = {
+> = Readonly<{
   path: Path
   method: Method
-  request?: Request
-  response?: Response
-}
+  request: Request
+  response: Response
+}>
 
 export type EndpointBase<M extends HttpMethod = HttpMethod> = Endpoint<
   M,
@@ -45,39 +46,51 @@ export type EndpointRecordBase<M extends HttpMethod = HttpMethod> = Record<
   EndpointBase<M>
 >
 
-// @TODO: handle undefined differently
-export type GetEpRequest<Ep extends EndpointBase> = z.infer<
-  Ep['request'] & object
+// export type ParamsRawSchema<Path extends PathBase> = UnionToIntersection<
+//   {
+//     [K in keyof Path]: Path[K] extends string ? never : Path[K]
+//   }[number]
+// >
+
+export type ParamsRawSpec<Path extends PathBase> = UnionToIntersection<
+  Exclude<Path[number], string>
 >
 
-export type GetEpResponse<Ep extends EndpointBase> = z.infer<
-  Ep['response'] & object
+type ParamsFromRawSpec<Paths extends ParamsRawSpec<any>> = {
+  readonly [K in keyof Paths]: z.infer<Paths[K]>
+}
+
+export type Params<Paths extends PathBase> = ParamsFromRawSpec<
+  ParamsRawSpec<Paths>
 >
 
-export type GetEpPath<Ep extends EndpointBase> = Params<Ep['path']>
+// export type GetEpRequestSpec<Ep extends EndpointBase> =
+//   Ep['request'] extends object ? NonNullable<Ep['request']> : z.ZodUndefined
 
-export type GetParamsArg<Ep extends EndpointBase> = object extends Params<
+// export type GetEpRequest<Ep extends EndpointBase> = z.infer<
+//   GetEpRequestSpec<Ep>
+// >
+
+// export type GetEpResponseSpec<Ep extends EndpointBase> =
+//   Ep['response'] extends object ? NonNullable<Ep['response']> : z.ZodUndefined
+
+// export type GetEpResponse<Ep extends EndpointBase> = z.infer<
+//   GetEpResponseSpec<Ep>
+// >
+
+export type GetEpRequest<Ep extends EndpointBase> = z.infer<Ep['request']>
+export type GetEpResponse<Ep extends EndpointBase> = z.infer<Ep['response']>
+
+export type GetRequestArg<Ep extends EndpointBase> =
+  Ep['request'] extends z.ZodUndefined
+    ? { request?: undefined }
+    : { request: z.infer<Ep['request']> }
+
+export type GetParamsArg<Ep extends EndpointBase> = keyof Params<
   Ep['path']
->
-  ? { params?: undefined }
-  : { params: Params<Ep['path']> }
-
-export type GetRequestArg<Ep extends EndpointBase> = Ep extends Ep['request']
-  ? { request?: undefined }
-  : { request: z.infer<Ep['request'] & object> }
-
-export type ParamsRawSchema<Path extends PathBase> = UnionToIntersection<
-  {
-    [K in keyof Path]: Path[K] extends string ? never : Path[K]
-  }[number]
->
-
-export type ParamsFromFieldSpecs<Paths extends ParamsRawSchema<any>> =
-  Prettify<{ [K in keyof Paths]: z.infer<Paths[K]> }>
-
-export type Params<Paths extends PathBase> = ParamsFromFieldSpecs<
-  ParamsRawSchema<Paths>
->
+> extends never
+  ? Readonly<{ params?: undefined }>
+  : Readonly<{ params: Params<Ep['path']> }>
 
 export function path<const Path extends PathBase>(path: Path) {
   return path
@@ -89,14 +102,14 @@ export function endpoint<const Ep extends EndpointBase>(ep: Ep): Ep {
 
 export function ep<
   Method extends HttpMethod,
-  Path extends PathBase,
+  const Path extends PathBase,
   Request extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
   path: Path,
   method: Method,
-  res: Response,
   req: Request,
+  res: Response,
 ): Endpoint<Method, Path, Request, Response> {
   return { path, method, request: req, response: res } as const
 }
@@ -106,7 +119,7 @@ export function eps<const Eps extends EndpointRecordBase>(eps: Eps): Eps {
 }
 
 export function epGet<
-  Path extends PathBase,
+  const Path extends PathBase,
   Search extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -115,13 +128,24 @@ export function epGet<
   search: Search,
 ): Endpoint<'get', Path, Search, Response>
 
-export function epGet<Path extends PathBase, Response extends z.ZodTypeAny>(
-  path: Path,
-  res: Response,
-): Endpoint<'get', Path, z.ZodUndefined, Response>
-
 export function epGet<
-  Path extends PathBase,
+  const Path extends PathBase,
+  Response extends z.ZodTypeAny,
+>(path: Path, res: Response): Endpoint<'get', Path, z.ZodUndefined, Response>
+
+/**
+ * Creates an endpoint for a GET request.
+ *
+ * @template Path - The path of the endpoint.
+ * @template Search - The search parameters of the endpoint.
+ * @template Response - The response of the endpoint.
+ * @param {Path} path - The path of the endpoint.
+ * @param {Response} res - The response of the endpoint.
+ * @param {Search} [search] - The search parameters of the endpoint.
+ * @returns {Endpoint<'get', Path, Search, Response>} - The endpoint for a GET request.
+ */
+export function epGet<
+  const Path extends PathBase,
   Search extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -137,32 +161,65 @@ export function epGet<
   } as const as any
 }
 
+/**
+ * Creates an endpoint for a POST request.
+ *
+ * @template Path - The path of the endpoint.
+ * @template Body - The body of the endpoint.
+ * @template Response - The response of the endpoint.
+ * @param {Path} path - The path of the endpoint.
+ * @param {Response} res - The response of the endpoint.
+ * @param {Body} body - The body of the endpoint.
+ * @returns {Endpoint<'post', Path, Body, Response>} - The endpoint for a POST request.
+ */
 export function epPost<
-  Path extends PathBase,
+  const Path extends PathBase,
   Body extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
   path: Path,
-  res: Response,
   body: Body,
+  res: Response,
 ): Endpoint<'post', Path, Body, Response> {
   return { path, method: 'post', request: body, response: res } as const
 }
 
+/**
+ * Creates an endpoint for a PUT request.
+ *
+ * @template Path - The path of the endpoint.
+ * @template Body - The body of the endpoint.
+ * @template Response - The response of the endpoint.
+ * @param {Path} path - The path of the endpoint.
+ * @param {Response} res - The response of the endpoint.
+ * @param {Body} body - The body of the endpoint.
+ * @returns {Endpoint<'put', Path, Body, Response>} - The endpoint for a PUT request.
+ */
 export function epPut<
-  Path extends PathBase,
+  const Path extends PathBase,
   Body extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
   path: Path,
-  res: Response,
   body: Body,
+  res: Response,
 ): Endpoint<'put', Path, Body, Response> {
   return { path, method: 'put', request: body, response: res } as const
 }
 
+/**
+ * Creates an endpoint for a PATCH request.
+ *
+ * @template Path - The path of the endpoint.
+ * @template Body - The body of the endpoint.
+ * @template Response - The response of the endpoint.
+ * @param {Path} path - The path of the endpoint.
+ * @param {Body} body - The body of the endpoint.
+ * @param {Response} res - The response of the endpoint.
+ * @returns {Endpoint<'patch', Path, Body, Response>} - The endpoint for a PATCH request.
+ */
 export function epPatch<
-  Path extends PathBase,
+  const Path extends PathBase,
   Body extends z.ZodTypeAny,
   Response extends z.ZodTypeAny,
 >(
@@ -173,16 +230,28 @@ export function epPatch<
   return { path, method: 'patch', request: body, response: res } as const
 }
 
-export function epDelete<Path extends PathBase, Response extends z.ZodTypeAny>(
-  path: Path,
-  res: Response,
-): Endpoint<'delete', Path, z.ZodUndefined, Response>
+export function epDelete<
+  const Path extends PathBase,
+  Response extends z.ZodTypeAny,
+>(path: Path, res: Response): Endpoint<'delete', Path, z.ZodUndefined, Response>
 
-export function epDelete<Path extends PathBase>(
+export function epDelete<const Path extends PathBase>(
   path: Path,
 ): Endpoint<'delete', Path, z.ZodUndefined, z.ZodUndefined>
 
-export function epDelete<Path extends PathBase, Response extends z.ZodTypeAny>(
+/**
+ * Creates an endpoint for a DELETE request.
+ *
+ * @template Path - The path of the endpoint.
+ * @template Response - The response of the endpoint.
+ * @param {Path} path - The path of the endpoint.
+ * @param {Response} [res] - The response of the endpoint.
+ * @returns {Endpoint<'delete', Path, z.ZodUndefined, Response>} - The endpoint for a DELETE request.
+ */
+export function epDelete<
+  const Path extends PathBase,
+  Response extends z.ZodTypeAny,
+>(
   path: Path,
   res?: Response,
 ): Endpoint<'delete', Path, z.ZodUndefined, Response> {
