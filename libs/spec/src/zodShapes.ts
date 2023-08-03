@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+// @TODO: ZodEFfect not handled?
+
 export type ZodShapes =
   | z.ZodRawShape
   | z.ZodDefault<any>
