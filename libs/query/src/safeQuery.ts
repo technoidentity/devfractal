@@ -1,4 +1,4 @@
-import { useEvent } from '@srtp/react'
+import { useAsyncEvent } from '@srtp/react'
 import { cast } from '@srtp/spec'
 import {
   useMutation,
@@ -13,8 +13,6 @@ import {
 import React from 'react'
 import type { z } from 'zod'
 import type { Paths } from './review/queryFn'
-import { useErrorBoundary } from 'react-error-boundary'
-import { toError } from '@srtp/result'
 
 // @TODO: Make sure only Error is thrown, else convert it to Error
 
@@ -96,17 +94,8 @@ export function useSafeMutation<
   return { ...result, data: typedData }
 }
 
-export function useShowBoundary() {
-  const { showBoundary } = useErrorBoundary()
-
-  return useEvent((error: unknown) => {
-    showBoundary(toError(error))
-  })
-}
-
 export function useInvalidate(key: QueryKey) {
-  const showBoundary = useShowBoundary()
   const qc = useQueryClient()
 
-  return useEvent(() => qc.invalidateQueries(key).catch(showBoundary))
+  return useAsyncEvent(() => qc.invalidateQueries(key))
 }

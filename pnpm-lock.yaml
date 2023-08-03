@@ -3589,6 +3589,9 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
+      '@srtp/result':
+        specifier: workspace:*
+        version: link:../result
       '@srtp/spec':
         specifier: workspace:*
         version: link:../spec

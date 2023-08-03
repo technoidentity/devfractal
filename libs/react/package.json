@@ -25,6 +25,7 @@
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/spec": "workspace:*",
+    "@srtp/result": "workspace:*",
     "@srtp/validator": "workspace:*",
     "immer": "10.0.2",
     "react": "18.2.0",
