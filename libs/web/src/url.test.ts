@@ -1,4 +1,4 @@
-import { fromSearch } from './url'
+import { formDataToSearch, fromSearch, searchToFormData } from './url'
 import { describe, expect, test } from 'vitest'
 import { joinPaths, toSearchParams, urlcat } from './url'
 
@@ -115,5 +115,61 @@ describe('fromSearch', () => {
 
     const searchParams4 = new URLSearchParams('')
     expect(fromSearch(searchParams4)).toEqual({})
+  })
+
+  describe('searchToFormData', () => {
+    test('should convert URLSearchParams to FormData correctly', () => {
+      const searchParams = new URLSearchParams('q=test&p=test2')
+      const formData = new FormData()
+      formData.append('q', 'test')
+      formData.append('p', 'test2')
+      expect(searchToFormData(searchParams)).toEqual(formData)
+
+      const searchParams2 = new URLSearchParams('q=test1&q=test2&p=test3')
+      const formData2 = new FormData()
+      formData2.append('q', 'test1')
+      formData2.append('q', 'test2')
+      formData2.append('p', 'test3')
+      expect(searchToFormData(searchParams2)).toEqual(formData2)
+
+      const searchParams3 = new URLSearchParams('q=100&q=200&p=test3')
+      const formData3 = new FormData()
+      formData3.append('q', '100')
+      formData3.append('q', '200')
+      formData3.append('p', 'test3')
+      expect(searchToFormData(searchParams3)).toEqual(formData3)
+
+      const searchParams4 = new URLSearchParams('')
+      const formData4 = new FormData()
+      expect(searchToFormData(searchParams4)).toEqual(formData4)
+    })
+  })
+
+  describe('formDataToSearch', () => {
+    test('should convert FormData to URLSearchParams correctly', () => {
+      const formData = new FormData()
+      formData.append('q', 'test')
+      formData.append('p', 'test2')
+      const searchParams = new URLSearchParams('q=test&p=test2')
+      expect(formDataToSearch(formData)).toEqual(searchParams)
+
+      const formData2 = new FormData()
+      formData2.append('q', 'test1')
+      formData2.append('q', 'test2')
+      formData2.append('p', 'test3')
+      const searchParams2 = new URLSearchParams('q=test1&q=test2&p=test3')
+      expect(formDataToSearch(formData2)).toEqual(searchParams2)
+
+      const formData3 = new FormData()
+      formData3.append('q', '100')
+      formData3.append('q', '200')
+      formData3.append('p', 'test3')
+      const searchParams3 = new URLSearchParams('q=100&q=200&p=test3')
+      expect(formDataToSearch(formData3)).toEqual(searchParams3)
+
+      const formData4 = new FormData()
+      const searchParams4 = new URLSearchParams('')
+      expect(formDataToSearch(formData4)).toEqual(searchParams4)
+    })
   })
 })

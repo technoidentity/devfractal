@@ -111,3 +111,23 @@ export function joinPaths(paths: string[]) {
 
   return result
 }
+
+export function searchToFormData(search: URLSearchParams): FormData {
+  const formData = new FormData()
+
+  for (const [key, value] of search.entries()) {
+    formData.append(key, value)
+  }
+
+  return formData
+}
+
+export function formDataToSearch(formData: FormData): URLSearchParams {
+  const search = new URLSearchParams()
+
+  for (const [key, value] of formData.entries()) {
+    search.append(key, value.toString())
+  }
+
+  return search
+}
