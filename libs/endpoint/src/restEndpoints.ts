@@ -34,7 +34,7 @@ export function restEndpoints<
       path: [segment, { id: rawSpec['id'] }],
       method: 'put',
       response: spec,
-      request: spec.partial().omit({ id: true }),
+      request: spec.partial(),
     },
 
     remove: {
