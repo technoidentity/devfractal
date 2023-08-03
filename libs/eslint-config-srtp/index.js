@@ -12,7 +12,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended',
-
+    // 'plugin:import/recommended',
     'turbo',
     // 'plugin:playwright/recommended',
   ],
@@ -34,6 +34,7 @@ module.exports = {
   ],
   settings: {
     react: { version: 'detect' },
+    // 'import/resolver': { typescript: true },
   },
   rules: {
     'no-only-tests/no-only-tests': 'warn',

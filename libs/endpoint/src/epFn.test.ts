@@ -1,9 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import { keysfn, route } from './epFn'
-import { boolean, number, string } from 'zod'
-import { paramsSpec } from './epFn'
-import { z } from 'zod'
-import { linkfn } from './epFn'
+import { keysfn, route, paramsSpec, linkfn } from './epFn'
+import { boolean, number, string, z } from 'zod'
 
 describe('keysfn', () => {
   test('should return an array of keys for a given path', () => {

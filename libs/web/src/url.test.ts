@@ -1,6 +1,12 @@
-import { formDataToSearch, fromSearch, searchToFormData } from './url'
+import {
+  formDataToSearch,
+  fromSearch,
+  searchToFormData,
+  joinPaths,
+  toSearchParams,
+  urlcat,
+} from './url'
 import { describe, expect, test } from 'vitest'
-import { joinPaths, toSearchParams, urlcat } from './url'
 
 describe('urlcat', () => {
   test('should concatenate URLs correctly', () => {
