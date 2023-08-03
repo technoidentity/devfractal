@@ -195,6 +195,18 @@ export function epPost<
  * @param {Body} body - The body of the endpoint.
  * @returns {Endpoint<'put', Path, Body, Response>} - The endpoint for a PUT request.
  */
+
+export function epPut<
+  const Path extends PathBase,
+  Body extends z.ZodTypeAny,
+  Response extends z.ZodTypeAny,
+>(path: Path, body: Body, res: Response): Endpoint<'put', Path, Body, Response>
+
+export function epPut<const Path extends PathBase, Body extends z.ZodTypeAny>(
+  path: Path,
+  body: Body,
+): Endpoint<'put', Path, Body, z.ZodUndefined>
+
 export function epPut<
   const Path extends PathBase,
   Body extends z.ZodTypeAny,
@@ -202,10 +214,30 @@ export function epPut<
 >(
   path: Path,
   body: Body,
-  res: Response,
+  res?: Response,
 ): Endpoint<'put', Path, Body, Response> {
-  return { path, method: 'put', request: body, response: res } as const
+  return {
+    path,
+    method: 'put',
+    request: body,
+    response: res ?? z.undefined(),
+  } as const as any
 }
+
+export function epPatch<
+  const Path extends PathBase,
+  Body extends z.ZodTypeAny,
+  Response extends z.ZodTypeAny,
+>(
+  path: Path,
+  body: Body,
+  res: Response,
+): Endpoint<'patch', Path, Body, Response>
+
+export function epPatch<const Path extends PathBase, Body extends z.ZodTypeAny>(
+  path: Path,
+  body: Body,
+): Endpoint<'patch', Path, Body, z.ZodUndefined>
 
 /**
  * Creates an endpoint for a PATCH request.
@@ -225,9 +257,14 @@ export function epPatch<
 >(
   path: Path,
   body: Body,
-  res: Response,
+  res?: Response,
 ): Endpoint<'patch', Path, Body, Response> {
-  return { path, method: 'patch', request: body, response: res } as const
+  return {
+    path,
+    method: 'patch',
+    request: body,
+    response: res ?? z.undefined,
+  } as const as any
 }
 
 export function epDelete<

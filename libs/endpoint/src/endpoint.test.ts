@@ -157,4 +157,123 @@ describe('endpoint', () => {
       }>
     }>()
   })
+
+  test('epGet', () => {
+    const ep = epGet(['users', 'todos'], z.string(), z.boolean())
+    type T = typeof ep
+    expectTypeOf<T>().toEqualTypeOf<
+      Readonly<{
+        method: 'get'
+        path: readonly ['users', 'todos']
+        request: z.ZodBoolean
+        response: z.ZodString
+      }>
+    >()
+
+    const ep2 = epGet(['users', 'todos'], z.string())
+    type T2 = typeof ep2
+    expectTypeOf<T2>().toEqualTypeOf<
+      Readonly<{
+        method: 'get'
+        path: readonly ['users', 'todos']
+        request: z.ZodUndefined
+        response: z.ZodString
+      }>
+    >()
+  })
+
+  test('epPost', () => {
+    const ep = epPost(['users', 'todos'], z.string(), z.boolean())
+    type T = typeof ep
+    expectTypeOf<T>().toEqualTypeOf<
+      Readonly<{
+        method: 'post'
+        path: readonly ['users', 'todos']
+        request: z.ZodString
+        response: z.ZodBoolean
+      }>
+    >()
+  })
+
+  test('epPut', () => {
+    const ep = epPut(
+      ['users', 'todos', { id: z.number() }],
+      z.string(),
+      z.boolean(),
+    )
+    type T = typeof ep
+    expectTypeOf<T>().toEqualTypeOf<
+      Readonly<{
+        method: 'put'
+        path: readonly ['users', 'todos', { readonly id: z.ZodNumber }]
+        request: z.ZodString
+        response: z.ZodBoolean
+      }>
+    >()
+
+    const ep2 = epPut(['users', 'todos'], z.string())
+    type T2 = typeof ep2
+
+    expectTypeOf<T2>().toEqualTypeOf<
+      Readonly<{
+        method: 'put'
+        path: readonly ['users', 'todos']
+        request: z.ZodString
+        response: z.ZodUndefined
+      }>
+    >()
+  })
+
+  test('epPatch', () => {
+    const ep = epPatch(
+      ['users', 'todos', { id: z.number() }],
+      z.string(),
+      z.boolean(),
+    )
+    type T = typeof ep
+    expectTypeOf<T>().toEqualTypeOf<
+      Readonly<{
+        method: 'patch'
+        path: readonly ['users', 'todos', { readonly id: z.ZodNumber }]
+        request: z.ZodString
+        response: z.ZodBoolean
+      }>
+    >()
+
+    const ep2 = epPatch(['users', 'todos'], z.string())
+    type T2 = typeof ep2
+
+    expectTypeOf<T2>().toEqualTypeOf<
+      Readonly<{
+        method: 'patch'
+        path: readonly ['users', 'todos']
+        request: z.ZodString
+        response: z.ZodUndefined
+      }>
+    >()
+  })
+
+  test('epDelete', () => {
+    const ep = epDelete(['users', 'todos'], z.string())
+    type T = typeof ep
+    expectTypeOf<T>().toEqualTypeOf<
+      Readonly<{
+        method: 'delete'
+        path: readonly ['users', 'todos']
+        request: z.ZodUndefined
+        response: z.ZodString
+      }>
+    >()
+
+    const ep2 = epDelete(['users', 'todos'])
+    type T2 = typeof ep2
+    expectTypeOf<T2>().toEqualTypeOf<
+      Readonly<{
+        method: 'delete'
+        path: readonly ['users', 'todos']
+        request: z.ZodUndefined
+        response: z.ZodUndefined
+      }>
+    >()
+  })
 })
