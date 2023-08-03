@@ -1,5 +1,48 @@
-// eslint-disable-next-line @typescript-eslint/ban-types
-export type Prettify<T> = T & {}
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable-next-line @typescript-eslint/ban-types */
+
+export type UnionToIntersection<U> = (
+  U extends any ? (k: U) => void : never
+) extends (k: infer I) => void
+  ? I
+  : never
+
+// More readably typed version of `UnionToIntersection`
+export type MergeUnion<T> = (
+  T extends unknown ? (k: T) => void : never
+) extends (k: infer I) => void
+  ? { [K in keyof I]: I[K] }
+  : never
+
+export type Simplify<T> = T extends unknown ? { [K in keyof T]: T[K] } : T
+
+export type PathParamNames<
+  Path,
+  Acc = never,
+> = Path extends `${string}:${infer Name}/${infer R}`
+  ? PathParamNames<R, Name | Acc>
+  : Path extends `${string}:${infer Name}`
+  ? Name | Acc
+  : Acc
+
+export type PickDefined<T> = Pick<
+  T,
+  { [K in keyof T]: T[K] extends never ? never : K }[keyof T]
+>
+
+export type RequiredKeys<T> = {
+  [P in keyof T]-?: undefined extends T[P] ? never : P
+}[keyof T]
+
+export type TypeEquals<T, U> = T extends U
+  ? U extends T
+    ? true
+    : false
+  : false
+
+export type OptionalIf<Options, R> = RequiredKeys<Options> extends never
+  ? (options?: Options) => R
+  : (options: Options) => R
 
 export type Stringify<T extends object> = {
   [K in keyof T]: T[K] extends object ? Stringify<T[K]> : string
@@ -8,12 +51,6 @@ export type Stringify<T extends object> = {
 export type Booleanify<T extends object> = {
   [K in keyof T]: T[K] extends object ? Booleanify<T[K]> : boolean
 }
-
-export type UnionToIntersection<U> = (
-  U extends any ? (k: U) => void : never
-) extends (k: infer I) => void
-  ? I
-  : never
 
 export type Tail<T extends any[]> = ((...args: T) => any) extends (
   head: any,
