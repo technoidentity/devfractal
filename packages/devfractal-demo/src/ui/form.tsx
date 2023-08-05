@@ -85,7 +85,7 @@ export function createClientForm<Spec extends FormSpec>(
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  return { Form, useFormContext: useForm }
+  return [Form, useFormContext] as const
 }
 
 type FieldContext = Readonly<{
@@ -97,7 +97,7 @@ const [FieldContext, useField] = context<FieldContext>({
   errorMessage: 'useFormContext must be used within a Form',
 })
 
-const FormLabel = React.forwardRef<
+export const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => {
@@ -117,7 +117,7 @@ FormLabel.displayName = 'FormLabel'
 export type FormFieldProps = React.HTMLAttributes<HTMLDivElement> &
   Pick<FieldContext, 'name'>
 
-const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
+export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
   ({ className, ...props }, ref) => {
     const id = React.useId()
 
@@ -128,7 +128,7 @@ const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
     )
   },
 )
-FormField.displayName = 'FormControl'
+FormField.displayName = 'FormField'
 
 const useFormField = () => {
   const { name, id } = useField()
