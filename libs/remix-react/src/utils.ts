@@ -7,6 +7,6 @@ export function getFieldError<T extends object>(
   form: UseFormReturnType<T, (values: T) => T>,
 ) {
   return (key: keyof T): string | undefined => {
-    return errors?.fieldErrors?.[key] || form.getInputProps(key).error
+    return errors?.fieldErrors?.[key] ?? form.getInputProps(key).error
   }
 }

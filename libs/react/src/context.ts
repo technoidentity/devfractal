@@ -10,8 +10,13 @@ export function useSafeContext<T>(
   return ctx
 }
 
-export function context<T>({ errorMessage }: { errorMessage: string }) {
-  const Context = React.createContext<T | undefined>(undefined)
+export type ContextOptions<T> = Readonly<{
+  initialValue?: T
+  errorMessage: string
+}>
+
+export function context<T>({ initialValue, errorMessage }: ContextOptions<T>) {
+  const Context = React.createContext<T | undefined>(initialValue)
   const useSafe = () => useSafeContext(Context, errorMessage)
 
   return [Context.Provider, useSafe] as const
