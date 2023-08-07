@@ -1,18 +1,34 @@
+import { cn } from '@/core'
 import {
   AriaControl,
+  FormControl,
   FormDescription,
   FormField,
   FormLabel,
   FormMessage,
   IdField,
-  useControllerProps,
 } from '@/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/ui/radio-group'
-import { cn } from '@core'
 import React from 'react'
 import type { BaseFieldProps } from './common'
 
-export type RadioFieldProps = React.ComponentProps<typeof RadioGroup> &
+type RadioGroupProps = React.ComponentProps<typeof RadioGroup>
+
+type RadioFieldBaseProps = Omit<
+  RadioGroupProps,
+  'onValueChange' | 'onChange'
+> & {
+  onChange?: RadioGroupProps['onValueChange']
+}
+
+const RadioFieldBase = ({ onChange, ...props }: RadioFieldBaseProps) => {
+  return <RadioGroup {...props} onValueChange={onChange} />
+}
+
+export type RadioFieldProps = Omit<
+  React.ComponentProps<typeof RadioGroup>,
+  'value' | 'onValueChange' | 'onChange'
+> &
   BaseFieldProps
 
 export const RadioField = ({
@@ -27,21 +43,17 @@ export const RadioField = ({
   children,
   ...props
 }: RadioFieldProps) => {
-  const field = useControllerProps()
-
   return (
     <FormField name={name} className={className}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
-      <AriaControl>
-        <RadioGroup
-          {...props}
-          onValueChange={field.onChange}
-          value={field.value}
+      <FormControl>
+        <RadioFieldBase
           className={cn('flex flex-col space-y-1', cnField)}
+          {...props}
         >
           {children}
-        </RadioGroup>
-      </AriaControl>
+        </RadioFieldBase>
+      </FormControl>
       {description && (
         <FormDescription className={cnDescription}>
           {description}
