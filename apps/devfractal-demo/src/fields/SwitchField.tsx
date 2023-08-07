@@ -9,7 +9,23 @@ import { Switch } from '@/ui/switch'
 import { cn } from '@/core'
 import type { BaseFieldProps } from './common'
 
-export type SwitchFieldProps = React.ComponentProps<typeof Switch> &
+type SwitchBaseProps = Omit<
+  React.ComponentProps<typeof Switch>,
+  'checked' | 'onCheckedChange'
+> &
+  Readonly<{
+    onChange?: (value: boolean) => void
+    value?: boolean
+  }>
+
+const SwitchBase = ({ onChange, value, ...props }: SwitchBaseProps) => (
+  <Switch {...props} checked={value} onCheckedChange={onChange} />
+)
+
+export type SwitchFieldProps = Omit<
+  React.ComponentProps<typeof Switch>,
+  'value' | 'onChange' | 'checked' | 'onCheckedChange'
+> &
   BaseFieldProps
 
 // @TODO: This should be different thatn this for sure :-)
@@ -41,7 +57,7 @@ export const SwitchField = ({
     </div>
     <FormMessage className={cnMessage} />
     <FormControl>
-      <Switch {...props} className={cnField} />
+      <SwitchBase {...props} className={cnField} />
     </FormControl>
   </FormField>
 )
