@@ -9,7 +9,10 @@ import { Input } from '@/ui/input'
 import { cn } from '@/core'
 import type { BaseFieldProps } from './common'
 
-export type InputFieldProps = React.ComponentProps<typeof Input> &
+export type InputFieldProps = Omit<
+  React.ComponentProps<typeof Input>,
+  'value' | 'onChange'
+> &
   BaseFieldProps
 
 export const InputField = ({
