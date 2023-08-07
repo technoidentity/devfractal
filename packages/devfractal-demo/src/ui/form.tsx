@@ -5,37 +5,33 @@ import type LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import { context } from '@srtp/react'
 import { getRawShape } from '@srtp/spec'
-import React from 'react'
-import { Form as RouterForm } from 'react-router-dom'
+import React, { type ComponentProps } from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import { Label } from './label'
 
-type TypeOfForm<Spec extends FormSpec> = UseFormReturnType<
+type FormSpec = z.ZodEffects<any> | z.AnyZodObject
+
+type FormType<Spec extends FormSpec> = UseFormReturnType<
   z.infer<Spec>,
   (values: z.infer<Spec>) => z.infer<Spec>
 >
 
 export type FormContext<Spec extends FormSpec> = {
-  form: TypeOfForm<Spec>
-  useContext: () => UseFormReturnType<
-    z.infer<Spec>,
-    (values: z.infer<Spec>) => z.infer<Spec>
-  >
+  form: FormType<Spec>
   spec: Spec
+  useContext: () => FormType<Spec>
 }
 
 export const [FormContext, useFormContext] = context<FormContext<any>>({
-  errorMessage: 'use FormContext Provider',
+  errorMessage: 'use Form',
 })
 
-type FormSpec = z.ZodEffects<any> | z.AnyZodObject
-
-export type FormProps<Spec extends FormSpec> = Readonly<{
-  onSubmit?: (values: z.infer<Spec>) => void
-  children: React.ReactNode
-}> &
-  Omit<React.ComponentProps<typeof RouterForm>, 'onSubmit'> &
+export type FormProps<Spec extends FormSpec> = ComponentProps<'form'> &
+  Readonly<{
+    onSubmit?: (values: z.infer<Spec>) => void
+    children: React.ReactNode
+  }> &
   Omit<UseFormInput<z.infer<Spec>>, 'validate'>
 
 export function createClientForm<Spec extends FormSpec>(
@@ -76,9 +72,12 @@ export function createClientForm<Spec extends FormSpec>(
     return (
       <Provider form={form}>
         <FormContext value={value}>
-          <RouterForm {...props} onSubmit={onSubmit}>
+          <form
+            {...props}
+            onSubmit={form.onSubmit(values => onSubmit?.(values))}
+          >
             {children}
-          </RouterForm>
+          </form>
         </FormContext>
       </Provider>
     )
@@ -88,20 +87,138 @@ export function createClientForm<Spec extends FormSpec>(
   return [Form, useFormContext] as const
 }
 
+type IdContext = Readonly<{ id: string }>
+
+const [IdContext, useIdContext] = context<IdContext>({
+  errorMessage: 'useIdContext must be used within a IdContext',
+})
+
+export type IdFieldProps = React.HTMLAttributes<HTMLDivElement>
+
+export const IdField = React.forwardRef<HTMLDivElement, IdFieldProps>(
+  ({ className, ...props }, ref) => {
+    const id = React.useId()
+
+    const value = React.useMemo(() => ({ id }) as const, [id])
+
+    return (
+      <IdContext value={value}>
+        <div ref={ref} className={cn('space-y-2', className)} {...props} />
+      </IdContext>
+    )
+  },
+)
+IdField.displayName = 'IdField'
+
 type FieldContext = Readonly<{
+  type: 'input' | 'checkbox'
   name: string
-  id: string
 }>
 
 const [FieldContext, useField] = context<FieldContext>({
-  errorMessage: 'useFormContext must be used within a Form',
+  errorMessage: 'useField must be used within a FieldContext',
 })
+
+export type FormFieldProps = React.HTMLAttributes<HTMLDivElement> &
+  Pick<FieldContext, 'name'> & { type?: 'input' | 'checkbox' }
+
+export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
+  ({ className, ...props }, ref) => {
+    const fieldValue = React.useMemo(
+      () => ({ name: props.name, type: props.type ?? 'input' }),
+      [props.name, props.type],
+    )
+
+    return (
+      <IdField>
+        <FieldContext value={fieldValue}>
+          <div ref={ref} className={cn('space-y-2', className)} {...props} />
+        </FieldContext>
+      </IdField>
+    )
+  },
+)
+FormField.displayName = 'FormField'
+
+export function useFieldProps() {
+  const { name, type } = useField()
+  const { form } = useFormContext()
+  const fieldProps = form.getInputProps(name, { type })
+  return { name, fieldProps }
+}
+
+const useFormField = () => {
+  const { id } = useIdContext()
+  const { name, fieldProps } = useFieldProps()
+
+  const error = fieldProps.error
+
+  return {
+    id,
+    name,
+    formItemId: `${id}-form-item`,
+    formDescriptionId: `${id}-form-item-description`,
+    formMessageId: `${id}-form-item-message`,
+    error,
+  }
+}
+
+export function useAriaProps() {
+  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+
+  const ariaProps = {
+    id: formItemId,
+    'aria-describedby': !error
+      ? `${formDescriptionId}`
+      : `${formDescriptionId} ${formMessageId}`,
+    'aria-invalid': !!error,
+  }
+
+  return ariaProps
+}
+
+export const AriaControl = React.forwardRef<
+  React.ElementRef<typeof Slot>,
+  React.ComponentPropsWithoutRef<typeof Slot>
+>((props, ref) => {
+  const slotProps = useAriaProps()
+
+  return <Slot {...slotProps} {...props} ref={ref} />
+})
+AriaControl.displayName = 'AriaControl'
+
+export function useControllerProps() {
+  const { name, fieldProps } = useFieldProps()
+
+  return { name, ...fieldProps }
+}
+
+export const Controller = React.forwardRef<
+  React.ElementRef<typeof Slot>,
+  React.ComponentPropsWithoutRef<typeof Slot>
+>(({ ...props }, ref) => {
+  const slotProps = useControllerProps()
+  return <Slot {...slotProps} {...props} ref={ref} />
+})
+Controller.displayName = 'Controller'
+
+export const FormControl = React.forwardRef<
+  React.ElementRef<typeof Slot>,
+  React.ComponentPropsWithoutRef<typeof Slot>
+>(({ ...props }, ref) => {
+  const controllerProps = useControllerProps()
+  const ariaProps = useAriaProps()
+
+  return <Slot {...controllerProps} {...ariaProps} {...props} ref={ref} />
+})
+FormControl.displayName = 'FormControl'
 
 export const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => {
-  const { fieldProps, formItemId } = useFormField()
+  const { formItemId } = useFormField()
+  const { fieldProps } = useFieldProps()
 
   return (
     <Label
@@ -113,60 +230,6 @@ export const FormLabel = React.forwardRef<
   )
 })
 FormLabel.displayName = 'FormLabel'
-
-export type FormFieldProps = React.HTMLAttributes<HTMLDivElement> &
-  Pick<FieldContext, 'name'>
-
-export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
-  ({ className, ...props }, ref) => {
-    const id = React.useId()
-
-    return (
-      <FieldContext value={{ id, name: props.name }}>
-        <div ref={ref} className={cn('space-y-2', className)} {...props} />
-      </FieldContext>
-    )
-  },
-)
-FormField.displayName = 'FormField'
-
-const useFormField = () => {
-  const { name, id } = useField()
-  const { form } = useFormContext()
-  const fieldProps = form.getInputProps(name)
-
-  return {
-    id,
-    name,
-    formItemId: `${id}-form-item`,
-    formDescriptionId: `${id}-form-item-description`,
-    formMessageId: `${id}-form-item-message`,
-    fieldProps,
-  }
-}
-
-export const FormControl = React.forwardRef<
-  React.ElementRef<typeof Slot>,
-  React.ComponentPropsWithoutRef<typeof Slot>
->(({ ...props }, ref) => {
-  const { fieldProps, formItemId, formDescriptionId, formMessageId } =
-    useFormField()
-
-  return (
-    <Slot
-      ref={ref}
-      id={formItemId}
-      aria-describedby={
-        !fieldProps.error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-invalid={!!fieldProps.error}
-      {...props}
-    />
-  )
-})
-FormControl.displayName = 'FormControl'
 
 export const FormDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -189,7 +252,9 @@ export const FormMessage = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
-  const { fieldProps, formMessageId } = useFormField()
+  const { formMessageId } = useFormField()
+  const { fieldProps } = useFieldProps()
+
   const body = fieldProps.error ? String(fieldProps.error?.message) : children
 
   if (!body) {
