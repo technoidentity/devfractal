@@ -161,6 +161,18 @@ export const Small = React.forwardRef<
 ))
 Small.displayName = 'Small'
 
+export const Text = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn('text-base font-normal leading-none', className)}
+    {...props}
+  />
+))
+Text.displayName = 'Small'
+
 // export const FlowRoot = React.forwardRef<
 //   HTMLDivElement,
 //   React.HTMLAttributes<HTMLDivElement>
