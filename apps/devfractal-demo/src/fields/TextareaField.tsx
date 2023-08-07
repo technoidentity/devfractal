@@ -6,10 +6,13 @@ import {
   FormMessage,
 } from '@/ui/form'
 import { Textarea } from '@/ui/textarea'
-import { cn } from '@core'
+import { cn } from '@/core'
 import type { BaseFieldProps } from './common'
 
-export type TextareaFieldProps = React.ComponentProps<typeof Textarea> &
+export type TextareaFieldProps = Omit<
+  React.ComponentProps<typeof Textarea>,
+  'value' | 'onChange'
+> &
   BaseFieldProps
 
 export const TextareaField = ({
@@ -26,7 +29,7 @@ export const TextareaField = ({
   <FormField className={className} name={name}>
     {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
     <FormControl>
-      <Textarea className={cn('resize-none', cnField)} {...props} />
+      <Textarea {...props} className={cn('resize-none', cnField)} />
     </FormControl>
     {description && (
       <FormDescription className={cnDescription}>{description}</FormDescription>
