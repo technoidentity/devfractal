@@ -87,7 +87,7 @@ export function createForm<Spec extends FormSpec>(
       'You must provide initialValues to form',
     )
     const form = useForm({
-      initialValues: initialValues || initial,
+      initialValues: initialValues ?? initial,
       validateInputOnBlur: true,
       ...props,
       validate: zodResolver(spec),
