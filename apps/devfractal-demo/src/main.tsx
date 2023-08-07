@@ -13,7 +13,7 @@ import {
 } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import { tasksRoutes } from './examples/router/tasksRoutes'
-import './globals.css'
+import './customTheme.css'
 
 // if (process.env.NODE_ENV === 'development') {
 //   const { worker } = await import('./mocks/browser')
