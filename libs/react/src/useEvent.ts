@@ -1,9 +1,9 @@
 import React from 'react'
-import { useShowBoundary } from './useShowBoundary'
+import { useErrorBoundary } from 'react-error-boundary'
 
 export const useEvent = <F extends (...args: any[]) => any>(fn: F): F => {
   const ref = React.useRef(fn)
-  const showBoundary = useShowBoundary()
+  const { showBoundary } = useErrorBoundary()
 
   React.useLayoutEffect(() => {
     ref.current = fn
@@ -40,7 +40,7 @@ export function useAsyncEvent<F extends (...args: any[]) => Promise<any>>(
   onError?: (err: unknown) => void,
 ): F {
   // @TODO: shoudn't return back promise?
-  const showBoundary = useShowBoundary()
+  const { showBoundary } = useErrorBoundary()
 
   return useEvent((...args: Parameters<F>) =>
     fn(...args).catch(error => {
