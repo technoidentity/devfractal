@@ -1,6 +1,6 @@
 import type { Handlers } from '@srtp/local-state'
 import { tree } from '@srtp/local-state'
-import { Container, HStack } from '@/cui'
+import { HStack } from '@/cui'
 import { Button } from '@/ui/button'
 import { Text } from '@/ui/typography'
 

@@ -83,7 +83,6 @@ export function createClientForm<Spec extends FormSpec>(
     )
   }
 
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   return [Form, useFormContext] as const
 }
 
