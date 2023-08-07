@@ -39,18 +39,18 @@ const flexDirectionClassNames: { [key in FlexDirection]: string } = {
 }
 
 export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
-  flexDirection?: FlexDirection
-  justifyContent?: JustifyContent
-  alignItems?: AlignItems
+  direction?: FlexDirection
+  justify?: JustifyContent
+  align?: AlignItems
   children: React.ReactNode
 }
 
 export const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
   (props, ref) => {
     const {
-      flexDirection = 'row',
-      justifyContent = 'between',
-      alignItems = 'center',
+      direction: flexDirection = 'row',
+      justify: justifyContent = 'between',
+      align: alignItems = 'center',
       children,
       className,
       ...other
