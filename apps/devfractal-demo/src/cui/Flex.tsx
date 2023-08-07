@@ -75,3 +75,19 @@ export const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
 )
 
 Flex.displayName = 'Flex'
+
+export const HStack = React.forwardRef<HTMLDivElement, FlexProps>(
+  (props, ref) => {
+    const { className, ...other } = props
+
+    return <Flex ref={ref} direction="row" className={className} {...other} />
+  },
+)
+
+export const VStack = React.forwardRef<HTMLDivElement, FlexProps>(
+  (props, ref) => {
+    const { className, ...other } = props
+
+    return <Flex ref={ref} direction="col" className={className} {...other} />
+  },
+)
