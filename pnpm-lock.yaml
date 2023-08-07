@@ -4644,9 +4644,6 @@ importers:
       react-error-boundary:
         specifier: 4.0.10
         version: 4.0.10(react@18.2.0)
-      react-hook-form:
-        specifier: 7.45.2
-        version: 7.45.2(react@18.2.0)
       react-router-dom:
         specifier: 6.14.2
         version: 6.14.2(react-dom@18.2.0)(react@18.2.0)
