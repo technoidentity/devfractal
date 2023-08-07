@@ -1,30 +1,26 @@
-import { cn } from '@/core'
-import { CheckBoxField } from '@/examples/ui/CheckboxField'
-import { InputField } from '@/examples/ui/InputField'
-import { RadioExample } from '@/examples/ui/RadioField'
-import { SelectField } from '@/examples/ui/SelectField'
-import { SwitchField } from '@/examples/ui/SwitchField'
-import { TextareaField } from '@/examples/ui/TextArea'
 import { Button } from '@/ui/button'
-import { Calendar } from '@/ui/calendar'
 import {
-  AriaControl,
   FormControl,
   FormDescription,
   FormField,
   FormLabel,
-  FormMessage,
   createClientForm,
-  useControllerProps,
 } from '@/ui/form'
-import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover'
 import { SelectItem } from '@/ui/select'
 import { Switch } from '@/ui/switch'
-import { ThemeSelector } from '@/ui/theme-toggle'
-import { CalendarIcon } from '@radix-ui/react-icons'
+import { ThemeSelector } from '@/ui/theme-selector'
 import { boolean, email, string } from '@srtp/validator'
-import { format } from 'date-fns'
 import { z } from 'zod'
+import {
+  CheckBoxField,
+  DatePickerField,
+  InputField,
+  RadioField,
+  RadioItemField,
+  SelectField,
+  SwitchField,
+  TextareaField,
+} from '@/fields'
 
 const Signin = z.object({
   username: string(),
@@ -63,6 +59,41 @@ const initialValues = {
 
 const [Form] = createClientForm(Signin, initialValues)
 
+export function DatePickerExample() {
+  return (
+    <DatePickerField
+      name="dob"
+      label="Date of birth"
+      disabled={date => date > new Date() || date < new Date('1900-01-01')}
+      description="Your date of birth is used to calculate your age"
+    />
+  )
+}
+
+export const RadioExample = () => {
+  return (
+    <RadioField name="notify" label="Notify me about...">
+      <RadioItemField
+        value="all"
+        className="flex items-center space-x-3 space-y-0"
+        label="All new messages"
+      />
+
+      <RadioItemField
+        value="mentions"
+        className="flex items-center space-x-3 space-y-0"
+        label="Direct messages and mentions"
+      />
+
+      <RadioItemField
+        value="none"
+        className="flex items-center space-x-3 space-y-0"
+        label="Nothing"
+      />
+    </RadioField>
+  )
+}
+
 export const InputExample = () => (
   <InputField
     name="username"
@@ -99,52 +130,7 @@ export const SwitchExample = () => (
   />
 )
 
-const DatePickerExample = () => {
-  const field = useControllerProps()
-
-  return (
-    <>
-      <FormLabel>Date of birth</FormLabel>
-      <Popover>
-        <PopoverTrigger asChild>
-          <AriaControl>
-            <Button
-              variant={'outline'}
-              className={cn(
-                'w-[240px] pl-3 text-left font-normal',
-                !field.value && 'text-muted-foreground',
-              )}
-            >
-              {field.value ? (
-                format(field.value, 'PPP')
-              ) : (
-                <span>Pick a date</span>
-              )}
-              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-            </Button>
-          </AriaControl>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={field.value}
-            onSelect={field.onChange}
-            disabled={date =>
-              date > new Date() || date < new Date('1900-01-01')
-            }
-            initialFocus
-          />
-        </PopoverContent>
-      </Popover>
-      <FormDescription>
-        Your date of birth is used to calculate your age.
-      </FormDescription>
-      <FormMessage />
-    </>
-  )
-}
-
-export const SelectExample2 = () => {
+export const SelectExample = () => {
   return (
     <SelectField
       name="email"
@@ -152,8 +138,7 @@ export const SelectExample2 = () => {
       placeholder="Select a verified email to display"
       description={
         <div>
-          {' '}
-          You can manage email addresses in your{' '}
+          You can manage email addresses in your
           <a href="/examples/forms">email settings</a>.
         </div>
       }

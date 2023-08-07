@@ -1,4 +1,3 @@
-import type { BaseFieldProps } from '@/examples/ui/common'
 import {
   FormControl,
   FormDescription,
@@ -8,8 +7,9 @@ import {
 } from '@/ui/form'
 import { Textarea } from '@/ui/textarea'
 import { cn } from '@core'
+import type { BaseFieldProps } from './common'
 
-export type TextareaProps = React.ComponentProps<typeof Textarea> &
+export type TextareaFieldProps = React.ComponentProps<typeof Textarea> &
   BaseFieldProps
 
 export const TextareaField = ({
@@ -22,7 +22,7 @@ export const TextareaField = ({
   cnDescription,
   cnMessage,
   ...props
-}: TextareaProps) => (
+}: TextareaFieldProps) => (
   <FormField className={className} name={name}>
     {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
     <FormControl>

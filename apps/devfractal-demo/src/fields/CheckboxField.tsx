@@ -1,4 +1,3 @@
-import type { BaseFieldProps } from '@/examples/ui/common'
 import { Checkbox } from '@/ui/checkbox'
 import {
   FormControl,
@@ -9,6 +8,7 @@ import {
 } from '@/ui/form'
 import { cn } from '@/core'
 import React from 'react'
+import type { BaseFieldProps } from './common'
 
 export type CheckboxFieldProps = React.ComponentProps<typeof Checkbox> &
   BaseFieldProps

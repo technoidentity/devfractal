@@ -1,4 +1,3 @@
-import type { BaseFieldProps } from '@/examples/ui/common'
 import {
   FormControl,
   FormDescription,
@@ -8,6 +7,7 @@ import {
 } from '@/ui/form'
 import { Switch } from '@/ui/switch'
 import { cn } from '@/core'
+import type { BaseFieldProps } from './common'
 
 export type SwitchFieldProps = React.ComponentProps<typeof Switch> &
   BaseFieldProps

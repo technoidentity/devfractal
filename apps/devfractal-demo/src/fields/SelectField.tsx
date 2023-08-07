@@ -1,14 +1,14 @@
 import { FormField, useControllerProps } from '@/ui/form'
 import { Select, SelectContent, SelectTrigger, SelectValue } from '@/ui/select'
-
-import type { BaseFieldProps } from '@/examples/ui/common'
 import { AriaControl, FormDescription, FormLabel, FormMessage } from '@/ui/form'
+import type { BaseFieldProps } from './common'
 
 export type SelectFieldProps = React.ComponentProps<typeof Select> &
-  BaseFieldProps & {
+  BaseFieldProps &
+  Readonly<{
     className?: string
     placeholder: string
-  }
+  }>
 
 export const SelectField = ({
   className,

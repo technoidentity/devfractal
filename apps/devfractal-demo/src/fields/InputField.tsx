@@ -1,4 +1,3 @@
-import type { BaseFieldProps } from '@/examples/ui/common'
 import {
   FormControl,
   FormDescription,
@@ -8,6 +7,7 @@ import {
 } from '@/ui/form'
 import { Input } from '@/ui/input'
 import { cn } from '@/core'
+import type { BaseFieldProps } from './common'
 
 export type InputFieldProps = React.ComponentProps<typeof Input> &
   BaseFieldProps
