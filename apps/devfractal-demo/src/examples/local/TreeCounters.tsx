@@ -1,6 +1,8 @@
-import { Button, HStack, Text } from '@chakra-ui/react'
 import type { Handlers } from '@srtp/local-state'
 import { tree } from '@srtp/local-state'
+import { Container, HStack } from '@/cui'
+import { Button } from '@/ui/button'
+import { Text } from '@/ui/typography'
 
 const initialState = { count: 0 }
 
@@ -34,7 +36,7 @@ const Add10 = () => {
   const { by } = useActions()
 
   return (
-    <Button mt="2" onClick={() => by(10)}>
+    <Button className="mt-2" onClick={() => by(10)}>
       Add 10
     </Button>
   )

@@ -1,6 +1,7 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react'
-
 import { slice, useValue } from '@srtp/global-state'
+import { Box, Flex } from '@/cui'
+import { Text } from '@/ui/typography'
+import { Button } from '@/ui/button'
 
 const [counterAtom, useActions] = slice(
   { count: 100 },
@@ -20,34 +21,24 @@ const [counterAtom, useActions] = slice(
 const Counter = () => {
   const { count } = useValue(counterAtom)
 
-  return (
-    <Text fontSize="3xl" m="2" fontWeight="bold">
-      {count}
-    </Text>
-  )
+  return <Text className="text-3xl m-2 font-bold">{count}</Text>
 }
 
 const Buttons = () => {
   const actions = useActions()
 
   return (
-    <Box>
-      <Button ml="2" onClick={() => actions.inc()}>
-        +
-      </Button>
-      <Button ml="2" onClick={() => actions.dec()}>
-        -
-      </Button>
-      <Button ml="2" onClick={() => actions.by(10)}>
-        +10
-      </Button>
+    <Box className="gap-2">
+      <Button onClick={() => actions.inc()}>+</Button>
+      <Button onClick={() => actions.dec()}>-</Button>
+      <Button onClick={() => actions.by(10)}>+10</Button>
     </Box>
   )
 }
 
 export function SliceCounter() {
   return (
-    <Flex direction="column" align="flex-start">
+    <Flex direction="col" align="start">
       <Counter />
       <Buttons />
     </Flex>

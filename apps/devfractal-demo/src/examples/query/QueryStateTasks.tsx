@@ -1,13 +1,4 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { CloseIcon } from '@chakra-ui/icons'
-import {
-  Button,
-  Checkbox,
-  Container,
-  Flex,
-  Heading,
-  Input,
-} from '@chakra-ui/react'
 import { queryState } from '@srtp/query'
 import { useInputState } from '@srtp/react'
 import { cast } from '@srtp/spec'

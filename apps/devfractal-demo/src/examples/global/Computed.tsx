@@ -1,6 +1,6 @@
-import { Text } from '@chakra-ui/react'
 import { computed, useAction, useValue } from '@srtp/global-state'
 import { Provider, atom } from 'jotai'
+import { Text } from '@/ui/typography'
 
 const textAtom = atom('hello')
 const textLenAtom = computed(get => get(textAtom).length)
