@@ -2,7 +2,7 @@ import React from 'react'
 
 import type { GridClassesMapping } from './styles'
 import { colSpan, colSpanLg, colSpanMd, colSpanSm } from './styles'
-import { cn } from '@core'
+import { cn } from '@/core'
 
 function getColSpan<T extends GridClassesMapping>(
   numColSpan: keyof T | undefined,

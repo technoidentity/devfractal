@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { cn } from '@core'
+import { cn } from '@/core'
 
 export type JustifyContent =
   | 'start'

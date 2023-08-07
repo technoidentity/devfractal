@@ -1,4 +1,4 @@
-import { cn } from '@core'
+import { cn } from '@/core'
 import React from 'react'
 
 export const Container = React.forwardRef<

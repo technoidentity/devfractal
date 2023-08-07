@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/heading-has-content */
-import { cn } from '@core'
+import { cn } from '@/core'
 import React from 'react'
 
 export const H1 = React.forwardRef<
