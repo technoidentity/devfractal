@@ -4,7 +4,7 @@ import { Checkbox } from '@/ui/checkbox'
 import { Input } from '@/ui/input'
 import { H2 } from '@/ui/typography'
 import { useInputState } from '@srtp/react'
-import { DeleteIcon } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import type { KeyboardEvent } from 'react'
 import type { Task } from '../specs'
 
@@ -22,7 +22,7 @@ export const TaskItem = ({ task, onToggle, onRemove }: TaskItemProps) => {
       </Checkbox>
 
       <Button size="sm" onClick={() => onRemove(task.id)}>
-        <DeleteIcon color="red.500" />
+        <Trash2 color="red.500" />
       </Button>
     </Flex>
   )
