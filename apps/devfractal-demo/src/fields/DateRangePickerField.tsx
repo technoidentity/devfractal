@@ -6,10 +6,41 @@ import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
 import * as React from 'react'
 import { type DateRange, type DayPickerRangeProps } from 'react-day-picker'
-import { FormDescription, FormField, FormLabel, FormMessage } from '@/ui/form'
+import {
+  FormDescription,
+  FormField,
+  FormLabel,
+  FormMessage,
+  useFieldProps,
+} from '@/ui/form'
 import type { BaseFieldProps } from './common'
 
-export type DateRangePickerFieldProps = Omit<DayPickerRangeProps, 'mode'> &
+type DateRangePickerBaseProps = Omit<
+  DayPickerRangeProps,
+  'mode' | 'selected' | 'onSelect'
+> & {
+  value?: DayPickerRangeProps['selected']
+  onChange?: DayPickerRangeProps['onSelect']
+}
+
+const DateRangePickerBase = ({
+  value,
+  onChange,
+  ...props
+}: DateRangePickerBaseProps) => (
+  <Calendar
+    defaultMonth={value?.from}
+    {...props}
+    selected={value}
+    onSelect={onChange}
+    mode="range"
+  />
+)
+
+export type DateRangePickerFieldProps = Omit<
+  DayPickerRangeProps,
+  'mode' | 'selected' | 'onSelect'
+> &
   BaseFieldProps &
   Readonly<{
     children?: React.ReactNode
@@ -17,21 +48,16 @@ export type DateRangePickerFieldProps = Omit<DayPickerRangeProps, 'mode'> &
     triggerLabel?: React.ReactNode
   }>
 
-export const DateRangePickerField = ({
-  className,
-  name,
-  label,
-  description,
-  cnField,
-  cnLabel,
-  cnMessage,
-  triggerLabel,
-  cnDescription,
+type DateRangeTriggerProps = {
+  dateFormat?: DateRangePickerFieldProps['dateFormat']
+  triggerLabel?: DateRangePickerFieldProps['triggerLabel']
+}
+const DateRangeTrigger = ({
   dateFormat,
-  children,
-  ...props
-}: DateRangePickerFieldProps) => {
-  const dateRange = props.selected
+  triggerLabel,
+}: DateRangeTriggerProps) => {
+  const { fieldProps: field } = useFieldProps()
+  const dateRange = field.value
 
   const formattedDate = dateFormat ? (
     dateFormat(dateRange)
@@ -49,29 +75,44 @@ export const DateRangePickerField = ({
   )
 
   return (
+    <PopoverTrigger asChild>
+      <Button
+        id="date"
+        variant={'outline'}
+        className={cn(
+          'w-[300px] justify-start text-left font-normal',
+          !dateRange && 'text-muted-foreground',
+        )}
+      >
+        <CalendarIcon className="mr-2 h-4 w-4" />
+        {formattedDate}
+      </Button>
+    </PopoverTrigger>
+  )
+}
+export const DateRangePickerField = ({
+  className,
+  name,
+  label,
+  description,
+  cnField,
+  cnLabel,
+  cnMessage,
+  cnDescription,
+  triggerLabel,
+  dateFormat,
+  children,
+  ...props
+}: DateRangePickerFieldProps) => {
+  return (
     <FormField name={name} className={cn('grid gap-2', className)}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
       <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            id="date"
-            variant={'outline'}
-            className={cn(
-              'w-[300px] justify-start text-left font-normal',
-              !dateRange && 'text-muted-foreground',
-            )}
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {formattedDate}
-          </Button>
-        </PopoverTrigger>
+        <DateRangeTrigger triggerLabel={triggerLabel} dateFormat={dateFormat} />
         <PopoverContent className="w-auto p-0" align="start">
           {children}
-          <Calendar
+          <DateRangePickerBase
             initialFocus
-            mode="range"
-            defaultMonth={dateRange?.from}
-            selected={dateRange}
             numberOfMonths={2}
             className={cnField}
             {...props}
