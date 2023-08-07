@@ -10,7 +10,21 @@ import { cn } from '@/core'
 import React from 'react'
 import type { BaseFieldProps } from './common'
 
-export type CheckboxFieldProps = React.ComponentProps<typeof Checkbox> &
+type CheckboxProps = React.ComponentProps<typeof Checkbox>
+
+type CheckboxBaseProps = Omit<CheckboxProps, 'checked'> & {
+  value?: CheckboxProps['checked']
+  onChange?: CheckboxProps['onCheckedChange']
+}
+
+const CheckboxBase = ({ value, onChange, ...props }: CheckboxBaseProps) => {
+  return <Checkbox {...props} checked={value} onCheckedChange={onChange} />
+}
+
+export type CheckboxFieldProps = Omit<
+  CheckboxBaseProps,
+  'checked' | 'onChange'
+> &
   BaseFieldProps
 
 export const CheckBoxField = ({
@@ -33,7 +47,7 @@ export const CheckBoxField = ({
       )}
     >
       <FormControl>
-        <Checkbox className={cnField} {...props} />
+        <CheckboxBase className={cnField} {...props} />
       </FormControl>
 
       <div className="space-y-1 leading-none">
