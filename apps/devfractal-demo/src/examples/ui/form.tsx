@@ -170,6 +170,12 @@ export const FormExample = () => {
     <div className="container">
       <ThemeSelector className="my-2" />
       <Form onSubmit={console.log}>
+        <InputExample />
+        <PasswordExample />
+        <CheckboxExample />
+        <TextareaExample />
+
+        <SwitchExample />
         <FormField
           name="securityEmails"
           className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm"
@@ -185,17 +191,16 @@ export const FormExample = () => {
           </FormControl>
         </FormField>
 
-        <FormField name="email">
-          <SelectExample />
-        </FormField>
-        <FormField name="dob" className="flex flex-col">
-          <DatePickerExample />
-        </FormField>
-        <FormField name="" className="space-y-3">
-          <RadioExample />
-        </FormField>
-        <Button className="mt-2" type="submit">
+        <SelectExample />
+        <DatePickerExample />
+        <RadioExample />
+
+        <Button className="my-2 mr-2" type="submit">
           Submit
+        </Button>
+
+        <Button className="mt-2" type="submit">
+          Reset
         </Button>
       </Form>
     </div>
