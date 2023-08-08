@@ -1,26 +1,24 @@
-import { Button } from '@/ui/button'
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormLabel,
-  createClientForm,
-} from '@/ui/form'
-import { SelectItem } from '@/ui/select'
-import { Switch } from '@/ui/switch'
-import { ThemeSelector } from '@/ui/theme-selector'
-import { boolean, email, string } from '@srtp/validator'
-import { z } from 'zod'
 import {
   CheckBoxField,
   DatePickerField,
   InputField,
   RadioField,
-  RadioItemField,
   SelectField,
   SwitchField,
   TextareaField,
 } from '@/fields'
+import { Button } from '@/ui/button'
+import {
+  Control,
+  FormDescription,
+  Field,
+  FormLabel,
+  createClientForm,
+} from '@/ui/form'
+import { Switch } from '@/ui/switch'
+import { ThemeSelector } from '@/ui/theme-selector'
+import { boolean, email, string } from '@srtp/validator'
+import { z } from 'zod'
 
 const Signin = z.object({
   username: string(),
@@ -59,9 +57,22 @@ const initialValues = {
 
 const [Form] = createClientForm(Signin, initialValues)
 
+export const RadioExample = () => {
+  return (
+    <RadioField defaultValue="all" name="notify" label="Notify me about...">
+      <RadioField.Item value="all" label="All new messages" />
+
+      <RadioField.Item value="mentions" label="Direct messages and mentions" />
+
+      <RadioField.Item value="none" label="Nothing" />
+    </RadioField>
+  )
+}
+
 export function DatePickerExample() {
   return (
     <DatePickerField
+      className="my-2"
       name="dob"
       label="Date of birth"
       disabled={date => date > new Date() || date < new Date('1900-01-01')}
@@ -69,31 +80,6 @@ export function DatePickerExample() {
     />
   )
 }
-
-export const RadioExample = () => {
-  return (
-    <RadioField name="notify" label="Notify me about...">
-      <RadioItemField
-        value="all"
-        className="flex items-center space-x-3 space-y-0"
-        label="All new messages"
-      />
-
-      <RadioItemField
-        value="mentions"
-        className="flex items-center space-x-3 space-y-0"
-        label="Direct messages and mentions"
-      />
-
-      <RadioItemField
-        value="none"
-        className="flex items-center space-x-3 space-y-0"
-        label="Nothing"
-      />
-    </RadioField>
-  )
-}
-
 export const InputExample = () => (
   <InputField
     name="username"
@@ -110,6 +96,7 @@ export const PasswordExample = () => (
 export const CheckboxExample = () => {
   return (
     <CheckBoxField
+      className="border rounded-md"
       name="mobileSettings"
       label="Use different settings for my mobile devices"
       description={
@@ -124,6 +111,7 @@ export const CheckboxExample = () => {
 
 export const SwitchExample = () => (
   <SwitchField
+    className="rounded-lg border my-2"
     name="marketingEmails"
     label="Marketing emails"
     description="Receive emails about new products, features, and more."
@@ -135,6 +123,8 @@ export const SelectExample = () => {
     <SelectField
       name="email"
       label="Email"
+      cnTrigger="w-full"
+      className="my-2"
       placeholder="Select a verified email to display"
       description={
         <div>
@@ -143,19 +133,19 @@ export const SelectExample = () => {
         </div>
       }
     >
-      <SelectItem value="m@example.com">m@example.com</SelectItem>
-      <SelectItem value="m@google.com">m@google.com</SelectItem>
-      <SelectItem value="m@support.com">m@support.com</SelectItem>
+      <SelectField.Item value="m@example.com">m@example.com</SelectField.Item>
+      <SelectField.Item value="m@google.com">m@google.com</SelectField.Item>
+      <SelectField.Item value="m@support.com">m@support.com</SelectField.Item>
     </SelectField>
   )
 }
 
 export const TextareaExample = () => (
   <TextareaField
-    className="my-12"
     name="bio"
     label="Bio"
     placeholder="Tell us a little bit about yourself"
+    className="my-2"
     cnField="resize-none"
     description={
       <div>
@@ -169,14 +159,14 @@ export const FormExample = () => {
   return (
     <div className="container">
       <ThemeSelector className="my-2" />
+
       <Form onSubmit={console.log}>
         <InputExample />
         <PasswordExample />
         <CheckboxExample />
         <TextareaExample />
-
         <SwitchExample />
-        <FormField
+        <Field
           name="securityEmails"
           className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm"
         >
@@ -186,10 +176,10 @@ export const FormExample = () => {
               Receive emails about your account security.
             </FormDescription>
           </div>
-          <FormControl>
+          <Control>
             <Switch disabled aria-readonly />
-          </FormControl>
-        </FormField>
+          </Control>
+        </Field>
 
         <SelectExample />
         <DatePickerExample />
