@@ -8,14 +8,14 @@ import * as React from 'react'
 import { type DateRange, type DayPickerRangeProps } from 'react-day-picker'
 import {
   FormDescription,
-  FormField,
+  Field,
   FormLabel,
   FormMessage,
   useFieldProps,
 } from '@/ui/form'
 import type { BaseFieldProps } from './common'
 
-type DateRangePickerBaseProps = Omit<
+type DateRangePickerInternalProps = Omit<
   DayPickerRangeProps,
   'mode' | 'selected' | 'onSelect'
 > & {
@@ -23,11 +23,11 @@ type DateRangePickerBaseProps = Omit<
   onChange?: DayPickerRangeProps['onSelect']
 }
 
-const DateRangePickerBase = ({
+const DateRangePickerInternal = ({
   value,
   onChange,
   ...props
-}: DateRangePickerBaseProps) => (
+}: DateRangePickerInternalProps) => (
   <Calendar
     defaultMonth={value?.from}
     {...props}
@@ -37,16 +37,35 @@ const DateRangePickerBase = ({
   />
 )
 
-export type DateRangePickerFieldProps = Omit<
+export type DateRangePickerBaseProps = Omit<
   DayPickerRangeProps,
   'mode' | 'selected' | 'onSelect'
 > &
-  BaseFieldProps &
   Readonly<{
     children?: React.ReactNode
     dateFormat?: (dateRange?: DateRange) => React.ReactNode
     triggerLabel?: React.ReactNode
   }>
+
+export const DateRangePickerBase = ({
+  children,
+  dateFormat,
+  triggerLabel,
+  ...props
+}: DateRangePickerBaseProps) => {
+  return (
+    <Popover>
+      <DateRangeTrigger triggerLabel={triggerLabel} dateFormat={dateFormat} />
+      <PopoverContent className="w-auto p-0" align="start">
+        {children}
+        <DateRangePickerInternal initialFocus numberOfMonths={2} {...props} />
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+export type DateRangePickerFieldProps = DateRangePickerBaseProps &
+  BaseFieldProps
 
 type DateRangeTriggerProps = {
   dateFormat?: DateRangePickerFieldProps['dateFormat']
@@ -99,32 +118,21 @@ export const DateRangePickerField = ({
   cnLabel,
   cnMessage,
   cnDescription,
-  triggerLabel,
-  dateFormat,
-  children,
   ...props
 }: DateRangePickerFieldProps) => {
   return (
-    <FormField name={name} className={cn('grid gap-2', className)}>
+    <Field name={name} className={cn('grid gap-2', className)}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
-      <Popover>
-        <DateRangeTrigger triggerLabel={triggerLabel} dateFormat={dateFormat} />
-        <PopoverContent className="w-auto p-0" align="start">
-          {children}
-          <DateRangePickerBase
-            initialFocus
-            numberOfMonths={2}
-            className={cnField}
-            {...props}
-          />
-        </PopoverContent>
-      </Popover>{' '}
+
       {description && (
         <FormDescription className={cnDescription}>
           {description}
         </FormDescription>
       )}
+
+      <DateRangePickerBase {...props} className={cnField} />
+
       <FormMessage className={cnMessage} />
-    </FormField>
+    </Field>
   )
 }
