@@ -7,7 +7,7 @@ import {
   TableHead,
 } from '@/div-table'
 
-export function TypographyTable() {
+export function DivTable() {
   return (
     <div className="my-6 w-full overflow-y-auto">
       <Table>
