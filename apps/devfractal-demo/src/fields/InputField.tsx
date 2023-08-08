@@ -1,7 +1,7 @@
 import {
-  FormControl,
+  Control,
   FormDescription,
-  FormField,
+  Field,
   FormLabel,
   FormMessage,
 } from '@/ui/form'
@@ -9,11 +9,18 @@ import { Input } from '@/ui/input'
 import { cn } from '@/core'
 import type { BaseFieldProps } from './common'
 
-export type InputFieldProps = Omit<
+export type InputBaseProps = Omit<
   React.ComponentProps<typeof Input>,
   'value' | 'onChange'
-> &
-  BaseFieldProps
+>
+
+export const InputBase = (props: InputBaseProps) => (
+  <Control>
+    <Input {...props} />
+  </Control>
+)
+
+export type InputFieldProps = InputBaseProps & BaseFieldProps
 
 export const InputField = ({
   className,
@@ -27,12 +34,10 @@ export const InputField = ({
   ...props
 }: InputFieldProps) => {
   return (
-    <FormField name={name} className={cn('my-12', className)}>
+    <Field name={name} className={cn('my-2', className)}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
 
-      <FormControl>
-        <Input className={cnField} {...props} />
-      </FormControl>
+      <InputBase {...props} className={cnField} />
 
       {description && (
         <FormDescription className={cnDescription}>
@@ -41,6 +46,6 @@ export const InputField = ({
       )}
 
       <FormMessage className={cnMessage} />
-    </FormField>
+    </Field>
   )
 }
