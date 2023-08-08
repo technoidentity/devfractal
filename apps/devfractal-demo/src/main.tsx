@@ -1,4 +1,3 @@
-import { FormExample } from '@/examples/ui/form'
 import { ThemeProvider } from '@/ui/theme-provider'
 import { queryClient } from '@srtp/router'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -12,8 +11,9 @@ import {
   type RouteObject,
 } from 'react-router-dom'
 import invariant from 'tiny-invariant'
-import { tasksRoutes } from './examples/router/tasksRoutes'
 import './customTheme.css'
+import { tasksRoutes } from './examples/router/tasksRoutes'
+import { FormExample } from './examples/ui/form'
 
 // if (process.env.NODE_ENV === 'development') {
 //   const { worker } = await import('./mocks/browser')

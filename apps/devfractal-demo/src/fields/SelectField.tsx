@@ -21,7 +21,7 @@ type SelectInternalProps = Omit<
   'onValueChange'
 > & { onChange?: (value: string) => void }
 
-const SelectInternal = ({ onChange, value, ...props }: SelectInternalProps) => {
+const SelectInternal = ({ onChange, ...props }: SelectInternalProps) => {
   return <Select {...props} onValueChange={onChange} />
 }
 

@@ -37,11 +37,11 @@ const DatePickerInternal = ({
 
   return (
     <Calendar
+      initialFocus
       {...props}
       selected={value}
       onSelect={handleChange}
       mode="single"
-      initialFocus
     />
   )
 }
