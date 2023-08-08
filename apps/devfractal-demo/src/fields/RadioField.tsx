@@ -1,9 +1,9 @@
 import { cn } from '@/core'
 import {
   AriaControl,
-  FormControl,
+  Control,
   FormDescription,
-  FormField,
+  Field,
   FormLabel,
   FormMessage,
   IdField,
@@ -12,24 +12,60 @@ import { RadioGroup, RadioGroupItem } from '@/ui/radio-group'
 import React from 'react'
 import type { BaseFieldProps } from './common'
 
+type RadioItemProps = React.ComponentProps<typeof RadioGroupItem>
+
+export type RadioItemFieldProps = RadioItemProps & {
+  label?: React.ReactNode
+  cnLabel?: string
+  cnField?: string
+}
+
+function RadioItemField({
+  className,
+  label,
+  cnLabel,
+  cnField,
+  ...props
+}: RadioItemFieldProps) {
+  const rprops = props as React.ComponentProps<typeof RadioGroupItem>
+
+  return (
+    <IdField className={cn('flex items-center space-x-3 space-y-0', className)}>
+      <AriaControl>
+        <RadioGroupItem {...rprops} className={cnField} />
+      </AriaControl>
+      {label && (
+        <FormLabel className={cn('font-normal', cnLabel)}>{label}</FormLabel>
+      )}
+    </IdField>
+  )
+}
+
 type RadioGroupProps = React.ComponentProps<typeof RadioGroup>
 
-type RadioFieldBaseProps = Omit<
+type RadioInternalProps = Omit<
   RadioGroupProps,
   'onValueChange' | 'onChange'
 > & {
   onChange?: RadioGroupProps['onValueChange']
 }
 
-const RadioFieldBase = ({ onChange, ...props }: RadioFieldBaseProps) => {
+const RadioInternal = ({ onChange, ...props }: RadioInternalProps) => {
   return <RadioGroup {...props} onValueChange={onChange} />
 }
 
-export type RadioFieldProps = Omit<
+export type RadioBaseProps = Omit<
   React.ComponentProps<typeof RadioGroup>,
   'value' | 'onValueChange' | 'onChange'
-> &
-  BaseFieldProps
+>
+
+export const RadioBase = (props: RadioBaseProps) => (
+  <Control>
+    <RadioInternal {...props} />
+  </Control>
+)
+
+export type RadioFieldProps = RadioBaseProps & BaseFieldProps
 
 export const RadioField = ({
   className,
@@ -44,54 +80,21 @@ export const RadioField = ({
   ...props
 }: RadioFieldProps) => {
   return (
-    <FormField name={name} className={className}>
+    <Field name={name} className={className}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
-      <FormControl>
-        <RadioFieldBase
-          className={cn('flex flex-col space-y-1', cnField)}
-          {...props}
-        >
-          {children}
-        </RadioFieldBase>
-      </FormControl>
+
       {description && (
         <FormDescription className={cnDescription}>
           {description}
         </FormDescription>
       )}
 
+      <RadioBase {...props} className={cn('flex flex-col space-y-1', cnField)}>
+        {children}
+      </RadioBase>
+
       <FormMessage className={cnMessage} />
-    </FormField>
+    </Field>
   )
 }
-
-export type RadioItemFieldProps = React.ComponentProps<
-  typeof RadioGroupItem
-> & {
-  label?: React.ReactNode
-  cnLabel?: string
-  cnField?: string
-}
-
-export function RadioItemField({
-  className,
-  label,
-  cnLabel,
-  cnField,
-  ...props
-}: RadioItemFieldProps) {
-  const rprops = props as React.ComponentProps<typeof RadioGroupItem>
-
-  return (
-    <IdField>
-      <AriaControl
-        className={cn('flex items-center space-x-3 space-y-0', className)}
-      >
-        <RadioGroupItem {...rprops} className={cnField} />
-      </AriaControl>
-      {label && (
-        <FormLabel className={cn('font-normal', cnLabel)}>{label}</FormLabel>
-      )}
-    </IdField>
-  )
-}
+RadioField.Item = RadioItemField
