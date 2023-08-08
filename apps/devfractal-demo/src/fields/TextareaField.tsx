@@ -1,7 +1,7 @@
 import {
-  FormControl,
+  Control,
   FormDescription,
-  FormField,
+  Field,
   FormLabel,
   FormMessage,
 } from '@/ui/form'
@@ -9,11 +9,18 @@ import { Textarea } from '@/ui/textarea'
 import { cn } from '@/core'
 import type { BaseFieldProps } from './common'
 
-export type TextareaFieldProps = Omit<
+export type TextareaBaseProps = Omit<
   React.ComponentProps<typeof Textarea>,
   'value' | 'onChange'
-> &
-  BaseFieldProps
+>
+
+export const TextareaBase = (props: TextareaBaseProps) => (
+  <Control>
+    <Textarea {...props} />
+  </Control>
+)
+
+export type TextareaFieldProps = TextareaBaseProps & BaseFieldProps
 
 export const TextareaField = ({
   className,
@@ -26,14 +33,15 @@ export const TextareaField = ({
   cnMessage,
   ...props
 }: TextareaFieldProps) => (
-  <FormField className={className} name={name}>
+  <Field className={className} name={name}>
     {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
-    <FormControl>
-      <Textarea {...props} className={cn('resize-none', cnField)} />
-    </FormControl>
+
+    <TextareaBase {...props} className={cn('resize-none', cnField)} />
+
     {description && (
       <FormDescription className={cnDescription}>{description}</FormDescription>
     )}
+
     <FormMessage className={cnMessage} />
-  </FormField>
+  </Field>
 )
