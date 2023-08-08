@@ -4,20 +4,19 @@ import { Calendar } from '@/ui/calendar'
 import {
   AriaControl,
   Controller,
+  Field,
   FormDescription,
-  FormField,
   FormLabel,
   FormMessage,
   useFieldProps,
 } from '@/ui/form'
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover'
 import { CalendarIcon } from '@radix-ui/react-icons'
-import { useEvent } from '@srtp/react'
 import { format } from 'date-fns'
 import type { DayPickerSingleProps } from 'react-day-picker'
 import type { BaseFieldProps } from './common'
 
-type DatePickerBaseProps = Omit<
+type DatePickerInternalProps = Omit<
   DayPickerSingleProps,
   'mode' | 'selected' | 'onSelect'
 > & {
@@ -25,10 +24,17 @@ type DatePickerBaseProps = Omit<
   onChange?: (selectedDay: Date) => void
 }
 
-const DatePickerBase = ({ value, onChange, ...props }: DatePickerBaseProps) => {
-  const handleChange: DayPickerSingleProps['onSelect'] = (_, value) => {
-    onChange?.(value)
+const DatePickerInternal = ({
+  value,
+  onChange,
+  ...props
+}: DatePickerInternalProps) => {
+  const handleChange: DayPickerSingleProps['onSelect'] = value => {
+    if (value) {
+      onChange?.(value)
+    }
   }
+
   return (
     <Calendar
       {...props}
@@ -40,29 +46,60 @@ const DatePickerBase = ({ value, onChange, ...props }: DatePickerBaseProps) => {
   )
 }
 
-export type DatePickerFieldProps = Omit<DayPickerSingleProps, 'mode'> &
-  BaseFieldProps &
+export type DatePickerBaseProps = Omit<DayPickerSingleProps, 'mode'> &
   Readonly<{
     children?: React.ReactNode
     dateFormat?: string
     triggerLabel?: React.ReactNode
+    cnField?: string
+    cnTrigger?: string
   }>
 
-type DatePickerTriggerProps = {
+export const DatePickerBaseProps = ({
+  children,
+  dateFormat,
+  triggerLabel,
+  cnField,
+  cnTrigger,
+  ...props
+}: DatePickerBaseProps) => (
+  <Popover>
+    <DatePickerTrigger
+      dateFormat={dateFormat}
+      triggerLabel={triggerLabel}
+      cnTrigger={cnTrigger}
+    />
+
+    <PopoverContent className="w-auto p-0" align="start">
+      {children}
+      <Controller>
+        <DatePickerInternal {...props} className={cnField} />
+      </Controller>
+    </PopoverContent>
+  </Popover>
+)
+
+export type DatePickerFieldProps = DatePickerBaseProps & BaseFieldProps
+
+export type DatePickerTriggerProps = {
+  cnTrigger?: string
   dateFormat?: DatePickerFieldProps['dateFormat']
   triggerLabel?: DatePickerFieldProps['triggerLabel']
 }
 
-const DatePickerTrigger = (props: DatePickerTriggerProps) => {
+export const DatePickerTrigger = ({
+  cnTrigger,
+  dateFormat,
+  triggerLabel,
+}: DatePickerTriggerProps) => {
   const { fieldProps: field } = useFieldProps()
 
-  const formatted = useEvent((value: any) =>
+  const formatted = (value: any) =>
     value ? (
-      format(field.value, props.dateFormat ?? 'PPP')
+      format(field.value, dateFormat ?? 'PPP')
     ) : (
-      <span>{props.triggerLabel ?? 'Pick a date'}</span>
-    ),
-  )
+      <span>{triggerLabel ?? 'Pick a date'}</span>
+    )
 
   return (
     <PopoverTrigger asChild>
@@ -71,8 +108,9 @@ const DatePickerTrigger = (props: DatePickerTriggerProps) => {
         <Button
           variant={'outline'}
           className={cn(
-            'w-[240px] pl-3 text-left font-normal',
+            'w-60 pl-3 text-left font-normal',
             !field.value && 'text-muted-foreground',
+            cnTrigger,
           )}
         >
           {formatted(field.value)}
@@ -88,31 +126,16 @@ export const DatePickerField = ({
   name,
   label,
   description,
-  cnField,
   cnLabel,
   cnMessage,
   cnDescription,
-  dateFormat,
-  triggerLabel,
-  children,
   ...props
 }: DatePickerFieldProps) => {
   return (
-    <FormField name={name} className={cn('flex flex-col', className)}>
+    <Field name={name} className={cn('flex flex-col', className)}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
-      <Popover>
-        <DatePickerTrigger
-          dateFormat={dateFormat}
-          triggerLabel={triggerLabel}
-        />
 
-        <PopoverContent className="w-auto p-0" align="start">
-          {children}
-          <Controller>
-            <DatePickerBase {...props} className={cnField} />
-          </Controller>
-        </PopoverContent>
-      </Popover>
+      <DatePickerBaseProps {...props} />
 
       {description && (
         <FormDescription className={cnDescription}>
@@ -121,6 +144,6 @@ export const DatePickerField = ({
       )}
 
       <FormMessage className={cnMessage} />
-    </FormField>
+    </Field>
   )
 }
