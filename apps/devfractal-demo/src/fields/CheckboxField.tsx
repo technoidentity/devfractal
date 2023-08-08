@@ -1,8 +1,8 @@
 import { Checkbox } from '@/ui/checkbox'
 import {
-  FormControl,
+  Control,
   FormDescription,
-  FormField,
+  Field,
   FormLabel,
   FormMessage,
 } from '@/ui/form'
@@ -12,20 +12,34 @@ import type { BaseFieldProps } from './common'
 
 type CheckboxProps = React.ComponentProps<typeof Checkbox>
 
-type CheckboxBaseProps = Omit<CheckboxProps, 'checked'> & {
+type CheckboxInternalProps = Omit<
+  CheckboxProps,
+  'checked' | 'onCheckedChange'
+> & {
   value?: CheckboxProps['checked']
   onChange?: CheckboxProps['onCheckedChange']
 }
 
-const CheckboxBase = ({ value, onChange, ...props }: CheckboxBaseProps) => {
-  return <Checkbox {...props} checked={value} onCheckedChange={onChange} />
-}
-
-export type CheckboxFieldProps = Omit<
-  CheckboxBaseProps,
+export type CheckboxBaseProps = Omit<
+  CheckboxInternalProps,
   'checked' | 'onChange'
-> &
-  BaseFieldProps
+>
+
+export const CheckboxBase = (props: CheckboxBaseProps) => (
+  <Control>
+    <CheckboxInternal {...props} />
+  </Control>
+)
+
+const CheckboxInternal = ({
+  value,
+  onChange,
+  ...props
+}: CheckboxInternalProps) => (
+  <Checkbox {...props} checked={value} onCheckedChange={onChange} />
+)
+
+export type CheckboxFieldProps = CheckboxBaseProps & BaseFieldProps
 
 export const CheckBoxField = ({
   className,
@@ -39,26 +53,23 @@ export const CheckBoxField = ({
   ...props
 }: CheckboxFieldProps) => {
   return (
-    <FormField
+    <Field
       name={name}
-      className={cn(
-        'flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow',
-        className,
-      )}
+      className={cn('flex flex-row space-x-3 space-y-0 p-4', className)}
     >
-      <FormControl>
-        <CheckboxBase className={cnField} {...props} />
-      </FormControl>
+      <CheckboxBase {...props} className={cnField} />
 
       <div className="space-y-1 leading-none">
         {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
+
         {description && (
           <FormDescription className={cnDescription}>
             {description}
           </FormDescription>
         )}
       </div>
+
       <FormMessage className={cnMessage} />
-    </FormField>
+    </Field>
   )
 }
