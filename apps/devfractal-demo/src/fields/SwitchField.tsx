@@ -1,7 +1,7 @@
 import {
-  FormControl,
+  Control,
   FormDescription,
-  FormField,
+  Field,
   FormLabel,
   FormMessage,
 } from '@/ui/form'
@@ -9,7 +9,18 @@ import { Switch } from '@/ui/switch'
 import { cn } from '@/core'
 import type { BaseFieldProps } from './common'
 
-type SwitchBaseProps = Omit<
+export type SwitchBaseProps = Omit<
+  React.ComponentProps<typeof Switch>,
+  'value' | 'onChange' | 'checked' | 'onCheckedChange'
+>
+
+export const SwitchBase = (props: SwitchBaseProps) => (
+  <Control>
+    <SwitchInternal {...props} />
+  </Control>
+)
+
+type SwitchInternalProps = Omit<
   React.ComponentProps<typeof Switch>,
   'checked' | 'onCheckedChange'
 > &
@@ -18,15 +29,11 @@ type SwitchBaseProps = Omit<
     value?: boolean
   }>
 
-const SwitchBase = ({ onChange, value, ...props }: SwitchBaseProps) => (
+const SwitchInternal = ({ onChange, value, ...props }: SwitchInternalProps) => (
   <Switch {...props} checked={value} onCheckedChange={onChange} />
 )
 
-export type SwitchFieldProps = Omit<
-  React.ComponentProps<typeof Switch>,
-  'value' | 'onChange' | 'checked' | 'onCheckedChange'
-> &
-  BaseFieldProps
+export type SwitchFieldProps = SwitchBaseProps & BaseFieldProps
 
 // @TODO: This should be different thatn this for sure :-)
 export const SwitchField = ({
@@ -40,24 +47,25 @@ export const SwitchField = ({
   cnMessage,
   ...props
 }: SwitchFieldProps) => (
-  <FormField
+  <Field
     name={name}
     className={cn(
-      'flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm',
+      'flex flex-row items-center justify-between p-3 shadow-sm',
       className,
     )}
   >
     <div className="space-y-0.5">
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
+
       {description && (
         <FormDescription className={cnDescription}>
           {description}
         </FormDescription>
       )}
     </div>
+
     <FormMessage className={cnMessage} />
-    <FormControl>
-      <SwitchBase {...props} className={cnField} />
-    </FormControl>
-  </FormField>
+
+    <SwitchBase {...props} className={cnField} />
+  </Field>
 )
