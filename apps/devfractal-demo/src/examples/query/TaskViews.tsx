@@ -2,10 +2,9 @@ import { Container, Flex } from '@/cui'
 import { Button } from '@/ui/button'
 import { Checkbox } from '@/ui/checkbox'
 import { Input } from '@/ui/input'
-import { H2 } from '@/ui/typography'
+import { H2, Text } from '@/ui/typography'
 import { useInputState } from '@srtp/react'
 import { Trash2 } from 'lucide-react'
-import type { KeyboardEvent } from 'react'
 import type { Task } from '../specs'
 
 export type TaskItemProps = Readonly<{
@@ -16,15 +15,14 @@ export type TaskItemProps = Readonly<{
 
 export const TaskItem = ({ task, onToggle, onRemove }: TaskItemProps) => {
   return (
-    <Flex align="baseline" className="my-2 gap-4">
-      <Checkbox checked={task.completed} onChange={() => onToggle(task)}>
-        {task.title}
-      </Checkbox>
-
+    // @TODO: fix Flex
+    <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4 shadow">
+      <Checkbox checked={task.completed} onChange={() => onToggle(task)} />
+      <Text className="space-y-1 leading-none">{task.title}</Text>
       <Button size="sm" onClick={() => onRemove(task.id)}>
-        <Trash2 color="red.500" />
+        <Trash2 />
       </Button>
-    </Flex>
+    </div>
   )
 }
 
@@ -40,7 +38,7 @@ export const AddTask = ({ onAdd }: AddTaskProps) => {
     }
   }
 
-  const keyDown = (evt: KeyboardEvent<HTMLInputElement>) => {
+  const keyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
     if (evt.key === 'Enter') {
       submit()
     }

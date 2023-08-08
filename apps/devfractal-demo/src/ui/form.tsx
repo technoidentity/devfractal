@@ -102,7 +102,7 @@ export const IdField = React.forwardRef<HTMLDivElement, IdFieldProps>(
 
     return (
       <IdContext value={value}>
-        <div ref={ref} className={cn('space-y-2', className)} {...props} />
+        <div ref={ref} className={className} {...props} />
       </IdContext>
     )
   },
@@ -121,7 +121,7 @@ const [FieldContext, useField] = context<FieldContext>({
 export type FormFieldProps = React.HTMLAttributes<HTMLDivElement> &
   Pick<FieldContext, 'name'> & { type?: 'input' | 'checkbox' }
 
-export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
+export const Field = React.forwardRef<HTMLDivElement, FormFieldProps>(
   ({ className, ...props }, ref) => {
     const fieldValue = React.useMemo(
       () => ({ name: props.name, type: props.type ?? 'input' }),
@@ -137,7 +137,7 @@ export const FormField = React.forwardRef<HTMLDivElement, FormFieldProps>(
     )
   },
 )
-FormField.displayName = 'FormField'
+Field.displayName = 'Field'
 
 export function useFieldProps() {
   const { name, type } = useField()
@@ -201,7 +201,7 @@ export const Controller = React.forwardRef<
 })
 Controller.displayName = 'Controller'
 
-export const FormControl = React.forwardRef<
+export const Control = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
 >(({ ...props }, ref) => {
@@ -210,7 +210,7 @@ export const FormControl = React.forwardRef<
 
   return <Slot {...controllerProps} {...ariaProps} {...props} ref={ref} />
 })
-FormControl.displayName = 'FormControl'
+Control.displayName = 'Control'
 
 export const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
