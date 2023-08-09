@@ -5,15 +5,14 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf .turbo node_modules dist",
-    "e2e": "pnpm playwright test",
-    "clean": "rimraf .turbo node_modules dist"
+    "e2e": "pnpm playwright test"
   },
   "author": "Pervez Iqbal",
   "license": "MIT",
   "devDependencies": {
     "@playwright/test": "1.36.2",
     "playwright": "1.36.2",
-    "prettier": "3.0.0",
+    "prettier": "3.0.1",
     "rimraf": "5.0.1"
   }
 }
