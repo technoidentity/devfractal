@@ -1,24 +1,18 @@
 import React from 'react'
 
 import { cn } from '@/core'
+import { forwardRef } from '@srtp/react'
 
-export const Box = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn('bg-background text-foreground', className)}
-    {...props}
-  />
-))
+export type BoxProps<T extends keyof JSX.IntrinsicElements> =
+  React.ComponentProps<T> & { as?: T }
 
-Box.displayName = 'Card'
+function BoxComponent<T extends keyof JSX.IntrinsicElements = 'div'>(
+  { as, className, ...props }: BoxProps<T>,
+  ref: React.Ref<React.ElementRef<T>>,
+): JSX.Element {
+  const Component = (as ?? 'div') as any
+  return <Component {...props} ref={ref} className={cn(className)} />
+}
+BoxComponent.displayName = 'Box'
 
-export const Foo = () => (
-  <Box>
-    <Box>1</Box>
-    <Box>2</Box>
-    <Box>3</Box>
-  </Box>
-)
+export const Box = forwardRef(BoxComponent)

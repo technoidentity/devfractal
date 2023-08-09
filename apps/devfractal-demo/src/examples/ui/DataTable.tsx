@@ -42,6 +42,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/div-table'
+import { ThemeSelector } from '@/ui/theme-selector'
 
 const data: Payment[] = [
   {
@@ -200,7 +201,8 @@ export function DataTableDemo() {
   })
 
   return (
-    <div className="w-full">
+    <div className="w-full p-4">
+      <ThemeSelector />
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."

@@ -11,7 +11,6 @@ export type User = z.infer<typeof User>
 
 const usersTable = new Map<number, User>()
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let nextId: number
 export function initializeFakeUsersTable(N = 50) {
   for (let i = 0; i < N; i++) {

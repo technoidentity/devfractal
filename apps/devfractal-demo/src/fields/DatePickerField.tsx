@@ -55,7 +55,7 @@ export type DatePickerBaseProps = Omit<DayPickerSingleProps, 'mode'> &
     cnTrigger?: string
   }>
 
-export const DatePickerBaseProps = ({
+export const DatePickerBase = ({
   children,
   dateFormat,
   triggerLabel,
@@ -135,7 +135,7 @@ export const DatePickerField = ({
     <Field name={name} className={cn('flex flex-col', className)}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}
 
-      <DatePickerBaseProps {...props} />
+      <DatePickerBase {...props} />
 
       {description && (
         <FormDescription className={cnDescription}>

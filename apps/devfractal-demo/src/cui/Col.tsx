@@ -1,7 +1,7 @@
 import React from 'react'
 
-import type { GridClassesMapping } from './styles'
-import { colSpan, colSpanLg, colSpanMd, colSpanSm } from './styles'
+import type { GridClassesMapping } from './gridStyles'
+import { colSpan, colSpanLg, colSpanMd, colSpanSm } from './gridStyles'
 import { cn } from '@/core'
 
 function getColSpan<T extends GridClassesMapping>(

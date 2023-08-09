@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
-import type { GridClassesMapping } from './styles'
-import { gridCols, gridColsLg, gridColsMd, gridColsSm } from './styles'
+import type { GridClassesMapping } from './gridStyles'
+import { gridCols, gridColsLg, gridColsMd, gridColsSm } from './gridStyles'
 import { cn } from '@/core'
 
 function getGridCols<T extends GridClassesMapping>(

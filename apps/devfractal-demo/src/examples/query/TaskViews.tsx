@@ -45,7 +45,7 @@ export const AddTask = ({ onAdd }: AddTaskProps) => {
   }
 
   return (
-    <Flex direction="row" align="baseline" className="m-2 gap-2">
+    <Flex direction="row" className="align-baseline m-2 gap-2">
       <Input
         type="text"
         value={title}

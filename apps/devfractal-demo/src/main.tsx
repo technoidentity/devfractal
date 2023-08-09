@@ -12,8 +12,8 @@ import {
 } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import './customTheme.css'
+import { QueryTaskApp } from './examples/query/EpQueryTasks'
 import { tasksRoutes } from './examples/router/tasksRoutes'
-import { FormExample } from './examples/ui/form'
 
 // if (process.env.NODE_ENV === 'development') {
 //   const { worker } = await import('./mocks/browser')
@@ -25,7 +25,7 @@ const container = document.getElementById('root')
 invariant(container, 'container not found')
 const root = createRoot(container)
 
-const indexRoute: RouteObject = { path: '/', element: <FormExample /> }
+const indexRoute: RouteObject = { path: '/', element: <QueryTaskApp /> }
 
 const router = createBrowserRouter([...tasksRoutes, indexRoute])
 

@@ -28,7 +28,7 @@ const Buttons = () => {
   const actions = useActions()
 
   return (
-    <Box className="gap-2">
+    <Box className="space-x-2">
       <Button onClick={() => actions.inc()}>+</Button>
       <Button onClick={() => actions.dec()}>-</Button>
       <Button onClick={() => actions.by(10)}>+10</Button>
@@ -38,7 +38,7 @@ const Buttons = () => {
 
 export function SliceCounter() {
   return (
-    <Flex direction="col" align="start">
+    <Flex direction="col" className="align-start ">
       <Counter />
       <Buttons />
     </Flex>
