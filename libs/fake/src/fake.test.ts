@@ -37,15 +37,17 @@ const schema = z.tuple([
   z.object({ x: z.date(), y: z.boolean() }).partial(),
 ])
 
-test.skip('fake', () => {
-  const p = fake(person)
-  const s = fake(schema)
+describe('fake', () => {
+  test.skip('object', () => {
+    const p = fake(person)
+    const s = fake(schema)
 
-  expect(() => person.parse(p)).not.toThrow()
-  expect(() => schema.parse(s)).not.toThrow()
+    expect(() => person.parse(p)).not.toThrow()
+    expect(() => schema.parse(s)).not.toThrow()
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  vi.spyOn(global.console, 'warn').mockImplementation(() => {})
-  expect(() => fake(z.never()).parse(undefined)).toThrow()
-  expect(console.warn).toHaveBeenCalledTimes(1)
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    vi.spyOn(global.console, 'warn').mockImplementation(() => {})
+    expect(() => fake(z.never()).parse(undefined)).toThrow()
+    expect(console.warn).toHaveBeenCalledTimes(1)
+  })
 })
