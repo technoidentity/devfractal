@@ -1,7 +1,7 @@
 {
   "name": "@srtp/fn",
   "version": "1.0.0",
-  "description": "core utilities for web course projects",
+  "description": "fundamental utility functions similar to lodash",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "20.4.9",
-    "@vitest/coverage-c8": "0.33.0",
+    "@vitest/coverage-v8": "0.34.1",
     "cross-env": "7.0.3",
     "eslint": "8.46.0",
     "eslint-config-srtp": "workspace:*",

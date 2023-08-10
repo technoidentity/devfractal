@@ -1,7 +1,7 @@
 {
   "name": "@srtp/server",
   "version": "1.0.0",
-  "description": "core utilities for web course projects",
+  "description": "server from endpoint specifications similar to trpc",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
