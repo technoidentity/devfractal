@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { Iff, IsNonEmpty } from '@srtp/core'
 import { type EndpointBase } from '@srtp/endpoint'
-import { buildObject$ } from '@srtp/fn'
+import { omap$ } from '@srtp/fn'
 import { safeSearch, type UseSearchResult } from './hooks'
 import type { RouteObject } from 'react-router-dom'
 import { routerPath, type EpPathResult } from './routerPath'
@@ -42,7 +42,7 @@ export type PagesResult<Pages extends PageRecordBase> = Readonly<{
 export function pages<const Pages extends PageRecordBase>(
   ps: Pages,
 ): PagesResult<Pages> {
-  const utils = buildObject$(ps, v => page(v))
+  const utils = omap$(ps, v => page(v))
 
   return { ...utils, routes: Object.values(utils).map(t => t.route) }
 }

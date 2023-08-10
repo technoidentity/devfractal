@@ -37,7 +37,7 @@ import {
   zipLongest,
   zipWith,
 } from './iter'
-import { buildObject, merge, omit, omitBy, pick, pickBy, pluck } from './object'
+import { omap, merge, omit, omitBy, pick, pickBy, pluck } from './object'
 import { pipe } from './pipe'
 
 export function unpipe<Args extends any[], Src, R>(
@@ -95,6 +95,6 @@ export const pick$ = unpipe(pick)
 export const omit$ = unpipe(omit)
 export const pluck$ = unpipe(pluck)
 export const merge$ = unpipe(merge)
-export const buildObject$ = unpipe(buildObject)
+export const omap$ = unpipe(omap)
 export const pickBy$ = unpipe(pickBy)
 export const omitBy$ = unpipe(omitBy)

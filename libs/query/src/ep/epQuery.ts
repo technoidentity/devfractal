@@ -18,7 +18,7 @@ import type {
 } from '@srtp/endpoint'
 
 import { keysfn, linkfn } from '@srtp/endpoint'
-import { buildObject$ } from '@srtp/fn'
+import { omap$ } from '@srtp/fn'
 import { useEvent } from '@srtp/react'
 import { axios, joinPaths, urlcat } from '@srtp/web'
 import React from 'react'
@@ -77,7 +77,7 @@ export function epQueries<Eps extends EndpointRecordBase>(
   eps: Eps,
   baseUrl: string,
 ): EpQueriesHooks<Eps> {
-  return buildObject$(eps, ep => epQuery(ep, baseUrl)) as any
+  return omap$(eps, ep => epQuery(ep, baseUrl)) as any
 }
 
 export type MutationDescription<Ep extends EndpointBase> = GetParamsArg<Ep> &
@@ -220,7 +220,7 @@ export function epMutations<Eps extends EndpointRecordBase>(
   eps: Eps,
   baseUrl: string,
 ): EpMutationsHooks<Eps> {
-  return buildObject$(eps, ep => epMutation(ep, baseUrl)) as any
+  return omap$(eps, ep => epMutation(ep, baseUrl)) as any
 }
 
 export type UseOptimisticArgs<
@@ -277,5 +277,5 @@ export function epOptimisticMutations<Eps extends EndpointRecordBase>(
   eps: Eps,
   baseUrl: string,
 ) {
-  return buildObject$(eps, ep => epOptimistic(ep, baseUrl)) as any
+  return omap$(eps, ep => epOptimistic(ep, baseUrl)) as any
 }

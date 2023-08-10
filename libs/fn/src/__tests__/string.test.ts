@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest'
 import {
-  camelCaseToPascalCase,
-  camelCaseToSnakeCase,
+  camelToPascal,
+  camelToSnake,
   capitalize,
-  pascalCaseToCamelCase,
-  pascalCaseToSnakeCase,
-  snakeCaseToCamelCase,
-  snakeCaseToPascalCase,
+  pascalToCamel,
+  pascalToSnake,
+  snakeToCamel,
+  snakeToPascal,
 } from '../string'
 
 test('capitalize', () => {
@@ -20,54 +20,48 @@ test('capitalize', () => {
 })
 
 test('camelCaseToPascalCase', () => {
-  expect(camelCaseToPascalCase('')).toEqual('')
-  expect(camelCaseToPascalCase('foo')).toEqual('Foo')
-  expect(camelCaseToPascalCase('Foo')).toEqual('Foo')
-  expect(camelCaseToPascalCase('fooBar')).toEqual('FooBar')
-  expect(camelCaseToPascalCase('helloWorld')).toEqual('HelloWorld')
-  expect(camelCaseToPascalCase('helloWorldUniverse')).toEqual(
-    'HelloWorldUniverse',
-  )
+  expect(camelToPascal('')).toEqual('')
+  expect(camelToPascal('foo')).toEqual('Foo')
+  expect(camelToPascal('Foo')).toEqual('Foo')
+  expect(camelToPascal('fooBar')).toEqual('FooBar')
+  expect(camelToPascal('helloWorld')).toEqual('HelloWorld')
+  expect(camelToPascal('helloWorldUniverse')).toEqual('HelloWorldUniverse')
 })
 
 test('pascalCaseToCamelCase', () => {
-  expect(pascalCaseToCamelCase('')).toEqual('')
-  expect(pascalCaseToCamelCase('foo')).toEqual('foo')
-  expect(pascalCaseToCamelCase('Foo')).toEqual('foo')
-  expect(pascalCaseToCamelCase('FooBar')).toEqual('fooBar')
-  expect(pascalCaseToCamelCase('HelloWorld')).toEqual('helloWorld')
+  expect(pascalToCamel('')).toEqual('')
+  expect(pascalToCamel('foo')).toEqual('foo')
+  expect(pascalToCamel('Foo')).toEqual('foo')
+  expect(pascalToCamel('FooBar')).toEqual('fooBar')
+  expect(pascalToCamel('HelloWorld')).toEqual('helloWorld')
 })
 
 test('snakeCaseToCamelCase', () => {
-  expect(snakeCaseToCamelCase('')).toEqual('')
-  expect(snakeCaseToCamelCase('foo')).toEqual('foo')
-  expect(snakeCaseToCamelCase('_foo')).toEqual('Foo')
-  expect(snakeCaseToCamelCase('foo_bar')).toEqual('fooBar')
-  expect(snakeCaseToCamelCase('foo_Bar')).toEqual('fooBar')
-  expect(snakeCaseToCamelCase('foo_bar_gaz')).toEqual('fooBarGaz')
-  expect(snakeCaseToCamelCase('hello_world')).toEqual('helloWorld')
+  expect(snakeToCamel('')).toEqual('')
+  expect(snakeToCamel('foo')).toEqual('foo')
+  expect(snakeToCamel('_foo')).toEqual('Foo')
+  expect(snakeToCamel('foo_bar')).toEqual('fooBar')
+  expect(snakeToCamel('foo_Bar')).toEqual('fooBar')
+  expect(snakeToCamel('foo_bar_gaz')).toEqual('fooBarGaz')
+  expect(snakeToCamel('hello_world')).toEqual('helloWorld')
 })
 
 test('snakeCaseToPascalCase', () => {
-  expect(snakeCaseToPascalCase('')).toEqual('')
-  expect(snakeCaseToPascalCase('foo_bar')).toEqual('FooBar')
-  expect(snakeCaseToPascalCase('hello_world')).toEqual('HelloWorld')
+  expect(snakeToPascal('')).toEqual('')
+  expect(snakeToPascal('foo_bar')).toEqual('FooBar')
+  expect(snakeToPascal('hello_world')).toEqual('HelloWorld')
 })
 
 test('camelCaseToSnakeCase', () => {
-  expect(camelCaseToSnakeCase('')).toEqual('')
-  expect(camelCaseToSnakeCase('foo123Bar')).toEqual('foo123_bar')
-  expect(camelCaseToSnakeCase('helloWorld45')).toEqual('hello_world45')
-  expect(camelCaseToSnakeCase('howAre22YouToday')).toEqual(
-    'how_are22_you_today',
-  )
+  expect(camelToSnake('')).toEqual('')
+  expect(camelToSnake('foo123Bar')).toEqual('foo123_bar')
+  expect(camelToSnake('helloWorld45')).toEqual('hello_world45')
+  expect(camelToSnake('howAre22YouToday')).toEqual('how_are22_you_today')
 })
 
 test('camelCaseToSnakeCase', () => {
-  expect(pascalCaseToSnakeCase('')).toEqual('')
-  expect(pascalCaseToSnakeCase('Foo123Bar')).toEqual('foo123_bar')
-  expect(pascalCaseToSnakeCase('HelloWorld45')).toEqual('hello_world45')
-  expect(pascalCaseToSnakeCase('HowAre22YouToday')).toEqual(
-    'how_are22_you_today',
-  )
+  expect(pascalToSnake('')).toEqual('')
+  expect(pascalToSnake('Foo123Bar')).toEqual('foo123_bar')
+  expect(pascalToSnake('HelloWorld45')).toEqual('hello_world45')
+  expect(pascalToSnake('HowAre22YouToday')).toEqual('how_are22_you_today')
 })

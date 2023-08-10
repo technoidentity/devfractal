@@ -107,7 +107,7 @@ export function merge<T1, T2>(obj2: T2) {
   }
 }
 
-export function buildObject<T extends object, K extends keyof T, V>(
+export function omap<T extends object, K extends keyof T, V>(
   f: (value: T[K], key: K) => V,
 ) {
   return (obj: T): Record<K, V> => {
@@ -195,8 +195,4 @@ export const orderedKeys = <T extends object>(obj: T) =>
 
 export type EntriesSource = {
   entries(): IterableIterator<[string, unknown]>
-}
-
-export function entriesToObject(search: EntriesSource) {
-  return Object.fromEntries(search.entries())
 }

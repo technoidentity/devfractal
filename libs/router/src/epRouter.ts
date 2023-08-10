@@ -2,7 +2,7 @@ import type { EndpointBase, GetEpResponse, PathBase } from '@srtp/endpoint'
 import { paramsSpec, route } from '@srtp/endpoint'
 
 import type { Iff, IsDefined } from '@srtp/core'
-import { buildObject$ } from '@srtp/fn'
+import { omap$ } from '@srtp/fn'
 import { cast } from '@srtp/spec'
 import { http, toPath } from '@srtp/web'
 import {
@@ -171,6 +171,6 @@ export type EpRouterResult<EpRoutes extends EpRouteRecordBase> = {
 export function epRouter<EpRoutes extends EpRouteRecordBase>(
   routes: EpRoutes,
 ): EpRouterResult<EpRoutes> {
-  const utils = buildObject$(routes, value => epRouteUtils(value))
+  const utils = omap$(routes, value => epRouteUtils(value))
   return { ...(utils as any), routes: Object.values(utils).map(t => t.route) }
 }
