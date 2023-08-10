@@ -1,6 +1,6 @@
 import { prisma } from '@core/prisma'
 import { pick$ } from '@srtp/fn'
-import { str } from '@srtp/spec'
+import { toStr } from '@srtp/spec'
 import { addDays } from 'date-fns'
 import type { Session } from 'next-auth'
 import invariant from 'tiny-invariant'
@@ -9,7 +9,7 @@ import type { Args } from './utils'
 export const getSessionByUser = async (
   args: Args<'email'>,
 ): Promise<Session> => {
-  const email = str(args.email)
+  const email = toStr(args.email)
 
   const user = await prisma.user.findFirst({ where: { email } })
 

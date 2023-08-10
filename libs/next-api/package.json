@@ -1,14 +1,13 @@
 {
   "name": "@srtp/api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "convenient utility functions for defining next api",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "keywords": [],
-  "author": "Pervez Iqbal",
-  "license": "ISC",
+  "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --external react",
     "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",

@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { z } from 'zod'
+import type { Fundamental } from './primitive'
 
 type Fn = (...args: any[]) => any
 
@@ -11,14 +11,7 @@ export function is<T, Spec extends z.ZodType<T>>(
 }
 
 // from sindresorhus/is
-export type OptPrimitive =
-  | null
-  | undefined
-  | string
-  | number
-  | boolean
-  | symbol
-  | bigint
+export type OptPrimitive = Fundamental | symbol
 
 const primitiveTypeNames = [
   'null',
@@ -56,7 +49,6 @@ export const isArray = (value: unknown): value is unknown[] =>
 
 export const isUndefined = (s: unknown): s is undefined => s === undefined
 export const isNull = (s: unknown): s is null => s === null
-export const isNil = (s: unknown): s is null | undefined =>
-  s === null || s === undefined
-
+export const isNil = (s: unknown): s is null | undefined => s == null
+export const isNotNil = (s: unknown): s is unknown => !isNil(s)
 export const isNullish = isNil

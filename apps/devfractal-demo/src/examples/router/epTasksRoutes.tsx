@@ -1,5 +1,5 @@
-// import { Pre } from '@srtp/react'
-// import { number, string } from '@srtp/validator'
+// import { Pre } from 'devfractal'
+// import { number, string } from 'devfractal'
 // import { type RouteObject } from 'react-router-dom'
 // import { z } from 'zod'
 

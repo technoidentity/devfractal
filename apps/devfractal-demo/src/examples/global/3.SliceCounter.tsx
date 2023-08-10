@@ -1,4 +1,4 @@
-import { slice, useValue } from '@srtp/global-state'
+import { slice, useValue } from 'devfractal'
 import { Box, Flex } from '@/cui'
 import { Text } from '@/ui/typography'
 import { Button } from '@/ui/button'

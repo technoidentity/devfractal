@@ -1,14 +1,13 @@
-import { debugCast, isBool, isDate, isNil, isNum, isStr } from '@srtp/spec'
-import { z } from 'zod'
+import {
+  Primitive,
+  debugCast,
+  isBool,
+  isDate,
+  isNil,
+  isNum,
+  isStr,
+} from '@srtp/spec'
 import type { FilterPredicate, RowBase, Sort } from './types'
-
-const Primitive = z.union([
-  z.number(),
-  z.boolean(),
-  z.string(),
-  z.coerce.date(),
-])
-type Primitive = z.infer<typeof Primitive>
 
 const primitiveSearch = (search: string, value: Primitive): boolean => {
   if (value === undefined) {

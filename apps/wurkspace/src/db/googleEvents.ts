@@ -1,7 +1,7 @@
 import { sget } from '@core/api'
 import type { CalendarEvent } from '@prisma/client'
 import type { Employee } from '@specs/employee'
-import { str } from '@srtp/spec'
+import { toStr } from '@srtp/spec'
 import { setDifference } from '@srtp/fn'
 import { prisma } from '@core/prisma'
 import { addDays, subDays } from 'date-fns'
@@ -30,9 +30,9 @@ export type OtherUserType = z.infer<typeof OtherUserType>
 export const getGoogleEvent = async (
   args: Args<'accessToken' | 'email' | 'id'>,
 ) => {
-  const accessToken = str(args.accessToken)
-  // const email = str(args.email)
-  const eventId = str(args.id)
+  const accessToken = toStr(args.accessToken)
+  // const email = toStr(args.email)
+  const eventId = toStr(args.id)
 
   const event = await sget({
     headers: {
@@ -78,8 +78,8 @@ const getAllEmails = (events: any[]): Set<string> => {
 export const getGoogleEvents = async (
   args: Args<'accessToken' | 'email'>,
 ): Promise<CalendarEvent[]> => {
-  const accessToken = str(args.accessToken)
-  const email = str(args.email)
+  const accessToken = toStr(args.accessToken)
+  const email = toStr(args.email)
 
   // @TODO: get only rest of this week?
   const min = subDays(new Date(), 1).toISOString()

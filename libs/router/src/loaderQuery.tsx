@@ -1,4 +1,4 @@
-import { bool, cast } from '@srtp/spec'
+import { cast } from '@srtp/spec'
 import { http } from '@srtp/web'
 import type {
   QueryClient,
@@ -48,7 +48,7 @@ type Specs<
   search?: SearchSpec
 }>
 
-export type QueryFn<Params extends object, Search extends object> = (
+type QueryFn<Params extends object, Search extends object> = (
   params: Params,
   path: string,
   search: Search,
@@ -148,7 +148,7 @@ export function remixLoaderQuery<
   base: string = '/api',
 ) {
   const query = (_: z.infer<ParamsSpec>, path: string) => {
-    const queryKey = [base, path.split('/').filter(bool)]
+    const queryKey = [base, path.split('/').filter(x => !!x)]
     const qfn = qfnFromBase(base)
 
     return { queryKey, queryFn: qfn }

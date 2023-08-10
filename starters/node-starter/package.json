@@ -1,6 +1,6 @@
 {
   "name": "node-starter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "node starter project",
   "main": "index.js",
   "scripts": {
@@ -14,8 +14,7 @@
     "dev": "nodemon -x tsx src/index.ts",
     "cd": "pnpm turbo build lint test"
   },
-  "author": "Pervez Iqbal",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chance": "1.1.11",
     "immer": "10.0.2",

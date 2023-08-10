@@ -1,4 +1,4 @@
-import { context } from '@srtp/react'
+import { context } from 'devfractal'
 import { useEffect, useMemo, useState } from 'react'
 
 type ThemeProvider = Readonly<{

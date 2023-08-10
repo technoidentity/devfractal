@@ -1,4 +1,4 @@
-import { str } from '@srtp/spec'
+import { toStr } from '@srtp/spec'
 import { ErrorMessage } from '@ui/core'
 import { LoadingScreen } from '@ui/LoadingScreen'
 import { OneOnOneNew } from '@ui/one-on-one-new'
@@ -8,7 +8,7 @@ import React from 'react'
 
 const OneOnOneNewPage = () => {
   const router = useRouter()
-  const eventId = str(router.query.eventId)
+  const eventId = toStr(router.query.eventId)
 
   const { meeting, error } = useMeeting(eventId)
 

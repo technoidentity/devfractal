@@ -1,5 +1,5 @@
 import { Button, Container, HStack, Input, Text } from '@chakra-ui/react'
-import { int } from '@srtp/spec'
+import { toInt } from '@srtp/spec'
 import type { Handlers } from '@srtp/local-state'
 import { state$, useState$ } from '@srtp/local-state'
 import React from 'react'
@@ -32,7 +32,7 @@ export const Counter = () => {
         <Button onClick={actions.dec}>-</Button>
       </HStack>
       <HStack pt="2">
-        <Button onClick={() => actions.incBy(int(by))}>Increase By</Button>
+        <Button onClick={() => actions.incBy(toInt(by))}>Increase By</Button>
         <Input value={by} onChange={evt => setBy(+evt.target.value)} />
       </HStack>
     </Container>

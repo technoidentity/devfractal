@@ -1,4 +1,5 @@
 import type { Tail } from '@srtp/core'
+import type { Fundamental } from '@srtp/spec'
 import type { Draft } from 'immer'
 
 export type Effect<State extends object, Result> = Readonly<{
@@ -40,16 +41,7 @@ export type Actions<State, Hs extends Handlers<State>> = {
     : (...payload: Payload<Hs, A>) => void
 }
 
-export type Primitive =
-  | null
-  | undefined
-  | string
-  | number
-  | boolean
-  | symbol
-  | bigint
-
-export type ShallowObject = Record<keyof object, Primitive>
+export type ShallowObject = Record<keyof object, Fundamental>
 
 export type UpdateHandlers<T extends ShallowObject> = {
   [K in keyof T & string as `update${Capitalize<K>}`]: (

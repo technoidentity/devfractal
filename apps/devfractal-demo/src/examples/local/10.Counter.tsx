@@ -1,4 +1,4 @@
-import { useInt } from '@srtp/local-state'
+import { useInt } from 'devfractal'
 import { Container, HStack } from '@/cui'
 import { Button } from '@/ui/button'
 import { Text } from '@/ui/typography'

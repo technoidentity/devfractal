@@ -1,4 +1,4 @@
-import { isEmail, str } from '@srtp/spec'
+import { isEmail, toStr } from '@srtp/spec'
 import { api } from '@core/server'
 import { destroyCookie, setCookie } from 'nookies'
 import invariant from 'tiny-invariant'
@@ -6,7 +6,7 @@ import invariant from 'tiny-invariant'
 const loginCookieName = 'test-login-email'
 export default api()
   .post(async (req, res) => {
-    const email = str(req.body.email)
+    const email = toStr(req.body.email)
     invariant(isEmail(email))
 
     setCookie({ res }, loginCookieName, req.body.email, {

@@ -1,13 +1,12 @@
 {
   "name": "e2e",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "e2e tests --project=chromium",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf .turbo node_modules dist",
     "e2e": "pnpm playwright test"
   },
-  "author": "Pervez Iqbal",
   "license": "MIT",
   "devDependencies": {
     "@playwright/test": "1.36.2",

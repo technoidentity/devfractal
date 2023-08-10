@@ -11,9 +11,9 @@ import {
   type UseQueryOptions,
 } from '@tanstack/react-query'
 
-export type Handlers = Record<string, MutationFunction<any, any>>
+export type QueryHandlers = Record<string, MutationFunction<any, any>>
 
-export type Actions<Hs extends Handlers> = {
+export type QueryActions<Hs extends QueryHandlers> = {
   [Key in keyof Hs as `use${Capitalize<Key & string>}`]: <TContext>(
     options?: UseMutationOptions<
       Awaited<ReturnType<Hs[Key]>>,
@@ -34,7 +34,7 @@ export type Actions<Hs extends Handlers> = {
   ]
 }
 
-export const queryState = <Path extends PathBase, Hs extends Handlers>(
+export const queryState = <Path extends PathBase, Hs extends QueryHandlers>(
   path: Path,
   queryOptions: Omit<UseQueryOptions, 'queryKey'>,
   mutationHandlers: Hs,
@@ -79,7 +79,7 @@ export const queryState = <Path extends PathBase, Hs extends Handlers>(
     }
   }
 
-  const actions: Actions<Hs> = Object.keys(mutationHandlers).reduce(
+  const actions: QueryActions<Hs> = Object.keys(mutationHandlers).reduce(
     (acc, key) => {
       acc[key] = action(key)
       return acc

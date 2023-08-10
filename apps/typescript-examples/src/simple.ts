@@ -1,21 +1,11 @@
-import {
-  all,
-  bool,
-  filter,
-  map,
-  pipe,
-  plus,
-  range,
-  reduce,
-  toArray,
-} from '@srtp/fn'
+import { all, filter, map, pipe, plus, range, reduce, toArray } from '@srtp/fn'
 import { checked, Natural } from '@srtp/spec'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 import { minBy } from './array'
 
 export const compact = <T extends unknown[]>(arr: T): T =>
-  arr.filter(bool) as any as T
+  arr.filter(x => !!x) as any as T
 
 export function fpMaxBy<T extends object>(arr: readonly T[], by: keyof T): T {
   invariant(arr.length > 0, 'maxBy undefined on an empty array')

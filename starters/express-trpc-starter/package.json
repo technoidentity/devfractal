@@ -1,6 +1,6 @@
 {
   "name": "express-trpc-starter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "express trpc starter project",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,7 @@
     "dev": "nodemon -x node -r esbuild-register src/index.ts",
     "cd": "pnpm turbo build test"
   },
-  "author": "Pervez Iqbal",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@trpc/server": "10.37.1",
     "chance": "1.1.11",

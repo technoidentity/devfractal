@@ -18,7 +18,7 @@ importers:
         specifier: 8.2.0
         version: 8.2.0
       esbuild-plugin-file-path-extensions:
-        specifier: ^1.0.0
+        specifier: 1.0.0
         version: 1.0.0
       eslint:
         specifier: 8.46.0
@@ -358,48 +358,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.0.6
         version: 1.0.6(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
-      '@srtp/conform':
-        specifier: workspace:*
-        version: link:../../libs/conform
-      '@srtp/core':
-        specifier: workspace:*
-        version: link:../../libs/core
-      '@srtp/endpoint':
-        specifier: workspace:*
-        version: link:../../libs/endpoint
-      '@srtp/fn':
-        specifier: workspace:*
-        version: link:../../libs/fn
-      '@srtp/global-state':
-        specifier: workspace:*
-        version: link:../../libs/global-state
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
-      '@srtp/query':
-        specifier: workspace:*
-        version: link:../../libs/query
-      '@srtp/react':
-        specifier: workspace:*
-        version: link:../../libs/react
-      '@srtp/result':
-        specifier: workspace:*
-        version: link:../../libs/result
-      '@srtp/router':
-        specifier: workspace:*
-        version: link:../../libs/router
       '@srtp/server':
         specifier: workspace:*
         version: link:../../libs/server
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
-      '@srtp/web':
-        specifier: workspace:*
-        version: link:../../libs/web
       '@tanstack/react-query':
         specifier: 4.32.6
         version: 4.32.6(react-dom@18.2.0)(react@18.2.0)
@@ -418,6 +379,9 @@ importers:
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
+      devfractal:
+        specifier: workspace:*
+        version: link:../../libs/devfractal
       framer-motion:
         specifier: 10.15.1
         version: 10.15.1(react-dom@18.2.0)(react@18.2.0)
@@ -492,28 +456,28 @@ importers:
         specifier: workspace:*
         version: link:../../libs/tsconfig
       '@storybook/addon-essentials':
-        specifier: ^7.2.2
+        specifier: 7.2.2
         version: 7.2.2(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
       '@storybook/addon-interactions':
-        specifier: ^7.2.2
+        specifier: 7.2.2
         version: 7.2.2(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
       '@storybook/addon-links':
-        specifier: ^7.2.2
+        specifier: 7.2.2
         version: 7.2.2(react-dom@18.2.0)(react@18.2.0)
       '@storybook/addon-onboarding':
-        specifier: ^1.0.8
+        specifier: 1.0.8
         version: 1.0.8(react-dom@18.2.0)(react@18.2.0)
       '@storybook/blocks':
-        specifier: ^7.2.2
+        specifier: 7.2.2
         version: 7.2.2(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
       '@storybook/react':
-        specifier: ^7.2.2
+        specifier: 7.2.2
         version: 7.2.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)
       '@storybook/react-vite':
-        specifier: ^7.2.2
+        specifier: 7.2.2
         version: 7.2.2(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(vite@4.4.9)
       '@storybook/testing-library':
-        specifier: ^0.2.0
+        specifier: 0.2.0
         version: 0.2.0
       '@tanstack/react-query-devtools':
         specifier: 4.32.6
@@ -561,7 +525,7 @@ importers:
         specifier: workspace:*
         version: link:../../libs/eslint-config-srtp
       eslint-plugin-storybook:
-        specifier: ^0.6.13
+        specifier: 0.6.13
         version: 0.6.13(eslint@8.46.0)(typescript@5.1.6)
       jsdom:
         specifier: 22.1.0
@@ -582,7 +546,7 @@ importers:
         specifier: 5.0.1
         version: 5.0.1
       storybook:
-        specifier: ^7.2.2
+        specifier: 7.2.2
         version: 7.2.2
       tailwindcss:
         specifier: 3.3.3
@@ -3304,6 +3268,109 @@ importers:
         specifier: 0.34.1
         version: 0.34.1(@vitest/ui@0.34.1)(jsdom@22.1.0)
 
+  libs/devfractal:
+    dependencies:
+      '@srtp/core':
+        specifier: workspace:*
+        version: link:../core
+      '@srtp/endpoint':
+        specifier: workspace:*
+        version: link:../endpoint
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../fn
+      '@srtp/global-state':
+        specifier: workspace:*
+        version: link:../global-state
+      '@srtp/local-state':
+        specifier: workspace:*
+        version: link:../local-state
+      '@srtp/query':
+        specifier: workspace:*
+        version: link:../query
+      '@srtp/react':
+        specifier: workspace:*
+        version: link:../react
+      '@srtp/result':
+        specifier: workspace:*
+        version: link:../result
+      '@srtp/router':
+        specifier: workspace:*
+        version: link:../router
+      '@srtp/spec':
+        specifier: workspace:*
+        version: link:../spec
+      '@srtp/validator':
+        specifier: workspace:*
+        version: link:../validator
+      '@srtp/web':
+        specifier: workspace:*
+        version: link:../web
+      immer:
+        specifier: 10.0.2
+        version: 10.0.2
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: 18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-error-boundary:
+        specifier: 4.0.10
+        version: 4.0.10(react@18.2.0)
+      tiny-invariant:
+        specifier: 1.3.1
+        version: 1.3.1
+      tiny-warning:
+        specifier: 1.0.3
+        version: 1.0.3
+      tslib:
+        specifier: 2.6.1
+        version: 2.6.1
+      use-immer:
+        specifier: 0.9.0
+        version: 0.9.0(immer@10.0.2)(react@18.2.0)
+      zod:
+        specifier: 3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@srtp/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: 20.4.9
+        version: 20.4.9
+      '@types/react':
+        specifier: 18.2.20
+        version: 18.2.20
+      '@types/react-dom':
+        specifier: 18.2.7
+        version: 18.2.7
+      cross-env:
+        specifier: 7.0.3
+        version: 7.0.3
+      eslint:
+        specifier: 8.46.0
+        version: 8.46.0
+      eslint-config-srtp:
+        specifier: workspace:*
+        version: link:../eslint-config-srtp
+      prettier:
+        specifier: 3.0.1
+        version: 3.0.1
+      rimraf:
+        specifier: 5.0.1
+        version: 5.0.1
+      tsup:
+        specifier: 7.2.0
+        version: 7.2.0(typescript@5.1.6)
+      typescript:
+        specifier: 5.1.6
+        version: 5.1.6
+      vitest:
+        specifier: 0.34.1
+        version: 0.34.1(@vitest/ui@0.34.1)(jsdom@22.1.0)
+
   libs/endpoint:
     dependencies:
       '@srtp/core':
@@ -3437,6 +3504,9 @@ importers:
       '@faker-js/faker':
         specifier: 8.0.2
         version: 8.0.2
+      '@srtp/core':
+        specifier: workspace:*
+        version: link:../core
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
@@ -3446,9 +3516,9 @@ importers:
       '@srtp/spec':
         specifier: workspace:*
         version: link:../spec
-      exhaustive:
-        specifier: 1.1.1
-        version: 1.1.1
+      chance:
+        specifier: 1.1.11
+        version: 1.1.11
       immer:
         specifier: 10.0.2
         version: 10.0.2

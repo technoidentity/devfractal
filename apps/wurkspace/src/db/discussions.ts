@@ -1,14 +1,14 @@
 import { prisma } from '@core/prisma'
 import type { Discussion } from '@prisma/client'
 import { omit$ } from '@srtp/fn'
-import { str, toInt } from '@srtp/spec'
+import { toStr, toInt } from '@srtp/spec'
 import { z } from 'zod'
 import type { Args } from './utils'
 
 export const getDiscussions = async (
   args: Args<'meetingId'>,
 ): Promise<readonly Discussion[]> => {
-  const meetingId = str(args.meetingId)
+  const meetingId = toStr(args.meetingId)
 
   return prisma.discussion.findMany({ where: { meetingId } })
 }
@@ -28,7 +28,7 @@ export const getDiscussion = async (args: Args<'id'>): Promise<Discussion> => {
 export const postDiscussion = async (
   args: Args<'meetingId' | 'discussion'>,
 ) => {
-  const meetingId = str(args.meetingId)
+  const meetingId = toStr(args.meetingId)
 
   return prisma.discussion.create({
     data: { meetingId, ...omit$(args.discussion as Discussion, ['meetingId']) },
@@ -55,7 +55,7 @@ export const removeDiscussion = async (args: Args<'id'>) => {
 export const forwardDiscussions = async (
   args: Args<'id' | 'discussionIds'>,
 ) => {
-  const meetingId = str(args.id)
+  const meetingId = toStr(args.id)
   const discussionIds = z.array(z.number()).parse(args.discussionIds)
 
   await prisma.meeting.update({

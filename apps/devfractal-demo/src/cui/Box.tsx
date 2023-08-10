@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { cn } from '@/core'
-import { forwardRef } from '@srtp/react'
+import { forwardRef } from 'devfractal'
 
 export type BoxProps<T extends keyof JSX.IntrinsicElements> =
   React.ComponentProps<T> & { as?: T }

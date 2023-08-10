@@ -39,9 +39,6 @@ export const string = (defaultValue?: string) =>
 export const email = (defaultValue?: string) =>
   defaultValue ? z.string().email().default(defaultValue) : z.string().email()
 
-export const url = (defaultValue?: string) =>
-  defaultValue ? z.string().url().default(defaultValue) : z.string().url()
-
 export const uuid = (defaultValue?: string) =>
   defaultValue ? z.string().uuid().default(defaultValue) : z.string().uuid()
 
@@ -88,10 +85,6 @@ export type FieldSpec =
   | z.ZodDefault<ZodValidatorPrimitive>
   | ZodValidatorPrimitive
   | ZodDateRange // only to support DateRangePicker
-
-export function empty<T extends FieldSpec>(spec: T) {
-  return z.union([spec, z.literal('')])
-}
 
 // nesting and arrays not supported yet
 export type FormRawShape = { [k: string]: FieldSpec }

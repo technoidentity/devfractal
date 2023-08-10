@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { queryState } from '@srtp/query'
-import { cast } from '@srtp/spec'
-import { http } from '@srtp/web'
+import { cast, http, queryState } from 'devfractal'
 import { z } from 'zod'
 import { Task } from '../specs'
 import { TasksList } from './TaskViews'

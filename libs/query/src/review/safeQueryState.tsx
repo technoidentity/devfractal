@@ -17,12 +17,12 @@ export type MutationHandler = (
   variables: any,
 ) => MutationDescription<any>
 
-export type Handlers = Record<
+export type SafeQueryHandlers = Record<
   string,
   [response: z.ZodTypeAny, action: MutationHandler]
 >
 
-export type Actions<Hs extends Handlers> = {
+export type SafeQueryActions<Hs extends SafeQueryHandlers> = {
   [Key in keyof Hs as `use${Capitalize<Key & string>}`]: <TContext>(
     options?: UseMutationOptions<
       z.infer<Hs[Key][0]>,
@@ -60,7 +60,7 @@ type QueryStateArgs<
   Path extends PathBase,
   QuerySpec extends z.ZodTypeAny,
   TQueryFnData,
-  Hs extends Handlers,
+  Hs extends SafeQueryHandlers,
 > = {
   path: Path
   queryOptions: Omit<UseSafeQueryArgs<QuerySpec, TQueryFnData>, 'paths'>
@@ -70,7 +70,7 @@ export const queryState = <
   Path extends PathBase,
   QuerySpec extends z.ZodTypeAny,
   TQueryFnData,
-  Hs extends Handlers,
+  Hs extends SafeQueryHandlers,
 >({
   path,
   queryOptions,
@@ -120,7 +120,7 @@ export const queryState = <
     }
   }
 
-  const actions: Actions<Hs> = Object.keys(mutationHandlers).reduce(
+  const actions: SafeQueryActions<Hs> = Object.keys(mutationHandlers).reduce(
     (acc, key) => {
       acc[key] = action(key)
       return acc

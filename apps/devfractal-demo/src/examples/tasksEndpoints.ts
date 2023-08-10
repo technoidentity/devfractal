@@ -1,4 +1,4 @@
-import { epDelete, epGet, epPatch, epPost, eps } from '@srtp/endpoint'
+import { epDelete, epGet, epPatch, epPost, eps } from 'devfractal'
 
 import { z } from 'zod'
 import { Filters, Task } from './specs'

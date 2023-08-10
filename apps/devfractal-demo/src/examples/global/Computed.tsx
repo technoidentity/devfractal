@@ -1,4 +1,4 @@
-import { computed, useAction, useValue } from '@srtp/global-state'
+import { computed, useAction, useValue } from 'devfractal'
 import { Provider, atom } from 'jotai'
 import { Text } from '@/ui/typography'
 

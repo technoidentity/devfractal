@@ -1,8 +1,5 @@
-import { Pre } from '@srtp/react'
-import { pages } from '@srtp/router'
-import { number } from '@srtp/validator'
+import { Pre, number, pages, path } from 'devfractal'
 import { Filters } from '../specs'
-import { path } from '@srtp/endpoint'
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()

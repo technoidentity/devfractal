@@ -1,8 +1,8 @@
 // import type { FormProps } from '@/ui/form'
 // import { FormContext, useFormContext } from '@/ui/form'
 // import { createFormContext, useForm, zodResolver } from '@mantine/form'
-// import { getRawShape } from '@srtp/spec'
-// import type { FormSpec } from '@srtp/validator'
+// import { getRawShape } from 'devfractal'
+// import type { FormSpec } from 'devfractal'
 // import React from 'react'
 
 // import { useNavigation, useSubmit, Form as RouterForm } from 'react-router-dom'

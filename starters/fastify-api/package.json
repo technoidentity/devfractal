@@ -1,6 +1,6 @@
 {
   "name": "@ti/fastify-api",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "This project was bootstrapped with Fastify-CLI.",
   "main": "src/server.ts",
   "scripts": {

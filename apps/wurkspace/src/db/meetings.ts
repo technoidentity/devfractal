@@ -1,4 +1,4 @@
-import { str } from '@srtp/spec'
+import { toStr } from '@srtp/spec'
 import { prisma } from '@core/prisma'
 import type { CalendarEvent, Meeting } from '@prisma/client'
 import type {
@@ -10,7 +10,7 @@ import type {
 import type { Args } from './utils'
 
 export const getMeetings = async (args: Args<'email'>): Promise<Meeting[]> => {
-  const email = str(args.email)
+  const email = toStr(args.email)
   const meetings = await prisma.meeting.findMany({
     where: {
       calendarEvent: {
@@ -24,7 +24,7 @@ export const getMeetings = async (args: Args<'email'>): Promise<Meeting[]> => {
 export const getMeeting = async (
   args: Args<'eventId'>,
 ): Promise<MeetingResponse | null> => {
-  const id = str(args.eventId)
+  const id = toStr(args.eventId)
 
   const meeting = await prisma.meeting.findUnique({
     where: { id },
@@ -59,7 +59,7 @@ export const createMeeting = async (
 export const updateMeeting = async (
   args: Args<'id' | 'meeting'>,
 ): Promise<Meeting> => {
-  const meetingId = str(args.id)
+  const meetingId = toStr(args.id)
 
   return prisma.meeting.update({
     where: {
@@ -70,7 +70,7 @@ export const updateMeeting = async (
 }
 
 export const getCards = async (args: Args<'id'>): Promise<CardsResponse> => {
-  const meetingId = str(args.id)
+  const meetingId = toStr(args.id)
 
   const cardList = await prisma.meeting.findFirst({
     where: {
@@ -91,7 +91,7 @@ export const getCards = async (args: Args<'id'>): Promise<CardsResponse> => {
 export const getCompletedMeetings = async (
   args: Args<'email'>,
 ): Promise<PreviousMeetingsResponse> => {
-  const email = str(args.email)
+  const email = toStr(args.email)
 
   const result = await prisma.meeting.findMany({
     where: {
@@ -116,7 +116,7 @@ export const getCompletedMeetings = async (
 export const getScheduledMeetings = async (
   args: Args<'email'>,
 ): Promise<UpComingMeetingsResponse> => {
-  const email = str(args.email)
+  const email = toStr(args.email)
   const meetings = await prisma.meeting.findMany({
     where: {
       currentState: { equals: 'scheduled' },

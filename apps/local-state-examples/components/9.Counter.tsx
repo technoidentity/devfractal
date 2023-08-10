@@ -8,7 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useState, type Handlers } from '@srtp/local-state'
-import { int } from '@srtp/spec'
+import { toInt } from '@srtp/spec'
 import React from 'react'
 
 const useCounter = (min: number = 0, max: number = 10, count: number = 1) => {
@@ -61,7 +61,7 @@ export const Counter = ({ min, max }: CounterProps) => {
           value={by}
           onChange={evt => setBy(+evt.target.value)}
         />{' '}
-        <Button colorScheme="blue" onClick={() => incBy(int(by))}>
+        <Button colorScheme="blue" onClick={() => incBy(toInt(by))}>
           Inc By
         </Button>
       </HStack>

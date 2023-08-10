@@ -1,24 +1,24 @@
 import { z } from 'zod'
 
-// @TODO: handle default values too
-export const Fundamental = z.union([
+export const Primitive = z.union([
   z.coerce.string(),
   z.coerce.number(),
   z.coerce.boolean(),
   z.coerce.date(),
   z.coerce.bigint(),
-  z.coerce.string().default(''),
-  z.coerce.number().default(0),
-  z.coerce.boolean().default(false),
-  z.coerce.date().default(new Date(0)),
-  z.coerce.bigint().default(BigInt(0)),
 ])
 
-type Fundamental = typeof Fundamental
+export type Primitive = z.infer<typeof Primitive>
 
-export type Primitive = z.infer<typeof Fundamental>
+export const Fundamental = z.union([
+  z.coerce.string(),
+  z.coerce.number(),
+  z.coerce.boolean(),
+  z.coerce.bigint(),
+])
+export type Fundamental = z.infer<typeof Fundamental>
 
-export const ZodFundamental = z.union([
+export const ZodPrimitive = z.union([
   z.instanceof(z.ZodString),
   z.instanceof(z.ZodNumber),
   z.instanceof(z.ZodBoolean),
@@ -31,4 +31,4 @@ export const ZodFundamental = z.union([
   z.instanceof(z.ZodDefault<z.ZodBigInt>),
 ])
 
-export type ZodFundamental = z.infer<typeof ZodFundamental>
+export type ZodPrimitive = z.infer<typeof ZodPrimitive>

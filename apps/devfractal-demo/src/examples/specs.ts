@@ -1,5 +1,4 @@
-import {} from '@srtp/endpoint'
-import { boolean, number, string } from '@srtp/validator'
+import { boolean, number, string } from 'devfractal'
 import { z } from 'zod'
 
 export const Task = z.object({

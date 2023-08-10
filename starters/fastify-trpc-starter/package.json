@@ -1,6 +1,6 @@
 {
   "name": "fastify-trpc-starter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "trpc with fastify",
   "main": "index.js",
   "scripts": {
@@ -15,8 +15,7 @@
     "dev": "nodemon -x node -r esbuild-register src/server.ts"
   },
   "keywords": [],
-  "author": "Pervez Iqbal",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@fastify/autoload": "5.7.1",
     "@fastify/websocket": "8.2.0",

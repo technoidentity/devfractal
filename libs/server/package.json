@@ -1,6 +1,6 @@
 {
   "name": "@srtp/server",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "server from endpoint specifications similar to trpc",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,7 +10,6 @@
     "dist/**"
   ],
   "keywords": [],
-  "author": "Pervez Iqbal",
   "license": "MIT",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",

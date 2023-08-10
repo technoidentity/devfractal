@@ -17,7 +17,7 @@ import {
 } from '@/ui/form'
 import { Switch } from '@/ui/switch'
 import { ThemeSelector } from '@/ui/theme-selector'
-import { boolean, email, string } from '@srtp/validator'
+import { boolean, email, string } from 'devfractal'
 import { z } from 'zod'
 
 const Signin = z.object({

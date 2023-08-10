@@ -1,4 +1,4 @@
-import { epGet } from '@srtp/endpoint'
+import { epGet } from 'devfractal'
 import { epRouter, type SEpsHandlers } from '@srtp/server'
 import type {} from 'hono'
 import { z } from 'zod'

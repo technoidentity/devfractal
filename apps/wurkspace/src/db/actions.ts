@@ -1,14 +1,14 @@
 import { prisma } from '@core/prisma'
 import type { Action } from '@prisma/client'
 import { omit$ } from '@srtp/fn'
-import { str, toInt } from '@srtp/spec'
+import { toStr, toInt } from '@srtp/spec'
 import type { PendingActionsResponse } from '@ui/responses'
 import type { Args } from './utils'
 
 export const getActions = async (
   args: Args<'meetingId'>,
 ): Promise<readonly Action[]> => {
-  const meetingId = str(args.meetingId)
+  const meetingId = toStr(args.meetingId)
 
   return prisma.action.findMany({ where: { meetingId } })
 }
@@ -32,7 +32,7 @@ export const getAction = async (args: Args<'id'>): Promise<Action> => {
 export const getPendingActions = async (
   args: Args<'email'>,
 ): Promise<PendingActionsResponse> => {
-  const email = str(args.email)
+  const email = toStr(args.email)
 
   const pendingActions = await prisma.action.findMany({
     where: {
@@ -57,7 +57,7 @@ export const getPendingActions = async (
 }
 
 export const postAction = async (args: Args<'meetingId' | 'action'>) => {
-  const meetingId = str(args.meetingId)
+  const meetingId = toStr(args.meetingId)
 
   return prisma.action.create({
     data: { meetingId, ...omit$(args.action as Action, ['meetingId']) },
@@ -65,7 +65,7 @@ export const postAction = async (args: Args<'meetingId' | 'action'>) => {
 }
 
 export const updateAction = async (args: Args<'id' | 'action'>) => {
-  const actionId = toInt(args.id as string)
+  const actionId = toInt(args.id)
 
   return prisma.action.update({
     where: { id: actionId },

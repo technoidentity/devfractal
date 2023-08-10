@@ -1,11 +1,11 @@
 import type { UnionToIntersection } from '@srtp/core'
-import { ZodFundamental } from '@srtp/spec'
+import { ZodPrimitive } from '@srtp/spec'
 import { z } from 'zod'
 
 export const HttpMethod = z.enum(['get', 'post', 'put', 'delete', 'patch'])
 export type HttpMethod = z.infer<typeof HttpMethod>
 
-type ZodPath = Record<string, ZodFundamental>
+type ZodPath = Record<string, ZodPrimitive>
 export type PathBase = ReadonlyArray<string | ZodPath>
 
 export const endpointSpec = <
@@ -16,7 +16,7 @@ export const endpointSpec = <
   response: ResSpec,
 ) =>
   z.object({
-    path: z.array(z.union([z.string(), z.record(z.string(), ZodFundamental)])),
+    path: z.array(z.union([z.string(), z.record(z.string(), ZodPrimitive)])),
     method: HttpMethod,
     request,
     response,

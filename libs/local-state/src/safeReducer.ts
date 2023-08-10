@@ -2,14 +2,14 @@ import { produce } from 'immer'
 import { z } from 'zod'
 import { ensure } from '@srtp/spec'
 
-export function action<Type extends string, T extends z.ZodTypeAny>(
+export function safeAction<Type extends string, T extends z.ZodTypeAny>(
   type: Type,
   payload: T,
 ) {
   return z.object({ type: z.literal(type), payload })
 }
 
-export function actions<
+export function safeActions<
   Actions extends readonly [z.ZodTypeAny, z.ZodTypeAny, ...z.ZodTypeAny[]],
 >(specs: Actions) {
   return z.union(specs)

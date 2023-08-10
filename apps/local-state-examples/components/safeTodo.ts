@@ -1,12 +1,12 @@
-import { action, actions, tree$, safeReducer } from '@srtp/local-state'
-import { createTodo, CreateTodo, initialState, State, Todo } from '@srtp/todo'
+import { safeAction, safeActions, safeReducer, tree$ } from '@srtp/local-state'
+import { CreateTodo, State, Todo, createTodo, initialState } from '@srtp/todo'
 import { z } from 'zod'
 
-const TodoAction = actions([
-  action('createTodo', CreateTodo),
-  action('deleteTodo', z.number()),
-  action('toggleTodo', z.number()),
-  action('editTodo', Todo),
+const TodoAction = safeActions([
+  safeAction('createTodo', CreateTodo),
+  safeAction('deleteTodo', z.number()),
+  safeAction('toggleTodo', z.number()),
+  safeAction('editTodo', Todo),
 ])
 
 export type TodoAction = Readonly<z.infer<typeof TodoAction>>

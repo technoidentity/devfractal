@@ -6,7 +6,6 @@ export const mod = (x: number, y: number) => x % y
 export const pow = (x: number, y: number) => x ** y
 
 export const not = (x: boolean) => !x
-export const bool = (x: unknown) => !!x
 export const inc = (x: number) => x + 1
 export const dec = (x: number) => x - 1
 export const neg = (x: number) => -x

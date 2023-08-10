@@ -3,7 +3,7 @@ import { Button } from '@/ui/button'
 import { Checkbox } from '@/ui/checkbox'
 import { Input } from '@/ui/input'
 import { H2, Text } from '@/ui/typography'
-import { useInputState } from '@srtp/react'
+import { useInputState } from 'devfractal'
 import { Trash2 } from 'lucide-react'
 import type { Task } from '../specs'
 

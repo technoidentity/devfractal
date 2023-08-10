@@ -120,3 +120,7 @@ export type Iff<Cond extends boolean, Then> = Cond extends true ? Then : object
 export type IfFnArg<Cond extends boolean, Arg, R> = Cond extends true
   ? (arg: Arg) => R
   : () => R
+
+export type Nullable<T> = T | null
+export type Nullish<T> = T | null | undefined
+export type Optional<T> = T | undefined
