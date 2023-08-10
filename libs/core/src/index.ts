@@ -1,5 +1,5 @@
-export * from './utils'
 export * from './deepEqual'
-export * from './types'
 export * from './match'
 export * from './parseJson'
+export * from './types'
+export * from './utils'

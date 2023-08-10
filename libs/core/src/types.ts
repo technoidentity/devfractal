@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable-next-line @typescript-eslint/ban-types */
+// import {} from './ts-reset'
 
 export type UnionToIntersection<U> = (
   U extends any ? (k: U) => void : never

@@ -1,7 +1,7 @@
 import { cast } from '@srtp/spec'
 import type { z } from 'zod'
 
-export function parseJSON<T>(value: string | null): T | undefined {
+export function parseJSON(value: string | null): unknown {
   try {
     return value === 'undefined' ? undefined : JSON.parse(value ?? '')
   } catch {
