@@ -3434,6 +3434,9 @@ importers:
 
   libs/fake:
     dependencies:
+      '@faker-js/faker':
+        specifier: 8.0.2
+        version: 8.0.2
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
@@ -3443,9 +3446,6 @@ importers:
       '@srtp/spec':
         specifier: workspace:*
         version: link:../spec
-      chance:
-        specifier: ^1.1.11
-        version: 1.1.11
       exhaustive:
         specifier: 1.1.1
         version: 1.1.1
