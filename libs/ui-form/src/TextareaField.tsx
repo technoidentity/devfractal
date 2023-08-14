@@ -1,13 +1,6 @@
-import {
-  Control,
-  FormDescription,
-  Field,
-  FormLabel,
-  FormMessage,
-} from 'devfractal'
-import { Textarea } from 'devfractal'
-import { cn } from '@/core'
+import { Textarea, cn } from '@srtp/ui'
 import type { BaseFieldProps } from './common'
+import { Control, Field, FormDescription, FormLabel, FormMessage } from './form'
 
 export type TextareaBaseProps = Omit<
   React.ComponentProps<typeof Textarea>,

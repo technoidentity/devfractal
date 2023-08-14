@@ -7,8 +7,8 @@ import { getRawShape } from '@srtp/spec'
 import React, { type ComponentProps } from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-import { cn } from '../utils'
-import { Label } from './label'
+import { cn } from '@srtp/ui/src/utils'
+import { Label } from '@srtp/ui/src/ui/label'
 
 type FormSpec = z.ZodEffects<any> | z.AnyZodObject
 

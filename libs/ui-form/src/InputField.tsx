@@ -1,13 +1,6 @@
-import {
-  Control,
-  FormDescription,
-  Field,
-  FormLabel,
-  FormMessage,
-} from 'devfractal'
-import { Input } from 'devfractal'
-import { cn } from '@/core'
+import { Input, cn } from '@srtp/ui'
 import type { BaseFieldProps } from './common'
+import { Control, Field, FormDescription, FormLabel, FormMessage } from './form'
 
 export type InputBaseProps = Omit<
   React.ComponentProps<typeof Input>,

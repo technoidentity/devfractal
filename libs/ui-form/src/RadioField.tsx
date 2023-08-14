@@ -1,16 +1,15 @@
-import { cn } from '@/core'
+import { RadioGroup, RadioGroupItem, cn } from '@srtp/ui'
+import React from 'react'
+import type { BaseFieldProps } from './common'
 import {
   AriaControl,
   Control,
-  FormDescription,
   Field,
+  FormDescription,
   FormLabel,
   FormMessage,
   IdField,
-} from 'devfractal'
-import { RadioGroup, RadioGroupItem } from 'devfractal'
-import React from 'react'
-import type { BaseFieldProps } from './common'
+} from './form'
 
 type RadioItemProps = React.ComponentProps<typeof RadioGroupItem>
 

@@ -1,23 +1,23 @@
 import {
+  Button,
   CheckBoxField,
+  Control,
   DatePickerField,
+  Field,
+  FormDescription,
+  FormLabel,
   InputField,
   RadioField,
   SelectField,
+  Switch,
   SwitchField,
   TextareaField,
-} from '@/fields'
-import { Button } from 'devfractal'
-import {
-  Control,
-  FormDescription,
-  Field,
-  FormLabel,
+  ThemeSelector,
+  boolean,
   createClientForm,
+  email,
+  string,
 } from 'devfractal'
-import { Switch } from 'devfractal'
-import { ThemeSelector } from 'devfractal'
-import { boolean, email, string } from 'devfractal'
 import { z } from 'zod'
 
 const Signin = z.object({

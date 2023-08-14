@@ -1,20 +1,20 @@
 import {
-  AriaControl,
-  Controller,
-  FormDescription,
-  Field,
-  FormLabel,
-  FormMessage,
-} from 'devfractal'
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from 'devfractal'
+  cn,
+} from '@srtp/ui'
 import type { BaseFieldProps } from './common'
-import { cn } from '@/core'
+import {
+  AriaControl,
+  Controller,
+  Field,
+  FormDescription,
+  FormLabel,
+  FormMessage,
+} from './form'
 
 type SelectInternalProps = Omit<
   React.ComponentProps<typeof Select>,

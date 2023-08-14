@@ -1,12 +1,6 @@
-import { Checkbox } from 'devfractal'
-import {
-  Control,
-  FormDescription,
-  Field,
-  FormLabel,
-  FormMessage,
-} from 'devfractal'
-import { cn } from '@/core'
+import { Checkbox } from '@srtp/ui'
+import { Control, FormDescription, Field, FormLabel, FormMessage } from './form'
+import { cn } from '@srtp/ui'
 import React from 'react'
 import type { BaseFieldProps } from './common'
 

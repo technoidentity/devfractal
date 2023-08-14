@@ -1,13 +1,6 @@
-import {
-  Control,
-  FormDescription,
-  Field,
-  FormLabel,
-  FormMessage,
-} from 'devfractal'
-import { Switch } from 'devfractal'
-import { cn } from '@/core'
+import { Switch, cn } from '@srtp/ui'
 import type { BaseFieldProps } from './common'
+import { Control, Field, FormDescription, FormLabel, FormMessage } from './form'
 
 export type SwitchBaseProps = Omit<
   React.ComponentProps<typeof Switch>,
