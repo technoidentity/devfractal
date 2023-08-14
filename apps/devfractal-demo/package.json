@@ -1,4 +1,27 @@
 {
+  "name": "devfractal-demo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "build-storybook": "storybook build",
+    "clean": "rimraf .turbo node_modules dist",
+    "client:dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
+    "db:dev": "json-server --port 8080 --watch db.json",
+    "coverage": "vitest run --coverage",
+    "deploy": "vercel deploy dist --team=turborepo --confirm",
+    "dev": "concurrently pnpm:client:dev pnpm:server:dev",
+    "lint": "eslint --report-unused-disable-directives --max-warnings=0 --cache src --ext .ts,.tsx",
+    "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
+    "serve": "vite preview",
+    "server:dev": "tsx --watch src/examples/server/index.ts",
+    "storybook": "storybook dev -p 6006",
+    "test": "vitest run",
+    "test:dev": "vitest dev",
+    "test:ui": "vitest --ui",
+    "types": "tsc --noEmit -p .",
+    "types:dev": "tsc --noEmit -p . --watch"
+  },
   "dependencies": {
     "@conform-to/react": "0.8.0",
     "@conform-to/zod": "0.8.0",
@@ -105,28 +128,5 @@
   },
   "msw": {
     "workerDirectory": "public"
-  },
-  "name": "devfractal-demo",
-  "private": true,
-  "scripts": {
-    "build": "vite build",
-    "build-storybook": "storybook build",
-    "clean": "rimraf .turbo node_modules dist",
-    "client:dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
-    "coverage": "vitest run --coverage",
-    "db:dev": "json-server --port 8080 --watch db.json",
-    "deploy": "vercel deploy dist --team=turborepo --confirm",
-    "dev": "concurrently pnpm:client:dev pnpm:server:dev",
-    "lint": "eslint --report-unused-disable-directives --max-warnings=0 --cache src --ext .ts,.tsx",
-    "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
-    "serve": "vite preview",
-    "server:dev": "tsx --watch src/examples/server/index.ts",
-    "storybook": "storybook dev -p 6006",
-    "test": "vitest run",
-    "test:dev": "vitest dev",
-    "test:ui": "vitest --ui",
-    "types": "tsc --noEmit -p .",
-    "types:dev": "tsc --noEmit -p . --watch"
-  },
-  "version": "0.0.1"
+  }
 }

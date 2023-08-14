@@ -4,6 +4,7 @@ import {
   Container,
   Flex,
   H2,
+  HStack,
   Input,
   Text,
   useInputState,
@@ -19,14 +20,13 @@ export type TaskItemProps = Readonly<{
 
 export const TaskItem = ({ task, onToggle, onRemove }: TaskItemProps) => {
   return (
-    // @TODO: fix Flex
-    <div className="flex flex-row items-start space-x-3 space-y-0 rounded-md p-4 shadow">
+    <HStack className="items-center space-x-3 space-y-0 rounded-md p-4 shadow">
       <Checkbox checked={task.completed} onChange={() => onToggle(task)} />
       <Text className="space-y-1 leading-none">{task.title}</Text>
       <Button size="sm" onClick={() => onRemove(task.id)}>
         <Trash2 />
       </Button>
-    </div>
+    </HStack>
   )
 }
 
@@ -49,7 +49,7 @@ export const AddTask = ({ onAdd }: AddTaskProps) => {
   }
 
   return (
-    <Flex direction="row" className="align-baseline m-2 gap-2">
+    <Flex className="align-baseline m-2 gap-2">
       <Input
         type="text"
         value={title}
@@ -82,7 +82,7 @@ export const TasksList = ({
 
       <AddTask onAdd={onAdd} />
 
-      <div>
+      <>
         {taskList.map(task => (
           <TaskItem
             key={task.id}
@@ -91,7 +91,7 @@ export const TasksList = ({
             onRemove={onRemove}
           />
         ))}
-      </div>
+      </>
     </Container>
   )
 }

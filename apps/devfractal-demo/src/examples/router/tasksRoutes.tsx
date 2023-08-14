@@ -17,7 +17,7 @@ const TaskView = () => {
 
   return (
     <div>
-      <h1>Task View</h1> <Pre value={params} />{' '}
+      <h1>Task View</h1> <Pre value={params} />
     </div>
   )
 }
