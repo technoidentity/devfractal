@@ -1,7 +1,6 @@
 import '@/globals.css'
-import { ThemeProvider } from '@/ui/theme-provider'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from 'devfractal'
+import { ThemeProvider, queryClient } from 'devfractal'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'

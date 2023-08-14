@@ -4,8 +4,8 @@ import {
   Field,
   FormLabel,
   FormMessage,
-} from '@/ui/form'
-import { Input } from '@/ui/input'
+} from 'devfractal'
+import { Input } from 'devfractal'
 import { cn } from '@/core'
 import type { BaseFieldProps } from './common'
 

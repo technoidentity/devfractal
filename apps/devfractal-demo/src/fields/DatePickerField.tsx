@@ -1,6 +1,6 @@
 import { cn } from '@/core'
-import { Button } from '@/ui/button'
-import { Calendar } from '@/ui/calendar'
+import { Button } from 'devfractal'
+import { Calendar } from 'devfractal'
 import {
   AriaControl,
   Controller,
@@ -9,8 +9,8 @@ import {
   FormLabel,
   FormMessage,
   useFieldProps,
-} from '@/ui/form'
-import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover'
+} from 'devfractal'
+import { Popover, PopoverContent, PopoverTrigger } from 'devfractal'
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { format } from 'date-fns'
 import type { DayPickerSingleProps } from 'react-day-picker'

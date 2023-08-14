@@ -1,5 +1,5 @@
-// import type { FormProps } from '@/ui/form'
-// import { FormContext, useFormContext } from '@/ui/form'
+// import type { FormProps } from 'devfractal'
+// import { FormContext, useFormContext } from 'devfractal'
 // import { createFormContext, useForm, zodResolver } from '@mantine/form'
 // import { getRawShape } from 'devfractal'
 // import type { FormSpec } from 'devfractal'

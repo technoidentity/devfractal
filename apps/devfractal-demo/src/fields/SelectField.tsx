@@ -5,14 +5,14 @@ import {
   Field,
   FormLabel,
   FormMessage,
-} from '@/ui/form'
+} from 'devfractal'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/ui/select'
+} from 'devfractal'
 import type { BaseFieldProps } from './common'
 import { cn } from '@/core'
 

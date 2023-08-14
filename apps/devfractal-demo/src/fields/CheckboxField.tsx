@@ -1,11 +1,11 @@
-import { Checkbox } from '@/ui/checkbox'
+import { Checkbox } from 'devfractal'
 import {
   Control,
   FormDescription,
   Field,
   FormLabel,
   FormMessage,
-} from '@/ui/form'
+} from 'devfractal'
 import { cn } from '@/core'
 import React from 'react'
 import type { BaseFieldProps } from './common'

@@ -1,13 +1,18 @@
-import { Box } from '@/cui'
 import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableRow,
-  TableCell,
-  TableHead,
-} from '@/div-table'
-import { Blockquote, H1, H2, H3, Paragraph, Ul } from '@/ui/typography'
+  Blockquote,
+  Box,
+  DTBody,
+  DTCell,
+  DTHead,
+  DTHeader,
+  DTRow,
+  DTable,
+  H1,
+  H2,
+  H3,
+  Paragraph,
+  Ul,
+} from 'devfractal'
 
 export function TypographyDemo() {
   return (
@@ -77,28 +82,28 @@ export function TypographyDemo() {
         joke.
       </Paragraph>
       <Box className="my-6 w-full overflow-y-auto">
-        <Table className="w-full">
-          <TableHeader>
-            <TableRow>
-              <TableHead>King's Treasury</TableHead>
-              <TableHead>People's happiness</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>Empty</TableCell>
-              <TableCell>Overflowing</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Modest</TableCell>
-              <TableCell>Satisfied</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Full</TableCell>
-              <TableCell>Ecstatic</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        <DTable className="w-full">
+          <DTHeader>
+            <DTRow>
+              <DTHead>King's Treasury</DTHead>
+              <DTHead>People's happiness</DTHead>
+            </DTRow>
+          </DTHeader>
+          <DTBody>
+            <DTRow>
+              <DTCell>Empty</DTCell>
+              <DTCell>Overflowing</DTCell>
+            </DTRow>
+            <DTRow>
+              <DTCell>Modest</DTCell>
+              <DTCell>Satisfied</DTCell>
+            </DTRow>
+            <DTRow>
+              <DTCell>Full</DTCell>
+              <DTCell>Ecstatic</DTCell>
+            </DTRow>
+          </DTBody>
+        </DTable>
       </Box>
       TableHead
       <Paragraph className="leading-7 [&:not(:first-child)]:mt-6">

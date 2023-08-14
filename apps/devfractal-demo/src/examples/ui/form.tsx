@@ -7,16 +7,16 @@ import {
   SwitchField,
   TextareaField,
 } from '@/fields'
-import { Button } from '@/ui/button'
+import { Button } from 'devfractal'
 import {
   Control,
   FormDescription,
   Field,
   FormLabel,
   createClientForm,
-} from '@/ui/form'
-import { Switch } from '@/ui/switch'
-import { ThemeSelector } from '@/ui/theme-selector'
+} from 'devfractal'
+import { Switch } from 'devfractal'
+import { ThemeSelector } from 'devfractal'
 import { boolean, email, string } from 'devfractal'
 import { z } from 'zod'
 

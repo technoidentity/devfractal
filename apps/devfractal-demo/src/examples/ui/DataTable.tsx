@@ -22,9 +22,15 @@ import {
 } from '@tanstack/react-table'
 import * as React from 'react'
 
-import { Button } from '@/ui/button'
-import { Checkbox } from '@/ui/checkbox'
 import {
+  Button,
+  Checkbox,
+  DTBody,
+  DTCell,
+  DTHead,
+  DTHeader,
+  DTRow,
+  DTable,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -32,17 +38,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/ui/dropdown-menu'
-import { Input } from '@/ui/input'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/div-table'
-import { ThemeSelector } from '@/ui/theme-selector'
+  Input,
+  ThemeSelector,
+} from 'devfractal'
 
 const data: Payment[] = [
   {
@@ -238,55 +236,55 @@ export function DataTableDemo() {
         </DropdownMenu>
       </div>
       <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+        <DTable>
+          <DTHeader>
             {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
+              <DTRow key={headerGroup.id}>
                 {headerGroup.headers.map(header => {
                   return (
-                    <TableHead key={header.id}>
+                    <DTHead key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
-                    </TableHead>
+                    </DTHead>
                   )
                 })}
-              </TableRow>
+              </DTRow>
             ))}
-          </TableHeader>
-          <TableBody>
+          </DTHeader>
+          <DTBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
-                <TableRow
+                <DTRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map(cell => (
-                    <TableCell key={cell.id}>
+                    <DTCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
                       )}
-                    </TableCell>
+                    </DTCell>
                   ))}
-                </TableRow>
+                </DTRow>
               ))
             ) : (
-              <TableRow>
-                <TableCell
+              <DTRow>
+                <DTCell
                   // @TODO: support colSpan?
                   // colSpan={columns.length}
                   className="h-24 text-center"
                 >
                   No results.
-                </TableCell>
-              </TableRow>
+                </DTCell>
+              </DTRow>
             )}
-          </TableBody>
-        </Table>
+          </DTBody>
+        </DTable>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">

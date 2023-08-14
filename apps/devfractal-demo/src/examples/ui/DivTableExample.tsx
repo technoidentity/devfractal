@@ -1,41 +1,34 @@
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableRow,
-  TableCell,
-  TableHead,
-} from '@/div-table'
+import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from 'devfractal'
 
 export function DivTable() {
   return (
     <div className="my-6 w-full overflow-y-auto">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>King's Treasury</TableHead>
-            <TableHead>People's happiness</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell>Empty</TableCell>
-            <TableCell>Overflowing</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Modest</TableCell>
-            <TableCell>Satisfied</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Half</TableCell>
-            <TableCell>Happy</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Full</TableCell>
-            <TableCell>Ecstatic</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <DTable>
+        <DTHeader>
+          <DTRow>
+            <DTHead>King's Treasury</DTHead>
+            <DTHead>People's happiness</DTHead>
+          </DTRow>
+        </DTHeader>
+        <DTBody>
+          <DTRow>
+            <DTCell>Empty</DTCell>
+            <DTCell>Overflowing</DTCell>
+          </DTRow>
+          <DTRow>
+            <DTCell>Modest</DTCell>
+            <DTCell>Satisfied</DTCell>
+          </DTRow>
+          <DTRow>
+            <DTCell>Half</DTCell>
+            <DTCell>Happy</DTCell>
+          </DTRow>
+          <DTRow>
+            <DTCell>Full</DTCell>
+            <DTCell>Ecstatic</DTCell>
+          </DTRow>
+        </DTBody>
+      </DTable>
     </div>
   )
 }

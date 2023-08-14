@@ -1,6 +1,6 @@
 import { computed, useAction, useValue } from 'devfractal'
 import { Provider, atom } from 'jotai'
-import { Text } from '@/ui/typography'
+import { Text } from 'devfractal'
 
 const textAtom = atom('hello')
 const textLenAtom = computed(get => get(textAtom).length)

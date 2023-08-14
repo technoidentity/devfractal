@@ -1,7 +1,7 @@
 import { cn } from '@/core'
-import { Button } from '@/ui/button'
-import { Calendar } from '@/ui/calendar'
-import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover'
+import { Button } from 'devfractal'
+import { Calendar } from 'devfractal'
+import { Popover, PopoverContent, PopoverTrigger } from 'devfractal'
 import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
 import * as React from 'react'
@@ -12,7 +12,7 @@ import {
   FormLabel,
   FormMessage,
   useFieldProps,
-} from '@/ui/form'
+} from 'devfractal'
 import type { BaseFieldProps } from './common'
 
 type DateRangePickerInternalProps = Omit<

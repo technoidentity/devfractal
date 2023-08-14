@@ -1,8 +1,5 @@
-import { HStack } from '@/cui'
-import { Button } from '@/ui/button'
-import { Text } from '@/ui/typography'
 import type { Handlers } from 'devfractal'
-import { tree } from 'devfractal'
+import { Button, HStack, Text, tree } from 'devfractal'
 
 const initialState = { count: 0 }
 

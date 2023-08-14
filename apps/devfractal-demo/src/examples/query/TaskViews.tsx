@@ -1,9 +1,13 @@
-import { Container, Flex } from '@/cui'
-import { Button } from '@/ui/button'
-import { Checkbox } from '@/ui/checkbox'
-import { Input } from '@/ui/input'
-import { H2, Text } from '@/ui/typography'
-import { useInputState } from 'devfractal'
+import {
+  Button,
+  Checkbox,
+  Container,
+  Flex,
+  H2,
+  Input,
+  Text,
+  useInputState,
+} from 'devfractal'
 import { Trash2 } from 'lucide-react'
 import type { Task } from '../specs'
 

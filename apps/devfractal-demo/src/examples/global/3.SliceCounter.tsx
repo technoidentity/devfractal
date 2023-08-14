@@ -1,7 +1,7 @@
 import { slice, useValue } from 'devfractal'
-import { Box, Flex } from '@/cui'
-import { Text } from '@/ui/typography'
-import { Button } from '@/ui/button'
+import { Box, Flex } from 'devfractal'
+import { Text } from 'devfractal'
+import { Button } from 'devfractal'
 
 const [counterAtom, useActions] = slice(
   { count: 100 },

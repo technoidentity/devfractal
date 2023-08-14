@@ -7,8 +7,8 @@ import {
   FormLabel,
   FormMessage,
   IdField,
-} from '@/ui/form'
-import { RadioGroup, RadioGroupItem } from '@/ui/radio-group'
+} from 'devfractal'
+import { RadioGroup, RadioGroupItem } from 'devfractal'
 import React from 'react'
 import type { BaseFieldProps } from './common'
 

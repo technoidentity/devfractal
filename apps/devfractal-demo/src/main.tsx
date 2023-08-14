@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@/ui/theme-provider'
+import { ThemeProvider } from 'devfractal'
 import { queryClient } from 'devfractal'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'

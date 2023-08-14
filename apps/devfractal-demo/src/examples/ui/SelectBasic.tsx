@@ -6,7 +6,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/ui/select'
+} from 'devfractal'
 
 export function SelectDemo() {
   return (
