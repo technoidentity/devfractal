@@ -37,9 +37,9 @@
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.4.9",
+    "@types/node": "20.5.0",
     "cross-env": "7.0.3",
-    "eslint": "8.46.0",
+    "eslint": "8.47.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.1",
     "rimraf": "5.0.1",

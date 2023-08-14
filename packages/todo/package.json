@@ -26,14 +26,14 @@
   "dependencies": {
     "@srtp/core": "workspace:*",
     "@srtp/spec": "workspace:*",
-    "@types/node": "20.4.9",
+    "@types/node": "20.5.0",
     "tslib": "2.6.1",
     "zod": "3.21.4"
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
     "@types/node": "18.15.11",
-    "eslint": "8.46.0",
+    "eslint": "8.47.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.1",
     "rimraf": "5.0.1",

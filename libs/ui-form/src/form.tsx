@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { UseFormInput, UseFormReturnType } from '@mantine/form/lib/types'
 import type LabelPrimitive from '@radix-ui/react-label'

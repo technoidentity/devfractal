@@ -8,19 +8,19 @@
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
-    "@conform-to/dom": "0.7.4",
-    "@conform-to/react": "0.7.4",
-    "@conform-to/zod": "0.7.4",
+    "@conform-to/dom": "0.8.0",
+    "@conform-to/react": "0.8.0",
+    "@conform-to/zod": "0.8.0",
     "@headlessui/react": "1.7.16",
     "@heroicons/react": "2.0.18",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.14.2",
+    "react-router-dom": "6.15.0",
     "zod": "3.21.4"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "5.0.2",
-    "@types/node": "20.4.9",
+    "@types/node": "20.5.0",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "@vitejs/plugin-react": "4.0.4",

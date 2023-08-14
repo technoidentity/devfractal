@@ -23,11 +23,11 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@types/node": "20.4.9",
+    "@types/node": "20.5.0",
     "@typescript-eslint/eslint-plugin": "6.3.0",
     "@typescript-eslint/parser": "6.3.0",
     "cross-env": "7.0.3",
-    "eslint": "8.46.0",
+    "eslint": "8.47.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-config-turbo": "1.10.12",
     "eslint-plugin-prettier": "5.0.0",
