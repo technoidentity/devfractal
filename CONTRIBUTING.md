@@ -97,21 +97,30 @@ are working on issue #123, your PR description should be something like this:
 
 ```md
 Fixes #123
+
+<description>
 ```
 
 ```md
 Closes #123
+
+<description>
 ```
 
 You must maintain linear history. Please use `rebase` to incorporate any changes
-from develop branch before sending a PR
+from develop branch before sending a PR.
 
 ```bash
 git checkout develop
 git pull
 git checkout <my-branch-name>
 git rebase develop # fix any rebasing issues
-git push # or if you already have pushed changes to remote(origin), you might need
+git push -u origin <my-branch-name>
+```
+
+If you already have pushed changes to remote(origin), you might need
+
+```bash
 git pull --rebase
 git push
 ```
