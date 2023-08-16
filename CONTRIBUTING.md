@@ -34,13 +34,13 @@ Branch names should be descriptive. For example, if you are working on issue
 #123, your branch name could be something like this:
 
 ```bash
-git checkout -b fix-123
+git checkout -b fix-123-login-form-validation
 ```
 
 or
 
 ```bash
-git checkout -b feat-123
+git checkout -b feat-123-safer-queries
 ```
 
 Your commit messages should be descriptive as well. DO NOT include feat/fix in
@@ -101,4 +101,17 @@ Fixes #123
 
 ```md
 Closes #123
+```
+
+You must maintain linear history. Please use `rebase` to incorporate any changes
+from develop branch before sending a PR
+
+```bash
+git checkout develop
+git pull
+git checkout <my-branch-name>
+git rebase develop # fix any rebasing issues
+git push # or if you already have pushed changes to remote(origin), you might need
+git pull --rebase
+git push
 ```
