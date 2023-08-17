@@ -27,12 +27,12 @@ test('chain', () => {
   expect(chain([1, 2, 3, 4, 5], map(inc), filter(isEven))).toEqual([2, 4, 6])
 
   expectTypeOf(chain([1, 2, 3, 4, 5], map(inc), filter(isEven))).toEqualTypeOf<
-    IterableIterator<number>[]
+    number[]
   >()
   expectTypeOf(
     chain(
       ['lorem', 'ipsum', 'emmet'],
       filter(word => word.length > 5),
     ),
-  ).toEqualTypeOf<IterableIterator<string>[]>()
+  ).toEqualTypeOf<string[]>()
 })
