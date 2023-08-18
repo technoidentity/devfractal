@@ -300,11 +300,11 @@ export function pipe(
     case 9:
       return hi!(gh!(fg!(ef!(de!(cd!(bc!(ab!(a))))))))
     default: {
-      let ret = arguments[0]
+      let result = arguments[0]
       for (let i = 1; i < arguments.length; i++) {
-        ret = arguments[i](ret)
+        result = arguments[i](result)
       }
-      return ret
+      return result
     }
   }
 }
