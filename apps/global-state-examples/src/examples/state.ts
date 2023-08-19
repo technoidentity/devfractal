@@ -1,3 +1,4 @@
+import { toArray } from '@srtp/fn'
 import type { Getter } from '@srtp/global-state'
 import { atomWithHooks, useAction, useValue } from '@srtp/global-state'
 import type { CreateTodo, Filter, State, Todo } from '@srtp/todo'
@@ -48,7 +49,7 @@ const toggle = (draft: Draft<TodoState>, id: number) => {
 export const useToggle = () => useTodoAction(toggle)
 
 const filtered = (get: Getter) => {
-  const todoList = Array.from(get(todosAtom).values())
+  const todoList = toArray(get(todosAtom).values())
   const filter = get(filterAtom)
 
   return filter === 'All'

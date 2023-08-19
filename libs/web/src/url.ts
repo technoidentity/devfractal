@@ -1,5 +1,5 @@
 import { isKey } from '@srtp/core'
-import { debug, type Primitive } from '@srtp/spec'
+import { debug, isArray, toStr, type Primitive } from '@srtp/spec'
 import invariant from 'tiny-invariant'
 
 // type SearchObj = Record<string, Primitive | Primitive[]>
@@ -11,12 +11,12 @@ export function toSearchParams(obj: SearchObj): URLSearchParams {
   const params = new URLSearchParams()
 
   for (const [key, value] of Object.entries(obj)) {
-    if (Array.isArray(value)) {
+    if (isArray(value)) {
       for (const e of value) {
-        params.append(key, e.toString())
+        params.append(key, toStr(e))
       }
     } else {
-      params.append(key, value.toString())
+      params.append(key, toStr(value))
     }
   }
 
@@ -32,7 +32,7 @@ export function fromSearch(urlSearchParams: URLSearchParams): object {
 
   for (const [key, value] of urlSearchParams.entries()) {
     if (isKey(obj, key)) {
-      if (Array.isArray(obj[key])) {
+      if (isArray(obj[key])) {
         obj[key].push(value)
       } else {
         obj[key] = [obj[key], value]
@@ -53,7 +53,7 @@ function substPath(
 
   for (const [key, value] of Object.entries(params)) {
     const placeholder = `:${key}`
-    path = path.replace(placeholder, value.toString())
+    path = path.replace(placeholder, toStr(value))
   }
 
   invariant(!path.includes(':'), 'Missing params for path template')

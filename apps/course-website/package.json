@@ -70,7 +70,6 @@
     "esbuild": "0.19.2",
     "esbuild-register": "3.4.2",
     "eslint": "8.47.0",
-    "lodash": "4.17.21",
     "prettier": "3.0.1",
     "prisma": "5.1.1",
     "rimraf": "5.0.1",

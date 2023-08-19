@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Chance } from 'chance'
-import { map, range } from 'lodash-es'
 import { number, string, type, TypeOf } from 'io-ts'
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call

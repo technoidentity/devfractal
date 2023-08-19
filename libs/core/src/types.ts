@@ -8,7 +8,7 @@ export type UnionToIntersection<U> = (
   ? I
   : never
 
-// More readably typed version of `UnionToIntersection`
+// More readable typed version of `UnionToIntersection`
 export type MergeUnion<T> = (
   T extends unknown ? (k: T) => void : never
 ) extends (k: infer I) => void
@@ -35,7 +35,7 @@ export type RequiredKeys<T> = {
   [P in keyof T]-?: undefined extends T[P] ? never : P
 }[keyof T]
 
-export type TypeEquals<T, U> = T extends U
+export type IsSameType<T, U> = T extends U
   ? U extends T
     ? true
     : false
@@ -49,8 +49,8 @@ export type Stringify<T extends object> = {
   [K in keyof T]: T[K] extends object ? Stringify<T[K]> : string
 }
 
-export type Booleanify<T extends object> = {
-  [K in keyof T]: T[K] extends object ? Booleanify<T[K]> : boolean
+export type Boolify<T extends object> = {
+  [K in keyof T]: T[K] extends object ? Boolify<T[K]> : boolean
 }
 
 export type Tail<T extends any[]> = ((...args: T) => any) extends (

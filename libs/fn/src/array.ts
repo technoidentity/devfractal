@@ -113,7 +113,7 @@ export function arrayEqual<T>(fst: readonly T[]) {
 type DeepFlattenArgs<T> = ReadonlyArray<T | DeepFlattenArgs<T>>
 
 export function deepFlatten<T>(arr: DeepFlattenArgs<T>): T[] {
-  const isArray = (x: unknown): x is DeepFlattenArgs<any> => Array.isArray(x)
+  const isArray = (x: unknown): x is DeepFlattenArgs<any> => isArray(x)
 
   const result: T[] = []
   for (const e of arr) {
@@ -172,6 +172,22 @@ export function unique<T>(arr: Iterable<T>): T[] {
   }
 
   return result
+}
+
+export function uniqueBy<T, R>(pred: (x: T) => R) {
+  return (arr: Iterable<T>): T[] => {
+    const result: T[] = []
+    const seen = new Set<R>()
+    for (const e of arr) {
+      const r = pred(e)
+      if (!seen.has(r)) {
+        seen.add(r)
+        result.push(e)
+      }
+    }
+
+    return result
+  }
 }
 
 export function minIndex<T extends string | number | Date>(arr: T[]): number {

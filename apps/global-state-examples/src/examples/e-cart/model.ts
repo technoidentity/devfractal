@@ -1,3 +1,5 @@
+import { toArray } from '@srtp/fn'
+
 export type Product = {
   id: string
   name: string
@@ -18,4 +20,4 @@ export type Cart = Map<CartItem['product']['id'], CartItem>
 export const filterProducts = (products: Products, category: string) =>
   category === 'all'
     ? products.values()
-    : Array.from(products.values()).filter(item => item.category === category)
+    : toArray(products.values()).filter(item => item.category === category)

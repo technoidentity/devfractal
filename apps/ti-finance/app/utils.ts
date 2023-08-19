@@ -1,5 +1,5 @@
 import { useMatches } from '@remix-run/react'
-import { Nullish } from '@srtp/core'
+import type { Nullish } from '@srtp/core'
 import { useMemo } from 'react'
 
 import type { User } from '~/models/user.server'
