@@ -257,7 +257,7 @@ module.exports = {
     'unicorn/filename-case': [
       'warn',
       {
-        cases: { camelCase: true, pascalCase: true },
+        cases: { camelCase: true, pascalCase: true, kebabCase: true },
         ignore: ['next-env.d.ts'],
       },
     ],
