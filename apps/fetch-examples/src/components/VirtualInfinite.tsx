@@ -5,6 +5,7 @@ import { FixedSizeList } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
 import invariant from 'tiny-invariant'
 import { useInfiniteTodos } from './hooks'
+import { isDefined, isUndefined } from '@srtp/spec'
 
 const useTodoList = () => {
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =
@@ -29,7 +30,7 @@ const useTodoList = () => {
   }, [fetchNextPage, isFetchingNextPage])
 
   const isItemLoaded = (index: number) =>
-    todoList !== undefined && index < todoList.length
+    isDefined(todoList) && index < todoList.length
 
   return {
     todoList,
@@ -41,7 +42,7 @@ const useTodoList = () => {
 }
 
 const TodoItem = ({ data: todoList, index, style }: any) => {
-  if (todoList === undefined) {
+  if (isUndefined(todoList)) {
     return null
   }
 
@@ -63,7 +64,7 @@ const TodoItem = ({ data: todoList, index, style }: any) => {
 export const TodoList = () => {
   const { todoList, isItemLoaded, itemCount, loadMoreItems } = useTodoList()
 
-  invariant(todoList !== undefined, 'todolist is undefined')
+  invariant(isDefined(todoList), 'todolist is undefined')
 
   return (
     <Flex w="100%" h="100vh" p="5">

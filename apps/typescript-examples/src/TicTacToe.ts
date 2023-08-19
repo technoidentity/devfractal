@@ -7,7 +7,7 @@ import {
 } from './domUtils'
 import './ticTacToeStyles.css'
 import { range } from '@srtp/fn'
-import { toInt, toStr } from '@srtp/spec'
+import { isDefined, toInt, toStr } from '@srtp/spec'
 
 type Player = 'X' | 'O'
 
@@ -82,7 +82,7 @@ function ticTacToe(size: number): void {
   }
 
   const handleClick = (e: MouseEvent) => {
-    if (gameState.result !== undefined) {
+    if (isDefined(gameState.result)) {
       return
     }
 

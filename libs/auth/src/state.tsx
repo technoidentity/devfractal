@@ -4,6 +4,8 @@ import { RESET, atomWithStorage } from 'jotai/utils'
 import React from 'react'
 import type { z } from 'zod'
 import { AuthUser } from './common'
+import { isDefined, isNil, isUndefined } from '@srtp/spec'
+import type { Nullish } from '@srtp/core'
 
 const authKey = 'auth'
 
@@ -19,10 +21,7 @@ export const getToken = () => {
 }
 
 const authStorageAtom = () => {
-  const unsafeAuthAtom = atomWithStorage<AuthUser | null | undefined>(
-    authKey,
-    undefined,
-  )
+  const unsafeAuthAtom = atomWithStorage<Nullish<AuthUser>>(authKey, undefined)
 
   const AuthStoreValue = AuthUser.nullish()
   type AuthStoreValue = z.infer<typeof AuthStoreValue>
@@ -30,15 +29,15 @@ const authStorageAtom = () => {
   return atom(
     get => {
       const auth = get(unsafeAuthAtom)
-      if (auth === undefined || auth === null) {
+      if (isNil(auth)) {
         return undefined
       }
 
       return AuthStoreValue.parse(auth)
     },
 
-    (_, set, auth: AuthUser | null | undefined | typeof RESET) => {
-      if (auth === RESET || auth === null || auth === undefined) {
+    (_, set, auth: Nullish<AuthUser> | typeof RESET) => {
+      if (auth === RESET || isNil(auth)) {
         set(unsafeAuthAtom, RESET)
       } else {
         set(unsafeAuthAtom, AuthStoreValue.parse(auth))
@@ -70,7 +69,7 @@ export const rolesAtom = atom(get => {
 export const isAuthenticatedAtom = atom(get => {
   const auth = get(authAtom)
 
-  return auth !== undefined
+  return isDefined(auth)
 })
 
 const store = createStore()

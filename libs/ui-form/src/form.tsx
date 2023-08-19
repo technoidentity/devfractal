@@ -4,7 +4,7 @@ import type { UseFormInput, UseFormReturnType } from '@mantine/form/lib/types'
 import type LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import { context } from '@srtp/react'
-import { getRawShape } from '@srtp/spec'
+import { getRawShape, isNotNil } from '@srtp/spec'
 import React, { type ComponentProps } from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
@@ -48,10 +48,7 @@ export function createClientForm<Spec extends FormSpec>(
     children,
     ...props
   }: FormProps<Spec>) => {
-    invariant(
-      initialValues !== undefined || initial !== undefined,
-      'You must provide initialValues to form',
-    )
+    invariant(isNotNil(initialValues), 'You must provide initialValues to form')
 
     const form = useForm({
       initialValues: initialValues ?? initial,

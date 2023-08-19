@@ -1,3 +1,4 @@
+import { isDefined } from '@srtp/spec'
 import type { Link } from './link'
 
 type OptionalLink<T> = Link<T> | undefined
@@ -44,7 +45,7 @@ export function mergeSortedLists<T>(
 }
 
 export function* linkToIterable<T>(head: OptionalLink<T>) {
-  while (head !== undefined) {
+  while (isDefined(head)) {
     yield head.value
     head = head.next
   }

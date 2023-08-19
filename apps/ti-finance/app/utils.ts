@@ -1,4 +1,5 @@
 import { useMatches } from '@remix-run/react'
+import { Nullish } from '@srtp/core'
 import { useMemo } from 'react'
 
 import type { User } from '~/models/user.server'
@@ -13,7 +14,7 @@ const DEFAULT_REDIRECT = '/'
  * @param {string} defaultRedirect The redirect to use if the to is unsafe.
  */
 export function safeRedirect(
-  to: FormDataEntryValue | string | null | undefined,
+  to: FormDataEntryValue | Nullish<string>,
   defaultRedirect: string = DEFAULT_REDIRECT,
 ) {
   if (!to || typeof to !== 'string') {

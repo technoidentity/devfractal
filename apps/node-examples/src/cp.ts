@@ -1,11 +1,12 @@
+import { isDefined } from '@srtp/spec'
 import fs from 'node:fs'
 
 function closeFiles(fd: number | undefined, fd2?: number) {
-  if (fd !== undefined) {
+  if (isDefined(fd)) {
     fs.close(fd, () => {})
   }
 
-  if (fd2 !== undefined) {
+  if (isDefined(fd2)) {
     fs.close(fd2, () => {})
   }
 }

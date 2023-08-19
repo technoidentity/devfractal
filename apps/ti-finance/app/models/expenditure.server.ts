@@ -1,4 +1,5 @@
 import type { Expenditure } from '@prisma/client'
+import { isUndefined } from '@srtp/spec'
 import type {
   CreateExpenditureSpec,
   ExpenditureSearchSpec,
@@ -9,7 +10,7 @@ import { dbTry, entityExists, entityNotFound } from '~/common'
 import { prisma } from '~/db.server'
 
 function getWhere(q?: ExpenditureSearchSpec) {
-  if (q === undefined) return undefined
+  if (isUndefined(q)) return undefined
 
   const from = q.dateRange?.[0]
   const to = q.dateRange?.[1]

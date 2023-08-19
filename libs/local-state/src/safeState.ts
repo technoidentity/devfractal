@@ -3,6 +3,7 @@ import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import type { UpdateHandlers } from './types'
 import { capitalize } from '@srtp/fn'
+import { isUndefined } from '@srtp/spec'
 
 export function safeUpdateState<Spec extends z.AnyZodObject>(spec: Spec) {
   type T = z.infer<Spec>
@@ -30,7 +31,7 @@ export function safeUpdateState<Spec extends z.AnyZodObject>(spec: Spec) {
       }
 
       invariant(
-        handlers['update'] === undefined,
+        isUndefined(handlers['update']),
         'update is a reserved key for useUpdate',
       )
       handlers['update'] = (fn: (update: T) => Partial<T>) =>

@@ -3,6 +3,7 @@ import type { RouteObject } from 'react-router-dom'
 import { Navigate, type RouteProps } from 'react-router-dom'
 import { PageNotFound, defaultErrorElement, fallback } from './common'
 import { useIsAuthenticated, useRoles } from './hooks'
+import { isUndefined } from '@srtp/spec'
 
 type ChildrenProps = { readonly children: React.ReactNode }
 
@@ -24,7 +25,7 @@ export const ProtectedRoute = ({
     return <Navigate to={navigateTo} replace />
   }
 
-  if (roles === undefined || roles.find(role => userRoles?.includes(role))) {
+  if (isUndefined(roles) || roles.find(role => userRoles?.includes(role))) {
     return <Suspense fallback={fallback}>{element}</Suspense>
   }
 
@@ -75,7 +76,7 @@ export const Protected = ({ roles, children }: ProtectedProps) => {
 
   if (
     isAuthenticated &&
-    (roles === undefined || roles.find(role => userRoles?.includes(role)))
+    (isUndefined(roles) || roles.find(role => userRoles?.includes(role)))
   ) {
     return <>{children}</>
   }

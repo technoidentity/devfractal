@@ -3,13 +3,14 @@ import React from 'react'
 import invariant from 'tiny-invariant'
 import { Pagination, TodoListView } from './components'
 import { usePagedTodos, useTodoMutations } from './hooks'
+import { isDefined } from '@srtp/spec'
 
 export const TodoList = () => {
   const [page, setPage] = React.useState(1)
   const { data, isPreviousData } = usePagedTodos(page)
   const { deleteTodo, toggleTodo } = useTodoMutations()
 
-  invariant(data !== undefined)
+  invariant(isDefined(data))
 
   return (
     <Flex direction="column" h="100vh" p="5">

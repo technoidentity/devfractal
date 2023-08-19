@@ -1,3 +1,4 @@
+import { isUndefined } from '@srtp/spec'
 import type {
   BudgetSearchSpec,
   BudgetUtilizedSearchSpec,
@@ -11,7 +12,7 @@ function getFinancialYear(financialYear?: number) {
 }
 
 function getWhere(q?: BudgetSearchSpec) {
-  if (q === undefined) return undefined
+  if (isUndefined(q)) return undefined
 
   const financialYear = getFinancialYear(q.financialYear)
 

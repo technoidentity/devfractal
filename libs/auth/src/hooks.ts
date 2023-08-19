@@ -10,6 +10,7 @@ import {
   rolesAtom,
   tokenAtom,
 } from './state'
+import { isDefined, isNotNil } from '@srtp/spec'
 
 export const useLogin = () => {
   const setAuth = useSetAtom(authAtom)
@@ -39,14 +40,14 @@ export const useToken = () => useAtomValue(tokenAtom)
 
 export const useUser = () => {
   const user = useAtomValue(authAtom)
-  invariant(user !== undefined && user !== null, 'User is undefined')
+  invariant(isNotNil(user), 'User is undefined')
 
   return { user }
 }
 
 export const useName = () => {
   const name = useAtomValue(nameAtom)
-  invariant(name !== undefined, 'Name is undefined')
+  invariant(isDefined(name), 'Name is undefined')
 
   return name
 }

@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { isDefined } from '@srtp/spec'
 
 let nextTaskId = 0
 
@@ -51,10 +52,10 @@ export function updateTask(id: number, title: string, completed: boolean) {
   const task = getTask(id)
 
   if (task) {
-    if (title !== undefined) {
+    if (isDefined(title)) {
       task.title = title
     }
-    if (completed !== undefined) {
+    if (isDefined(completed)) {
       task.completed = completed
     }
   }

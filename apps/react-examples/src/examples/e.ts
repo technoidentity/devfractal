@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { z } from 'zod'
-import { ensure, is } from '@srtp/spec'
+import { ensure, is, isUndefined } from '@srtp/spec'
 import { createStore } from './redux'
 
 type Fn = (...args: any[]) => any
@@ -72,7 +72,7 @@ function renderStyle(attrs: Record<string, AttrValue>): string {
 }
 
 function renderAttributes(attrs: Record<string, unknown>) {
-  if (attrs === undefined || Object.keys(attrs).length === 0) {
+  if (isUndefined(attrs) || Object.keys(attrs).length === 0) {
     return ''
   }
 

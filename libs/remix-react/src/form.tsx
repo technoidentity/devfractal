@@ -6,7 +6,7 @@ import type { UseFormInput } from '@mantine/form/lib/types'
 import type { FormProps as RemixFormProps } from '@remix-run/react'
 import { Form as RemixForm, useSubmit } from '@remix-run/react'
 import type { FormErrors } from '@srtp/remix-core'
-import { getRawShape } from '@srtp/spec'
+import { getRawShape, isDefined } from '@srtp/spec'
 import type { FormSpec } from '@srtp/validator'
 import React from 'react'
 import invariant from 'tiny-invariant'
@@ -83,7 +83,7 @@ export function createForm<Spec extends FormSpec>(
     ...props
   }: FormProps<Spec>) => {
     invariant(
-      initialValues !== undefined || initial !== undefined,
+      isDefined(initialValues) || isDefined(initial),
       'You must provide initialValues to form',
     )
     const form = useForm({

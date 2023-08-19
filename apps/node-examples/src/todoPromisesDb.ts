@@ -1,3 +1,4 @@
+import { isDefined } from '@srtp/spec'
 import sqlite3 from 'sqlite3'
 
 type Todo = Readonly<{
@@ -22,10 +23,9 @@ export async function getTodos(
 ): Promise<Todo[]> {
   const offset = (page - 1) * limit
   const filterQuery = filter !== '' ? `WHERE title LIKE '%${filter}%'` : ''
-  const completedQuery =
-    completed !== undefined
-      ? `AND completed = ${completed === 'true' ? 1 : 0}`
-      : ''
+  const completedQuery = isDefined(completed)
+    ? `AND completed = ${completed === 'true' ? 1 : 0}`
+    : ''
   const query = `SELECT * FROM todos ${filterQuery} ${completedQuery} LIMIT ${limit} OFFSET ${offset}`
 
   return new Promise((resolve, reject) => {

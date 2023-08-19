@@ -6,6 +6,7 @@ import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import { useActionData } from 'react-router-dom'
 import { safeSearch } from '@srtp/router'
+import { isDefined } from '@srtp/spec'
 
 export type Obj = Record<string, any>
 export type Form<T extends Obj> = ReturnType<typeof useForm<T>>[0]
@@ -92,7 +93,7 @@ const useFormContext = <T extends Obj>() => {
   const context = React.useContext(FormContext)
 
   invariant(
-    context !== undefined,
+    isDefined(context),
     'useFormContext must be used within a FormContextProvider',
   )
 

@@ -1,3 +1,4 @@
+import { isUndefined } from '@srtp/spec'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import invariant from 'tiny-invariant'
@@ -33,7 +34,7 @@ export function createForm<
 
     const setErrors = React.useCallback(
       (errors: unknown) => {
-        set(errors === undefined ? undefined : errorsSpec.parse(errors))
+        set(isUndefined(errors) ? undefined : errorsSpec.parse(errors))
       },
       [set],
     )
@@ -96,7 +97,7 @@ export function createForm<
   const useFormData = () => {
     const context = React.useContext(FormContext)
     invariant(
-      context === undefined,
+      isUndefined(context),
       'useFormData must be used within a FormContext',
     )
 
