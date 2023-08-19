@@ -1,5 +1,5 @@
 import { fail, ok, type Result, type Try } from '@srtp/result'
-import { is, isArray, isObject, isStr, isUndefined, jstr } from '@srtp/spec'
+import { isArray, isObject, isStr, isUndefined, jstr } from '@srtp/spec'
 import { z } from 'zod'
 
 export function tryFromZod<Output, Input>(

@@ -47,6 +47,9 @@ export const isObject = (value: unknown): value is object =>
 export const isArray = (value: unknown): value is unknown[] =>
   Array.isArray(value)
 
+export const isReadonlyArray = (value: unknown): value is readonly unknown[] =>
+  Array.isArray(value)
+
 export const isUndefined = (s: unknown): s is undefined => s === undefined
 export const isDefined = <T>(s: T | undefined): s is T => s !== undefined
 
@@ -66,3 +69,5 @@ export const isNilSpec = (s: unknown): boolean =>
   s instanceof z.ZodNever ||
   (s instanceof z.ZodOptional && isNilSpec(s._def.innerType)) ||
   (s instanceof z.ZodNullable && isNilSpec(s._def.innerType))
+
+export const isNotNilSpec = (s: unknown): boolean => !isNilSpec(s)

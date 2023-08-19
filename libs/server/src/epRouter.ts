@@ -7,7 +7,7 @@ import {
   type GetParamsArg,
   type GetRequestArg,
 } from '@srtp/endpoint'
-import { cast } from '@srtp/spec'
+import { cast, isNotNilSpec } from '@srtp/spec'
 import { Hono, type Context } from 'hono'
 import { logger } from 'hono/logger'
 
@@ -35,17 +35,12 @@ function epHandler<Ep extends EndpointBase>(ep: Ep, fn: EpHandler<Ep>) {
       args.params = cast(ps, c.req.param())
     }
 
-    if (ep.request) {
+    if (isNotNilSpec(ep.request)) {
       const req = ep.method === 'get' ? c.req.query() : await c.req.json()
       args.request = cast(ep.request, req)
     }
 
-    const response = fn(args)
-    if (ep.response) {
-      cast(ep.response, response)
-    }
-
-    return c.json(response)
+    return c.json(cast(ep.response, fn(args)))
   }
 }
 

@@ -4,7 +4,7 @@ import { RESET, atomWithStorage } from 'jotai/utils'
 import React from 'react'
 import type { z } from 'zod'
 import { AuthUser } from './common'
-import { isDefined, isNil, isUndefined } from '@srtp/spec'
+import { isDefined, isNil } from '@srtp/spec'
 import type { Nullish } from '@srtp/core'
 
 const authKey = 'auth'

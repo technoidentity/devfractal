@@ -64,3 +64,5 @@ public/build
 **/supabase/.branches
 .parcel-cache/
 .idea/
+classroom.*
+scratch.ts*

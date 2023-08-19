@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { range } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 import type { Product } from './ProductList'
+import { map, pipe, range, toArray } from '@srtp/fn'
 
 export const categories = ['fashion', 'electronics', 'books', 'beauty']
 
@@ -17,4 +17,8 @@ export const createProduct = (): Product => {
 }
 
 export const fakeProductList = (n: number): Product[] =>
-  range(0, n).map(_ => createProduct())
+  pipe(
+    range(0, n),
+    map(_ => createProduct()),
+    toArray,
+  )

@@ -1,5 +1,5 @@
 import { Button, Group } from '@mantine/core'
-import { range } from 'lodash'
+import { map, pipe, range, toArray } from '@srtp/fn'
 
 interface StepCountProps {
   readonly count: number
@@ -35,9 +35,13 @@ interface StepsViewProps {
 export const StepsView: React.FC<StepsViewProps> = ({ stepCount, onClick }) => {
   return (
     <Group mt={6} p={3}>
-      {range(stepCount).map((step, index) => (
-        <StepCount key={step} count={step} idx={index} onClick={onClick} />
-      ))}
+      {pipe(
+        range(stepCount),
+        map(step => (
+          <StepCount key={step} count={step} idx={step} onClick={onClick} />
+        )),
+        toArray,
+      )}
     </Group>
   )
 }

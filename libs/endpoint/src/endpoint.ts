@@ -8,6 +8,11 @@ export type HttpMethod = z.infer<typeof HttpMethod>
 type ZodPath = Record<string, ZodPrimitive>
 export type PathBase = ReadonlyArray<string | ZodPath>
 
+export const PathSpec = z.array(
+  z.union([z.string(), z.record(z.string(), ZodPrimitive)]),
+)
+export type PathSpec = z.infer<typeof PathSpec>
+
 export const endpointSpec = <
   ReqSpec extends z.ZodTypeAny,
   ResSpec extends z.ZodTypeAny,
@@ -16,7 +21,7 @@ export const endpointSpec = <
   response: ResSpec,
 ) =>
   z.object({
-    path: z.array(z.union([z.string(), z.record(z.string(), ZodPrimitive)])),
+    path: PathSpec,
     method: HttpMethod,
     request,
     response,

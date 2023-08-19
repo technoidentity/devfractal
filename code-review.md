@@ -1,36 +1,58 @@
-### Make sure the code passes all CI/CD checks.
+# Code Review Guidelines
 
-1.  Make sure the code is formatted correctly.
+### Naming conventions
 
-2.  Make sure the code passes all unit and integration tests.
+1. Use camelCase for variables, functions, methods, and instances.
 
-3.  Make sure the code passes all linting checks.
+2. Use PascalCase for classes and enums.
 
-4.  Make sure the code passes all type safety checks.
+3. Use PascalCase for typescript types and interfaces.
+
+4. Use PascalCase for zod specifications.
+
+5. Use PascalCase for React components.
+
+6. use camelCase for .ts filenames.
+
+7. use PascalCase for .tsx filenames.
+
+8. Use `<ComponentName>Props` for React component props.
+
+9. Use kebab-case for project root folders.
+
+### CI/CD checks
+
+1.  code should be formatted correctly.
+
+2.  code should be type-checked.
+
+3.  code should pass all unit and integration tests.
+
+4.  code should pass all linting checks.
 
 ### Error Handling
 
-1. Make sure application-level code throws exceptions on error. Have exception
-   handlers placed at strategic locations.
+1. Make sure the absence of value is represented using the Option type.
 
-2. Make sure invariants are in place. For eg: all arguments are validated. Make
-   sure these errors are not usually handled as they are not recoverable.
+2. Application-level code should throw exceptions, with exception handlers
+   placed at strategic locations.
 
 3. Make sure all recoverable errors are properly handled. The use of the Result
    type is encouraged and try/catch is discouraged.
 
-4. Make sure the absence of value is represented using the Option type.
-
-5. Make sure all data from the external world, like user input, network
+4. Make sure all data from the external world, like user input, network
    requests, etc are fully validated. All validation must happen at boundaries.
+
+5. Make sure invariants are in place. For eg: all arguments are validated. Make
+   sure these errors are not usually handled as they are not recoverable.
 
 ### Testing
 
 1.  Make sure all complex code has accompanying tests.
 
-2.  Make sure all user-facing APIs have integration tests.
+2.  Make sure all user-facing code has integration tests.
 
-3.  Make sure all developer-facing APIs have unit tests.
+3.  Make sure all developer-facing code has unit tests.
 
 ### Correctness
 
@@ -71,7 +93,7 @@
 4. Make sure there are no locks. Unless it's very low-level code and it's local.
 5. Use simple Tasks where possible for asynchronous tasks(io or compute). Return
    Futures/Tasks/Promises.
-6. DO NOT create threads. Use Tasks(or threadpools) instead.
+6. DO NOT create threads. Use Tasks(or thread pools) instead.
 7. Prefer channels or async enumerable if available.
 8. Make sure asynchronous code and parallel code are separated.
 
@@ -91,11 +113,20 @@ Make sure code quality metrics are no worse. This includes things like
 
 ### Miscellaneous
 
-1. See if there are any naming inconsistencies.
+1. Are comments essential? Can the code be simplified instead?
 
-2. Are comments essential? Can the code be simplified instead?
-
-3. Make sure third-party libraries included are essential. Discourage use of
+2. Make sure third-party libraries included are essential. Discourage the use of
    libraries that are not essential.
 
-4. If any configuration is needed, make sure it's well documented in README.
+3. If any configuration is needed, make sure it's well documented in README.
+
+### Integration testing
+
+1. Avoid CSS class names and selectors in integration tests.
+
+2. Test user-visible behavior. Use locators like `getByRole`, `getByTest`,
+   `getByLabel` etc.
+
+3. Use `getByTestId` when nothing else works.
+
+4. Test complete user flows. Do not test individual components or pages.

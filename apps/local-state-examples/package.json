@@ -19,6 +19,7 @@
     "@emotion/styled": "11.11.0",
     "@next/font": "13.4.13",
     "@srtp/core": "workspace:*",
+    "@srtp/fn": "workspace:*",
     "@srtp/local-state": "workspace:*",
     "@srtp/spec": "workspace:*",
     "@srtp/todo": "workspace:*",

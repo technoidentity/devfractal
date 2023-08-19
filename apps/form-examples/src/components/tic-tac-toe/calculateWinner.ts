@@ -1,26 +1,48 @@
 import { isUndefined } from '@srtp/spec'
 import type { Player } from './Square'
-import { range } from 'lodash'
+import { map, pipe, range, toArray } from '@srtp/fn'
 
 const getRow = <T>(
   n: number,
   row: number,
   squares: readonly T[],
-): readonly T[] => range(n).map(i => squares[row * n + i])
+): readonly T[] =>
+  pipe(
+    range(n),
+    map(i => squares[row * n + i]),
+    toArray,
+  )
 
 const getColumn = <T>(
   n: number,
   col: number,
   squares: readonly T[],
-): readonly T[] => range(n).map(i => squares[col + i * n])
+): readonly T[] =>
+  pipe(
+    range(n),
+    map(i => squares[col + i * n]),
+    toArray,
+  )
 
-export const squares = range(9).map(i => i.toString())
+export const squares = pipe(
+  range(9),
+  map(i => i.toString()),
+  toArray,
+)
 
 const getLeftDiagonal = <T>(n: number, squares: readonly T[]): readonly T[] =>
-  range(n).map(i => squares[(n + 1) * i])
+  pipe(
+    range(n),
+    map(i => squares[(n + 1) * i]),
+    toArray,
+  )
 
 const getRightDiagonal = <T>(n: number, squares: readonly T[]): readonly T[] =>
-  range(n).map(i => squares[n * i + (n - 1 - i)])
+  pipe(
+    range(n),
+    map(i => squares[n * i + (n - 1 - i)]),
+    toArray,
+  )
 
 const getAllTriplets = <T>(
   n: number,
@@ -28,8 +50,14 @@ const getAllTriplets = <T>(
 ): ReadonlyArray<ReadonlyArray<T>> => {
   const r = range(0, n)
   return [
-    ...r.map(i => getRow(n, i, squares)),
-    ...r.map(i => getColumn(n, i, squares)),
+    ...pipe(
+      r,
+      map(i => getRow(n, i, squares)),
+    ),
+    ...pipe(
+      r,
+      map(i => getColumn(n, i, squares)),
+    ),
     getLeftDiagonal(n, squares),
     getRightDiagonal(n, squares),
   ]

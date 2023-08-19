@@ -241,9 +241,6 @@ importers:
       eslint:
         specifier: 8.47.0
         version: 8.47.0
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       prettier:
         specifier: 3.0.1
         version: 3.0.1
@@ -756,6 +753,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../../libs/fn
       '@srtp/form':
         specifier: workspace:*
         version: link:../../libs/form
@@ -786,9 +786,6 @@ importers:
       jotai-tanstack-query:
         specifier: 0.7.1
         version: 0.7.1(@tanstack/query-core@4.32.6)(jotai@2.3.1)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -832,9 +829,6 @@ importers:
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
-      '@types/lodash':
-        specifier: 4.14.197
-        version: 4.14.197
       '@types/node':
         specifier: 20.5.0
         version: 20.5.0
@@ -946,6 +940,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../../libs/fn
       '@srtp/form':
         specifier: workspace:*
         version: link:../../libs/form
@@ -979,9 +976,6 @@ importers:
       jotai-optics:
         specifier: 0.3.1
         version: 0.3.1(jotai@2.3.1)(optics-ts@2.4.1)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       optics-ts:
         specifier: 2.4.1
         version: 2.4.1
@@ -1022,9 +1016,6 @@ importers:
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
-      '@types/lodash':
-        specifier: 4.14.197
-        version: 4.14.197
       '@types/node':
         specifier: 20.5.0
         version: 20.5.0
@@ -1097,6 +1088,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../../libs/fn
       '@srtp/local-state':
         specifier: workspace:*
         version: link:../../libs/local-state
@@ -1224,9 +1218,6 @@ importers:
       jotai-tanstack-query:
         specifier: 0.7.1
         version: 0.7.1(@tanstack/query-core@4.32.6)(jotai@2.3.1)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -1264,9 +1255,6 @@ importers:
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
-      '@types/lodash':
-        specifier: 4.14.197
-        version: 4.14.197
       '@types/node':
         specifier: 20.5.0
         version: 20.5.0
@@ -3641,6 +3629,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../core
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../fn
       '@srtp/local-state':
         specifier: workspace:*
         version: link:../local-state
@@ -3653,9 +3644,6 @@ importers:
       '@srtp/web':
         specifier: workspace:*
         version: link:../web
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -3684,9 +3672,6 @@ importers:
       '@srtp/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@types/lodash':
-        specifier: 4.14.197
-        version: 4.14.197
       '@types/node':
         specifier: 20.5.0
         version: 20.5.0
@@ -4656,6 +4641,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../core
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../fn
       '@srtp/local-state':
         specifier: workspace:*
         version: link:../local-state
@@ -4668,12 +4656,6 @@ importers:
       immer:
         specifier: 10.0.2
         version: 10.0.2
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-      lodash-es:
-        specifier: 4.17.21
-        version: 4.17.21
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -4708,12 +4690,6 @@ importers:
       '@srtp/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@types/lodash':
-        specifier: 4.14.197
-        version: 4.14.197
-      '@types/lodash-es':
-        specifier: 4.17.8
-        version: 4.17.8
       '@types/node':
         specifier: 20.5.0
         version: 20.5.0
@@ -5335,9 +5311,6 @@ importers:
       immer:
         specifier: 10.0.2
         version: 10.0.2
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       superjson:
         specifier: 1.13.1
         version: 1.13.1
@@ -5360,9 +5333,6 @@ importers:
       '@types/express-serve-static-core':
         specifier: 4.17.35
         version: 4.17.35
-      '@types/lodash':
-        specifier: 4.14.197
-        version: 4.14.197
       '@types/node':
         specifier: 20.5.0
         version: 20.5.0
@@ -5569,9 +5539,6 @@ importers:
       immer:
         specifier: 10.0.2
         version: 10.0.2
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       make-promises-safe:
         specifier: 5.1.0
         version: 5.1.0
@@ -5597,9 +5564,6 @@ importers:
         specifier: 3.21.4
         version: 3.21.4
     devDependencies:
-      '@types/lodash':
-        specifier: 4.14.197
-        version: 4.14.197
       '@types/node':
         specifier: 20.5.0
         version: 20.5.0
@@ -15787,12 +15751,6 @@ packages:
       '@types/node': 20.5.0
     dev: true
 
-  /@types/lodash-es@4.17.8:
-    resolution: {integrity: sha512-euY3XQcZmIzSy7YH5+Unb3b2X12Wtk54YWINBvvGQ5SmMvwb11JQskGsfkH/5HXK77Kr8GF0wkVDIxzAisWtog==}
-    dependencies:
-      '@types/lodash': 4.14.197
-    dev: true
-
   /@types/lodash.mergewith@4.6.7:
     resolution: {integrity: sha512-3m+lkO5CLRRYU0fhGRp7zbsGi6+BZj0uTVSwvcKU+nSlhjA9/QRNfuSGnD2mX6hQA7ZbmcCkzk5h4ZYGOtk14A==}
     dependencies:
@@ -15859,9 +15817,6 @@ packages:
   /@types/node@18.17.5:
     resolution: {integrity: sha512-xNbS75FxH6P4UXTPUJp/zNPq6/xsfdJKussCWNOnz4aULWIRwMgP1LgaB5RiBnMX1DPCYenuqGZfnIAx5mbFLA==}
     dev: true
-
-  /@types/node@20.4.9:
-    resolution: {integrity: sha512-8e2HYcg7ohnTUbHk8focoklEQYvemQmu9M/f43DZVx43kHn0tE3BY/6gSDxS7k0SprtS0NHvj+L80cGLnoOUcQ==}
 
   /@types/node@20.5.0:
     resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
@@ -21409,6 +21364,7 @@ packages:
       yargs-parser: 21.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /fastify-cors@6.0.3:
     resolution: {integrity: sha512-fMbXubKKyBHHCfSBtsCi3+7VyVRdhJQmGes5gM+eGKkRErCdm0NaYO0ozd31BQBL1ycoTIjbqOZhJo4RTF/Vlg==}
@@ -24047,7 +24003,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.4.9
+      '@types/node': 20.5.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -24764,6 +24720,7 @@ packages:
 
   /lodash-es@4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: true
 
   /lodash-id@0.14.1:
     resolution: {integrity: sha512-ikQPBTiq/d5m6dfKQlFdIXFzvThPi2Be9/AHxktOnDSfSxE1j9ICbBT5Elk1ke7HSTgM38LHTpmJovo9/klnLg==}

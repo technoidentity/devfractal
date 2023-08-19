@@ -33,7 +33,6 @@
     "fastify-sensible": "3.2.0",
     "fastify-websocket": "4.3.0",
     "immer": "10.0.2",
-    "lodash": "4.17.21",
     "make-promises-safe": "5.1.0",
     "nodemon": "3.0.1",
     "prettier": "3.0.1",
@@ -44,7 +43,6 @@
     "zod": "3.21.4"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.197",
     "@types/node": "20.5.0",
     "@types/tap": "15.0.8",
     "concurrently": "8.2.0",

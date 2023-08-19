@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { expect, test } from 'vitest'
 import { max } from './simple'
 import { Nat } from './specs'

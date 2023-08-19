@@ -1,4 +1,4 @@
-import { mergeWithToMap } from '@srtp/fn'
+import { mergeWithToMap, toArray } from '@srtp/fn'
 import type { Column } from '@srtp/table'
 import React from 'react'
 import { Table, TotalSpendCard, useDepartmentName, useUserName } from '~/common'
@@ -34,7 +34,7 @@ const useSpendPage = (personCost: readonly PersonCost[]) => {
 
   const rows = React.useMemo(
     () =>
-      Array.from(
+      toArray(
         mergeWithToMap(personCost, 'tiId', (acc: Spendings | undefined, e) => ({
           id: e.tiId,
           username: getUserName(e.tiId),

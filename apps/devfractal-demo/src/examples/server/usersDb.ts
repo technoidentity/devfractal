@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker'
+import { toArray } from 'devfractal'
 import { z } from 'zod'
 
 export const User = z.object({
@@ -11,7 +12,7 @@ export type User = z.infer<typeof User>
 
 const usersTable = new Map<number, User>()
 
-let nextId: number
+// let nextId: number
 export function initializeFakeUsersTable(N = 50) {
   for (let i = 0; i < N; i++) {
     usersTable.set(i, {
@@ -21,12 +22,9 @@ export function initializeFakeUsersTable(N = 50) {
       job: faker.person.jobTitle(),
     })
   }
-  nextId = N
+  // nextId = N
 }
 
 initializeFakeUsersTable()
 
-export const usersList = () => {
-  console.log(nextId)
-  return Array.from(usersTable.values())
-}
+export const usersList = () => toArray(usersTable.values())

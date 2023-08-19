@@ -4,7 +4,7 @@ import { Navigate, useActionData } from 'react-router-dom'
 import { z } from 'zod'
 import { AuthUser, defaultErrorElement } from './common'
 import { useIsAuthenticated, useLogin } from './hooks'
-import { isDefined, isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/spec'
 
 const LoginActionData = z.union([
   z.undefined(),

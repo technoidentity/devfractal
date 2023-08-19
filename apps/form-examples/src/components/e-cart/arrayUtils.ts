@@ -1,4 +1,4 @@
-import { range } from 'lodash'
+import { pipe, map, range, toArray } from '@srtp/fn'
 
 export function t<T>(arr: T[], index: number, element: T): T[] {
   const result = []
@@ -70,11 +70,11 @@ export function subArray(start: number, count: number): number[] {
 }
 
 export function subArray2(start: number, count: number): number[] {
-  const newArray = range(0, count).map((item, i) => {
-    item = start + i
-    return item
-  })
-  return newArray
+  return pipe(
+    range(0, count),
+    map(i => start + i),
+    toArray,
+  )
 }
 
 export function replaceAt2<T>(arr: T[], ind: number, item: T): T[] {

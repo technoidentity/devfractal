@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+import { pipe, uniqueBy } from '@srtp/fn'
 import { state } from '@srtp/local-state'
 import { castDraft } from 'immer'
-import { uniqBy } from 'lodash-es'
 import type { RowBase } from './types'
-
 export type CrudTableSearchFilters<Row extends RowBase> = Record<
   keyof Row,
   string | number | Date | boolean
@@ -58,7 +57,10 @@ export function useTable<Row extends RowBase>(
         state.selectedRows.splice(idx, 1)
       }
 
-      state.selectedRows = uniqBy(state.selectedRows, r => (r as Row)[idKey])
+      state.selectedRows = pipe(
+        state.selectedRows,
+        uniqueBy(r => (r as Row)[idKey]),
+      )
     },
   })
 }

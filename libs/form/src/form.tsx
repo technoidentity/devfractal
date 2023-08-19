@@ -18,20 +18,20 @@ import type {
   TextInputProps,
 } from '@mantine/core'
 import {
-  Autocomplete as MantineAutocomplete,
   Checkbox,
-  Chip as MantineChip,
   ColorInput,
   FileInput,
-  MultiSelect,
-  NumberInput,
-  PasswordInput,
-  Radio,
+  Autocomplete as MantineAutocomplete,
+  Chip as MantineChip,
   Rating as MantineRating,
   SegmentedControl as MantineSegmentedControl,
   Select as MantineSelect,
   Slider as MantineSlider,
   Switch as MantineSwitch,
+  MultiSelect,
+  NumberInput,
+  PasswordInput,
+  Radio,
   Textarea,
   TextInput,
 } from '@mantine/core'
@@ -49,11 +49,11 @@ import type { UseFormReturnType } from '@mantine/form'
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { GetRawShape } from '@srtp/spec'
 import type { FormSpec } from '@srtp/validator'
-import { capitalize } from 'lodash'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
 import type { z } from 'zod'
+import { capitalize } from '@srtp/fn'
 
 type FormContext<Spec extends FormSpec> = [
   UseFormReturnType<z.TypeOf<Spec>, (values: z.TypeOf<Spec>) => z.TypeOf<Spec>>,

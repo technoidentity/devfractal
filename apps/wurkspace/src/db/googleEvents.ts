@@ -2,7 +2,7 @@ import { sget } from '@core/api'
 import type { CalendarEvent } from '@prisma/client'
 import type { Employee } from '@specs/employee'
 import { toStr } from '@srtp/spec'
-import { setDifference } from '@srtp/fn'
+import { setDifference, toArray } from '@srtp/fn'
 import { prisma } from '@core/prisma'
 import { addDays, subDays } from 'date-fns'
 import invariant from 'tiny-invariant'
@@ -112,7 +112,7 @@ export const getGoogleEvents = async (
   const otherEmails = getAllEmails(events)
 
   const dbProfiles = await prisma.employee.findMany({
-    where: { email: { in: Array.from(otherEmails) } },
+    where: { email: { in: toArray(otherEmails) } },
   })
 
   const zohoEmails = setDifference(
