@@ -6,6 +6,8 @@ module.exports = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    '../../libs/ui/src/**/*.{ts,tsx}',
+    '../../libs/ui-form/src/**/*.{ts,tsx}',
   ],
   theme: {
     container: {

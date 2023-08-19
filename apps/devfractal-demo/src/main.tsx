@@ -11,7 +11,7 @@ import {
   type RouteObject,
 } from 'react-router-dom'
 import invariant from 'tiny-invariant'
-import './customTheme.css'
+import './global.css'
 import { QueryTaskApp } from './examples/query/EpQueryTasks'
 import { tasksRoutes } from './examples/router/tasksRoutes'
 
