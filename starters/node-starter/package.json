@@ -12,7 +12,7 @@
     "test": "vitest run",
     "test:dev": "vitest",
     "dev": "nodemon -x tsx src/index.ts",
-    "cd": "pnpm turbo build lint test"
+    "validate": "pnpm turbo build lint test"
   },
   "license": "MIT",
   "dependencies": {

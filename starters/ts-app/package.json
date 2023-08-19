@@ -4,7 +4,7 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "cd": "turbo types lint test",
+    "validate": "turbo types lint test",
     "clean": "rimraf .turbo node_modules dist",
     "dev": "npx parcel --lazy 'pages/*.html'",
     "lint": "eslint --fix --max-warnings=0 --cache src --ext .ts",
