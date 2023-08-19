@@ -21,7 +21,10 @@ export type TaskItemProps = Readonly<{
 export const TaskItem = ({ task, onToggle, onRemove }: TaskItemProps) => {
   return (
     <HStack className="items-center space-x-3 space-y-0 rounded-md p-4 shadow">
-      <Checkbox checked={task.completed} onChange={() => onToggle(task)} />
+      <Checkbox
+        checked={task.completed}
+        onCheckedChange={() => onToggle(task)}
+      />
       <Text className="space-y-1 leading-none">{task.title}</Text>
       <Button size="sm" onClick={() => onRemove(task.id)}>
         <Trash2 />
