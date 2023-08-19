@@ -1,5 +1,5 @@
 /* eslint-disable no-loop-func */
-import { cast } from '@srtp/spec'
+import { cast, isDefined } from '@srtp/spec'
 import fs from 'node:fs'
 import { argv } from 'node:process'
 import invariant from 'tiny-invariant'
@@ -69,7 +69,7 @@ export function copyFileParallel(
       function processQueue() {
         while (chunksQueue.length > 0) {
           const nextChunk = chunksQueue[0]
-          invariant(nextChunk !== undefined)
+          invariant(isDefined(nextChunk))
 
           if (nextChunk.offset === writeOffset) {
             fs.write(

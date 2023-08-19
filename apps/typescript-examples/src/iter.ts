@@ -2,6 +2,7 @@
 import { expect, test } from 'vitest'
 import { max } from './simple'
 import { Nat } from './specs'
+import { isDefined } from '@srtp/spec'
 
 test('max', () => {
   expect(max(1, 2, 3)).toBe(3)
@@ -17,7 +18,7 @@ export function groupBy<T, K extends string | number>(
 
   for (const v of arr) {
     const k = f(v)
-    result[k] = result[k] !== undefined ? [...result[k], v] : [v]
+    result[k] = isDefined(result[k]) ? [...result[k], v] : [v]
   }
 
   return result

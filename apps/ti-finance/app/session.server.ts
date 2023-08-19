@@ -1,4 +1,5 @@
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
+import { isUndefined } from '@srtp/spec'
 import invariant from 'tiny-invariant'
 
 import type { User } from '~/models/user.server'
@@ -34,7 +35,7 @@ export async function getUserId(
 
 export async function getUser(request: Request) {
   const userId = await getUserId(request)
-  if (userId === undefined) return null
+  if (isUndefined(userId)) return null
 
   const user = await getUserById(userId)
   if (user) return user

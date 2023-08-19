@@ -1,3 +1,5 @@
+import { isUndefined } from '@srtp/spec'
+
 export type BTNode<T> = {
   value: T
   left: BTNode<T> | undefined
@@ -5,7 +7,7 @@ export type BTNode<T> = {
 }
 
 export function* traverse<T>(node: BTNode<T> | undefined): IterableIterator<T> {
-  if (node === undefined) {
+  if (isUndefined(node)) {
     return
   }
 

@@ -7,6 +7,7 @@ import { useTodoMutations, useTodos } from '../hooks'
 
 import { paged, pipe } from '@srtp/fn'
 import { FilterView, Pagination, TodoListView } from '../components'
+import { isDefined, isUndefined } from '@srtp/spec'
 
 const useTodoList = () => {
   const [limit] = React.useState(15)
@@ -17,14 +18,14 @@ const useTodoList = () => {
 
   const filtered = React.useMemo(
     () =>
-      data === undefined ? undefined : filteredTodos(data as Todo[], filter),
+      isUndefined(data) ? undefined : filteredTodos(data as Todo[], filter),
 
     [data, filter],
   )
 
   const todoList = React.useMemo(
     () =>
-      filtered === undefined ? undefined : pipe(filtered, paged(page, limit)),
+      isUndefined(filtered) ? undefined : pipe(filtered, paged(page, limit)),
     [filtered, page, limit],
   )
 
@@ -67,7 +68,7 @@ export const TodoList = () => {
     ...actions
   } = useTodoList()
 
-  invariant(todoList !== undefined, 'todoList is undefined')
+  invariant(isDefined(todoList), 'todoList is undefined')
 
   return (
     <Flex direction="column" h="100vh" p="5">

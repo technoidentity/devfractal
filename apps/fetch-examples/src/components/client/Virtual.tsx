@@ -1,11 +1,11 @@
 import { Flex } from '@chakra-ui/react'
+import { isDefined, isUndefined } from '@srtp/spec'
 import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import { filteredTodos } from '../common'
-import { useTodoMutations, useTodos } from '../hooks'
-
 import { FilterView, VirtualTodoListView } from '../components'
+import { useTodoMutations, useTodos } from '../hooks'
 
 const useTodoList = () => {
   const [filter, setFilter] = React.useState<Filter>('All')
@@ -14,7 +14,7 @@ const useTodoList = () => {
 
   const todoList = React.useMemo(
     () =>
-      data === undefined ? undefined : filteredTodos(data as Todo[], filter),
+      isUndefined(data) ? undefined : filteredTodos(data as Todo[], filter),
     [data, filter],
   )
 
@@ -45,7 +45,7 @@ export const TodoList = () => {
     ...actions
   } = useTodoList()
 
-  invariant(todoList !== undefined, 'todoList is undefined')
+  invariant(isDefined(todoList), 'todoList is undefined')
 
   return (
     <Flex direction="column" h="90vh">

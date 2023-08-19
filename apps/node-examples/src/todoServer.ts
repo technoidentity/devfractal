@@ -6,6 +6,7 @@ import { filter$, iterSlice$, pipe, toArray } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 import { PostTodo, Todo, TodoID } from './todoSpec'
+import { isDefined } from '@srtp/spec'
 
 const todos: Todo[] = [
   { id: 1, title: 'Learn TypeScript', completed: false },
@@ -32,17 +33,17 @@ function getTodos(url: URL) {
 
   let result = todos as Iterable<Todo>
 
-  if (title !== undefined) {
+  if (isDefined(title)) {
     result = filter$(result, todo =>
       todo.title.toLowerCase().includes(title.toLowerCase()),
     )
   }
 
-  if (completed !== undefined) {
+  if (isDefined(completed)) {
     result = filter$(result, todo => todo.completed === completed)
   }
 
-  if (page !== undefined && limit !== undefined) {
+  if (isDefined(page) && isDefined(limit)) {
     const startIndex = (page - 1) * limit
     const endIndex = page * limit
     result = iterSlice$(result, startIndex, endIndex)

@@ -4,6 +4,7 @@ import type { FormErrors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
 import type { Result } from '@srtp/result'
 import { isFail } from '@srtp/result'
+import { isUndefined } from '@srtp/spec'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
@@ -27,7 +28,7 @@ export function actionResult<T>(
 ) {
   return isFail(result)
     ? badRequest({ formError: result.error })
-    : options === undefined
+    : isUndefined(options)
     ? json({})
     : redirect(options.redirectUrl)
 }

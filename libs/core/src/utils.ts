@@ -1,5 +1,5 @@
 import { fail, ok, type Result, type Try } from '@srtp/result'
-import { isArray, isObject, isStr, jstr } from '@srtp/spec'
+import { is, isArray, isObject, isStr, isUndefined, jstr } from '@srtp/spec'
 import { z } from 'zod'
 
 export function tryFromZod<Output, Input>(
@@ -39,8 +39,7 @@ export async function delay(ms: number): Promise<void> {
 
 export function isEmpty(x: unknown): boolean {
   return (
-    x === undefined ||
-    x === null ||
+    isUndefined(x) ||
     (isStr(x) && x.trim() === '') ||
     (isArray(x) && x.length === 0) ||
     (isObject(x) && Object.keys(x).length === 0)
@@ -48,7 +47,7 @@ export function isEmpty(x: unknown): boolean {
 }
 
 export function isEmptyString(x: unknown): boolean {
-  return x === undefined || x === null || (isStr(x) && x.trim() === '')
+  return isUndefined(x) || (isStr(x) && x.trim() === '')
 }
 
 export function isNonEmptyString(x: unknown): x is string {

@@ -4,6 +4,7 @@ import { Navigate, useActionData } from 'react-router-dom'
 import { z } from 'zod'
 import { AuthUser, defaultErrorElement } from './common'
 import { useIsAuthenticated, useLogin } from './hooks'
+import { isDefined, isUndefined } from '@srtp/spec'
 
 const LoginActionData = z.union([
   z.undefined(),
@@ -14,7 +15,7 @@ const LoginActionData = z.union([
 export const useError = () => {
   const actionData = LoginActionData.parse(useActionData())
 
-  if (actionData === undefined) {
+  if (isUndefined(actionData)) {
     return false
   }
 
@@ -31,7 +32,7 @@ function LoginRouteImpl({ element }: Pick<RouteProps, 'element'>) {
 
   // @TODO: shall we just shift this to useLogin?
   React.useEffect(() => {
-    if (actionData !== undefined && actionData.type === 'success') {
+    if (actionData?.type === 'success') {
       login(actionData.data)
     }
   }, [actionData, login])

@@ -6,11 +6,12 @@ import {
   isNil,
   isNum,
   isStr,
+  isUndefined,
 } from '@srtp/spec'
 import type { FilterPredicate, RowBase, Sort } from './types'
 
 const primitiveSearch = (search: string, value: Primitive): boolean => {
-  if (value === undefined) {
+  if (isUndefined(value)) {
     return false
   }
   const s = search.trim()

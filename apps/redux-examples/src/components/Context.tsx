@@ -3,6 +3,7 @@ import invariant from 'tiny-invariant'
 import type { State } from '@srtp/todo'
 import { initialState } from '@srtp/todo'
 import { todoReducer } from './reducer'
+import { isDefined } from '@srtp/spec'
 
 export type StateContext = State
 
@@ -25,14 +26,14 @@ export const ReducerProvider = ({ children }: any) => {
 
 export const useState = () => {
   const ctx = React.useContext(StateContext)
-  invariant(ctx !== undefined, 'Use ReducerProvider somewhere')
+  invariant(isDefined(ctx), 'Use ReducerProvider somewhere')
 
   return ctx
 }
 
 export const useDispatch = () => {
   const ctx = React.useContext(DispatchContext)
-  invariant(ctx !== undefined, 'Use ReducerProvider somewhere')
+  invariant(isDefined(ctx), 'Use ReducerProvider somewhere')
 
   return ctx
 }

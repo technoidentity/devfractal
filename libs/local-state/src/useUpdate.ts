@@ -1,4 +1,4 @@
-import { isFunction } from '@srtp/spec'
+import { isFunction, isUndefined } from '@srtp/spec'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ShallowObject, UpdateHandlers } from './types'
@@ -30,7 +30,7 @@ export function useUpdate<T extends ShallowObject>(
     }
 
     invariant(
-      handlers['update'] === undefined,
+      isUndefined(handlers['update']),
       'update is a reserved key for useUpdate',
     )
     handlers['update'] = (fn: (update: T) => Partial<T>) =>

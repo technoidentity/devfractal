@@ -1,3 +1,4 @@
+import { isUndefined } from '@srtp/spec'
 import type { Player } from './Square'
 import { range } from 'lodash'
 
@@ -39,7 +40,7 @@ const isSame = (t: readonly Player[]): boolean =>
 
 const getSame = (triplets: ReadonlyArray<ReadonlyArray<Player>>): Player => {
   const r = triplets.find(isSame)
-  return r === undefined ? 'none' : r[0]
+  return isUndefined(r) ? 'none' : r[0]
 }
 
 export const getWinner = (n: number, squares: readonly Player[]): Player =>

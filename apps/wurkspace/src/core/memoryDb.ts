@@ -1,4 +1,5 @@
 import { orderByKey as orderByFn, pick$ as pickFn, pipe } from '@srtp/fn'
+import { isDefined } from '@srtp/spec'
 import { produce } from 'immer'
 
 type ManyParams<
@@ -53,7 +54,7 @@ export function db<ID extends string | number, T extends { id: ID }>(
   }: ManyParams<ID, T>) => {
     let result = db as T[]
 
-    if (orderBy !== undefined) {
+    if (isDefined(orderBy)) {
       result = [...db]
       result = pipe(result, orderByFn(orderBy))
 

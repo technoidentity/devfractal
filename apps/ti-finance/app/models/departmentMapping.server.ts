@@ -1,4 +1,5 @@
 import type { Department, Prisma } from '@prisma/client'
+import { isUndefined } from '@srtp/spec'
 import type {
   CostSearchSpec,
   CreateMappingSpec,
@@ -30,11 +31,11 @@ export async function getDepartmentMappingsList(where?: MappingSearchSpec) {
 }
 
 function getMappingWhere(q?: CostSearchSpec) {
-  if (q === undefined) return undefined
+  if (isUndefined(q)) return undefined
   const from = q.dateRange?.[0]
   const to = q.dateRange?.[1]
 
-  if (from === undefined && to === undefined) return undefined
+  if (isUndefined(from) && isUndefined(to)) return undefined
 
   const range = { gte: from, lte: to }
 
@@ -45,7 +46,7 @@ function getMappingWhere(q?: CostSearchSpec) {
 }
 
 function getExpenditureWhere(q?: CostSearchSpec) {
-  if (q === undefined) return undefined
+  if (isUndefined(q)) return undefined
 
   const from = q.dateRange?.[0]
   const to = q.dateRange?.[1]
@@ -86,7 +87,7 @@ export async function getDepartmentsCost(q?: CostSearchSpec) {
 }
 
 function getSpendWhere(q?: SpendSearchSpec) {
-  if (q === undefined) return undefined
+  if (isUndefined(q)) return undefined
 
   const fromDate = { gte: q.dateRange?.[0] ?? undefined }
   const toDate = { lte: q.dateRange?.[1] ?? undefined }
