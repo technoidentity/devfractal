@@ -16,7 +16,7 @@
     "test": "vitest run --passWithNoTests",
     "test:dev": "vitest dev",
     "coverage": "vitest run --coverage",
-    "cd": "pnpm turbo lint types"
+    "validate": "pnpm turbo lint types"
   },
   "dependencies": {
     "@emotion/react": "11.11.1",

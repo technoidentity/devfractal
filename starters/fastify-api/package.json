@@ -9,7 +9,7 @@
     "lint": "eslint --fix --max-warnings=0 --cache src --ext .ts",
     "types": "tsc --noEmit -p .",
     "types:dev": "tsc --noEmit -p . --watch",
-    "cd": "turbo types lint"
+    "validate": "turbo types lint"
   },
   "dependencies": {
     "@fastify/autoload": "5.7.1",

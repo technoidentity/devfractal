@@ -14,7 +14,7 @@
     "test": "vitest run",
     "test:dev": "vitest dev",
     "coverage": "vitest run --coverage",
-    "cd": "pnpm turbo lint types test"
+    "validate": "pnpm turbo lint types test"
   },
   "dependencies": {
     "immer": "10.0.2",
