@@ -36,6 +36,7 @@ describe('baseFetch', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
+    expect.assertions(7)
     try {
       await fetch$('https://jsonplaceholder.typicode.com/todos/invalid')
     } catch (err) {
@@ -51,6 +52,7 @@ describe('baseFetch', () => {
         expect.any(Object),
       )
     }
+    // @TODO:
   })
 
   test('should handle unauthorized requests correctly', async () => {
@@ -62,6 +64,7 @@ describe('baseFetch', () => {
     const mockFetch = vi.fn().mockResolvedValueOnce(mockResponse)
     global.fetch = mockFetch
 
+    expect.assertions(7)
     try {
       await fetch$('https://jsonplaceholder.typicode.com/posts', {
         headers: { Authorization: 'Bearer invalid_token' },
