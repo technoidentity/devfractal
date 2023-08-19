@@ -48,7 +48,21 @@ export const isArray = (value: unknown): value is unknown[] =>
   Array.isArray(value)
 
 export const isUndefined = (s: unknown): s is undefined => s === undefined
+export const isDefined = <T>(s: T | undefined): s is T => s !== undefined
+
 export const isNull = (s: unknown): s is null => s === null
+export const isNotNull = <T>(s: T | null): s is T => !isNull(s)
+
 export const isNil = (s: unknown): s is null | undefined => s == null
-export const isNotNil = (s: unknown): s is unknown => !isNil(s)
+export const isNotNil = <T>(s: T | null | undefined): s is T => !isNil(s)
+
 export const isNullish = isNil
+export const isNotNullish = isNotNil
+
+export const isNilSpec = (s: unknown): boolean =>
+  s instanceof z.ZodUndefined ||
+  s instanceof z.ZodNull ||
+  s instanceof z.ZodVoid ||
+  s instanceof z.ZodNever ||
+  (s instanceof z.ZodOptional && isNilSpec(s._def.innerType)) ||
+  (s instanceof z.ZodNullable && isNilSpec(s._def.innerType))
