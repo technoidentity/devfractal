@@ -1,7 +1,14 @@
 // src/mocks/handlers.js
+import { delay, randInt } from 'devfractal'
 import { rest } from 'msw'
+// import { delay } from 'devfractal'
 
 export const handlers = [
+  rest.all('*', async req => {
+    await delay(randInt(100, 2000))
+    return req.passthrough()
+  }),
+
   rest.post('/login', (_, res, ctx) => {
     // Persist user's authentication in the session
     sessionStorage.setItem('is-authenticated', 'true')
