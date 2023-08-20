@@ -86,26 +86,32 @@ const tasksApp = pages({
     path: path(['tasks', { id: number() }, 'edit']),
     element: <TaskEdit />,
   },
+
   taskCreate: {
     path: path(['tasks', 'create']),
     element: <TaskCreate />,
   },
+
   usersList: {
     path: path(['users']),
     element: <UsersList />,
   },
+
   userView: {
     path: path(['users', { id: number() }]),
     element: <UserView />,
   },
+
   userEdit: {
     path: path(['users', { id: number() }, 'edit']),
     element: <UserEdit />,
   },
+
   userCreate: {
     path: path(['users', 'create']),
     element: <UserCreate />,
   },
+
   userTasksList: {
     path: path(['users', { id: number() }, 'tasks']),
     request: Filters,

@@ -29,7 +29,7 @@ export function tail<T>(list: List<T>): List<T> {
   return list === nil ? nil : list.tail()
 }
 
-export function match<T1, T2, T3>(
+export function listMatch<T1, T2, T3>(
   list: List<T1>,
   onNil: () => T2,
   onCons: (cons: Cons<T1>) => T3,
@@ -58,7 +58,7 @@ export function list<T>(...args: T[]): List<T> {
 }
 
 export function map<T1, T2>(f: (e: T1) => T2, list: List<T1>): List<T2> {
-  return match(
+  return listMatch(
     list,
     () => nil,
     c => cons(f(c.head), () => map(f, c.tail())),
@@ -66,7 +66,7 @@ export function map<T1, T2>(f: (e: T1) => T2, list: List<T1>): List<T2> {
 }
 
 export function filter<T>(f: (e: T) => boolean, list: List<T>): List<T> {
-  return match(
+  return listMatch(
     list,
     () => nil,
     c =>
@@ -79,7 +79,7 @@ export function reduce<T1, T2>(
   initial: T2,
   list: List<T1>,
 ): T2 {
-  return match(
+  return listMatch(
     list,
     () => initial,
     c => reduce(f, f(initial, c.head), c.tail()),

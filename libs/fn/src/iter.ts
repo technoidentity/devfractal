@@ -497,7 +497,7 @@ export function cons<T>(x: T) {
   }
 }
 
-export function match<T, U>(
+export function iterMatch<T, U>(
   iter: Iterable<T> | Iterator<T>,
   empty: () => U,
   nonEmpty: (head: T, tail: Iterator<T>) => U,

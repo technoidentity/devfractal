@@ -9,25 +9,28 @@ const taskHandlers = {
   getTasks: ({ request: filters }) => tasksList(filters),
 
   removeTask: ({ params: { id } }) => {
-    removeTask(id)
+    const task = removeTask(id)
+    if (!task) {
+      throwBadRequest('task not found')
+    }
   },
 
   addTask: ({ request: body }): Task => {
-    const todo = createTask(body)
-    if (!todo) {
-      throwBadRequest('todo not found')
+    const task = createTask(body)
+    if (!task) {
+      throwBadRequest('task not found')
     }
 
-    return todo
+    return task
   },
 
   updateTask: ({ params: { id }, request: body }): Task => {
-    const todo = updateTask(id, body)
-    if (!todo) {
-      throwBadRequest('todo not found')
+    const task = updateTask(id, body)
+    if (!task) {
+      throwBadRequest('task not found')
     }
 
-    return todo
+    return task
   },
 } satisfies SEpsHandlers<typeof taskEndpoints>
 
