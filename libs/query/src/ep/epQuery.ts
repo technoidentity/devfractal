@@ -53,7 +53,9 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       () => urlcat(baseUrl, joinPaths(paths), query),
       [paths, query],
     )
-    const queryFn = useEvent(() => defaultApi.get(url) as Promise<TQueryFnData>)
+    const queryFn = useEvent(
+      () => defaultApi.get$(url) as Promise<TQueryFnData>,
+    )
 
     invariant(ep.response, 'endpoint must have a response schema')
     // @TODO: replace above with ep.repsonse = z.ZodUndefined() when not defined?

@@ -16,7 +16,7 @@ export type Query = Readonly<{
 
 export const url = (keys: readonly Stringable[]) => `/api/${keys.join('/')}`
 
-export const sget = (url: string) => api.get(url)
+export const sget = (url: string) => api.get$(url)
 
 export function getLoader<Spec extends z.ZodType<any, any>>(q: Query) {
   return function useSafeQuery(spec: Spec): z.infer<Spec> {

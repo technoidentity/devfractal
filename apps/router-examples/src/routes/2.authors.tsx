@@ -18,7 +18,7 @@ const AuthorsSpec = z.array(
 )
 
 const queryFn = ({ queryKey }: QueryFunctionContext) =>
-  api.get(`/api/${queryKey.join('/')}`)
+  api.get$(`/api/${queryKey.join('/')}`)
 
 const authorsQuery = () => ({ queryKey: ['authors'], queryFn })
 

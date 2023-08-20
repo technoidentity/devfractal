@@ -39,7 +39,7 @@ export function epLoader<Ep extends EndpointBase>(ep: Ep): EpLoaderResult<Ep> {
     const path = toPath(route(ep.path), params)
 
     const query = Object.fromEntries(new URL(args.request.url).searchParams)
-    const result = api.get(path, query)
+    const result = api.get$(path, query)
 
     return cast(responseSpec, result)
   }
@@ -64,7 +64,7 @@ export function epAction<Ep extends EndpointBase>(ep: Ep): EpActionResult<Ep> {
 
     const path = toPath(route(ep.path), params)
 
-    const result = api.post(
+    const result = api.post$(
       path,
       Object.fromEntries(await args.request.formData()),
     )

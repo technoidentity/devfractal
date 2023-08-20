@@ -32,7 +32,7 @@ export function createEndPointQuery<Ep extends EndpointBase>(
 
     const queryKey = query ? [path, query] : [path]
 
-    const queryFn = () => defaultApi.get(url) as Promise<GetEpResponse<Ep>>
+    const queryFn = () => defaultApi.get$(url) as Promise<GetEpResponse<Ep>>
 
     const result = useQuery({ queryKey, queryFn })
 

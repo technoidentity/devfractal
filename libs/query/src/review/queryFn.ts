@@ -42,7 +42,7 @@ export const queryFn =
     const rest = last ? queryKey.slice(0, -1) : queryKey
     const paths = cast(Paths, rest)
 
-    return defaultApi.get(toUrl(paths, qs))
+    return defaultApi.get$(toUrl(paths, qs))
   }
 
 // Should be used only with raw useQuery
