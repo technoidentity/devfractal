@@ -306,7 +306,7 @@ export function mapGroupBy<T, K>(f: (x: T) => K) {
 type DeepFlattenArgs<T> = Iterable<T | DeepFlattenArgs<T>>
 
 export function* iterFlatten<T>(arr: DeepFlattenArgs<T>): IterableIterator<T> {
-  const isArray = (x: unknown): x is DeepFlattenArgs<any> => isArray(x)
+  const isArray = (x: unknown): x is DeepFlattenArgs<any> => Array.isArray(x)
 
   for (const e of arr) {
     if (isArray(e)) {
