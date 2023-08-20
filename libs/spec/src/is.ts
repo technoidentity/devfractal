@@ -71,7 +71,3 @@ export const isNilSpec = (s: unknown): boolean =>
   (s instanceof z.ZodNullable && isNilSpec(s._def.innerType))
 
 export const isNotNilSpec = (s: unknown): boolean => !isNilSpec(s)
-
-export const nullish = (params?: z.RawCreateParams) => z.null(params).optional()
-
-export type Nullish = z.infer<z.ZodOptional<z.ZodNull>>
