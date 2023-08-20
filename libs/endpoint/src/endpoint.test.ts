@@ -26,7 +26,7 @@ describe('endpoint', () => {
     const response = z.object({ id: z.number() })
     const request = z.undefined()
     const expected = endpoint({ path, method, response, request })
-    const result = ep(path, method, response, request)
+    const result = ep(path, method, request, response)
     expect(result).toEqual(expected)
   })
 
@@ -51,7 +51,7 @@ describe('endpoint', () => {
 
     const ep2 = epDelete(path)
     type T2 = GetEpResponse<typeof ep2>
-    expectTypeOf<T2>().toEqualTypeOf<undefined>()
+    expectTypeOf<T2>().toEqualTypeOf<unknown>()
   })
 
   test('GetEpRequest', () => {
@@ -219,7 +219,7 @@ describe('endpoint', () => {
         method: 'put'
         path: readonly ['users', 'todos']
         request: z.ZodString
-        response: z.ZodUndefined
+        response: z.ZodUnknown
       }>
     >()
   })
@@ -248,7 +248,7 @@ describe('endpoint', () => {
         method: 'patch'
         path: readonly ['users', 'todos']
         request: z.ZodString
-        response: z.ZodUndefined
+        response: z.ZodUnknown
       }>
     >()
   })
@@ -272,7 +272,7 @@ describe('endpoint', () => {
         method: 'delete'
         path: readonly ['users', 'todos']
         request: z.ZodUndefined
-        response: z.ZodUndefined
+        response: z.ZodUnknown
       }>
     >()
   })
