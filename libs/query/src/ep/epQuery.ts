@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast, isNilSpec } from '@srtp/spec'
 import {
   useMutation,
   useQueryClient,
@@ -109,7 +109,6 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       const url = urlcat(baseUrl, key)
       const [data] = await axios({ method: ep.method, url, body: request })
 
-      // this should be fine as there is no 'select' option like useQuery
       return ep.response ? cast(ep.response, data) : data
     }
 
@@ -161,7 +160,9 @@ export function apiMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       const [data] = await axios({ method: ep.method, url, body: request })
 
       // this should be fine as there is no 'select' option like useQuery
-      return ep.response ? cast(ep.response, data) : data
+      return ep.response && isNilSpec(ep.response)
+        ? cast(ep.response, data)
+        : data
     }
 
     return useMutation<TData<Ep>, Error, TVariables<Ep>, TContext>({

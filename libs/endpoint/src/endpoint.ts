@@ -201,6 +201,8 @@ export function epPost<
  * @returns {Endpoint<'put', Path, Body, Response>} - The endpoint for a PUT request.
  */
 
+// export const emptyResponse = nullish()
+
 export function epPut<
   const Path extends PathBase,
   Body extends z.ZodTypeAny,
@@ -210,7 +212,7 @@ export function epPut<
 export function epPut<const Path extends PathBase, Body extends z.ZodTypeAny>(
   path: Path,
   body: Body,
-): Endpoint<'put', Path, Body, z.ZodUndefined>
+): Endpoint<'put', Path, Body, z.ZodUnknown>
 
 export function epPut<
   const Path extends PathBase,
@@ -225,7 +227,7 @@ export function epPut<
     path,
     method: 'put',
     request: body,
-    response: res ?? z.undefined(),
+    response: res ?? z.unknown,
   } as const as any
 }
 
@@ -242,7 +244,7 @@ export function epPatch<
 export function epPatch<const Path extends PathBase, Body extends z.ZodTypeAny>(
   path: Path,
   body: Body,
-): Endpoint<'patch', Path, Body, z.ZodUndefined>
+): Endpoint<'patch', Path, Body, z.ZodUnknown>
 
 /**
  * Creates an endpoint for a PATCH request.
@@ -268,7 +270,7 @@ export function epPatch<
     path,
     method: 'patch',
     request: body,
-    response: res ?? z.undefined,
+    response: res ?? z.unknown(),
   } as const as any
 }
 
@@ -279,7 +281,7 @@ export function epDelete<
 
 export function epDelete<const Path extends PathBase>(
   path: Path,
-): Endpoint<'delete', Path, z.ZodUndefined, z.ZodUndefined>
+): Endpoint<'delete', Path, z.ZodUndefined, z.ZodUnknown>
 
 /**
  * Creates an endpoint for a DELETE request.
@@ -301,6 +303,6 @@ export function epDelete<
     path,
     method: 'delete',
     request: z.undefined(),
-    response: res ?? z.undefined(),
+    response: res ?? z.unknown(),
   } as const as any
 }

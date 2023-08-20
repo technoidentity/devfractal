@@ -7,9 +7,10 @@ import {
   type GetParamsArg,
   type GetRequestArg,
 } from '@srtp/endpoint'
-import { cast, isNotNilSpec } from '@srtp/spec'
+import { cast, isNotNilSpec, isUndefined } from '@srtp/spec'
 import { Hono, type Context } from 'hono'
 import { logger } from 'hono/logger'
+import { StatusCodes } from 'http-status-codes'
 
 type EpsHandlerArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
   GetRequestArg<Ep> & { c: Context }
@@ -35,12 +36,22 @@ function epHandler<Ep extends EndpointBase>(ep: Ep, fn: EpHandler<Ep>) {
       args.params = cast(ps, c.req.param())
     }
 
-    if (isNotNilSpec(ep.request)) {
+    if (ep.request && isNotNilSpec(ep.request)) {
       const req = ep.method === 'get' ? c.req.query() : await c.req.json()
       args.request = cast(ep.request, req)
     }
 
-    return c.json(cast(ep.response, fn(args)))
+    const response = fn(args)
+    if (ep.method === 'delete') {
+      console.log({ response })
+    }
+
+    if (isUndefined(response)) {
+      c.status(StatusCodes.NO_CONTENT)
+      return c.body(null)
+    } else {
+      return c.json(cast(ep.response, response))
+    }
   }
 }
 
