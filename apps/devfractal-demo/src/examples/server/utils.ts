@@ -1,10 +1,10 @@
 import {
   filter,
+  isUndefined,
   iterSlice,
   pipe,
   sorted,
   toArray,
-  isUndefined,
 } from 'devfractal'
 import type { Filters, Task } from '../specs'
 
@@ -18,12 +18,16 @@ export function applyFilters(
   list: Iterable<Task>,
   { limit, page, completed, search }: Filters,
 ) {
-  return pipe(
-    list,
+  const input = toArray(list)
+
+  const result = pipe(
+    input,
     sorted((a, b) => a.id - b.id),
-    filter(t => t.completed === completed),
+    filter(t => isUndefined(completed) || t.completed === completed),
     filter(t => isUndefined(search) || t.title.includes(search)),
     paginate(page, limit),
     toArray,
   )
+
+  return result
 }

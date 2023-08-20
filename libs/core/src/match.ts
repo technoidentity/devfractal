@@ -9,14 +9,14 @@ export function match<T extends string, U>(
   return cases[value](value)
 }
 
-export type Handlers<T, K extends keyof T> = {
+export type MatchHandlers<T, K extends keyof T> = {
   [V in TagUnion<T, K> & string]: (value: FromUnion<T, K, V>) => any
 }
 
-export function matchTag<T, K extends keyof T, Hs extends Handlers<T, K>>(
+export function matchTag<T, K extends keyof T, Hs extends MatchHandlers<T, K>>(
   obj: T,
   tag: K,
-  handlers: ExactKeys<Hs, Handlers<T, K>>,
+  handlers: ExactKeys<Hs, MatchHandlers<T, K>>,
 ): ReturnType<Hs[keyof Hs]> {
   const fn = (handlers as any)(obj[tag])
   return fn(obj)

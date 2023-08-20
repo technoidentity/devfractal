@@ -2,13 +2,14 @@ import { createEpApi } from 'devfractal'
 import type { Task } from '../specs'
 import { taskEndpoints } from '../tasksEndpoints'
 import { TasksList } from './TaskViews'
+
 const baseUrl = '/api'
 
 const api = createEpApi(taskEndpoints, baseUrl)
 
 export const QueryTaskApp = () => {
   const [taskList, invalidateKey] = api.useGetTasks({
-    request: { limit: 10, page: 2 },
+    request: { limit: 100, page: 2 },
   })
 
   const toggleTask = api.useUpdateTask({ invalidateKey })
