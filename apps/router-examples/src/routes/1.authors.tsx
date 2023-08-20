@@ -15,7 +15,7 @@ const AuthorsSpec = z.array(
 )
 
 const queryFn = ({ queryKey }: { queryKey: readonly unknown[] }) =>
-  api.get(`/api/${queryKey.join('/')}`)
+  api.get$(`/api/${queryKey.join('/')}`)
 
 const authorsLoader = () => queryFn({ queryKey: ['authors'] })
 

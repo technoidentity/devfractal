@@ -12,21 +12,21 @@ const api = http
 
 const [useTaskQuery, actions] = queryState(
   ['tasks'],
-  { queryFn: () => api.get(`${baseUrl}/tasks`) },
+  { queryFn: () => api.get$(`${baseUrl}/tasks`) },
   {
     toggleTask: (task: Task) => {
-      return api.patch(`${baseUrl}/tasks/${task.id}`, {
+      return api.patch$(`${baseUrl}/tasks/${task.id}`, {
         ...task,
         completed: !task.completed,
       })
     },
 
     addTask: (title: string) => {
-      return api.post(`${baseUrl}/tasks`, { title, completed: false })
+      return api.post$(`${baseUrl}/tasks`, { title, completed: false })
     },
 
     deleteTask: (id: number) => {
-      return api.delete(`${baseUrl}/tasks/${id}`)
+      return api.del$(`${baseUrl}/tasks/${id}`)
     },
   },
 )

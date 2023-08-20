@@ -36,7 +36,7 @@ export const qfnFromBase = (base: string) =>
   )
 
 export const qfnFromUrl = (urlFn: ToUrlFn) => (qc: QueryFunctionContext) =>
-  api.get(urlFn(qc))
+  api.get$(urlFn(qc))
 
 type Specs<
   Spec extends z.ZodTypeAny,
