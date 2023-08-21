@@ -2459,6 +2459,9 @@ importers:
       '@srtp/spec':
         specifier: workspace:*
         version: link:../../libs/spec
+      '@srtp/web':
+        specifier: workspace:*
+        version: link:../../libs/web
       immer:
         specifier: 10.0.2
         version: 10.0.2
