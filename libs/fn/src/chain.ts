@@ -310,8 +310,11 @@ export function chain(
     default: {
       let result = arguments[0]
       for (let i = 1; i < arguments.length; i++) {
-        invariant(isIterable(result), 'result is not iterable!')
         result = arguments[i](result)
+      }
+
+      if (process.env.NODE_ENV === 'development') {
+        invariant(isIterable(result))
       }
 
       return toArray(result)
