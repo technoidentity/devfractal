@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker'
 import type { ZodNumberCheck } from 'zod'
 import type { z } from 'zod'
 import invariant from 'tiny-invariant'
-import { pipe, reduce } from '@srtp/fn'
 
 type NumberType = {
   min: number
