@@ -1,5 +1,5 @@
 import { assertType, expectTypeOf, test } from 'vitest'
-import { filter, map } from '../iter'
+import { filter, map, reduce } from '../iter'
 import { inc, isEven, plus } from '../operators'
 import { chain } from '../chain'
 
@@ -15,5 +15,5 @@ test('chain types', () => {
   ).toEqualTypeOf<string[]>()
 
   // @ts-expect-error reduce does not return iterable
-  assertType<number>(() => chain([1, 2, 3, 4, 5], map(inc), reduce(plus, 0)))
+  assertType(() => chain([1, 2, 3, 4, 5], map(inc), reduce(plus, 0)))
 })
