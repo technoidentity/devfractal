@@ -52,3 +52,27 @@ export function pascalToSnake(str: string): string {
         (match, offset) => (offset > 0 ? '_' : '') + match.toLowerCase(),
       )
 }
+export function kebabToPascal(str: string): string {
+  return str.length === 0 ? '' : str.split('-').map(capitalize).join('')
+}
+
+export function pascalToKebab(str: string): string {
+  return str.length === 0
+    ? ''
+    : str.replace(
+        /[A-Z]/g,
+        (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase(),
+      )
+}
+export function kebabToCamel(str: string): string {
+  if (str.length === 0) {
+    return ''
+  }
+  const [firstWord, ...remWords] = str.split('-')
+  return firstWord + remWords.map(capitalize).join('')
+}
+export function camelToKebab(str: string): string {
+  return str.length === 0
+    ? ''
+    : str.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)
+}
