@@ -72,21 +72,25 @@ test('camelCaseToSnakeCase', () => {
 
 test('kebabCaseToPascalCase', () => {
   expect(kebabToPascal('')).toEqual('')
+  expect(kebabToPascal('foo')).toEqual('Foo')
   expect(kebabToPascal('foo-bar')).toEqual('FooBar')
   expect(kebabToPascal('welcome-to-the-world')).toEqual('WelcomeToTheWorld')
 })
 test('pascalCaseToKebab', () => {
   expect(pascalToKebab('')).toEqual('')
+  expect(pascalToKebab('foo')).toEqual('foo')
   expect(pascalToKebab('FooBar')).toEqual('foo-bar')
   expect(pascalToKebab('WelcomeToTheWorld')).toEqual('welcome-to-the-world')
 })
 test('kebabToCamel', () => {
   expect(kebabToCamel('')).toEqual('')
+  expect(kebabToCamel('foo')).toEqual('foo')
   expect(kebabToCamel('foo-bar')).toEqual('fooBar')
   expect(kebabToCamel('welcome-to-the-world')).toEqual('welcomeToTheWorld')
 })
 test('camelCaseToKebab', () => {
   expect(camelToKebab('')).toEqual('')
+  expect(camelToKebab('foo')).toEqual('foo')
   expect(camelToKebab('fooBar')).toEqual('foo-bar')
   expect(camelToKebab('welcomeToTheWorld')).toEqual('welcome-to-the-world')
 })
