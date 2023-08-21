@@ -45,7 +45,7 @@ git checkout -b feat-123-safer-queries
 
 Your commit messages should be descriptive as well. DO NOT include feat/fix in
 commit messages. DO NOT mention issue numbers in commit messages. You could
-mention both in commit description. Follow the advice from
+mention both in the commit description. Follow the advice from
 [tpope's note on commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 
 ## Common commands
@@ -115,7 +115,9 @@ git checkout develop
 git pull
 git checkout <my-branch-name>
 git rebase develop # fix any rebasing issues
+git stash -u
 git push -u origin <my-branch-name>
+git stash pop
 ```
 
 If you already have pushed changes to remote(origin), you might need
