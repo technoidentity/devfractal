@@ -7,6 +7,10 @@ import {
   pascalToSnake,
   snakeToCamel,
   snakeToPascal,
+  kebabToPascal,
+  pascalToKebab,
+  kebabToCamel,
+  camelToKebab,
 } from '../string'
 
 test('capitalize', () => {
@@ -64,4 +68,25 @@ test('camelCaseToSnakeCase', () => {
   expect(pascalToSnake('Foo123Bar')).toEqual('foo123_bar')
   expect(pascalToSnake('HelloWorld45')).toEqual('hello_world45')
   expect(pascalToSnake('HowAre22YouToday')).toEqual('how_are22_you_today')
+})
+
+test('kebabCaseToPascalCase', () => {
+  expect(kebabToPascal('')).toEqual('')
+  expect(kebabToPascal('foo-bar')).toEqual('FooBar')
+  expect(kebabToPascal('welcome-to-the-world')).toEqual('WelcomeToTheWorld')
+})
+test('pascalCaseToKebab', () => {
+  expect(pascalToKebab('')).toEqual('')
+  expect(pascalToKebab('FooBar')).toEqual('foo-bar')
+  expect(pascalToKebab('WelcomeToTheWorld')).toEqual('welcome-to-the-world')
+})
+test('kebabToCamel', () => {
+  expect(kebabToCamel('')).toEqual('')
+  expect(kebabToCamel('foo-bar')).toEqual('fooBar')
+  expect(kebabToCamel('welcome-to-the-world')).toEqual('welcomeToTheWorld')
+})
+test('camelCaseToKebab', () => {
+  expect(camelToKebab('')).toEqual('')
+  expect(camelToKebab('fooBar')).toEqual('foo-bar')
+  expect(camelToKebab('welcomeToTheWorld')).toEqual('welcome-to-the-world')
 })
