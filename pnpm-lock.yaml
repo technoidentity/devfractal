@@ -2135,6 +2135,9 @@ importers:
       '@preact/signals-core':
         specifier: 1.4.0
         version: 1.4.0
+      '@srtp/core':
+        specifier: workspace:*
+        version: link:../../libs/core
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
