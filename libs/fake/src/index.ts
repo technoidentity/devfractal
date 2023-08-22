@@ -1,1 +1,3 @@
-export * from './fake'
+
+
+export * from "./fake/fakeNumber";
