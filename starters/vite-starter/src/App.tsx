@@ -1,9 +1,3 @@
-import { MantineProvider, Title } from '@mantine/core'
-
 export function App() {
-  return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
-      <Title align="center">Hello, World!</Title>
-    </MantineProvider>
-  )
+  return <h1 className="text-3xl font-bold text-center m-2">Hello World!</h1>
 }
