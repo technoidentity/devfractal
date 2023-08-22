@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-// @TODO: useAsyncEvent instead!!!
-
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import {
   CaretSortIcon,
   ChevronDownIcon,
@@ -39,8 +37,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Input,
-  ThemeSelector,
-} from 'devfractal'
+} from '@srtp/ui'
 
 const data: Payment[] = [
   {
@@ -156,7 +153,9 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => {
+                navigator.clipboard.writeText(payment.id)
+              }}
             >
               Copy payment ID
             </DropdownMenuItem>
@@ -200,7 +199,6 @@ export function DataTableDemo() {
 
   return (
     <div className="w-full p-4">
-      <ThemeSelector />
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter emails..."

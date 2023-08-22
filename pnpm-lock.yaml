@@ -4348,6 +4348,100 @@ importers:
         specifier: 0.34.2
         version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
 
+  libs/ui-table:
+    dependencies:
+      '@dnd-kit/core':
+        specifier: 6.0.8
+        version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-icons':
+        specifier: 1.3.0
+        version: 1.3.0(react@18.2.0)
+      '@srtp/core':
+        specifier: workspace:*
+        version: link:../core
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../fn
+      '@srtp/local-state':
+        specifier: workspace:*
+        version: link:../local-state
+      '@srtp/react':
+        specifier: workspace:*
+        version: link:../react
+      '@srtp/spec':
+        specifier: workspace:*
+        version: link:../spec
+      '@srtp/ui':
+        specifier: workspace:*
+        version: link:../ui
+      '@tanstack/react-table':
+        specifier: 8.9.3
+        version: 8.9.3(react-dom@18.2.0)(react@18.2.0)
+      immer:
+        specifier: 10.0.2
+        version: 10.0.2
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      react-dom:
+        specifier: 18.2.0
+        version: 18.2.0(react@18.2.0)
+      react-virtuoso:
+        specifier: 4.5.0
+        version: 4.5.0(react-dom@18.2.0)(react@18.2.0)
+      tiny-invariant:
+        specifier: 1.3.1
+        version: 1.3.1
+      tiny-warning:
+        specifier: 1.0.3
+        version: 1.0.3
+      tslib:
+        specifier: 2.6.2
+        version: 2.6.2
+      use-immer:
+        specifier: 0.9.0
+        version: 0.9.0(immer@10.0.2)(react@18.2.0)
+      zod:
+        specifier: 3.22.2
+        version: 3.22.2
+    devDependencies:
+      '@srtp/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: 20.5.1
+        version: 20.5.1
+      '@types/react':
+        specifier: 18.2.20
+        version: 18.2.20
+      '@types/react-dom':
+        specifier: 18.2.7
+        version: 18.2.7
+      cross-env:
+        specifier: 7.0.3
+        version: 7.0.3
+      eslint:
+        specifier: 8.47.0
+        version: 8.47.0
+      eslint-config-srtp:
+        specifier: workspace:*
+        version: link:../eslint-config-srtp
+      prettier:
+        specifier: 3.0.2
+        version: 3.0.2
+      rimraf:
+        specifier: 5.0.1
+        version: 5.0.1
+      tsup:
+        specifier: 7.2.0
+        version: 7.2.0(typescript@5.1.6)
+      typescript:
+        specifier: 5.1.6
+        version: 5.1.6
+      vitest:
+        specifier: 0.34.2
+        version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
+
   libs/validator:
     dependencies:
       '@srtp/core':
@@ -4705,7 +4799,7 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  starters/fastify-api:
+  starters/fastify-starter:
     dependencies:
       '@fastify/autoload':
         specifier: 5.7.1
@@ -5075,39 +5169,21 @@ importers:
 
   starters/vite-starter:
     dependencies:
-      '@emotion/react':
-        specifier: 11.11.1
-        version: 11.11.1(@types/react@18.2.20)(react@18.2.0)
-      '@mantine/core':
-        specifier: 6.0.19
-        version: 6.0.19(@emotion/react@11.11.1)(@mantine/hooks@6.0.19)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
-      '@mantine/dates':
-        specifier: 6.0.19
-        version: 6.0.19(@mantine/core@6.0.19)(@mantine/hooks@6.0.19)(dayjs@1.11.9)(react@18.2.0)
       '@mantine/form':
         specifier: 6.0.19
         version: 6.0.19(react@18.2.0)
       '@mantine/hooks':
         specifier: 6.0.19
         version: 6.0.19(react@18.2.0)
-      '@mantine/notifications':
-        specifier: 6.0.19
-        version: 6.0.19(@mantine/core@6.0.19)(@mantine/hooks@6.0.19)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
         specifier: 4.33.0
         version: 4.33.0(react-dom@18.2.0)(react@18.2.0)
-      dayjs:
-        specifier: 1.11.9
-        version: 1.11.9
       immer:
         specifier: 10.0.2
         version: 10.0.2
       jotai:
         specifier: 2.3.1
         version: 2.3.1(@types/react@18.2.20)(react@18.2.0)
-      jotai-tanstack-query:
-        specifier: 0.7.1
-        version: 0.7.1(@tanstack/query-core@4.33.0)(jotai@2.3.1)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -5117,9 +5193,6 @@ importers:
       react-error-boundary:
         specifier: 4.0.11
         version: 4.0.11(react@18.2.0)
-      react-hot-toast:
-        specifier: 2.4.1
-        version: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
       react-router-dom:
         specifier: 6.15.0
         version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
@@ -5160,6 +5233,9 @@ importers:
       '@vitejs/plugin-react-swc':
         specifier: 3.3.2
         version: 3.3.2(vite@4.4.9)
+      autoprefixer:
+        specifier: 10.4.15
+        version: 10.4.15(postcss@8.4.28)
       confusing-browser-globals:
         specifier: 1.0.11
         version: 1.0.11
@@ -5193,12 +5269,18 @@ importers:
       msw:
         specifier: 1.2.3
         version: 1.2.3(typescript@5.1.6)
+      postcss:
+        specifier: 8.4.28
+        version: 8.4.28
       prettier:
         specifier: 3.0.2
         version: 3.0.2
       rimraf:
         specifier: 5.0.1
         version: 5.0.1
+      tailwindcss:
+        specifier: 3.3.3
+        version: 3.3.3(ts-node@10.9.1)
       turbo:
         specifier: 1.10.12
         version: 1.10.12
@@ -13967,7 +14049,7 @@ packages:
     resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
     dependencies:
       '@types/jsonfile': 6.1.1
-      '@types/node': 18.17.6
+      '@types/node': 20.5.1
     dev: true
 
   /@types/glob@7.2.0:
@@ -14025,7 +14107,7 @@ packages:
   /@types/jsonfile@6.1.1:
     resolution: {integrity: sha512-GSgiRCVeapDN+3pqA35IkQwasaCh/0YFH5dEF6S88iDvEn901DjOeH3/QPY+XYP1DFzDZPvIvfeEgk+7br5png==}
     dependencies:
-      '@types/node': 18.17.6
+      '@types/node': 20.5.1
     dev: true
 
   /@types/keyv@3.1.4:
@@ -14105,9 +14187,6 @@ packages:
   /@types/node@18.17.6:
     resolution: {integrity: sha512-fGmT/P7z7ecA6bv/ia5DlaWCH4YeZvAQMNpUhrJjtAhOhZfoxS1VLUgU2pdk63efSjQaOJWdXMuAJsws+8I6dg==}
     dev: true
-
-  /@types/node@20.5.0:
-    resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
 
   /@types/node@20.5.1:
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
@@ -19223,6 +19302,7 @@ packages:
       yargs-parser: 21.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
 
   /fastify-cors@6.0.3:
     resolution: {integrity: sha512-fMbXubKKyBHHCfSBtsCi3+7VyVRdhJQmGes5gM+eGKkRErCdm0NaYO0ozd31BQBL1ycoTIjbqOZhJo4RTF/Vlg==}
@@ -20008,7 +20088,7 @@ packages:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.11
+      fast-glob: 3.3.1
       glob: 7.2.3
       ignore: 5.2.4
       merge2: 1.4.1
@@ -20040,14 +20120,6 @@ packages:
   /globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
     dev: true
-
-  /goober@2.1.13(csstype@3.1.2):
-    resolution: {integrity: sha512-jFj3BQeleOoy7t93E9rZ2de+ScC4lQICLwiAQmKMg9F6roKGaLSHoCDYKkWlSafg138jejvq/mTdvmnwDQgqoQ==}
-    peerDependencies:
-      csstype: ^3.0.10
-    dependencies:
-      csstype: 3.1.2
-    dev: false
 
   /gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
@@ -20634,7 +20706,7 @@ packages:
     engines: {node: '>=12.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
-      chalk: 4.1.1
+      chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-width: 3.0.0
       external-editor: 3.1.0
@@ -21336,7 +21408,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.5.0
+      '@types/node': 20.5.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -25192,20 +25264,6 @@ packages:
       react: 18.2.0
     dev: false
 
-  /react-hot-toast@2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-j8z+cQbWIM5LY37pR6uZR6D4LfseplqnuAO4co4u8917hBUvXlEqyP1ZzqVLcqoyUesZZv/ImreoCeHVDpE5pQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: '>=16'
-      react-dom: '>=16'
-    dependencies:
-      goober: 2.1.13(csstype@3.1.2)
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    transitivePeerDependencies:
-      - csstype
-    dev: false
-
   /react-icons@4.10.1(react@18.2.0):
     resolution: {integrity: sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==}
     peerDependencies:
@@ -25417,6 +25475,17 @@ packages:
     peerDependencies:
       react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
       react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-virtuoso@4.5.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OMP6XrzJMMos1vbJZC16RxGW7utAxUMP7i5PNPi6epBNVH7nz+CF/DlmecNBep5wyjLud51dQ5epjb2A0w9W/Q==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16 || >=17 || >= 18'
+      react-dom: '>=16 || >=17 || >= 18'
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -25984,7 +26053,7 @@ packages:
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
-      chokidar: 3.5.2
+      chokidar: 3.5.3
     dev: true
 
   /saxes@6.0.0:
