@@ -1,9 +1,8 @@
 import { faker } from '@faker-js/faker'
-import type { ZodNumberCheck } from 'zod'
-import type { z } from 'zod'
+import type { z, ZodNumberCheck } from 'zod'
 import invariant from 'tiny-invariant'
 
-type NumberType = {
+type NumType = {
   min: number
   max: number
   multipleOf: number
@@ -11,18 +10,18 @@ type NumberType = {
 }
 
 export function fakeNumber(spec: z.ZodTypeAny) {
-  const type = spec._def.typeName
+  const type: string = spec._def.typeName
   invariant(type === 'ZodNumber')
 
-  const checks = spec._def.checks
-  let defaultValue: NumberType = {
+  const checks: ZodNumberCheck[] = spec._def.checks
+  let defaultValue: NumType = {
     min: Number.MIN_SAFE_INTEGER,
     max: Number.MAX_SAFE_INTEGER,
     multipleOf: 1,
     isInt: false,
   }
 
-  defaultValue = checks.reduce((Acc: NumberType, item: ZodNumberCheck) => {
+  defaultValue = checks.reduce((Acc: NumType, item: ZodNumberCheck) => {
     if (item.kind === 'min') {
       Acc.min = item.inclusive ? item.value : item.value + 1
       return Acc
