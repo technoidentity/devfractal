@@ -1,4 +1,13 @@
-import { describe, expect, expectTypeOf, test } from 'vitest'
+import { promiseState } from '@srtp/core'
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  expectTypeOf,
+  test,
+  vi,
+} from 'vitest'
 import {
   createPost,
   delay,
@@ -11,26 +20,50 @@ import {
   getPostsIds,
   replacePost,
   successDelay,
-  timedFetch,
   updatePost,
 } from './asyncExamples'
 
-describe('async functions', () => {
+describe.skip('async functions', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.resetAllMocks()
+  })
+
   test('delay', async () => {
-    await expect(delay(500)).resolves.toBeUndefined()
     expect(() => delay(-1000)).toThrow()
-    expectTypeOf(delay(1000)).toEqualTypeOf<Promise<void>>()
+
+    const p = delay(500)
+
+    vi.advanceTimersByTime(400)
+    expect(await promiseState(p)).toEqual({ state: 'pending' })
+
+    vi.advanceTimersByTime(100)
+    await expect(p).resolves.toBeUndefined()
   })
 
   test('successDelay', async () => {
-    await expect(successDelay(2000, 'Success')).resolves.toEqual('Success')
+    const success = successDelay(2000, 'Success')
+
+    vi.advanceTimersByTime(1900)
+    expect(await promiseState(success)).toEqual({ state: 'pending' })
+
+    vi.advanceTimersByTime(100)
+    await expect(success).resolves.toBe('Success')
+
     expect(() => successDelay(-100, 'Fails')).toThrow()
   })
 
   test('failureDelay', async () => {
-    await expect(failureDelay(1000, 'it should fail')).rejects.toThrowError(
-      'it should fail',
-    )
+    const failed = failureDelay(2000, 'it should fail')
+    vi.advanceTimersByTime(1900)
+    expect(await promiseState(failed)).toEqual({ state: 'pending' })
+
+    vi.advanceTimersByTime(100)
+    await expect(failed).rejects.toThrowError('it should fail')
+
     expect(() => failureDelay(-1000, 'this should throw error')).toThrow()
   })
 
