@@ -24,11 +24,11 @@
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "eslint": "8.47.0",
-    "prettier": "3.0.1",
+    "prettier": "3.0.2",
     "rimraf": "5.0.1",
-    "supabase": "1.83.7",
+    "supabase": "1.88.0",
     "typescript": "5.1.6",
-    "vitest": "0.34.1"
+    "vitest": "0.34.2"
   },
   "engines": {
     "node": ">=14"
