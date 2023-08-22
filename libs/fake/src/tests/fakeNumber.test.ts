@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { z } from 'zod'
-import { fakeNumber } from './fakeNumber'
+import { fakeNumber } from '../fake/fakeNumber'
 
 describe('fake', () => {
   test('number', () => {
