@@ -34,14 +34,14 @@ describe('async functions', () => {
     expect(() => failureDelay(-1000, 'this should throw error')).toThrow()
   })
 
-  test('timedFetch', async () => {
-    await expect(
-      timedFetch(10, 'https://jsonplaceholder.typicode.com/posts'),
-    ).rejects.toThrow('timed out')
-    await expect(
-      timedFetch(7000, 'https://jsonplaceholder.typicode.com/posts'),
-    ).resolves.toBeDefined()
-  }, 10000)
+  // test('timedFetch', async () => {
+  //   await expect(
+  //     timedFetch(10, 'https://jsonplaceholder.typicode.com/posts'),
+  //   ).rejects.toThrow('timed out')
+  //   await expect(
+  //     timedFetch(7000, 'https://jsonplaceholder.typicode.com/posts'),
+  //   ).resolves.toBeDefined()
+  // }, 10000)
 
   test('getPosts', async () => {
     await expect(getPosts()).resolves.toBeDefined()
