@@ -10,7 +10,7 @@ import {
   rolesAtom,
   tokenAtom,
 } from './state'
-import { isDefined, isNotNil } from '@srtp/spec'
+import { isDefined, isNotNil } from '@srtp/core'
 
 export const useLogin = () => {
   const setAuth = useSetAtom(authAtom)

@@ -1,6 +1,6 @@
 import type { EndpointBase, GetEpResponse, Params } from '@srtp/endpoint'
 import { linkfn } from '@srtp/endpoint'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import {
   useMutation,
   useQuery,

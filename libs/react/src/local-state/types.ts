@@ -1,5 +1,5 @@
 import type { Tail } from '@srtp/core'
-import type { Fundamental } from '@srtp/spec'
+import type { Fundamental } from '@srtp/core'
 import type { Draft } from 'immer'
 
 export type Effect<State extends object, Result> = Readonly<{

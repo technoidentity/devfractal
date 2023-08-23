@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { atom } from 'jotai'
 import type { Filter, Todo } from './types'
-import { computed } from '@srtp/global-state'
-import { action } from '@srtp/global-state'
+import { computed } from '@srtp/react'
+import { action } from '@srtp/react'
 import { exhaustive } from 'exhaustive'
 
 const todoList: readonly Todo[] = [

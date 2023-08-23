@@ -5,7 +5,7 @@ import { FixedSizeList } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
 import invariant from 'tiny-invariant'
 import { useInfiniteTodos } from './hooks'
-import { isDefined, isUndefined } from '@srtp/spec'
+import { isDefined, isUndefined } from '@srtp/core'
 
 const useTodoList = () => {
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =

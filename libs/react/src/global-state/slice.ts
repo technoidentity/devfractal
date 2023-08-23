@@ -1,5 +1,5 @@
-import type { Actions, Handlers } from '@srtp/local-state'
-import { getActionCreators, getActions, getReducer } from '@srtp/local-state'
+import type { Actions, Handlers } from '../local-state'
+import { getActionCreators, getActions, getReducer } from '../local-state'
 import type { Draft } from 'immer'
 import { produce } from 'immer'
 import { useSetAtom } from 'jotai'

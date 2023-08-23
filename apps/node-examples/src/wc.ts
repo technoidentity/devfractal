@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import type { PathLike } from 'node:fs'
 import fs from 'node:fs/promises'
 import invariant from 'tiny-invariant'

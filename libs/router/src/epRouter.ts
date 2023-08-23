@@ -3,7 +3,7 @@ import { paramsSpec, route } from '@srtp/endpoint'
 
 import type { Iff, IsDefined } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import { http, toPath } from '@srtp/web'
 import {
   type ActionFunction,

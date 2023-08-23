@@ -1,13 +1,5 @@
 import { Billable } from '@prisma/client'
-import { toStr } from '@srtp/spec'
-import {
-  date,
-  dateRange,
-  number,
-  positive,
-  spec,
-  string,
-} from '@srtp/validator'
+import { toStr , date, dateRange, number, positive, spec, string } from '@srtp/core'
 import { z } from 'zod'
 
 export const IntId = spec({ id: number() })

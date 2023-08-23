@@ -8,7 +8,7 @@ import type { Schema, z } from 'zod'
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
 import { useSafeQuery, type UseSafeQueryArgs } from '../safeQuery'
 import { axios } from '@srtp/web'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 
 export type MutationHandler = (
   api: typeof ApiDescriptions,

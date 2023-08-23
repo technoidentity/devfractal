@@ -1,6 +1,6 @@
 import type { EndpointBase } from '@srtp/endpoint'
 import {} from '@srtp/endpoint'
-import { boolean, number, string } from '@srtp/validator'
+import { boolean, number, string } from '@srtp/core'
 import { z } from 'zod'
 
 export const Todo = z.object({

@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { max } from './simple'
 import { Nat } from './specs'
-import { isDefined } from '@srtp/spec'
+import { isDefined } from '@srtp/core'
 
 test('max', () => {
   expect(max(1, 2, 3)).toBe(3)

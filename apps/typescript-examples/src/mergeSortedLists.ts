@@ -1,4 +1,4 @@
-import { isDefined } from '@srtp/spec'
+import { isDefined } from '@srtp/core'
 import type { Link } from './link'
 
 type OptionalLink<T> = Link<T> | undefined

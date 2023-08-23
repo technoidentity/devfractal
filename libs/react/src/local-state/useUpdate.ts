@@ -1,4 +1,4 @@
-import { isFunction, isUndefined } from '@srtp/spec'
+import { isFunction, isUndefined } from '@srtp/core'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ShallowObject, UpdateHandlers } from './types'

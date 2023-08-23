@@ -3,7 +3,7 @@ import type { LoaderFunctionArgs, RouteObject } from 'react-router-dom'
 import { NavLink, Outlet, useLoaderData } from 'react-router-dom'
 
 import { api } from '@core'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import { z } from 'zod'
 import { For } from '@srtp/react'
 

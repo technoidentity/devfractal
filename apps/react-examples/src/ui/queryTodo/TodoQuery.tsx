@@ -10,7 +10,7 @@ import {
   ListItem,
   Text,
 } from '@chakra-ui/react'
-import { useString } from '@srtp/local-state'
+import { useString } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
 
 import type { Todo } from './todo'

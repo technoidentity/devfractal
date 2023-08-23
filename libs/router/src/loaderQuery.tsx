@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import { http } from '@srtp/web'
 import type {
   QueryClient,

@@ -1,4 +1,4 @@
-import { tree } from '@srtp/local-state'
+import { tree } from '@srtp/react'
 import type { Filter, Todo } from '@srtp/todo'
 import { createTodo, initialState } from '@srtp/todo'
 

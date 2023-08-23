@@ -1,5 +1,5 @@
 import { Box, Button, Checkbox, Heading, Input } from '@chakra-ui/react'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 
 import type { KeyboardEvent } from 'react'
 import { ErrorMessage, Loading } from './common'

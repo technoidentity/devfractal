@@ -27,11 +27,9 @@
     "@mantine/hooks": "6.0.19",
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
-    "@srtp/global-state": "workspace:*",
-    "@srtp/local-state": "workspace:*",
     "@srtp/query": "workspace:*",
     "@srtp/react": "workspace:*",
-    "@srtp/spec": "workspace:*",
+
     "@srtp/web": "workspace:*",
     "@tanstack/react-query": "4.33.0",
     "chance": "1.1.11",

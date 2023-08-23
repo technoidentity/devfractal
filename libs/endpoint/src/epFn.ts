@@ -1,4 +1,4 @@
-import { cast, isObject } from '@srtp/spec'
+import { cast, isObject } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import type { Params, PathBase } from './endpoint'
 import { z } from 'zod'

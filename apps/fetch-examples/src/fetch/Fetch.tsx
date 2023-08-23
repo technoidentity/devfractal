@@ -3,7 +3,7 @@ import { ErrorMessage, Fetching, Loading } from './common'
 import { useCount, useToggle } from './hooks'
 import { Todo } from './types'
 import { useFetch } from './useFetch'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 
 const todosUrl = 'https://jsonplaceholder.typicode.com/todos'
 

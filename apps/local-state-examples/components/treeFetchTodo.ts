@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { tree } from '@srtp/local-state'
+import { tree } from '@srtp/react'
 
 type Todo = {
   id: number

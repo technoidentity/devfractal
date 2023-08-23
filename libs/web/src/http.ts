@@ -1,7 +1,7 @@
 import { createHttp$, type ApiOptions } from './http$'
 import { fetch$ } from './fetch$'
 import type { z } from 'zod'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 
 export function createHttp(fetcher = fetch$) {
   const base = createHttp$(fetcher)

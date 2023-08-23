@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import type { UpdateHandlers } from './types'
 import { capitalize } from '@srtp/fn'
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 
 export function safeUpdateState<Spec extends z.AnyZodObject>(spec: Spec) {
   type T = z.infer<Spec>

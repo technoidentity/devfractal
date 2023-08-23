@@ -1,5 +1,5 @@
 import { Button, Container, HStack, Text } from '@chakra-ui/react'
-import { useInt } from '@srtp/local-state/src'
+import { useInt } from '@srtp/react'
 
 export const Counter = () => {
   const [count, setCount] = useInt()

@@ -6,7 +6,7 @@ import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import { useActionData } from 'react-router-dom'
 import { safeSearch } from '@srtp/router'
-import { isDefined } from '@srtp/spec'
+import { isDefined } from '@srtp/core'
 
 export type Obj = Record<string, any>
 export type Form<T extends Obj> = ReturnType<typeof useForm<T>>[0]

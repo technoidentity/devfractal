@@ -457,27 +457,15 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
-      '@srtp/global-state':
-        specifier: workspace:*
-        version: link:../../libs/global-state
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
       '@srtp/query':
         specifier: workspace:*
         version: link:../../libs/query
       '@srtp/react':
         specifier: workspace:*
         version: link:../../libs/react
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
       '@srtp/todo':
         specifier: workspace:*
         version: link:../../packages/todo
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
       '@srtp/web':
         specifier: workspace:*
         version: link:../../libs/web
@@ -626,18 +614,9 @@ importers:
       '@srtp/form':
         specifier: workspace:*
         version: link:../../libs/form
-      '@srtp/global-state':
+      '@srtp/react':
         specifier: workspace:*
-        version: link:../../libs/global-state
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
+        version: link:../../libs/react
       '@tanstack/react-query':
         specifier: 4.33.0
         version: 4.33.0(react-dom@18.2.0)(react@18.2.0)
@@ -813,12 +792,6 @@ importers:
       '@srtp/form':
         specifier: workspace:*
         version: link:../../libs/form
-      '@srtp/global-state':
-        specifier: workspace:*
-        version: link:../../libs/global-state
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
       '@srtp/react':
         specifier: workspace:*
         version: link:../../libs/react
@@ -958,18 +931,12 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
-      '@srtp/local-state':
+      '@srtp/react':
         specifier: workspace:*
-        version: link:../../libs/local-state
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
+        version: link:../../libs/react
       '@srtp/todo':
         specifier: workspace:*
         version: link:../../packages/todo
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
       core-js:
         specifier: 3.32.1
         version: 3.32.1
@@ -1170,9 +1137,6 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
       better-sqlite3:
         specifier: 8.5.1
         version: 8.5.1
@@ -1273,21 +1237,12 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
-      '@srtp/global-state':
-        specifier: workspace:*
-        version: link:../../libs/global-state
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
       '@srtp/query':
         specifier: workspace:*
         version: link:../../libs/query
       '@srtp/react':
         specifier: workspace:*
         version: link:../../libs/react
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
       '@srtp/web':
         specifier: workspace:*
         version: link:../../libs/web
@@ -1512,12 +1467,6 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
-      '@srtp/global-state':
-        specifier: workspace:*
-        version: link:../../libs/global-state
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
       '@srtp/query':
         specifier: workspace:*
         version: link:../../libs/query
@@ -1527,12 +1476,6 @@ importers:
       '@srtp/router':
         specifier: workspace:*
         version: link:../../libs/router
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
       '@srtp/web':
         specifier: workspace:*
         version: link:../../libs/web
@@ -1654,12 +1597,6 @@ importers:
       '@srtp/server':
         specifier: workspace:*
         version: link:../../libs/server
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
       hono:
         specifier: 3.5.0
         version: 3.5.0
@@ -1927,9 +1864,6 @@ importers:
       '@srtp/form':
         specifier: workspace:*
         version: link:../../libs/form
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
       '@srtp/query':
         specifier: workspace:*
         version: link:../../libs/query
@@ -1948,15 +1882,9 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../../libs/result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
       '@srtp/table':
         specifier: workspace:*
         version: link:../../libs/table
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
       '@tabler/icons-react':
         specifier: 2.32.0
         version: 2.32.0(react@18.2.0)
@@ -2141,9 +2069,6 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
       '@srtp/web':
         specifier: workspace:*
         version: link:../../libs/web
@@ -2153,9 +2078,6 @@ importers:
       tiny-invariant:
         specifier: 1.3.1
         version: 1.3.1
-      tiny-warning:
-        specifier: 1.0.3
-        version: 1.0.3
       tslib:
         specifier: 2.6.2
         version: 2.6.2
@@ -2217,18 +2139,6 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../../libs/local-state
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
-      '@srtp/todo':
-        specifier: workspace:*
-        version: link:../../packages/todo
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../../libs/validator
       class-variance-authority:
         specifier: 0.7.0
         version: 0.7.0
@@ -2350,12 +2260,6 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../core
-      '@srtp/global-state':
-        specifier: workspace:*
-        version: link:../global-state
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       immer:
         specifier: 10.0.2
         version: 10.0.2
@@ -2435,18 +2339,12 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../core
-      '@srtp/local-state':
+      '@srtp/react':
         specifier: workspace:*
-        version: link:../local-state
+        version: link:../react
       '@srtp/router':
         specifier: workspace:^
         version: link:../router
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       '@srtp/web':
         specifier: workspace:*
         version: link:../web
@@ -2520,9 +2418,6 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       '@total-typescript/ts-reset':
         specifier: 0.5.1
         version: 0.5.1
@@ -2587,12 +2482,6 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/global-state':
-        specifier: workspace:*
-        version: link:../global-state
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../local-state
       '@srtp/query':
         specifier: workspace:*
         version: link:../query
@@ -2605,18 +2494,12 @@ importers:
       '@srtp/router':
         specifier: workspace:*
         version: link:../router
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       '@srtp/ui':
         specifier: workspace:*
         version: link:../ui
       '@srtp/ui-form':
         specifier: workspace:*
         version: link:../ui-form
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       '@srtp/web':
         specifier: workspace:*
         version: link:../web
@@ -2693,12 +2576,6 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       immer:
         specifier: 10.0.2
         version: 10.0.2
@@ -2827,9 +2704,6 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       chance:
         specifier: 1.1.11
         version: 1.1.11
@@ -2952,15 +2826,9 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/local-state':
+      '@srtp/react':
         specifier: workspace:*
-        version: link:../local-state
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
+        version: link:../react
       '@srtp/web':
         specifier: workspace:*
         version: link:../web
@@ -3026,164 +2894,6 @@ importers:
         specifier: 0.34.2
         version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
 
-  libs/global-state:
-    dependencies:
-      '@srtp/core':
-        specifier: workspace:*
-        version: link:../core
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../local-state
-      '@srtp/react':
-        specifier: workspace:*
-        version: link:../react
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      immer:
-        specifier: 10.0.2
-        version: 10.0.2
-      jotai:
-        specifier: 2.3.1
-        version: 2.3.1(@types/react@18.2.20)(react@18.2.0)
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
-      tiny-invariant:
-        specifier: 1.3.1
-        version: 1.3.1
-      tiny-warning:
-        specifier: 1.0.3
-        version: 1.0.3
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
-      zod:
-        specifier: 3.22.2
-        version: 3.22.2
-    devDependencies:
-      '@srtp/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: 20.5.1
-        version: 20.5.1
-      '@types/react':
-        specifier: 18.2.20
-        version: 18.2.20
-      '@types/react-dom':
-        specifier: 18.2.7
-        version: 18.2.7
-      cross-env:
-        specifier: 7.0.3
-        version: 7.0.3
-      eslint:
-        specifier: 8.47.0
-        version: 8.47.0
-      eslint-config-srtp:
-        specifier: workspace:*
-        version: link:../eslint-config-srtp
-      prettier:
-        specifier: 3.0.2
-        version: 3.0.2
-      rimraf:
-        specifier: 5.0.1
-        version: 5.0.1
-      tsup:
-        specifier: 7.2.0
-        version: 7.2.0(typescript@5.1.6)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-      vitest:
-        specifier: 0.34.2
-        version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
-
-  libs/local-state:
-    dependencies:
-      '@srtp/core':
-        specifier: workspace:*
-        version: link:../core
-      '@srtp/fn':
-        specifier: workspace:*
-        version: link:../fn
-      '@srtp/react':
-        specifier: workspace:*
-        version: link:../react
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
-      immer:
-        specifier: 10.0.2
-        version: 10.0.2
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
-      react-error-boundary:
-        specifier: 4.0.11
-        version: 4.0.11(react@18.2.0)
-      tiny-invariant:
-        specifier: 1.3.1
-        version: 1.3.1
-      tiny-warning:
-        specifier: 1.0.3
-        version: 1.0.3
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
-      use-immer:
-        specifier: 0.9.0
-        version: 0.9.0(immer@10.0.2)(react@18.2.0)
-      zod:
-        specifier: 3.22.2
-        version: 3.22.2
-    devDependencies:
-      '@srtp/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: 20.5.1
-        version: 20.5.1
-      '@types/react':
-        specifier: 18.2.20
-        version: 18.2.20
-      '@types/react-dom':
-        specifier: 18.2.7
-        version: 18.2.7
-      cross-env:
-        specifier: 7.0.3
-        version: 7.0.3
-      eslint:
-        specifier: 8.47.0
-        version: 8.47.0
-      eslint-config-srtp:
-        specifier: workspace:*
-        version: link:../eslint-config-srtp
-      prettier:
-        specifier: 3.0.2
-        version: 3.0.2
-      rimraf:
-        specifier: 5.0.1
-        version: 5.0.1
-      tsup:
-        specifier: 7.2.0
-        version: 7.2.0(typescript@5.1.6)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-      vitest:
-        specifier: 0.34.2
-        version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
-
   libs/next-api:
     dependencies:
       '@srtp/core':
@@ -3192,12 +2902,6 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@tanstack/react-query':
-        specifier: 4.33.0
-        version: 4.33.0(react-dom@18.2.0)(react@18.2.0)
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
@@ -3277,21 +2981,12 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../local-state
       '@srtp/react':
         specifier: workspace:*
         version: link:../react
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       '@srtp/web':
         specifier: workspace:*
         version: link:../web
@@ -3386,15 +3081,12 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       immer:
         specifier: 10.0.2
         version: 10.0.2
+      jotai:
+        specifier: ^2.3.1
+        version: 2.3.1(@types/react@18.2.20)(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -3535,9 +3227,6 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       immer:
         specifier: 10.0.2
         version: 10.0.2
@@ -3620,30 +3309,12 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../core
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../local-state
       '@srtp/react':
         specifier: workspace:*
         version: link:../react
       '@srtp/remix-core':
         specifier: workspace:*
         version: link:../remix-core
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
-      query-string:
-        specifier: 8.1.0
-        version: 8.1.0
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
       superjson:
         specifier: 1.13.1
         version: 1.13.1
@@ -3757,12 +3428,6 @@ importers:
       '@srtp/react':
         specifier: workspace:*
         version: link:../react
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       '@srtp/web':
         specifier: workspace:*
         version: link:../web
@@ -3839,6 +3504,9 @@ importers:
 
   libs/server:
     dependencies:
+      '@srtp/core':
+        specifier: workspace:*
+        version: link:../core
       '@srtp/endpoint':
         specifier: workspace:*
         version: link:../endpoint
@@ -3848,64 +3516,15 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       hono:
-        specifier: 3.5.0
-        version: 3.5.0
+        specifier: 3.5.1
+        version: 3.5.1
       http-status-codes:
         specifier: 2.2.0
         version: 2.2.0
       immer:
         specifier: 10.0.2
         version: 10.0.2
-      tiny-invariant:
-        specifier: 1.3.1
-        version: 1.3.1
-      tiny-warning:
-        specifier: 1.0.3
-        version: 1.0.3
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
-      zod:
-        specifier: 3.22.2
-        version: 3.22.2
-    devDependencies:
-      '@srtp/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: 20.5.1
-        version: 20.5.1
-      cross-env:
-        specifier: 7.0.3
-        version: 7.0.3
-      eslint:
-        specifier: 8.47.0
-        version: 8.47.0
-      eslint-config-srtp:
-        specifier: workspace:*
-        version: link:../eslint-config-srtp
-      prettier:
-        specifier: 3.0.2
-        version: 3.0.2
-      rimraf:
-        specifier: 5.0.1
-        version: 5.0.1
-      tsup:
-        specifier: 7.2.0
-        version: 7.2.0(typescript@5.1.6)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-      vitest:
-        specifier: 0.34.2
-        version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
-
-  libs/spec:
-    dependencies:
       tiny-invariant:
         specifier: 1.3.1
         version: 1.3.1
@@ -3964,12 +3583,9 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/local-state':
+      '@srtp/react':
         specifier: workspace:*
-        version: link:../local-state
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
+        version: link:../react
       '@tabler/icons-react':
         specifier: 2.32.0
         version: 2.32.0(react@18.2.0)
@@ -3985,9 +3601,6 @@ importers:
       react-icons:
         specifier: 4.10.1
         version: 4.10.1(react@18.2.0)
-      tabler-icons-react:
-        specifier: 1.56.0
-        version: 1.56.0(react@18.2.0)
       tiny-invariant:
         specifier: 1.3.1
         version: 1.3.1
@@ -4135,12 +3748,6 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       class-variance-authority:
         specifier: 0.7.0
         version: 0.7.0
@@ -4268,33 +3875,18 @@ importers:
       '@srtp/result':
         specifier: workspace:*
         version: link:../result
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       '@srtp/ui':
         specifier: workspace:*
         version: link:../ui
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       date-fns:
         specifier: 2.30.0
         version: 2.30.0
-      immer:
-        specifier: 10.0.2
-        version: 10.0.2
       lucide-react:
         specifier: 0.268.0
         version: 0.268.0(react@18.2.0)
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
       react-day-picker:
         specifier: 8.8.1
         version: 8.8.1(date-fns@2.30.0)(react@18.2.0)
-      react-dom:
-        specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
       react-error-boundary:
         specifier: 4.0.11
         version: 4.0.11(react@18.2.0)
@@ -4365,15 +3957,9 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/local-state':
-        specifier: workspace:*
-        version: link:../local-state
       '@srtp/react':
         specifier: workspace:*
         version: link:../react
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
       '@srtp/ui':
         specifier: workspace:*
         version: link:../ui
@@ -4445,61 +4031,6 @@ importers:
         specifier: 0.34.2
         version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
 
-  libs/validator:
-    dependencies:
-      '@srtp/core':
-        specifier: workspace:*
-        version: link:../core
-      '@srtp/result':
-        specifier: workspace:*
-        version: link:../result
-      immer:
-        specifier: 10.0.2
-        version: 10.0.2
-      tiny-invariant:
-        specifier: 1.3.1
-        version: 1.3.1
-      tiny-warning:
-        specifier: 1.0.3
-        version: 1.0.3
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
-      zod:
-        specifier: 3.22.2
-        version: 3.22.2
-    devDependencies:
-      '@srtp/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: 20.5.1
-        version: 20.5.1
-      cross-env:
-        specifier: 7.0.3
-        version: 7.0.3
-      eslint:
-        specifier: 8.47.0
-        version: 8.47.0
-      eslint-config-srtp:
-        specifier: workspace:*
-        version: link:../eslint-config-srtp
-      prettier:
-        specifier: 3.0.2
-        version: 3.0.2
-      rimraf:
-        specifier: 5.0.1
-        version: 5.0.1
-      tsup:
-        specifier: 7.2.0
-        version: 7.2.0(typescript@5.1.6)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-      vitest:
-        specifier: 0.34.2
-        version: 0.34.2(@vitest/ui@0.34.2)(jsdom@22.1.0)
-
   libs/web:
     dependencies:
       '@srtp/core':
@@ -4511,12 +4042,6 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../fn
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../spec
-      '@srtp/validator':
-        specifier: workspace:*
-        version: link:../validator
       http-status-codes:
         specifier: 2.2.0
         version: 2.2.0
@@ -4621,9 +4146,6 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
-      '@srtp/spec':
-        specifier: workspace:*
-        version: link:../../libs/spec
       '@types/node':
         specifier: 20.5.1
         version: 20.5.1
@@ -20351,6 +19873,11 @@ packages:
     engines: {node: '>=16.0.0'}
     dev: false
 
+  /hono@3.5.1:
+    resolution: {integrity: sha512-L31KJg1Qu1ZHYKlpHYymqyDPR9U5SOy+X6c6+HQxBOGMGrJFawd5BvfcP+0rrGcw1bN5xk61+k3oKW4jFWyUkw==}
+    engines: {node: '>=16.0.0'}
+    dev: false
+
   /hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
 
@@ -27017,14 +26544,6 @@ packages:
 
   /tabbable@6.2.0:
     resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==}
-    dev: false
-
-  /tabler-icons-react@1.56.0(react@18.2.0):
-    resolution: {integrity: sha512-FOme3w6PJIWDpeXqQ4xjArQqdxzrr9xNy7PSSgWpRzOUQ71RyZ7jt6WThsfyLBz5os78TPJRA8f/0NLjnKcx9A==}
-    peerDependencies:
-      react: '>= 16.8.0'
-    dependencies:
-      react: 18.2.0
     dev: false
 
   /tailwind-merge@1.14.0:

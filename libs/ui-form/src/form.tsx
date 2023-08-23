@@ -4,12 +4,12 @@ import type { UseFormInput, UseFormReturnType } from '@mantine/form/lib/types'
 import type LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import { context } from '@srtp/react'
-import { getRawShape, isNotNil } from '@srtp/spec'
+import { getRawShape, isNotNil } from '@srtp/core'
 import React, { type ComponentProps } from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-import { cn } from '@srtp/ui/src/utils'
-import { Label } from '@srtp/ui/src/ui/label'
+import { cn } from '@srtp/ui'
+import { Label } from '@srtp/ui'
 
 type FormSpec = z.ZodEffects<any> | z.AnyZodObject
 

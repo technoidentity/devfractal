@@ -1,4 +1,4 @@
-import { Natural, checked } from '@srtp/spec'
+import { Natural, checked } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { http } from '@srtp/web'
 

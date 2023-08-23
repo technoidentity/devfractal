@@ -1,4 +1,4 @@
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 import type {
   BudgetSearchSpec,
   BudgetUtilizedSearchSpec,

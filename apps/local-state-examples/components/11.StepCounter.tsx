@@ -1,5 +1,5 @@
 import { Box, Input, Text } from '@chakra-ui/react'
-import { pstate, type PHandlers } from '@srtp/local-state'
+import { pstate, type PHandlers } from '@srtp/react'
 import React from 'react'
 
 const initial = { count: 0 }

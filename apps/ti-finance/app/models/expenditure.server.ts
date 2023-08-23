@@ -1,5 +1,5 @@
 import type { Expenditure } from '@prisma/client'
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 import type {
   CreateExpenditureSpec,
   ExpenditureSearchSpec,

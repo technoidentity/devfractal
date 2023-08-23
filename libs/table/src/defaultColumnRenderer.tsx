@@ -1,4 +1,4 @@
-import { toStr } from '@srtp/spec'
+import { toStr } from '@srtp/core'
 import type { RowBase } from './types'
 import React from 'react'
 

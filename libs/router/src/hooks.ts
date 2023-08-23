@@ -2,7 +2,7 @@
 
 import { linkfn, type Params, type PathBase } from '@srtp/endpoint'
 import { useEvent } from '@srtp/react'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import { toSearch } from '@srtp/web'
 import React from 'react'
 import {

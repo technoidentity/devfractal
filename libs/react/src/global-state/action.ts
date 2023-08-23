@@ -1,4 +1,4 @@
-import { is } from '@srtp/spec'
+import { is } from '@srtp/core'
 import type { Draft } from 'immer'
 import { produce } from 'immer'
 import type { Getter, Setter, WritableAtom } from 'jotai'

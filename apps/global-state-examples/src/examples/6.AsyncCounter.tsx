@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react'
 import { delay } from '@srtp/core'
-import { computed, derived, useAction, useValue } from '@srtp/global-state'
+import { computed, derived, useAction, useValue } from '@srtp/react'
 import { atom } from 'jotai'
 import { Suspense } from 'react'
 

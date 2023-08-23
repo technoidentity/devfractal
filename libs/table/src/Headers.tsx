@@ -5,7 +5,11 @@ import {
   Text,
   UnstyledButton,
 } from '@mantine/core'
-import { ArrowsSort, SortAscending, SortDescending } from 'tabler-icons-react'
+import {
+  IconArrowsSort,
+  IconSortAscending,
+  IconSortDescending,
+} from '@tabler/icons-react'
 import type { Column, RowBase, Sort, TableViewProps } from './types'
 
 const useStyles = createStyles(theme => ({
@@ -49,9 +53,9 @@ function SortIcon<Row extends RowBase>({ column, sort }: SortIconProps<Row>) {
   const Comp =
     column.accessor === sort.orderBy
       ? sort.order === 'asc'
-        ? SortAscending
-        : SortDescending
-      : ArrowsSort
+        ? IconSortAscending
+        : IconSortDescending
+      : IconArrowsSort
 
   return <Comp {...props} />
 }

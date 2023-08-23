@@ -1,6 +1,6 @@
 // /* eslint-disable @typescript-eslint/no-misused-promises */
 
-// import { signal, useAction, useValue } from '@srtp/global-state'
+// import { signal, useAction, useValue } from '@srtp/react'
 // import { PrimitiveAtom, useAtom } from 'jotai'
 // import { Provider } from 'jotai'
 // import { focusAtom } from 'jotai-optics'

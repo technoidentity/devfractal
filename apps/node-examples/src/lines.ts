@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import { createReadStream, type PathLike } from 'node:fs'
 import { argv } from 'node:process'
 import { createInterface } from 'node:readline'

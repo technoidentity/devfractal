@@ -14,7 +14,7 @@ import {
   take,
   toArray,
 } from '@srtp/fn'
-import { ensure, toInt } from '@srtp/spec'
+import { ensure, toInt } from '@srtp/core'
 import { produce } from 'immer'
 import { z } from 'zod'
 

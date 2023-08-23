@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { tryFromZod } from '@srtp/core'
+
 import type { Try } from '@srtp/result'
 import invariant from 'tiny-invariant'
 import type { ZodEnum, ZodNativeEnum } from 'zod'
 import { z } from 'zod'
+import { tryFromZod } from './utils'
 
 export const number = (defaultValue?: number) =>
   defaultValue ? z.coerce.number().default(defaultValue) : z.coerce.number()

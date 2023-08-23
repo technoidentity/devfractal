@@ -6,7 +6,7 @@ import type {
   GetRequestArg,
 } from '@srtp/endpoint'
 import { route } from '@srtp/endpoint'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import { fetch$, type BaseFetchOptions } from './fetch$'
 import { toPath } from './url'
 

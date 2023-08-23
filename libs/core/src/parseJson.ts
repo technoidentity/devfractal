@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from './spec'
 import type { z } from 'zod'
 
 export function parseJSON(value: string | null): unknown {

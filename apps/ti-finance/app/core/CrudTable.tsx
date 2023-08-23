@@ -1,5 +1,5 @@
 import type { Column, RowBase } from '@srtp/table'
-import type { FormSpec } from '@srtp/validator'
+import type { FormSpec } from '@srtp/core'
 import type { z } from 'zod'
 import { useActions } from './createActions'
 import type { EditFormProps } from './EditForm'

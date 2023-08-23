@@ -1,6 +1,6 @@
 import { toArray } from '@srtp/fn'
-import type { Getter } from '@srtp/global-state'
-import { atomWithHooks, useAction, useValue } from '@srtp/global-state'
+import type { Getter } from '@srtp/react'
+import { atomWithHooks, useAction, useValue } from '@srtp/react'
 import type { CreateTodo, Filter, State, Todo } from '@srtp/todo'
 import { createTodo, initialState } from '@srtp/todo'
 import type { Draft } from 'immer'

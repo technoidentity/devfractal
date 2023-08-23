@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
 
 // @TODO: should be web?

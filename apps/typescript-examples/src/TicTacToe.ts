@@ -7,7 +7,7 @@ import {
 } from './domUtils'
 import './ticTacToeStyles.css'
 import { range } from '@srtp/fn'
-import { isDefined, toInt, toStr } from '@srtp/spec'
+import { isDefined, toInt, toStr } from '@srtp/core'
 
 type Player = 'X' | 'O'
 

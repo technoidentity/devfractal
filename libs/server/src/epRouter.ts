@@ -7,7 +7,7 @@ import {
   type GetParamsArg,
   type GetRequestArg,
 } from '@srtp/endpoint'
-import { cast, isNotNilSpec, isUndefined } from '@srtp/spec'
+import { cast, isNotNilSpec, isUndefined } from '@srtp/core'
 import { Hono, type Context } from 'hono'
 import { logger } from 'hono/logger'
 import { StatusCodes } from 'http-status-codes'

@@ -1,4 +1,4 @@
-import { checked } from '@srtp/spec'
+import { checked } from '@srtp/core'
 import { z } from 'zod'
 
 export const isLeap = (year: number): boolean =>

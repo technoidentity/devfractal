@@ -1,39 +1,30 @@
-import { Input, Text } from '@chakra-ui/react'
-import { useLocal } from '@srtp/global-state'
-import { useEvent } from '@srtp/react'
-import { Provider } from 'jotai'
+import { atom } from 'jotai'
+import React from 'react'
+import { useValue } from '@srtp/react'
+export const useToggle = (init = false) => {
+  const [state, dispatch] = React.useReducer(state => !state, init)
 
-const CharCount = ({ len }: { len: number }) => {
-  return <Text>Length: {len}</Text>
+  return [state, dispatch] as const
 }
 
-const Uppercase = ({ uppercase }: { uppercase: string }) => {
-  return <Text>Uppercase: {uppercase}</Text>
+export const useCount = (init = 0) => {
+  const [count, dispatch] = React.useReducer(
+    (state: number, action: 'inc' | 'dec') =>
+      action === 'inc' ? state + 1 : state - 1,
+    init,
+  )
+
+  return [count, dispatch] as const
 }
 
-export const Computed = () => {
-  const [value, set, useComputed] = useLocal('hello')
-
-  const textLen = useComputed(text => text.length)
-  const uppercase = useComputed(text => text.toUpperCase())
-
-  const onChange = useEvent((e: React.ChangeEvent<HTMLInputElement>) =>
-    set(e.target.value),
-  )
-
-  return (
-    <>
-      <Input value={value} onChange={onChange} />
-      <CharCount len={textLen} />
-      <Uppercase uppercase={uppercase} />
-    </>
-  )
+export const useForceUpdate = () => {
+  const [, dispatch] = useCount()
+  return React.useCallback(() => {
+    dispatch('inc')
+  }, [dispatch])
 }
 
-export const App = () => {
-  return (
-    <Provider>
-      <Computed />
-    </Provider>
-  )
+export function useAsync<T>(fn: () => Promise<T>) {
+  const signal = React.useMemo(() => atom(fn), [fn])
+  return useValue(signal)
 }

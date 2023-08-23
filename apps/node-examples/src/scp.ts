@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import fs from 'node:fs'
 import { argv } from 'node:process'
 import invariant from 'tiny-invariant'

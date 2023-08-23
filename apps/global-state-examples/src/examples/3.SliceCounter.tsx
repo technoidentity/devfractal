@@ -1,6 +1,6 @@
 import { Box, Button, Text } from '@chakra-ui/react'
 import { Flex } from '@mantine/core'
-import { slice, useValue } from '@srtp/global-state'
+import { slice, useValue } from '@srtp/react'
 
 const [counterAtom, useActions] = slice(
   { count: 100 },

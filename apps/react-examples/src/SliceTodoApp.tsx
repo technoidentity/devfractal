@@ -11,8 +11,8 @@ import {
 } from '@chakra-ui/react'
 import type { KeyboardEvent } from 'react'
 
-import { useString } from '@srtp/local-state'
-import { slice } from '@srtp/global-state'
+import { useString } from '@srtp/react'
+import { slice } from '@srtp/react'
 
 import './index.css'
 import { useEvent, useInputState } from '@srtp/react'

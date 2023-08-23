@@ -1,4 +1,4 @@
-import { notNil } from '@srtp/spec'
+import { notNil } from '@srtp/core'
 
 export const getElement = (id: string) => notNil(document.getElementById(id))
 

@@ -1,5 +1,5 @@
 import { delay } from '@srtp/core'
-import { state$, useState$ } from '@srtp/local-state'
+import { state$, useState$ } from '@srtp/react'
 import { axios } from '@srtp/web'
 import React from 'react'
 

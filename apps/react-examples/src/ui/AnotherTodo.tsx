@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import type { KeyboardEvent } from 'react'
 
-import { primitive, state } from '@srtp/local-state'
+import { primitive, state } from '@srtp/react'
 import { z } from 'zod'
 import { useEvent, useInputState } from '@srtp/react'
 

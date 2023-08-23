@@ -1,5 +1,5 @@
 import { all, filter, map, pipe, plus, range, reduce, toArray } from '@srtp/fn'
-import { checked, Natural } from '@srtp/spec'
+import { checked, Natural } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 import { minBy } from './array'

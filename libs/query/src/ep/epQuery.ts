@@ -1,4 +1,4 @@
-import { cast, isNilSpec } from '@srtp/spec'
+import { cast, isNilSpec } from '@srtp/core'
 import {
   useMutation,
   useQueryClient,

@@ -2,7 +2,7 @@ import { HStack } from '@chakra-ui/react'
 import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet, useParams } from 'react-router-dom'
 
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 

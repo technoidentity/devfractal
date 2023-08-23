@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 
 import type { z } from 'zod'
 import { createHttp$, type ApiOptions } from './http$'

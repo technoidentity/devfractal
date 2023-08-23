@@ -1,4 +1,4 @@
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 
 export type BTNode<T> = {
   value: T

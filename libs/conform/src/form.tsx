@@ -1,4 +1,4 @@
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import invariant from 'tiny-invariant'

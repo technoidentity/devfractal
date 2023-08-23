@@ -1,4 +1,4 @@
-import { computed } from '@srtp/global-state'
+import { computed } from '@srtp/react'
 import { PRODUCTS } from '../../utils/data'
 import { categorizedProducts } from '../../utils/dataTransform'
 import { atom } from 'jotai'

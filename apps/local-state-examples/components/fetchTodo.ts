@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { pstate } from '@srtp/local-state/src/fastLocalState'
+import { pstate } from '@srtp/react'
 
 type Todo = {
   id: number

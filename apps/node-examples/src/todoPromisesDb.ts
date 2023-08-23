@@ -1,4 +1,4 @@
-import { isDefined } from '@srtp/spec'
+import { isDefined } from '@srtp/core'
 import sqlite3 from 'sqlite3'
 
 type Todo = Readonly<{

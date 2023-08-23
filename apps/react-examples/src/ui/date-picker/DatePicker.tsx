@@ -1,7 +1,7 @@
 import { HStack, Select } from '@chakra-ui/react'
 import { map, pipe, range, toArray } from '@srtp/fn'
-import { useUpdate } from '@srtp/local-state'
-import { toInt } from '@srtp/spec'
+import { useUpdate } from '@srtp/react'
+import { toInt } from '@srtp/core'
 
 const dates = pipe(
   range(1, 30),

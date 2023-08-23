@@ -10,7 +10,7 @@ import {
 import { a, useSpring } from '@react-spring/web'
 import Parser from 'html-react-parser'
 import { Suspense } from 'react'
-import { computed, useAction, useValue } from '@srtp/global-state'
+import { computed, useAction, useValue } from '@srtp/react'
 import { atom } from 'jotai'
 
 type PostData = Readonly<{

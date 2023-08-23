@@ -1,5 +1,5 @@
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 import invariant from 'tiny-invariant'
 
 import type { User } from '~/models/user.server'

@@ -1,6 +1,6 @@
 import type { z } from 'zod'
 
-import { cast, isFunction } from '@srtp/spec'
+import { cast, isFunction } from '@srtp/core'
 import { useEvent } from './useEvent'
 
 import React from 'react'

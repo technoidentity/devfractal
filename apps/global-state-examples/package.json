@@ -32,8 +32,6 @@
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/form": "workspace:*",
-    "@srtp/global-state": "workspace:*",
-    "@srtp/local-state": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/todo": "workspace:*",
     "@tabler/icons-react": "2.32.0",

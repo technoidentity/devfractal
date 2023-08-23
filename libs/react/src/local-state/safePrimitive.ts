@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import type { FieldSpec } from '@srtp/validator'
+import type { FieldSpec } from '@srtp/core'
 import {
   boolean,
   date,
@@ -9,7 +9,7 @@ import {
   int,
   number,
   string,
-} from '@srtp/validator'
+} from '@srtp/core'
 import React from 'react'
 import { z } from 'zod'
 import { safeUpdateState } from './safeState'

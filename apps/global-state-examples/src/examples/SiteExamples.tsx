@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-return-await */
 
-import {
-  action,
-  computed,
-  derived,
-  useAction,
-  useValue,
-} from '@srtp/global-state'
+import { action, computed, derived, useAction, useValue } from '@srtp/react'
 import { atom } from 'jotai'
 
 const countAtom = atom(0)

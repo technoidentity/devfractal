@@ -1,4 +1,4 @@
-import { safeAction, safeActions, safeReducer, tree$ } from '@srtp/local-state'
+import { safeAction, safeActions, safeReducer, tree$ } from '@srtp/react'
 import { CreateTodo, State, Todo, createTodo, initialState } from '@srtp/todo'
 import { z } from 'zod'
 

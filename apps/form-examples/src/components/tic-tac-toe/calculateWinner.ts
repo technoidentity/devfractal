@@ -1,4 +1,4 @@
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 import type { Player } from './Square'
 import { map, pipe, range, toArray } from '@srtp/fn'
 

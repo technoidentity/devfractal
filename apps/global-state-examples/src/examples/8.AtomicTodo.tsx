@@ -9,7 +9,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { a, useTransition } from '@react-spring/web'
-import { atoms, computed, useAction, useValue } from '@srtp/global-state'
+import { atoms, computed, useAction, useValue } from '@srtp/react'
 import type { PrimitiveAtom } from 'jotai'
 import { atom } from 'jotai'
 import type { FormEvent } from 'react'

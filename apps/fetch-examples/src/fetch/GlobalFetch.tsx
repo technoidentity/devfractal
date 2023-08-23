@@ -7,7 +7,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { ErrorMessage, Loading } from './common'
 import { useToggle } from './hooks'
 import { get as fetch } from './utils'
-import { useValue, useAction } from '@srtp/global-state'
+import { useValue, useAction } from '@srtp/react'
 
 const createFetchAtom = (urlAtom: Atom<string>) => {
   const fetchAtom = atom(async get => {

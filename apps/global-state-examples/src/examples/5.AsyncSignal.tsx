@@ -1,4 +1,4 @@
-import { computed, useValue } from '@srtp/global-state'
+import { computed, useValue } from '@srtp/react'
 import { atom } from 'jotai'
 
 const urlSignal = atom('https://jsonplaceholder.typicode.com/posts/1')

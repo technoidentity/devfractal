@@ -1,5 +1,5 @@
 import type { UnionToIntersection } from '@srtp/core'
-import { ZodPrimitive } from '@srtp/spec'
+import { ZodPrimitive } from '@srtp/core'
 import { z } from 'zod'
 
 export const HttpMethod = z.enum(['get', 'post', 'put', 'delete', 'patch'])

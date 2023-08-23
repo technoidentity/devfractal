@@ -1,11 +1,10 @@
 import { useActionData, useLoaderData, useSearchParams } from '@remix-run/react'
-import { isEmpty } from '@srtp/core'
+import { isEmpty , cast } from '@srtp/core'
 import type { FormErrors } from '@srtp/remix-core'
 import qs from 'query-string'
 import React from 'react'
 import type { z } from 'zod'
 import { createErrorsSpec } from './errorsSpec'
-import { cast } from '@srtp/spec'
 
 export function useLatest<T>(v: T) {
   const ref = React.useRef(v)

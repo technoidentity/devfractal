@@ -1,33 +1,64 @@
-import { Text } from '@chakra-ui/react'
-import { computed, useAction, useValue } from '@srtp/global-state'
-import { Provider, atom } from 'jotai'
+import { Box, Button } from '@chakra-ui/react'
 
-const textAtom = atom('hello')
-const textLenAtom = computed(get => get(textAtom).length)
-const uppercaseAtom = computed(get => get(textAtom).toUpperCase())
+import { useAction, useToggle, useValue } from '@srtp/react'
+import type { Atom } from 'jotai'
+import { atom } from 'jotai'
 
-const Input = () => {
-  const setText = useAction(textAtom)
+const createFetchAtom = (urlAtom: Atom<string>) => {
+  const fetchAtom = atom(async get => {
+    const url = get(urlAtom)
+    return fetch(url)
+  })
 
-  return <input onChange={e => setText(e.target.value)} />
+  return fetchAtom
 }
 
-const CharCount = () => {
-  const len = useValue(textLenAtom)
-
-  return <Text>Length: {len}</Text>
-}
-
-const Uppercase = () => {
-  const uppercase = useValue(uppercaseAtom)
-
-  return <Text>Uppercase: {uppercase}</Text>
-}
-
-export const Computed = () => (
-  <Provider>
-    <Input />
-    <CharCount />
-    <Uppercase />
-  </Provider>
+const todoIdAtom = atom(1)
+const urlAtom = atom(
+  get => `https://jsonplaceholder.typicode.com/todos/${get(todoIdAtom)}`,
 )
+
+const todoAtom = createFetchAtom(urlAtom)
+
+export function Fetch() {
+  const setTodoId = useAction(todoIdAtom)
+  const todo = useValue(todoAtom)
+
+  return (
+    <div>
+      <pre>{JSON.stringify(todo, null, 2)}</pre>
+
+      <Box mt="2">
+        <Button
+          mr="2"
+          onClick={() => {
+            setTodoId(todoId => todoId + 1)
+          }}
+        >
+          Previous
+        </Button>
+
+        <Button
+          mr="2"
+          onClick={() => {
+            setTodoId(todoId => todoId + 1)
+          }}
+        >
+          Next
+        </Button>
+      </Box>
+    </div>
+  )
+}
+
+export const App = () => {
+  const [value, { toggle }] = useToggle(true)
+
+  return (
+    <Box flexDir="column" alignItems="flex-start" gap="2">
+      <Button mt="2" onClick={toggle}>
+        {value ? 'Hide' : 'Show'}
+      </Button>
+    </Box>
+  )
+}

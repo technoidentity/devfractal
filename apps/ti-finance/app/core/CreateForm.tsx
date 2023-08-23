@@ -1,6 +1,6 @@
 import { Paper } from '@mantine/core'
 import type { InputsType } from '@srtp/remix-react'
-import type { FormSpec } from '@srtp/validator'
+import type { FormSpec } from '@srtp/core'
 import type { CrudFormProps } from './CrudForm'
 import { CrudForm } from './CrudForm'
 

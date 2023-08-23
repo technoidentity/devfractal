@@ -1,5 +1,5 @@
 import { Group } from '@mantine/core'
-import type { FormSpec } from '@srtp/validator'
+import type { FormSpec } from '@srtp/core'
 import React from 'react'
 import type { z } from 'zod'
 import { DeleteForm } from './DeleteForm'

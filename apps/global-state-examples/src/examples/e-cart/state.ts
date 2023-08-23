@@ -1,4 +1,4 @@
-import { action, computed } from '@srtp/global-state'
+import { action, computed } from '@srtp/react'
 
 import { original } from 'immer'
 import type { CartItem } from './CartList'

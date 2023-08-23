@@ -1,6 +1,6 @@
 import { Box, Input, Text } from '@chakra-ui/react'
-import { pstate, type PHandlers } from '@srtp/local-state'
-import { isNum } from '@srtp/spec'
+import { pstate, type PHandlers } from '@srtp/react'
+import { isNum } from '@srtp/core'
 import React, { type ChangeEvent } from 'react'
 
 const initial = { step: 1, count: 0 }

@@ -1,5 +1,5 @@
 import { Button, Container, HStack, Text } from '@chakra-ui/react'
-import { state } from '@srtp/local-state'
+import { state } from '@srtp/react'
 
 const useCounter = state(
   { count: 1 },

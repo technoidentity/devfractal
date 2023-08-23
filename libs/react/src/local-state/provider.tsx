@@ -3,7 +3,8 @@ import type { Dispatch, ReducerAction } from 'react'
 import React from 'react'
 
 import { useImmerReducer } from 'use-immer'
-import { context, useIsomorphicEffect } from '@srtp/react'
+import { context } from '../context'
+import { useIsomorphicEffect } from '../useIsomorphicEffect'
 
 type Actions<S, A> = (prevState: Draft<S>, action: A) => void
 

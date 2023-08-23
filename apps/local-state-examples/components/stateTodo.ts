@@ -1,4 +1,4 @@
-import { pstate } from '@srtp/local-state'
+import { pstate } from '@srtp/react'
 import type { CreateTodo, Todo } from '@srtp/todo'
 import { createTodo, initialState } from '@srtp/todo'
 

@@ -1,5 +1,5 @@
 import { isEmpty, isKey } from '@srtp/core'
-import { isObject, isStr } from '@srtp/spec'
+import { isObject, isStr } from '@srtp/core'
 import { getReasonPhrase } from 'http-status-codes'
 export class ResponseError extends Error {
   constructor(

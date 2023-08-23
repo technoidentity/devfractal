@@ -1,4 +1,4 @@
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import { HTTPException } from 'hono/http-exception'
 import { StatusCodes } from 'http-status-codes'
 import { ZodError } from 'zod'

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import { z } from 'zod'
-import { ensure, is, isUndefined } from '@srtp/spec'
+import { ensure, is, isUndefined } from '@srtp/core'
 import { createStore } from './redux'
 
 type Fn = (...args: any[]) => any

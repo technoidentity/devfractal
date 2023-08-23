@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import { isDefined, isUndefined } from '@srtp/spec'
+import { isDefined, isUndefined } from '@srtp/core'
 import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'

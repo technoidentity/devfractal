@@ -1,4 +1,4 @@
-import { isFunction } from '@srtp/spec'
+import { isFunction } from '@srtp/core'
 import React from 'react'
 import { useEvent } from './useEvent'
 

@@ -7,7 +7,7 @@ import { useTodoMutations, useTodos } from '../hooks'
 
 import { paged, pipe } from '@srtp/fn'
 import { FilterView, Pagination, TodoListView } from '../components'
-import { isDefined, isUndefined } from '@srtp/spec'
+import { isDefined, isUndefined } from '@srtp/core'
 
 const useTodoList = () => {
   const [limit] = React.useState(15)

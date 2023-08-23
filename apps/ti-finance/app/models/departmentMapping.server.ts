@@ -1,5 +1,5 @@
 import type { Department, Prisma } from '@prisma/client'
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 import type {
   CostSearchSpec,
   CreateMappingSpec,

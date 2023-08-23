@@ -1,4 +1,4 @@
-import { isArray, isObject } from '@srtp/spec'
+import { isArray, isObject } from './spec'
 
 function isEquitable(x: unknown): x is { equals(other: unknown): boolean } {
   return isObject(x) && 'equals' in x

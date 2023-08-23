@@ -15,7 +15,7 @@
     "@planetscale/database": "1.11.0",
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
-    "@srtp/spec": "workspace:*",
+
     "better-sqlite3": "8.5.1",
     "kysely": "0.26.1",
     "kysely-planetscale": "1.4.0",

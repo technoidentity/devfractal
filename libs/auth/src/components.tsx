@@ -3,7 +3,7 @@ import type { RouteObject } from 'react-router-dom'
 import { Navigate, type RouteProps } from 'react-router-dom'
 import { PageNotFound, defaultErrorElement, fallback } from './common'
 import { useIsAuthenticated, useRoles } from './hooks'
-import { isUndefined } from '@srtp/spec'
+import { isUndefined } from '@srtp/core'
 
 type ChildrenProps = { readonly children: React.ReactNode }
 

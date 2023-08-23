@@ -6,7 +6,7 @@ import { filter$, iterSlice$, pipe, toArray } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 import { PostTodo, Todo, TodoID } from './todoSpec'
-import { isDefined } from '@srtp/spec'
+import { isDefined } from '@srtp/core'
 
 const todos: Todo[] = [
   { id: 1, title: 'Learn TypeScript', completed: false },

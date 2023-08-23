@@ -1,5 +1,5 @@
-import type { Handlers } from '@srtp/local-state'
-import { state } from '@srtp/local-state'
+import type { Handlers } from '@srtp/react'
+import { state } from '@srtp/react'
 import { castDraft } from 'immer'
 import React, { useMemo } from 'react'
 import type { ClientTableState, RowBase, FilterPredicate, Sort } from './types'

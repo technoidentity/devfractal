@@ -3,9 +3,9 @@ import { produce } from 'immer'
 import type { PrimitiveAtom, WritableAtom } from 'jotai'
 import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'
+import { useEvent } from '../useEvent'
 import { computed } from './signal'
 import type { Read } from './types'
-import { useEvent } from '@srtp/react'
 
 export const useAction = useSetAtom
 export const useValue = useAtomValue

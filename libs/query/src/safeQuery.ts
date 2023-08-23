@@ -1,5 +1,5 @@
 import { useAsyncEvent } from '@srtp/react'
-import { cast } from '@srtp/spec'
+import { cast } from '@srtp/core'
 import {
   useMutation,
   useQuery,

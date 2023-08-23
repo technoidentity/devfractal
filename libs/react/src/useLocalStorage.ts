@@ -1,7 +1,7 @@
 import type { z } from 'zod'
 
 import { parseJSON } from '@srtp/core'
-import { isFunction } from '@srtp/spec'
+import { isFunction } from '@srtp/core'
 import React from 'react'
 import { useEvent } from './useEvent'
 import { useSafeState } from './useSafeState'

@@ -1,4 +1,4 @@
-import { jstr } from '@srtp/spec'
+import { jstr } from '@srtp/core'
 import {
   Box,
   Button,
@@ -8,7 +8,7 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react'
-import { state } from '@srtp/local-state'
+import { state } from '@srtp/react'
 import type { CreateTodo } from '@srtp/todo'
 import React from 'react'
 

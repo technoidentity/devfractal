@@ -1,5 +1,5 @@
 import { Box, Button, Text } from '@chakra-ui/react'
-import { derived, useAction, useValue } from '@srtp/global-state'
+import { derived, useAction, useValue } from '@srtp/react'
 import { atom } from 'jotai'
 
 const countAtom = atom(100)

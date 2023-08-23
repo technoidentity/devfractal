@@ -1,5 +1,5 @@
 import { Button, Group, Modal, Paper } from '@mantine/core'
-import type { FormSpec } from '@srtp/validator'
+import type { FormSpec } from '@srtp/core'
 import React from 'react'
 import type { FormFieldsProps } from '~/core'
 import type { CrudFormProps } from './CrudForm'

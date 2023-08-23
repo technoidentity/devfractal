@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { isDefined } from '@srtp/spec'
+import { isDefined } from '@srtp/core'
 
 let nextTaskId = 0
 

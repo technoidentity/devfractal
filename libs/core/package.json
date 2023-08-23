@@ -26,7 +26,6 @@
   "dependencies": {
     "@srtp/fn": "workspace:*",
     "@srtp/result": "workspace:*",
-    "@srtp/spec": "workspace:*",
     "@total-typescript/ts-reset": "0.5.1",
     "exhaustive": "1.1.1",
     "immer": "10.0.2",
