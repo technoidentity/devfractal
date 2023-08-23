@@ -1,5 +1,5 @@
-import type { Result } from '@srtp/result'
-import { fail, ok, rmapError } from '@srtp/result'
+import type { Result } from '@srtp/core'
+import { fail, ok, rmapError } from '@srtp/core'
 import { PrismaClientKnownRequestError } from '~/prisma-client/runtime/library'
 
 // export class CreateError extends PrismaClientKnownRequestError {}

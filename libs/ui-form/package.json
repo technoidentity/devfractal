@@ -28,7 +28,6 @@
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
-    "@srtp/result": "workspace:*",
     "@srtp/ui": "workspace:*",
     "date-fns": "2.30.0",
     "lucide-react": "0.268.0",

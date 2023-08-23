@@ -27,7 +27,6 @@
     "@srtp/endpoint": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/core": "workspace:*",
-    "@srtp/result": "workspace:*",
     "hono": "3.5.1",
     "http-status-codes": "2.2.0",
     "immer": "10.0.2",

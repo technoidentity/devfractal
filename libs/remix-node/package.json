@@ -24,7 +24,6 @@
     "@remix-run/node": "1.19.3",
     "@srtp/core": "workspace:*",
     "@srtp/remix-core": "workspace:*",
-    "@srtp/result": "workspace:*",
     "immer": "10.0.2",
     "query-string": "8.1.0",
     "superjson": "1.13.1",

@@ -26,9 +26,7 @@
     "@srtp/fn": "workspace:*",
     "@srtp/query": "workspace:*",
     "@srtp/react": "workspace:*",
-    "@srtp/result": "workspace:*",
     "@srtp/router": "workspace:*",
-
     "@srtp/ui": "workspace:*",
     "@srtp/ui-form": "workspace:*",
     "@srtp/web": "workspace:*",

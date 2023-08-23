@@ -49,8 +49,6 @@
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
-    "@srtp/result": "workspace:*",
-
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
     "cmdk": "0.2.0",
