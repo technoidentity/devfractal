@@ -24,7 +24,6 @@
     "clean": "rimraf .turbo node_modules dist"
   },
   "dependencies": {
-    "@srtp/endpoint": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/core": "workspace:*",
     "hono": "3.5.1",

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import type { Iff, IsNonEmpty } from '@srtp/core'
-import { type EndpointBase } from '@srtp/endpoint'
+import { type EndpointBase } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
 import { safeSearch, type UseSearchResult } from './hooks'
 import type { RouteObject } from 'react-router-dom'

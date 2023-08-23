@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@srtp/core": "workspace:*",
-    "@srtp/endpoint": "workspace:*",
     "@srtp/fn": "workspace:*",
     "http-status-codes": "2.2.0",
     "immer": "10.0.2",

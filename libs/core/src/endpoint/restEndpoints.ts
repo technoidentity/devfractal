@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { ZodPrimitive } from '@srtp/core'
+import type { ZodPrimitive } from '../spec'
 
 export function restEndpoints<
   Spec extends z.ZodRawShape & { id: ZodPrimitive },

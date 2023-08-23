@@ -1,5 +1,5 @@
-import type { EndpointBase } from '@srtp/endpoint'
-import {} from '@srtp/endpoint'
+import type { EndpointBase } from '@srtp/core'
+import {} from '@srtp/core'
 import { boolean, number, string } from '@srtp/core'
 import { z } from 'zod'
 

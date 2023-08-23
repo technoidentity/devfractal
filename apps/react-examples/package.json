@@ -32,7 +32,6 @@
     "@react-spring/web": "9.7.3",
     "@srtp/conform": "workspace:*",
     "@srtp/core": "workspace:*",
-    "@srtp/endpoint": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/form": "workspace:*",
     "@srtp/query": "workspace:*",

@@ -1,6 +1,6 @@
-import type { UnionToIntersection } from '@srtp/core'
-import { ZodPrimitive } from '@srtp/core'
 import { z } from 'zod'
+import { ZodPrimitive } from '../spec'
+import type { UnionToIntersection } from '../types'
 
 export const HttpMethod = z.enum(['get', 'post', 'put', 'delete', 'patch'])
 export type HttpMethod = z.infer<typeof HttpMethod>

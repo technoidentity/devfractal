@@ -1,5 +1,5 @@
-import type { Params, PathBase } from '@srtp/endpoint'
-import { keysfn } from '@srtp/endpoint'
+import type { Params, PathBase } from '@srtp/core'
+import { keysfn } from '@srtp/core'
 import {
   useQueryClient,
   useMutation as useTanstackMutation,

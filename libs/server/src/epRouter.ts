@@ -6,7 +6,7 @@ import {
   type GetEpResponse,
   type GetParamsArg,
   type GetRequestArg,
-} from '@srtp/endpoint'
+} from '@srtp/core'
 import { cast, isNotNilSpec, isUndefined } from '@srtp/core'
 import { Hono, type Context } from 'hono'
 import { logger } from 'hono/logger'

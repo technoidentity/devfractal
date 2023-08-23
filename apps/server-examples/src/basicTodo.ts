@@ -1,4 +1,4 @@
-// import {} from '@srtp/endpoint'
+// import {} from '@srtp/core'
 
 // import { Hono } from 'hono'
 // import { throwBadRequest, throwCast, throwNotFound } from '@srtp/server'

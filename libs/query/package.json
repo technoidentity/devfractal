@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@srtp/core": "workspace:*",
-    "@srtp/endpoint": "workspace:*",
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/web": "workspace:*",

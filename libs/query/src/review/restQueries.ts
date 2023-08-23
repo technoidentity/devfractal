@@ -1,6 +1,6 @@
 // import type { z } from 'zod'
 
-// import { restEndpoints } from '@srtp/endpoint'
+// import { restEndpoints } from '@srtp/core'
 // import type { ZodFundamental } from '@srtp/core'
 // import { createEpApi } from '../ep/epApi'
 

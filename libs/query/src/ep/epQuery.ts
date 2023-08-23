@@ -15,9 +15,9 @@ import type {
   GetEpResponse,
   GetParamsArg,
   GetRequestArg,
-} from '@srtp/endpoint'
+} from '@srtp/core'
 
-import { keysfn, linkfn } from '@srtp/endpoint'
+import { keysfn, linkfn } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
 import { useEvent } from '@srtp/react'
 import { axios, joinPaths, urlcat } from '@srtp/web'

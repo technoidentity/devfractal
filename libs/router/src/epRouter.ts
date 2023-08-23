@@ -1,5 +1,5 @@
-import type { EndpointBase, GetEpResponse, PathBase } from '@srtp/endpoint'
-import { paramsSpec, route } from '@srtp/endpoint'
+import type { EndpointBase, GetEpResponse, PathBase } from '@srtp/core'
+import { paramsSpec, route } from '@srtp/core'
 
 import type { Iff, IsDefined } from '@srtp/core'
 import { omap$ } from '@srtp/fn'

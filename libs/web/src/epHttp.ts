@@ -4,8 +4,8 @@ import type {
   GetEpResponse,
   GetParamsArg,
   GetRequestArg,
-} from '@srtp/endpoint'
-import { route } from '@srtp/endpoint'
+} from '@srtp/core'
+import { route } from '@srtp/core'
 import { cast } from '@srtp/core'
 import { fetch$, type BaseFetchOptions } from './fetch$'
 import { toPath } from './url'

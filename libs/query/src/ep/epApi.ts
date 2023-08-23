@@ -2,7 +2,7 @@ import type {
   EndpointBase,
   EndpointRecordBase,
   GetEpResponse,
-} from '@srtp/endpoint'
+} from '@srtp/core'
 import { capitalize, entries, filter, map, pipe } from '@srtp/fn'
 import type { UseMutationResult } from '@tanstack/react-query'
 import {

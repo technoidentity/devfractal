@@ -1,5 +1,5 @@
-import type { Params, PathBase } from '@srtp/endpoint'
-import { linkfn, paramsSpec, route } from '@srtp/endpoint'
+import type { Params, PathBase } from '@srtp/core'
+import { linkfn, paramsSpec, route } from '@srtp/core'
 
 import type { IfFnArg, Iff, IsNonEmpty } from '@srtp/core'
 import { safeNavigate, safeParams } from './hooks'
