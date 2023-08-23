@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  cn,
-} from '@srtp/ui'
+} from '../ui'
+import { cn } from '../utils'
 import type { BaseFieldProps } from './common'
 import {
   AriaControl,

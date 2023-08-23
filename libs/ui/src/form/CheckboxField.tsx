@@ -1,8 +1,8 @@
-import { Checkbox } from '@srtp/ui'
-import { Control, FormDescription, Field, FormLabel, FormMessage } from './form'
-import { cn } from '@srtp/ui'
 import React from 'react'
+import { Checkbox } from '../ui/checkbox'
+import { cn } from '../utils'
 import type { BaseFieldProps } from './common'
+import { Control, Field, FormDescription, FormLabel, FormMessage } from './form'
 
 type CheckboxProps = React.ComponentProps<typeof Checkbox>
 

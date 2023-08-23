@@ -27,7 +27,6 @@
     "@srtp/react": "workspace:*",
     "@srtp/router": "workspace:*",
     "@srtp/ui": "workspace:*",
-    "@srtp/ui-form": "workspace:*",
     "@srtp/web": "workspace:*",
     "immer": "10.0.2",
     "react": "18.2.0",

@@ -23,12 +23,6 @@ import * as React from 'react'
 import {
   Button,
   Checkbox,
-  DTBody,
-  DTCell,
-  DTHead,
-  DTHeader,
-  DTRow,
-  DTable,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -37,8 +31,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Input,
-} from '@srtp/ui'
-
+} from '../ui'
+import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from '../cui'
 const data: Payment[] = [
   {
     id: 'm5gr84i9',

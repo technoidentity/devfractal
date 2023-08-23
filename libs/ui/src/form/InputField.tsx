@@ -1,4 +1,5 @@
-import { Input, cn } from '@srtp/ui'
+import { Input } from '../ui'
+import { cn } from '../utils'
 import type { BaseFieldProps } from './common'
 import { Control, Field, FormDescription, FormLabel, FormMessage } from './form'
 

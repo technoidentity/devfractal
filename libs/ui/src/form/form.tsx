@@ -8,8 +8,8 @@ import { getRawShape, isNotNil } from '@srtp/core'
 import React, { type ComponentProps } from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-import { cn } from '@srtp/ui'
-import { Label } from '@srtp/ui'
+import { cn } from '../utils'
+import { Label } from '../ui'
 
 type FormSpec = z.ZodEffects<any> | z.AnyZodObject
 
