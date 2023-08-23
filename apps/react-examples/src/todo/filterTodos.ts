@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { exhaustive } from 'exhaustive'
 import type { Filter, Todo } from './types'
 

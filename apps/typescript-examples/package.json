@@ -17,6 +17,9 @@
     "validate": "pnpm turbo run --parallel lint types test"
   },
   "dependencies": {
+    "better-sqlite3": "8.5.1",
+    "sqlite3": "5.1.6",
+    "query-string": "8.1.0",
     "@preact/signals-core": "1.4.0",
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
@@ -29,6 +32,7 @@
   "devDependencies": {
     "@faker-js/faker": "8.0.2",
     "@srtp/tsconfig": "workspace:*",
+    "@types/better-sqlite3": "7.6.4",
     "@types/node": "20.5.1",
     "@vitejs/plugin-react-swc": "3.3.2",
     "@vitest/coverage-v8": "0.34.2",

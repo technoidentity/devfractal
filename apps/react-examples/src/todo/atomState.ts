@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { atom } from 'jotai'
 import type { Filter, Todo } from './types'
 import { computed } from '@srtp/react'
