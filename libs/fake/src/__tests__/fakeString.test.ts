@@ -13,7 +13,7 @@ describe('fake', () => {
     const spec7 = z.string().uuid()
     const spec10 = z.string().ip()
     const spec11 = z.number()
-    const spec12 = z.string().ip({ version: "v4" })
+    const spec12 = z.string().ip({ version: 'v4' })
 
     expect(() => spec1.parse(fakeString(spec1))).not.toThrow()
     expect(() => spec2.parse(fakeString(spec2))).not.toThrow()
