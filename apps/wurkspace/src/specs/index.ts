@@ -1,5 +1,0 @@
-export * from './old/goals'
-export * from './help'
-export * from './oneOnOne'
-export * from './old/profile'
-export * from './zohoProfile'

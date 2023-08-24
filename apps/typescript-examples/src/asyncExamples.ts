@@ -39,7 +39,7 @@ export const getPost = (id: number) =>
 
 export const getComments = (userId: number) =>
   http.get(
-    Posts,
+    Comments,
     `https://jsonplaceholder.typicode.com/posts/${userId}/comments`,
   )
 

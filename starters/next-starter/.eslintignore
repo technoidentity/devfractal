@@ -1,8 +1,0 @@
-node_modules
-dist
-.cache
-coverage
-.eslintrc.js
-next.config.ts
-next-env.d.ts
-vite.config.ts

@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 import { rest } from 'msw'
 
 export const handlers = [
-  rest.post('/login', (_, res, ctx) => {
+  rest.post('/login', async (_, res, ctx) => {
     sessionStorage.setItem('is-authenticated', 'true')
 
     return res(ctx.status(200))
   }),
 
-  rest.get('/user', (_, res, ctx) => {
+  rest.get('/user', async (_, res, ctx) => {
     const isAuthenticated = sessionStorage.getItem('is-authenticated')
 
     if (!isAuthenticated) {

@@ -2,10 +2,12 @@ import { TRPCError } from '@trpc/server'
 import { EventEmitter } from 'events'
 import { z } from 'zod'
 import { publicProcedure, router } from './trpc'
+import type {} from 'qs'
 
 let id = 0
 
-const ee = new EventEmitter()
+const eventEmitter = new EventEmitter()
+
 const db = {
   posts: [
     {
@@ -15,6 +17,7 @@ const db = {
   ],
   messages: [createMessage('initial message')],
 }
+
 function createMessage(text: string) {
   const msg = {
     id: ++id,
@@ -22,7 +25,7 @@ function createMessage(text: string) {
     createdAt: Date.now(),
     updatedAt: Date.now(),
   }
-  ee.emit('newMessage', msg)
+  eventEmitter.emit('newMessage', msg)
   return msg
 }
 
@@ -37,6 +40,7 @@ const postRouter = router({
       db.posts.push(post)
       return post
     }),
+
   listPosts: publicProcedure.query(() => db.posts),
 })
 
@@ -47,19 +51,20 @@ const messageRouter = router({
 
     return msg
   }),
+
   listMessages: publicProcedure.query(() => db.messages),
 })
 
 // root router to call
 export const appRouter = router({
-  // merge predefined routers
   post: postRouter,
+
   message: messageRouter,
-  // or individual procedures
+
   hello: publicProcedure.input(z.string().nullish()).query(({ input, ctx }) => {
     return `hello ${input ?? ctx.user?.name ?? 'world'}`
   }),
-  // or inline a router
+
   admin: router({
     secret: publicProcedure.query(({ ctx }) => {
       if (!ctx.user) {

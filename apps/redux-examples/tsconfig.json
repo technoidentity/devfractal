@@ -1,8 +1,0 @@
-{
-  "extends": "@srtp/tsconfig/react.json",
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "types": ["node", "vite/client"]
-  },
-  "include": ["src", "tests", "__previewjs__"]
-}
