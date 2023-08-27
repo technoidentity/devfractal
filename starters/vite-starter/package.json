@@ -23,7 +23,7 @@
     "@mantine/hooks": "6.0.19",
     "@tanstack/react-query": "4.33.0",
     "immer": "10.0.2",
-    "jotai": "2.3.1",
+    "jotai": "2.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-error-boundary": "4.0.11",
@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "@testing-library/react": "14.0.0",
-    "@types/node": "20.5.1",
-    "@types/react": "18.2.20",
+    "@types/node": "20.5.6",
+    "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@typescript-eslint/eslint-plugin": "6.4.1",
     "@typescript-eslint/parser": "6.4.1",
@@ -45,7 +45,7 @@
     "autoprefixer": "10.4.15",
     "confusing-browser-globals": "1.0.11",
     "cross-env": "7.0.3",
-    "eslint": "8.47.0",
+    "eslint": "8.48.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-import": "2.28.1",
     "eslint-plugin-jsx-a11y": "6.7.1",
@@ -53,15 +53,15 @@
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-unicorn": "48.0.1",
-    "msw": "1.2.3",
+    "msw": "1.2.4",
     "postcss": "8.4.28",
     "prettier": "3.0.2",
     "rimraf": "5.0.1",
     "tailwindcss": "3.3.3",
-    "turbo": "1.10.12",
-    "typescript": "5.1.6",
+    "turbo": "1.10.13",
+    "typescript": "5.2.2",
     "vite": "4.4.9",
-    "vitest": "0.34.2"
+    "vitest": "0.34.3"
   },
   "msw": {
     "workerDirectory": "public"

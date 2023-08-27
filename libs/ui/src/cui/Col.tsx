@@ -15,7 +15,7 @@ function getColSpan<T extends GridClassesMapping>(
     return ''
   }
 
-  return colSpanMapping[numColSpan]
+  return colSpanMapping[numColSpan] as string
 }
 
 export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {

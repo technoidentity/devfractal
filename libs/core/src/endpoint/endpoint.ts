@@ -62,7 +62,9 @@ export type ParamsRawSpec<Path extends PathBase> = UnionToIntersection<
 >
 
 type ParamsFromRawSpec<Paths extends ParamsRawSpec<any>> = {
-  readonly [K in keyof Paths]: z.infer<Paths[K]>
+  readonly [K in keyof Paths]: Paths[K] extends z.ZodTypeAny
+    ? z.infer<Paths[K]>
+    : never
 }
 
 export type Params<Paths extends PathBase> = ParamsFromRawSpec<

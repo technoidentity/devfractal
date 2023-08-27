@@ -19,13 +19,13 @@
   "dependencies": {
     "@fastify/autoload": "5.7.1",
     "@fastify/websocket": "8.2.0",
-    "@trpc/server": "10.37.1",
+    "@trpc/server": "10.38.0",
     "close-with-grace": "1.2.0",
     "dotenv": "16.3.1",
     "esbuild": "0.19.2",
     "esbuild-register": "3.4.2",
-    "eslint": "8.47.0",
-    "fastify": "4.21.0",
+    "eslint": "8.48.0",
+    "fastify": "4.22.0",
     "fastify-autoload": "3.13.0",
     "fastify-cli": "5.8.0",
     "fastify-cors": "6.1.0",
@@ -43,7 +43,7 @@
     "zod": "3.22.2"
   },
   "devDependencies": {
-    "@types/node": "20.5.1",
+    "@types/node": "20.5.6",
     "@types/tap": "15.0.8",
     "concurrently": "8.2.1",
     "cross-env": "7.0.3",
@@ -55,7 +55,7 @@
     "rimraf": "5.0.1",
     "tap": "16.3.8",
     "ts-node": "10.9.1",
-    "typescript": "5.1.6",
+    "typescript": "5.2.2",
     "wait-port": "1.0.4"
   }
 }

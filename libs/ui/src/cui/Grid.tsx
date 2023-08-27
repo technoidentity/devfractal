@@ -16,7 +16,7 @@ function getGridCols<T extends GridClassesMapping>(
     return ''
   }
 
-  return gridColsMapping[numCols]
+  return gridColsMapping[numCols] as string
 }
 
 export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
