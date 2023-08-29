@@ -1,5 +1,5 @@
 import type { Ctc } from '@prisma/client'
-import type { Column } from '@srtp/table'
+import type { Column } from '@srtp/mantine'
 import { CtcSpec } from '~/common'
 import { CrudTable } from '~/core'
 import { FormFields } from './FormFields'

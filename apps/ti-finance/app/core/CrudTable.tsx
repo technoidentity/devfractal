@@ -1,4 +1,4 @@
-import type { Column, RowBase } from '@srtp/table'
+import type { Column, RowBase } from '@srtp/mantine'
 import type { FormSpec } from '@srtp/core'
 import type { z } from 'zod'
 import { useActions } from './createActions'

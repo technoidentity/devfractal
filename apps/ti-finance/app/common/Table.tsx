@@ -1,5 +1,5 @@
-import type { ClientTableProps, RowBase, UseClientTable } from '@srtp/table'
-import { ClientTable, useClientTable } from '@srtp/table'
+import type { ClientTableProps, RowBase, UseClientTable } from '@srtp/mantine'
+import { ClientTable, useClientTable } from '@srtp/mantine'
 
 export type TableProps<Row extends RowBase> = UseClientTable<Row> &
   Omit<ClientTableProps<Row>, 'tableState'>

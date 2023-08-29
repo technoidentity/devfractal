@@ -1,5 +1,5 @@
 import { Button, Group } from '@mantine/core'
-import type { Column } from '@srtp/table'
+import type { Column } from '@srtp/mantine'
 import React from 'react'
 import { ExpenditureSpec, TotalSpendCard } from '~/common'
 import { CrudTable } from '~/core'

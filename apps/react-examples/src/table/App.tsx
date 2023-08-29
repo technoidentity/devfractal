@@ -1,5 +1,5 @@
 import { Container, MantineProvider } from '@mantine/core'
-import { ClientTable, useClientTable } from '@srtp/table'
+import { ClientTable, useClientTable } from '@srtp/mantine'
 import type { Row } from './data'
 import { columns, rows } from './data'
 

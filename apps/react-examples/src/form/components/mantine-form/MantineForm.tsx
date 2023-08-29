@@ -10,7 +10,7 @@ import {
   Textarea,
   Title,
 } from '@mantine/core'
-import { createForm } from '@srtp/form'
+import { createForm } from '@srtp/mantine'
 
 import { FormValueSchema, initialValues } from './spec'
 

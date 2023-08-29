@@ -1,4 +1,4 @@
-import type { Column } from '@srtp/table'
+import type { Column } from '@srtp/mantine'
 import { CreateAccessSpec } from '~/common'
 import { CrudTable } from '~/core'
 import type { DepartmentAccessList } from '~/models/department.server'

@@ -1,5 +1,5 @@
 import { mergeWithToMap, toArray } from '@srtp/fn'
-import type { Column } from '@srtp/table'
+import type { Column } from '@srtp/mantine'
 import React from 'react'
 import { Table, TotalSpendCard, useDepartmentName, useUserName } from '~/common'
 import { SpendSearchForm } from './Search'

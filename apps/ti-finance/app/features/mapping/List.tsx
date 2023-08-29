@@ -1,4 +1,4 @@
-import type { Column } from '@srtp/table'
+import type { Column } from '@srtp/mantine'
 import { MappingSpec } from '~/common'
 import { CrudTable } from '~/core'
 import { FormFields } from './FormFields'

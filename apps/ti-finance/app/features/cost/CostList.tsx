@@ -1,4 +1,4 @@
-import type { Column } from '@srtp/table'
+import type { Column } from '@srtp/mantine'
 import { Table } from '~/common'
 
 type Cost = Readonly<{
