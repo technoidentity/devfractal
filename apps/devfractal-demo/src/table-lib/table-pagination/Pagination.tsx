@@ -1,6 +1,5 @@
 import { Button, HStack, map, pipe, range, toArray } from 'devfractal'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-
 import type { PaginationProps, PaginationProps2 } from './types'
 
 // Rename chain for pipe-to-array to avoid conflict with chain from  iter.ts
