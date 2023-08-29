@@ -1,7 +1,4 @@
-import { slice, useValue } from 'devfractal'
-import { Box, Flex } from 'devfractal'
-import { Text } from 'devfractal'
-import { Button } from 'devfractal'
+import { Box, Button, Flex, Text, slice, useValue } from 'devfractal'
 
 const [counterAtom, useActions] = slice(
   { count: 100 },

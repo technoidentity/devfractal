@@ -1,5 +1,4 @@
-import { computed, useAction, useValue } from 'devfractal'
-import { Text } from 'devfractal'
+import { Text, computed, useAction, useValue } from 'devfractal'
 import { Provider, atom } from 'jotai'
 
 const textAtom = atom('hello')

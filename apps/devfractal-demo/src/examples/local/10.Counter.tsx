@@ -1,7 +1,4 @@
-import { useInt } from 'devfractal'
-import { Container, HStack } from 'devfractal'
-import { Button } from 'devfractal'
-import { Text } from 'devfractal'
+import { Button, Container, HStack, Text, useInt } from 'devfractal'
 
 export const Counter = () => {
   const [count, setCount] = useInt()
