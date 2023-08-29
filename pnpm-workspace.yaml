@@ -3,4 +3,5 @@ packages:
   - 'libs/*'
   - 'packages/*'
   - 'starters/*'
+  - 'experimental/*'
   - 'e2e'
