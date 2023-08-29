@@ -1,6 +1,8 @@
 import { faker } from '@faker-js/faker'
 import invariant from 'tiny-invariant'
+
 import type { Filters, Task } from '../specs'
+
 import { applyFilters } from './utils'
 
 const tasksTable = new Map<number, Task>()

@@ -2,6 +2,7 @@ import { Box, Button } from '@chakra-ui/react'
 import { useInfiniteLoader } from '@srtp/react'
 import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
+
 import { filteredTodos } from './common'
 import { FilterView, TodoListView } from './components'
 import { useInfiniteTodos, useTodoMutations } from './hooks'

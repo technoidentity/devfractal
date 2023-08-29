@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker'
-import { v4 as uuidv4 } from 'uuid'
-import type { Product } from './Product'
 import { map, pipe, range, toArray } from '@srtp/fn'
+import { v4 as uuidv4 } from 'uuid'
+
+import type { Product } from './Product'
 
 export const categories = ['fashion', 'electronics', 'books', 'beauty']
 

@@ -1,7 +1,9 @@
+import { isDefined, isNotNil } from '@srtp/core'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { RESET } from 'jotai/utils'
 import React from 'react'
 import invariant from 'tiny-invariant'
+
 import type { AuthUser } from './common'
 import {
   authAtom,
@@ -10,7 +12,6 @@ import {
   rolesAtom,
   tokenAtom,
 } from './state'
-import { isDefined, isNotNil } from '@srtp/core'
 
 export const useLogin = () => {
   const setAuth = useSetAtom(authAtom)

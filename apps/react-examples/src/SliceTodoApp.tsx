@@ -9,13 +9,10 @@ import {
   ListItem,
   Text,
 } from '@chakra-ui/react'
+import { slice, useEvent, useInputState, useString } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
 
-import { useString } from '@srtp/react'
-import { slice } from '@srtp/react'
-
 import './index.css'
-import { useEvent, useInputState } from '@srtp/react'
 
 const todoList: readonly Todo[] = [
   { id: 1, title: 'Learn React', done: false },

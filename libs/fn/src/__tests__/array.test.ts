@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/naming-convention */
+import { expect, test } from 'vitest'
+
 import {
   aget,
   deepFlatten,
@@ -20,8 +22,6 @@ import {
   unshift,
   zipAll,
 } from '../array'
-
-import { expect, test } from 'vitest'
 import { pipe } from '../pipe'
 import { arrayEqual$, sorted$, splitAt$ } from '../uncurried'
 

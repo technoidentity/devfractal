@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+
 import { randInt } from '../function'
 
 describe('function', () => {

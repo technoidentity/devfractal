@@ -8,6 +8,7 @@ import {
   isStr,
   isUndefined,
 } from '@srtp/core'
+
 import type { FilterPredicate, RowBase, Sort } from './types'
 
 const primitiveSearch = (search: string, value: Primitive): boolean => {

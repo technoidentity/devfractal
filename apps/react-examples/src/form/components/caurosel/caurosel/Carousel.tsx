@@ -1,6 +1,8 @@
 import { Center } from '@mantine/core'
 import { state } from '@srtp/react'
+
 import type { SculptureList } from '../../../utils/types'
+
 import { CarouselView } from './CauroselView'
 
 interface CarousalProps {

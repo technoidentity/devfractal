@@ -1,5 +1,6 @@
 import { Button, Table } from '@mantine/core'
 import { useAction, useValue } from '@srtp/react'
+
 import { ProductModalView } from './ProductView'
 import { addToCart, filteredProductsAtom } from './state'
 

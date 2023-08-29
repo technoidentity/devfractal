@@ -1,12 +1,12 @@
 import { HStack } from '@chakra-ui/react'
+import { For } from '@srtp/react'
+import { loaderQuery, queryClient } from '@srtp/router'
+import type { QueryFunctionContext } from '@tanstack/react-query'
 import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet } from 'react-router-dom'
-
-import type { QueryFunctionContext } from '@tanstack/react-query'
 import { z } from 'zod'
+
 import { api } from '../core'
-import { loaderQuery, queryClient } from '@srtp/router'
-import { For } from '@srtp/react'
 
 const AuthorsSpec = z.array(
   z.object({

@@ -1,7 +1,8 @@
 import { assertType, expectTypeOf, test } from 'vitest'
+
+import { chain } from '../chain'
 import { filter, map, reduce } from '../iter'
 import { inc, isEven, plus } from '../operators'
-import { chain } from '../chain'
 
 test('chain types', () => {
   expectTypeOf(chain([1, 2, 3, 4, 5], map(inc), filter(isEven))).toEqualTypeOf<

@@ -1,5 +1,5 @@
-import { map, mul, pipe, range, reduce } from '@srtp/fn'
 import { checked, Natural, Positive } from '@srtp/core'
+import { map, mul, pipe, range, reduce } from '@srtp/fn'
 
 export const factorial = checked([Natural], n =>
   pipe(range(1, n + 1), reduce(mul, 1)),

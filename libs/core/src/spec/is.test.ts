@@ -1,4 +1,8 @@
+import { isDate } from 'util/types'
+
 import { describe, expect, test } from 'vitest'
+import { z } from 'zod'
+
 import {
   isArray,
   isBool,
@@ -12,8 +16,6 @@ import {
   isStr,
   isUndefined,
 } from './is'
-import { z } from 'zod'
-import { isDate } from 'util/types'
 
 describe('is', () => {
   test('isNilSpec', () => {

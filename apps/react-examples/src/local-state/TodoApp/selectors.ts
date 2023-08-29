@@ -1,5 +1,5 @@
-import type { State } from '@srtp/todo'
 import { toArray } from '@srtp/fn'
+import type { State } from '@srtp/todo'
 
 export const filteredTodosSelector = (snap: State) => {
   const todoList = toArray(snap.todos.values())

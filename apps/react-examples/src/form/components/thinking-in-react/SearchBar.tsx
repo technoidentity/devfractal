@@ -1,5 +1,6 @@
 import { Center, Checkbox, Flex, Input } from '@mantine/core'
 import { useAction } from '@srtp/react'
+
 import { stockedAtom, textAtom } from './state'
 
 export const SearchBar = () => {

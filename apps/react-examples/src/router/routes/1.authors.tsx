@@ -1,11 +1,11 @@
 import { HStack } from '@chakra-ui/react'
+import { cast } from '@srtp/core'
+import { For } from '@srtp/react'
 import type { LoaderFunctionArgs, RouteObject } from 'react-router-dom'
 import { NavLink, Outlet, useLoaderData } from 'react-router-dom'
+import { z } from 'zod'
 
 import { api } from '../core'
-import { cast } from '@srtp/core'
-import { z } from 'zod'
-import { For } from '@srtp/react'
 
 const AuthorsSpec = z.array(
   z.object({

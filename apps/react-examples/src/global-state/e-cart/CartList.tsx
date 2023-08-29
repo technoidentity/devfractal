@@ -9,6 +9,7 @@ import {
   Title,
 } from '@mantine/core'
 import { useAction, useValue } from '@srtp/react'
+
 import type { Product } from './ProductList'
 import {
   cartAtom,

@@ -1,4 +1,5 @@
 import { Box, Grid } from '@mantine/core'
+
 import type { Player } from './Square'
 import { SquareView } from './Square'
 

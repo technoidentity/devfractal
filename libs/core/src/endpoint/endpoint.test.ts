@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { describe, expect, expectTypeOf, test } from 'vitest'
 import { boolean, number, z } from 'zod'
+
 import type {
   GetEpRequest,
   GetEpResponse,

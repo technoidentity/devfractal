@@ -1,7 +1,8 @@
-import { cast } from '@srtp/core'
 import type { PathLike } from 'node:fs'
 import * as fs from 'node:fs/promises'
 import { argv } from 'node:process'
+
+import { cast } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 

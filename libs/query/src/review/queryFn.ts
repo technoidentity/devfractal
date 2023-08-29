@@ -1,10 +1,8 @@
 import { cast } from '@srtp/core'
-import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
-
-// @TODO: should be web?
-
 import { joinPaths, urlcat } from '@srtp/web'
+import type { QueryFunctionContext, QueryKey } from '@tanstack/react-query'
 import { z } from 'zod'
+
 import { defaultApi } from '../api'
 
 export const Paths = z.array(z.string().or(z.number()).nullish())

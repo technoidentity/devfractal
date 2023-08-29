@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { beforeEach, describe, expect, test, vi } from 'vitest'
+
 import { ResponseError, UnauthorizedError, fetch$ } from './fetch$'
 
 describe('baseFetch', () => {

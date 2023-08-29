@@ -1,7 +1,7 @@
 import { Box, Button, Heading, Text } from '@chakra-ui/react'
-import React from 'react'
 import { action, useAction, useValue } from '@srtp/react'
 import { atom } from 'jotai'
+import React from 'react'
 
 const counterAtom = atom(0)
 

@@ -1,10 +1,10 @@
 import { Box, Flex, Spinner } from '@chakra-ui/react'
+import type { Filter, Todo } from '@srtp/todo'
+import { axios, urlcat } from '@srtp/web'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
 import React, { Suspense, useTransition } from 'react'
 
-import type { Filter, Todo } from '@srtp/todo'
-import { axios, urlcat } from '@srtp/web'
 import { itemCount, pageCount } from './common'
 import { FilterView, Pagination, TodoListView } from './components'
 

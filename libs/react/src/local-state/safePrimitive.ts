@@ -12,6 +12,7 @@ import {
 } from '@srtp/core'
 import React from 'react'
 import { z } from 'zod'
+
 import { safeUpdateState } from './safeState'
 
 export function primitive<Spec extends FieldSpec>(spec: Spec) {

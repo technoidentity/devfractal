@@ -1,6 +1,7 @@
-import { useErrorBoundary } from 'react-error-boundary'
-import { useEvent } from './useEvent'
 import { toError } from '@srtp/core'
+import { useErrorBoundary } from 'react-error-boundary'
+
+import { useEvent } from './useEvent'
 
 export function useShowBoundary() {
   const { showBoundary } = useErrorBoundary()

@@ -8,10 +8,10 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { a, useSpring } from '@react-spring/web'
-import Parser from 'html-react-parser'
-import { Suspense } from 'react'
 import { computed, useAction, useValue } from '@srtp/react'
+import Parser from 'html-react-parser'
 import { atom } from 'jotai'
+import { Suspense } from 'react'
 
 type PostData = Readonly<{
   by: string

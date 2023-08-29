@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest'
+
 import { point } from './point'
 
 test('point', () => {

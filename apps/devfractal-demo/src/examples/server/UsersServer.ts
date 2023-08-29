@@ -1,7 +1,8 @@
-import { epGet } from 'devfractal'
 import { epRouter, type SEpsHandlers } from '@srtp/server'
+import { epGet } from 'devfractal'
 import type {} from 'hono'
 import { z } from 'zod'
+
 import { User, usersList } from './usersDb'
 
 const userEndpoints = {

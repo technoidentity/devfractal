@@ -3,6 +3,7 @@ import { isDefined, isUndefined } from '@srtp/core'
 import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'
+
 import { filteredTodos } from '../common'
 import { FilterView, VirtualTodoListView } from '../components'
 import { useTodoMutations, useTodos } from '../hooks'

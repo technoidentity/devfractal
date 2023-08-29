@@ -1,9 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 
-import type { Try } from './result'
 import invariant from 'tiny-invariant'
 import type { ZodEnum, ZodNativeEnum } from 'zod'
 import { z } from 'zod'
+
+import type { Try } from './result'
 import { tryFromZod } from './utils'
 
 export const number = (defaultValue?: number) =>

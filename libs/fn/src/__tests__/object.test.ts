@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest'
+
 import { mergeWith } from '../object'
 import { omit$, omitBy$, pick$, pickBy$, pluck$ } from '../uncurried'
 

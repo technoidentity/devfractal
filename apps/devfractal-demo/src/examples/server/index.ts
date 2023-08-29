@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server'
-import { tasksApp } from './TasksServer'
+
 import { initializeFakeTasksTable } from './tasksDb'
+import { tasksApp } from './TasksServer'
 
 initializeFakeTasksTable()
 

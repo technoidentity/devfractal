@@ -1,4 +1,5 @@
 import type { TableProps } from '@mantine/core'
+
 import type { useClientTable } from './useClientTable'
 
 export type Sort<Row extends object> = {

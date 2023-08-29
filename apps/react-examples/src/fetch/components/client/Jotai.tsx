@@ -2,12 +2,13 @@
 import { Box, Flex, Heading, Spinner } from '@chakra-ui/react'
 import { paged, pipe } from '@srtp/fn'
 import type { Filter, Todo } from '@srtp/todo'
+import { axios } from '@srtp/web'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
 import { Suspense, useTransition } from 'react'
+
 import { filteredTodos, pageCount } from '../common'
 import { FilterView, Pagination, TodoListView } from '../components'
-import { axios } from '@srtp/web'
 
 const limitAtom = atom(15)
 const pageAtom = atom(1)

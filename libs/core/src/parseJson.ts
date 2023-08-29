@@ -1,5 +1,6 @@
-import { cast } from './spec'
 import type { z } from 'zod'
+
+import { cast } from './spec'
 
 export function parseJSON(value: string | null): unknown {
   try {

@@ -1,8 +1,9 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
+import invariant from 'tiny-invariant'
+
 import { App } from './App'
 import './index.css'
-import invariant from 'tiny-invariant'
 
 const container = document.getElementById('root')
 invariant(container, 'Root element not found')

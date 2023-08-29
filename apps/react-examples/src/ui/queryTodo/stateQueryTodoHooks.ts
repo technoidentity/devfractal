@@ -1,8 +1,9 @@
 import { useDescribeMutation, useSafeQuery } from '@srtp/query'
+import { current } from 'immer'
 import invariant from 'tiny-invariant'
+
 import { TodoList, type Todo } from './todo'
 import { todoApi } from './todoApi'
-import { current } from 'immer'
 
 const todosPath = '/api/todos'
 export function useTodoList() {

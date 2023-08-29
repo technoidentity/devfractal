@@ -49,11 +49,11 @@ import type { UseFormReturnType } from '@mantine/form'
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { GetRawShape } from '@srtp/core'
 import type { FormSpec } from '@srtp/core'
+import { capitalize } from '@srtp/fn'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
 import type { z } from 'zod'
-import { capitalize } from '@srtp/fn'
 
 type FormContext<Spec extends FormSpec> = [
   UseFormReturnType<z.TypeOf<Spec>, (values: z.TypeOf<Spec>) => z.TypeOf<Spec>>,

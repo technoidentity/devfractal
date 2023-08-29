@@ -1,6 +1,7 @@
 import { isUndefined } from '@srtp/core'
-import type { Player } from './Square'
 import { map, pipe, range, toArray } from '@srtp/fn'
+
+import type { Player } from './Square'
 
 const getRow = <T>(
   n: number,

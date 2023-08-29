@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import type { Fundamental } from './primitive'
 
 type Fn = (...args: any[]) => any

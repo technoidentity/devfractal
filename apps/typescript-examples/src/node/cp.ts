@@ -1,5 +1,6 @@
-import { isDefined } from '@srtp/core'
 import fs from 'node:fs'
+
+import { isDefined } from '@srtp/core'
 
 function closeFiles(fd: number | undefined, fd2?: number) {
   if (isDefined(fd)) {

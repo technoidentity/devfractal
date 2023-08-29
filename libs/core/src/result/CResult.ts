@@ -1,3 +1,4 @@
+import { toError } from './errorUtils'
 import type { Match, Result } from './result'
 import {
   fail as rfail,
@@ -10,7 +11,6 @@ import {
   rmatch,
   rvalue$,
 } from './result'
-import { toError } from './errorUtils'
 
 export class CResult<E, T> {
   constructor(readonly res: Result<E, T>) {}

@@ -1,4 +1,5 @@
 import { Checkbox, List, ListItem, Text } from '@chakra-ui/react'
+
 import type { Todo } from '../types'
 
 type TodoItemProps = Readonly<{ todo: Todo; onToggle(id: number): void }>

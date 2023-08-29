@@ -1,6 +1,6 @@
+import { ensure } from '@srtp/core'
 import { produce } from 'immer'
 import { z } from 'zod'
-import { ensure } from '@srtp/core'
 
 export function safeAction<Type extends string, T extends z.ZodTypeAny>(
   type: Type,

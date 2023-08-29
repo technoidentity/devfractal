@@ -1,11 +1,12 @@
 import { Checkbox, Flex, HStack, Text } from '@chakra-ui/react'
+import { isDefined, isUndefined } from '@srtp/core'
 import React from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
 import invariant from 'tiny-invariant'
+
 import { useInfiniteTodos } from './hooks'
-import { isDefined, isUndefined } from '@srtp/core'
 
 const useTodoList = () => {
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } =

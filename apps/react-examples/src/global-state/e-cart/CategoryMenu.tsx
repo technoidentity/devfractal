@@ -1,5 +1,6 @@
 import { Select } from '@mantine/core'
 import { useAction } from '@srtp/react'
+
 import { selectCategory } from './state'
 
 export const CategoryMenu = () => {

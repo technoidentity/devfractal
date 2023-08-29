@@ -1,4 +1,5 @@
 import type { z } from 'zod'
+
 import { useLocalStorage, type LocalStorageResult } from './useLocalStorage'
 
 type Base = Record<string, z.ZodTypeAny>

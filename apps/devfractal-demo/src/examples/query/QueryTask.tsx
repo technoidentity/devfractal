@@ -1,6 +1,8 @@
 import { epMutation, epQuery } from 'devfractal'
+
 import type { Task } from '../specs'
 import { taskEndpoints } from '../tasksEndpoints'
+
 import { TasksList } from './TaskViews'
 
 const baseUrl = '/api'

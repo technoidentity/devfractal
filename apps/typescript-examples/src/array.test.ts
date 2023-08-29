@@ -1,5 +1,6 @@
 import { isEven, isOdd, pipe, plus, range, squared } from '@srtp/fn'
 import { expect, test } from 'vitest'
+
 import {
   deepFlatten,
   every,

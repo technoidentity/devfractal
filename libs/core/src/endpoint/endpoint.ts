@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import { ZodPrimitive } from '../spec'
 import type { UnionToIntersection } from '../types'
 

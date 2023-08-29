@@ -25,14 +25,15 @@ import {
 } from '@mantine/core'
 import { Calendar, DatePickerInput, TimeInput } from '@mantine/dates'
 import { useForm, zodResolver } from '@mantine/form'
+import { jstr } from '@srtp/core'
 import { useState } from 'react'
+
 import {
   initialValues,
   StepOneSchema,
   StepThreeSchema,
   StepTwoSchema,
 } from './spec'
-import { jstr } from '@srtp/core'
 
 const countriesData = [
   { label: 'United States', value: 'US' },

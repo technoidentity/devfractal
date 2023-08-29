@@ -1,9 +1,9 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Suspense } from 'react'
+import { createRoot } from 'react-dom/client'
 import { ErrorBoundary } from 'react-error-boundary'
+
+import './index.css'
 import { TodoQueryApp } from './ui/queryTodo'
 
 const root = createRoot(document.getElementById('root')!)

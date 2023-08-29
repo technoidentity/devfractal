@@ -1,12 +1,13 @@
 import type { Server, ServerResponse } from 'node:http'
 import { createServer } from 'node:http'
-import qs from 'query-string'
 
+import { isDefined } from '@srtp/core'
 import { filter$, iterSlice$, pipe, toArray } from '@srtp/fn'
+import qs from 'query-string'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
+
 import { PostTodo, Todo, TodoID } from './todoSpec'
-import { isDefined } from '@srtp/core'
 
 const todos: Todo[] = [
   { id: 1, title: 'Learn TypeScript', completed: false },

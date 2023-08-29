@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { expect, test } from 'vitest'
+
 import { deepFlatten, skipWhile } from './array'
 import { chunks, groupBy } from './iter'
 import { zip } from './simple'

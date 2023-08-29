@@ -1,5 +1,7 @@
 import { Flex } from '@mantine/core'
+
 import type { People } from '../../../utils/types'
+
 import { PersonView } from './Person'
 
 interface GalleryProps {

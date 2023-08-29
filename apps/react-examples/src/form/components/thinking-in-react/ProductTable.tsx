@@ -1,6 +1,7 @@
 import { Container, Flex, Table } from '@mantine/core'
 import { useValue } from '@srtp/react'
 import React from 'react'
+
 import { ProductCategoryRow } from './ProductCategoryRow'
 import { ProductRow } from './ProductRow'
 import { categoryProductsAtom } from './state'

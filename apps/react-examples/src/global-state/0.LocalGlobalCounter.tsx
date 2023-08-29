@@ -1,6 +1,6 @@
+import { useValue } from '@srtp/react'
 import { atom } from 'jotai'
 import React from 'react'
-import { useValue } from '@srtp/react'
 export const useToggle = (init = false) => {
   const [state, dispatch] = React.useReducer(state => !state, init)
 

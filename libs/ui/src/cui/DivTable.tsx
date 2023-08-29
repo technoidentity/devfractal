@@ -1,5 +1,6 @@
-import { cn } from '../utils'
 import React from 'react'
+
+import { cn } from '../utils'
 
 export const DTable = React.forwardRef<
   HTMLDivElement,

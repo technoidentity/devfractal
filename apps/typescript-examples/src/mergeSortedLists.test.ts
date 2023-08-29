@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest'
+
 import { LinkedList } from './LinkedList'
 import { linkToIterable, mergeSortedLists } from './mergeSortedLists'
 

@@ -1,16 +1,16 @@
 import type { EndpointBase, GetEpResponse, Params } from '@srtp/core'
 import { linkfn } from '@srtp/core'
 import { cast } from '@srtp/core'
+import { axios, urlcat } from '@srtp/web'
 import {
   useMutation,
   useQuery,
   type UseQueryResult,
 } from '@tanstack/react-query'
-
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
+
 import { defaultApi } from '../api'
-import { axios, urlcat } from '@srtp/web'
 
 export type QueryArgs<Ep extends EndpointBase> = (Ep extends {
   request: never

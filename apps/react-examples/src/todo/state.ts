@@ -1,4 +1,5 @@
 import { state } from '@srtp/react'
+
 import { initialState } from './initialState'
 import type { Filter } from './types'
 

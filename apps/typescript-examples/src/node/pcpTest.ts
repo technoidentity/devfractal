@@ -1,5 +1,6 @@
-import fs from 'node:fs'
 import { exec } from 'node:child_process'
+import fs from 'node:fs'
+
 import { copyFileParallel } from './pcp'
 
 function createLargeFile(

@@ -9,11 +9,10 @@ import {
   ListItem,
   Text,
 } from '@chakra-ui/react'
+import { state, useEvent, useInputState, useString } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
 
-import { state, useString } from '@srtp/react'
 import './index.css'
-import { useEvent, useInputState } from '@srtp/react'
 
 type Todo = Readonly<{
   id: number

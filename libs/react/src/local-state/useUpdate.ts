@@ -1,8 +1,9 @@
 import { isFunction, isUndefined } from '@srtp/core'
+import { capitalize } from '@srtp/fn'
 import React from 'react'
 import invariant from 'tiny-invariant'
+
 import type { ShallowObject, UpdateHandlers } from './types'
-import { capitalize } from '@srtp/fn'
 
 export function useUpdate<T extends ShallowObject>(
   initialState: T | (() => T),

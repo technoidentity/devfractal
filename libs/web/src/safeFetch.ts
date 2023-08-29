@@ -1,4 +1,5 @@
 import type z from 'zod'
+
 import { fetch$, type AxiosOptions } from './fetch$'
 
 export class SafeFetchError extends Error {

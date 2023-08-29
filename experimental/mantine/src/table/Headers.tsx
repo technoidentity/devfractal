@@ -10,6 +10,7 @@ import {
   IconSortAscending,
   IconSortDescending,
 } from '@tabler/icons-react'
+
 import type { Column, RowBase, Sort, TableViewProps } from './types'
 
 const useStyles = createStyles(theme => ({

@@ -1,12 +1,10 @@
 import { Button, HStack } from '@chakra-ui/react'
+import { For } from '@srtp/react'
+import { loaderQueryCreator, queryClient, useSafeSearch } from '@srtp/router'
+import React from 'react'
 import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet } from 'react-router-dom'
-
-import React from 'react'
 import { z } from 'zod'
-
-import { loaderQueryCreator, queryClient, useSafeSearch } from '@srtp/router'
-import { For } from '@srtp/react'
 
 const AuthorsSpec = z.array(
   z.object({

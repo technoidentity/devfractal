@@ -1,6 +1,7 @@
+import { z } from 'zod'
+
 import { fail, ok, type Result, type Try } from './result'
 import { isArray, isObject, isStr, isUndefined, jstr } from './spec'
-import { z } from 'zod'
 
 export function tryFromZod<Output, Input>(
   result: z.SafeParseReturnType<Input, Output>,

@@ -1,7 +1,8 @@
-import { all, filter, map, pipe, plus, range, reduce, toArray } from '@srtp/fn'
 import { checked, Natural } from '@srtp/core'
+import { all, filter, map, pipe, plus, range, reduce, toArray } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
+
 import { minBy } from './array'
 
 export const compact = <T extends unknown[]>(arr: T): T =>

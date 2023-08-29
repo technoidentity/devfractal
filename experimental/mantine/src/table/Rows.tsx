@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { defaultColumnRenderer } from './defaultColumnRenderer'
 import type { RowBase, TableViewProps } from './types'
 

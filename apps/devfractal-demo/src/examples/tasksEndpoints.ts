@@ -1,6 +1,6 @@
 import { epDelete, epGet, epPatch, epPost, eps } from 'devfractal'
-
 import { z } from 'zod'
+
 import { Filters, Task } from './specs'
 
 export const taskEndpoints = eps({

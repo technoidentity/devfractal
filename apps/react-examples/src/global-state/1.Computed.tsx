@@ -1,5 +1,4 @@
 import { Box, Button } from '@chakra-ui/react'
-
 import { useAction, useToggle, useValue } from '@srtp/react'
 import type { Atom } from 'jotai'
 import { atom } from 'jotai'

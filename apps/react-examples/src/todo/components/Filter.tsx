@@ -1,4 +1,5 @@
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
+
 import type { Filter } from '../types'
 
 export type FilterViewProps = Readonly<{

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { linkfn, type Params, type PathBase } from '@srtp/core'
-import { useEvent } from '@srtp/react'
 import { cast } from '@srtp/core'
+import { useEvent } from '@srtp/react'
 import { toSearch } from '@srtp/web'
 import React from 'react'
 import {

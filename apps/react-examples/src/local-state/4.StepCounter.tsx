@@ -1,6 +1,6 @@
 import { Box, Input, Text } from '@chakra-ui/react'
-import React from 'react'
 import { state } from '@srtp/react'
+import React from 'react'
 
 const initial = { step: 1, count: 0 }
 

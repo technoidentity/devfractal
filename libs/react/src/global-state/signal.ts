@@ -1,6 +1,7 @@
 import type { PrimitiveAtom, WritableAtom } from 'jotai'
 import { atom } from 'jotai'
 import { selectAtom } from 'jotai/utils'
+
 import type { Read, Write } from './types'
 
 export function atoms<Value>() {

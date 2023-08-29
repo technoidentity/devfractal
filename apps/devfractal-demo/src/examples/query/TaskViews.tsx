@@ -10,6 +10,7 @@ import {
   useInputState,
 } from 'devfractal'
 import { Trash2 } from 'lucide-react'
+
 import type { Task } from '../specs'
 
 export type TaskItemProps = Readonly<{

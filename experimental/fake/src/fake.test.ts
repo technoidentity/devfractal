@@ -1,5 +1,6 @@
 import { describe, expect, test, vi } from 'vitest'
 import { z } from 'zod'
+
 import { fake } from './fake'
 const Gender = z.enum(['male', 'female'])
 

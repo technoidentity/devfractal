@@ -2,6 +2,7 @@
 /* eslint-disable prefer-rest-params */
 
 import invariant from 'tiny-invariant'
+
 import { isIterable, toArray } from './iter'
 
 type Fn = (...args: unknown[]) => Iterable<unknown>

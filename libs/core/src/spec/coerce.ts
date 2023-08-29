@@ -1,4 +1,5 @@
 import { coerce } from 'zod'
+
 import { cast } from './casts'
 
 export const toInt = (s: unknown): number => cast(coerce.number().int(), s)

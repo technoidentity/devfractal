@@ -11,7 +11,7 @@
     "coverage": "vitest run --coverage",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
     "dev": "concurrently pnpm:client:dev pnpm:server:dev",
-    "lint": "eslint --report-unused-disable-directives --max-warnings=0 --cache src --ext .ts,.tsx",
+    "lint": "eslint --fix --report-unused-disable-directives --max-warnings=0 --cache src --ext .ts,.tsx",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "serve": "vite preview",
     "server:dev": "tsx --watch src/examples/server/index.ts",

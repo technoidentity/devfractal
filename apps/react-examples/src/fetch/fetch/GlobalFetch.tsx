@@ -1,13 +1,13 @@
 import { Box, Button } from '@chakra-ui/react'
-
+import { useValue, useAction } from '@srtp/react'
 import type { Atom } from 'jotai'
 import { atom } from 'jotai'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+
 import { ErrorMessage, Loading } from './common'
 import { useToggle } from './hooks'
 import { get as fetch } from './utils'
-import { useValue, useAction } from '@srtp/react'
 
 const createFetchAtom = (urlAtom: Atom<string>) => {
   const fetchAtom = atom(async get => {

@@ -1,9 +1,10 @@
 import { Flex, Spinner } from '@chakra-ui/react'
+import { isDefined } from '@srtp/core'
 import React from 'react'
 import invariant from 'tiny-invariant'
+
 import { Pagination, TodoListView } from './components'
 import { usePagedTodos, useTodoMutations } from './hooks'
-import { isDefined } from '@srtp/core'
 
 export const TodoList = () => {
   const [page, setPage] = React.useState(1)

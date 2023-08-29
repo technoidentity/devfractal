@@ -1,6 +1,6 @@
+import { toError } from './errorUtils'
 import type { Result } from './result'
 import { ok, fail } from './result'
-import { toError } from './errorUtils'
 
 export type Try<T> = Result<Error, T>
 

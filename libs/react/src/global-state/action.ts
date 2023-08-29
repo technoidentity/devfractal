@@ -4,6 +4,7 @@ import { produce } from 'immer'
 import type { Getter, Setter, WritableAtom } from 'jotai'
 import { atom } from 'jotai'
 import { z } from 'zod'
+
 import type { ImmerSetter, ImmerWrite } from './types'
 
 export function immerAction<Args extends unknown[], Result>(

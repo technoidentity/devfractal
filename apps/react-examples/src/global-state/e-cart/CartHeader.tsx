@@ -1,6 +1,7 @@
 import { Avatar, Button, Group, Header, Indicator, Title } from '@mantine/core'
 import { useValue } from '@srtp/react'
 import { IconAperture, IconShoppingCart } from '@tabler/icons-react'
+
 import { totalCartItems } from './state'
 
 export const CartHeader = () => {

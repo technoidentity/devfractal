@@ -1,5 +1,6 @@
 import invariant from 'tiny-invariant'
 import { expect, test } from 'vitest'
+
 import { LinkedList } from './LinkedList'
 
 test('push', () => {

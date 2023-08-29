@@ -1,8 +1,8 @@
+import type { Todo } from '@srtp/todo'
+import { axios, urlcat } from '@srtp/web'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
-import type { Todo } from '@srtp/todo'
-import { axios, urlcat } from '@srtp/web'
 import { itemCount, limit, pageCount } from '../common'
 import { rqGet } from '../get'
 

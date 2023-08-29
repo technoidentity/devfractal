@@ -1,4 +1,5 @@
 import { Box, Pagination, Stack } from '@mantine/core'
+
 import { TableSearch } from './TableSearch'
 import { TableView } from './TableView'
 import type { ClientTableProps, RowBase } from './types'

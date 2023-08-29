@@ -1,7 +1,7 @@
-import { ThemeProvider } from 'devfractal'
-import { queryClient } from 'devfractal'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ThemeProvider } from 'devfractal'
+import { queryClient } from 'devfractal'
 import { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -11,6 +11,7 @@ import {
   type RouteObject,
 } from 'react-router-dom'
 import invariant from 'tiny-invariant'
+
 import './global.css'
 import { QueryTaskApp } from './examples/query/EpQueryTasks'
 import { tasksRoutes } from './examples/router/tasksRoutes'

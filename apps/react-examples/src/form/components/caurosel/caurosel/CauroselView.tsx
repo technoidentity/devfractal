@@ -1,4 +1,5 @@
 import { Button, Center, Container, Flex, Image, Title } from '@mantine/core'
+
 import type { Sculpture } from '../../../utils/types'
 
 interface CarouselProps {

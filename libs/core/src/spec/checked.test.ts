@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest'
+
 import { checked } from './checked'
 import { Natural } from './commonSpecs'
 

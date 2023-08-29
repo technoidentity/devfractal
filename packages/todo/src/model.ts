@@ -1,6 +1,6 @@
 import { strict } from '@srtp/core'
-import { z } from 'zod'
 import { cast } from '@srtp/core'
+import { z } from 'zod'
 
 export const Todo = strict({
   id: z.number(),

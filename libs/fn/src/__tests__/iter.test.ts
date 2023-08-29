@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { expect, test } from 'vitest'
+
 import {
   enumerate,
   iterFlatten,

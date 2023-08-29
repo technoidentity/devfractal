@@ -1,4 +1,5 @@
 import invariant from 'tiny-invariant'
+
 import { isPrime } from './simple'
 
 export class PrimeGenerator {

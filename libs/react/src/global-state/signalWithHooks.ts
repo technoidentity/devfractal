@@ -1,9 +1,10 @@
 import type { Draft } from 'immer'
+import { atom } from 'jotai'
 import React from 'react'
+
 import { actionHook, useValue } from './hooks'
 import { computed } from './signal'
 import type { Read } from './types'
-import { atom } from 'jotai'
 
 export function atomWithHooks<Value extends object>(initialValue: Value) {
   const signal = atom(initialValue)

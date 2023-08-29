@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest'
+
 import { difference, intersection, union } from '../set'
 
 test('intersection', () => {

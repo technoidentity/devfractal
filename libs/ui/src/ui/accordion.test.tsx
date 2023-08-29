@@ -1,11 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, expect, test } from 'vitest'
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from './accordion'
-import { describe, expect, test } from 'vitest'
 
 describe('Accordion', () => {
   test('should toggle the open state when clicked', () => {

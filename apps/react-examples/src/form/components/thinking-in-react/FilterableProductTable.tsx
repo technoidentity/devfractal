@@ -1,4 +1,5 @@
 import { Center, Flex, Title } from '@mantine/core'
+
 import { ProductTable } from './ProductTable'
 import { SearchBar } from './SearchBar'
 

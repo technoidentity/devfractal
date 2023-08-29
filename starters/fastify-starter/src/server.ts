@@ -2,6 +2,7 @@ import type { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
 import closeWithGrace from 'close-with-grace'
 import dotenv from 'dotenv'
 import Fastify from 'fastify'
+
 import { appService } from './appService'
 
 dotenv.config()

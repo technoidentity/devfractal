@@ -1,13 +1,13 @@
 import { Box, Button, Checkbox, Heading, Input } from '@chakra-ui/react'
 import { cast } from '@srtp/core'
-
+import { useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
+
 import { ErrorMessage, Loading } from './common'
 import type { Todo } from './types'
 import { TodoList } from './types'
 import { useFetch } from './useFetch'
 import { useMutation } from './useMutation'
-import { useInputState } from '@srtp/react'
 
 const todoUrl = '/api/todos'
 const todoIdUrl = (id: number) => `${todoUrl}/${id}`

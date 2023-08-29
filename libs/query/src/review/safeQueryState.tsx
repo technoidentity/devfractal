@@ -1,16 +1,17 @@
 import type { Params, PathBase } from '@srtp/core'
 import { keysfn } from '@srtp/core'
+import { axios } from '@srtp/web'
 import {
   useQueryClient,
   useMutation as useTanstackMutation,
   type MutationFunction,
   type UseMutationOptions,
 } from '@tanstack/react-query'
-
 import type { z, Schema } from 'zod'
-import { ApiDescriptions, type MutationDescription } from './mutationApi'
+
 import { useSafeQuery, type UseSafeQueryArgs } from '../safeQuery'
-import { axios } from '@srtp/web'
+
+import { ApiDescriptions, type MutationDescription } from './mutationApi'
 
 export type MutationHandler = (
   api: typeof ApiDescriptions,

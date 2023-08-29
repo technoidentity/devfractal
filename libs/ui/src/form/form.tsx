@@ -3,13 +3,14 @@ import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { UseFormInput, UseFormReturnType } from '@mantine/form/lib/types'
 import type LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
-import { context } from '@srtp/react'
 import { getRawShape, isNotNil } from '@srtp/core'
+import { context } from '@srtp/react'
 import React, { type ComponentProps } from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-import { cn } from '../utils'
+
 import { Label } from '../ui'
+import { cn } from '../utils'
 
 type FormSpec = z.ZodEffects<any> | z.AnyZodObject
 

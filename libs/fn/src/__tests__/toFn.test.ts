@@ -1,4 +1,5 @@
 import { expectTypeOf, test } from 'vitest'
+
 import { toFn } from '../toFn'
 
 test('methodToFn', () => {

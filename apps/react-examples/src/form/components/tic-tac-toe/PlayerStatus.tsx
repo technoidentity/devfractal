@@ -1,5 +1,6 @@
-import type * as Square from './Square'
 import { Title } from '@mantine/core'
+
+import type * as Square from './Square'
 
 interface PlayerProps {
   readonly player: Square.Player

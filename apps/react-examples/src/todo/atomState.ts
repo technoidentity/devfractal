@@ -1,8 +1,9 @@
-import { atom } from 'jotai'
-import type { Filter, Todo } from './types'
 import { computed } from '@srtp/react'
 import { action } from '@srtp/react'
 import { exhaustive } from 'exhaustive'
+import { atom } from 'jotai'
+
+import type { Filter, Todo } from './types'
 
 const todoList: readonly Todo[] = [
   { id: 1, text: 'Learn React', completed: false },

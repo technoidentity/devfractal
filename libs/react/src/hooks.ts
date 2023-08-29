@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { useEvent } from './useEvent'
 
 export const useInterval = (fn: () => void, delay: number) => {

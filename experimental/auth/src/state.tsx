@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
+import { isDefined, isNil } from '@srtp/core'
+import type { Nullish } from '@srtp/core'
 import { Provider, atom, createStore, useAtomValue } from 'jotai'
 import { RESET, atomWithStorage } from 'jotai/utils'
 import React from 'react'
 import type { z } from 'zod'
+
 import { AuthUser } from './common'
-import { isDefined, isNil } from '@srtp/core'
-import type { Nullish } from '@srtp/core'
 
 const authKey = 'auth'
 

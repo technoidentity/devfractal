@@ -1,13 +1,13 @@
 import { Box, Flex } from '@chakra-ui/react'
+import { isDefined, isUndefined } from '@srtp/core'
+import { paged, pipe } from '@srtp/fn'
 import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'
-import { filteredTodos, pageCount } from '../common'
-import { useTodoMutations, useTodos } from '../hooks'
 
-import { paged, pipe } from '@srtp/fn'
+import { filteredTodos, pageCount } from '../common'
 import { FilterView, Pagination, TodoListView } from '../components'
-import { isDefined, isUndefined } from '@srtp/core'
+import { useTodoMutations, useTodos } from '../hooks'
 
 const useTodoList = () => {
   const [limit] = React.useState(15)

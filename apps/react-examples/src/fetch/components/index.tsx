@@ -9,6 +9,7 @@ import { createStore, Provider } from 'jotai'
 import { queryClientAtom } from 'jotai-tanstack-query'
 import React, { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+
 import { TodoList } from './client/Virtual'
 
 const isProd = import.meta.env['NODE_ENV'] === 'production'

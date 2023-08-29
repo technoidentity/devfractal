@@ -1,8 +1,8 @@
 import { cast } from '@srtp/core'
-
 import type { z } from 'zod'
-import { createHttp$, type ApiOptions } from './http$'
+
 import { fetch$ } from './fetch$'
+import { createHttp$, type ApiOptions } from './http$'
 
 export function createSafeHttp(fetcher = fetch$) {
   const api = createHttp$(fetcher)

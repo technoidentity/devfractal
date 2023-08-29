@@ -1,5 +1,4 @@
 import { Box, Spinner } from '@chakra-ui/react'
-
 import { Text, VStack } from '@chakra-ui/react'
 
 export const FullPageLoading = () => (

@@ -1,4 +1,5 @@
 import { expect, it, test } from 'vitest'
+
 import { isPerfect, isPrime, isSorted } from './simple'
 
 test('isPrime', () => {

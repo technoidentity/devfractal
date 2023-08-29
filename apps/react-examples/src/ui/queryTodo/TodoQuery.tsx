@@ -11,16 +11,16 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useString } from '@srtp/react'
+import { useEvent, useInputState } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
 
-import type { Todo } from './todo'
 import {
   useAddTodo,
   useDelete,
   useTodoList,
   useToggle,
 } from './stateQueryTodoHooks'
-import { useEvent, useInputState } from '@srtp/react'
+import type { Todo } from './todo'
 
 type TodoItemProps = Readonly<{
   todo: Todo

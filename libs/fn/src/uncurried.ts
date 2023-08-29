@@ -37,7 +37,6 @@ import {
   zipLongest,
   zipWith,
 } from './iter'
-
 import { omap, merge, omit, omitBy, pick, pickBy, pluck } from './object'
 import { pipe } from './pipe'
 

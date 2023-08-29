@@ -1,14 +1,13 @@
 import { Box, Button, Heading, Input } from '@chakra-ui/react'
-
+import { conform, useForm } from '@conform-to/react'
 import type { RouteObject } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
+
 import { authorsRouter } from './4.authors'
 // import { ConformExample } from './5.conform'
+import { SignupForm } from './6.SearchForm'
 import { aboutRouter } from './about'
 import { rootIndexRouter } from './rootIndex'
-
-import { conform, useForm } from '@conform-to/react'
-import { SignupForm } from './6.SearchForm'
 
 function Product() {
   const [form] = useForm({

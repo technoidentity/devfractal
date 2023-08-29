@@ -1,7 +1,8 @@
 /* eslint-disable no-loop-func */
-import { cast, isDefined } from '@srtp/core'
 import fs from 'node:fs'
 import { argv } from 'node:process'
+
+import { cast, isDefined } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 

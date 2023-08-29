@@ -6,10 +6,10 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react'
+import type { Todo } from '@srtp/todo'
 import React from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList } from 'react-window'
-import type { Todo } from '@srtp/todo'
 
 export type VirtualTodoItemProps = Readonly<{
   todo: Readonly<Todo>

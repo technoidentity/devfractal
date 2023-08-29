@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-query'
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+
 import { TodoApp } from './components'
 
 const isProd = import.meta.env['NODE_ENV'] === 'production'

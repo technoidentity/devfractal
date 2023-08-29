@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 // Inspired by react-hot-toast library
 import * as React from 'react'
+
 import type { ToastActionElement, ToastProps } from './toast'
 
 const TOAST_LIMIT = 1

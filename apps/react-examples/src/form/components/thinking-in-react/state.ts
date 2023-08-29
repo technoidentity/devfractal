@@ -1,7 +1,8 @@
 import { computed } from '@srtp/react'
+import { atom } from 'jotai'
+
 import { PRODUCTS } from '../../utils/data'
 import { categorizedProducts } from '../../utils/dataTransform'
-import { atom } from 'jotai'
 
 export const textAtom = atom('')
 export const stockedAtom = atom(false)

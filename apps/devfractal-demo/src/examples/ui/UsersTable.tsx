@@ -1,4 +1,3 @@
-import { usersList } from '@/examples/server/usersDb'
 import {
   DTBody,
   DTCell,
@@ -8,6 +7,8 @@ import {
   DTable,
   ThemeSelector,
 } from 'devfractal'
+
+import { usersList } from '@/examples/server/usersDb'
 
 const users = usersList()
 

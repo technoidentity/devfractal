@@ -1,10 +1,10 @@
 import { action, computed } from '@srtp/react'
-
 import { original } from 'immer'
+import { atom } from 'jotai'
+
 import type { CartItem } from './CartList'
 import { fakeProductList } from './fakeProducts'
 import type { Product } from './ProductList'
-import { atom } from 'jotai'
 type Category = string
 
 export const fakeProducts = fakeProductList(10)

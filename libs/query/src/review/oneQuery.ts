@@ -1,4 +1,5 @@
 import type { MutationFunction } from '@tanstack/react-query'
+
 import type { UseOptimisticMutationOptions } from './useOptimistic'
 import { useOptimisticValue } from './useOptimistic'
 

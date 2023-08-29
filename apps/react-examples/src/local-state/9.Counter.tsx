@@ -7,8 +7,8 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { useState, type Handlers } from '@srtp/react'
 import { toInt } from '@srtp/core'
+import { useState, type Handlers } from '@srtp/react'
 import React from 'react'
 
 const useCounter = (min: number = 0, max: number = 10, count: number = 1) => {

@@ -1,7 +1,8 @@
-import { cast } from '@srtp/core'
 import { createReadStream, type PathLike } from 'node:fs'
 import { argv } from 'node:process'
 import { createInterface } from 'node:readline'
+
+import { cast } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 

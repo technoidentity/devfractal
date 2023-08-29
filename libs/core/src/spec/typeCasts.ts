@@ -1,5 +1,6 @@
 import invariant from 'tiny-invariant'
 import { boolean, number, string } from 'zod'
+
 import { cast } from './casts'
 
 export const sstr = (s: unknown): string => cast(string(), s)

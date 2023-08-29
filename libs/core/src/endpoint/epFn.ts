@@ -1,8 +1,10 @@
-import { cast, isObject } from '../spec'
-import invariant from 'tiny-invariant'
-import type { Params, PathBase } from './endpoint'
-import { z } from 'zod'
 import { orderedKeys, orderedEntries } from '@srtp/fn'
+import invariant from 'tiny-invariant'
+import { z } from 'zod'
+
+import { cast, isObject } from '../spec'
+
+import type { Params, PathBase } from './endpoint'
 
 // return parameterized route like /users/:id/posts/:postId
 export function route<Path extends PathBase>(path: Path): string {

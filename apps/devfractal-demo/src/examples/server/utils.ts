@@ -6,6 +6,7 @@ import {
   sorted,
   toArray,
 } from 'devfractal'
+
 import type { Filters, Task } from '../specs'
 
 export function paginate<T>(page: number, limit: number) {

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import type { ZodPrimitive } from '../spec'
 
 export function restEndpoints<

@@ -1,4 +1,5 @@
 import invariant from 'tiny-invariant'
+
 import type { ExactKeys, FromUnion, TagUnion } from './types'
 
 export function match<T extends string, U>(

@@ -1,6 +1,8 @@
+import React from 'react'
+
 import { RadioGroup, RadioGroupItem } from '../ui'
 import { cn } from '../utils'
-import React from 'react'
+
 import type { BaseFieldProps } from './common'
 import {
   AriaControl,

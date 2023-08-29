@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react'
 
+import { cn } from '../utils'
+
 import type { GridClassesMapping } from './gridStyles'
 import { gridCols, gridColsLg, gridColsMd, gridColsSm } from './gridStyles'
-import { cn } from '../utils'
 
 function getGridCols<T extends GridClassesMapping>(
   numCols: keyof T | undefined,

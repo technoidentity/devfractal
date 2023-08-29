@@ -1,4 +1,5 @@
 import invariant from 'tiny-invariant'
+
 import { pipe } from './pipe'
 
 export function isIterable(x: unknown): x is Iterable<any> {

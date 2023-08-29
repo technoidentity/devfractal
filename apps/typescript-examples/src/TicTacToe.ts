@@ -1,4 +1,7 @@
+import { isDefined, toInt, toStr } from '@srtp/core'
+import { range } from '@srtp/fn'
 import invariant from 'tiny-invariant'
+
 import {
   appendChildren,
   createElement,
@@ -6,8 +9,6 @@ import {
   getSelector,
 } from './domUtils'
 import './ticTacToeStyles.css'
-import { range } from '@srtp/fn'
-import { isDefined, toInt, toStr } from '@srtp/core'
 
 type Player = 'X' | 'O'
 

@@ -20,6 +20,7 @@ import {
 } from '@tanstack/react-table'
 import * as React from 'react'
 
+import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from '../cui'
 import {
   Button,
   Checkbox,
@@ -32,7 +33,6 @@ import {
   DropdownMenuTrigger,
   Input,
 } from '../ui'
-import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from '../cui'
 const data: Payment[] = [
   {
     id: 'm5gr84i9',

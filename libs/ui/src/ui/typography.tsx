@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/heading-has-content */
-import { cn } from '../utils'
 import React from 'react'
+
+import { cn } from '../utils'
 
 export const H1 = React.forwardRef<
   HTMLHeadingElement,

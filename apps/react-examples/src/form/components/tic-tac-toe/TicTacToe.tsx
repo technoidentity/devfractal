@@ -2,6 +2,7 @@
 import { Flex } from '@mantine/core'
 import { produce } from 'immer'
 import React from 'react'
+
 import { getWinner } from './calculateWinner'
 import { GameBoard, n } from './GameBoard'
 import { PlayerStatus } from './PlayerStatus'
