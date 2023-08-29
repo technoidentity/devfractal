@@ -1131,6 +1131,9 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
+      '@srtp/react':
+        specifier: workspace:*
+        version: link:../../libs/react
       '@srtp/ui':
         specifier: workspace:*
         version: link:../../libs/ui
