@@ -1,5 +1,6 @@
 import { state } from 'devfractal'
-import { Pagination1, Pagination2 } from './table-pagination/Pagination'
+
+import { Pagination } from './table-pagination/Pagination'
 
 const usePaginate = state(
   { current: 1 },
@@ -20,19 +21,11 @@ export function Pages(): JSX.Element {
 
   return (
     <>
-      <Pagination1
-        currentPage={pageState.current}
-        count={10}
+      <Pagination
+        totalRows={5}
+        selectedRows={pageState.current}
         onNext={actions.onNext}
         onPrev={actions.onPrev}
-      />
-
-      <Pagination2
-        currentPage={pageState.current}
-        count={10}
-        onNext={actions.onNext}
-        onPrev={actions.onPrev}
-        onClick={actions.setPage}
       />
     </>
   )
