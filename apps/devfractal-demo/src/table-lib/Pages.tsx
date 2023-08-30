@@ -1,4 +1,5 @@
 import { state } from 'devfractal'
+
 import { Pagination1, Pagination2 } from './table-pagination/Pagination'
 
 const usePaginate = state(
