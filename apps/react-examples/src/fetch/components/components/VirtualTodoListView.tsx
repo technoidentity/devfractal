@@ -6,14 +6,14 @@ import {
   Spacer,
   Text,
 } from '@chakra-ui/react'
-import type { Todo } from '@srtp/todo'
+import type { Task } from '@srtp/fake-tasks'
 import React from 'react'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList } from 'react-window'
 
 export type VirtualTodoItemProps = Readonly<{
-  todo: Readonly<Todo>
-  onToggle?(id: Todo): void
+  todo: Readonly<Task>
+  onToggle?(id: Task): void
   onDelete?(id: number): void
 }>
 
@@ -39,9 +39,9 @@ const VirtualTodoItem = React.memo(
 )
 
 export type VirtualTodoListViewProps = Readonly<{
-  todoList: readonly Todo[]
+  todoList: readonly Task[]
   itemCount: number
-  onToggle?(id: Todo): void
+  onToggle?(id: Task): void
   onDelete?(todo: number): void
 }>
 

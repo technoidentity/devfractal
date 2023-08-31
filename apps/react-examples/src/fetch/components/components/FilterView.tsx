@@ -1,11 +1,11 @@
 import { Flex, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react'
-import type { Filter } from '@srtp/todo'
+import type { TaskFilter } from '@srtp/fake-tasks'
 
 export type FilterViewProps = Readonly<{
-  filter: Filter
+  filter: TaskFilter
   limit?: number
   onLimitChange?(limit: number): void
-  onFilterChange(filter: Filter): void
+  onFilterChange(filter: TaskFilter): void
 }>
 
 export const FilterView = ({

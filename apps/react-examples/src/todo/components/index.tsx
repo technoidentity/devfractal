@@ -11,7 +11,7 @@ export type TodoAppProps = Readonly<{
 }>
 
 export const TodoApp = ({ state, dispatch }: TodoAppProps) => {
-  const filtered = filterTodos(state.todoList, state.filter)
+  const filtered = filterTodos(state.tasks, state.filter)
 
   return (
     <>

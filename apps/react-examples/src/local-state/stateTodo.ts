@@ -1,24 +1,26 @@
+import type { CreateTask, Task } from '@srtp/fake-tasks'
+import { createTask } from '@srtp/fake-tasks'
 import { pstate } from '@srtp/react'
-import type { CreateTodo, Todo } from '@srtp/todo'
-import { createTodo, initialState } from '@srtp/todo'
+
+import { initialState } from '@/initialTasks'
 
 export const useTodo = pstate(initialState, {
-  createTodo: (todo: CreateTodo) => state => {
-    const created = createTodo(todo)
-    state.todos.set(created.id, created)
+  createTodo: (todo: CreateTask) => state => {
+    const created = createTask(todo)
+    state.tasks.set(created.id, created)
   },
 
   deleteTodo: (id: number) => state => {
-    state.todos.delete(id)
+    state.tasks.delete(id)
   },
 
-  editTodo: (todo: Todo) => state => {
-    const editTodo = state.todos.get(todo.id)
-    state.todos.set(todo.id, { ...editTodo, ...todo })
+  editTodo: (todo: Task) => state => {
+    const editTodo = state.tasks.get(todo.id)
+    state.tasks.set(todo.id, { ...editTodo, ...todo })
   },
 
   toggleTodo: (id: number) => state => {
-    const toggleTodo = state.todos.get(id)
+    const toggleTodo = state.tasks.get(id)
     if (toggleTodo) {
       toggleTodo.completed = !toggleTodo.completed
     }

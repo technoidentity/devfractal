@@ -1,14 +1,14 @@
 // Mutations
 
+import type { Task } from '@srtp/fake-tasks'
 import { useEvent } from '@srtp/react'
-import type { Todo } from '@srtp/todo'
 import { axios } from '@srtp/web'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export const del = async (todoId: number) =>
   (await axios({ method: 'delete', url: `/api/todos/${todoId}` }))[0]
 
-export const toggle = async (todo: Todo) =>
+export const toggle = async (todo: Task) =>
   (
     await axios({
       method: 'patch',

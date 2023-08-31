@@ -37,7 +37,7 @@
     "@srtp/query": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/router": "workspace:*",
-    "@srtp/todo": "workspace:*",
+    "@srtp/fake-tasks": "workspace:*",
     "@srtp/web": "workspace:*",
     "@tabler/icons-react": "2.32.0",
     "@tanstack/react-query": "4.33.0",

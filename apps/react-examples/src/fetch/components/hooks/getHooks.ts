@@ -1,4 +1,4 @@
-import type { Todo } from '@srtp/todo'
+import type { Task } from '@srtp/fake-tasks'
 import { axios, urlcat } from '@srtp/web'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
@@ -20,7 +20,7 @@ export const getPagedTodos = async ({
   const ic = itemCount(res)
 
   return {
-    page: data as Todo[],
+    page: data as Task[],
     pageCount: pageCount(ic, limit),
     itemCount: ic,
   }
@@ -34,7 +34,7 @@ const getInfiniteTodos = async ({ pageParam = 1 }) => {
 
   const ic = itemCount(res)
   return {
-    data: data as Todo[],
+    data: data as Task[],
     itemCount: ic,
     pageCount: pageCount(ic, limit),
   }

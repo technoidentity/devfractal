@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react'
 import { isDefined, isUndefined } from '@srtp/core'
+import type { Task, TaskFilter } from '@srtp/fake-tasks'
 import { paged, pipe } from '@srtp/fn'
-import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
 import invariant from 'tiny-invariant'
 
@@ -11,14 +11,14 @@ import { useTodoMutations, useTodos } from '../hooks'
 
 const useTodoList = () => {
   const [limit] = React.useState(15)
-  const [filter, setFilter] = React.useState<Filter>('All')
+  const [filter, setFilter] = React.useState<TaskFilter>('All')
   const [page, setPage] = React.useState(1)
 
   const { data } = useTodos()
 
   const filtered = React.useMemo(
     () =>
-      isUndefined(data) ? undefined : filteredTodos(data as Todo[], filter),
+      isUndefined(data) ? undefined : filteredTodos(data as Task[], filter),
 
     [data, filter],
   )
@@ -40,7 +40,7 @@ const useTodoList = () => {
   }, [page, pc])
 
   const onFilterChange = React.useCallback(
-    (s: string) => setFilter(s as Filter),
+    (s: string) => setFilter(s as TaskFilter),
     [],
   )
 

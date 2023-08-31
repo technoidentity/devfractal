@@ -10,8 +10,8 @@ const todoReducer: Reducer<TodoState, TodoAction> = (state, action) => {
     case 'ADD_TODO':
       return {
         ...state,
-        todoList: [
-          ...state.todoList,
+        tasks: [
+          ...state.tasks,
           { id: nextId++, text: action.text, completed: false },
         ],
       }
@@ -19,7 +19,7 @@ const todoReducer: Reducer<TodoState, TodoAction> = (state, action) => {
     case 'TOGGLE_TODO':
       return {
         ...state,
-        todoList: state.todoList.map(todo =>
+        tasks: state.tasks.map(todo =>
           todo.id === action.id
             ? { ...todo, completed: !todo.completed }
             : todo,

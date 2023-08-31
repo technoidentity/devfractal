@@ -7,4 +7,4 @@ export type TodoAction =
   | Readonly<{ type: 'TOGGLE_TODO'; id: number }>
   | Readonly<{ type: 'SET_FILTER'; filter: Filter }>
 
-export type TodoState = Readonly<{ todoList: readonly Todo[]; filter: Filter }>
+export type TodoState = Readonly<{ tasks: readonly Todo[]; filter: Filter }>

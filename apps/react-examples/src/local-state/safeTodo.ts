@@ -1,43 +1,46 @@
+import { number } from '@srtp/core'
+import { CreateTask, Task, createTask } from '@srtp/fake-tasks'
 import { safeAction, safeActions, safeReducer, tree$ } from '@srtp/react'
-import { CreateTodo, State, Todo, createTodo, initialState } from '@srtp/todo'
-import { z } from 'zod'
+import type { z } from 'zod'
 
-const TodoAction = safeActions([
-  safeAction('createTodo', CreateTodo),
-  safeAction('deleteTodo', z.number()),
-  safeAction('toggleTodo', z.number()),
-  safeAction('editTodo', Todo),
+import { State, initialState } from '@/initialTasks'
+
+const TaskAction = safeActions([
+  safeAction('createTask', CreateTask),
+  safeAction('deleteTask', number()),
+  safeAction('toggleTask', number()),
+  safeAction('editTask', Task),
 ])
 
-export type TodoAction = Readonly<z.infer<typeof TodoAction>>
+export type TaskAction = Readonly<z.infer<typeof TaskAction>>
 
-export const todoReducer = safeReducer(
+export const taskReducer = safeReducer(
   State,
-  TodoAction,
+  TaskAction,
 )({
-  createTodo(state, payload) {
-    const created = createTodo(payload)
-    state.todos.set(created.id, created)
+  createTask(state, payload) {
+    const created = createTask(payload)
+    state.tasks.set(created.id, created)
   },
 
-  deleteTodo(state, payload) {
-    state.todos.delete(payload)
+  deleteTask(state, payload) {
+    state.tasks.delete(payload)
   },
 
-  editTodo(state, payload) {
-    const editTodo = state.todos.get(payload.id)
-    state.todos.set(payload.id, { ...editTodo, ...payload })
+  editTask(state, payload) {
+    const editTask = state.tasks.get(payload.id)
+    state.tasks.set(payload.id, { ...editTask, ...payload })
   },
 
-  toggleTodo(state, payload) {
-    const toggleTodo = state.todos.get(payload)
-    if (toggleTodo) {
-      toggleTodo.completed = !toggleTodo.completed
+  toggleTask(state, payload) {
+    const toggleTask = state.tasks.get(payload)
+    if (toggleTask) {
+      toggleTask.completed = !toggleTask.completed
     }
   },
 })
 
 export const { Provider, useDispatch, useSelect, useValue } = tree$(
   initialState,
-  todoReducer,
+  taskReducer,
 )

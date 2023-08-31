@@ -8,16 +8,16 @@ import {
   Input,
 } from '@chakra-ui/react'
 import { jstr } from '@srtp/core'
+import type { CreateTask } from '@srtp/fake-tasks'
 import { state } from '@srtp/react'
-import type { CreateTodo } from '@srtp/todo'
 
-const initial: CreateTodo = { title: '', completed: false }
+const initial: CreateTask = { title: '', completed: false }
 
 const useTodoForm = state(initial, {
-  update: (state, up: Partial<CreateTodo>) => ({ ...state, ...up }),
+  update: (state, up: Partial<CreateTask>) => ({ ...state, ...up }),
 })
 
-export const TodoForm = () => {
+export const TaskForm = () => {
   const [todo, { update }] = useTodoForm()
   return (
     <Flex alignItems="center" justifyContent="center" mt="20px">

@@ -1,12 +1,15 @@
+import type { CreateTask, Task, TaskFilter } from '@srtp/fake-tasks'
+import { createTask } from '@srtp/fake-tasks'
 import { toArray } from '@srtp/fn'
 import type { Getter } from '@srtp/react'
 import { atomWithHooks, useAction, useValue } from '@srtp/react'
-import type { CreateTodo, Filter, State, Todo } from '@srtp/todo'
-import { createTodo, initialState } from '@srtp/todo'
 import type { Draft } from 'immer'
 import { atom } from 'jotai'
 
-const filterAtom = atom<Filter>('All')
+import type { State } from '@/initialTasks'
+import { initialState } from '@/initialTasks'
+
+const filterAtom = atom<TaskFilter>('All')
 
 export const useFilterValue = () => {
   return useValue(filterAtom)
@@ -16,49 +19,49 @@ export const useUpdateFilter = () => {
   return useAction(filterAtom)
 }
 
-type TodoState = State['todos']
-const [todosAtom, useTodoAction, useTodoValue] = atomWithHooks(
-  initialState.todos,
+type TasksState = State['tasks']
+const [tasksAtom, useTaskAction, useTaskValue] = atomWithHooks(
+  initialState.tasks,
 )
 
-const createTodoAction = (draft: Draft<TodoState>, todo: CreateTodo) => {
-  const created = createTodo(todo)
+const createTaskAction = (draft: Draft<TasksState>, task: CreateTask) => {
+  const created = createTask(task)
   draft.set(created.id, created)
 }
 
-export const useCreate = () => useTodoAction(createTodoAction)
+export const useCreate = () => useTaskAction(createTaskAction)
 
 export const useDelete = () =>
-  useTodoAction((draft, id: number) => {
+  useTaskAction((draft, id: number) => {
     draft.delete(id)
   })
 
 export const useEdit = () =>
-  useTodoAction((draft, todo: Todo) => {
-    const editTodo = draft.get(todo.id)
-    draft.set(todo.id, { ...editTodo, ...todo })
+  useTaskAction((draft, task: Task) => {
+    const editTask = draft.get(task.id)
+    draft.set(task.id, { ...editTask, ...task })
   })
 
-const toggle = (draft: Draft<TodoState>, id: number) => {
-  const toggleTodo = draft.get(id)
-  if (toggleTodo) {
-    toggleTodo.completed = !toggleTodo.completed
+const toggle = (draft: Draft<TasksState>, id: number) => {
+  const toggleTask = draft.get(id)
+  if (toggleTask) {
+    toggleTask.completed = !toggleTask.completed
   }
 }
 
-export const useToggle = () => useTodoAction(toggle)
+export const useToggle = () => useTaskAction(toggle)
 
 const filtered = (get: Getter) => {
-  const todoList = toArray(get(todosAtom).values())
+  const taskList = toArray(get(tasksAtom).values())
   const filter = get(filterAtom)
 
   return filter === 'All'
-    ? todoList
+    ? taskList
     : filter === 'Completed'
-    ? todoList.filter(t => t.completed)
-    : todoList.filter(t => !t.completed)
+    ? taskList.filter(t => t.completed)
+    : taskList.filter(t => !t.completed)
 }
 
 // these hooks are to compute values, SHOULD NOT take any parameters
-// Must always pass the same function to useTodoValue
-export const useFilteredTodos = () => useTodoValue(filtered)
+// Must always pass the same function to useTaskValue
+export const useFilteredTasks = () => useTaskValue(filtered)

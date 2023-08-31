@@ -1,5 +1,5 @@
 import { Box, Flex, Spinner } from '@chakra-ui/react'
-import type { Filter, Todo } from '@srtp/todo'
+import type { Task, TaskFilter } from '@srtp/fake-tasks'
 import { axios, urlcat } from '@srtp/web'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
@@ -10,7 +10,7 @@ import { FilterView, Pagination, TodoListView } from './components'
 
 const limitAtom = atom(15)
 const pageAtom = atom(1)
-const filterAtom = atom<Filter>('All')
+const filterAtom = atom<TaskFilter>('All')
 
 const [resAtom] = atomsWithQuery(get => ({
   queryKey: ['todos', get(pageAtom), get(limitAtom), get(filterAtom)],
@@ -34,7 +34,7 @@ const pageCountAtom = atom(async get => (await get(resAtom)).pageCount)
 
 export const TodoListComp = () => {
   const todoList = useAtomValue(todoListAtom)
-  return <TodoListView todoList={todoList as Todo[]} />
+  return <TodoListView todoList={todoList as Task[]} />
 }
 
 export const TodoList = () => {
@@ -51,7 +51,7 @@ export const TodoList = () => {
   }, [page, pageCount, setPage])
 
   const handleFilterChange = React.useCallback(
-    (filter: Filter) => {
+    (filter: TaskFilter) => {
       startTransition(() => {
         setFilter(filter)
       })

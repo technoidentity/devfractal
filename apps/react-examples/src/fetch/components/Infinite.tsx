@@ -1,6 +1,6 @@
 import { Box, Button } from '@chakra-ui/react'
+import type { Task, TaskFilter } from '@srtp/fake-tasks'
 import { useInfiniteLoader } from '@srtp/react'
-import type { Filter, Todo } from '@srtp/todo'
 import React from 'react'
 
 import { filteredTodos } from './common'
@@ -8,7 +8,7 @@ import { FilterView, TodoListView } from './components'
 import { useInfiniteTodos, useTodoMutations } from './hooks'
 
 export const TodoList = () => {
-  const [filter, setFilter] = React.useState<Filter>('All')
+  const [filter, setFilter] = React.useState<TaskFilter>('All')
   const ref = React.useRef<HTMLDivElement>(null)
 
   const { data, isFetchingNextPage, hasNextPage, fetchNextPage } =
@@ -17,7 +17,7 @@ export const TodoList = () => {
   const todoList = React.useMemo(
     () =>
       filteredTodos(
-        (data?.pages?.flatMap(page => page.data) as Todo[]) || [],
+        (data?.pages?.flatMap(page => page.data) as Task[]) || [],
         filter,
       ),
     [data, filter],

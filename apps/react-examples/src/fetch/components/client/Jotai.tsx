@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Flex, Heading, Spinner } from '@chakra-ui/react'
+import type { Task, TaskFilter } from '@srtp/fake-tasks'
 import { paged, pipe } from '@srtp/fn'
-import type { Filter, Todo } from '@srtp/todo'
 import { axios } from '@srtp/web'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import { atomsWithQuery } from 'jotai-tanstack-query'
@@ -13,19 +13,22 @@ import { FilterView, Pagination, TodoListView } from '../components'
 const limitAtom = atom(15)
 const pageAtom = atom(1)
 
-const filterAtom = atom('All' as Filter, async (get, set, _: Filter) => {
-  await set(filterAtom, _)
+const filterAtom = atom(
+  'All' as TaskFilter,
+  async (get, set, _: TaskFilter) => {
+    await set(filterAtom, _)
 
-  if (get(pageAtom) > (await get(pageCountAtom))) {
-    set(pageAtom, await get(pageCountAtom))
-  }
-})
+    if (get(pageAtom) > (await get(pageCountAtom))) {
+      set(pageAtom, await get(pageCountAtom))
+    }
+  },
+)
 
 const [todosAtom] = atomsWithQuery(() => {
   return {
     queryKey: ['todos'],
     queryFn: async () =>
-      (await axios({ method: 'get', url: `/api/todos` }))[0] as readonly Todo[],
+      (await axios({ method: 'get', url: `/api/todos` }))[0] as readonly Task[],
   }
 })
 

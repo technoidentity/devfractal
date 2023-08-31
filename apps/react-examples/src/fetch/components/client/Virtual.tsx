@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react'
 import { isDefined, isUndefined } from '@srtp/core'
-import type { Filter, Todo } from '@srtp/todo'
+import type { Task, TaskFilter } from '@srtp/fake-tasks'
 import React from 'react'
 import invariant from 'tiny-invariant'
 
@@ -9,13 +9,13 @@ import { FilterView, VirtualTodoListView } from '../components'
 import { useTodoMutations, useTodos } from '../hooks'
 
 const useTodoList = () => {
-  const [filter, setFilter] = React.useState<Filter>('All')
+  const [filter, setFilter] = React.useState<TaskFilter>('All')
 
   const { data } = useTodos()
 
   const todoList = React.useMemo(
     () =>
-      isUndefined(data) ? undefined : filteredTodos(data as Todo[], filter),
+      isUndefined(data) ? undefined : filteredTodos(data as Task[], filter),
     [data, filter],
   )
 
@@ -27,7 +27,7 @@ const useTodoList = () => {
 
     filter,
     onFilterChange: React.useCallback(
-      (s: string) => setFilter(s as Filter),
+      (s: string) => setFilter(s as TaskFilter),
       [],
     ),
 

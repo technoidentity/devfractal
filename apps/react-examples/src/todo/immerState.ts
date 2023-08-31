@@ -9,7 +9,7 @@ let nextId = 4
 const todoReducer = (state: Draft<TodoState>, action: TodoAction) => {
   switch (action.type) {
     case 'ADD_TODO':
-      state.todoList.push({
+      state.tasks.push({
         id: nextId++,
         text: action.text,
         completed: false,
@@ -17,7 +17,7 @@ const todoReducer = (state: Draft<TodoState>, action: TodoAction) => {
       break
 
     case 'TOGGLE_TODO':
-      const todo = state.todoList.find(todo => todo.id === action.id)
+      const todo = state.tasks.find(todo => todo.id === action.id)
       if (todo) {
         todo.completed = !todo.completed
       }

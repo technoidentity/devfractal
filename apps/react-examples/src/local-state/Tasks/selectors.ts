@@ -1,8 +1,9 @@
 import { toArray } from '@srtp/fn'
-import type { State } from '@srtp/todo'
 
-export const filteredTodosSelector = (snap: State) => {
-  const todoList = toArray(snap.todos.values())
+import type { State } from '@/initialTasks'
+
+export const filteredTasksSelector = (snap: State) => {
+  const todoList = toArray(snap.tasks.values())
   return snap.filter === 'All'
     ? todoList
     : snap.filter === 'Completed'

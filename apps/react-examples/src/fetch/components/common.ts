@@ -1,4 +1,4 @@
-import type { Filter, Todo } from '@srtp/todo'
+import type { Task, TaskFilter } from '@srtp/fake-tasks'
 
 export const limit = 15
 
@@ -19,7 +19,7 @@ export const pageFromLink = (res: Response, rel: string) => {
   return link && Number(link.slice(link.lastIndexOf('_page=') + 6))
 }
 
-export const filteredTodos = (todoList: readonly Todo[], filter: Filter) =>
+export const filteredTodos = (todoList: readonly Task[], filter: TaskFilter) =>
   todoList.filter(
     t =>
       filter === 'All' || (filter === 'Completed' ? t.completed : !t.completed),

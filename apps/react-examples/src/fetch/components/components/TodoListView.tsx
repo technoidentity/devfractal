@@ -9,12 +9,12 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import type { Todo } from '@srtp/todo'
+import type { Task } from '@srtp/fake-tasks'
 import React from 'react'
 
 type TodoItemProps = Readonly<{
-  todo: Readonly<Todo>
-  onToggle?(id: Todo): void
+  todo: Readonly<Task>
+  onToggle?(id: Task): void
   onDelete?(id: number): void
 }>
 
@@ -40,8 +40,8 @@ const TodoItem = React.memo(({ todo, ...actions }: TodoItemProps) => (
 ))
 
 export type TodoListViewProps = Readonly<{
-  todoList: readonly Todo[]
-  onToggle?(id: Todo): void
+  todoList: readonly Task[]
+  onToggle?(id: Task): void
   onDelete?(todo: number): void
 }>
 

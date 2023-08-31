@@ -14,24 +14,24 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import type { Todo } from '@srtp/todo'
+import type { Task } from '@srtp/fake-tasks'
 import React from 'react'
 
-import { filteredTodosSelector, filterSelector } from './selectors'
+import { filteredTasksSelector, filterSelector } from './selectors'
 import { actions, useAction, useSelect } from './state'
-import { TodoForm } from './TodoForm'
+import { TaskForm } from './TaskForm'
 
-export type TodoItemProps = Readonly<Todo>
+export type TaskItemProps = Readonly<Task>
 
-export const TodoItem = React.memo(function TodoItem({
+export const TaskItem = React.memo(function TaskItem({
   completed,
   id,
   title,
-}: TodoItemProps) {
-  const { deleteTodo, toggleTodo } = actions
+}: TaskItemProps) {
+  const { deleteTask, toggleTask } = actions
 
-  const onDelete = useAction(() => deleteTodo(id))
-  const onToggle = useAction(() => toggleTodo(id))
+  const onDelete = useAction(() => deleteTask(id))
+  const onToggle = useAction(() => toggleTask(id))
 
   return (
     <Tr>
@@ -49,11 +49,11 @@ export const TodoItem = React.memo(function TodoItem({
   )
 })
 
-export const TodoList = () => {
+export const TaskList = () => {
   const [show, set] = React.useState(false)
 
   const filter = useSelect(filterSelector)
-  const filtered = useSelect(filteredTodosSelector)
+  const filtered = useSelect(filteredTasksSelector)
 
   const onSetFilter = useAction(actions.setFilter)
 
@@ -71,7 +71,7 @@ export const TodoList = () => {
 
       <Flex direction="column">
         {show ? (
-          <TodoForm />
+          <TaskForm />
         ) : (
           <Button alignSelf="flex-end" m="20px" onClick={() => set(!show)}>
             Add
@@ -89,8 +89,8 @@ export const TodoList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {filtered.map(todo => (
-              <TodoItem key={todo.id} {...todo} />
+            {filtered.map(task => (
+              <TaskItem key={task.id} {...task} />
             ))}
           </Tbody>
         </Table>

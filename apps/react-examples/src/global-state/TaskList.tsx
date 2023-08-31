@@ -13,50 +13,53 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import type { Filter, Todo } from '@srtp/todo'
+import type { Task, TaskFilter } from '@srtp/fake-tasks'
 
 import {
   useDelete,
-  useFilteredTodos,
   useFilterValue,
+  useFilteredTasks,
   useToggle,
   useUpdateFilter,
 } from './state'
 
-export type TodoItemProps = Readonly<{ todo: Todo }>
+export type TaskItemProps = Readonly<{ task: Task }>
 
-export const TodoItem = ({ todo }: TodoItemProps) => {
-  const toggleTodo = useToggle()
-  const deleteTodo = useDelete()
+export const TaskItem = ({ task }: TaskItemProps) => {
+  const toggleTask = useToggle()
+  const deleteTask = useDelete()
 
   return (
     <Tr>
-      <Td>{todo.title}</Td>
+      <Td>{task.title}</Td>
       <Td>
         <Checkbox
-          isChecked={todo.completed}
-          onChange={() => toggleTodo(todo.id)}
+          isChecked={task.completed}
+          onChange={() => toggleTask(task.id)}
         />
       </Td>
       <Td>
         <ButtonGroup>
           <Button>Edit</Button>
-          <Button onClick={() => deleteTodo(todo.id)}>Delete</Button>
+          <Button onClick={() => deleteTask(task.id)}>Delete</Button>
         </ButtonGroup>
       </Td>
     </Tr>
   )
 }
 
-export const TodoList = () => {
-  const todoList = useFilteredTodos()
+export const TaskList = () => {
+  const taskList = useFilteredTasks()
   const filter = useFilterValue()
 
   const updateFilter = useUpdateFilter()
 
   return (
     <>
-      <RadioGroup onChange={evt => updateFilter(evt as Filter)} value={filter}>
+      <RadioGroup
+        onChange={evt => updateFilter(evt as TaskFilter)}
+        value={filter}
+      >
         <Stack direction="row">
           <Radio value="All">All</Radio>
           <Radio value="Completed">Completed</Radio>
@@ -73,8 +76,8 @@ export const TodoList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {todoList.map(todo => (
-              <TodoItem key={todo.id} todo={todo} />
+            {taskList.map(task => (
+              <TaskItem key={task.id} task={task} />
             ))}
           </Tbody>
         </Table>

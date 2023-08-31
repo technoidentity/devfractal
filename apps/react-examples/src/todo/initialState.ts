@@ -8,5 +8,5 @@ const initialTodos: readonly Todo[] = [
 
 export const initialState: TodoState = {
   filter: 'All',
-  todoList: initialTodos,
+  tasks: initialTodos,
 }

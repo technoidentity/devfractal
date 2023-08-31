@@ -7,7 +7,7 @@ let nextId = 4
 
 export const useTodoState = state(initialState, {
   add(state, text: string) {
-    state.todoList.push({
+    state.tasks.push({
       id: nextId++,
       text,
       completed: false,
@@ -15,7 +15,7 @@ export const useTodoState = state(initialState, {
   },
 
   toggle(state, id: number) {
-    const todo = state.todoList.find(todo => todo.id === id)
+    const todo = state.tasks.find(todo => todo.id === id)
     if (todo) {
       todo.completed = !todo.completed
     }
