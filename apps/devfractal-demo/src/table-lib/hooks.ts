@@ -3,7 +3,6 @@ import { state } from 'devfractal'
 export type PaginationValues = Readonly<{
   initialPage?: number
   totalPages: number
-  onChange?(page: number): void
 }>
 
 export type PaginationResult = {
@@ -16,37 +15,35 @@ export type PaginationResult = {
   last(): void
 }
 
-const usePageState = ({ initialPage }: { initialPage?: number }) =>
-  state(
-    { activePage: initialPage ? initialPage : 1 },
-    {
-      next(state) {
-        state.activePage += 1
-      },
-      previous(state) {
-        state.activePage -= 1
-      },
-      setPage(state, page: number) {
-        state.activePage = page
-      },
+const usePageState = state(
+  { activePage: 1, totalPages: 0 },
+  {
+    next(state) {
+      state.activePage += 1
     },
-  )
+    previous(state) {
+      state.activePage -= 1
+    },
+    setPage(state, page: number) {
+      state.activePage = page
+    },
+    first(state) {
+      state.activePage = 1
+    },
+    last(state) {
+      state.activePage = state.totalPages
+    },
+  },
+)
 
 export const usePagination = ({
   initialPage,
   totalPages,
-}: {
-  initialPage?: number
-  totalPages: number
-}) => {
-  const [state, actions] = usePageState({ initialPage })()
+}: PaginationValues): PaginationResult => {
+  const [state, actions] = usePageState({
+    activePage: initialPage ?? 1,
+    totalPages,
+  })
 
-  return {
-    activePage: state.activePage,
-    next: actions.next,
-    previous: actions.previous,
-    setPage: actions.setPage,
-    first: () => actions.setPage(1),
-    last: () => actions.setPage(totalPages),
-  }
+  return { activePage: state.activePage, ...actions }
 }

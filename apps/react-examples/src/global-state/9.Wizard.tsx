@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { Button, ButtonGroup, Container } from '@chakra-ui/react'
 import { context } from '@srtp/react'
 import React from 'react'

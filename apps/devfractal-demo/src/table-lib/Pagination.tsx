@@ -1,24 +1,16 @@
 import { Button, HStack } from 'devfractal'
 
-import {
-  usePagination,
-  type PaginationResult,
-  type PaginationValues,
-} from './hooks'
+import { type PaginationResult } from './hooks'
+
+export type PaginationProps = PaginationResult & {
+  totalPages: number
+}
 
 export function Pagination({
   totalPages,
-  initialPage,
-}: Omit<PaginationValues, 'onChange'>): JSX.Element {
-  const {
-    activePage,
-    next,
-    previous,
-  }: Omit<PaginationResult, 'last' | 'first'> = usePagination({
-    initialPage,
-    totalPages,
-  })
-
+  activePage,
+  ...actions
+}: PaginationProps): JSX.Element {
   return (
     <HStack className="items-center justify-end space-x-2 py-4">
       <div className="flex-1 text-sm text-muted-foreground">
@@ -29,7 +21,7 @@ export function Pagination({
         <Button
           variant="outline"
           size="sm"
-          onClick={previous}
+          onClick={actions.previous}
           disabled={activePage <= 1}
         >
           Previous
@@ -37,7 +29,7 @@ export function Pagination({
         <Button
           variant="outline"
           size="sm"
-          onClick={next}
+          onClick={actions.next}
           disabled={activePage === totalPages}
         >
           Next
