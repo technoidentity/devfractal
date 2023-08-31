@@ -1,4 +1,4 @@
-import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from 'devfractal'
+import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from '@srtp/ui'
 
 export function DivTable() {
   return (

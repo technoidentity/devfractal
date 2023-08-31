@@ -11,7 +11,7 @@ import {
 } from 'devfractal'
 import { Trash2 } from 'lucide-react'
 
-import type { Task } from '../specs'
+import type { Task } from '../../../../../packages/fakeTasks/src/specs'
 
 export type TaskItemProps = Readonly<{
   task: Task

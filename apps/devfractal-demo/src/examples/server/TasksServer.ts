@@ -1,10 +1,14 @@
+import {
+  tasksList,
+  type Task,
+  removeTask,
+  createTask,
+  updateTask,
+} from '@srtp/fake-tasks'
 import { epRouter, throwBadRequest, type SEpsHandlers } from '@srtp/server'
 import type {} from 'hono'
 
-import type { Task } from '../specs'
 import { taskEndpoints } from '../tasksEndpoints'
-
-import { createTask, removeTask, tasksList, updateTask } from './tasksDb'
 
 const taskHandlers = {
   getTasks: ({ request: filters }) => tasksList(filters),

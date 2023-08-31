@@ -1,9 +1,9 @@
 import { serve } from '@hono/node-server'
+import { seedTasks } from '@srtp/fake-tasks'
 
-import { initializeFakeTasksTable } from './tasksDb'
 import { tasksApp } from './TasksServer'
 
-initializeFakeTasksTable()
+seedTasks()
 
 const port = process.env.PORT ?? 8080
 

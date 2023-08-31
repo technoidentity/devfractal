@@ -1,3 +1,4 @@
+import { boolean, email, string } from '@srtp/core'
 import {
   Button,
   CheckBoxField,
@@ -13,11 +14,8 @@ import {
   SwitchField,
   TextareaField,
   ThemeSelector,
-  boolean,
   createClientForm,
-  email,
-  string,
-} from 'devfractal'
+} from '@srtp/ui'
 import { z } from 'zod'
 
 const Signin = z.object({

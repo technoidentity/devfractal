@@ -1,6 +1,6 @@
 import { epMutation, epQuery } from 'devfractal'
 
-import type { Task } from '../specs'
+import type { Task } from '../../../../../packages/fakeTasks/src/specs'
 import { taskEndpoints } from '../tasksEndpoints'
 
 import { TasksList } from './TaskViews'

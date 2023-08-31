@@ -2,7 +2,7 @@
 import { cast, http, queryState } from 'devfractal'
 import { z } from 'zod'
 
-import { Task } from '../specs'
+import { Task } from '../../../../../packages/fakeTasks/src/specs'
 
 import { TasksList } from './TaskViews'
 

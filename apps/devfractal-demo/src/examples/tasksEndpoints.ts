@@ -1,10 +1,10 @@
 import { epDelete, epGet, epPatch, epPost, eps } from 'devfractal'
 import { z } from 'zod'
 
-import { Filters, Task } from './specs'
+import { Search, Task } from '../../../../packages/fakeTasks/src/specs'
 
 export const taskEndpoints = eps({
-  getTasks: epGet(['tasks'], z.array(Task), Filters),
+  getTasks: epGet(['tasks'], z.array(Task), Search),
 
   removeTask: epDelete(['tasks', { id: z.coerce.number() }]),
 

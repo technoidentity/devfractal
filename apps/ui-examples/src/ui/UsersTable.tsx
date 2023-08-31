@@ -1,3 +1,4 @@
+import { usersList } from '@srtp/fake-tasks'
 import {
   DTBody,
   DTCell,
@@ -6,9 +7,7 @@ import {
   DTRow,
   DTable,
   ThemeSelector,
-} from 'devfractal'
-
-import { usersList } from '@/examples/server/usersDb'
+} from '@srtp/ui'
 
 const users = usersList()
 

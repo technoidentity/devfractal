@@ -1,6 +1,6 @@
 import { Pre, number, pages, path } from 'devfractal'
 
-import { Filters } from '../specs'
+import { Search } from '../../../../../packages/fakeTasks/src/specs'
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()
@@ -74,7 +74,7 @@ const UserTasksList = () => {
 const tasksApp = pages({
   tasksList: {
     path: path(['tasks']),
-    request: Filters,
+    request: Search,
     element: <TasksList />,
   },
 
@@ -115,7 +115,7 @@ const tasksApp = pages({
 
   userTasksList: {
     path: path(['users', { id: number() }, 'tasks']),
-    request: Filters,
+    request: Search,
     element: <UserTasksList />,
   },
 })

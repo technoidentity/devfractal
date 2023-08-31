@@ -12,7 +12,7 @@ import {
   H3,
   Paragraph,
   Ul,
-} from 'devfractal'
+} from '@srtp/ui'
 
 export function TypographyDemo() {
   return (
