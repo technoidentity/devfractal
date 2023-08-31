@@ -23,7 +23,7 @@ import React from 'react'
 import invariant from 'tiny-invariant'
 
 import { defaultApi } from '../api'
-import { useSafeQuery, type UseSafeQueryResult } from '../safeQuery'
+import { useSafeQuery, type UseSafeQueryResult } from '../core/safeQuery'
 
 export type QueryArgs<
   Ep extends EndpointBase,
@@ -36,6 +36,13 @@ export type UseEpQueryResult<Ep extends EndpointBase> = UseSafeQueryResult<
   NonNullable<Ep['response']>
 >
 
+/**
+ * Creates a React Query hook for a GET endpoint.
+ * @template Ep - The type of the endpoint.
+ * @param {Ep} ep - The endpoint.
+ * @param {string} baseUrl - The base URL for the API.
+ * @returns {function(options: QueryArgs<Ep, TQueryFnData>): UseEpQueryResult<Ep>} - The React Query hook.
+ */
 export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   invariant(ep.method === 'get', 'endpoint must be a GET endpoint')
 
@@ -57,7 +64,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
     )
 
     invariant(ep.response, 'endpoint must have a response schema')
-    // @TODO: replace above with ep.repsonse = z.ZodUndefined() when not defined?
+
     return useSafeQuery<Ep['response'], TQueryFnData>({
       paths,
       query,
@@ -93,7 +100,17 @@ export type MutationArgs<
   invalidateKey?: QueryKey
 }
 
-export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
+/**
+ * Creates a React Query hook for a non-GET endpoint.
+ * @template Ep - The type of the endpoint.
+ * @param {Ep} ep - The mutation endpoint.
+ * @param {string} baseUrl - The base URL for the API.
+ * @returns {function(options: MutationArgs<Ep, TVariables, TContext>): UseMutationResult<GetEpResponse<Ep>, Error, TVariables, TContext>} - The React Query mutation hook. You need to return params and request from action function.
+ */
+export function epActionMutation<Ep extends EndpointBase>(
+  ep: Ep,
+  baseUrl: string,
+) {
   invariant(ep.method !== 'get', 'endpoint must be a GET endpoint')
 
   type TData = GetEpResponse<Ep>
@@ -141,6 +158,14 @@ export type UseApiMutationResult<
   Ep extends EndpointBase,
   TContext,
 > = UseMutationResult<TData<Ep>, Error, TVariables<Ep>, TContext>
+
+/**
+ * Creates a React Query hook for a non-GET endpoint.
+ * @template Ep - The type of the endpoint.
+ * @param {Ep} ep - The mutation endpoint.
+ * @param {string} baseUrl - The base URL for the API.
+ * @returns {function(options: ApiMutationArgs<Ep, TContext>): UseMutationResult<GetEpResponse<Ep>, Error, TVariables<Ep>, TContext>} - The React Query mutation hook. You need to pass params and request to mutate function.
+ */
 
 export function apiMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   invariant(ep.method !== 'get', 'endpoint must be a GET endpoint')
@@ -198,7 +223,7 @@ export function useEpMutation<Ep extends EndpointBase, TVariables, TContext>(
   options: MutationArgs<Ep, TVariables, TContext>,
 ) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const useHook = React.useMemo(() => epMutation(endpoint, baseUrl), [])
+  const useHook = React.useMemo(() => epActionMutation(endpoint, baseUrl), [])
   return useHook(options)
 }
 
@@ -222,7 +247,7 @@ export function epMutations<Eps extends EndpointRecordBase>(
   eps: Eps,
   baseUrl: string,
 ): EpMutationsHooks<Eps> {
-  return omap$(eps, ep => epMutation(ep, baseUrl)) as any
+  return omap$(eps, ep => epActionMutation(ep, baseUrl)) as any
 }
 
 export type UseOptimisticArgs<

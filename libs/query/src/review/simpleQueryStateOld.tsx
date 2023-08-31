@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query'
 import type { Schema, z } from 'zod'
 
-import { useSafeQuery, type UseSafeQueryArgs } from '../safeQuery'
+import { useSafeQuery, type UseSafeQueryArgs } from '../core/safeQuery'
 
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
 

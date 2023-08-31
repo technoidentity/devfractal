@@ -1,7 +1,7 @@
 import type { MutationFunction } from '@tanstack/react-query'
 
-import type { UseOptimisticMutationOptions } from './useOptimistic'
-import { useOptimisticValue } from './useOptimistic'
+import type { UseOptimisticMutationOptions } from '../core/useOptimistic'
+import { useOptimisticValue } from '../core/useOptimistic'
 
 let dummyID = -1
 export function usePost<TData extends { id: unknown }>(
