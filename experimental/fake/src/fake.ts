@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 /* eslint-disable no-underscore-dangle */
+import { faker } from '@faker-js/faker'
 import { each, map, omit$, pipe, range } from '@srtp/fn'
 import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
-import { faker } from '@faker-js/faker'
 
 export const SupportedTypes = z.enum([
   'ZodBoolean',
@@ -97,17 +97,17 @@ function fakeString(
 
   switch (kind) {
     case 'sentence':
-      return faker.lorem.sentence(opts)
+      return faker.lorem.sentence()
     case 'word':
       return faker.lorem.word(opts)
     case 'paragraph':
-      return faker.lorem.paragraph(opts)
+      return faker.lorem.paragraph()
     case 'email':
       return faker.internet.email(opts)
     case 'url':
       return faker.image.url(opts)
     case 'phone':
-      return faker.phone.number(opts)
+      return faker.phone.number()
     case 'name':
       return faker.person.fullName(opts)
     case 'uuid':
@@ -136,7 +136,9 @@ export function fake(
   }
 
   if (type === 'ZodDate') {
-    return options.ZodDate ? faker.date(options.ZodDate) : faker.date()
+    return options.ZodDate
+      ? faker.date.anytime(options.ZodDate)
+      : faker.date.anytime()
   }
 
   if (type === 'ZodLiteral') {
@@ -144,7 +146,7 @@ export function fake(
   }
 
   if (type === 'ZodEnum') {
-    return faker.pickone(Object.values(spec._def.values))
+    return faker.helpers.arrayElement(Object.values(spec._def.values))
   }
 
   if (type === 'ZodArray') {
