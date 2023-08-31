@@ -14,7 +14,10 @@ export function Pagination({
     activePage,
     next,
     previous,
-  }: Omit<PaginationResult, 'last' | 'first'> = usePagination({ initialPage })
+  }: Omit<PaginationResult, 'last' | 'first'> = usePagination({
+    initialPage,
+    totalPages,
+  })
 
   return (
     <HStack className="items-center justify-end space-x-2 py-4">

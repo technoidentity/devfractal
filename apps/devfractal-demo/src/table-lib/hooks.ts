@@ -32,13 +32,21 @@ const usePageState = ({ initialPage }: { initialPage?: number }) =>
     },
   )
 
-export const usePagination = (initialState: { initialPage?: number }) => {
-  const [state, actions] = usePageState(initialState)()
+export const usePagination = ({
+  initialPage,
+  totalPages,
+}: {
+  initialPage?: number
+  totalPages: number
+}) => {
+  const [state, actions] = usePageState({ initialPage })()
 
   return {
     activePage: state.activePage,
     next: actions.next,
     previous: actions.previous,
     setPage: actions.setPage,
+    first: () => actions.setPage(1),
+    last: () => actions.setPage(totalPages),
   }
 }
