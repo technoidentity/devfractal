@@ -64,6 +64,7 @@ module.exports = {
     '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
     '@typescript-eslint/no-unused-expressions': 'warn',
 
+    '@typescript-eslint/unbound-method': 'off',
     '@typescript-eslint/no-throw-literal': 'warn',
     '@typescript-eslint/adjacent-overload-signatures': 'warn',
     '@typescript-eslint/await-thenable': 'warn',
