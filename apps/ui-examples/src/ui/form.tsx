@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { boolean, email, string } from '@srtp/core'
 import {
   Button,

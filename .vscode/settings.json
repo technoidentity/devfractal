@@ -56,4 +56,8 @@
   "js/ts.implicitProjectConfig.checkJs": false,
 
   "testing.automaticallyOpenPeekView": "never"
+
+  // "editor.codeActionsOnSave": {
+  //   "source.organizeImports": true
+  // }
 }

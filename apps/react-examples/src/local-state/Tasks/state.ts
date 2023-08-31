@@ -1,4 +1,5 @@
-import { createTask, TaskFilter, type Task } from '@srtp/fake-tasks'
+import type { TaskFilter } from '@srtp/fake-tasks'
+import { createTask, type Task } from '@srtp/fake-tasks'
 import { tree } from '@srtp/react'
 
 import { initialState } from '@/initialTasks'
