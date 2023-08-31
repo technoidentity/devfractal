@@ -10,7 +10,7 @@ export function usePagination({
   onChange: (page: number) => void
 }) {
   const [pageState, actions] = state(
-    { activePage: page },
+    { activePage: page, total },
     {
       setPage(_state, page: number) {
         onChange(page)
@@ -26,6 +26,7 @@ export function usePagination({
 
   return {
     activePage: pageState.activePage,
+    totalPage: pageState.total,
     setPage: actions.setPage,
     previous: actions.previous,
     next: actions.next,
