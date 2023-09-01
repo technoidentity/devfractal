@@ -142,8 +142,11 @@ export function actionMutation<Ep extends EndpointBase, TVariables>(
   }
 }
 
-type TData<Ep extends EndpointBase> = GetEpResponse<Ep>
-type TVariables<Ep extends EndpointBase> = GetParamsArg<Ep> & GetRequestArg<Ep>
+export type TData<Ep extends EndpointBase> = GetEpResponse<Ep>
+export type TVariables<Ep extends EndpointBase> = GetParamsArg<Ep> &
+  GetRequestArg<Ep> & {
+    invalidateKey?: QueryKey
+  }
 
 export type ApiMutationArgs<Ep extends EndpointBase, TContext> = Omit<
   MutationArgs<Ep, TVariables<Ep>, TContext>,
@@ -192,8 +195,9 @@ export function apiMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       ...options,
 
       onSettled: (data, error, variables, context) => {
-        if (options?.invalidateKey) {
-          qc.invalidateQueries(options?.invalidateKey).catch(console.error)
+        const invalidateKey = variables.invalidateKey ?? options?.invalidateKey
+        if (invalidateKey) {
+          qc.invalidateQueries(invalidateKey).catch(console.error)
         }
         if (options?.onSettled) {
           options.onSettled(data, error, variables, context)

@@ -26,10 +26,11 @@ export type UseSafeQueryArgs<
   Spec extends z.ZodTypeAny,
   TQueryFnData,
 > = Readonly<{ paths: Paths; spec: Spec; query?: Query }> &
-  Omit<UseQueryOptions<TQueryFnData, Error, z.infer<Spec>>, 'queryKey'>
+  Omit<
+    UseQueryOptions<TQueryFnData, Error, z.infer<Spec>>,
+    'queryKey' | 'select'
+  >
 
-// Currently Spec checks value returned by select;
-// not what's fetched from the server, for performance reasons.
 export function useQueryBase<
   Spec extends z.ZodTypeAny,
   TQueryFnData,

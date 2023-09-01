@@ -11,6 +11,24 @@ export type CreateQueryClientOptions = QueryClientConfig & {
   queryFn: QueryFunction
 }
 
+/**
+ * Creates a new instance of the React Query client with sensible defaults.
+ * @param {QueryClientOptions} [options] - The options to use when creating the client.
+ * @returns {QueryClient} - The new instance of the React Query client. Look at the React Query docs for more information.
+ *
+ * @example
+ * import { createQueryClient } from '@srtp/query'
+ *
+ * const queryClient = createQueryClient({
+ *  isProd: process.env.NODE_ENV === 'production',
+ * onError: err => console.error(err),
+ * queryFn: async ({ queryKey }) => {
+ * const [url, init] = queryKey
+ * const res = await fetch(url, init)
+ * const data = await res.json()
+ * return data
+ * },
+ */
 export function createQueryClient({
   isProd,
   onError,

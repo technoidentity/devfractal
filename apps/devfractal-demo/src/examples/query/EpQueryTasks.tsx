@@ -13,21 +13,22 @@ export const QueryTaskApp = () => {
     request: { limit: 100, page: 2 },
   })
 
-  const toggleTask = api.useUpdateTask({ invalidateKey })
-  const addTask = api.useAddTask({ invalidateKey })
-  const removeTask = api.useRemoveTask({ invalidateKey })
+  const toggleTask = api.useUpdateTask({})
+  const addTask = api.useAddTask({})
+  const removeTask = api.useRemoveTask({})
 
   const onToggle = (task: Task) =>
     toggleTask.mutate({
       params: { id: task.id },
       request: { ...task, completed: !task.completed },
+      invalidateKey,
     })
 
   const onAdd = (title: string) =>
-    addTask.mutate({ request: { title, completed: false } })
+    addTask.mutate({ request: { title, completed: false }, invalidateKey })
 
   const onRemove = (id: number) =>
-    removeTask.mutate({ params: { id }, request: undefined })
+    removeTask.mutate({ params: { id }, invalidateKey })
 
   console.count()
 

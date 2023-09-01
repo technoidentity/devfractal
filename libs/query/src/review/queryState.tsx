@@ -1,6 +1,5 @@
 import type { Params, PathBase } from '@srtp/core'
 import { keysfn } from '@srtp/core'
-import type {} from '@srtp/core'
 import {
   useQueryClient,
   useMutation as useTanstackMutation,
