@@ -1,6 +1,5 @@
+import { Search } from '@srtp/fake-tasks'
 import { Pre, number, pages, path } from 'devfractal'
-
-import { Search } from '../../../../../packages/fakeTasks/src/specs'
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()

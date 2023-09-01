@@ -1,16 +1,15 @@
-import { epActionMutation, epQuery } from 'devfractal'
+import type { Task } from '@srtp/fake-tasks'
+import { epMutation, epQuery } from 'devfractal'
 
-import type { Task } from '../../../../../packages/fakeTasks/src/specs'
 import { taskEndpoints } from '../tasksEndpoints'
-
 import { TasksList } from './TaskViews'
 
 const baseUrl = '/api'
 
 const useTaskQuery = epQuery(taskEndpoints.getTasks, baseUrl)
-const useToggleTask = epActionMutation(taskEndpoints.updateTask, baseUrl)
-const useAddTask = epActionMutation(taskEndpoints.addTask, baseUrl)
-const useDeleteTask = epActionMutation(taskEndpoints.removeTask, baseUrl)
+const useToggleTask = epMutation(taskEndpoints.updateTask, baseUrl)
+const useAddTask = epMutation(taskEndpoints.addTask, baseUrl)
+const useDeleteTask = epMutation(taskEndpoints.removeTask, baseUrl)
 
 export const QueryTaskApp = () => {
   const [tasks, , invalidateKey] = useTaskQuery({

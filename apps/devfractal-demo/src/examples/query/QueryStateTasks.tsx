@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import { Task } from '@srtp/fake-tasks'
 import { cast, http, queryState } from 'devfractal'
 import { z } from 'zod'
-
-import { Task } from '../../../../../packages/fakeTasks/src/specs'
 
 import { TasksList } from './TaskViews'
 
@@ -15,6 +14,7 @@ const api = http
 const [useTaskQuery, actions] = queryState(
   ['tasks'],
   { queryFn: () => api.get$(`${baseUrl}/tasks`) },
+
   {
     toggleTask: (task: Task) => {
       return api.patch$(`${baseUrl}/tasks/${task.id}`, {

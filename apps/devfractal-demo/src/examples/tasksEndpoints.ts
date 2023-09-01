@@ -1,7 +1,6 @@
+import { Search, Task } from '@srtp/fake-tasks'
 import { epDelete, epGet, epPatch, epPost, eps } from 'devfractal'
 import { z } from 'zod'
-
-import { Search, Task } from '../../../../packages/fakeTasks/src/specs'
 
 export const taskEndpoints = eps({
   getTasks: epGet(['tasks'], z.array(Task), Search),

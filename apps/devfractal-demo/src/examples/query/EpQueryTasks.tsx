@@ -1,8 +1,7 @@
+import type { Task } from '@srtp/fake-tasks'
 import { createEpApi } from 'devfractal'
 
-import type { Task } from '../../../../../packages/fakeTasks/src/specs'
 import { taskEndpoints } from '../tasksEndpoints'
-
 import { TasksList } from './TaskViews'
 
 const baseUrl = '/api'
