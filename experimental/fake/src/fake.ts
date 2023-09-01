@@ -92,8 +92,8 @@ function fakeString(
   spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
-  const opts = omit$(options.ZodNumber!, ['kind'])
-  const kind = options.ZodNumber?.kind || spec._def.checks[0]?.kind
+  const opts = omit$(options.ZodString!, ['kind'])
+  const kind = options.ZodString?.kind || spec._def.checks[0]?.kind
 
   switch (kind) {
     case 'sentence':
@@ -105,15 +105,15 @@ function fakeString(
     case 'email':
       return faker.internet.email(opts)
     case 'url':
-      return faker.image.url(opts)
+      return faker.internet.url(opts)
     case 'phone':
       return faker.phone.number()
     case 'name':
       return faker.person.fullName(opts)
     case 'uuid':
-      return uuidv4()
+      return faker.string.uuid()
     default:
-      return faker.lorem.word(opts)
+      return faker.string.alpha(opts)
   }
 }
 

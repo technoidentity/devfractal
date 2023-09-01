@@ -39,7 +39,7 @@ const schema = z.tuple([
 ])
 
 describe('fake', () => {
-  test.skip('object', () => {
+  test('object', () => {
     const p = fake(person)
     const s = fake(schema)
 
