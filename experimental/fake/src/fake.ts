@@ -3,7 +3,6 @@
 /* eslint-disable no-underscore-dangle */
 import { faker } from '@faker-js/faker'
 import { each, map, omit$, pipe, range } from '@srtp/fn'
-import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 
 export const SupportedTypes = z.enum([
