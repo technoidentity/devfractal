@@ -45,8 +45,6 @@ export function useDepartmentName() {
 export function useDepartmentsSelect() {
   const { departments } = useDepartments()
 
-  console.log({ departments }, 'departments')
-
   const data = React.useMemo(
     () =>
       departments.map(d => ({

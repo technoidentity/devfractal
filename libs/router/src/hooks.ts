@@ -41,7 +41,6 @@ export function safeSearch<Spec extends z.ZodTypeAny>(spec: Spec) {
       return result.success ? (result.data as z.infer<Spec>) : undefined
     }, [search])
 
-    console.log({ searchValue })
     return [searchValue, setSearch] as const
   }
 }

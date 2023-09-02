@@ -33,7 +33,6 @@ export function EditForm<Spec extends FormSpec>({
             serverErrors={serverErrors}
             method="put"
             onSubmit={() => {
-              console.log('edit onSubmit')
               setOpened(false)
             }}
           >

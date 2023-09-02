@@ -30,8 +30,6 @@ export const DatePickerView = () => {
     day: currentDate.getDate(),
   })
 
-  console.log({ day, month, year })
-
   return (
     <HStack>
       <Select value={day} onChange={evt => setDay(toInt(evt.target.value))}>

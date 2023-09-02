@@ -12,7 +12,7 @@ export const action = async (args: ActionArgs) =>
 
 export const DepartmentAccessPage = () => {
   const actionData = useServerErrors(CreateAccessSpec)
-  console.log({ actionData })
+
   return <CreateDepartmentAccessForm {...actionData} />
 }
 
