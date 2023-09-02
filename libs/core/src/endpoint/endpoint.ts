@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { ZodPrimitive } from '../spec'
-import type { UnionToIntersection } from '../types'
+import type { MergeUnion } from '../types'
 
 export const HttpMethod = z.enum(['get', 'post', 'put', 'delete', 'patch'])
 export type HttpMethod = z.infer<typeof HttpMethod>
@@ -58,7 +58,7 @@ export type EndpointRecordBase<M extends HttpMethod = HttpMethod> = Record<
 //   }[number]
 // >
 
-export type ParamsRawSpec<Path extends PathBase> = UnionToIntersection<
+export type ParamsRawSpec<Path extends PathBase> = MergeUnion<
   Exclude<Path[number], string>
 >
 
