@@ -113,8 +113,6 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       mutationFn,
       ...options,
       onSettled: (data, error, variables, context) => {
-        console.log('HELLO WORLD!!!!')
-        console.log(options?.invalidateKey)
         if (options?.invalidateKey) {
           qc.invalidateQueries(options?.invalidateKey).catch(console.error)
         }

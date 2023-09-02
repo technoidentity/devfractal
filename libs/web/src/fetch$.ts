@@ -1,6 +1,7 @@
 import { isEmpty, isKey } from '@srtp/core'
 import { isObject, isStr } from '@srtp/core'
 import { getReasonPhrase } from 'http-status-codes'
+
 export class ResponseError extends Error {
   constructor(
     readonly response: Response,
@@ -118,11 +119,11 @@ export async function fetch$(
   throw new ResponseError(response, error)
 }
 
-// transition function
 export type AxiosOptions = BaseFetchOptions & { url: string }
 
-export function axios(
+export type AxiosFn = (
   options: AxiosOptions,
-): Promise<readonly [unknown, Response]> {
-  return fetch$(options.url, options)
-}
+) => Promise<readonly [unknown, Response]>
+
+export const axios: AxiosFn = ({ url, ...options }: AxiosOptions) =>
+  fetch$(url, options)

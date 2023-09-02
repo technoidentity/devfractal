@@ -1,20 +1,17 @@
 import type { MutationFunction } from '@tanstack/react-query'
-
-import type { UseOptimisticMutationOptions } from '../core/useOptimistic'
-import { useOptimisticValue } from '../core/useOptimistic'
+import type { z } from 'zod'
+import { useSafeMutation, type UseOptimisticMutationOptions } from '../core'
 
 export function useOnePatch<
-  TData extends { id: unknown },
-  TVariables extends Partial<TData>,
+  Spec extends z.ZodTypeAny,
+  TVariables extends Partial<z.infer<Spec>>,
 >(
-  invalidateQuery: any[],
-  mutationFn: MutationFunction<TData, TVariables>,
-  options?: UseOptimisticMutationOptions<TData, TVariables>,
+  spec: Spec,
+  mutationFn: MutationFunction<z.infer<Spec>, TVariables>,
+  options?: UseOptimisticMutationOptions<z.infer<Spec>, TVariables>,
 ) {
-  return useOptimisticValue(
-    invalidateQuery,
-    mutationFn,
-    (old, newValue) => ({ ...old, ...newValue }),
-    options,
-  )
+  return useSafeMutation(spec, mutationFn, {
+    setData: (old, newValue) => ({ ...old, ...newValue }),
+    ...options,
+  })
 }

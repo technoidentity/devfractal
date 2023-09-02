@@ -1,5 +1,5 @@
 import type { Params, PathBase } from '@srtp/core'
-import { keysfn } from '@srtp/core'
+import { cast, keysfn } from '@srtp/core'
 import { axios } from '@srtp/web'
 import {
   useQueryClient,
@@ -7,10 +7,9 @@ import {
   type MutationFunction,
   type UseMutationOptions,
 } from '@tanstack/react-query'
-import type { z, Schema } from 'zod'
+import type { Schema, z } from 'zod'
 
-import { useSafeQuery, type UseSafeQueryArgs } from '../core/safeQuery'
-
+import { useSafeQuery, type UseSafeQueryArgs } from '../core'
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
 
 export type MutationHandler = (
@@ -45,16 +44,12 @@ export type SafeQueryActions<Hs extends SafeQueryHandlers> = {
 }
 
 async function apiMethod<T>(
-  mut: MutationDescription<T>,
+  { method: type, path, request: payload }: MutationDescription<T>,
   spec: Schema<T>,
 ): Promise<T> {
-  const [data] = await axios({
-    method: mut.type,
-    url: mut.path,
-    body: mut.payload,
-  })
+  const [data] = await axios({ method: type, url: path, body: payload })
 
-  return spec.parse(data)
+  return cast(spec, data)
 }
 
 type QueryStateArgs<

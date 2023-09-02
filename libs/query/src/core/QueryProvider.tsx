@@ -1,7 +1,7 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
 
-import { createQueryClient } from '../core/queryClient'
+import { createQueryClient } from './queryClient'
 
 import { queryFn, type ToUrl } from './queryFn'
 

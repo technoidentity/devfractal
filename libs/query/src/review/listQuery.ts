@@ -1,58 +1,68 @@
-import type { MutationFunction } from '@tanstack/react-query'
+import type { MutationFunction, QueryKey } from '@tanstack/react-query'
+import type { z } from 'zod'
 
-import type { UseOptimisticMutationOptions } from '../core/useOptimistic'
-import { useOptimisticValue } from '../core/useOptimistic'
+import { useSafeMutation, type UseOptimisticMutationOptions } from '../core'
+
+type Options<TData, TVariables> = Omit<
+  UseOptimisticMutationOptions<TVariables, TVariables, TData[]>,
+  'setData'
+>
 
 let dummyID = -1
-export function usePost<TData extends { id: unknown }>(
-  invalidateQuery: any[],
-  mutationFn: MutationFunction<TData, Omit<TData, 'id'>>,
-  options?: UseOptimisticMutationOptions<TData, Omit<TData, 'id'>>,
+export function usePost<Spec extends z.ZodTypeAny>(
+  spec: Spec,
+  mutationFn: MutationFunction<z.infer<Spec>, Omit<z.infer<Spec>, 'id'>>,
+  options?: Options<z.infer<Spec>, Omit<z.infer<Spec>, 'id'>>,
 ) {
-  return useOptimisticValue(
-    invalidateQuery,
-    mutationFn,
-    (old, newValue) => [...old, { id: --dummyID, ...(newValue as any) }],
-    options,
-  )
+  return useSafeMutation(spec, mutationFn, {
+    setData: (old, newValue) => [
+      ...old,
+      { id: --dummyID, ...(newValue as any) },
+    ],
+    ...options,
+  })
 }
 
-export function usePatch<TData extends { id: unknown }>(
-  invalidateQuery: any[],
-  mutationFn: MutationFunction<TData, Partial<TData>>,
-  options?: UseOptimisticMutationOptions<TData, Partial<TData>>,
+export function usePatch<Spec extends z.ZodTypeAny>(
+  spec: Spec,
+  invalidateQuery: QueryKey,
+  mutationFn: MutationFunction<z.infer<Spec>, Partial<z.infer<Spec>>>,
+  options?: Options<z.infer<Spec>, Partial<z.infer<Spec>>>,
 ) {
-  return useOptimisticValue(
+  return useSafeMutation(spec, mutationFn, {
     invalidateQuery,
-    mutationFn,
-    (old, newValue) =>
+    setData: (old, newValue) =>
       old.map(t => (t.id === newValue.id ? { ...t, ...newValue } : t)),
-    options,
-  )
+    ...options,
+  })
 }
 
-export function usePut<TData extends { id: unknown }>(
-  invalidateQuery: any[],
-  mutationFn: MutationFunction<TData, TData>,
-  options?: UseOptimisticMutationOptions<TData, TData>,
+export function usePut<Spec extends z.ZodTypeAny>(
+  spec: Spec,
+  invalidateQuery: QueryKey,
+  mutationFn: MutationFunction<z.infer<Spec>, z.infer<Spec>>,
+  options?: Options<z.infer<Spec>, z.infer<Spec>>,
 ) {
-  return useOptimisticValue(
+  return useSafeMutation(spec, mutationFn, {
     invalidateQuery,
-    mutationFn,
-    (old, newValue) => old.map(t => (t.id === newValue.id ? newValue : t)),
-    options,
-  )
+    setData: (old, newValue) =>
+      old.map(t => (t.id === newValue.id ? newValue : t)),
+    ...options,
+  })
 }
 
-export function useDelete<TData extends { id: unknown }, TVariables>(
+export function useDelete<Spec extends z.ZodTypeAny, TVariables>(
+  spec: Spec,
   invalidateQuery: any[],
   mutationFn: MutationFunction<TVariables, TVariables>,
-  options?: UseOptimisticMutationOptions<TVariables, TVariables, TData[]>,
+  options?: Omit<
+    UseOptimisticMutationOptions<TVariables, TVariables, z.infer<Spec>[]>,
+    'setData'
+  >,
 ) {
-  return useOptimisticValue(
+  return useSafeMutation(spec, mutationFn, {
     invalidateQuery,
-    mutationFn,
-    (old, id) => old.filter(t => t.id !== id),
-    options,
-  )
+    setData: (old, id) => old.filter(t => t.id !== id),
+    ...options,
+  })
 }
