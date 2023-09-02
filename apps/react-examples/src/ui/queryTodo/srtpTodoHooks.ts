@@ -1,9 +1,11 @@
-import { useOptimistic, useOptimisticValue } from '@srtp/query'
+import { useSafeMutation } from '@srtp/query'
 import { useQuery } from '@tanstack/react-query'
+import { type Draft } from 'immer'
 import invariant from 'tiny-invariant'
 
-import type { Todo } from './todo'
+import { Todo } from './todo'
 import { todoApi } from './todoApi'
+import { z } from 'zod'
 
 export function useTodoList() {
   const result = useQuery({
@@ -17,28 +19,35 @@ export function useTodoList() {
 
 let dummyID = -1
 export function useAddTodo() {
-  return useOptimistic<Todo, string, Todo[]>(
-    ['todos'],
-    title => todoApi.post({ title, completed: false }),
-    (draft, title) => {
-      draft.push({ id: dummyID--, title, completed: false })
+  return useSafeMutation(
+    Todo,
+    (title: string) => todoApi.post({ title, completed: false }),
+    {
+      invalidateQuery: ['todos'],
+      setData: (draft: Draft<Todo[]>, title) => {
+        draft.push({ id: dummyID--, title, completed: false })
+      },
     },
   )
 }
 
 export function useToggle() {
-  return useOptimisticValue(
-    ['todos'],
+  return useSafeMutation(
+    Todo,
     (todo: Todo) => todoApi.patch({ ...todo, completed: !todo.completed }),
-    (old: Todo[], todo) =>
-      old.map(t => (t.id === todo.id ? { ...t, completed: !t.completed } : t)),
+    {
+      invalidateQuery: ['todos'],
+      setData: (old: Todo[], todo) =>
+        old.map(t =>
+          t.id === todo.id ? { ...t, completed: !t.completed } : t,
+        ),
+    },
   )
 }
 
 export function useDelete() {
-  return useOptimisticValue(
-    ['todos'],
-    (id: number) => todoApi.delete({ id }),
-    (old: Todo[], id: number) => old.filter(todo => todo.id !== id),
-  )
+  return useSafeMutation(z.any(), (id: number) => todoApi.delete({ id }), {
+    invalidateQuery: ['todos'],
+    setData: (old: Todo[], id: number) => old.filter(todo => todo.id !== id),
+  })
 }
