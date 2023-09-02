@@ -1,3 +1,4 @@
+import { cast } from '@srtp/core'
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
@@ -8,7 +9,6 @@ import { z } from 'zod'
 
 import type { Response } from './response'
 import { response } from './response'
-import { cast } from '@srtp/core'
 
 export interface CtxOrReq {
   req?: NextApiRequest
