@@ -9,6 +9,7 @@
     "target": "es2022",
     "module": "ESNext",
     "moduleResolution": "node",
+    "noPropertyAccessFromIndexSignature": false,
     "exactOptionalPropertyTypes": false
   },
   "include": ["src", "tests"]
