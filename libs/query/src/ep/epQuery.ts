@@ -4,7 +4,15 @@ import type {
   GetParamsArg,
   GetRequestArg,
 } from '@srtp/core'
-import { cast, isNilSpec, keysfn, linkfn } from '@srtp/core'
+import {
+  cast,
+  isNilSpec,
+  keysfn,
+  linkfn,
+  type EndpointRecordBase,
+  type Params,
+} from '@srtp/core'
+import { capitalize, entries, filter, map, pipe } from '@srtp/fn'
 import { useEvent } from '@srtp/react'
 import { axios, joinPaths, urlcat } from '@srtp/web'
 import {
@@ -21,6 +29,8 @@ import invariant from 'tiny-invariant'
 
 import { defaultApi } from '../api'
 import { useSafeQuery, type UseSafeQueryResult } from '../core/safeQuery'
+import type { Hookify } from './common'
+import type { Queries } from './epApi'
 
 export type QueryArgs<
   Ep extends EndpointBase,
@@ -292,6 +302,89 @@ export function epOptimistic<Ep extends EndpointBase, TVariables>(
       },
     )
   }
+}
+
+type EpStateDescription<Ep extends EndpointBase> = GetParamsArg<Ep> &
+  GetRequestArg<Ep> & { readonly invalidateKey?: QueryKey }
+
+type EpStateHandler<Eps extends EndpointRecordBase, Ep extends EndpointBase> = (
+  variables: any,
+  context: InvalidateContext<Eps>,
+) => EpStateDescription<Ep>
+
+export type EpStateActionHandlers<Eps extends EndpointRecordBase> = {
+  readonly [K in keyof Eps as Eps[K]['method'] extends 'get'
+    ? never
+    : K]: EpStateHandler<Eps, Eps[K]>
+}
+
+export type InvalidateContext<Eps extends EndpointRecordBase> = {
+  readonly [K in keyof Eps as Eps[K]['method'] extends 'get' ? K : never]: (
+    params?: Params<Eps[K]['path']>,
+  ) => QueryKey
+}
+
+export type UseEpStateMutationResult<
+  Ep extends EndpointBase,
+  TVariables,
+  TContext,
+> = UseMutationResult<TData<Ep>, Error, TVariables, TContext>
+
+export type EpStateMutationFn<Ep extends EndpointBase, TVariables> = <TContext>(
+  options: ApiMutationArgs<Ep, TContext>,
+) => UseEpStateMutationResult<Ep, TVariables, TContext>
+
+export type EpStateMutations<
+  Eps extends EndpointRecordBase,
+  Actions extends EpStateActionHandlers<Eps>,
+> = {
+  readonly [K in keyof Eps as Eps[K]['method'] extends 'get'
+    ? never
+    : K]: K extends keyof Actions
+    ? EpStateMutationFn<Eps[K], Parameters<Actions[K]>[0]>
+    : never
+}
+
+export type EpStateEndpointApi<
+  Eps extends EndpointRecordBase,
+  Actions extends EpStateActionHandlers<Eps>,
+> = Hookify<Queries<Eps>> & Hookify<EpStateMutations<Eps, Actions>>
+
+function createInvalidateContext<Eps extends EndpointRecordBase>(
+  endpoints: Eps,
+): InvalidateContext<Eps> {
+  return pipe(
+    endpoints,
+    entries,
+    filter(([, endpoint]) => endpoint.method === 'get'),
+    map(([key, endpoint]) => [key, [keysfn(endpoint.path)]]),
+    Object.fromEntries,
+  )
+}
+
+export function epQueryState<
+  Eps extends EndpointRecordBase,
+  Actions extends EpStateActionHandlers<Eps>,
+>(
+  eps: Eps,
+  baseUrl: string,
+  actions: Actions,
+): EpStateEndpointApi<Eps, Actions> {
+  const queries = createGetApi(eps, baseUrl)
+  const context = createInvalidateContext(eps)
+
+  const mutations = pipe(
+    eps,
+    entries,
+    filter(([, ep]) => ep.method !== 'get'),
+    map(([key, ep]) => [
+      `use${capitalize(key)}`,
+      actionMutation(ep, baseUrl, (actions as any)[key]),
+    ]),
+    Object.fromEntries,
+  )
+
+  return { ...queries, ...mutations, context }
 }
 
 // export function epOptimisticMutations<Eps extends EndpointRecordBase>(

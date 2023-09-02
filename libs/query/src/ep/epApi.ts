@@ -17,11 +17,9 @@ import {
   type QueryArgs,
   type TData,
   type UseEpQueryResult,
+  type TVariables,
 } from './epQuery'
-
-export type Hookify<R extends Record<string, unknown>> = {
-  readonly [K in keyof R as `use${Capitalize<K & string>}`]: R[K]
-}
+import type { Hookify } from './common'
 
 export type QueryFn<Ep extends EndpointBase> = <TQueryFnData>(
   options: QueryArgs<Ep, TQueryFnData>,
@@ -32,36 +30,9 @@ export type Queries<Ep extends EndpointRecordBase> = {
     ? K
     : never]: QueryFn<Ep[K]>
 }
-
-type EQSDescription<Ep extends EndpointBase> = GetParamsArg<Ep> &
-  GetRequestArg<Ep> & { readonly invalidateKey?: QueryKey }
-
-export type InvalidateContext<Eps extends EndpointRecordBase> = {
-  readonly [K in keyof Eps as Eps[K]['method'] extends 'get' ? K : never]: (
-    params?: Params<Eps[K]['path']>,
-  ) => QueryKey
-}
-
-type EQSHandler<Eps extends EndpointRecordBase, Ep extends EndpointBase> = (
-  variables: any,
-  context: InvalidateContext<Eps>,
-) => EQSDescription<Ep>
-
-export type EQSActionHandlers<Eps extends EndpointRecordBase> = {
-  readonly [K in keyof Eps as Eps[K]['method'] extends 'get'
-    ? never
-    : K]: EQSHandler<Eps, Eps[K]>
-}
-
-export type UseActionMutationResult<
-  Ep extends EndpointBase,
-  TVariables,
-  TContext,
-> = UseMutationResult<TData<Ep>, Error, TVariables, TContext>
-
-export type MutationFn<Ep extends EndpointBase> = <TVariables, TContext>(
+export type MutationFn<Ep extends EndpointBase> = <TContext>(
   options: ApiMutationArgs<Ep, TContext>,
-) => UseActionMutationResult<Ep, TVariables, TContext>
+) => UseMutationResult<Ep, TVariables<Ep>, TContext>
 
 export type Mutations<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
@@ -119,63 +90,6 @@ export function createEpApi<Eps extends EndpointRecordBase>(
   const mutations = createMutationsApi(endpoints, baseUrl)
 
   return { ...queries, ...mutations }
-}
-
-export type ActionMutationFn<Ep extends EndpointBase, TVariables> = <TContext>(
-  options: ApiMutationArgs<Ep, TContext>,
-) => UseActionMutationResult<Ep, TVariables, TContext>
-
-export type ActionMutations<
-  Eps extends EndpointRecordBase,
-  Actions extends EQSActionHandlers<Eps>,
-> = {
-  readonly [K in keyof Eps as Eps[K]['method'] extends 'get'
-    ? never
-    : K]: K extends keyof Actions
-    ? ActionMutationFn<Eps[K], Parameters<Actions[K]>[0]>
-    : never
-}
-
-export type ActionsEndpointApi<
-  Eps extends EndpointRecordBase,
-  Actions extends EQSActionHandlers<Eps>,
-> = Hookify<Queries<Eps>> & Hookify<ActionMutations<Eps, Actions>>
-
-function createInvalidateContext<Eps extends EndpointRecordBase>(
-  endpoints: Eps,
-): InvalidateContext<Eps> {
-  return pipe(
-    endpoints,
-    entries,
-    filter(([, endpoint]) => endpoint.method === 'get'),
-    map(([key, endpoint]) => [key, [keysfn(endpoint.path)]]),
-    Object.fromEntries,
-  )
-}
-
-export function epQueryState<
-  Eps extends EndpointRecordBase,
-  Actions extends EQSActionHandlers<Eps>,
->(
-  eps: Eps,
-  baseUrl: string,
-  actions: Actions,
-): ActionsEndpointApi<Eps, Actions> {
-  const queries = createGetApi(eps, baseUrl)
-  const context = createInvalidateContext(eps)
-
-  const mutations = pipe(
-    eps,
-    entries,
-    filter(([, ep]) => ep.method !== 'get'),
-    map(([key, ep]) => [
-      `use${capitalize(key)}`,
-      actionMutation(ep, baseUrl, (actions as any)[key]),
-    ]),
-    Object.fromEntries,
-  )
-
-  return { ...queries, ...mutations, context }
 }
 
 // export type OptimisticMutationFn<Ep extends EndpointBase> = <
