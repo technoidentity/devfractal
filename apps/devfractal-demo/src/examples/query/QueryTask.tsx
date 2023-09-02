@@ -1,7 +1,7 @@
 import type { Task } from '@srtp/fake-tasks'
+import { taskEndpoints } from '@srtp/fake-tasks'
 import { epMutation, epQuery } from 'devfractal'
 
-import { taskEndpoints } from '../tasksEndpoints'
 import { TasksList } from './TaskViews'
 
 const baseUrl = '/api'

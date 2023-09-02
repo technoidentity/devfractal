@@ -2,75 +2,69 @@ import {
   keysfn,
   type EndpointBase,
   type EndpointRecordBase,
-  type GetParamsArg,
-  type GetRequestArg,
   type Params,
 } from '@srtp/core'
 import { capitalize, entries, filter, map, pipe } from '@srtp/fn'
 import type { QueryKey, UseMutationResult } from '@tanstack/react-query'
 
+import type { Hookify } from './common'
 import {
-  actionMutation,
   apiMutation,
+  epMutation,
   epQuery,
   type ApiMutationArgs,
-  type QueryArgs,
-  type TData,
+  type EpMutationDescription,
+  type EpQueryArgs,
+  type TApiData,
+  type TApiVariables,
   type UseEpQueryResult,
-  type TVariables,
 } from './epQuery'
-import type { Hookify } from './common'
 
-export type QueryFn<Ep extends EndpointBase> = <TQueryFnData>(
-  options: QueryArgs<Ep, TQueryFnData>,
+export type EpQueryFn<Ep extends EndpointBase> = <TQueryFnData>(
+  options: EpQueryArgs<Ep, TQueryFnData>,
 ) => UseEpQueryResult<Ep>
 
-export type Queries<Ep extends EndpointRecordBase> = {
+export type EpQueries<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? K
-    : never]: QueryFn<Ep[K]>
+    : never]: EpQueryFn<Ep[K]>
 }
-export type MutationFn<Ep extends EndpointBase> = <TContext>(
-  options: ApiMutationArgs<Ep, TContext>,
-) => UseMutationResult<Ep, TVariables<Ep>, TContext>
 
-export type Mutations<Ep extends EndpointRecordBase> = {
+export type EpMutationFn<Ep extends EndpointBase> = <TContext>(
+  options: ApiMutationArgs<Ep, TContext>,
+) => UseMutationResult<Ep, TApiVariables<Ep>, TContext>
+
+export type EpMutations<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
     ? never
-    : K]: MutationFn<Ep[K]>
+    : K]: EpMutationFn<Ep[K]>
 }
 
-export type EndpointApi<Ep extends EndpointRecordBase> = Hookify<Queries<Ep>> &
-  Hookify<Mutations<Ep>>
+export type EpApi<Ep extends EndpointRecordBase> = Hookify<EpQueries<Ep>> &
+  Hookify<EpMutations<Ep>>
 
 function createGetApi<Eps extends EndpointRecordBase>(
-  endpoints: Eps,
+  eps: Eps,
   baseUrl: string,
 ) {
   return pipe(
-    endpoints,
+    eps,
     entries,
-    filter(([, endpoint]) => endpoint.method === 'get'),
-    map(([key, endpoint]) => [
-      `use${capitalize(key)}`,
-      epQuery(endpoint, baseUrl),
-    ]),
+    filter(([, ep]) => ep.method === 'get'),
+    map(([key, ep]) => [`use${capitalize(key)}`, epQuery(ep, baseUrl)]),
     Object.fromEntries,
   )
 }
 
 function createMutationsApi<Eps extends EndpointRecordBase>(
-  endpoints: Eps,
+  eps: Eps,
   baseUrl: string,
 ) {
   return pipe(
-    endpoints,
+    eps,
     entries,
-    filter(([, endpoint]) => endpoint.method !== 'get'),
-    map(([key, endpoint]) => [
-      `use${capitalize(key)}`,
-      apiMutation(endpoint, baseUrl),
-    ]),
+    filter(([, ep]) => ep.method !== 'get'),
+    map(([key, ep]) => [`use${capitalize(key)}`, apiMutation(ep, baseUrl)]),
     Object.fromEntries,
   )
 }
@@ -80,16 +74,110 @@ function createMutationsApi<Eps extends EndpointRecordBase>(
  * @template Eps - The type of the named endpoints object.
  * @param {Eps} endpoints - The named endpoints object.
  * @param {string} baseUrl - The base URL for the API.
- * @returns {EndpointApi<Eps>} - named hooks based api.
+ * @returns {EpApi<Eps>} - named hooks based api.
  */
 export function createEpApi<Eps extends EndpointRecordBase>(
   endpoints: Eps,
   baseUrl: string,
-): EndpointApi<Eps> {
+): EpApi<Eps> {
   const queries = createGetApi(endpoints, baseUrl)
   const mutations = createMutationsApi(endpoints, baseUrl)
 
   return { ...queries, ...mutations }
+}
+
+// ------------------
+// ep query state
+// ------------------
+
+export type InvalidateContext<Eps extends EndpointRecordBase> = {
+  readonly [K in keyof Eps as Eps[K]['method'] extends 'get' ? K : never]: (
+    params?: Params<Eps[K]['path']>,
+  ) => QueryKey
+}
+
+type EpStateHandler<Eps extends EndpointRecordBase, Ep extends EndpointBase> = (
+  variables: any,
+  context: InvalidateContext<Eps>,
+) => EpMutationDescription<Ep>
+
+export type EpStateActionHandlers<Eps extends EndpointRecordBase> = {
+  readonly [K in keyof Eps as Eps[K]['method'] extends 'get'
+    ? never
+    : K]: EpStateHandler<Eps, Eps[K]>
+}
+
+export type EpStateMutationFn<Ep extends EndpointBase, TVariables> = <TContext>(
+  options: ApiMutationArgs<Ep, TContext>,
+) => UseMutationResult<TApiData<Ep>, Error, TVariables, TContext>
+
+export type EpStateMutations<
+  Eps extends EndpointRecordBase,
+  Actions extends EpStateActionHandlers<Eps>,
+> = {
+  readonly [K in keyof Eps as Eps[K]['method'] extends 'get'
+    ? never
+    : K]: K extends keyof Actions
+    ? EpStateMutationFn<Eps[K], Parameters<Actions[K]>[0]>
+    : never
+}
+
+export type EpStateEndpointApi<
+  Eps extends EndpointRecordBase,
+  Actions extends EpStateActionHandlers<Eps>,
+> = Hookify<EpQueries<Eps>> & Hookify<EpStateMutations<Eps, Actions>>
+
+function createInvalidateContext<Eps extends EndpointRecordBase>(
+  eps: Eps,
+): InvalidateContext<Eps> {
+  return pipe(
+    eps,
+    entries,
+    filter(([, ep]) => ep.method === 'get'),
+    map(([key, ep]) => [key, (params: any) => keysfn(ep.path, params)]),
+    Object.fromEntries,
+  )
+}
+
+function epStateMutation<Ep extends EndpointBase>(
+  ep: Ep,
+  baseUrl: string,
+  action: (variables: TApiVariables<Ep>) => TApiVariables<Ep>,
+) {
+  const useEpMutation = epMutation(ep, baseUrl)
+
+  return function useEpStateMutation<TContext>(
+    options: ApiMutationArgs<Ep, TContext>,
+  ): UseMutationResult<TApiData<Ep>, Error, TApiVariables<Ep>, TContext> {
+    return useEpMutation({ ...options, action })
+  }
+}
+
+export function epQueryState<
+  Eps extends EndpointRecordBase,
+  Actions extends EpStateActionHandlers<Eps>,
+>(
+  eps: Eps,
+  baseUrl: string,
+  actions: Actions,
+): EpStateEndpointApi<Eps, Actions> {
+  const queries = createGetApi(eps, baseUrl)
+  const context = createInvalidateContext(eps)
+
+  const mutations = pipe(
+    eps,
+    entries,
+    filter(([, ep]) => ep.method !== 'get'),
+    map(([key, ep]) => [
+      `use${capitalize(key)}`,
+      epStateMutation(ep, baseUrl, variables =>
+        (actions as any)[key](variables, context),
+      ),
+    ]),
+    Object.fromEntries,
+  )
+
+  return { ...queries, ...mutations, context }
 }
 
 // export type OptimisticMutationFn<Ep extends EndpointBase> = <
@@ -115,23 +203,23 @@ export function createEpApi<Eps extends EndpointRecordBase>(
 //   baseUrl: string,
 // ) {
 //   return pipe(
-//     endpoints,
+//     eps,
 //     entries,
-//     filter(([, endpoint]) => endpoint.method !== 'get'),
-//     map(([key, endpoint]) => [
+//     filter(([, ep]) => ep.method !== 'get'),
+//     map(([key, ep]) => [
 //       `use${capitalize(key)}`,
-//       epOptimistic(endpoint, baseUrl),
+//       epOptimistic(ep, baseUrl),
 //     ]),
 //     Object.fromEntries,
 //   )
 // }
 
 // export function createEpOptomisticApi<Eps extends EndpointRecordBase>(
-//   endpoints: Eps,
+//   eps: Eps,
 //   baseUrl: string,
 // ): OptimisticEndpointApi<Eps> {
-//   const queries = createGetApi(endpoints, baseUrl)
-//   const mutations = createOptimisticMutationsApi(endpoints, baseUrl)
+//   const queries = createGetApi(eps, baseUrl)
+//   const mutations = createOptimisticMutationsApi(eps, baseUrl)
 
 //   return { ...queries, ...mutations }
 // }
