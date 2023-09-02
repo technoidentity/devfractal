@@ -3,7 +3,7 @@ import { json, redirect } from '@remix-run/node'
 import type { FormErrors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
 import type { Result } from '@srtp/core'
-import { isFail , isUndefined } from '@srtp/core'
+import { cast, isFail, isUndefined } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
@@ -68,7 +68,7 @@ export async function safeActions<
   >,
 >(spec: z.ZodEnum<z.Writeable<T>>, args: LoaderArgs, actions: Actions) {
   const formData = await args.request.clone().formData()
-  const actionKey = spec.parse(formData.get('_action'))
+  const actionKey = cast(spec, formData.get('_action'))
   invariant(actionKey in actions, `${actionKey} not supported`)
 
   return actions[actionKey](args)
@@ -80,7 +80,7 @@ type HTTPMethods = z.infer<typeof HTTPMethods>
 export async function methods<
   Actions extends Partial<Record<HTTPMethods, (args: LoaderArgs) => unknown>>,
 >(args: LoaderArgs, actions: Actions) {
-  const method = HTTPMethods.parse(args.request.method)
+  const method = cast(HTTPMethods, args.request.method)
   const fn = actions[method]
   invariant(fn !== undefined, `${method} not supported`)
 
@@ -91,7 +91,7 @@ export function safeParams<Spec extends z.ZodTypeAny>(
   spec: Spec,
   params: LoaderArgs['params'],
 ) {
-  return spec.parse(params)
+  return cast(spec, params)
 }
 
 export function onlyMethod<Spec extends z.AnyZodObject, R>(

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
-import { isDefined, isNil } from '@srtp/core'
+import { cast, isDefined, isNil } from '@srtp/core'
 import type { Nullish } from '@srtp/core'
 import { Provider, atom, createStore, useAtomValue } from 'jotai'
 import { RESET, atomWithStorage } from 'jotai/utils'
@@ -18,7 +18,7 @@ export const getToken = () => {
     return undefined
   }
 
-  return AuthUser.parse(JSON.parse(authValue)).token
+  return cast(AuthUser, JSON.parse(authValue)).token
 }
 
 const authStorageAtom = () => {
@@ -34,14 +34,14 @@ const authStorageAtom = () => {
         return undefined
       }
 
-      return AuthStoreValue.parse(auth)
+      return cast(AuthStoreValue, auth)
     },
 
     (_, set, auth: Nullish<AuthUser> | typeof RESET) => {
       if (auth === RESET || isNil(auth)) {
         set(unsafeAuthAtom, RESET)
       } else {
-        set(unsafeAuthAtom, AuthStoreValue.parse(auth))
+        set(unsafeAuthAtom, cast(AuthStoreValue, auth))
       }
     },
   )

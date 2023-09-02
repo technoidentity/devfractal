@@ -1,4 +1,4 @@
-import { isDefined } from '@srtp/core'
+import { ensure, isDefined } from '@srtp/core'
 import { expect, test } from 'vitest'
 
 import { max } from './simple'
@@ -28,7 +28,7 @@ export function* chunks<T>(
   arr: readonly T[],
   size: Nat,
 ): IterableIterator<T[]> {
-  Nat.parse(size)
+  ensure(Nat, size)
 
   for (let i = 0; i < arr.length; i += size) {
     yield arr.slice(i, i + size)

@@ -1,4 +1,4 @@
-import { isUndefined } from '@srtp/core'
+import { cast, isUndefined } from '@srtp/core'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import invariant from 'tiny-invariant'
@@ -34,7 +34,7 @@ export function createForm<
 
     const setErrors = React.useCallback(
       (errors: unknown) => {
-        set(isUndefined(errors) ? undefined : errorsSpec.parse(errors))
+        set(isUndefined(errors) ? undefined : cast(errorsSpec, errors))
       },
       [set],
     )

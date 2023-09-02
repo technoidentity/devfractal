@@ -1,4 +1,5 @@
 import { parse } from '@conform-to/zod'
+import { cast } from '@srtp/core'
 import { json, type ActionFunctionArgs } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
@@ -43,7 +44,7 @@ export async function formIntents<
     return json(submission)
   }
 
-  const actionKey = spec.parse(submission.intent)
+  const actionKey = cast(spec, submission.intent)
   invariant(actionKey in actions, `${actionKey} not supported`)
 
   return actions[actionKey](submission.value, args)

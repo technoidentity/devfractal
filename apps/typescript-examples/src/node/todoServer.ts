@@ -1,7 +1,7 @@
 import type { Server, ServerResponse } from 'node:http'
 import { createServer } from 'node:http'
 
-import { isDefined } from '@srtp/core'
+import { cast, isDefined } from '@srtp/core'
 import { filter$, iterSlice$, pipe, toArray } from '@srtp/fn'
 import qs from 'query-string'
 import invariant from 'tiny-invariant'
@@ -81,7 +81,7 @@ function parseBody(
 ) {
   let body = ''
   req.on('data', chunk => (body += chunk.toString()))
-  req.on('end', () => cb(null, spec.parse(qs.parse(body))))
+  req.on('end', () => cb(null, cast(spec, qs.parse(body))))
   req.on('error', cb)
 }
 
@@ -90,8 +90,8 @@ const server: Server = createServer((req, res) => {
     invariant(req.url, 'URL is required')
 
     const parsedUrl = new URL(req.url)
-    const method = Method.parse(req.method)
-    const pathname = z.string().parse(parsedUrl.pathname)
+    const method = cast(Method, req.method)
+    const pathname = cast(z.string(), parsedUrl.pathname)
 
     invariant(pathname.startsWith('/'), 'Path must start with /')
 
@@ -113,7 +113,7 @@ const server: Server = createServer((req, res) => {
       })
     } else if (method === 'PUT' && /^\/todos\/\d+$/.test(pathname)) {
       try {
-        const todoID = TodoID.parse(pathname.split('/')[2])
+        const todoID = cast(TodoID, pathname.split('/')[2])
 
         parseBody(req, Todo, (err, body) => {
           if (err) {
@@ -136,7 +136,7 @@ const server: Server = createServer((req, res) => {
       }
     } else if (method === 'DELETE' && /^\/todos\/\d+$/.test(pathname)) {
       try {
-        const todoID = TodoID.parse(pathname.split('/')[2])
+        const todoID = cast(TodoID, pathname.split('/')[2])
 
         const todoIndex = todos.findIndex(todo => todo.id === todoID)
         invariant(todoIndex !== -1, 'Todo not found')

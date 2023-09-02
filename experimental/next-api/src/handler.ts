@@ -8,6 +8,7 @@ import { z } from 'zod'
 
 import type { Response } from './response'
 import { response } from './response'
+import { cast } from '@srtp/core'
 
 export interface CtxOrReq {
   req?: NextApiRequest
@@ -76,7 +77,7 @@ class Handler {
     }
 
     const method =
-      this.methods[HTTPMethods.parse(req.method?.toLocaleLowerCase())]
+      this.methods[cast(HTTPMethods, req.method?.toLocaleLowerCase())]
 
     const result: Response<any> = method
       ? await response(() => method(req, res, session))

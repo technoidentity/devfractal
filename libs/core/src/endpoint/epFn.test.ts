@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { boolean, number, string, z } from 'zod'
 
 import { keysfn, route, paramsSpec, linkfn } from './epFn'
+import { cast } from '../spec'
 
 describe('keysfn', () => {
   test('should return an array of keys for a given path', () => {
@@ -55,31 +56,31 @@ describe('paramsSpec', () => {
     ] as const
     const schema = paramsSpec(path)
 
-    expect(schema.parse({ id: 1, postId: 2, foo: 100 })).toEqual({
+    expect(cast(schema, { id: 1, postId: 2, foo: 100 })).toEqual({
       id: 1,
       postId: 2,
     })
-    expect(() => schema.parse({ id: 1 })).toThrow()
-    expect(() => schema.parse({ postId: 2 })).toThrow()
-    expect(() => schema.parse({ id: '1', postId: 2 })).toThrow()
-    expect(() => schema.parse({})).toThrow()
+    expect(() => cast(schema, { id: 1 })).toThrow()
+    expect(() => cast(schema, { postId: 2 })).toThrow()
+    expect(() => cast(schema, { id: '1', postId: 2 })).toThrow()
+    expect(() => cast(schema, {})).toThrow()
   })
 
   test('should return a valid schema for a path with only one parameter', () => {
     const path = ['users', { id: z.number() }] as const
     const schema = paramsSpec(path)
 
-    expect(schema.parse({ id: 1, foo: 100 })).toEqual({ id: 1 })
-    expect(() => schema.parse({ id: '1' })).toThrow()
-    expect(() => schema.parse({})).toThrow()
+    expect(cast(schema, { id: 1, foo: 100 })).toEqual({ id: 1 })
+    expect(() => cast(schema, { id: '1' })).toThrow()
+    expect(() => cast(schema, {})).toThrow()
   })
 
   test('should return an empty schema for a path with no parameters', () => {
     const path = ['users', 'posts'] as const
     const schema = paramsSpec(path)
 
-    expect(schema.parse({ foo: 100 })).toEqual({})
-    expect(schema.parse({})).toEqual({})
+    expect(cast(schema, { foo: 100 })).toEqual({})
+    expect(cast(schema, {})).toEqual({})
   })
 })
 

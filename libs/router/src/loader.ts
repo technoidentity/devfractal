@@ -1,3 +1,4 @@
+import { cast } from '@srtp/core'
 import { http } from '@srtp/web'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import { QueryClient, useQuery } from '@tanstack/react-query'
@@ -26,7 +27,7 @@ export function getLoader<Spec extends z.ZodType<any, any>>(q: Query) {
 
     const { data } = useQuery({ queryKey: q.key, queryFn, initialData })
 
-    return spec.parse(data)
+    return cast(spec, data)
   }
 }
 

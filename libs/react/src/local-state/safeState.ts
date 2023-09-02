@@ -1,4 +1,4 @@
-import { isUndefined } from '@srtp/core'
+import { cast, isUndefined } from '@srtp/core'
 import { capitalize } from '@srtp/fn'
 import React from 'react'
 import invariant from 'tiny-invariant'
@@ -26,7 +26,7 @@ export function safeUpdateState<Spec extends z.AnyZodObject>(spec: Spec) {
           set(state => {
             const v = state[key]
             const nv = fn(v)
-            return v === nv ? state : spec.parse({ ...state, [key]: nv })
+            return v === nv ? state : cast(spec, { ...state, [key]: nv })
           })
         }
       }
@@ -36,7 +36,7 @@ export function safeUpdateState<Spec extends z.AnyZodObject>(spec: Spec) {
         'update is a reserved key for useUpdate',
       )
       handlers['update'] = (fn: (update: T) => Partial<T>) =>
-        set(s => spec.parse({ ...s, ...fn(s) }))
+        set(s => cast(spec, { ...s, ...fn(s) }))
 
       return handlers
     }, [])

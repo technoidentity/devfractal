@@ -1,5 +1,5 @@
 import { useActionData, useLoaderData, useSearchParams } from '@remix-run/react'
-import { isEmpty , cast } from '@srtp/core'
+import { isEmpty, cast } from '@srtp/core'
 import type { FormErrors } from '@srtp/remix-core'
 import qs from 'query-string'
 import React from 'react'
@@ -21,7 +21,7 @@ export function useSafeLoaderData<Spec extends z.ZodTypeAny>(
   const s = useLatest(spec)
   const data = useLoaderData()
 
-  return React.useMemo(() => s.current.parse(data), [data, s])
+  return React.useMemo(() => cast(s.current, data), [data, s])
 }
 
 export function useSafeActionData<Spec extends z.ZodTypeAny>(
@@ -30,7 +30,7 @@ export function useSafeActionData<Spec extends z.ZodTypeAny>(
   const s = useLatest(spec)
   const data = useActionData()
 
-  return React.useMemo(() => s.current.parse(data), [data, s])
+  return React.useMemo(() => cast(s.current, data), [data, s])
 }
 
 export function useServerErrors<Spec extends z.AnyZodObject>(
@@ -46,7 +46,7 @@ export function useServerErrors<Spec extends z.AnyZodObject>(
       return data
     }
 
-    return s.current.parse(data)
+    return cast(s.current, data)
   }, [data, s])
 }
 

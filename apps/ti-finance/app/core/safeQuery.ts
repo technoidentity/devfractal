@@ -1,4 +1,5 @@
 // @TODO: use query-string to support arrays etc
+import { cast } from '@srtp/core'
 import qs from 'query-string'
 import type { z } from 'zod'
 
@@ -13,5 +14,5 @@ export function safeQuery<Spec extends z.ZodTypeAny>(
     arrayFormat: 'index',
     ...options,
   })
-  return spec.parse(obj)
+  return cast(spec, obj)
 }

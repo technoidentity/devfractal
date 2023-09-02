@@ -1,4 +1,4 @@
-import { isUndefined } from '@srtp/core'
+import { cast, isUndefined } from '@srtp/core'
 import React from 'react'
 import type { RouteObject, RouteProps } from 'react-router-dom'
 import { Navigate, useActionData } from 'react-router-dom'
@@ -14,7 +14,7 @@ const LoginActionData = z.union([
 ])
 
 export const useError = () => {
-  const actionData = LoginActionData.parse(useActionData())
+  const actionData = cast(LoginActionData, useActionData())
 
   if (isUndefined(actionData)) {
     return false
@@ -28,7 +28,7 @@ type LoginRouteProps = Pick<RouteProps, 'element'> & {
 }
 
 function LoginRouteImpl({ element }: Pick<RouteProps, 'element'>) {
-  const actionData = LoginActionData.parse(useActionData())
+  const actionData = cast(LoginActionData, useActionData())
   const login = useLogin()
 
   // @TODO: shall we just shift this to useLogin?
