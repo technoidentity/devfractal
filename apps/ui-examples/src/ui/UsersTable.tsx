@@ -1,4 +1,3 @@
-import { usersList } from '@srtp/fake-tasks'
 import {
   DTBody,
   DTCell,
@@ -8,6 +7,7 @@ import {
   DTable,
   ThemeSelector,
 } from '@srtp/ui'
+import { usersList } from '../../../../packages/fake-tasks/dist'
 
 const users = usersList()
 

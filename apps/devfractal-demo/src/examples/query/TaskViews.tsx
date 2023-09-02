@@ -1,4 +1,4 @@
-import { Task } from '@srtp/fake-tasks'
+import type { Task } from '@srtp/fake-tasks'
 import {
   Button,
   Checkbox,

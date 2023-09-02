@@ -5,3 +5,6 @@ packages:
   - 'starters/*'
   - 'experimental/*'
   - 'e2e'
+  - 'demo/common'
+  - 'demo/client'
+  - 'demo/server'
