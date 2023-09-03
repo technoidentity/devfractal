@@ -4,7 +4,8 @@ import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
 import { Todo } from './todo'
-import { Update, todoApi } from './todoApi'
+import type { Update } from './todoApi'
+import { todoApi } from './todoApi'
 
 export function useTodoList() {
   const result = useQuery({
