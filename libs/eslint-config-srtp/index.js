@@ -56,6 +56,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-useless-constructor': 'off',
     '@typescript-eslint/promise-function-async': 'off',
+    '@typescript-eslint/unbound-method': 'off',
 
     '@typescript-eslint/consistent-type-imports': 'warn',
     'prettier/prettier': ['warn', { endOfLine: 'auto' }],
