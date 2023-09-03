@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 /* eslint-disable no-underscore-dangle */
 import { faker } from '@faker-js/faker'
-import { each, map, omit$, pipe, range } from '@srtp/fn'
+import { each, map, omit$, pipe, range, toArray } from '@srtp/fn'
 import { z } from 'zod'
 
 export const SupportedTypes = z.enum([
@@ -92,7 +92,7 @@ function fakeString(
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
   const opts = omit$(options.ZodString!, ['kind'])
-  const kind = options.ZodString?.kind || spec._def.checks[0]?.kind
+  const kind = spec._def.checks[0]?.kind || options.ZodString?.kind
 
   switch (kind) {
     case 'sentence':
@@ -157,6 +157,7 @@ export function fake(
     return pipe(
       range(0, n),
       map(() => fake(spec._def.type, options)),
+      toArray,
     )
   }
 
