@@ -23,7 +23,7 @@ export function useAddTodo() {
     Todo,
     (title: string) => todoApi.post({ title, completed: false }),
     {
-      invalidateQuery: ['todos'],
+      invalidateKey: ['todos'],
       setData: (draft: Draft<Todo[]>, title) => {
         draft.push({ id: dummyID--, title, completed: false })
       },
@@ -36,7 +36,7 @@ export function useToggle() {
     Todo,
     (todo: Todo) => todoApi.patch({ ...todo, completed: !todo.completed }),
     {
-      invalidateQuery: ['todos'],
+      invalidateKey: ['todos'],
       setData: (old: Todo[], todo) =>
         old.map(t =>
           t.id === todo.id ? { ...t, completed: !t.completed } : t,
@@ -47,7 +47,7 @@ export function useToggle() {
 
 export function useDelete() {
   return useSafeMutation(z.any(), (id: number) => todoApi.delete({ id }), {
-    invalidateQuery: ['todos'],
+    invalidateKey: ['todos'],
     setData: (old: Todo[], id: number) => old.filter(todo => todo.id !== id),
   })
 }

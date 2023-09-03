@@ -6,10 +6,10 @@ type Todo = Readonly<{
   completed: boolean
 }>
 
-type IDType = { id: any }
-type Create<T extends IDType> = Omit<T, 'id'>
-type Update<T extends IDType> = Pick<T, 'id'> & Partial<Omit<T, 'id'>>
-type Delete<T extends IDType> = Pick<T, 'id'>
+export type IDType = { id: any }
+export type Create<T extends IDType> = Omit<T, 'id'>
+export type Update<T extends IDType> = Pick<T, 'id'> & Partial<Omit<T, 'id'>>
+export type Delete<T extends IDType> = Pick<T, 'id'>
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const BASE_URL = '/api'
