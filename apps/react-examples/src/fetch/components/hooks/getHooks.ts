@@ -53,4 +53,7 @@ export const useInfiniteTodos = () =>
   useInfiniteQuery(['todos'], getInfiniteTodos, {
     getNextPageParam: (page, lastPages) =>
       lastPages.length <= page.pageCount ? lastPages.length + 1 : undefined,
+
+    // getPreviousPageParam: (_, lastPages) =>
+    //   lastPages.length > 1 ? lastPages.length - 1 : undefined,
   })
