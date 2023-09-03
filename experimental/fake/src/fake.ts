@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 /* eslint-disable no-underscore-dangle */
-import { each, map, omit$, pipe, range } from '@srtp/fn'
-import Chance from 'chance'
-import { v4 as uuidv4 } from 'uuid'
+import { faker } from '@faker-js/faker'
+import { each, map, omit$, pipe, range, toArray } from '@srtp/fn'
 import { z } from 'zod'
-
-const chance = new Chance()
 
 export const SupportedTypes = z.enum([
   'ZodBoolean',
@@ -54,23 +51,24 @@ const NumberKind = z.enum(['int', 'float'])
 type NumberKind = z.infer<typeof NumberKind>
 
 type FakeOptions = {
-  ZodBoolean: Parameters<typeof chance.bool>[0]
+  ZodBoolean: Parameters<typeof faker.datatype.boolean>[0]
 
-  ZodNumber: Parameters<typeof chance.floating>[0] & {
+  ZodNumber: Parameters<typeof faker.number.float>[0] & {
     kind?: NumberKind
   }
 
-  ZodString: Parameters<typeof chance.sentence>[0] & {
+  ZodString: Parameters<typeof faker.string.alpha>[0] & {
     kind?: StringKind
   }
-  ZodDate: Parameters<typeof chance.date>[0]
+  ZodDate: Parameters<typeof faker.date.anytime>[0]
   ZodArray: { min: number; max: number }
 }
 
 const defaultOptions: Partial<FakeOptions> = {
-  ZodNumber: { min: 0, max: 100, fixed: 2 },
-  ZodString: { words: 4 },
+  ZodNumber: { min: 0, max: 100, precision: 2, kind: 'int' },
+  ZodString: { length: 10, kind: 'name' },
   ZodArray: { min: 0, max: 6 },
+  ZodBoolean: 0.6,
 }
 
 export type SupportedTypes = z.infer<typeof SupportedTypes>
@@ -83,9 +81,9 @@ function fakeNumber(
   const kind = options.ZodNumber?.kind || spec._def.checks[0]?.kind
   switch (kind) {
     case 'int':
-      return chance.integer(opts)
+      return faker.number.int(opts)
     default:
-      return chance.floating(opts)
+      return faker.number.float(opts)
   }
 }
 
@@ -93,28 +91,28 @@ function fakeString(
   spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
 ): any {
-  const opts = omit$(options.ZodNumber!, ['kind'])
-  const kind = options.ZodNumber?.kind || spec._def.checks[0]?.kind
+  const opts = omit$(options.ZodString!, ['kind'])
+  const kind = spec._def.checks[0]?.kind || options.ZodString?.kind
 
   switch (kind) {
     case 'sentence':
-      return chance.sentence(opts)
+      return faker.lorem.sentence()
     case 'word':
-      return chance.word(opts)
+      return faker.lorem.word(opts)
     case 'paragraph':
-      return chance.paragraph(opts)
+      return faker.lorem.paragraph()
     case 'email':
-      return chance.email(opts)
+      return faker.internet.email(opts)
     case 'url':
-      return chance.url(opts)
+      return faker.internet.url(opts)
     case 'phone':
-      return chance.phone(opts)
+      return faker.phone.number()
     case 'name':
-      return chance.name(opts)
+      return faker.person.fullName(opts)
     case 'uuid':
-      return uuidv4()
+      return faker.string.uuid()
     default:
-      return chance.string(opts)
+      return faker.string.alpha(opts)
   }
 }
 
@@ -133,11 +131,13 @@ export function fake(
   }
 
   if (type === 'ZodBoolean') {
-    return chance.bool(options.ZodBoolean)
+    return faker.datatype.boolean(options.ZodBoolean)
   }
 
   if (type === 'ZodDate') {
-    return options.ZodDate ? chance.date(options.ZodDate) : chance.date()
+    return options.ZodDate
+      ? faker.date.anytime(options.ZodDate)
+      : faker.date.anytime()
   }
 
   if (type === 'ZodLiteral') {
@@ -145,11 +145,11 @@ export function fake(
   }
 
   if (type === 'ZodEnum') {
-    return chance.pickone(Object.values(spec._def.values))
+    return faker.helpers.arrayElement(Object.values(spec._def.values))
   }
 
   if (type === 'ZodArray') {
-    const n = chance.integer({
+    const n = faker.number.int({
       min: options.ZodArray?.min || 0,
       max: 10,
     })
@@ -157,6 +157,7 @@ export function fake(
     return pipe(
       range(0, n),
       map(() => fake(spec._def.type, options)),
+      toArray,
     )
   }
 
@@ -173,7 +174,7 @@ export function fake(
   }
 
   if (type === 'ZodRecord') {
-    const n = chance.integer({
+    const n = faker.number.int({
       min: 0,
       max: options.ZodArray?.max || 10,
     })
@@ -193,7 +194,7 @@ export function fake(
   }
 
   if (type === 'ZodMap') {
-    const n = chance.integer({
+    const n = faker.number.int({
       min: 1,
       max: 10,
     })
@@ -213,7 +214,7 @@ export function fake(
   }
 
   if (type === 'ZodSet') {
-    const n = chance.integer({
+    const n = faker.number.int({
       min: 0,
       max: 10,
     })
@@ -229,7 +230,7 @@ export function fake(
 
   if (type === 'ZodUnion') {
     const types = spec._def.options
-    const one = chance.integer({ min: 0, max: types.length - 1 })
+    const one = faker.number.int({ min: 0, max: types.length - 1 })
 
     return fake(types[one], options)
   }
