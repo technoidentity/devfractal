@@ -21,6 +21,14 @@ export function Pagination({
         <Button
           variant="outline"
           size="sm"
+          onClick={actions.first}
+          disabled={activePage === 1}
+        >
+          First
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
           onClick={actions.previous}
           disabled={activePage <= 1}
         >
@@ -33,6 +41,14 @@ export function Pagination({
           disabled={activePage === totalPages}
         >
           Next
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={actions.last}
+          disabled={activePage === totalPages}
+        >
+          Last
         </Button>
       </div>
     </HStack>
