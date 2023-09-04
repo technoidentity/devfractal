@@ -224,6 +224,9 @@ importers:
       react-router-dom:
         specifier: 6.15.0
         version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
+      redaxios:
+        specifier: 0.5.1
+        version: 0.5.1
       sort-by:
         specifier: 1.2.0
         version: 1.2.0
