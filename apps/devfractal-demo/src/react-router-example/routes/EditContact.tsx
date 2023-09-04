@@ -1,16 +1,7 @@
-import {
-  Form,
-  Link,
-  type LoaderFunctionArgs,
-  type Params,
-  redirect,
-  useLoaderData,
-  useParams,
-} from 'react-router-dom'
+import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 import axios from 'redaxios'
 import { baseUrl } from '../data/common'
-import { ErrorPage } from '../error pages/ErrorPage'
-import { isContact } from '../types'
+import { useContact, useIdParams } from './hooks'
 
 export const editContact = async ({
   request,
@@ -22,12 +13,8 @@ export const editContact = async ({
 }
 
 export function EditContact(): JSX.Element {
-  const contact = useLoaderData()
-  const { id }: Params = useParams()
-
-  if (!isContact(contact)) {
-    return <ErrorPage />
-  }
+  const contact = useContact()
+  const { id } = useIdParams()
 
   return (
     <main className="my-auto w-[80%] text-lg">

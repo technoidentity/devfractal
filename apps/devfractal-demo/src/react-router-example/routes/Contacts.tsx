@@ -1,20 +1,9 @@
-import {
-  Form,
-  Link,
-  type Params,
-  useLoaderData,
-  useParams,
-} from 'react-router-dom'
-import { ErrorPage } from '../error pages/ErrorPage'
-import { isContact } from '../types'
+import { Form, Link } from 'react-router-dom'
+import { useContact, useIdParams } from './hooks'
 
 export function Contacts(): JSX.Element {
-  const { id }: Params = useParams()
-  const contact = useLoaderData()
-
-  if (!isContact(contact)) {
-    return <ErrorPage />
-  }
+  const contact = useContact()
+  const { id } = useIdParams()
 
   return (
     <main className="my-auto">

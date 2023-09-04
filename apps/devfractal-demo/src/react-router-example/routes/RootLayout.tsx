@@ -1,15 +1,10 @@
-import { Link, Outlet, useLoaderData, useSubmit } from 'react-router-dom'
-import { ErrorPage } from '../error pages/ErrorPage'
-import { isContactArray } from '../types'
+import { Link, Outlet, useSubmit } from 'react-router-dom'
 import { ContactList } from './ContactList'
+import { useContactList } from './hooks'
 
 export function RootLayout(): JSX.Element {
-  const contacts = useLoaderData()
+  const contacts = useContactList()
   const submit = useSubmit()
-
-  if (!isContactArray(contacts)) {
-    return <ErrorPage />
-  }
 
   return (
     <aside className="grid grid-cols-2 px-2 text-center text-black">
