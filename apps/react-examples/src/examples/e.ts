@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { ensure, is, isUndefined } from '@srtp/core'
 import { z } from 'zod'
 
