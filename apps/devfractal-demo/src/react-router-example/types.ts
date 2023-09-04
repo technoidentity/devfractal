@@ -1,32 +1,33 @@
+import { number, string } from 'devfractal'
 import z from 'zod'
 
 export const Geo = z.object({
-  lat: z.string(),
-  lng: z.string(),
+  lat: string(),
+  lng: string(),
 })
 
 export const Address = z.object({
-  street: z.string(),
-  suite: z.string(),
-  city: z.string(),
-  zipcode: z.string(),
+  street: string(),
+  suite: string(),
+  city: string(),
+  zipcode: string(),
   geo: Geo,
 })
 
 export const Company = z.object({
-  name: z.string(),
-  catchPhrase: z.string(),
-  bs: z.string(),
+  name: string(),
+  catchPhrase: string(),
+  bs: string(),
 })
 
 export const Contact = z.object({
-  id: z.number(),
-  name: z.string(),
-  username: z.string(),
-  email: z.string(),
+  id: number(),
+  name: string(),
+  username: string(),
+  email: string(),
   address: Address,
-  phone: z.string(),
-  website: z.string(),
+  phone: string(),
+  website: string(),
   company: Company,
 })
 
