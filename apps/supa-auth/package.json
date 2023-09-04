@@ -24,7 +24,7 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "eslint": "8.48.0",
-    "prettier": "3.0.2",
+    "prettier": "3.0.3",
     "rimraf": "5.0.1",
     "supabase": "1.88.0",
     "typescript": "5.2.2",
