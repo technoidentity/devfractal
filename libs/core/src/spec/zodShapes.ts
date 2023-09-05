@@ -2,29 +2,42 @@ import { z } from 'zod'
 
 // @TODO: ZodEFfect not handled?
 
-export type ZodShapes =
+// partial() is not supported
+
+type ZodShapes =
   | z.ZodRawShape
   | z.ZodDefault<any>
   | z.ZodObject<any, any>
   | z.ZodNullable<any>
   | z.ZodOptional<any>
-  | z.ZodOptional<z.ZodNullable<any>>
+  | z.ZodReadonly<any>
+  | z.ZodEffects<any>
 
-type UnwrapZodShape<T extends ZodShapes> = T extends z.ZodRawShape
+export type UnwrapZodShape<T extends ZodShapes> = T extends z.ZodRawShape
   ? T
-  : T extends z.ZodOptional<z.ZodNullable<z.ZodObject<infer U>>>
+  : T extends z.ZodOptional<z.ZodObject<infer U>>
   ? U
   : T extends z.ZodNullable<z.ZodObject<infer U>>
   ? U
-  : T extends z.ZodOptional<z.ZodObject<infer U>>
+  : T extends z.ZodReadonly<z.ZodObject<infer U>>
   ? U
-  : T extends z.ZodDefault<z.ZodObject<infer U>>
+  : T extends z.ZodEffects<z.ZodObject<infer U>>
   ? U
   : T extends z.ZodObject<infer U>
   ? U
+  : T extends z.ZodOptional<infer U>
+  ? UnwrapZodShape<U>
+  : T extends z.ZodNullable<infer U>
+  ? UnwrapZodShape<U>
+  : T extends z.ZodReadonly<infer U>
+  ? UnwrapZodShape<U>
+  : T extends z.ZodEffects<infer U>
+  ? UnwrapZodShape<U>
   : never
 
-const unwrapZodShape = <T extends ZodShapes>(type: T): UnwrapZodShape<T> => {
+export const unwrapZodShape = <T extends ZodShapes>(
+  type: T,
+): UnwrapZodShape<T> => {
   if (type instanceof z.ZodObject) {
     return type.shape
   }
@@ -41,33 +54,48 @@ const unwrapZodShape = <T extends ZodShapes>(type: T): UnwrapZodShape<T> => {
     return unwrapZodShape(type.removeDefault())
   }
 
+  if (type instanceof z.ZodReadonly) {
+    return unwrapZodShape(type._def.innerType)
+  }
+
+  if (type instanceof z.ZodEffects) {
+    return unwrapZodShape(type._def.schema)
+  }
+
   return type as any
 }
 
-export type ZodFields =
-  | z.ZodTypeAny
+type ZodFields =
   | z.ZodDefault<any>
   | z.ZodNullable<any>
   | z.ZodOptional<any>
-  | z.ZodOptional<z.ZodNullable<any>>
+  | z.ZodTypeAny
 
-type UnwrapZodField<T extends ZodFields> = T extends z.ZodOptional<
-  z.ZodNullable<infer U>
+export type RemoveReadonly<T extends ZodFields> = T extends z.ZodReadonly<
+  infer U
 >
   ? U
-  : T extends z.ZodNullable<infer U>
-  ? U
+  : T
+
+export type UnwrapZodField<T extends ZodFields> = T extends z.ZodNullable<
+  infer U
+>
+  ? UnwrapZodField<U>
   : T extends z.ZodOptional<infer U>
-  ? U
+  ? UnwrapZodField<U>
   : T extends z.ZodDefault<infer U>
-  ? U
+  ? UnwrapZodField<U>
   : T extends z.ZodTypeAny
   ? T
   : never
 
-const unwrapZodField = <T extends ZodFields>(type: T): UnwrapZodField<T> => {
-  if (type instanceof z.ZodObject) {
-    return type.shape
+// Readonly must be last for this to work
+
+export const unwrapZodField = <T extends ZodFields>(
+  type: T,
+): UnwrapZodField<RemoveReadonly<T>> => {
+  if (type instanceof z.ZodReadonly) {
+    return unwrapZodField(type._def.innerType)
   }
 
   if (type instanceof z.ZodOptional) {
@@ -85,13 +113,13 @@ const unwrapZodField = <T extends ZodFields>(type: T): UnwrapZodField<T> => {
   return type as any
 }
 
-export const getunwrappedField = <
+export const getUnwrappedField = <
   T extends ZodShapes,
   Field extends keyof UnwrapZodShape<T>,
 >(
   type: T,
   field: Field,
-): UnwrapZodField<UnwrapZodShape<T>[Field]> => {
+): UnwrapZodField<RemoveReadonly<UnwrapZodShape<T>[Field]>> => {
   const rawShape = unwrapZodShape(type)
   return unwrapZodField(rawShape[field])
 }

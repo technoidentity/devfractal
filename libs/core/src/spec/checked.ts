@@ -1,8 +1,9 @@
-import { z } from 'zod'
+import { z, type InnerTypeOfFunction } from 'zod'
 
 export function checked<
   Args extends [] | [z.ZodTypeAny, ...z.ZodTypeAny[]],
-  F extends (...args: z.infer<Args[number]>[]) => unknown,
+  Return extends z.ZodTypeAny,
+  F extends InnerTypeOfFunction<z.ZodTuple<Args>, Return>,
 >(specs: Args, f: F) {
   return z.function(z.tuple(specs)).implement(f)
 }

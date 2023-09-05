@@ -7,56 +7,59 @@ import { z } from 'zod'
 import type { Try } from './result'
 import { tryFromZod } from './utils'
 
+const Num = z.number()
+const Str = z.string()
+
 export const number = (defaultValue?: number) =>
-  defaultValue ? z.coerce.number().default(defaultValue) : z.coerce.number()
+  defaultValue ? Num.default(defaultValue) : Num
+
+const Int = Num.int()
 
 export const int = (defaultValue?: number) =>
-  defaultValue
-    ? z.coerce.number().int().default(defaultValue)
-    : z.coerce.number().int()
+  defaultValue ? Int.default(defaultValue) : Int
 
+const Positive = Num.positive()
 export const positive = (defaultValue?: number) =>
-  defaultValue
-    ? z.coerce.number().positive().default(defaultValue)
-    : z.coerce.number().positive()
+  defaultValue ? Positive.default(defaultValue) : Positive
 
+const Nonnegative = Num.nonnegative()
 export const nonnegative = (defaultValue?: number) =>
-  defaultValue
-    ? z.coerce.number().nonnegative().default(defaultValue)
-    : z.coerce.number().nonnegative()
+  defaultValue ? Nonnegative.default(defaultValue) : Nonnegative
 
+const Negative = Num.negative()
 export const negative = (defaultValue: number) =>
-  defaultValue
-    ? z.coerce.number().negative().default(defaultValue)
-    : z.coerce.number().negative()
+  defaultValue ? Negative.default(defaultValue) : Negative
 
+const Nonpositive = Num.nonpositive()
 export const nonpositive = (defaultValue: number) =>
-  defaultValue
-    ? z.coerce.number().nonpositive().default(defaultValue)
-    : z.coerce.number().nonpositive()
+  defaultValue ? Nonpositive.default(defaultValue) : Nonpositive
 
 export const string = (defaultValue?: string) =>
-  defaultValue ? z.coerce.string().default(defaultValue) : z.coerce.string()
+  defaultValue ? Str.default(defaultValue) : Str
 
+const Email = Str.email()
 export const email = (defaultValue?: string) =>
-  defaultValue ? z.string().email().default(defaultValue) : z.string().email()
+  defaultValue ? Email.default(defaultValue) : Email
 
+const Uuid = Str.uuid()
 export const uuid = (defaultValue?: string) =>
-  defaultValue ? z.string().uuid().default(defaultValue) : z.string().uuid()
+  defaultValue ? Uuid.default(defaultValue) : Uuid
 
+const Cuid = Str.cuid()
 export const cuid = (defaultValue?: string) =>
-  defaultValue ? z.string().cuid().default(defaultValue) : z.string().cuid()
+  defaultValue ? Cuid.default(defaultValue) : Cuid
 
+const DateTime = Str.datetime()
 export const datetime = (defaultValue?: string) =>
-  defaultValue
-    ? z.string().datetime().default(defaultValue)
-    : z.string().datetime()
+  defaultValue ? DateTime.default(defaultValue) : DateTime
 
+const Bool = z.coerce.boolean()
 export const boolean = (defaultValue?: boolean) =>
-  defaultValue ? z.coerce.boolean().default(defaultValue) : z.coerce.boolean()
+  defaultValue ? Bool.default(defaultValue) : Bool
 
+const CDate = z.coerce.date()
 export const date = (defaultValue?: Date) =>
-  defaultValue ? z.coerce.date().default(defaultValue) : z.coerce.date()
+  defaultValue ? CDate.default(defaultValue) : CDate
 
 export const DateRange = z.array(date()).max(2).brand<'DateRange'>()
 export type ZodDateRange = typeof DateRange
@@ -64,8 +67,9 @@ export type DateRange = z.infer<typeof DateRange>
 
 export const dateRange = () => DateRange
 
+const BigInt = z.coerce.bigint()
 export const bigint = (defaultValue = 0n) =>
-  defaultValue ? z.coerce.bigint().default(defaultValue) : z.coerce.bigint()
+  defaultValue ? BigInt.default(defaultValue) : BigInt
 
 export const nil = z.union([z.null(), z.undefined()])
 

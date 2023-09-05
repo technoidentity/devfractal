@@ -1,20 +1,20 @@
 import { z } from 'zod'
 
 export const Primitive = z.union([
-  z.coerce.string(),
-  z.coerce.number(),
-  z.coerce.boolean(),
-  z.coerce.date(),
-  z.coerce.bigint(),
+  z.number(),
+  z.date(),
+  z.string(),
+  z.bigint(),
+  z.boolean(),
 ])
 
 export type Primitive = z.infer<typeof Primitive>
 
 export const Fundamental = z.union([
-  z.coerce.string(),
-  z.coerce.number(),
-  z.coerce.boolean(),
-  z.coerce.bigint(),
+  z.string(),
+  z.number(),
+  z.boolean(),
+  z.bigint(),
 ])
 export type Fundamental = z.infer<typeof Fundamental>
 

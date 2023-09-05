@@ -12,8 +12,10 @@ export function rtry<T>(fn: () => T): Try<T> {
   }
 }
 
-export function atry<T>(fn: () => Promise<T>): Promise<Try<T>> {
-  return fn()
-    .then(ok)
-    .then(e => fail(toError(e)))
+export async function atry<T>(fn: () => Promise<T>): Promise<Try<T>> {
+  try {
+    return ok(await fn())
+  } catch (e) {
+    return fail(toError(e))
+  }
 }
