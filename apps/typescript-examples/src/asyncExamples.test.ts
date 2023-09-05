@@ -4,7 +4,7 @@ import {
   beforeEach,
   describe,
   expect,
-  expectTypeOf,
+  // expectTypeOf,
   test,
   vi,
 } from 'vitest'
@@ -79,31 +79,31 @@ describe.skip('async functions', () => {
 
   test('getPosts', async () => {
     await expect(getPosts()).resolves.toBeDefined()
-    expectTypeOf(getPosts()).resolves.toBeArray()
+    await expect(getPosts()).resolves.toBeInstanceOf(Array)
   })
 
   test('getPost', async () => {
     await expect(getPost(4)).resolves.toBeDefined()
-    expectTypeOf(getPost(10)).resolves.toBeObject()
+    await expect(getPost(10)).resolves.toBeInstanceOf(Object)
   })
 
   test('getComments', async () => {
     await expect(getComments(1)).resolves.toBeDefined()
-    expectTypeOf(getComments(3)).resolves.toBeArray()
+    await expect(getComments(3)).resolves.toBeInstanceOf(Array)
   })
 
   test('getPostsIds', async () => {
     await expect(getPostsIds(1, 3, 5, 7)).resolves.toBeDefined()
-    expectTypeOf(getPostsIds(1, 2, 3)).resolves.toBeObject()
+    await expect(getPostsIds(1, 2, 3)).resolves.toBeInstanceOf(Object)
   })
 
   test('createPost', async () => {
     await expect(
       createPost({ userId: 2, title: 'Test post', body: 'this should pass' }),
     ).resolves.toBeDefined()
-    expectTypeOf(
+    await expect(
       createPost({ userId: 2, title: 'Test post', body: 'this should pass' }),
-    ).resolves.toBeObject()
+    ).resolves.toBeInstanceOf(Object)
   })
 
   test('updatePost', async () => {
@@ -114,13 +114,13 @@ describe.skip('async functions', () => {
         body: 'this should pass',
       }),
     ).resolves.toBeDefined()
-    expectTypeOf(
+    await expect(
       updatePost(2, {
         userId: 2,
         title: 'Test post',
         body: 'this should pass',
       }),
-    ).resolves.toBeObject()
+    ).resolves.toBeInstanceOf(Object)
   })
 
   test('replacePost', async () => {
@@ -132,23 +132,22 @@ describe.skip('async functions', () => {
         body: 'this should pass',
       }),
     ).resolves.toBeDefined()
-    expectTypeOf(
+    await expect(
       replacePost(2, {
         userId: 2,
         id: 2,
         title: 'Test post',
         body: 'this should pass',
       }),
-    ).resolves.toBeObject()
+    ).resolves.toBeInstanceOf(Object)
   })
 
   test('deletePost', async () => {
     await expect(deletePost(3)).resolves.toBeUndefined()
-    expectTypeOf(deletePost(2)).toEqualTypeOf<Promise<void>>()
   })
 
   test('getCommentsByUserId', async () => {
     await expect(getCommentsByUserId(2)).resolves.toBeDefined()
-    expectTypeOf(getCommentsByUserId(3)).resolves.toBeObject()
+    await expect(getCommentsByUserId(3)).resolves.toBeInstanceOf(Array)
   }, 8000)
 })
