@@ -1240,9 +1240,9 @@ importers:
       '@playwright/test':
         specifier: 1.37.1
         version: 1.37.1
-      playwright:
-        specifier: 1.37.1
-        version: 1.37.1
+      cross-env:
+        specifier: 7.0.3
+        version: 7.0.3
       prettier:
         specifier: 3.0.3
         version: 3.0.3
@@ -22208,15 +22208,6 @@ packages:
     resolution: {integrity: sha512-17EuQxlSIYCmEMwzMqusJ2ztDgJePjrbttaefgdsiqeLWidjYz9BxXaTaZWxH1J95SHGk6tjE+dwgWILJoUZfA==}
     engines: {node: '>=16'}
     hasBin: true
-    dev: true
-
-  /playwright@1.37.1:
-    resolution: {integrity: sha512-bgUXRrQKhT48zHdxDYQTpf//0xDfDd5hLeEhjuSw8rXEGoT9YeElpfvs/izonTNY21IQZ7d3s22jLxYaAnubbQ==}
-    engines: {node: '>=16'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      playwright-core: 1.37.1
     dev: true
 
   /please-upgrade-node@3.2.0:

@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf .turbo node_modules dist",
-    "e2e": "pnpm playwright test"
+    "e2e": "pnpm e2e:dev --silent",
+    "e2e:dev": "pnpm playwright test --ui",
+    "e2e:run": "cross-env CI=true playwright test",
+    "e2e:install": "pnpm playwright install --with-deps chromium"
   },
   "license": "MIT",
   "devDependencies": {
     "@playwright/test": "1.37.1",
-    "playwright": "1.37.1",
+    "cross-env": "7.0.3",
     "prettier": "3.0.3",
     "rimraf": "5.0.1"
   }
