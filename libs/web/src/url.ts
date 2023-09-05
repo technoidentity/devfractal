@@ -27,7 +27,7 @@ export function toSearch(obj: SearchObj): string {
   return toSearchParams(obj).toString()
 }
 
-export function fromSearch(urlSearchParams: URLSearchParams): object {
+export function fromSearchParams(urlSearchParams: URLSearchParams): object {
   const obj = {} as any
 
   for (const [key, value] of urlSearchParams.entries()) {
@@ -45,7 +45,7 @@ export function fromSearch(urlSearchParams: URLSearchParams): object {
   return obj
 }
 
-function substPath(
+export function toPath(
   pathTemplate: string,
   params: Record<string, Primitive>,
 ): string {
@@ -53,19 +53,11 @@ function substPath(
 
   for (const [key, value] of Object.entries(params)) {
     const placeholder = `:${key}`
-    path = path.replace(placeholder, toStr(value))
+    path = value ? path.replace(placeholder, toStr(value)) : path
   }
 
   invariant(!path.includes(':'), 'Missing params for path template')
 
-  return path
-}
-
-export function toPath(
-  pathTemplate: string,
-  params: Record<string, Primitive>,
-): string {
-  const path = substPath(pathTemplate, params)
   return new URL(path, dummyOrigin).pathname
 }
 

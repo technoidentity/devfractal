@@ -1,78 +1,84 @@
 import { cast } from '@srtp/core'
 import type { z } from 'zod'
 
-import { fetch$ } from './fetch$'
-import { createHttp$, type ApiOptions } from './http$'
+import { fetch$, type BaseFetchOptions } from './fetch$'
+import { urlcat } from './url'
+
+export type ApiOptions = Omit<BaseFetchOptions, 'body'>
 
 export function createHttp(fetcher = fetch$) {
-  const base = createHttp$(fetcher)
-
   return {
-    get$: async (
+    async get$(
       url: string,
       query?: Record<string, string>,
       options?: ApiOptions,
-    ) => (await base.get(url, query, options))[0],
+    ) {
+      return fetcher(urlcat(url, '', query), { ...options, method: 'GET' })
+    },
 
-    post$: async (url: string, body: unknown, options?: ApiOptions) =>
-      (await base.post(url, body, options))[0],
+    async post$(url: string, body: unknown, options?: ApiOptions) {
+      return fetcher(url, { ...options, body, method: 'POST' })
+    },
 
-    put$: async (url: string, body: unknown, options?: ApiOptions) =>
-      (await base.put(url, body, options))[0],
+    async put$(url: string, body: unknown, options?: ApiOptions) {
+      return fetcher(url, { ...options, body, method: 'PUT' })
+    },
 
-    patch$: async (url: string, body: unknown, options?: ApiOptions) =>
-      (await base.patch(url, body, options))[0],
+    async patch$(url: string, body: unknown, options?: ApiOptions) {
+      return fetcher(url, { ...options, body, method: 'PATCH' })
+    },
 
-    del$: async (url: string, options?: ApiOptions) =>
-      (await base.delete(url, options))[0],
+    async del$(url: string, options?: ApiOptions) {
+      return fetcher(url, { ...options, method: 'DELETE' })
+    },
 
-    get: async <Spec extends z.ZodTypeAny>(
+    async get<Spec extends z.ZodTypeAny>(
       spec: Spec,
       url: string,
       query?: Record<string, string>,
       options?: ApiOptions,
-    ) => {
-      const [data] = await base.get(url, query, options)
-      return cast(spec, data)
+    ): Promise<readonly [z.infer<Spec>, Response]> {
+      const [data, response] = await this.get$(url, query, options)
+      return [cast(spec, data), response] as const
     },
 
-    post: async <Spec extends z.ZodTypeAny>(
+    async post<Spec extends z.ZodTypeAny>(
       spec: Spec,
       url: string,
       body: unknown,
       options?: ApiOptions,
-    ) => {
-      const [data] = await base.post(url, body, options)
-      return cast(spec, data)
+    ): Promise<readonly [z.infer<Spec>, Response]> {
+      const [data, response] = await this.post$(url, body, options)
+      return [cast(spec, data), response] as const
     },
 
-    put: async <Spec extends z.ZodTypeAny>(
+    async put<Spec extends z.ZodTypeAny>(
       spec: Spec,
       url: string,
       body: unknown,
       options?: ApiOptions,
-    ) => {
-      const [data] = await base.put(url, body, options)
-      return cast(spec, data)
+    ): Promise<readonly [z.infer<Spec>, Response]> {
+      const [data, response] = await this.put$(url, body, options)
+      return [cast(spec, data), response] as const
     },
 
-    patch: async <Spec extends z.ZodTypeAny>(
+    async patch<Spec extends z.ZodTypeAny>(
       spec: Spec,
       url: string,
       body: unknown,
       options?: ApiOptions,
-    ) => {
-      const [data] = await base.patch(url, body, options)
-      return cast(spec, data)
+    ): Promise<readonly [z.infer<Spec>, Response]> {
+      const [data, response] = await this.patch$(url, body, options)
+      return [cast(spec, data), response] as const
     },
 
-    del: async <Spec extends z.ZodTypeAny>(
+    async del<Spec extends z.ZodTypeAny>(
       spec: Spec,
       url: string,
       options?: ApiOptions,
-    ) => {
-      const [data] = await base.delete(url, options)
-      return cast(spec, data)
+    ): Promise<readonly [z.infer<Spec>, Response]> {
+      const [data, response] = await this.del$(url, options)
+      return [cast(spec, data), response] as const
     },
   }
 }

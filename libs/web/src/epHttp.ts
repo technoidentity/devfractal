@@ -29,7 +29,7 @@ async function epAxios<Ep extends EndpointBase>({
   const path = route(ep.path)
   const ps = params ?? {}
   const url = params ? toPath(path, ps) : path
-  const reqBody = ep.request ? (ep.request, request) : request
+  const reqBody = ep.request ? cast(ep.request, request) : request
   const method = ep.method
 
   const [resBody, response] = await axios(url, {

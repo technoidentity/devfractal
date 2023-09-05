@@ -2,10 +2,12 @@ import { describe, expect, test } from 'vitest'
 
 import {
   formDataToSearch,
-  fromSearch,
-  searchToFormData,
+  fromSearchParams,
   joinPaths,
-  toSearchParams,
+  searchToFormData,
+  toPath,
+  toSearch,
+  toURL,
   urlcat,
 } from './url'
 
@@ -83,45 +85,43 @@ describe('joinPaths', () => {
   })
 })
 
-describe('toSearchParams', () => {
+describe('toSearch', () => {
   test('should convert object to search params correctly', () => {
-    expect(toSearchParams({ q: 'test', p: 'test2' }).toString()).toEqual(
-      'q=test&p=test2',
+    expect(toSearch({ q: 'test', p: 'test2' })).toEqual('q=test&p=test2')
+
+    expect(toSearch({ q: ['test1', 'test2'], p: 'test3' })).toEqual(
+      'q=test1&q=test2&p=test3',
     )
 
-    expect(
-      toSearchParams({ q: ['test1', 'test2'], p: 'test3' }).toString(),
-    ).toEqual('q=test1&q=test2&p=test3')
-
-    expect(toSearchParams({ q: [100, 200], p: 'test3' }).toString()).toEqual(
+    expect(toSearch({ q: [100, 200], p: 'test3' })).toEqual(
       'q=100&q=200&p=test3',
     )
 
-    expect(toSearchParams({}).toString()).toEqual('')
+    expect(toSearch({})).toEqual('')
 
-    expect(toSearchParams({ q: [] }).toString()).toEqual('')
+    expect(toSearch({ q: [] })).toEqual('')
   })
 })
 
 describe('fromSearch', () => {
   test('should convert URLSearchParams to object correctly', () => {
     const searchParams = new URLSearchParams('q=test&p=test2')
-    expect(fromSearch(searchParams)).toEqual({ q: 'test', p: 'test2' })
+    expect(fromSearchParams(searchParams)).toEqual({ q: 'test', p: 'test2' })
 
     const searchParams2 = new URLSearchParams('q=test1&q=test2&p=test3')
-    expect(fromSearch(searchParams2)).toEqual({
+    expect(fromSearchParams(searchParams2)).toEqual({
       q: ['test1', 'test2'],
       p: 'test3',
     })
 
     const searchParams3 = new URLSearchParams('q=100&q=200&p=test3')
-    expect(fromSearch(searchParams3)).toEqual({
+    expect(fromSearchParams(searchParams3)).toEqual({
       q: ['100', '200'],
       p: 'test3',
     })
 
     const searchParams4 = new URLSearchParams('')
-    expect(fromSearch(searchParams4)).toEqual({})
+    expect(fromSearchParams(searchParams4)).toEqual({})
   })
 
   describe('searchToFormData', () => {
@@ -178,5 +178,43 @@ describe('fromSearch', () => {
       const searchParams4 = new URLSearchParams('')
       expect(formDataToSearch(formData4)).toEqual(searchParams4)
     })
+  })
+})
+
+describe('toPath', () => {
+  test('should replace placeholders with values from params', () => {
+    const pathTemplate = '/users/:id/posts/:postId'
+    const params = { id: 123, postId: 456 }
+    expect(toPath(pathTemplate, params)).toEqual('/users/123/posts/456')
+  })
+
+  test('should throw error if placeholders are not replaced', () => {
+    const pathTemplate = '/users/:id/posts/:postId'
+    const params = { id: 123 }
+    expect(() => toPath(pathTemplate, params)).toThrow(
+      'Missing params for path template',
+    )
+  })
+})
+
+describe('toURL', () => {
+  test('should create URL with origin, path, and search', () => {
+    const origin = 'https://example.com'
+    const path = '/users'
+    const search = { q: 'john', page: 1 }
+    const url = toURL(origin, path, search)
+    expect(url.href).toEqual('https://example.com/users?q=john&page=1')
+  })
+
+  test('should create URL with origin and path only', () => {
+    const origin = 'https://example.com'
+    const path = '/users'
+    const url = toURL(origin, path)
+    expect(url.href).toEqual('https://example.com/users')
+  })
+
+  test('should throw error without origin', () => {
+    const path = '/users'
+    expect(() => toURL('', path)).toThrow()
   })
 })
