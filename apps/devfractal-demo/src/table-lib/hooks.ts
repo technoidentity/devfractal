@@ -7,7 +7,7 @@ export type PaginationValues = Readonly<{
 
 export type PaginationResult = {
   activePage: number
-
+  totalPages: number
   setPage(page: number): void
   next(): void
   previous(): void
@@ -45,5 +45,9 @@ export const usePagination = ({
     totalPages,
   })
 
-  return { activePage: state.activePage, ...actions }
+  return {
+    activePage: state.activePage,
+    totalPages: state.totalPages,
+    ...actions,
+  }
 }

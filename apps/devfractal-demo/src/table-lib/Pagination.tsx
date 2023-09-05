@@ -1,10 +1,6 @@
 import { Button, HStack } from 'devfractal'
 
-import { type PaginationResult } from './hooks'
-
-export type PaginationProps = PaginationResult & {
-  totalPages: number
-}
+import { type PaginationResult as PaginationProps } from './hooks'
 
 export function Pagination({
   totalPages,
