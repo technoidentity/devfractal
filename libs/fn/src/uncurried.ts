@@ -13,7 +13,7 @@ import {
 import {
   all,
   any,
-  chain,
+  iterChain,
   cons,
   filter,
   findIndex,
@@ -66,7 +66,7 @@ export const minBy$ = unpipe(minBy)
 export const maxByProp$ = unpipe(maxByProp)
 export const minByProp$ = unpipe(minByProp)
 export const iterSlice$ = unpipe(iterSlice)
-export const chain$ = unpipe(chain)
+export const iterChain$ = unpipe(iterChain)
 export const takeWhile$ = unpipe(takeWhile)
 export const skipWhile$ = unpipe(skipWhile)
 
