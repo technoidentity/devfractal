@@ -15,7 +15,7 @@ import {
 import {
   all$,
   any$,
-  chain$,
+  iterChain$,
   filter$,
   findIndex$,
   flatMap$,
@@ -283,11 +283,11 @@ test('iterFlatten', () => {
   ]).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
 })
 test('chain', () => {
-  expect(toArray(chain$([], []))).toEqual([])
-  expect(toArray(chain$([1, 2, 3], []))).toEqual([1, 2, 3])
-  expect(toArray(chain$([], [1, 2, 3]))).toEqual([1, 2, 3])
-  expect(toArray(chain$([1, 2, 3], [4, 5, 6]))).toEqual([1, 2, 3, 4, 5, 6])
-  expect(toArray(chain$([1, 2, 3], [4, 5, 6], [7, 8, 9]))).toEqual([
+  expect(toArray(iterChain$([], []))).toEqual([])
+  expect(toArray(iterChain$([1, 2, 3], []))).toEqual([1, 2, 3])
+  expect(toArray(iterChain$([], [1, 2, 3]))).toEqual([1, 2, 3])
+  expect(toArray(iterChain$([1, 2, 3], [4, 5, 6]))).toEqual([1, 2, 3, 4, 5, 6])
+  expect(toArray(iterChain$([1, 2, 3], [4, 5, 6], [7, 8, 9]))).toEqual([
     1, 2, 3, 4, 5, 6, 7, 8, 9,
   ])
 })

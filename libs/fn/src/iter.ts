@@ -318,7 +318,7 @@ export function* iterFlatten<T>(arr: DeepFlattenArgs<T>): IterableIterator<T> {
   }
 }
 
-export function chain<T>(...args: Iterable<T>[]) {
+export function iterChain<T>(...args: Iterable<T>[]) {
   return function* (first: Iterable<T>): IterableIterator<T> {
     yield* first
     for (const arr of args) {
