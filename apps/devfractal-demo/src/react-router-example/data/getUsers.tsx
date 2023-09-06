@@ -1,12 +1,13 @@
+import { http } from 'devfractal'
 import { type LoaderFunctionArgs } from 'react-router-dom'
-import axios from 'redaxios'
-import { type Contact } from '../types'
+
+import { ContactList } from '../types'
 import { baseUrl } from './common'
 
 export const getUsers = async ({
   request,
-}: LoaderFunctionArgs): Promise<Contact> => {
-  const contacts = await axios.get(`${baseUrl}/users`).then(res => res.data)
+}: LoaderFunctionArgs): Promise<ContactList> => {
+  const [contacts] = await http.get(ContactList, `${baseUrl}/users`)
 
   const url = new URL(request.url)
   const search = url.searchParams.get('search')

@@ -1,6 +1,5 @@
-import { safeFormData } from 'devfractal'
+import { http, safeFormData } from 'devfractal'
 import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
-import axios from 'redaxios'
 import { baseUrl } from '../data/common'
 import { Contact } from '../types'
 
@@ -9,7 +8,7 @@ export const addContact = async ({
 }: LoaderFunctionArgs): Promise<Response> => {
   const newContact = await safeFormData(Contact, request)
 
-  await axios.post(`${baseUrl}/users`, newContact)
+  await http.post(Contact, `${baseUrl}/users`, newContact)
 
   return redirect('/')
 }

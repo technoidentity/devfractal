@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom'
-import { type ContactArray } from '../types'
+import type { ContactList as Contacts } from '../types'
 
-export function ContactList({
-  contacts,
-}: {
-  contacts: ContactArray
-}): JSX.Element {
+export function ContactList({ contacts }: { contacts: Contacts }): JSX.Element {
   return (
     <ul className="h-[80vh] overflow-y-auto bg-gray-100">
       {contacts.map(contact => {

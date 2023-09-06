@@ -1,10 +1,10 @@
+import { http } from 'devfractal'
 import { Link, type LoaderFunctionArgs } from 'react-router-dom'
 
-import axios from 'redaxios'
 import { baseUrl } from '../data/common'
 
 export const deleteContactAction = async ({ params }: LoaderFunctionArgs) => {
-  await axios.delete(`${baseUrl}/users/${params['id']}`)
+  await http.del$(`${baseUrl}/users/${params['id']}`)
 }
 
 export function DeleteContact(): JSX.Element {

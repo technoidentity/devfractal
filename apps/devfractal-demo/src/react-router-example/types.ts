@@ -30,8 +30,7 @@ export const Contact = z.object({
   website: string(),
   company: Company,
 })
+export type Contact = z.infer<typeof Contact>
 
 export const ContactList = z.array(Contact)
-
-export type Contact = z.infer<typeof Contact>
-export type ContactArray = z.infer<typeof ContactList>
+export type ContactList = z.infer<typeof ContactList>
