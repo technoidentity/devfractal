@@ -8,13 +8,15 @@ const handlers = {
   inc(draft) {
     draft.count++
   },
+
   dec(draft) {
     draft.count--
   },
+
   by(state, step: number) {
     state.count += step
   },
-} as const satisfies Handlers<typeof initialState>
+} satisfies Handlers<typeof initialState>
 
 const { Provider, useState, useActions } = tree(initialState, handlers)
 

@@ -1,5 +1,5 @@
 import { Group } from '@mantine/core'
-import type { FormSpec } from '@srtp/core'
+import type { ValidatorSpec } from '@srtp/core'
 import React from 'react'
 import type { z } from 'zod'
 import { DeleteForm } from './DeleteForm'
@@ -7,7 +7,7 @@ import type { EditFormProps } from './EditForm'
 import { EditForm } from './EditForm'
 import { useServerErrors } from './hooks'
 
-function createActions$<Spec extends FormSpec & z.AnyZodObject>(
+function createActions$<Spec extends ValidatorSpec & z.AnyZodObject>(
   spec: Spec,
   FormFields: EditFormProps<Spec>['FormFields'],
   editTitle: string,
@@ -30,7 +30,7 @@ function createActions$<Spec extends FormSpec & z.AnyZodObject>(
   }
 }
 
-export function useActions<Spec extends FormSpec & z.AnyZodObject>(
+export function useActions<Spec extends ValidatorSpec & z.AnyZodObject>(
   spec: Spec,
   FormFields: EditFormProps<Spec>['FormFields'],
   editTitle: string,

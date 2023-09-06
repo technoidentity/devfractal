@@ -28,3 +28,12 @@ export function tree<State extends object, Hs extends Handlers<State>>(
     ...rest,
   } as const
 }
+
+export function stree<State extends object, HS extends Handlers<State>>(
+  initialState: State,
+  handlers: HS,
+) {
+  const { useValue, useActions } = tree(initialState, handlers)
+
+  return [useValue, useActions] as const
+}

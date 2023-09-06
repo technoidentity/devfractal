@@ -1,4 +1,4 @@
-import { checked, Natural } from '@srtp/core'
+import { checked, Nat } from '@srtp/core'
 import { all, filter, map, pipe, plus, range, reduce, toArray } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
@@ -20,7 +20,7 @@ export function fpMaxBy<T extends object>(arr: readonly T[], by: keyof T): T {
 }
 
 export const isPrime = checked(
-  [Natural],
+  [Nat],
   n =>
     n >= 2 &&
     pipe(
@@ -57,18 +57,18 @@ export function zip<T>(...args: T[][]) {
   )
 }
 
-export const power = checked([z.number(), Natural], (x, n) =>
+export const power = checked([z.number(), Nat], (x, n) =>
   [...range(n)].reduce(a => a * x, 1),
 )
 
-export const sumOfPrimes = checked([Natural], n =>
+export const sumOfPrimes = checked([Nat], n =>
   pipe(range(n), filter(isPrime), reduce(plus, 0)),
 )
 
-export const sum = checked([Natural], n => pipe(range(n), reduce(plus, 0)))
+export const sum = checked([Nat], n => pipe(range(n), reduce(plus, 0)))
 
 export const isPerfect = checked(
-  [Natural],
+  [Nat],
   n =>
     n ===
     pipe(

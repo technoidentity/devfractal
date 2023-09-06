@@ -7,7 +7,7 @@ import type { FormProps as RemixFormProps } from '@remix-run/react'
 import { Form as RemixForm, useSubmit } from '@remix-run/react'
 import type { FormErrors } from '@srtp/remix-core'
 import { getRawShape, isDefined } from '@srtp/core'
-import type { FormSpec } from '@srtp/core'
+import type { ValidatorSpec } from '@srtp/core'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
@@ -17,17 +17,17 @@ import { Inputs } from './Inputs'
 import { useSuccessfulSubmit } from './useSuccessfulSubmit'
 import { getFieldError } from './utils'
 
-type MyFormProps<Spec extends FormSpec> = Readonly<{
+type MyFormProps<Spec extends ValidatorSpec> = Readonly<{
   onSubmit?: (values: z.infer<Spec>) => void
   children: React.ReactNode
   serverErrors?: FormErrors<z.infer<Spec>>
 }>
 
-type FormProps<Spec extends FormSpec> = MyFormProps<Spec> &
+type FormProps<Spec extends ValidatorSpec> = MyFormProps<Spec> &
   Omit<RemixFormProps, 'onSubmit'> &
   Omit<UseFormInput<z.infer<Spec>>, 'validate'>
 
-type MyRemixFormProps<Spec extends FormSpec> = RemixFormProps &
+type MyRemixFormProps<Spec extends ValidatorSpec> = RemixFormProps &
   Readonly<{
     onSubmit?: (values: z.infer<Spec>) => void
     form: UseFormReturnType<
@@ -36,7 +36,7 @@ type MyRemixFormProps<Spec extends FormSpec> = RemixFormProps &
     >
   }>
 
-function useOnSubmitOnSuccess<Spec extends FormSpec>(
+function useOnSubmitOnSuccess<Spec extends ValidatorSpec>(
   onSubmit?: (values: z.infer<Spec>) => void,
 ) {
   const { form } = useFormContext()
@@ -47,7 +47,7 @@ function useOnSubmitOnSuccess<Spec extends FormSpec>(
   }, [form.values, onSubmit, success])
 }
 
-function MyRemixForm<Spec extends FormSpec>({
+function MyRemixForm<Spec extends ValidatorSpec>({
   form,
   children,
   onSubmit,
@@ -68,7 +68,7 @@ function MyRemixForm<Spec extends FormSpec>({
   )
 }
 
-export function createForm<Spec extends FormSpec>(
+export function createForm<Spec extends ValidatorSpec>(
   spec: Spec,
   initial?: z.infer<Spec>,
 ) {

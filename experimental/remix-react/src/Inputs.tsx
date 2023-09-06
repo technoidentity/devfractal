@@ -41,7 +41,7 @@ import type {
   TimeInputProps,
 } from '@mantine/dates'
 import { DatePickerInput as MantineDatePicker, TimeInput } from '@mantine/dates'
-import type { GetRawShape , FormSpec, ZodDateRange } from '@srtp/core'
+import type { GetRawShape, ValidatorSpec, ZodDateRange } from '@srtp/core'
 import type { ConditionalKeys } from 'type-fest'
 import { z } from 'zod'
 import { useFormContext } from './FormContext'
@@ -342,19 +342,22 @@ export const Action = ({ action, ...props }: ActionProps) => {
   return <Input {...props} type="hidden" name="_action" value={action} />
 }
 
-// type EnumKeys<Spec extends FormSpec> = ConditionalKeys<
+// type EnumKeys<Spec extends ValidatorSpec> = ConditionalKeys<
 //   GetRawShape<Spec>,
 //   | z.ZodEnum<any>
 //   | z.ZodNativeEnum<any>
 //   | z.ZodDefault<z.ZodEnum<any>>
 //   | z.ZodDefault<z.ZodNativeEnum<any>>
 // >
-type EnumArrayKeys<Spec extends FormSpec> = ConditionalKeys<
+type EnumArrayKeys<Spec extends ValidatorSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
 
-type KeyByZod<Spec extends FormSpec, Z extends z.ZodTypeAny> = ConditionalKeys<
+type KeyByZod<
+  Spec extends ValidatorSpec,
+  Z extends z.ZodTypeAny,
+> = ConditionalKeys<
   GetRawShape<Spec>,
   | Z
   | z.ZodEffects<Z, any, any>
@@ -364,20 +367,33 @@ type KeyByZod<Spec extends FormSpec, Z extends z.ZodTypeAny> = ConditionalKeys<
   | z.ZodOptional<z.ZodDefault<Z>>
 >
 
-type ZodNamed<Spec extends FormSpec, Props, Z extends z.ZodTypeAny> = Named<
+type ZodNamed<
+  Spec extends ValidatorSpec,
   Props,
-  KeyByZod<Spec, Z>
->
+  Z extends z.ZodTypeAny,
+> = Named<Props, KeyByZod<Spec, Z>>
 
-type StrNamed<Spec extends FormSpec, Props> = ZodNamed<Spec, Props, z.ZodString>
-type NumNamed<Spec extends FormSpec, Props> = ZodNamed<Spec, Props, z.ZodNumber>
-type BoolNamed<Spec extends FormSpec, Props> = ZodNamed<
+type StrNamed<Spec extends ValidatorSpec, Props> = ZodNamed<
+  Spec,
+  Props,
+  z.ZodString
+>
+type NumNamed<Spec extends ValidatorSpec, Props> = ZodNamed<
+  Spec,
+  Props,
+  z.ZodNumber
+>
+type BoolNamed<Spec extends ValidatorSpec, Props> = ZodNamed<
   Spec,
   Props,
   z.ZodBoolean
 >
-type DateNamed<Spec extends FormSpec, Props> = ZodNamed<Spec, Props, z.ZodDate>
-type EnumNamed<Spec extends FormSpec, Props> = Named<
+type DateNamed<Spec extends ValidatorSpec, Props> = ZodNamed<
+  Spec,
+  Props,
+  z.ZodDate
+>
+type EnumNamed<Spec extends ValidatorSpec, Props> = Named<
   Props,
   KeyByZod<Spec, z.ZodEnum<any>> | KeyByZod<Spec, z.ZodNativeEnum<any>>
 >
@@ -388,7 +404,7 @@ type EnumNamed<Spec extends FormSpec, Props> = Named<
 //   | FieldPickByZod<z.ZodEnum<any>>
 //   | FieldPickByZod<z.ZodNativeEnum<any>>
 
-export type InputsType<Spec extends FormSpec> = {
+export type InputsType<Spec extends ValidatorSpec> = {
   Str: (props: StrNamed<Spec, TextInputProps>) => JSX.Element
   Content: (props: StrNamed<Spec, TextareaProps>) => JSX.Element
   Password: (props: StrNamed<Spec, PasswordInputProps>) => JSX.Element

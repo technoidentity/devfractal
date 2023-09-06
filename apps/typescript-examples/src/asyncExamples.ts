@@ -1,9 +1,9 @@
-import { Natural, checked } from '@srtp/core'
+import { Nat, checked } from '@srtp/core'
 import { shttp } from '@srtp/web'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
-export const delay = checked([Natural], ms => {
+export const delay = checked([Nat], ms => {
   invariant(ms >= 0, 'ms must be greater than or equal to 0')
 
   return new Promise<void>(resolve => setTimeout(resolve, ms))

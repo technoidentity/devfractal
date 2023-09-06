@@ -1,19 +1,19 @@
 import { Paper } from '@mantine/core'
 import type { InputsType } from '@srtp/remix-react'
-import type { FormSpec } from '@srtp/core'
+import type { ValidatorSpec } from '@srtp/core'
 import type { CrudFormProps } from './CrudForm'
 import { CrudForm } from './CrudForm'
 
-export type FormFieldsProps<Spec extends FormSpec> = Readonly<{
+export type FormFieldsProps<Spec extends ValidatorSpec> = Readonly<{
   Inputs: InputsType<Spec>
 }>
 
-export interface CreateFormProps<Spec extends FormSpec>
+export interface CreateFormProps<Spec extends ValidatorSpec>
   extends Omit<CrudFormProps<Spec>, 'children' | 'method'> {
   FormFields: (props: FormFieldsProps<Spec>) => JSX.Element
 }
 
-export function CreateForm<Spec extends FormSpec>({
+export function CreateForm<Spec extends ValidatorSpec>({
   spec,
   serverErrors,
   initialValues,

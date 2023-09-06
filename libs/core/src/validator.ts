@@ -7,8 +7,8 @@ import { z } from 'zod'
 import type { Try } from './result'
 import { tryFromZod } from './utils'
 
-const Num = z.number()
-const Str = z.string()
+const Num = z.coerce.number()
+const Str = z.coerce.string()
 
 export const number = (defaultValue?: number) =>
   defaultValue ? Num.default(defaultValue) : Num
@@ -27,6 +27,7 @@ export const nonnegative = (defaultValue?: number) =>
   defaultValue ? Nonnegative.default(defaultValue) : Nonnegative
 
 const Negative = Num.negative()
+
 export const negative = (defaultValue: number) =>
   defaultValue ? Negative.default(defaultValue) : Negative
 
@@ -53,11 +54,13 @@ const DateTime = Str.datetime()
 export const datetime = (defaultValue?: string) =>
   defaultValue ? DateTime.default(defaultValue) : DateTime
 
-const Bool = z.coerce.boolean()
+const Bool = z.boolean()
+
 export const boolean = (defaultValue?: boolean) =>
   defaultValue ? Bool.default(defaultValue) : Bool
 
 const CDate = z.coerce.date()
+
 export const date = (defaultValue?: Date) =>
   defaultValue ? CDate.default(defaultValue) : CDate
 
@@ -93,18 +96,22 @@ export type FieldSpec =
   | ZodDateRange // only to support DateRangePicker
 
 // nesting and arrays not supported yet
-export type FormRawShape = { [k: string]: FieldSpec }
+export type ValidatorRawShape = { [k: string]: FieldSpec }
 
-export type FormSpec = z.ZodEffects<any> | z.AnyZodObject
+export type ValidatorSpec = z.ZodEffects<any> | z.AnyZodObject
 
-export function spec<T extends FormRawShape>(shape: T) {
+export function spec<T extends ValidatorRawShape>(shape: T) {
   return z.object(shape)
 }
 
-export function validate<T extends FormRawShape, Spec extends z.ZodSchema<T>>(
-  schema: Spec,
-  value: unknown,
-): Try<z.infer<Spec>> {
+export function array<T extends ValidatorSpec>(spec: T) {
+  return z.array(spec)
+}
+
+export function validate<
+  T extends ValidatorRawShape,
+  Spec extends z.ZodSchema<T>,
+>(schema: Spec, value: unknown): Try<z.infer<Spec>> {
   const r = schema.safeParse(value)
   return tryFromZod(r)
 }
@@ -139,6 +146,7 @@ export function defaultValue<Spec extends FieldSpec>(
       return (spec as ZodNativeEnum<any>)._def.values[0]
     case 'ZodOptional':
       return undefined
+
     default:
       invariant(false, 'defaultValue not implemented for this type')
   }

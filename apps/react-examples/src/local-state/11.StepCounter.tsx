@@ -1,5 +1,6 @@
 import { Box, Input, Text } from '@chakra-ui/react'
-import { pstate, type PHandlers } from '@srtp/react'
+import type { PropsStateHandlers } from '@srtp/react'
+import { usePropsState } from '@srtp/react'
 import React from 'react'
 
 const initial = { count: 0 }
@@ -11,9 +12,10 @@ const handlers = {
   next: () => (state, props) => {
     state.count += props.step
   },
-} satisfies PHandlers<State, Props>
-
-const useStep = pstate(initial, handlers)
+  prev: (x: number) => (state, props) => {
+    state.count -= props.step - x
+  },
+} satisfies PropsStateHandlers<Props, State>
 
 const useSecondInterval = (next: () => void) => {
   React.useEffect(() => {
@@ -26,11 +28,12 @@ const useSecondInterval = (next: () => void) => {
 }
 
 export const StepCounter = (props: Props) => {
-  const [{ count }, { next }] = useStep(props)
+  const [{ count }, { next, prev }] = usePropsState(handlers, props, initial)
+
   useSecondInterval(next)
 
   return (
-    <Box>
+    <Box onClick={() => prev(5)}>
       <Text>{count}</Text>
     </Box>
   )

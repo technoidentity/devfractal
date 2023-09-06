@@ -1,24 +1,29 @@
 import { Box, Input, Text } from '@chakra-ui/react'
 import { isNum } from '@srtp/core'
-import { pstate, type PHandlers } from '@srtp/react'
+import type { PropsStateHandlers } from '@srtp/react'
+import { propsState } from '@srtp/react'
 import React, { type ChangeEvent } from 'react'
 
 const initial = { step: 1, count: 0 }
+
+type Props = { enableStep?: boolean }
 
 const handlers = {
   next: () => state => {
     state.count += state.step
   },
 
-  setStep: (evt: ChangeEvent<HTMLInputElement>) => state => {
+  setStep: (evt: ChangeEvent<HTMLInputElement>) => (state, props) => {
     const step = +evt.target.value || 1
-    if (isNum(step)) {
+    if (isNum(step) && props.enableStep) {
       state.step = step
     }
   },
-} satisfies PHandlers<typeof initial, object>
+} satisfies PropsStateHandlers<Props, typeof initial>
 
-const useStep = pstate(initial, handlers)
+const state = propsState<Props>()
+
+const useStep = state(initial, handlers)
 
 const useSecondInterval = (next: () => void) => {
   React.useEffect(() => {
@@ -31,7 +36,7 @@ const useSecondInterval = (next: () => void) => {
 }
 
 export const StepCounter = () => {
-  const [{ count }, { next, setStep }] = useStep()
+  const [{ count }, { next, setStep }] = useStep({})
   useSecondInterval(next)
 
   return (

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { isFunction } from '@srtp/core'
 import type { Draft } from 'immer'
 import React from 'react'
 import { useImmerReducer } from 'use-immer'
@@ -146,8 +147,10 @@ export function state<
   initialState: State,
   handlers: Hs,
   effect?: Effect<State, Result>,
-): (initialState?: Partial<State>) => readonly [State, Actions<State, Hs>] {
-  const useLocalStateEffect = effect
+): (
+  initialState?: Partial<State> | (() => Partial<State>),
+) => readonly [State, Actions<State, Hs>] {
+  const useStateEffect = effect
     ? (state: State) => {
         const selector = React.useMemo(() => effect.selector(state), [state])
         React.useEffect(() => {
@@ -155,9 +158,11 @@ export function state<
         }, [selector])
       }
     : () => {}
+
   return moreState => {
-    const state = moreState ? { ...initialState, ...moreState } : initialState
-    useLocalStateEffect(state)
+    const mstate = isFunction(moreState) ? moreState() : moreState
+    const state = mstate ? { ...initialState, ...mstate } : initialState
+    useStateEffect(state)
 
     return useState(state, handlers)
   }

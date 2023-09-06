@@ -54,6 +54,7 @@ export function tree$<R extends Actions<any, any>>(
     )
   }
 
+  // @TODO: use context-selector
   function useSelect<A>(select: Selector<R, A>): A {
     const snapshot = useValue()
     const ref = React.useRef(select)

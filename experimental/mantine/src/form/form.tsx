@@ -48,14 +48,14 @@ import {
 import type { UseFormReturnType } from '@mantine/form'
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { GetRawShape } from '@srtp/core'
-import type { FormSpec } from '@srtp/core'
+import type { ValidatorSpec } from '@srtp/core'
 import { capitalize } from '@srtp/fn'
 import React from 'react'
 import invariant from 'tiny-invariant'
 import type { ConditionalKeys } from 'type-fest'
 import type { z } from 'zod'
 
-type FormContext<Spec extends FormSpec> = [
+type FormContext<Spec extends ValidatorSpec> = [
   UseFormReturnType<z.TypeOf<Spec>, (values: z.TypeOf<Spec>) => z.TypeOf<Spec>>,
   () => UseFormReturnType<
     z.TypeOf<Spec>,
@@ -214,15 +214,15 @@ export const Time = (props: Named<TimeInputProps>) => {
   return <TimeInput {...props} {...form.getInputProps(props.name)} />
 }
 
-type EnumKeys<Spec extends FormSpec> = ConditionalKeys<
+type EnumKeys<Spec extends ValidatorSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodEnum<any> | z.ZodNativeEnum<any>
 >
-type EnumArrayKeys<Spec extends FormSpec> = ConditionalKeys<
+type EnumArrayKeys<Spec extends ValidatorSpec> = ConditionalKeys<
   GetRawShape<Spec>,
   z.ZodArray<z.ZodString>
 >
-type Inputs<Spec extends FormSpec> = {
+type Inputs<Spec extends ValidatorSpec> = {
   Str: (
     props: Named<
       TextInputProps,
@@ -314,7 +314,7 @@ type Inputs<Spec extends FormSpec> = {
   // ) => JSX.Element
 }
 
-export function createForm<Spec extends FormSpec>(
+export function createForm<Spec extends ValidatorSpec>(
   spec: Spec,
   initial?: z.infer<Spec>,
 ) {

@@ -3,12 +3,12 @@ import type { FormMethod } from '@remix-run/react'
 import type { FormErrors as Errors } from '@srtp/remix-core'
 import type { InputsType } from '@srtp/remix-react'
 import { createForm } from '@srtp/remix-react'
-import type { FormSpec } from '@srtp/core'
+import type { ValidatorSpec } from '@srtp/core'
 import React from 'react'
 import type { z } from 'zod'
 import { FormErrors, FormTitle, SubmitButton } from '~/core'
 
-export type CrudFormProps<Spec extends FormSpec> = Readonly<{
+export type CrudFormProps<Spec extends ValidatorSpec> = Readonly<{
   spec: Spec
   serverErrors?: Errors<z.infer<Spec>>
   initialValues: z.infer<Spec>
@@ -18,7 +18,7 @@ export type CrudFormProps<Spec extends FormSpec> = Readonly<{
   children: (props: { Inputs: InputsType<Spec> }) => JSX.Element
 }>
 
-export function CrudForm<Spec extends FormSpec>({
+export function CrudForm<Spec extends ValidatorSpec>({
   initialValues,
   serverErrors,
   spec,

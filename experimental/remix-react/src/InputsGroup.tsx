@@ -2,22 +2,22 @@
 import { createFormContext, useForm, zodResolver } from '@mantine/form'
 import type { UseFormInput } from '@mantine/form/lib/types'
 import { getRawShape } from '@srtp/core'
-import type { FormSpec } from '@srtp/core'
+import type { ValidatorSpec } from '@srtp/core'
 import React from 'react'
 import type { z } from 'zod'
 import { FormContext } from './FormContext'
 import type { InputsType } from './Inputs'
 import { Inputs } from './Inputs'
 
-type MyInputsGroupProps<Spec extends FormSpec> = Readonly<{
+type MyInputsGroupProps<Spec extends ValidatorSpec> = Readonly<{
   onChange?: (values: z.infer<Spec>) => void
   children: React.ReactNode
 }>
 
-type InputsGroupProps<Spec extends FormSpec> = MyInputsGroupProps<Spec> &
+type InputsGroupProps<Spec extends ValidatorSpec> = MyInputsGroupProps<Spec> &
   Omit<UseFormInput<z.infer<Spec>>, 'validate'>
 
-export function createInputsGroup<Spec extends FormSpec>(spec: Spec) {
+export function createInputsGroup<Spec extends ValidatorSpec>(spec: Spec) {
   type T = z.infer<Spec>
   const [MantineProvider, useMantineFormContext] = createFormContext<T>()
 

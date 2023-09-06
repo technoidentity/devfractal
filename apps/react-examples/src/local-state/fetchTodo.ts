@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { pstate } from '@srtp/react'
+import { propsState } from '@srtp/react'
 
 type Todo = {
   id: number
@@ -25,7 +25,7 @@ const initialState: TodosState = {
   error: undefined,
 }
 
-export const useTodo = pstate(initialState, {
+export const useTodo = propsState<object>()(initialState, {
   FETCH_TODOS_REQUEST: () => state => {
     state.loading = true
     state.error = undefined

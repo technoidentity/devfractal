@@ -1,10 +1,12 @@
 import type { CreateTask, Task } from '@srtp/fake-tasks'
 import { createTask } from '@srtp/fake-tasks'
-import { pstate } from '@srtp/react'
+import { propsState } from '@srtp/react'
 
 import { initialState } from '@/initialTasks'
 
-export const useTodo = pstate(initialState, {
+const state = propsState<object>()
+
+export const useTodo = state(initialState, {
   createTodo: (todo: CreateTask) => state => {
     const created = createTask(todo)
     state.tasks.set(created.id, created)

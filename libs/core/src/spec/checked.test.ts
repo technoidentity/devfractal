@@ -2,10 +2,10 @@ import { expect, expectTypeOf, test } from 'vitest'
 
 import { string, z } from 'zod'
 import { checked } from './checked'
-import { Natural } from './commonSpecs'
+import { Nat } from './commonSpecs'
 
-const add = checked([Natural, Natural], (a, b) => a + b)
-const times = checked([Natural.max(3), string()], (n, str) => str.repeat(n))
+const add = checked([Nat, Nat], (a, b) => a + b)
+const times = checked([Nat.max(3), string()], (n, str) => str.repeat(n))
 
 const add2 = checked(
   [z.union([z.number(), z.string()]), z.number()],
