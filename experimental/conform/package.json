@@ -21,9 +21,9 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@conform-to/dom": "0.8.1",
-    "@conform-to/react": "0.8.1",
-    "@conform-to/zod": "0.8.1",
+    "@conform-to/dom": "0.8.2",
+    "@conform-to/react": "0.8.2",
+    "@conform-to/zod": "0.8.2",
     "@srtp/core": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/router": "workspace:^",
