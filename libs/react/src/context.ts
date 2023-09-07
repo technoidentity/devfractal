@@ -7,6 +7,7 @@ export function useSafeContext<T>(
 ): T {
   const ctx = React.useContext(context)
   invariant(ctx, errorMessage)
+
   return ctx
 }
 

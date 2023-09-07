@@ -14,6 +14,10 @@ export class ROArray<V> {
     return this.array.length
   }
 
+  at(index: number): V | undefined {
+    return this.array.at(index)
+  }
+
   slice(start?: number, end?: number): V[] {
     return this.array.slice(start, end)
   }

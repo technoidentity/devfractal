@@ -39,3 +39,18 @@ export function slice<State extends object, Hs extends Handlers<State>>(
 }
 
 export const useDispatch = useSetAtom
+
+/**
+ *
+ * @param initial initial state. Must be an object
+ * @param handlers object of action handlers
+ * @returns a tuple of [useValue, useActions]
+ */
+export function sslice<State extends object, HS extends Handlers<State>>(
+  initial: State,
+  handlers: HS,
+): readonly [() => State, () => Actions<State, HS>] {
+  const [, useActions, useValue] = slice(initial, handlers)
+
+  return [useValue, useActions] as const
+}

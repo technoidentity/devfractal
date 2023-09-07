@@ -14,31 +14,31 @@ export type Handlers<State> = Record<
   (state: Draft<State>, ...payload: any[]) => void
 >
 
-type Payload<S extends Handlers<any>, A extends keyof S> = Tail<
+export type HandlerPayload<S extends Handlers<any>, A extends keyof S> = Tail<
   Parameters<S[A]>
 >
 
-export type Action<S extends Handlers<any>, A extends keyof S> = Payload<
+export type Action<S extends Handlers<any>, A extends keyof S> = HandlerPayload<
   S,
   A
 > extends []
   ? Readonly<{ type: A }>
-  : Readonly<{ type: A; payload: Payload<S, A> }>
+  : Readonly<{ type: A; payload: HandlerPayload<S, A> }>
 
 export type ActionsFrom<State, Hs extends Handlers<State>> = {
   [A in keyof Hs]: Action<Hs, A>
 }[keyof Hs]
 
 export type ActionCreators<State, Hs extends Handlers<State>> = {
-  [A in keyof Hs]: Payload<Hs, A> extends undefined
+  [A in keyof Hs]: HandlerPayload<Hs, A> extends undefined
     ? () => Action<Hs, A>
-    : (...payload: Payload<Hs, A>) => Action<Hs, A>
+    : (...payload: HandlerPayload<Hs, A>) => Action<Hs, A>
 }
 
 export type Actions<State, Hs extends Handlers<State>> = {
-  [A in keyof Hs]: Payload<Hs, A> extends undefined
+  [A in keyof Hs]: HandlerPayload<Hs, A> extends undefined
     ? () => void
-    : (...payload: Payload<Hs, A>) => void
+    : (...payload: HandlerPayload<Hs, A>) => void
 }
 
 export type ShallowObject = Record<keyof object, Fundamental>

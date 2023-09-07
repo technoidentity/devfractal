@@ -6,15 +6,21 @@ import { useImmerReducer } from 'use-immer'
 import { context } from '../context'
 import { useIsomorphicEffect } from '../useIsomorphicEffect'
 
-type Actions<S, A> = (prevState: Draft<S>, action: A) => void
+export type TreeActionsBase<S, A> = (prevState: Draft<S>, action: A) => void
 
-type State<R extends Actions<any, any>> = R extends Actions<infer S, any>
-  ? S
-  : never
+export type State<R extends TreeActionsBase<any, any>> =
+  R extends TreeActionsBase<infer S, any> ? S : never
 
-type Selector<R extends Actions<any, any>, A> = (snapshot: State<R>) => A
+type Selector<R extends TreeActionsBase<any, any>, A> = (
+  snapshot: State<R>,
+) => A
 
-export function tree$<R extends Actions<any, any>>(
+export type ProviderProps<T> = Readonly<{
+  value?: T
+  children: React.ReactNode
+}>
+
+export function tree$<R extends TreeActionsBase<any, any>>(
   initialState: State<R>,
   actions: R,
 ) {
@@ -26,8 +32,11 @@ export function tree$<R extends Actions<any, any>>(
     errorMessage: 'Missing tree Provider',
   })
 
-  const Provider = ({ children }: { children: React.ReactNode }) => {
-    const [state, dispatch] = useImmerReducer(actions, initialState)
+  const Provider = ({ children, value }: ProviderProps<State<R>>) => {
+    const [state, dispatch] = useImmerReducer(actions, {
+      ...initialState,
+      ...value,
+    })
 
     return (
       <StateContext value={state}>
