@@ -16,14 +16,14 @@ export function useLocalStorage<Spec extends z.ZodTypeAny>(
   key: string,
   initialValue: z.infer<Spec>,
 ): LocalStorageResult<Spec> {
-  const readValue = useEvent((): z.infer<Spec> => {
+  const readValue = useEvent((): unknown => {
     if (typeof window === 'undefined') {
       return initialValue
     }
 
     try {
       const item = window.localStorage.getItem(key)
-      return item ? (parseJSON(item) as z.infer<Spec>) : initialValue
+      return item ? parseJSON(item) : initialValue
     } catch (error) {
       console.warn(`Error reading localStorage key “${key}”:`, error)
       return initialValue
