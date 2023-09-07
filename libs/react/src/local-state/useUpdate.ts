@@ -20,12 +20,12 @@ export function useUpdate<T extends ShallowObject>(
     const handlers: any = {}
 
     for (const key of Object.keys(init)) {
-      handlers[`set${capitalize(key)}`] = (
+      handlers[`update${capitalize(key)}`] = (
         fn: (value: T[keyof T]) => T[keyof T],
       ) => {
         set(s => ({ ...s, [key]: fn((s as any)[key]) }))
       }
-      handlers[`set${capitalize(key)}$`] = (v: T[keyof T]) => {
+      handlers[`set${capitalize(key)}`] = (v: T[keyof T]) => {
         set(s => ({ ...s, [key]: v }))
       }
     }
@@ -34,6 +34,7 @@ export function useUpdate<T extends ShallowObject>(
       isUndefined(handlers['update']),
       'update is a reserved key for useUpdate',
     )
+
     handlers['update'] = (fn: (update: T) => Partial<T>) =>
       set(s => ({ ...s, ...fn(s) }))
 

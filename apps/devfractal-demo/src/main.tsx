@@ -14,6 +14,7 @@ import invariant from 'tiny-invariant'
 import { QueryTaskApp } from './examples/query/EpStateTasks'
 import { tasksRoutes } from './examples/router/tasksRoutes'
 import './global.css'
+import { UpdateExample } from '@/examples/state/UpdateExample'
 
 // if (process.env.NODE_ENV === 'development') {
 //   const { worker } = await import('./mocks/browser')
@@ -34,7 +35,8 @@ root.render(
     <ErrorBoundary fallback={<div>Error</div>}>
       <Suspense fallback={<h1>Loading...</h1>}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <UpdateExample />
+          {/* <RouterProvider router={router} /> */}
           <ReactQueryDevtools position="bottom-right" />
         </QueryClientProvider>
       </Suspense>
