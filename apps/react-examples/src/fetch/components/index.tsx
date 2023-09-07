@@ -45,7 +45,8 @@ export const TodoApp = () => {
   if (!storeRef.current) {
     const store = createStore()
     storeRef.current = store
-    store.set(queryClientAtom, queryClient)
+    // @TODO:
+    store.set(queryClientAtom, queryClient as any)
   }
 
   return (

@@ -1,0 +1,17 @@
+{
+  "extends": "@srtp/tsconfig/react.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "jsx": "react-jsx",
+    "types": ["node", "vite/client"]
+  },
+  "include": [
+    "src",
+    "tests",
+    "__previewjs__",
+    "../../libs/devfractal/src/AppProvider.tsx"
+  ]
+}

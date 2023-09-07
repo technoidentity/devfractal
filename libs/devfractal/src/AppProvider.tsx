@@ -9,6 +9,7 @@ import { RouterProvider, type RouterProviderProps } from 'react-router-dom'
 
 export type AppProviderProps = Readonly<{
   router?: RouterProviderProps['router']
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   ErrorFallback?: React.ComponentType<FallbackProps>
   suspenseFallback?: React.ReactNode
   queryClient?: QueryClient
