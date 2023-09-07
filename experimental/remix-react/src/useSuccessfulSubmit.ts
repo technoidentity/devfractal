@@ -11,7 +11,7 @@ export const useSuccessfulSubmit = () => {
   React.useEffect(() => {
     if (
       navigate.state === 'loading' &&
-      Object.keys(serverErrors?.fieldErrors || {}).length === 0 &&
+      Object.keys(serverErrors?.fieldErrors ?? {}).length === 0 &&
       isNil(serverErrors?.formError)
     ) {
       set(true)

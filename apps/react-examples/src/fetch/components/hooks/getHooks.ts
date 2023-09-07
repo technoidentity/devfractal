@@ -13,7 +13,7 @@ export const getPagedTodos = async ({
     method: 'get',
     url: urlcat(`api/todos?`, '', {
       _page: queryKey[1],
-      _limit: queryKey[2] || limit,
+      _limit: queryKey[2] ?? limit,
     }),
   })
 

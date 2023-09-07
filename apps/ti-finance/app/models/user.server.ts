@@ -53,7 +53,7 @@ export async function verifyLogin(
     },
   })
 
-  if (!userWithPassword || !userWithPassword.password) {
+  if (!userWithPassword?.password) {
     return null
   }
 

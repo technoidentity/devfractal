@@ -106,7 +106,7 @@ export async function getPeopleSpend(q?: SpendSearchSpec) {
   ).map(p => ({
     tiId: p.tiId,
     departmentId: p.departmentId,
-    ctc: p._sum.ctc || 0,
+    ctc: p._sum.ctc ?? 0,
   }))
 
   return { personCost }

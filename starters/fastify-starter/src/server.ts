@@ -16,7 +16,7 @@ app.register(appService)
 
 // delay is the number of milliseconds for the graceful close to finish
 const closeListeners = closeWithGrace(
-  { delay: Number(process.env.FASTIFY_CLOSE_GRACE_DELAY) || 500 },
+  { delay: Number(process.env.FASTIFY_CLOSE_GRACE_DELAY) ?? 500 },
   async function ({ err }) {
     if (err) {
       app.log.error(err)
@@ -31,7 +31,7 @@ app.addHook('onClose', (_, done) => {
 })
 
 // Start listening.
-app.listen({ port: Number(process.env.PORT) || 8080 }, err => {
+app.listen({ port: Number(process.env.PORT) ?? 8080 }, err => {
   if (err) {
     app.log.error(err)
     process.exit(1)

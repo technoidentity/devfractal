@@ -40,7 +40,7 @@ const useSpendPage = (personCost: readonly PersonCost[]) => {
           username: getUserName(e.tiId),
           cost: acc ? acc.cost + e.ctc : e.ctc,
           departments: [
-            ...(acc?.departments || []),
+            ...(acc?.departments ?? []),
             getDepartmentName(e.departmentId),
           ],
         })).values(),

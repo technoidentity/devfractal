@@ -150,7 +150,7 @@ export function fake(
 
   if (type === 'ZodArray') {
     const n = faker.number.int({
-      min: options.ZodArray?.min || 0,
+      min: options.ZodArray?.min ?? 0,
       max: 10,
     })
 
@@ -176,7 +176,7 @@ export function fake(
   if (type === 'ZodRecord') {
     const n = faker.number.int({
       min: 0,
-      max: options.ZodArray?.max || 10,
+      max: options.ZodArray?.max ?? 10,
     })
 
     const rec: any = {}

@@ -23,7 +23,7 @@ const DepartmentsCostPage = () => {
   const getDepartmentName = useDepartmentName()
 
   const costList = personCost.map(e => {
-    const otherExpenditures = expendituresMap.get(e.departmentId) || 0
+    const otherExpenditures = expendituresMap.get(e.departmentId) ?? 0
     const peopleCost = e.total
     const totalCost = otherExpenditures + peopleCost
 

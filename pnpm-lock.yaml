@@ -224,9 +224,6 @@ importers:
       react-router-dom:
         specifier: 6.15.0
         version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
-      redaxios:
-        specifier: 0.5.1
-        version: 0.5.1
       sort-by:
         specifier: 1.2.0
         version: 1.2.0
@@ -1589,9 +1586,6 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
-      redaxios:
-        specifier: 0.5.1
-        version: 0.5.1
       tslib:
         specifier: 2.6.2
         version: 2.6.2
@@ -23331,10 +23325,6 @@ packages:
       source-map: 0.6.1
       tslib: 2.6.2
     dev: true
-
-  /redaxios@0.5.1:
-    resolution: {integrity: sha512-FSD2AmfdbkYwl7KDExYQlVvIrFz6Yd83pGfaGjBzM9F6rpq8g652Q4Yq5QD4c+nf4g2AgeElv1y+8ajUPiOYMg==}
-    dev: false
 
   /redefine-property@2.0.0:
     resolution: {integrity: sha512-7UfHFiHkePd9mb/vYMPYuAPjAa/77xGQ1S6laaWNQkz5gVJAtYpoWYQ5iFL/ZcDxXZVqnD7N4aFFnIn4T36Sbw==}

@@ -22,7 +22,7 @@ export function useAddTodo() {
       await queryClient.cancelQueries(['todos'])
       const previous = queryClient.getQueryData(['todos'])
       queryClient.setQueryData(['todos'], (old: Todo[] | undefined) => [
-        ...(old || []),
+        ...(old ?? []),
         { id: dummyID--, title, completed: false },
       ])
       return { previous }
@@ -62,7 +62,7 @@ export function useToggle() {
         (old: Todo[] | undefined) =>
           old?.map(t =>
             t.id === todo.id ? { ...t, completed: !t.completed } : t,
-          ) || [],
+          ) ?? [],
       )
       return { previous }
     },
@@ -88,7 +88,7 @@ export function useDelete(id: number) {
       const previous = queryClient.getQueryData(['todos'])
       queryClient.setQueryData(
         ['todos'],
-        (old: Todo[] | undefined) => old?.filter(todo => todo.id !== id) || [],
+        (old: Todo[] | undefined) => old?.filter(todo => todo.id !== id) ?? [],
       )
       return { previous }
     },

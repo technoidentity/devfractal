@@ -56,7 +56,7 @@ export function useSafeQuery<Spec extends z.ZodTypeAny, TQueryFnData>({
   ...options
 }: UseSafeQueryArgs<Spec, TQueryFnData>): UseSafeQueryResult<Spec> {
   const opts = React.useMemo(() => {
-    const enabled = (paths.every(p => !!p) && options?.enabled) || true
+    const enabled = paths.every(p => !!p) || options?.enabled
     return { ...options, enabled }
   }, [options, paths])
 

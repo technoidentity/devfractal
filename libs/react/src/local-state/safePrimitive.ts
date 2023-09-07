@@ -22,7 +22,7 @@ export function primitive<Spec extends FieldSpec>(spec: Spec) {
 
   return function usePrimitiveState(initialValue?: Value) {
     const [state, { setValue }] = useState({
-      value: initialValue || defaultValue(spec),
+      value: initialValue ?? defaultValue(spec),
     })
 
     const update = React.useCallback(

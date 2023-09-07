@@ -22,7 +22,7 @@ server.register(ws)
 
 // delay is the number of milliseconds for the graceful close to finish
 const closeListeners = closeWithGrace(
-  { delay: Number(process.env['FASTIFY_CLOSE_GRACE_DELAY'] || 500) },
+  { delay: Number(process.env['FASTIFY_CLOSE_GRACE_DELAY'] ?? 500) },
   async (options: any) => {
     if (options?.err) {
       server.log.error(options.err)

@@ -17,7 +17,7 @@ export const TodoList = () => {
   const todoList = React.useMemo(
     () =>
       filteredTodos(
-        (data?.pages?.flatMap(page => page.data) as Task[]) || [],
+        (data?.pages?.flatMap(page => page.data) as Task[]) ?? [],
         filter,
       ),
     [data, filter],

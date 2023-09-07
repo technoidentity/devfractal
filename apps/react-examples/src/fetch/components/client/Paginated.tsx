@@ -31,7 +31,7 @@ const useTodoList = () => {
 
   const { deleteTodo, toggleTodo } = useTodoMutations()
 
-  const pc = pageCount(filtered?.length || 0, limit)
+  const pc = pageCount(filtered?.length ?? 0, limit)
 
   React.useEffect(() => {
     if (page > pc) {

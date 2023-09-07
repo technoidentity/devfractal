@@ -91,7 +91,7 @@ app.all(
       },
 )
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT ?? 3000
 
 app.listen(port, () => {
   // require the built app so we're ready when the first request comes in
@@ -99,7 +99,7 @@ app.listen(port, () => {
   console.log(`✅ app ready: http://localhost:${port}`)
 })
 
-const metricsPort = process.env.METRICS_PORT || 3001
+const metricsPort = process.env.METRICS_PORT ?? 3001
 
 metricsApp.listen(metricsPort, () => {
   console.log(`✅ metrics ready: http://localhost:${metricsPort}/metrics`)

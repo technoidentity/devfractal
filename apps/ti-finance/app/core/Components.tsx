@@ -23,7 +23,7 @@ export const SubmitButton = () => (
 
 export const FormErrors = ({ error }: { error?: unknown }) =>
   error && Object.keys(error).length > 0 ? (
-    <Text color="red">{jstr(error) || ''}</Text>
+    <Text color="red">{jstr(error) ?? ''}</Text>
   ) : null
 
 export const SignedIn = ({ children }: { children: React.ReactNode }) => {

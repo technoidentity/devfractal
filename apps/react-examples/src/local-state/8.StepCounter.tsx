@@ -14,7 +14,7 @@ const handlers = {
   },
 
   setStep: (evt: ChangeEvent<HTMLInputElement>) => (state, props) => {
-    const step = +evt.target.value || 1
+    const step = +evt.target.value ?? 1
     if (isNum(step) && props.enableStep) {
       state.step = step
     }

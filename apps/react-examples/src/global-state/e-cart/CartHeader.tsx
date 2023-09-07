@@ -19,7 +19,7 @@ export const CartHeader = () => {
           position="bottom-start"
           size={26}
           color="red"
-          label={count || 0}
+          label={count ?? 0}
         >
           <Avatar color="orange" radius={'sm'}>
             <IconShoppingCart size={24} />

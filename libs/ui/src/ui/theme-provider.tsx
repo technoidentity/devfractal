@@ -32,7 +32,7 @@ function ThemeProvider({
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState(
-    () => localStorage.getItem(storageKey) || defaultTheme,
+    () => localStorage.getItem(storageKey) ?? defaultTheme,
   )
 
   useEffect(() => {

@@ -21,7 +21,7 @@ export function linkfn<const Paths extends PathBase>(
 ): (params?: Params<Paths>) => string {
   return params => {
     let url = route(path)
-    for (const [k, v] of Object.entries(params || {})) {
+    for (const [k, v] of Object.entries(params ?? {})) {
       const value = v as string
       url = url.replace(`:${k}`, `${value}`)
     }

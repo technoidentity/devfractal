@@ -57,8 +57,8 @@ export function useClientTable<Row extends RowBase>(
 
   const initialState = {
     search: '' as string,
-    page: initialPage || 1,
-    sort: initialSort || { order: 'asc', orderBy: 'id' },
+    page: initialPage ?? 1,
+    sort: initialSort ?? { order: 'asc', orderBy: 'id' },
   } as const
   const handlers = useClientTableHandlers<Row>()
 

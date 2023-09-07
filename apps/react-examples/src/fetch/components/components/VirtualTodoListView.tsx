@@ -57,8 +57,8 @@ export const VirtualTodoListView = ({
           itemData={todoList}
           itemCount={itemCount}
           itemSize={40}
-          width={width || 1280}
-          height={height || 720}
+          width={width ?? 1280}
+          height={height ?? 720}
         >
           {({ data, index, style }) => (
             <span style={style}>

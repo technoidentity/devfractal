@@ -18,7 +18,7 @@ const useTodoList = () => {
   )
 
   const itemCount = React.useMemo(
-    () => data?.pages[0].itemCount || 10,
+    () => data?.pages[0].itemCount ?? 10,
     [data?.pages],
   )
 
@@ -83,8 +83,8 @@ export const TodoList = () => {
                 onItemsRendered={onItemsRendered}
                 ref={ref}
                 itemSize={40}
-                width={width || 1280}
-                height={height || 720}
+                width={width ?? 1280}
+                height={height ?? 720}
               >
                 {TodoItem}
               </FixedSizeList>

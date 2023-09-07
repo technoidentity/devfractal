@@ -44,7 +44,7 @@ export const failure = (err: any): FailureResponse => {
   if (err instanceof HTTPError) {
     return {
       status: err.status,
-      json: { error: err.message || err.statusText() },
+      json: { error: err.message ?? err.statusText() },
     }
   }
 

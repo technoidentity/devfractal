@@ -1,15 +1,13 @@
+import { http } from 'devfractal'
 import { type LoaderFunctionArgs } from 'react-router-dom'
-import axios from 'redaxios'
-import { type Contact } from '../types'
+
+import { Contact } from '../types'
 import { baseUrl } from './common'
 
-export const loadRequest = ({
+export const loadRequest = async ({
   params,
 }: LoaderFunctionArgs): Promise<Contact> => {
-  return axios
-    .get(`${baseUrl}/users/${params['id']}`)
-    .then(res => res.data)
-    .catch(err => {
-      throw new Error(err)
-    })
+  const [contact] = await http.get(Contact, `${baseUrl}/users/${params['id']}`)
+
+  return contact
 }

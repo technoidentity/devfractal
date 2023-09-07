@@ -118,7 +118,7 @@ export function rename<
   const result: any = {}
 
   for (const key of Object.keys(obj) as Array<keyof T>) {
-    result[keys[key] || key] = obj[key]
+    result[keys[key] ?? key] = obj[key]
   }
 
   return result

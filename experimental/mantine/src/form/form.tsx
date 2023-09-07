@@ -98,7 +98,7 @@ export const Number = (props: Named<NumberInputProps>) => {
     <NumberInput
       {...props}
       {...form.getInputProps(props.name)}
-      label={props.label || capitalize(props.name)}
+      label={props.label ?? capitalize(props.name)}
     />
   )
 }
@@ -329,7 +329,7 @@ export function createForm<Spec extends ValidatorSpec>(
     children: React.ReactNode
     initialValues?: z.infer<Spec>
   }) => {
-    const init = initialValues || initial
+    const init = initialValues ?? initial
     invariant(init, 'initialValues or createForm initial required')
     const form = useForm({
       initialValues: init,
