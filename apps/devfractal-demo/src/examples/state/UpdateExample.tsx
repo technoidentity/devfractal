@@ -1,13 +1,9 @@
 import {
   Checkbox,
-  Container,
-  H1,
-  H2,
   H3,
   HStack,
   Input,
   Label,
-  Text,
   VStack,
   useUpdate,
 } from 'devfractal'

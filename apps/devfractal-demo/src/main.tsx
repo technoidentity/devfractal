@@ -1,3 +1,4 @@
+// import { UpdateExample } from '@/examples/state/UpdateExample'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ThemeProvider, queryClient } from 'devfractal'
@@ -14,7 +15,6 @@ import invariant from 'tiny-invariant'
 import { QueryTaskApp } from './examples/query/EpStateTasks'
 import { tasksRoutes } from './examples/router/tasksRoutes'
 import './global.css'
-import { UpdateExample } from '@/examples/state/UpdateExample'
 
 // if (process.env.NODE_ENV === 'development') {
 //   const { worker } = await import('./mocks/browser')
@@ -35,8 +35,7 @@ root.render(
     <ErrorBoundary fallback={<div>Error</div>}>
       <Suspense fallback={<h1>Loading...</h1>}>
         <QueryClientProvider client={queryClient}>
-          <UpdateExample />
-          {/* <RouterProvider router={router} /> */}
+          <RouterProvider router={router} />
           <ReactQueryDevtools position="bottom-right" />
         </QueryClientProvider>
       </Suspense>
