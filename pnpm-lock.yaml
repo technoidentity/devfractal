@@ -2168,6 +2168,15 @@ importers:
       '@srtp/web':
         specifier: workspace:*
         version: link:../web
+      '@tanstack/react-query':
+        specifier: 4.35.0
+        version: 4.35.0(react-dom@18.2.0)(react@18.2.0)
+      react-error-boundary:
+        specifier: 4.0.11
+        version: 4.0.11(react@18.2.0)
+      react-router-dom:
+        specifier: 6.15.0
+        version: 6.15.0(react-dom@18.2.0)(react@18.2.0)
       tslib:
         specifier: 2.6.2
         version: 2.6.2
