@@ -2,12 +2,14 @@ import React from 'react'
 
 import { useEvent } from './useEvent'
 
-export type ForProps<T> = Readonly<{
+type ID = { id: string | number }
+
+export type ForProps<T extends ID> = Readonly<{
   list: readonly T[]
   render: (item: T) => JSX.Element
 }>
 
-export const For = <T extends { id: any }>({ list, render }: ForProps<T>) => {
+export const For = <T extends ID>({ list, render }: ForProps<T>) => {
   const each = useEvent(render)
 
   return React.useMemo(

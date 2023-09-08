@@ -1,12 +1,12 @@
 import type { Draft } from 'immer'
 import { produce } from 'immer'
 import type { PrimitiveAtom, WritableAtom } from 'jotai'
-import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { atom, useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'
 
 import { useEvent } from '../useEvent'
 
-import { computed } from './signal'
+import { computed } from './atom'
 import type { Read } from './types'
 
 export const useAction = useSetAtom
@@ -33,7 +33,7 @@ export function actionHook<Value, Args extends unknown[]>(
   }
 }
 
-export function useLocalAtom<Value>(initialValue: Value) {
+export function useCreateAtom<Value>(initialValue: Value) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return React.useMemo(() => atom(initialValue), [])
 }
@@ -45,12 +45,16 @@ export function useComputed<Value>(read: Read<Value>) {
   return useValue(comp)
 }
 
-export function useLocal<Value>(initialValue: Value) {
-  const signal = useLocalAtom(initialValue)
-  const [value, set] = useAtom(signal)
+export function useAtomState<Value>(
+  initialValue: Value,
+): readonly [
+  atom: PrimitiveAtom<Value>,
+  useComp: <Result>(fn: (value: Value) => Result) => Result,
+] {
+  const atom = useCreateAtom(initialValue)
 
   const useComp = <Result>(fn: (value: Value) => Result) =>
-    useComputed(get => fn(get(signal)))
+    useComputed(get => fn(get(atom)))
 
-  return [value, set, useComp, signal] as const
+  return [atom, useComp] as const
 }

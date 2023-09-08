@@ -7,7 +7,7 @@ import { z } from 'zod'
 
 import type { ImmerSetter, ImmerWrite } from './types'
 
-export function immerAction<Args extends unknown[], Result>(
+function immerAction<Args extends unknown[], Result>(
   write: ImmerWrite<Args, Result>,
 ): WritableAtom<null, Args, Result> {
   return atom(null, (get, set, ...args: Args) => {
@@ -21,7 +21,7 @@ export function immerAction<Args extends unknown[], Result>(
   })
 }
 
-export function atomAction<Value, Args extends unknown[], Result>(
+function atomAction<Value, Args extends unknown[], Result>(
   signal: WritableAtom<Value, any, Result>,
   fn: (
     api: { state: Draft<Value>; get: Getter; set: Setter },

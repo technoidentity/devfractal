@@ -28,9 +28,11 @@ export class ROSet<K> implements ReadonlySet<K> {
   keys(): IterableIterator<K> {
     return this.set.keys()
   }
+
   values(): IterableIterator<K> {
     return this.set.values()
   }
+
   [Symbol.iterator](): IterableIterator<K> {
     return this.set[Symbol.iterator]()
   }

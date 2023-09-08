@@ -62,7 +62,7 @@ export function toPath(
 }
 
 export function toURL(origin: string, path: string, search?: SearchObj): URL {
-  const qs = toSearch(search || {})
+  const qs = toSearch(search ?? {})
   const url = new URL(path, origin)
   url.search = qs
 

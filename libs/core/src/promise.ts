@@ -13,12 +13,14 @@ export function promiseState<T>(promise: Promise<T>): Promise<PromiseState<T>> {
   ]) as Promise<PromiseState<T>>
 }
 
+export type PromiseMatch<T, R> = {
+  rejected: (reason: any) => R
+  fulfilled: (value: T) => R
+}
+
 export function promiseMatch<T, R>(
   promise: Promise<T>,
-  matcher: {
-    rejected: (reason: any) => R
-    fulfilled: (value: T) => R
-  },
+  matcher: PromiseMatch<T, R>,
 ): Promise<R> {
   return promise.then(
     value => matcher.fulfilled(value),

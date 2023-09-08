@@ -1,4 +1,5 @@
 import { isFunction } from '@srtp/core'
+import { aget } from '@srtp/fn'
 import React from 'react'
 
 import { useEvent } from './useEvent'
@@ -16,6 +17,10 @@ export class ROArray<V> {
 
   at(index: number): V | undefined {
     return this.array.at(index)
+  }
+
+  at$(index: number): V {
+    return aget(index)(this.array)
   }
 
   slice(start?: number, end?: number): V[] {
