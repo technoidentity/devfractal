@@ -33,7 +33,7 @@ export function stree<State extends object, HS extends Handlers<State>>(
   initialState: State,
   handlers: HS,
 ) {
-  const { useValue, useActions } = tree(initialState, handlers)
+  const { Provider, useValue, useActions } = tree(initialState, handlers)
 
-  return [useValue, useActions] as const
+  return [Provider, useValue, useActions] as const
 }

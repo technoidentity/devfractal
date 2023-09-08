@@ -138,7 +138,6 @@ export function useEventHandlers<
   }, [])
 }
 
-// @TODO: Support array too?
 export function state<
   State extends object,
   Hs extends Handlers<State>,
