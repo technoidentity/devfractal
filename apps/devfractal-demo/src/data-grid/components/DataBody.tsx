@@ -1,3 +1,5 @@
+import { DTCell, DTRow } from 'devfractal'
+
 export function DataBody<T extends object>({
   data,
   pkey,
@@ -8,7 +10,7 @@ export function DataBody<T extends object>({
   if (data.length < 1) {
     return (
       <div className="table-row-group">
-        <div className="table-row">No results!</div>
+        <DTRow className="table-row">No results!</DTRow>
       </div>
     )
   }
@@ -24,14 +26,14 @@ export function DataBody<T extends object>({
 
 function TableRow<T extends object>({ data }: { data: T }): JSX.Element {
   return (
-    <div className="my-3 table-row shadow-lg">
+    <DTRow className="my-3 table-row shadow-lg">
       {Object.values(data).map((e, i) => (
         <TableData key={i} data={e} />
       ))}
-    </div>
+    </DTRow>
   )
 }
 
 function TableData({ data }: { data: string }): JSX.Element {
-  return <div className="table-cell px-4 py-2">{data}</div>
+  return <DTCell className="table-cell px-4 py-2">{data}</DTCell>
 }

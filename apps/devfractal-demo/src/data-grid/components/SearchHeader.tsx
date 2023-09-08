@@ -1,3 +1,5 @@
+import { HStack, Input, Label, Text } from 'devfractal'
+
 export function SearchHeader({
   onFilter,
   onCheck,
@@ -6,30 +8,30 @@ export function SearchHeader({
   onCheck: (text: string) => void
 }): JSX.Element {
   return (
-    <section className="flex w-full text-black items-center justify-between rounded-t-xl bg-gray-700 p-4">
-      <div className="w-[60%]">
-        <label>
-          <input
+    <HStack className="flex w-full text-white items-center justify-between rounded-t-xl bg-gray-700 p-4">
+      <div className="w-[75%]">
+        <Label>
+          <Input
             type="text"
             name="filter"
             placeholder="Search here..."
             className="w-full rounded-full border px-4 py-2"
             onChange={e => onFilter(e.target.value)}
           />
-        </label>
+        </Label>
       </div>
-      <section className="flex items-center justify-evenly gap-x-4 font-semibold text-white">
-        <label htmlFor="paginate" className="flex gap-x-2">
-          All Results{' '}
-          <input
+      <HStack className="flex items-center justify-evenly gap-x-4 font-semibold text-white">
+        <Label htmlFor="paginate" className="flex gap-x-2 ">
+          <Text>All Result</Text>
+          <Input
             type="radio"
             id="paginate"
             value="scroll"
             name="paginate"
             onChange={e => onCheck(e.target.value)}
           />
-          Limit Results{' '}
-          <input
+          <Text>Limit Results</Text>
+          <Input
             type="radio"
             id="paginate"
             name="paginate"
@@ -37,8 +39,8 @@ export function SearchHeader({
             onChange={e => onCheck(e.target.value)}
             defaultChecked
           />
-        </label>
-      </section>
-    </section>
+        </Label>
+      </HStack>
+    </HStack>
   )
 }

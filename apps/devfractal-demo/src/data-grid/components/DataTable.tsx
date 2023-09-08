@@ -1,4 +1,4 @@
-import { state } from 'devfractal'
+import { DTable, state } from 'devfractal'
 import { useData } from '../data/query'
 import { iorderBy } from '../utils/iorderBy'
 import { ErrorMessage, FullPageLoading } from './Common'
@@ -92,11 +92,11 @@ export function DataTable({
     <main
       className={
         paginate === 'scroll'
-          ? 'h-[85vh] w-full overflow-y-auto'
+          ? 'h-[81vh] w-full overflow-y-auto'
           : 'max-h-[80vh] w-full overflow-auto'
       }
     >
-      <div className="mx-auto table  w-full">
+      <DTable className="mx-auto table  w-full">
         <DataHeaders
           headers={dataKeys}
           onSortKey={actions.setSortKey}
@@ -112,7 +112,7 @@ export function DataTable({
           )}
           pkey={primaryKey}
         />
-      </div>
+      </DTable>
       {paginate === 'page' ? (
         <Pages
           dataSize={queryResult.data.length}

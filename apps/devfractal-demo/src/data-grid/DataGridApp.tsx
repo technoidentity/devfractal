@@ -1,4 +1,4 @@
-import { state } from 'devfractal'
+import { VStack, state } from 'devfractal'
 import { DataTable } from './components/DataTable'
 import { SearchHeader } from './components/SearchHeader'
 
@@ -22,12 +22,12 @@ export function DataGridApp(): JSX.Element {
   const [state, actions] = useSearch()
 
   return (
-    <main className="mx-auto mt-4 flex w-[50%] flex-col items-center justify-center rounded-xl shadow-2xl shadow-slate-400">
+    <VStack className="mx-auto mt-4 flex w-[80%] flex-col items-center justify-center rounded-xl shadow-2xl shadow-slate-400">
       <SearchHeader
         onFilter={actions.setSearchText}
         onCheck={actions.setPageView}
       />
       <DataTable searchText={state.filterText} paginate={state.paginate} />
-    </main>
+    </VStack>
   )
 }
