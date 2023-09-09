@@ -1,10 +1,9 @@
-import { parseJSON } from '@srtp/core'
-import { isFunction } from '@srtp/core'
+import { isFunction, parseJSON } from '@srtp/core'
 import React from 'react'
 import type { z } from 'zod'
 
+import { useSafeState } from './local-state'
 import { useEvent } from './useEvent'
-import { useSafeState } from './useSafeState'
 
 export type LocalStorageResult<Spec extends z.ZodTypeAny> = readonly [
   z.infer<Spec>,

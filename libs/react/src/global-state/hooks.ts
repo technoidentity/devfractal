@@ -23,38 +23,39 @@ export function useImmerAction<Value, Result>(
   return setStateWithImmer
 }
 
+/**
+ *
+ * @param atom atom to be used for the hook
+ * @param fn function that mutates the atom's value
+ * @returns a hook that calls the function with the atom's value
+ */
 export function actionHook<Value, Args extends unknown[]>(
-  signal: PrimitiveAtom<Value>,
+  atom: PrimitiveAtom<Value>,
   fn: (draft: Draft<Value>, ...args: Args) => void,
 ) {
   return function useAction(...args: Args) {
-    const set = useImmerAction(signal)
+    const set = useImmerAction(atom)
     return set(draft => fn(draft, ...args))
   }
 }
 
+/**
+ *
+ * @param initialValue initial value of the atom
+ * @returns a tuple of [useValue, useAction]
+ */
 export function useCreateAtom<Value>(initialValue: Value) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   return React.useMemo(() => atom(initialValue), [])
 }
 
+/**
+ * @param function is called with the atom's current value and should return the new computed value
+ * @return current value of the atom
+ */
 export function useComputed<Value>(read: Read<Value>) {
   const reader = useEvent(read)
   const comp = React.useMemo(() => computed(reader), [reader])
 
   return useValue(comp)
-}
-
-export function useAtomState<Value>(
-  initialValue: Value,
-): readonly [
-  atom: PrimitiveAtom<Value>,
-  useComp: <Result>(fn: (value: Value) => Result) => Result,
-] {
-  const atom = useCreateAtom(initialValue)
-
-  const useComp = <Result>(fn: (value: Value) => Result) =>
-    useComputed(get => fn(get(atom)))
-
-  return [atom, useComp] as const
 }

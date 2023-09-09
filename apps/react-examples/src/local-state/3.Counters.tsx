@@ -18,10 +18,10 @@ const handlers = {
   },
 } satisfies Handlers<typeof initialState>
 
-const { Provider, useState, useActions } = tree(initialState, handlers)
+const counter = tree(initialState, handlers)
 
 const Counter = () => {
-  const [{ count }, { inc, dec }] = useState()
+  const [{ count }, { inc, dec }] = counter.useState()
 
   return (
     <HStack>
@@ -33,7 +33,7 @@ const Counter = () => {
 }
 
 const Add10 = () => {
-  const { by } = useActions()
+  const { by } = counter.useActions()
 
   return (
     <Button mt="2" onClick={() => by(10)}>
@@ -43,11 +43,11 @@ const Add10 = () => {
 }
 
 export const Counters = () => (
-  <Provider>
+  <counter.Provider>
     <Counter />
     <Counter />
     <Add10 />
-  </Provider>
+  </counter.Provider>
 )
 
 export const DoubleCounters = () => (

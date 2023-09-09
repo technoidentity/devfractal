@@ -4,6 +4,7 @@ export type BaseUrlContext = Readonly<{
   baseUrl: string
 }>
 
-export const [BaseUrlProvider, useBaseUrl] = configContext<BaseUrlContext>({
-  errorMessage: 'BaseUrlProvider should be used',
-})
+export const { Provider: BaseUrlProvider, useContext: useBaseUrl } =
+  configContext<BaseUrlContext>({
+    errorMessage: 'BaseUrlProvider should be used',
+  })

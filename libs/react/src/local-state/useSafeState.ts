@@ -2,7 +2,7 @@ import { cast, isFunction } from '@srtp/core'
 import React from 'react'
 import type { z } from 'zod'
 
-import { useEvent } from './useEvent'
+import { useEvent } from '../useEvent'
 
 // Use this function only to interface with lower level APIs and state is simple.
 export function useSafeState<S extends z.ZodTypeAny>(

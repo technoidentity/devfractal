@@ -1,8 +1,19 @@
 import React from 'react'
 
 import { getActions, state$ } from './localState'
-import { tree$ } from './provider'
-import type { Actions, Handlers } from './types'
+import { tree$, type ProviderProps } from './provider'
+import type { Actions, ActionsFrom, Handlers } from './types'
+
+// @TODO:
+export type TreeResult<State extends object, Hs extends Handlers<State>> = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  Provider: (props: ProviderProps<State>) => React.ReactElement
+  useValue: () => State
+  useActions: () => Actions<State, Hs>
+  useDispatch: () => React.Dispatch<ActionsFrom<State, Hs>>
+  actions: Actions<State, Hs>
+  useState: () => readonly [State, Actions<State, Hs>]
+}
 
 export function tree<State extends object, Hs extends Handlers<State>>(
   initialState: State,
@@ -20,20 +31,12 @@ export function tree<State extends object, Hs extends Handlers<State>>(
   const useState = () => [useValue(), useActions()] as const
 
   return {
-    useState,
     useValue,
     useActions,
     useDispatch,
     actions,
+    // this usually should not be used, use useValue and useActions instead.
+    useState,
     ...rest,
   } as const
-}
-
-export function stree<State extends object, HS extends Handlers<State>>(
-  initialState: State,
-  handlers: HS,
-) {
-  const { Provider, useValue, useActions } = tree(initialState, handlers)
-
-  return [Provider, useValue, useActions] as const
 }

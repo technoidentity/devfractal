@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react'
 import invariant from 'tiny-invariant'
 
@@ -23,10 +24,18 @@ export function context<T>({ initialValue, errorMessage }: ContextOptions<T>) {
   return [Context.Provider, useSafe] as const
 }
 
+type ConfigContextProviderProps<T> = Readonly<{
+  value?: T
+  children?: React.ReactNode
+}>
+
 export function configContext<T>({
   initialValue,
   errorMessage,
-}: ContextOptions<T>) {
+}: ContextOptions<T>): Readonly<{
+  useContext: () => T
+  Provider: (props: ConfigContextProviderProps<T>) => JSX.Element
+}> {
   const Context = React.createContext<T | undefined>(initialValue)
   const useSafe = () => useSafeContext(Context, errorMessage)
 
@@ -42,5 +51,5 @@ export function configContext<T>({
     return <Context.Provider value={value}>{props.children}</Context.Provider>
   }
 
-  return [Provider, useSafe] as const
+  return { Provider, useContext: useSafe }
 }

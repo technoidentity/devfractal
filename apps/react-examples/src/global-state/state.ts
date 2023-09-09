@@ -20,24 +20,22 @@ export const useUpdateFilter = () => {
 }
 
 type TasksState = State['tasks']
-const [tasksAtom, useTaskAction, useTaskValue] = atomWithHooks(
-  initialState.tasks,
-)
+const tasks = atomWithHooks(initialState.tasks)
 
 const createTaskAction = (draft: Draft<TasksState>, task: CreateTask) => {
   const created = createTask(task)
   draft.set(created.id, created)
 }
 
-export const useCreate = () => useTaskAction(createTaskAction)
+export const useCreate = () => tasks.useAction(createTaskAction)
 
 export const useDelete = () =>
-  useTaskAction((draft, id: number) => {
+  tasks.useAction((draft, id: number) => {
     draft.delete(id)
   })
 
 export const useEdit = () =>
-  useTaskAction((draft, task: Task) => {
+  tasks.useAction((draft, task: Task) => {
     const editTask = draft.get(task.id)
     draft.set(task.id, { ...editTask, ...task })
   })
@@ -49,10 +47,10 @@ const toggle = (draft: Draft<TasksState>, id: number) => {
   }
 }
 
-export const useToggle = () => useTaskAction(toggle)
+export const useToggle = () => tasks.useAction(toggle)
 
 const filtered = (get: Getter) => {
-  const taskList = toArray(get(tasksAtom).values())
+  const taskList = toArray(get(tasks.atom).values())
   const filter = get(filterAtom)
 
   return filter === 'All'
@@ -64,4 +62,4 @@ const filtered = (get: Getter) => {
 
 // these hooks are to compute values, SHOULD NOT take any parameters
 // Must always pass the same function to useTaskValue
-export const useFilteredTasks = () => useTaskValue(filtered)
+export const useFilteredTasks = () => tasks.useValue(filtered)

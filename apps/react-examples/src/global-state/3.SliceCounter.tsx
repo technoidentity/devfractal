@@ -1,8 +1,8 @@
 import { Box, Button, Text } from '@chakra-ui/react'
 import { Flex } from '@mantine/core'
-import { slice, useValue } from '@srtp/react'
+import { slice } from '@srtp/react'
 
-const [counterAtom, useActions] = slice(
+const counter = slice(
   { count: 100 },
   {
     inc(draft) {
@@ -18,7 +18,7 @@ const [counterAtom, useActions] = slice(
 )
 
 const Counter = () => {
-  const { count } = useValue(counterAtom)
+  const { count } = counter.useValue()
 
   return (
     <Text fontSize="3xl" m="2" fontWeight="bold">
@@ -28,7 +28,7 @@ const Counter = () => {
 }
 
 const Buttons = () => {
-  const actions = useActions()
+  const actions = counter.useActions()
 
   return (
     <Box>

@@ -5,6 +5,7 @@ export type AxiosContext = Readonly<{
   axios: typeof axios
 }>
 
-export const [AxiosProvider, useAxios] = configContext<AxiosContext>({
-  errorMessage: 'AxiosProvider should be used',
-})
+export const { Provider: AxiosProvider, useContext: useAxios } =
+  configContext<AxiosContext>({
+    errorMessage: 'AxiosProvider should be used',
+  })

@@ -36,5 +36,5 @@ export function atomWithHooks<Value extends object>(initialValue: Value) {
     return useValue(valueAtom)
   }
 
-  return [signal, useAtomAction, useAtomValue] as const
+  return { atom: signal, useAction: useAtomAction, useValue: useAtomValue }
 }

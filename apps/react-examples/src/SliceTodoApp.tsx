@@ -21,7 +21,7 @@ const todoList: readonly Todo[] = [
   { id: 4, title: 'Learn React Router', done: false },
 ]
 
-const [, useActions, useTodoList] = slice(
+const todos = slice(
   { todoList },
   {
     toggle(state, id: number) {
@@ -50,7 +50,7 @@ type Todo = Readonly<{
 type TodoItemProps = Readonly<{ todo: Todo }>
 
 const TodoItem = ({ todo }: TodoItemProps) => {
-  const { toggle } = useActions()
+  const { toggle } = todos.useActions()
 
   return (
     <ListItem display="flex" gap="2">
@@ -67,7 +67,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
 
 const AddTodo = () => {
   const [text, setText] = useInputState('')
-  const { add: onAddTodo } = useActions()
+  const { add: onAddTodo } = todos.useActions()
 
   const keyDown = useEvent((evt: KeyboardEvent<HTMLInputElement>) => {
     if (evt.key === 'Enter' && text.trim() !== '') {
@@ -131,7 +131,7 @@ const Tabs = ({ tabs, activeTab, onTabChange }: TabsProps) => {
 const tabs = ['All', 'Incomplete', 'Completed']
 
 const TodoAppComponent = () => {
-  const { todoList } = useTodoList()
+  const { todoList } = todos.useValue()
 
   const [activeTab, , setActiveTab] = useString(tabs[0])
 
