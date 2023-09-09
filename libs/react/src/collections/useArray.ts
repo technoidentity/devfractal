@@ -2,7 +2,7 @@ import { isFunction } from '@srtp/core'
 import { aget } from '@srtp/fn'
 import React from 'react'
 
-import { useEvent } from './useEvent'
+import { useEvent } from '../useEvent'
 
 export class ROArray<V> {
   constructor(private readonly array: ReadonlyArray<V>) {}
@@ -80,28 +80,37 @@ export function useBorrowedArray<V>(borrowed: V[] | (() => V[])) {
 
 export type ArrayStateHandlers<T> = Record<
   string,
-  (state: ROArray<T>, actions: ArrayActions<T>, ...payload: any[]) => void
+  (value: ROArray<T>, mutators: ArrayActions<T>, ...payload: any[]) => void
 >
 
-type Tail<T extends any[]> = ((...args: T) => any) extends (
-  head: any,
-  ...tail: infer R
+type Tail2<T extends any[]> = ((...args: T) => any) extends (
+  first: any,
+  second: any,
+  ...tail: infer TT
 ) => any
-  ? R
+  ? TT
   : []
 
+type ArrayStateHandlerPayload<
+  Hs extends ArrayStateHandlers<any>,
+  A extends keyof Hs,
+> = Tail2<Parameters<Hs[A]>>
+
 export type ArrayStateActions<T, Hs extends ArrayStateHandlers<T>> = {
-  [A in keyof Hs]: (payload: Tail<Tail<Parameters<Hs[A]>>>) => void
+  [A in keyof Hs]: (...payload: ArrayStateHandlerPayload<Hs, A>) => void
 }
 
 export function arrayState<T, Hs extends ArrayStateHandlers<T>>(
   borrowedState: T[],
-  handlers: ArrayActions<T>,
+  handlers: Hs,
 ) {
-  return function useArrayState() {
+  return function useArrayState(): readonly [
+    value: ROArray<T>,
+    actions: ArrayStateActions<T, Hs>,
+  ] {
     const [state, mutate] = useBorrowedArray(borrowedState)
 
-    const resultHandlers: ArrayStateActions<T, Hs> = React.useMemo(() => {
+    const actions: ArrayStateActions<T, Hs> = React.useMemo(() => {
       const result: any = {}
       for (const key of Object.keys(handlers)) {
         result[key] = (...payload: any[]) =>
@@ -112,6 +121,6 @@ export function arrayState<T, Hs extends ArrayStateHandlers<T>>(
       return result
     }, [mutate])
 
-    return [state, resultHandlers] as const
+    return [state, actions] as const
   }
 }
