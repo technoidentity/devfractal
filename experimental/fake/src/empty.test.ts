@@ -17,11 +17,14 @@ describe('empty value', () => {
   test('object', () => {
     const Foo = z.object({ x: z.number(), y: z.string(), z: z.boolean() })
     expect(empty(Foo)).toEqual({ x: 0, y: '', z: false })
-    //   expectTypeOf(
-    //     empty(
-    //       z.array(z.object({ x: z.number(), y: z.string(), z: z.boolean() })),
-    //     ),
-    //   ).toMatchTypeOf<Array<z.number, z.string, z.boolean>[]>()
+    expectTypeOf(
+      empty(
+        z.array(z.object({ x: z.number(), y: z.string(), z: z.boolean() })),
+      ),
+    ).toMatchTypeOf<object[]>()
+  })
+  test('literal', () => {
+    expect(empty(z.literal(0))).toBe(0)
   })
   test('nested object', () => {
     const simpleObj = z.object({
@@ -44,5 +47,16 @@ describe('empty value', () => {
       },
       requests: [],
     })
+  })
+  test('null', () => {
+    expect(empty(z.null())).toEqual(null)
+  })
+  test('tuple', () => {
+    expect(empty(z.tuple([z.number(), z.string(), z.boolean()]))).toEqual([
+      0,
+      '',
+      false,
+    ])
+    expect(empty(z.tuple([]))).toEqual([])
   })
 })
