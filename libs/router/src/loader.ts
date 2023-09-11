@@ -31,7 +31,7 @@ export function getLoader<Spec extends z.ZodType<any, any>>(q: Query) {
   }
 }
 
-export const queryClient = new QueryClient({
+const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,

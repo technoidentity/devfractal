@@ -7,8 +7,8 @@ import {
 
 export type CreateQueryClientOptions = QueryClientConfig & {
   isProd: boolean
-  onError: (error: unknown) => void
-  queryFn: QueryFunction
+  onError?: (error: unknown) => void
+  queryFn?: QueryFunction
 }
 
 /**
@@ -37,9 +37,10 @@ export function createQueryClient({
 }: CreateQueryClientOptions): QueryClient {
   const queries = {
     refetchOnWindowFocus: isProd,
+
     retry: isProd ? 3 : 0,
-    staleTime: isProd ? 0 : 5 * 60 * 1000,
-    useErrorBoundary: true,
+    staleTime: isProd ? 0 : 60 * 1000,
+    // useErrorBoundary: true, default for suspense
     suspense: true,
     ...options.defaultOptions?.queries,
     queryFn,

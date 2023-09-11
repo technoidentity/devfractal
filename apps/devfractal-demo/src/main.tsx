@@ -1,20 +1,14 @@
 // import { UpdateExample } from '@/examples/state/UpdateExample'
-import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { ThemeProvider, queryClient } from 'devfractal'
-import { Suspense } from 'react'
+import { AppProvider } from 'devfractal'
 import { createRoot } from 'react-dom/client'
-import { ErrorBoundary } from 'react-error-boundary'
-import {
-  RouterProvider,
-  createBrowserRouter,
-  type RouteObject,
-} from 'react-router-dom'
+import { createBrowserRouter, type RouteObject } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 
 import { QueryTaskApp } from './examples/query/EpStateTasks'
 import { tasksRoutes } from './examples/router/tasksRoutes'
 import './global.css'
+import { queryClient } from '@/queryClient'
 
 // if (process.env.NODE_ENV === 'development') {
 //   const { worker } = await import('./mocks/browser')
@@ -31,14 +25,12 @@ const indexRoute: RouteObject = { path: '/', element: <QueryTaskApp /> }
 const router = createBrowserRouter([...tasksRoutes, indexRoute])
 
 root.render(
-  <ThemeProvider>
-    <ErrorBoundary fallback={<div>Error</div>}>
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools position="bottom-right" />
-        </QueryClientProvider>
-      </Suspense>
-    </ErrorBoundary>
-  </ThemeProvider>,
+  <AppProvider
+    ErrorFallback={_ => <div>Error</div>}
+    suspenseFallback={<div>Loading...</div>}
+    router={router}
+    queryClient={queryClient}
+  >
+    <ReactQueryDevtools position="bottom-right" />
+  </AppProvider>,
 )

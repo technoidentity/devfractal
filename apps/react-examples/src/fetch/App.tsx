@@ -1,7 +1,6 @@
 import { Button, ChakraProvider, Heading } from '@chakra-ui/react'
 import { jstr } from '@srtp/core'
 import {
-  QueryClient,
   QueryClientProvider,
   useQueryErrorResetBoundary,
 } from '@tanstack/react-query'
@@ -9,23 +8,7 @@ import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { TodoApp } from './components'
-
-const isProd = import.meta.env['NODE_ENV'] === 'production'
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: isProd,
-      retry: isProd ? 3 : 0,
-      staleTime: isProd ? 0 : 5 * 60 * 1000,
-      useErrorBoundary: true,
-      suspense: true,
-    },
-    mutations: {
-      useErrorBoundary: true,
-    },
-  },
-})
+import { queryClient } from '@/queryClient'
 
 const Fallback = ({ error, resetErrorBoundary }: any) => {
   return (

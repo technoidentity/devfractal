@@ -19,7 +19,7 @@ export type ToUrl = ReturnType<typeof createToUrl>
  * @param axiosFn - An axios function to use for the request
  * @returns - A query function that can be used with react-query
  */
-export const queryFn =
+export const createQueryFn =
   (basePathOrToUrl: ToUrl | string, axiosFn: AxiosFn = axios) =>
   <TQueryKey extends QueryKey = QueryKey | [...Paths, Record<string, any>]>({
     queryKey,
@@ -62,5 +62,5 @@ export const safeQueryFn = function safeQueryFn<
       ? createToUrl(basePathOrToUrl)
       : basePathOrToUrl
 
-  return async context => cast(spec, await queryFn(toUrl)(context))
+  return async context => cast(spec, await createQueryFn(toUrl)(context))
 }

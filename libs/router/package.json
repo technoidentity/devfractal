@@ -25,6 +25,7 @@
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/web": "workspace:*",
+    "@srtp/query": "workspace:*",
     "@tanstack/react-query": "4.35.0",
     "immer": "10.0.2",
     "react": "18.2.0",

@@ -1,6 +1,4 @@
-import '@/globals.css'
-import { AppProvider } from 'devfractal/src/AppProvider'
+import { Provider } from '@/Provider'
+import '../src/global.css'
 
-export const Wrapper = ({ children }: any) => (
-  <AppProvider>{children}</AppProvider>
-)
+export const Wrapper = ({ children }: any) => <Provider>{children}</Provider>

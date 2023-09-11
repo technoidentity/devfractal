@@ -10,7 +10,7 @@ import {
 import React from 'react'
 import type { z } from 'zod'
 
-import type { Paths } from './queryFn'
+import type { Paths } from './createQueryFn'
 
 // @TODO: Make sure only Error is thrown, else convert it to Error
 
