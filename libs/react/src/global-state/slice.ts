@@ -4,9 +4,8 @@ import { useSetAtom } from 'jotai'
 import { atomWithReducer as awr } from 'jotai/utils'
 import React from 'react'
 
-import { getActionCreators, getActions, getReducer } from '../local-state'
 import type { Actions, ActionsFrom, Handlers } from '../local-state'
-
+import { getActionCreators, getActions, getReducer } from '../local-state'
 import { useValue } from './hooks'
 
 export function atomWithReducer<State, Action>(
