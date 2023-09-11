@@ -8,6 +8,9 @@ describe('empty value', () => {
     expect(empty(z.string())).toBe('')
     expect(empty(z.boolean())).toBe(false)
     expect(empty(z.array(z.number()))).toEqual([])
+    expect(empty(z.null())).toBe(null)
+    expect(empty(z.undefined())).toBe(undefined)
+    expect(empty(z.literal(0))).toBe(0)
     expect(
       empty(
         z.tuple([z.number(), z.string(), z.object({ isValid: z.boolean() })]),
@@ -36,6 +39,10 @@ test('types', () => {
   expectTypeOf(empty(z.number().array())).toMatchTypeOf<number[]>()
   expectTypeOf(empty(z.string().array())).toMatchTypeOf<string[]>()
   expectTypeOf(empty(z.boolean().array())).toMatchTypeOf<boolean[]>()
+  expectTypeOf(empty(z.null())).toMatchTypeOf<null>()
+  expectTypeOf(empty(z.undefined())).toMatchTypeOf<undefined>()
+  expectTypeOf(empty(z.date())).toMatchTypeOf<Date>()
+  expectTypeOf(empty(z.date())).toBeConstructibleWith(new Date())
   expectTypeOf(
     empty(z.array(z.object({ x: z.number(), y: z.boolean() }))),
   ).toMatchTypeOf<object[]>()

@@ -125,5 +125,15 @@ export function empty(spec: z.ZodTypeAny): z.infer<typeof spec> {
   if (type === 'ZodDefault') {
     return empty(spec._def.innerType)
   }
+  if (type === 'ZodDate') {
+    return new Date()
+  }
+  if (type === 'ZodUndefined') {
+    return undefined
+  }
+
+  if (type === 'ZodNull') {
+    return null
+  }
   return undefined
 }
