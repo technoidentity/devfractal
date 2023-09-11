@@ -28,31 +28,37 @@ export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
 }
 
-const Grid = React.forwardRef<HTMLDivElement, GridProps>((props, ref) => {
-  const {
-    numItems = 1,
-    numItemsSm,
-    numItemsMd,
-    numItemsLg,
-    children,
-    className,
-    ...other
-  } = props
+export const Grid = React.forwardRef<HTMLDivElement, GridProps>(
+  (props, ref) => {
+    const {
+      numItems = 1,
+      numItemsSm,
+      numItemsMd,
+      numItemsLg,
+      children,
+      className,
+      ...other
+    } = props
 
-  const colClassNames = useMemo(() => {
-    const colsBase = getGridCols(numItems, gridCols)
-    const colsSm = getGridCols(numItemsSm, gridColsSm)
-    const colsMd = getGridCols(numItemsMd, gridColsMd)
-    const colsLg = getGridCols(numItemsLg, gridColsLg)
+    const colClassNames = useMemo(() => {
+      const colsBase = getGridCols(numItems, gridCols)
+      const colsSm = getGridCols(numItemsSm, gridColsSm)
+      const colsMd = getGridCols(numItemsMd, gridColsMd)
+      const colsLg = getGridCols(numItemsLg, gridColsLg)
 
-    return cn(colsBase, colsSm, colsMd, colsLg)
-  }, [numItems, numItemsSm, numItemsMd, numItemsLg])
+      return cn(colsBase, colsSm, colsMd, colsLg)
+    }, [numItems, numItemsSm, numItemsMd, numItemsLg])
 
-  return (
-    <div ref={ref} className={cn('grid', colClassNames, className)} {...other}>
-      {children}
-    </div>
-  )
-})
+    return (
+      <div
+        ref={ref}
+        className={cn('grid', colClassNames, className)}
+        {...other}
+      >
+        {children}
+      </div>
+    )
+  },
+)
 
 Grid.displayName = 'Grid'
