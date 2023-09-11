@@ -1,13 +1,8 @@
 import type { Draft } from 'immer'
 import { produce } from 'immer'
 import type { PrimitiveAtom, WritableAtom } from 'jotai'
-import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import React from 'react'
-
-import { useEvent } from '../useEvent'
-
-import { computed } from './atom'
-import type { Read } from './types'
 
 export const useAction = useSetAtom
 export const useValue = useAtomValue
@@ -37,25 +32,4 @@ export function actionHook<Value, Args extends unknown[]>(
     const set = useImmerAction(atom)
     return set(draft => fn(draft, ...args))
   }
-}
-
-/**
- *
- * @param initialValue initial value of the atom
- * @returns a tuple of [useValue, useAction]
- */
-export function useCreateAtom<Value>(initialValue: Value) {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  return React.useMemo(() => atom(initialValue), [])
-}
-
-/**
- * @param function is called with the atom's current value and should return the new computed value
- * @return current value of the atom
- */
-export function useComputed<Value>(read: Read<Value>) {
-  const reader = useEvent(read)
-  const comp = React.useMemo(() => computed(reader), [reader])
-
-  return useValue(comp)
 }
