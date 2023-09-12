@@ -14,7 +14,7 @@ import type { Paths } from './createQueryFn'
 
 // @TODO: Make sure only Error is thrown, else convert it to Error
 
-export function useQueryBase<
+export function useSafeQuery<
   Spec extends z.ZodTypeAny,
   TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
@@ -34,7 +34,7 @@ type Query = Record<
   string | number | boolean | null | undefined
 >
 
-export type UseSafeQueryArgs<
+export type UseSimpleQueryArgs<
   Spec extends z.ZodTypeAny,
   TQueryFnData,
 > = Readonly<{ paths: Paths; spec: Spec; query?: Query }> &
@@ -43,18 +43,18 @@ export type UseSafeQueryArgs<
     'queryKey' | 'select'
   >
 
-export type UseSafeQueryResult<Spec extends z.ZodTypeAny> = readonly [
+export type UseSimpleQueryResult<Spec extends z.ZodTypeAny> = readonly [
   data: z.infer<Spec>,
   invalidateKey: QueryKey,
   result: UseQueryResult<z.infer<Spec>, Error>,
 ]
 
-export function useSafeQuery<Spec extends z.ZodTypeAny, TQueryFnData>({
+export function useSimpleQuery<Spec extends z.ZodTypeAny, TQueryFnData>({
   spec,
   paths,
   query,
   ...options
-}: UseSafeQueryArgs<Spec, TQueryFnData>): UseSafeQueryResult<Spec> {
+}: UseSimpleQueryArgs<Spec, TQueryFnData>): UseSimpleQueryResult<Spec> {
   const opts = React.useMemo(() => {
     const enabled = paths.every(p => !!p) || options?.enabled
     return { ...options, enabled }
@@ -62,7 +62,7 @@ export function useSafeQuery<Spec extends z.ZodTypeAny, TQueryFnData>({
 
   const queryKey = query ? [...paths, query] : paths
 
-  const [data, result] = useQueryBase<Spec, TQueryFnData>(spec, {
+  const [data, result] = useSafeQuery<Spec, TQueryFnData>(spec, {
     queryKey,
     ...opts,
   })

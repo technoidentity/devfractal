@@ -30,7 +30,6 @@ const SwitchInternal = ({ onChange, value, ...props }: SwitchInternalProps) => (
 
 export type SwitchFieldProps = SwitchBaseProps & BaseFieldProps
 
-// @TODO: This should be different thatn this for sure :-)
 export const SwitchField = ({
   className,
   name,

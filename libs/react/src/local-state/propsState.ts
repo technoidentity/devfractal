@@ -121,7 +121,6 @@ function useState$<Props, State, Hs extends PropsStateHandlers<Props, State>>(
   return [state, actions] as const
 }
 
-// @TODO: support initial state function
 export function usePropsState<
   Props,
   State,

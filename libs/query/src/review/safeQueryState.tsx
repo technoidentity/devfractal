@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-query'
 import type { Schema, z } from 'zod'
 
-import { useSafeQuery, type UseSafeQueryArgs } from '../core'
+import { useSimpleQuery, type UseSimpleQueryArgs } from '../core'
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
 
 export type MutationHandler = (
@@ -59,7 +59,7 @@ type QueryStateArgs<
   Hs extends SafeQueryHandlers,
 > = {
   path: Path
-  queryOptions: Omit<UseSafeQueryArgs<QuerySpec, TQueryFnData>, 'paths'>
+  queryOptions: Omit<UseSimpleQueryArgs<QuerySpec, TQueryFnData>, 'paths'>
   mutationHandlers: Hs
 }
 export const queryState = <
@@ -76,11 +76,11 @@ export const queryState = <
 
   const useQuery = (
     options: { params: Params<Path> } & Partial<
-      UseSafeQueryArgs<QuerySpec, TQueryFnData>
+      UseSimpleQueryArgs<QuerySpec, TQueryFnData>
     >,
   ) => {
     invalidateKey = keysfn(path, options.params)
-    return useSafeQuery({
+    return useSimpleQuery({
       ...queryOptions,
       ...options,
       paths: invalidateKey,

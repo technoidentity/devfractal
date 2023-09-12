@@ -53,7 +53,6 @@ describe('baseFetch', () => {
         expect.any(Object),
       )
     }
-    // @TODO:
   })
 
   test('should handle unauthorized requests correctly', async () => {

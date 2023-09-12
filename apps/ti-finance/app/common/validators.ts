@@ -1,5 +1,13 @@
 import { Billable } from '@prisma/client'
-import { toStr , date, dateRange, number, positive, spec, string } from '@srtp/core'
+import {
+  toStr,
+  date,
+  dateRange,
+  number,
+  positive,
+  spec,
+  string,
+} from '@srtp/core'
 import { z } from 'zod'
 
 export const IntId = spec({ id: number() })
@@ -103,7 +111,6 @@ export const CostSearchSpec = spec({
 
 export type CostSearchSpec = z.infer<typeof CostSearchSpec>
 
-// @TODO: change to spec
 export const ExpenditureSearchSpec = spec({
   dateRange: dateRange(),
   category: BillableSpec,

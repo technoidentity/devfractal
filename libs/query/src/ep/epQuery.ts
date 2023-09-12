@@ -20,7 +20,7 @@ import React from 'react'
 import invariant from 'tiny-invariant'
 
 import { defaultApi } from '../api'
-import { useSafeQuery, type UseSafeQueryResult } from '../core/safeQuery'
+import { useSimpleQuery, type UseSimpleQueryResult } from '../core/safeQuery'
 
 // ---------------
 // epQuery
@@ -33,7 +33,7 @@ export type EpQueryArgs<
   GetParamsArg<Ep> &
   Omit<UseQueryOptions<TQueryFnData, Error, GetEpResponse<Ep>>, 'queryKey'>
 
-export type UseEpQueryResult<Ep extends EndpointBase> = UseSafeQueryResult<
+export type UseEpQueryResult<Ep extends EndpointBase> = UseSimpleQueryResult<
   NonNullable<Ep['response']>
 >
 
@@ -60,7 +60,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
 
     invariant(ep.response, 'endpoint must have a response schema')
 
-    return useSafeQuery<Ep['response'], TQueryFnData>({
+    return useSimpleQuery<Ep['response'], TQueryFnData>({
       paths,
       query,
       spec: ep.response,

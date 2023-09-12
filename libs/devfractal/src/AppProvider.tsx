@@ -33,8 +33,8 @@ export function AppProvider(props: AppProviderProps) {
         <Suspense fallback={props.suspenseFallback}>
           <QueryClientProvider client={queryClient}>
             {props.router && <RouterProvider router={props.router} />}
+            {props.children}
           </QueryClientProvider>
-          {props.children}
         </Suspense>
       </ErrorBoundary>
     </ThemeProvider>

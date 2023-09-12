@@ -1,5 +1,5 @@
 import { Search } from '@srtp/fake-tasks'
-import { Pre, number, pages, path } from 'devfractal'
+import { Code, jstr, number, pages, path } from 'devfractal'
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()
@@ -7,7 +7,7 @@ const TasksList = () => {
   return (
     <div>
       <h1>Tasks List</h1>
-      <Pre value={search} />
+      <Code>{jstr(search)}</Code>
     </div>
   )
 }
@@ -17,7 +17,7 @@ const TaskView = () => {
 
   return (
     <div>
-      <h1>Task View</h1> <Pre value={params} />
+      <h1>Task View</h1> <Code>{jstr(params)}</Code>
     </div>
   )
 }
@@ -28,7 +28,7 @@ const TaskEdit = () => {
   return (
     <div>
       <h1>Task Edit </h1>
-      <Pre value={params} />
+      <Code>{jstr(params)}</Code>
     </div>
   )
 }
@@ -42,7 +42,7 @@ const UserView = () => {
   return (
     <div>
       <h1>User View </h1>
-      <Pre value={params} />
+      <Code>{jstr(params)}</Code>
     </div>
   )
 }
@@ -53,7 +53,7 @@ const UserEdit = () => {
   return (
     <div>
       <div>User Edit </div>
-      <Pre value={params} />
+      <Code>{jstr(params)}</Code>
     </div>
   )
 }
@@ -65,7 +65,7 @@ const UserTasksList = () => {
   return (
     <div>
       <h1>User Tasks List </h1>
-      <Pre value={search} />
+      <Code>{jstr(search)}</Code>
     </div>
   )
 }

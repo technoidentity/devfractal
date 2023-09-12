@@ -1,4 +1,4 @@
-import { useSafeQuery } from '@srtp/query'
+import { useSimpleQuery } from '@srtp/query'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import type { Todo } from './todo'
@@ -6,7 +6,7 @@ import { TodoList } from './todo'
 import { todoApi } from './todoApi'
 
 export function useTodoList() {
-  return useSafeQuery({
+  return useSimpleQuery({
     paths: ['todos'],
     spec: TodoList,
     queryFn: () => todoApi.getAll(),

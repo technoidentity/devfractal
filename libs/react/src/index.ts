@@ -1,5 +1,4 @@
 export * from './For'
-export * from './Pre'
 export * from './collections'
 export * from './context'
 export * from './createRoot'
