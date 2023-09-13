@@ -1,4 +1,5 @@
 import type { Task } from '@srtp/fake-tasks'
+import { useInputState } from '@srtp/react'
 import {
   Button,
   Checkbox,
@@ -8,8 +9,7 @@ import {
   HStack,
   Input,
   Text,
-  useInputState,
-} from 'devfractal'
+} from '@srtp/ui'
 import { Trash2 } from 'lucide-react'
 
 export type TaskItemProps = Readonly<{

@@ -1,6 +1,6 @@
 import type { Task } from '@srtp/fake-tasks'
 import { taskEndpoints } from '@srtp/fake-tasks'
-import { epQueryState } from 'devfractal'
+import { epQueryState } from '@srtp/query'
 
 import { TasksList } from './TaskViews'
 

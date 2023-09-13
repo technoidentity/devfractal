@@ -1246,18 +1246,27 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
+      '@srtp/query':
+        specifier: workspace:*
+        version: link:../../libs/query
       '@srtp/react':
         specifier: workspace:*
         version: link:../../libs/react
       '@srtp/ui':
         specifier: workspace:*
         version: link:../../libs/ui
+      '@srtp/web':
+        specifier: workspace:*
+        version: link:../../libs/web
       '@tanstack/react-query':
         specifier: 4.35.0
         version: 4.35.0(react-dom@18.2.0)(react@18.2.0)
       immer:
         specifier: 10.0.2
         version: 10.0.2
+      lucide-react:
+        specifier: 0.274.0
+        version: 0.274.0(react@18.2.0)
       react:
         specifier: 18.2.0
         version: 18.2.0
