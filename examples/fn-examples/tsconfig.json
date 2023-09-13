@@ -1,0 +1,9 @@
+{
+  "extends": "@srtp/tsconfig/react.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["node", "vite/client", "vitest/importMeta"]
+  },
+  "include": ["src", "tests", "__previewjs__"],
+  "exclude": ["node_modules", "vitest.config.ts"]
+}
