@@ -1,4 +1,4 @@
-import { state } from 'devfractal'
+import { propsState } from 'devfractal'
 
 export type PaginationValues = Readonly<{
   initialPage?: number
@@ -15,23 +15,23 @@ export type PaginationResult = {
   last(): void
 }
 
-const usePageState = state(
-  { activePage: 1, totalPages: 0 },
+const useLocalPageState = propsState<PaginationValues>()(
+  { activePage: 1 },
   {
-    next(state) {
+    next: () => state => {
       state.activePage += 1
     },
-    previous(state) {
+    previous: () => state => {
       state.activePage -= 1
     },
-    setPage(state, page: number) {
-      state.activePage = page
+    setPage: () => (state, props) => {
+      state.activePage = props.totalPages
     },
-    first(state) {
+    first: () => state => {
       state.activePage = 1
     },
-    last(state) {
-      state.activePage = state.totalPages
+    last: () => (state, props) => {
+      state.activePage = props.totalPages
     },
   },
 )
@@ -40,14 +40,17 @@ export const usePagination = ({
   initialPage,
   totalPages,
 }: PaginationValues): PaginationResult => {
-  const [state, actions] = usePageState({
-    activePage: initialPage ?? 1,
-    totalPages,
-  })
+  const [state, actions] = useLocalPageState(
+    {
+      initialPage,
+      totalPages,
+    },
+    { activePage: initialPage ?? 1 },
+  )
 
   return {
     activePage: state.activePage,
-    totalPages: state.totalPages,
+    totalPages,
     ...actions,
   }
 }
