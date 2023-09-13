@@ -88,7 +88,7 @@ export function createClientForm<Spec extends FormSpec>(
 type IdContext = Readonly<{ id: string }>
 
 const [IdContext, useIdContext] = context<IdContext>({
-  errorMessage: 'useIdContext must be used within a IdContext',
+  errorMessage: 'useIdContext must be used within an IdContext',
 })
 
 export type IdFieldProps = React.HTMLAttributes<HTMLDivElement>
