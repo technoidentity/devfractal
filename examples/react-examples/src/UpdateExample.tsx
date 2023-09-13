@@ -1,12 +1,5 @@
-import {
-  Checkbox,
-  H3,
-  HStack,
-  Input,
-  Label,
-  VStack,
-  useUpdate,
-} from 'devfractal'
+import { useUpdate } from '@srtp/react'
+import { Checkbox, H3, HStack, Input, Label, VStack } from '@srtp/ui'
 
 export const UpdateExample = () => {
   const [state, actions] = useUpdate({ num: 0, str: '', bool: false })

@@ -1400,6 +1400,9 @@ importers:
       '@srtp/router':
         specifier: workspace:*
         version: link:../../libs/router
+      '@srtp/ui':
+        specifier: workspace:*
+        version: link:../../libs/ui
       '@srtp/web':
         specifier: workspace:*
         version: link:../../libs/web
