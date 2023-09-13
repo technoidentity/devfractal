@@ -1,4 +1,4 @@
-import { state } from 'devfractal'
+import { state } from '@srtp/react'
 import { CompletedTaskView } from './components/CompletedTaskView'
 import { OngoingTaskView } from './components/OngoingTaskView'
 import { TodoTaskView } from './components/TodoTaskView'

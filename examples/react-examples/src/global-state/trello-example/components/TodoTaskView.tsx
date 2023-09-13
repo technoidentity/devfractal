@@ -1,4 +1,4 @@
-import { state } from 'devfractal'
+import { state } from '@srtp/react'
 import { useAtom } from 'jotai'
 import { draggedTaskAtom } from '../state'
 
