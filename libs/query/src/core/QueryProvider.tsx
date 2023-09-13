@@ -1,22 +1,32 @@
+import type { axios } from '@srtp/web'
+import type { QueryClient } from '@tanstack/react-query'
 import { QueryClientProvider } from '@tanstack/react-query'
 import React from 'react'
+import { createQueryClient, createQueryFn } from '.'
 
-import {
-  createQueryClient,
-  type CreateQueryClientOptions,
-} from './createQueryClient'
+export type QueryProviderProps = Readonly<{
+  queryClient?: QueryClient
+  children?: React.ReactNode
+  baseUrl?: string
+  axios?: typeof axios
+  isProd?: boolean
+}>
 
-type QueryProviderProps = CreateQueryClientOptions &
-  Readonly<{ children: React.ReactNode }>
-
-export const QueryProvider = ({ children, ...options }: QueryProviderProps) => {
+export function QueryProvider(props: QueryProviderProps) {
   const queryClient = React.useMemo(
-    () => createQueryClient(options),
+    () =>
+      props.queryClient ??
+      createQueryClient({
+        isProd: !!props.isProd,
+        queryFn: props.baseUrl ? createQueryFn(props.baseUrl) : undefined,
+      }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      {props.children}
+    </QueryClientProvider>
   )
 }
