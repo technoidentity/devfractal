@@ -1,4 +1,4 @@
-import { propsState } from 'devfractal'
+import { propsState } from '@srtp/react'
 
 export type PaginationValues = Readonly<{
   initialPage?: number

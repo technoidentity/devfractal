@@ -1,5 +1,5 @@
-import { Button, HStack } from 'devfractal'
-
+import { HStack } from '../cui'
+import { Button } from '../ui'
 import { type PaginationResult as PaginationProps } from './hooks'
 
 export function Pagination({
