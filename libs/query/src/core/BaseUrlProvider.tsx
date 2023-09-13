@@ -1,10 +1,9 @@
 import { configContext } from '@srtp/react'
 
-export type BaseUrlContext = Readonly<{
-  baseUrl: string
-}>
+export type BaseUrlContext = Readonly<{ baseUrl?: string }>
 
 export const { Provider: BaseUrlProvider, useContext: useBaseUrl } =
   configContext<BaseUrlContext>({
-    errorMessage: 'BaseUrlProvider should be used',
+    initialValue: {},
+    errorMessage: 'useBaseUrl must be used within a BaseUrlProvider',
   })
