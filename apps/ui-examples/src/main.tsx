@@ -1,7 +1,8 @@
 import { createRoot } from '@srtp/react'
 
-import './index.css'
+import './global.css'
+import { H1 } from '@srtp/ui'
 
 const root = createRoot('root')
 
-root.render(<h1>Hello World</h1>)
+root.render(<H1>Hello World</H1>)
