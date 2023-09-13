@@ -1,4 +1,4 @@
-import { number, string } from 'devfractal'
+import { number, string } from '@srtp/core'
 import z from 'zod'
 
 export const Geo = z.object({

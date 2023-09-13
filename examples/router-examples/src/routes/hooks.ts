@@ -1,5 +1,6 @@
-import { safeLoaderData, safeParams } from 'devfractal'
+import { safeLoaderData, safeParams } from '@srtp/router'
 import { number, z } from 'zod'
+
 import { Contact, ContactList } from '../types'
 
 export const useContact = safeLoaderData(Contact)

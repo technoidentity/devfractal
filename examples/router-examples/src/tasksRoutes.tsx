@@ -1,5 +1,7 @@
+import { jstr, number, path } from '@srtp/core'
 import { Search } from '@srtp/fake-tasks'
-import { Code, jstr, number, pages, path } from 'devfractal'
+import { pages } from '@srtp/router'
+import { Code } from '@srtp/ui'
 
 const TasksList = () => {
   const [search] = tasksApp.tasksList.useSearch()

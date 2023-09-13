@@ -1,4 +1,4 @@
-import { http } from 'devfractal'
+import { http } from '@srtp/web'
 import { Link, type LoaderFunctionArgs } from 'react-router-dom'
 
 import { baseUrl } from '../data/common'

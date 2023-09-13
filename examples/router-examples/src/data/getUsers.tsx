@@ -1,4 +1,4 @@
-import { http } from 'devfractal'
+import { http } from '@srtp/web'
 import { type LoaderFunctionArgs } from 'react-router-dom'
 
 import { ContactList } from '../types'

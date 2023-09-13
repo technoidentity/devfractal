@@ -1,5 +1,5 @@
 {
-  "name": "react-examples",
+  "name": "router-examples",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -23,6 +23,7 @@
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/router": "workspace:*",
+    "@srtp/web": "workspace:*",
     "@srtp/ui": "workspace:*",
     "@tanstack/react-query": "4.35.0",
     "immer": "10.0.2",

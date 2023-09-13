@@ -4,6 +4,7 @@ packages:
   - 'packages/*'
   - 'starters/*'
   - 'experimental/*'
+  - 'examples/*'
   - 'e2e'
   - 'demo/common'
   - 'demo/client'
