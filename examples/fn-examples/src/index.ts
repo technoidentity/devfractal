@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { computed, signal } from '@preact/signals-core'
-import { ensure, toInt } from '@srtp/core'
+
 import {
   entries,
   filter,
@@ -83,8 +83,10 @@ const tasks = signal(createTasks(users.value, 10))
 
 const usernames = computed(() => new Map(users.value.map(u => [u.id, u])))
 
+const uint = z.number().int().nonnegative()
+
 function username(userId: number) {
-  return mget(usernames.value, toInt(userId)).name
+  return mget(usernames.value, uint.parse(userId)).name
 }
 
 type CompletedTodoListResult = Iterable<{
@@ -122,7 +124,7 @@ type MostIncompleteUsersResult = IterableIterator<
 >
 
 export function getMostIncompleteUsers(n: number): MostIncompleteUsersResult {
-  ensure(z.number().int().nonnegative(), n)
+  z.number().int().nonnegative().parse(n)
 
   return pipe(
     tasks.value,
