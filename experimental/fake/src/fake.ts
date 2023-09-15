@@ -359,4 +359,13 @@ export function empty(
   if (type === 'ZodAny' || type === 'ZodUnknown') {
     return null
   }
+  if (type === 'ZodDefault') {
+    return empty(spec._def.schema, options)
+  }
+  if (type === 'ZodPromise') {
+    return empty(spec._def.type, options)
+  }
+  if (type === 'ZodEffects') {
+    return empty(spec._def.schema, options)
+  }
 }
