@@ -292,7 +292,7 @@ export function empty(
   }
 
   if (type === 'ZodDate') {
-    return null
+    return faker.date.past()
   }
 
   if (type === 'ZodLiteral') {
