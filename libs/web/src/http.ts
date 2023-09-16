@@ -1,12 +1,19 @@
 import { cast } from '@srtp/core'
 import type { z } from 'zod'
 
-import { fetch$, type BaseFetchOptions } from './fetch$'
+import {
+  fetch$,
+  type BaseFetchOptions,
+  type BaseUrlOrFetch,
+  createFetch,
+} from './fetch$'
 import { urlcat } from './url'
 
 export type ApiOptions = Omit<BaseFetchOptions, 'body'>
 
-export function createHttp(fetcher = fetch$) {
+export function createHttp(baseUrlOrFetch: BaseUrlOrFetch = fetch$) {
+  const fetcher = createFetch(baseUrlOrFetch)
+
   return {
     async get$(
       url: string,

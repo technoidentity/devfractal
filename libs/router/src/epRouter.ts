@@ -1,9 +1,20 @@
-import type { EndpointBase, GetEpResponse, PathBase } from '@srtp/core'
-import type { Iff, IsDefined } from '@srtp/core'
-import { paramsSpec, route } from '@srtp/core'
-import { cast } from '@srtp/core'
+import type {
+  EndpointBase,
+  GetEpResponse,
+  Iff,
+  IsDefined,
+  PathBase,
+} from '@srtp/core'
+import { cast, paramsSpec, route } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
-import { http, toPath } from '@srtp/web'
+import {
+  createFetch,
+  createHttp,
+  fetch$,
+  toPath,
+  type BaseUrlOrFetch,
+  epAxios,
+} from '@srtp/web'
 import {
   type ActionFunction,
   type LoaderFunction,
@@ -20,15 +31,17 @@ import {
 } from './hooks'
 import { routerPath, type EpPathResult } from './routerPath'
 
-const api = http
-
 export type EpLoaderResult<Ep extends EndpointBase> = {
   useLoaderData: () => GetEpResponse<Ep>
   loader: LoaderFunction
 }
 
-export function epLoader<Ep extends EndpointBase>(ep: Ep): EpLoaderResult<Ep> {
+export function epLoader<Ep extends EndpointBase>(
+  ep: Ep,
+  baseUrlOrFetch: BaseUrlOrFetch = fetch$,
+): EpLoaderResult<Ep> {
   const responseSpec = ep.response
+  const fetch = createFetch(baseUrlOrFetch)
   invariant(responseSpec, 'epLoader requires an endpoint with a response spec')
 
   const loader: LoaderFunction = args => {
@@ -39,7 +52,7 @@ export function epLoader<Ep extends EndpointBase>(ep: Ep): EpLoaderResult<Ep> {
     const path = toPath(route(ep.path), params)
 
     const query = Object.fromEntries(new URL(args.request.url).searchParams)
-    const result = api.get$(path, query)
+    const result = createHttp(fetch).get$(path, query)
 
     return cast(responseSpec, result)
   }
@@ -55,19 +68,17 @@ export type EpActionResult<Ep extends EndpointBase> = {
   action: ActionFunction
 }
 
-export function epAction<Ep extends EndpointBase>(ep: Ep): EpActionResult<Ep> {
+export function epAction<Ep extends EndpointBase>(
+  ep: Ep,
+  baseUrlOrFetch: BaseUrlOrFetch = fetch$,
+): EpActionResult<Ep> {
   const useActionData = safeActionData(ep.response ?? z.undefined())
-
   const action: ActionFunction = async args => {
-    const pspec = paramsSpec(ep.path) ?? z.undefined()
-    const params = cast(pspec, args.params)
+    const request: any = Object.fromEntries(await args.request.formData())
+    const params: any = args.params
 
-    const path = toPath(route(ep.path), params)
-
-    const result = api.post$(
-      path,
-      Object.fromEntries(await args.request.formData()),
-    )
+    // both request and params will be validated by axios
+    const result = epAxios({ ep, baseUrlOrFetch, request, params })
 
     return ep.response ? cast(ep.response, result) : result
   }
@@ -124,6 +135,7 @@ export function epRouteUtils<
   ActionEp extends EndpointBase,
 >(
   args: EpRouteObject<Path, SearchSpec, LoaderEp, ActionEp>,
+  baseUrlOrFetch?: BaseUrlOrFetch,
 ): EpRouteResult<
   Path,
   SearchSpec,
@@ -133,8 +145,8 @@ export function epRouteUtils<
   const { path: pathDef, search, loader: epl, action: epa, ...routeArgs } = args
 
   const { path, ...utils } = routerPath(pathDef)
-  const loaderUtils = epl ? epLoader(epl) : undefined
-  const actionUtils = epa ? epAction(epa) : undefined
+  const loaderUtils = epl ? epLoader(epl, baseUrlOrFetch) : undefined
+  const actionUtils = epa ? epAction(epa, baseUrlOrFetch) : undefined
 
   const useSearch: any = search ? safeSearch(search) : undefined
 
@@ -170,7 +182,8 @@ export type EpRouterResult<EpRoutes extends EpRouteRecordBase> = {
 
 export function epRouter<EpRoutes extends EpRouteRecordBase>(
   routes: EpRoutes,
+  baseUrlOrFetch?: BaseUrlOrFetch,
 ): EpRouterResult<EpRoutes> {
-  const utils = omap$(routes, value => epRouteUtils(value))
+  const utils = omap$(routes, value => epRouteUtils(value, baseUrlOrFetch))
   return { ...(utils as any), routes: Object.values(utils).map(t => t.route) }
 }

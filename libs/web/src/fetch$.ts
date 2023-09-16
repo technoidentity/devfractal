@@ -1,6 +1,7 @@
 import { isEmpty, isKey } from '@srtp/core'
 import { isObject, isStr } from '@srtp/core'
 import { getReasonPhrase } from 'http-status-codes'
+import { urlcat } from './url'
 
 export class ResponseError extends Error {
   constructor(
@@ -41,7 +42,7 @@ export function getDefaultFetchConfig(
     method: method.toUpperCase(),
   }
 
-  if (!options || !options.body) {
+  if (!options?.body) {
     return config
   }
 
@@ -127,3 +128,13 @@ export type AxiosFn = (
 
 export const axios: AxiosFn = ({ url, ...options }: AxiosOptions) =>
   fetch$(url, options)
+
+export type BaseUrlOrFetch = string | typeof fetch$
+
+export function createFetch(
+  baseUrlOrFetch: BaseUrlOrFetch = fetch$,
+): typeof fetch$ {
+  return isStr(baseUrlOrFetch)
+    ? (url, options) => fetch$(urlcat(baseUrlOrFetch, url), options)
+    : baseUrlOrFetch
+}
