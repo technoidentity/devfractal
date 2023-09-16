@@ -1,11 +1,11 @@
 import { linkfn, paramsSpec, route } from '@srtp/core'
 import type { Params, PathBase } from '@srtp/core'
-import type { IfFnArg, Iff, IsNonEmpty } from '@srtp/core'
+import type { IfFnArg, Iff, IsNonEmptyObject } from '@srtp/core'
 
 import { safeNavigate, safeParams } from './hooks'
 
 export type NavigateResult<Path extends PathBase> = IfFnArg<
-  IsNonEmpty<Params<Path>>,
+  IsNonEmptyObject<Params<Path>>,
   Params<Path>,
   void
 >
@@ -14,7 +14,7 @@ export type EpPathResult<Path extends PathBase> = {
   path: string
   useNavigate: () => NavigateResult<Path>
 } & Iff<
-  IsNonEmpty<Params<Path>>,
+  IsNonEmptyObject<Params<Path>>,
   {
     link: (params: Params<Path>) => string
     useParams: () => Params<Path>

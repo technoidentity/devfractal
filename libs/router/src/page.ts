@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import type { Iff, IsNonEmpty } from '@srtp/core'
+import type { Iff, IsNonEmptyObject } from '@srtp/core'
 import { type EndpointBase } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
 import type { RouteObject } from 'react-router-dom'
@@ -16,7 +16,7 @@ export type PageResult<Page extends PageBase> = { route: RouteObject } & (Omit<
   'path'
 > &
   Iff<
-    IsNonEmpty<Page['request']>,
+    IsNonEmptyObject<Page['request']>,
     { useSearch: () => UseSearchResult<NonNullable<Page['request']>> }
   >)
 
