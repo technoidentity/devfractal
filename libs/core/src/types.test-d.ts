@@ -2,7 +2,6 @@
 import { describe, expectTypeOf, test } from 'vitest'
 
 import {
-  AllOrNothing,
   type Booleanify,
   type ExactKeys,
   type IsDefined,
