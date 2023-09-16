@@ -11,7 +11,7 @@
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
     "types": "tsc --noEmit -p .",
     "types:dev": "tsc --noEmit -p . --watch",
-    "test": "vitest run",
+    "test": "vitest run && vitest typecheck --run",
     "test:types": "vitest typecheck --run",
     "test:types:dev": "vitest typecheck",
     "test:dev": "vitest dev",
