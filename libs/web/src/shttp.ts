@@ -1,10 +1,10 @@
 import type { z } from 'zod'
 
-import { fetch$ } from './fetch$'
+import { fetch$, type BaseUrlOrFetch } from './fetch$'
 import { createHttp, type ApiOptions } from './http'
 
-export function createSHttp(fetcher = fetch$) {
-  const base = createHttp(fetcher)
+export function createSHttp(baseUrlOrFetch: BaseUrlOrFetch = fetch$) {
+  const base = createHttp(baseUrlOrFetch)
 
   return {
     get$: async (
