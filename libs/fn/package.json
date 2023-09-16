@@ -19,7 +19,7 @@
     "typecheck": "vitest typecheck",
     "lint": "eslint --fix --max-warnings=0 --cache src --ext .ts,.tsx",
     "lint:dev": "cross-env TIMING=1 pnpm lint --quiet --fix",
-    "test": "vitest run",
+    "test": "vitest run && vitest typecheck --run",
     "test:dev": "vitest dev",
     "coverage": "vitest run --coverage",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
