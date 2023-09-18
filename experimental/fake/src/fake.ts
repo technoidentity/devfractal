@@ -363,7 +363,7 @@ export function empty(
     return empty(spec._def.schema, options)
   }
   if (type === 'ZodPromise') {
-    return empty(spec._def.type, options)
+    return Promise.resolve(empty(spec._def.type, options))
   }
   if (type === 'ZodEffects') {
     return empty(spec._def.schema, options)
