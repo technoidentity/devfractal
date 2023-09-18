@@ -4,8 +4,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui'
-import { cn } from '../utils'
+} from '@srtp/ui-core'
+import { cn } from '@srtp/ui-core'
 
 import type { BaseFieldProps } from './common'
 import {
@@ -54,7 +54,7 @@ export const SelectBase = ({
 
 export type SelectFieldProps = SelectBaseProps & BaseFieldProps
 
-export const SelectField = ({
+export function SelectField({
   className,
   name,
   label,
@@ -65,7 +65,7 @@ export const SelectField = ({
   cnMessage,
   cnDescription,
   ...props
-}: SelectFieldProps) => {
+}: SelectFieldProps): JSX.Element {
   return (
     <Field name={name} className={className}>
       {label && <FormLabel className={cnLabel}>{label}</FormLabel>}

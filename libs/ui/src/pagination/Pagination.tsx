@@ -1,6 +1,6 @@
-import { HStack } from '../cui'
-import { Button } from '../ui'
-import { type PaginationResult as PaginationProps } from './hooks'
+import { Button, HStack } from '@srtp/ui-core'
+
+import { type PaginationResult as PaginationProps } from './usePagination'
 
 export function Pagination({
   totalPages,

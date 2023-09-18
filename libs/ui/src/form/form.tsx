@@ -5,12 +5,10 @@ import type LabelPrimitive from '@radix-ui/react-label'
 import { Slot } from '@radix-ui/react-slot'
 import { getRawShape, isNotNil } from '@srtp/core'
 import { context } from '@srtp/react'
+import { Label, cn } from '@srtp/ui-core'
 import React, { type ComponentProps } from 'react'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
-
-import { Label } from '../ui'
-import { cn } from '../utils'
 
 type FormSpec = z.ZodEffects<any> | z.AnyZodObject
 

@@ -1,5 +1,4 @@
-import { Switch } from '../ui'
-import { cn } from '../utils'
+import { Switch, cn } from '@srtp/ui-core'
 
 import type { BaseFieldProps } from './common'
 import { Control, Field, FormDescription, FormLabel, FormMessage } from './form'

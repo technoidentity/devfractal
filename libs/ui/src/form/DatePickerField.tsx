@@ -1,15 +1,14 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
-import { format } from 'date-fns'
-import type { DayPickerSingleProps } from 'react-day-picker'
-
 import {
   Button,
   Calendar,
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '../ui'
-import { cn } from '../utils'
+  cn,
+} from '@srtp/ui-core'
+import { format } from 'date-fns'
+import type { DayPickerSingleProps } from 'react-day-picker'
 
 import type { BaseFieldProps } from './common'
 import {

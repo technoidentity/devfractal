@@ -4,7 +4,7 @@ import {
   usePagination,
   type PaginationResult,
   type PaginationValues,
-} from '../hooks'
+} from './usePagination'
 
 describe('usePagination hook', () => {
   test('usePagination without initialPage prop', () => {

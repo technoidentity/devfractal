@@ -5,6 +5,7 @@ import type {
 } from '@srtp/core'
 import { cast, paramsSpec, route } from '@srtp/core'
 
+import invariant from 'tiny-invariant'
 import {
   createFetch,
   fetch$,
@@ -12,7 +13,6 @@ import {
   type BaseUrlOrFetch,
 } from './fetch$'
 import { toPath } from './url'
-import invariant from 'tiny-invariant'
 
 export type EpHttpArgs = {
   options?: BaseFetchOptions

@@ -4,6 +4,19 @@ import {
   ChevronDownIcon,
   DotsHorizontalIcon,
 } from '@radix-ui/react-icons'
+import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from '@srtp/ui'
+import {
+  Button,
+  Checkbox,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Input,
+} from '@srtp/ui'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -20,19 +33,6 @@ import {
 } from '@tanstack/react-table'
 import * as React from 'react'
 
-import { DTBody, DTCell, DTHead, DTHeader, DTRow, DTable } from '../cui'
-import {
-  Button,
-  Checkbox,
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  Input,
-} from '../ui'
 const data: Payment[] = [
   {
     id: 'm5gr84i9',

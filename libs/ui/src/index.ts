@@ -1,6 +1,4 @@
-export * from './cui'
+export * from '@srtp/ui-core'
+
 export * from './form'
-export * from './table'
-export * from './ui'
-export * from './utils'
 export * from './pagination'

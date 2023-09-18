@@ -1,5 +1,4 @@
-import { Textarea } from '../ui'
-import { cn } from '../utils'
+import { Textarea, cn } from '@srtp/ui-core'
 
 import type { BaseFieldProps } from './common'
 import { Control, Field, FormDescription, FormLabel, FormMessage } from './form'
