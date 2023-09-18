@@ -121,4 +121,16 @@ describe('empty', () => {
     const result = empty(z.undefined())
     expect(result).toBe(undefined)
   })
+  test('ZodNull', () => {
+    const result = empty(z.null())
+    expect(result).toBe(null)
+  })
+  test(' ZodUnknown', () => {
+    const result = empty(z.unknown())
+    expect(result).toBe(null)
+  })
+  test(' ZodAny', () => {
+    const result = empty(z.any())
+    expect(result).toBe(null)
+  })
 })
