@@ -344,11 +344,11 @@ export function empty(
     }
   }
 
-  if (type === 'ZodOptional' || type === 'ZodNullable') {
+  if (type === 'ZodNullable') {
     return null
   }
 
-  if (type === 'ZodUndefined') {
+  if (type === 'ZodOptional' || type === 'ZodUndefined') {
     return undefined
   }
 

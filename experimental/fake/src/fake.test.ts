@@ -76,15 +76,49 @@ describe('empty', () => {
     const result = empty(z.array(z.string()))
     expect(result).toEqual([])
   })
-  test.skip('ZodObject', () => {
+  test('ZodObject', () => {
     const result = empty(person)
-    console.log(result)
-    expect(() => person.parse(result)).not.toThrow()
+    expect(result).toEqual({
+      id: '',
+      employed: false,
+      age: 0,
+      name: '',
+      dateOfBirth: expect.any(Date),
+      gender: 'male',
+      address: [],
+    })
+  })
+  test(' ZodMap', () => {
+    const result = empty(z.map(z.string(), z.string()))
+    expect(result).toBeInstanceOf(Map)
+    expect(result.size).toBe(0)
   })
   test('should return a resolved Promise with an empty value for ZodPromise', async () => {
     const result = empty(z.promise(z.string()))
     expect(result).toBeInstanceOf(Promise)
     const resolvedValue = await result
     expect(resolvedValue).toEqual('')
+  })
+  test('ZodSet', () => {
+    const result = empty(z.set(z.string()))
+    expect(result).toBeInstanceOf(Set)
+    expect(result.size).toBe(0)
+  })
+  test(' ZodRecord', () => {
+    const result = empty(z.record(z.string()))
+    expect(result).toEqual({})
+  })
+  test('ZodOptional', () => {
+    const result = empty(z.string().optional())
+    expect(result).toBe(undefined)
+  })
+
+  test('ZodNullable', () => {
+    const result = empty(z.string().nullable())
+    expect(result).toBe(null)
+  })
+  test(' ZodUndefined', () => {
+    const result = empty(z.undefined())
+    expect(result).toBe(undefined)
   })
 })
