@@ -124,7 +124,7 @@ Make sure code quality metrics are no worse. This includes things like
 
 1. Avoid CSS class names and selectors in integration tests.
 
-2. Test user-visible behavior. Use locators like `getByRole`, `getByTest`,
+2. Test user-visible behavior. Use locators like `getByRole`, `getByText`,
    `getByLabel` etc.
 
 3. Use `getByTestId` when nothing else works.
