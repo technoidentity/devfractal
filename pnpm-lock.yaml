@@ -3224,6 +3224,9 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../core
+      '@srtp/react':
+        specifier: workspace:*
+        version: link:../react
       class-variance-authority:
         specifier: 0.7.0
         version: 0.7.0
