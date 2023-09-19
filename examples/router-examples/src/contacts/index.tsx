@@ -1,11 +1,11 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { getUsers } from './data/getUsers'
-import { loadRequest } from './data/loadContact'
-import { ErrorPage } from './error pages/ErrorPage'
+
+import { getUsers, loadRequest } from './api'
 import { AddContact, addContact } from './routes/AddContact'
 import { Contacts } from './routes/Contacts'
 import { DeleteContact, deleteContactAction } from './routes/DeleteContact'
 import { EditContact, editContact } from './routes/EditContact'
+import { ErrorPage } from './routes/ErrorPage'
 import { RootLayout } from './routes/RootLayout'
 
 const router = createBrowserRouter([

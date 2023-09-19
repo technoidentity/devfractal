@@ -1,4 +1,10 @@
+import { useRouteError } from 'react-router-dom'
+
 export function ErrorPage(): JSX.Element {
+  const error = useRouteError()
+
+  console.error(error)
+
   return (
     <main className="flex h-[100vh] flex-col justify-center gap-y-8  text-center text-black">
       <p style={{ fontStyle: 'italic' }} className="text-xl">

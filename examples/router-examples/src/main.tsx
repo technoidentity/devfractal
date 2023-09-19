@@ -1,6 +1,6 @@
 import { createRoot } from '@srtp/react'
 
-import { ContactsApp } from '@/ContactsApp'
+import { ContactsApp } from '@/contacts'
 import './global.css'
 
 const root = createRoot('root')

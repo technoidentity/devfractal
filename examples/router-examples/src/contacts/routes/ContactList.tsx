@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+
 import type { ContactList as Contacts } from '../types'
 
 export function ContactList({ contacts }: { contacts: Contacts }): JSX.Element {

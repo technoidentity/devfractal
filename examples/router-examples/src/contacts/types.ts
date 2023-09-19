@@ -1,4 +1,4 @@
-import { number, string } from '@srtp/core'
+import { number, spec, string } from '@srtp/core'
 import z from 'zod'
 
 export const Geo = z.object({
@@ -34,3 +34,6 @@ export type Contact = z.infer<typeof Contact>
 
 export const ContactList = z.array(Contact)
 export type ContactList = z.infer<typeof ContactList>
+
+export const IDParams = spec({ id: number() })
+export const Search = spec({ search: string().optional() })

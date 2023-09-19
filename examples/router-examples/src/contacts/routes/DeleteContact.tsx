@@ -1,10 +1,9 @@
-import { http } from '@srtp/web'
 import { Link, type LoaderFunctionArgs } from 'react-router-dom'
 
-import { baseUrl } from '../data/common'
+import { api } from '../api'
 
 export const deleteContactAction = async ({ params }: LoaderFunctionArgs) => {
-  await http.del$(`${baseUrl}/users/${params['id']}`)
+  await api.del$(`users/${params['id']}`)
 }
 
 export function DeleteContact(): JSX.Element {
