@@ -4,6 +4,7 @@ import { isFunction, linkfn, type Params, type PathBase } from '@srtp/core'
 import { cast } from '@srtp/core'
 import { useEvent } from '@srtp/react'
 import { toSearch } from '@srtp/web'
+import { produce, type Draft } from 'immer'
 import React from 'react'
 import {
   useActionData,
@@ -13,7 +14,6 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 import type { z } from 'zod'
-import { produce, type Draft } from 'immer'
 
 export function safeNavigate<Path extends PathBase>(
   path: Path,
