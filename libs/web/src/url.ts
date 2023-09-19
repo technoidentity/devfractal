@@ -1,5 +1,4 @@
-import { isKey } from '@srtp/core'
-import { debug, isArray, toStr, type Primitive } from '@srtp/core'
+import { debug, isArray, isKey, toStr, type Primitive } from '@srtp/core'
 import invariant from 'tiny-invariant'
 
 // type SearchObj = Record<string, Primitive | Primitive[]>
