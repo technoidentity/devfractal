@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { linkfn, type Params, type PathBase } from '@srtp/core'
+import { isFunction, linkfn, type Params, type PathBase } from '@srtp/core'
 import { cast } from '@srtp/core'
 import { useEvent } from '@srtp/react'
 import { toSearch } from '@srtp/web'
@@ -13,6 +13,7 @@ import {
   useSearchParams,
 } from 'react-router-dom'
 import type { z } from 'zod'
+import { produce, type Draft } from 'immer'
 
 export function safeNavigate<Path extends PathBase>(
   path: Path,
@@ -26,16 +27,21 @@ export function safeNavigate<Path extends PathBase>(
 
 export type UseSearchResult<Spec extends z.ZodTypeAny> = readonly [
   z.infer<Spec> | undefined,
-  (values: z.infer<Spec>) => void,
+  (values: z.infer<Spec> | ((v: Draft<z.infer<Spec>>) => void)) => void,
 ]
 
 export function safeSearch<Spec extends z.ZodTypeAny>(spec: Spec) {
+  type T = z.infer<Spec>
+
   return function useSearch(): UseSearchResult<Spec> {
     const [search, set] = useSearchParams()
 
-    const setSearch = useEvent((values: z.infer<Spec>) =>
-      set(toSearch(cast(spec, values))),
-    )
+    const setSearch = useEvent((values: T | ((v: Draft<T>) => void)) => {
+      set(search => {
+        const v = isFunction(values) ? produce(search, values) : values
+        return toSearch(cast(spec, v))
+      })
+    })
 
     const searchValue = React.useMemo(() => {
       const result = spec.safeParse(Object.fromEntries(search))
