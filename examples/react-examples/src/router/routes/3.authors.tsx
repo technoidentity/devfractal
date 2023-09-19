@@ -1,6 +1,6 @@
 import { HStack } from '@chakra-ui/react'
 import { For } from '@srtp/react'
-import { loaderQuery } from '@srtp/router'
+import { loaderQuery } from '@srtp/router-query'
 import type { QueryFunctionContext } from '@tanstack/react-query'
 import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet } from 'react-router-dom'

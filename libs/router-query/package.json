@@ -1,5 +1,5 @@
 {
-  "name": "@srtp/router",
+  "name": "@srtp/router-query",
   "version": "0.0.1",
   "description": "reducer utilities for local state management",
   "main": "./dist/index.js",
@@ -25,6 +25,9 @@
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/web": "workspace:*",
+    "@srtp/query": "workspace:*",
+    "@srtp/router": "workspace:*",
+    "@tanstack/react-query": "4.35.0",
     "immer": "10.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

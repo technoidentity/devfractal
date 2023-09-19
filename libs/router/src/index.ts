@@ -1,7 +1,5 @@
 export * from './epRouter'
 export * from './hooks'
-export * from './loader'
-export * from './loaderQuery'
 export * from './page'
 export * from './routerPath'
 export * from './utils'

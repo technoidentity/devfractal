@@ -38,6 +38,7 @@
     "@srtp/query": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/router": "workspace:*",
+    "@srtp/router-query": "workspace:*",
     "@srtp/web": "workspace:*",
     "@srtp/ui": "workspace:*",
     "@tabler/icons-react": "2.34.0",
