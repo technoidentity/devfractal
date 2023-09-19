@@ -14,7 +14,9 @@ import {
 } from 'react-router-dom'
 import type { z } from 'zod'
 
-export function safeNavigate<Path extends PathBase>(path: Path) {
+export function safeNavigate<Path extends PathBase>(
+  path: Path,
+): (values: Params<Path>) => void {
   return function useSafeNavigate() {
     const navigate = useNavigate()
 
