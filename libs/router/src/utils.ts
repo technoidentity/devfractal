@@ -2,6 +2,7 @@
 
 import type { Result } from '@srtp/core'
 import { cast, isFail, isUndefined } from '@srtp/core'
+import { fromSearchParams } from '@srtp/web'
 import { json, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
@@ -116,4 +117,14 @@ export function method<Spec extends z.AnyZodObject, R>(
   fn: (values: z.infer<Spec>) => Promise<Result<string, R>>,
 ) {
   return (args: LoaderFunctionArgs) => onlyMethod(args, spec, fn)
+}
+
+export function getSearchParams<Spec extends z.ZodTypeAny>(
+  spec: Spec,
+  search: URLSearchParams | Request,
+) {
+  if (search instanceof Request) {
+    search = new URL(search.url).searchParams
+  }
+  return cast(spec, fromSearchParams(search))
 }
