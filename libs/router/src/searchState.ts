@@ -1,3 +1,4 @@
+import type { Tail } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
 import type { Handlers } from '@srtp/react'
 import React from 'react'
@@ -9,7 +10,7 @@ export type SearchActions<
   Spec extends z.ZodTypeAny,
   Hs extends Handlers<z.infer<Spec>>,
 > = {
-  [A in keyof Hs]: (...args: Parameters<Hs[A]>) => void
+  [A in keyof Hs]: (...args: Tail<Parameters<Hs[A]>>) => void
 }
 
 // @TODO: support initialValue?
