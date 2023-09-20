@@ -6,7 +6,7 @@
       "@/*": ["./src/*"]
     },
     "jsx": "react-jsx",
-    "types": ["node", "vite/client", "@testing-library/jest-dom"]
+    "types": ["node", "vite/client"]
   },
   "include": ["src", "tests", "__previewjs__"]
 }

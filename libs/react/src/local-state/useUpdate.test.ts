@@ -1,6 +1,8 @@
 import { act, renderHook } from '@testing-library/react'
-import { useUpdate, type UpdateHandlers } from 'devfractal'
 import { expect, expectTypeOf, test } from 'vitest'
+
+import type { UpdateHandlers } from './types'
+import { useUpdate } from './useUpdate'
 
 test('useUpdate', () => {
   const initialState = { count: 0, step: 1 }

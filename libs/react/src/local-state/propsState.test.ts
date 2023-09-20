@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
-import { propsState, type PropsStateHandlers } from 'devfractal'
 import { expect, expectTypeOf, test } from 'vitest'
+
+import { propsState, type PropsStateHandlers } from './propsState'
 
 test('propsState', () => {
   const initialState = { count: 1 }

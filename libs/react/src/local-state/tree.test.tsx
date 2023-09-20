@@ -1,7 +1,9 @@
 import { act, renderHook } from '@testing-library/react'
-import { tree, type Handlers } from 'devfractal'
 import React from 'react'
 import { expect, test } from 'vitest'
+
+import { tree } from './treeState'
+import type { Handlers } from './types'
 
 const initialState = { count: 0 }
 

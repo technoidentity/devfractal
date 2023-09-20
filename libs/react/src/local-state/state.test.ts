@@ -1,6 +1,8 @@
 import { act, renderHook } from '@testing-library/react'
-import { state, type Handlers } from 'devfractal'
 import { test, expect, expectTypeOf } from 'vitest'
+
+import { state } from './localState'
+import type { Handlers } from './types'
 
 test('state', () => {
   const initialState = { count: 0 }
