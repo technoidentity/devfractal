@@ -13,12 +13,13 @@ export class CastError extends Error {
     const specStr = jstr(spec)
     const objectStr = jstr(object)
     super(
-      `${zodError.message}\n\nformattedError: ${formatted}\n\nvalue: ${objectStr}\n\nspec: ${specStr}`,
+      `Errors: ${formatted}\n\nValue: ${objectStr}\n\nZod Error: ${zodError.message}\n\nSchema: ${specStr}`,
     )
 
     this.name = 'CastError'
   }
 }
+
 export function cast<Spec extends z.ZodTypeAny>(
   spec: Spec,
   v: unknown,
