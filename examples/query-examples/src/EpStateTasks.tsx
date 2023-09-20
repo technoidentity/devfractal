@@ -1,8 +1,7 @@
 import type { Task } from '@srtp/fake-tasks'
 import { taskEndpoints } from '@srtp/fake-tasks'
 import { epQueryState } from '@srtp/query'
-
-import { TasksList } from './TaskViews'
+import { TasksList } from '@srtp/ui-tasks'
 
 const baseUrl = '/api'
 

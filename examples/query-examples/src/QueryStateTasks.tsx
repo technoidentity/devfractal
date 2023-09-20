@@ -2,11 +2,9 @@
 import { cast } from '@srtp/core'
 import { Task } from '@srtp/fake-tasks'
 import { queryState } from '@srtp/query'
+import { TasksList } from '@srtp/ui-tasks'
 import { http } from '@srtp/web'
-
 import { z } from 'zod'
-
-import { TasksList } from './TaskViews'
 
 const TaskListSpec = z.array(Task)
 

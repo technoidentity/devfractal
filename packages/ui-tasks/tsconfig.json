@@ -1,0 +1,5 @@
+{
+  "extends": "@srtp/tsconfig/react.json",
+  "compilerOptions": { "types": ["@testing-library/jest-dom"] },
+  "include": ["src", "tests", "__previewjs__", "vitest.config.ts"]
+}

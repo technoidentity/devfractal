@@ -9,7 +9,7 @@ import {
   HStack,
   Input,
   Text,
-} from '@srtp/ui'
+} from '@srtp/ui-core'
 import { Trash2 } from 'lucide-react'
 
 export type TaskItemProps = Readonly<{
