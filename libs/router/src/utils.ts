@@ -50,12 +50,20 @@ export function actionResult<T>(
     : redirect(options.redirectUrl)
 }
 
-export async function safeFormData<Output, Input>(
+export async function formData<Output, Input>(
   spec: z.ZodType<Output, z.ZodTypeDef, Input>,
   request: Request,
 ) {
   const values = Object.fromEntries(await request.clone().formData())
   return spec.safeParse(values)
+}
+
+export async function safeFormData<Output, Input>(
+  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
+  request: Request,
+) {
+  const values = Object.fromEntries(await request.clone().formData())
+  return cast(spec, values)
 }
 
 export async function safeAction<Spec extends z.AnyZodObject, R>(
@@ -122,9 +130,10 @@ export function method<Spec extends z.AnyZodObject, R>(
 export function getSearchParams<Spec extends z.ZodTypeAny>(
   spec: Spec,
   search: URLSearchParams | Request,
-) {
+): z.infer<Spec> {
   if (search instanceof Request) {
     search = new URL(search.url).searchParams
   }
+
   return cast(spec, fromSearchParams(search))
 }
