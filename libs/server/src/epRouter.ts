@@ -42,9 +42,6 @@ function epHandler<Ep extends EndpointBase>(ep: Ep, fn: EpHandler<Ep>) {
     }
 
     const response = fn(args)
-    if (ep.method === 'delete') {
-      console.log({ response })
-    }
 
     if (isUndefined(response)) {
       c.status(StatusCodes.NO_CONTENT)
