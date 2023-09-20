@@ -20,9 +20,13 @@ import { useContact, useIdParams } from './hooks'
 export const editContact = async ({
   request,
 }: LoaderFunctionArgs): Promise<Response> => {
-  const updates = safeFormData(Contact, request)
+  console.log(Object.fromEntries(await request.clone().formData()))
 
-  await api.post(Contact, `users`, updates)
+  const contact = await safeFormData(Contact.partial(), request)
+
+  const patchContact = await api.patch(Contact, `users/${contact.id}`, contact)
+
+  console.log({ patchContact })
 
   return redirect('/')
 }
@@ -42,14 +46,14 @@ export function EditContact(): JSX.Element {
       <CardContent>
         <Form method="post" className="rounded-2xl">
           <VStack className="gap-y-4">
+            <input type="hidden" name="id" defaultValue={contact.id} />
             <HStack className="items-center gap-x-8 px-4">
               <Label htmlFor="name" className="block">
-                Name:{' '}
+                Name:
               </Label>
               <Input
                 type="text"
-                placeholder={contact.name}
-                id="name"
+                defaultValue={contact.name}
                 name="name"
                 className="rounded-full px-4"
               />
@@ -59,9 +63,8 @@ export function EditContact(): JSX.Element {
               <Label htmlFor="phone">Contact:</Label>
               <Input
                 type="text"
-                placeholder={contact.phone}
-                id="phone"
-                name="contact"
+                defaultValue={contact.phone}
+                name="phone"
                 className="rounded-full px-4"
               />
             </HStack>
@@ -70,8 +73,7 @@ export function EditContact(): JSX.Element {
               <Label htmlFor="email">Email: </Label>
               <Input
                 type="email"
-                placeholder={contact.email}
-                id="email"
+                defaultValue={contact.email}
                 name="email"
                 className="rounded-full px-4"
               />
@@ -81,9 +83,8 @@ export function EditContact(): JSX.Element {
               <Label htmlFor="job">Title: </Label>
               <Input
                 type="text"
-                placeholder={contact.website}
-                name="job"
-                id="job"
+                defaultValue={contact.website}
+                name="website"
                 className="rounded-full px-4"
               />
             </HStack>

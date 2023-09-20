@@ -25,11 +25,12 @@ export const Contact = z.object({
   name: string(),
   username: string(),
   email: string(),
-  address: Address,
+  address: Address.optional(),
   phone: string(),
   website: string(),
-  company: Company,
+  company: Company.optional(),
 })
+
 export type Contact = z.infer<typeof Contact>
 
 export const ContactList = z.array(Contact)
