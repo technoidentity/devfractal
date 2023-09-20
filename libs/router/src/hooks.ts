@@ -38,7 +38,10 @@ export function safeSearch<Spec extends z.ZodTypeAny>(spec: Spec) {
 
     const setSearch = useEvent((values: T | ((v: Draft<T>) => void)) => {
       set(search => {
-        const v = isFunction(values) ? produce(search, values) : values
+        const v = isFunction(values)
+          ? produce(cast(spec, Object.fromEntries(search)), values)
+          : values
+
         return toSearch(cast(spec, v))
       })
     })
