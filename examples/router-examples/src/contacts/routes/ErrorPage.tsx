@@ -1,3 +1,4 @@
+import { Text, VStack } from '@srtp/ui'
 import { useRouteError } from 'react-router-dom'
 
 export function ErrorPage(): JSX.Element {
@@ -6,13 +7,11 @@ export function ErrorPage(): JSX.Element {
   console.error(error)
 
   return (
-    <main className="flex h-[100vh] flex-col justify-center gap-y-8  text-center text-black">
-      <p style={{ fontStyle: 'italic' }} className="text-xl">
-        Oops!
-      </p>
-      <p className="text-xl font-semibold">
+    <VStack className="h-screen justify-center gap-y-8  text-center text-black">
+      <Text className="text-xl italic">Oops!</Text>
+      <Text className="text-xl font-semibold">
         Failed to load the requested data!
-      </p>
-    </main>
+      </Text>
+    </VStack>
   )
 }
