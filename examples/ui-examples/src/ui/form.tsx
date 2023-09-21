@@ -159,6 +159,7 @@ export const FormExample = () => {
     <div className="container">
       <ThemeSelector className="my-2" />
 
+      {/* eslint-disable-next-line no-console */}
       <Form onSubmit={console.log}>
         <InputExample />
         <PasswordExample />

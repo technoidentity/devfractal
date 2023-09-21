@@ -93,7 +93,7 @@ module.exports = {
     '@typescript-eslint/require-array-sort-compare': 'warn',
     '@typescript-eslint/unified-signatures': 'warn',
 
-    'no-console': 'warn',
+    'no-console': ['warn', { allow: ['warn', 'error', 'trace'] }],
     'array-callback-return': 'warn',
     'class-methods-use-this': 'warn',
     'constructor-super': 'warn',

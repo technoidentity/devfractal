@@ -43,6 +43,7 @@ export const QueryTaskApp = () => {
 
   const tasks = cast(TaskListSpec, data)
 
+  // eslint-disable-next-line no-console
   console.count()
 
   return (

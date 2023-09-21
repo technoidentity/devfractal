@@ -29,6 +29,7 @@ export const QueryTaskApp = () => {
   const onRemove = (id: number) =>
     removeTask.mutate({ params: { id }, invalidateKey })
 
+  // eslint-disable-next-line no-console
   console.count()
 
   return (

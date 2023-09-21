@@ -31,6 +31,7 @@ export const TaskForm = () => {
         <form
           onSubmit={evt => {
             evt.preventDefault()
+            // eslint-disable-next-line no-console
             console.log({ todo })
           }}
         >

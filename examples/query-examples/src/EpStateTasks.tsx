@@ -31,6 +31,7 @@ export const QueryTaskApp = () => {
   const addTask = api.useAddTask({ invalidateKey })
   const removeTask = api.useRemoveTask({ invalidateKey })
 
+  // eslint-disable-next-line no-console
   console.count()
 
   return (

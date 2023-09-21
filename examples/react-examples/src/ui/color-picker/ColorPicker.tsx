@@ -18,6 +18,7 @@ export const ColorPicker = ({ color }: ColorPickerProps) => {
         w="400px"
         defaultValue={35}
         colorScheme={color}
+        // eslint-disable-next-line no-console
         onChange={console.log}
       >
         <SliderTrack>

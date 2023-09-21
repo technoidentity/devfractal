@@ -20,6 +20,7 @@ export function useRefreshQueryFromWebsocket(
   React.useEffect(() => {
     const websocket = new WebSocket(wsUrl)
     websocket.onopen = () => {
+      // eslint-disable-next-line no-console
       console.log('connected')
     }
 

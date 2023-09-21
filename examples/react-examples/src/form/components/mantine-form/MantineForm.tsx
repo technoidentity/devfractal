@@ -50,6 +50,7 @@ export const MantineForm = () => {
           Create account
         </Anchor>
       </Text>
+      {/* eslint-disable-next-line no-console */}
       <Form onSubmit={console.log}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
           <Inputs.Str

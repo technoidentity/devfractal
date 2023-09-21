@@ -44,6 +44,7 @@ const Fields = () => {
 
 export const SignupForm = () => {
   return (
+    // eslint-disable-next-line no-console
     <SearchForm onSuccess={console.log}>
       <VStack>
         <Fields />

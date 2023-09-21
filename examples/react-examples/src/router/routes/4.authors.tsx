@@ -25,6 +25,7 @@ const [authorsLoader, useAuthors] = getLoaders(
 
 function useLogOnCommit(message: unknown) {
   React.useEffect(() => {
+    // eslint-disable-next-line no-console
     console.log(message)
   })
 }

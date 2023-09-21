@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Box, Button, Heading, Input } from '@chakra-ui/react'
 import { conform, useForm } from '@conform-to/react'
 import type { RouteObject } from 'react-router-dom'

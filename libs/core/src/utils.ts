@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { z } from 'zod'
 
 import { fail, ok, type Result, type Try } from './result'

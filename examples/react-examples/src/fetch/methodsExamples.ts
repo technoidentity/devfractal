@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { http } from '@srtp/web'
 import { z } from 'zod'
 

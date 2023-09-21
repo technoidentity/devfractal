@@ -6,6 +6,7 @@ export function parseJSON(value: string | null): unknown {
   try {
     return value === 'undefined' ? undefined : JSON.parse(value ?? '')
   } catch {
+    // eslint-disable-next-line no-console
     console.error('parsing error on', { value })
 
     return undefined
