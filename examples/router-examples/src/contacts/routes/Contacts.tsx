@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardContent,
   CardFooter,
@@ -32,12 +31,12 @@ export function Contacts(): JSX.Element {
         >
           Edit
         </Link>
-        <Button
-          variant="destructive"
-          className="rounded-full border bg-red-500 px-4 py-2 text-lg text-white"
+        <Link
+          to={`/contacts/${id}/destroy`}
+          className="rounded-full border bg-red-500 px-4 py-2 text-lg text-white bg-red-500"
         >
           Delete
-        </Button>
+        </Link>
       </CardFooter>
     </Card>
   )
