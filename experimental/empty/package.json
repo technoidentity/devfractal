@@ -1,7 +1,7 @@
 {
-  "name": "@srtp/fake",
+  "name": "@srtp/empty",
   "version": "0.0.1",
-  "description": "fake value from zod",
+  "description": "empty value from zod",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -24,7 +24,6 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "@faker-js/faker": "8.0.2",
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
     "immer": "10.0.2",
