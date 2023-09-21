@@ -42,6 +42,7 @@ module.exports = {
       'warn',
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
     ],
+
     'no-useless-constructor': 'off',
     '@typescript-eslint/restrict-plus-operands': 'off',
     '@typescript-eslint/member-ordering': 'off',
@@ -92,6 +93,7 @@ module.exports = {
     '@typescript-eslint/require-array-sort-compare': 'warn',
     '@typescript-eslint/unified-signatures': 'warn',
 
+    'no-console': 'warn',
     'array-callback-return': 'warn',
     'class-methods-use-this': 'warn',
     'constructor-super': 'warn',
