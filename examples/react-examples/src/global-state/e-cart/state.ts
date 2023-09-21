@@ -30,7 +30,7 @@ export const addToCart = action(cartAtom, ({ state }, product: Product) => {
 export const removeFromCart = action(({ set }, cartItem: CartItem) =>
   set(cartAtom, draft => {
     const index = draft.findIndex(item => original(item) === cartItem)
-    console.log({ index })
+
     if (index !== -1) {
       draft.splice(index, 1)
     }
@@ -62,6 +62,5 @@ export const totalCartPrice = computed(get =>
 )
 
 export const totalCartItems = computed(get => {
-  console.log(get(cartAtom))
   return get(cartAtom).reduce((acc, v) => acc + v.count, 0)
 })

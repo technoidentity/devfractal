@@ -88,7 +88,6 @@ export const StepperForm = () => {
   })
 
   const nextStep = () => {
-    console.log(form.validate().hasErrors, form.validate().errors)
     setActive(current => {
       if (form.validate().hasErrors) {
         return current

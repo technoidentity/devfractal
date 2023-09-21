@@ -20,13 +20,9 @@ import { useContact, useIdParams } from './hooks'
 export const editContact = async ({
   request,
 }: LoaderFunctionArgs): Promise<Response> => {
-  console.log(Object.fromEntries(await request.clone().formData()))
-
   const contact = await safeFormData(Contact.partial(), request)
 
-  const patchContact = await api.patch(Contact, `users/${contact.id}`, contact)
-
-  console.log({ patchContact })
+  await api.patch(Contact, `users/${contact.id}`, contact)
 
   return redirect('/')
 }

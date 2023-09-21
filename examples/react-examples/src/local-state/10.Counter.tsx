@@ -4,8 +4,6 @@ import { useInt } from '@srtp/react'
 export const Counter = () => {
   const [count, setCount] = useInt()
 
-  console.log('render', count)
-
   return (
     <Container>
       <HStack>

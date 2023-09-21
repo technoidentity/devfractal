@@ -40,10 +40,6 @@ const CounterActions = () => {
 }
 
 const Header = () => {
-  React.useEffect(() => {
-    console.log('header')
-  })
-
   return <Heading textAlign="center">Jotai Course</Heading>
 }
 

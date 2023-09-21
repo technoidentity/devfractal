@@ -28,7 +28,6 @@ const useNumbersSearch = searchState(Numbers, {
 const SearchStateExample = () => {
   const [state, actions] = useNumbersSearch()
 
-  console.log({ state })
   return (
     <Container className="p-4">
       <Flex className="gap-2">
