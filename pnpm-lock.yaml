@@ -1103,6 +1103,9 @@ importers:
       '@playwright/test':
         specifier: 1.37.1
         version: 1.37.1
+      '@types/node':
+        specifier: 20.5.9
+        version: 20.5.9
       cross-env:
         specifier: 7.0.3
         version: 7.0.3

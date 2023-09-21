@@ -28,7 +28,10 @@ export const addContact = async ({
 
 export function AddContact(): JSX.Element {
   return (
-    <Card className="bg-gray-100 m-auto text-lg text-black">
+    <Card
+      className="bg-gray-100 m-auto text-lg text-black"
+      data-testId="add-contact"
+    >
       <CardHeader>
         <CardTitle>Add new contact</CardTitle>
         <CardDescription>Please fill out the details! </CardDescription>
