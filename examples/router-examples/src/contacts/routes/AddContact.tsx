@@ -30,7 +30,7 @@ export function AddContact(): JSX.Element {
   return (
     <Card
       className="bg-gray-100 m-auto text-lg text-black"
-      data-testid="add-contact"
+      data-testId="add-contact"
     >
       <CardHeader>
         <CardTitle>Add new contact</CardTitle>
