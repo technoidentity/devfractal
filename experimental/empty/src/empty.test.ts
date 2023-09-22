@@ -23,7 +23,21 @@ const person = z.object({
     }),
   ),
 })
+const Circle = z.object({
+  shape: z.literal('circle'),
+  radius: z.number(),
+})
 
+const Square = z.object({
+  shape: z.literal('square'),
+  sideLength: z.number(),
+})
+const MySchema = z
+  .string()
+  .refine(str => str.length >= 5, {
+    message: 'String length must be at least 5',
+  })
+  .transform(str => str.toUpperCase())
 describe('empty', () => {
   test('string', () => {
     const result = empty(z.string())
@@ -109,5 +123,14 @@ describe('empty', () => {
   test(' ZodAny', () => {
     const result = empty(z.any())
     expect(result).toBe(null)
+  })
+  test('ZodDiscriminatedUnion', () => {
+    const Shape = z.union([Circle, Square])
+    const result = empty(Shape)
+    expect(result).toEqual({ shape: '', radius: 0 })
+  })
+  test('should handle ZodEffects', () => {
+    const result = empty(MySchema)
+    expect(result).toBe('')
   })
 })

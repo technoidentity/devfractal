@@ -24,13 +24,12 @@ export const SupportedTypes = z.enum([
   'ZodNull',
   'ZodAny',
   'ZodUnknown',
-  'ZodMap',
-  'ZodSet',
   'ZodOptional',
   'ZodNullable',
   'unknown',
   'any',
   'ZodEffects',
+  'ZodDiscriminatedUnion',
 ])
 
 export type SupportedTypes = z.infer<typeof SupportedTypes>
@@ -134,5 +133,9 @@ export function empty(spec: z.ZodTypeAny): any {
   }
   if (type === 'ZodEffects') {
     return empty(spec._def.schema)
+  }
+  if (type === 'ZodDiscriminatedUnion') {
+    const firstOption = spec._def.members[0]
+    return firstOption
   }
 }
