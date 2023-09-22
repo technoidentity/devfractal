@@ -1,34 +1,12 @@
 import { number, spec, string } from '@srtp/core'
 import z from 'zod'
 
-export const Geo = z.object({
-  lat: string(),
-  lng: string(),
-})
-
-export const Address = z.object({
-  street: string(),
-  suite: string(),
-  city: string(),
-  zipcode: string(),
-  geo: Geo,
-})
-
-export const Company = z.object({
-  name: string(),
-  catchPhrase: string(),
-  bs: string(),
-})
-
 export const Contact = z.object({
   id: number(),
   name: string(),
-  username: string(),
   email: string(),
-  address: Address.optional(),
   phone: string(),
   website: string(),
-  company: Company.optional(),
 })
 
 export type Contact = z.infer<typeof Contact>

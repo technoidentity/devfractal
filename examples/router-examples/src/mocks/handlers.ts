@@ -9,44 +9,32 @@ import {
 } from './contacts'
 
 export const handlers = [
-  rest.get('https://jsonplaceholder.typicode.com', (_req, res, ctx) => {
+  rest.get('/api/users', (_req, res, ctx) => {
     return res(ctx.json(getContacts()))
   }),
 
-  rest.get(
-    'https://jsonplaceholder.typicode.com/users/:id',
-    (req, res, ctx) => {
-      const { id } = req.params
+  rest.get('/api/users/:id', (req, res, ctx) => {
+    const { id } = req.params
 
-      return res(ctx.json(getContactById(toInt(id))))
-    },
-  ),
+    return res(ctx.json(getContactById(toInt(id))))
+  }),
 
-  rest.post(
-    'https://jsonplaceholder.typicode.com/users',
-    async (req, res, ctx) => {
-      const contact = await req.json()
+  rest.post('/api/users', async (req, res, ctx) => {
+    const contact = await req.json()
 
-      return res(ctx.json(addContact(contact)))
-    },
-  ),
+    return res(ctx.json(addContact(contact)))
+  }),
 
-  rest.patch(
-    'https://jsonplaceholder.typicode.com/users/:id',
-    async (req, res, ctx) => {
-      const update = await req.json()
-      const { id } = req.params
+  rest.patch('/api/users/:id', async (req, res, ctx) => {
+    const update = await req.json()
+    const { id } = req.params
 
-      return res(ctx.json(editContactDetails(toInt(id), update)))
-    },
-  ),
+    return res(ctx.json(editContactDetails(toInt(id), update)))
+  }),
 
-  rest.delete(
-    'https://jsonplaceholder.typicode.com/users/:id',
-    (req, res, ctx) => {
-      const { id } = req.params
+  rest.delete('/api/users', (req, res, ctx) => {
+    const { id } = req.params
 
-      return res(ctx.json(deleteContact(toInt(id))))
-    },
-  ),
+    return res(ctx.json(deleteContact(toInt(id))))
+  }),
 ]

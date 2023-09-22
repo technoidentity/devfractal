@@ -7,7 +7,7 @@ import { api } from './common'
 export const getUsers = async ({
   request,
 }: LoaderFunctionArgs): Promise<ContactList> => {
-  const contacts = await api.get(ContactList, `users`)
+  const contacts = await api.get(ContactList, 'users')
 
   const { search } = getSearchParams(Search, request)
 
