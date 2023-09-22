@@ -1,6 +1,7 @@
 import { createRoot } from '@srtp/react'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { ContactsApp } from '@/contacts'
+import { contactsRouter } from '@/contacts'
 import './global.css'
 
 if (import.meta.env.DEV) {
@@ -9,5 +10,11 @@ if (import.meta.env.DEV) {
 }
 
 const root = createRoot('root')
+
+const router = createBrowserRouter(contactsRouter)
+
+function ContactsApp(): JSX.Element {
+  return <RouterProvider router={router} />
+}
 
 root.render(<ContactsApp />)

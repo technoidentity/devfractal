@@ -1,5 +1,3 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-
 import { getUsers, loadRequest } from './api'
 import { AddContact, addContact } from './routes/AddContact'
 import { Contacts } from './routes/Contacts'
@@ -8,7 +6,7 @@ import { EditContact, editContact } from './routes/EditContact'
 import { ErrorPage } from './routes/ErrorPage'
 import { RootLayout } from './routes/RootLayout'
 
-const router = createBrowserRouter([
+export const contactsRouter = [
   {
     path: '/',
     element: <RootLayout />,
@@ -39,8 +37,4 @@ const router = createBrowserRouter([
       },
     ],
   },
-])
-
-export function ContactsApp(): JSX.Element {
-  return <RouterProvider router={router} />
-}
+]
