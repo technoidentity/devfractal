@@ -30,7 +30,7 @@ export function AddContact(): JSX.Element {
   return (
     <Card
       className="bg-gray-100 m-auto text-lg text-black"
-      data-testId="add-contact"
+      data-testid="add-contact"
     >
       <CardHeader>
         <CardTitle>Add new contact</CardTitle>
@@ -73,12 +73,12 @@ export function AddContact(): JSX.Element {
             </HStack>
 
             <HStack className="justify-between items-center gap-x-16">
-              <Label htmlFor="job">Title: </Label>
+              <Label htmlFor="website">Website: </Label>
               <Input
                 type="text"
-                placeholder="Job"
-                name="job"
-                id="job"
+                placeholder="Website"
+                name="website"
+                id="website"
                 className="rounded-full px-4"
               />
             </HStack>
