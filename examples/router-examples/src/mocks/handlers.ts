@@ -20,9 +20,9 @@ export const handlers = [
   }),
 
   rest.post('/api/users', async (req, res, ctx) => {
-    const contact = await req.json()
+    const { name, email, phone, website } = await req.json()
 
-    return res(ctx.json(addContact(contact)))
+    return res(ctx.json(addContact({ name, email, phone, website })))
   }),
 
   rest.patch('/api/users/:id', async (req, res, ctx) => {
@@ -32,7 +32,7 @@ export const handlers = [
     return res(ctx.json(editContactDetails(toInt(id), update)))
   }),
 
-  rest.delete('/api/users', (req, res, ctx) => {
+  rest.delete('/api/users/:id', (req, res, ctx) => {
     const { id } = req.params
 
     return res(ctx.json(deleteContact(toInt(id))))

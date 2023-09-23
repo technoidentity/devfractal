@@ -1,6 +1,6 @@
 import { isDefined, isUndefined } from '@srtp/core'
 
-export const contacts = [
+const mockContacts = [
   {
     id: 1,
     name: 'Leanne Graham',
@@ -153,6 +153,7 @@ export const contacts = [
   // },
 ]
 
+const contacts: typeof mockContacts = []
 // For id
 let idIndex = 11
 
@@ -215,3 +216,9 @@ export const deleteContact = (id: number) => {
 
   return undefined
 }
+
+const initialiseContacts = () => {
+  contacts.push(...mockContacts)
+}
+
+initialiseContacts()
