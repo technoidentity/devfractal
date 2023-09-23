@@ -5,6 +5,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  HStack,
   Text,
 } from '@srtp/ui'
 import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
@@ -32,20 +33,23 @@ export function Contacts(): JSX.Element {
         <Text>{contact.email}</Text>
         <Text>{contact.website}</Text>
       </CardContent>
-      <CardFooter className="gap-x-10">
-        <Link
-          to={`/contacts/${Number(id)}/edit`}
-          className="rounded-full border bg-white px-4 py-2 text-lg "
-        >
-          Edit
-        </Link>
+      <CardFooter>
         <Form method="delete">
-          <Button
-            type="submit"
-            className="rounded-full border bg-red-500 px-4 py-2 text-lg text-white bg-red-500"
-          >
-            Delete
-          </Button>
+          <HStack className="justify-evenly items-center gap-x-10">
+            <Link
+              to={`/contacts/${Number(id)}/edit`}
+              className="rounded-full border bg-white px-4 py-2 text-sm"
+            >
+              Edit
+            </Link>
+
+            <Button
+              type="submit"
+              className="rounded-full border px-4 py-2 text-sm text-white bg-red-500"
+            >
+              Delete
+            </Button>
+          </HStack>
         </Form>
       </CardFooter>
     </Card>

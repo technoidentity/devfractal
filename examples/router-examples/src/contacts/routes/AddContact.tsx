@@ -29,7 +29,7 @@ export const addContact = async ({
 export function AddContact(): JSX.Element {
   return (
     <Card
-      className="bg-gray-100 m-auto text-lg text-black"
+      className="bg-gray-100 m-auto w-[80%] text-lg text-black"
       data-testid="add-contact"
     >
       <CardHeader>
@@ -38,59 +38,66 @@ export function AddContact(): JSX.Element {
       </CardHeader>
       <CardContent>
         <Form method="post" className="rounded-2xl">
-          <VStack className="space-y-2">
-            <HStack className="justify-between items-center gap-x-16">
-              <Label htmlFor="name">Name: </Label>
+          <VStack className="gap-y-4 ">
+            <VStack className="gap-y-2">
+              <Label htmlFor="name" className="block text-left px-2">
+                Name:
+              </Label>
               <Input
                 type="text"
                 placeholder="Name"
-                id="name"
                 name="name"
-                className="rounded-full px-4"
+                className="rounded-full p-2"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="justify-between items-center gap-x-16">
-              <Label htmlFor="phone">Contact:</Label>
+            <VStack className="gap-y-2">
+              <Label htmlFor="phone" className="block text-left px-2">
+                Contact:
+              </Label>
               <Input
                 type="text"
-                placeholder="Contact"
-                id="phone"
-                name="contact"
+                placeholder="Phone"
+                name="phone"
                 className="rounded-full px-4"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="justify-between items-center gap-x-16">
-              <Label htmlFor="email">Email: </Label>
+            <VStack className="gap-y-2">
+              <Label htmlFor="email" className="block text-left px-2">
+                Email:
+              </Label>
               <Input
                 type="email"
                 placeholder="Email"
-                id="email"
                 name="email"
                 className="rounded-full px-4"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="justify-between items-center gap-x-16">
-              <Label htmlFor="website">Website: </Label>
+            <VStack className="gap-y-2">
+              <Label htmlFor="website" className="block text-left px-2">
+                Website:{' '}
+              </Label>
               <Input
                 type="text"
                 placeholder="Website"
                 name="website"
-                id="website"
                 className="rounded-full px-4"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="justify-evenly py-8">
+            <HStack className="justify-evenly items-center">
               <Button
                 type="submit"
                 className="rounded-full border bg-blue-400 px-8 py-2 text-white"
               >
                 Save
               </Button>
-              <Link to="/" className="rounded-full bg-white px-4 py-2">
+              <Link
+                to="/"
+                className="rounded-full px-8 py-2 text-sm bg-red-500 text-white"
+              >
                 Cancel
               </Link>
             </HStack>
