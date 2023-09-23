@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardContent,
   CardFooter,
@@ -6,9 +7,16 @@ import {
   CardTitle,
   Text,
 } from '@srtp/ui'
-import { Link } from 'react-router-dom'
+import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 
+import { api } from '../api'
 import { useContact, useIdParams } from './hooks'
+
+export const deleteContactAction = async ({ params }: LoaderFunctionArgs) => {
+  await api.del$(`users/${params['id']}`)
+
+  return redirect(`/contacts/${params['id']}/destroy`)
+}
 
 export function Contacts(): JSX.Element {
   const contact = useContact()
@@ -31,12 +39,14 @@ export function Contacts(): JSX.Element {
         >
           Edit
         </Link>
-        <Link
-          to={`/contacts/${id}/destroy`}
-          className="rounded-full border bg-red-500 px-4 py-2 text-lg text-white bg-red-500"
-        >
-          Delete
-        </Link>
+        <Form method="delete">
+          <Button
+            type="submit"
+            className="rounded-full border bg-red-500 px-4 py-2 text-lg text-white bg-red-500"
+          >
+            Delete
+          </Button>
+        </Form>
       </CardFooter>
     </Card>
   )

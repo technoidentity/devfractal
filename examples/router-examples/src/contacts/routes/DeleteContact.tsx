@@ -1,11 +1,5 @@
 import { Text, VStack } from '@srtp/ui'
-import { Link, type LoaderFunctionArgs } from 'react-router-dom'
-
-import { api } from '../api'
-
-export const deleteContactAction = async ({ params }: LoaderFunctionArgs) => {
-  await api.del$(`users/${params['id']}`)
-}
+import { Link } from 'react-router-dom'
 
 export function DeleteContact(): JSX.Element {
   return (

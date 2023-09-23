@@ -11,7 +11,7 @@ export function RootLayout(): JSX.Element {
   return (
     <Box as="aside" className="grid grid-cols-2 px-2 text-center text-black">
       <Box as="section" className="w-[70%]">
-        <HStack className="gap-x-4 border-2 bg-gray-100 p-4">
+        <HStack className="gap-x-4 border-2 bg-gray-100 p-4 items-center">
           <Label>
             <Input
               className="rounded-full border px-4 py-2"
