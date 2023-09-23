@@ -1,7 +1,7 @@
 import { getUsers, loadRequest } from './api'
 import { AddContact, addContact } from './routes/AddContact'
-import { Contacts } from './routes/Contacts'
-import { DeleteContact, deleteContactAction } from './routes/DeleteContact'
+import { Contacts, deleteContactAction } from './routes/Contacts'
+import { DeleteContact } from './routes/DeleteContact'
 import { EditContact, editContact } from './routes/EditContact'
 import { ErrorPage } from './routes/ErrorPage'
 import { RootLayout } from './routes/RootLayout'
@@ -17,6 +17,7 @@ export const contactsRouter = [
         path: 'contacts/:id',
         element: <Contacts />,
         loader: loadRequest,
+        action: deleteContactAction,
         errorElement: <ErrorPage />,
       },
       {
@@ -28,7 +29,6 @@ export const contactsRouter = [
       {
         path: '/contacts/:id/destroy',
         element: <DeleteContact />,
-        action: deleteContactAction,
       },
       {
         path: '/contacts/add',
