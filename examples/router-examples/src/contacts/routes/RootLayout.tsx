@@ -9,12 +9,15 @@ export function RootLayout(): JSX.Element {
   const submit = useSubmit()
 
   return (
-    <Box as="aside" className="grid grid-cols-2 px-2 text-center text-black">
-      <Box as="section" className="w-[70%]">
-        <HStack className="gap-x-4 border-2 bg-gray-100 p-4 items-center">
+    <Box
+      as="aside"
+      className="grid grid-cols-2 px-2 text-center text-black py-2"
+    >
+      <Box as="section" className="w-3/5 space-y-1">
+        <HStack className="gap-x-4 border-2 bg-gray-200 p-4 justify-center rounded-lg">
           <Label>
             <Input
-              className="rounded-full border px-4 py-2"
+              className="rounded-full w-full border px-4 py-2"
               type="search"
               name="search"
               placeholder="Search..."
@@ -25,7 +28,7 @@ export function RootLayout(): JSX.Element {
           </Label>
           <Link
             to="/contacts/add"
-            className="rounded-lg border bg-white px-4 py-2 hover:bg-blue-400 hover:text-white"
+            className="rounded-lg border bg-white px-4 py-1 hover:bg-blue-400 hover:text-white"
           >
             New
           </Link>

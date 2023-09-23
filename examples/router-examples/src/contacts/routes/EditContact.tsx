@@ -42,50 +42,57 @@ export function EditContact(): JSX.Element {
       <CardContent>
         <Form method="post" className="rounded-2xl">
           <VStack className="gap-y-4">
-            <input type="hidden" name="id" defaultValue={contact.id} />
-            <HStack className="items-center gap-x-8 px-4">
-              <Label htmlFor="name" className="block">
+            <Input type="hidden" name="id" defaultValue={contact.id} />
+
+            <VStack className="gap-y-2">
+              <Label htmlFor="name" className="block text-left px-2">
                 Name:
               </Label>
               <Input
                 type="text"
                 defaultValue={contact.name}
                 name="name"
-                className="rounded-full px-4"
+                className="rounded-full p-2"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="items-center gap-x-8 px-4">
-              <Label htmlFor="phone">Contact:</Label>
+            <VStack className="gap-y-2">
+              <Label htmlFor="phone" className="block text-left px-2">
+                Contact:
+              </Label>
               <Input
                 type="text"
                 defaultValue={contact.phone}
                 name="phone"
                 className="rounded-full px-4"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="items-center gap-x-8 px-4">
-              <Label htmlFor="email">Email: </Label>
+            <VStack className="gap-y-2">
+              <Label htmlFor="email" className="block text-left px-2">
+                Email:
+              </Label>
               <Input
                 type="email"
                 defaultValue={contact.email}
                 name="email"
                 className="rounded-full px-4"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="items-center gap-x-8 px-4">
-              <Label htmlFor="job">Title: </Label>
+            <VStack className="gap-y-2">
+              <Label htmlFor="website" className="block text-left px-2">
+                Website:{' '}
+              </Label>
               <Input
                 type="text"
                 defaultValue={contact.website}
                 name="website"
                 className="rounded-full px-4"
               />
-            </HStack>
+            </VStack>
 
-            <HStack className="flex mt-8 items-center justify-evenly">
+            <HStack className="items-center justify-evenly">
               <Button
                 type="submit"
                 className="rounded-full border bg-blue-400 px-8 py-2 text-white"
@@ -94,7 +101,7 @@ export function EditContact(): JSX.Element {
               </Button>
               <Link
                 to={`/contacts/${id}`}
-                className="rounded-full bg-white px-4 py-2"
+                className="rounded-full bg-red-500 text-white px-8 py-2 text-sm"
               >
                 Cancel
               </Link>
