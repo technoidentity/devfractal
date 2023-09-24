@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test'
-
-const baseUrl = 'http://localhost:3000'
+import { baseUrl, getAnyContactLocator, mockContacts } from './utils'
 
 test.describe('contacts router example', () => {
   test.beforeEach(async ({ page }) => {
@@ -16,11 +15,12 @@ test.describe('contacts router example', () => {
 
     await expect(page.getByRole('listitem')).toHaveCount(10)
     await expect(searchBar).toBeEnabled()
+
     await expect(addNewButton).toHaveAttribute('href', '/contacts/add')
     await expect(addNewButton).toBeEnabled()
 
-    await searchBar.type('test string')
-    await expect(searchBar).toHaveValue('test string')
+    await searchBar.fill('test_string')
+    await expect(searchBar).toHaveValue('test_string')
 
     await addNewButton.click()
     await expect(page).toHaveURL(`${baseUrl}/contacts/add`)
@@ -33,10 +33,8 @@ test.describe('contacts router example', () => {
 
     await expect(addContactCard).toBeVisible()
     await expect(
-      addContactCard.locator('div').filter({
-        has: page.getByRole('heading', { name: 'Add new contact' }),
-      }),
-    ).toHaveCount(1)
+      page.getByRole('heading', { name: 'Add new contact' }),
+    ).toBeVisible()
 
     await page.getByRole('link', { name: 'Cancel' }).click()
     await expect(page).toHaveURL(baseUrl)
@@ -44,64 +42,67 @@ test.describe('contacts router example', () => {
     await page.getByRole('link', { name: 'New' }).click()
 
     const nameField = page.getByPlaceholder('Name')
-    const contactField = page.getByPlaceholder('Contact')
+    const contactField = page.getByPlaceholder('Phone')
     const emailField = page.getByPlaceholder('Email')
-    const jobField = page.getByPlaceholder('Job')
+    const jobField = page.getByPlaceholder('Website')
 
-    await nameField.type('test-name')
+    await nameField.fill('test-name')
     await expect(nameField).toHaveValue('test-name')
 
-    await contactField.type('test-contact')
+    await contactField.fill('test-contact')
     await expect(contactField).toHaveValue('test-contact')
 
-    await emailField.type('test@email.com')
+    await emailField.fill('test@email.com')
     await expect(emailField).toHaveValue('test@email.com')
 
-    await jobField.type('test-job')
+    await jobField.fill('test-job')
     await expect(jobField).toHaveValue('test-job')
 
-    await page.getByRole('link', { name: 'Save' }).click()
+    await page.getByRole('button', { name: 'Save' }).click()
+    await expect(page.getByRole('listitem')).toHaveCount(11)
+
     await expect(page).toHaveURL(baseUrl)
   })
 
-  test('Contacts', async ({ page }) => {
+  test('Navigate contacts', async ({ page }) => {
     const contactList = page.getByRole('listitem')
-    const randomIndex = Math.floor(Math.random() * 10)
-    const contact = contactList.nth(randomIndex).getByRole('link')
+    const contactCount = await contactList.count()
 
-    await expect(contactList).toHaveCount(10)
-    await expect(contact).toHaveAttribute(
-      'href',
-      `/contacts/${randomIndex + 1}`,
-    )
-    await expect(contact).toBeEnabled()
+    for (let i = 0; i < contactCount; i += 1) {
+      const contact = contactList.nth(i).getByRole('link')
 
-    await contact.click()
-    await expect(page).toHaveURL(`${baseUrl}/contacts/${randomIndex + 1}`)
+      await expect(contact).toHaveAttribute('href', `/contacts/${i + 1}`)
+      await expect(contact).toBeEnabled()
+
+      await contact.click()
+      await expect(page).toHaveURL(`${baseUrl}/contacts/${i + 1}`)
+    }
   })
 
   test('Display Contact', async ({ page }) => {
-    const contact = page.getByRole('listitem').filter({
-      has: page.getByRole('link').filter({ hasText: 'Ervin Howell' }),
-    })
+    const [contact, index] = getAnyContactLocator(page)
 
     await expect(contact).toBeEnabled()
     await contact.click()
-    await expect(page).toHaveURL(`${baseUrl}/contacts/2`)
+    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}`)
 
-    const contactDialog = page.getByRole('heading', { name: 'Ervin Howell' })
+    const contactDialog = page.getByRole('heading', {
+      name: mockContacts[index],
+    })
     await expect(contactDialog).toBeVisible()
 
     await expect(page.getByRole('link', { name: 'Edit' })).toBeEnabled()
-    await expect(page.getByRole('link', { name: 'Delete' })).toBeEnabled()
+    await expect(page.getByRole('button', { name: 'Delete' })).toBeEnabled()
   })
 
   test('Edit Contact', async ({ page }) => {
-    await page.getByRole('link', { name: 'Ervin Howell' }).click()
-    await expect(page).toHaveURL(`${baseUrl}/contacts/2`)
+    const [contact, index] = getAnyContactLocator(page)
+
+    await contact.click()
+    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}`)
 
     await page.getByRole('link', { name: 'Edit' }).click()
-    await expect(page).toHaveURL(`${baseUrl}/contacts/2/edit`)
+    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}/edit`)
 
     await expect(
       page.getByRole('heading', { name: 'Edit Contact' }),
@@ -112,15 +113,19 @@ test.describe('contacts router example', () => {
   })
 
   test('Delete Contact', async ({ page }) => {
-    await page.getByRole('link', { name: 'Ervin Howell' }).click()
+    const [contact, index] = getAnyContactLocator(page)
 
-    await page.getByRole('link', { name: 'Delete' }).click()
-    await expect(page).toHaveURL(`${baseUrl}/contacts/2/destroy`)
+    await contact.click()
+
+    await page.getByRole('button', { name: 'Delete' }).click()
+    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}/destroy`)
 
     await expect(page.getByText('Contact deleted!')).toBeVisible()
+    await expect(page.getByRole('listitem')).toHaveCount(9)
 
     await expect(page.getByRole('link', { name: 'Home' })).toBeEnabled()
     await page.getByRole('link', { name: 'Home' }).click()
+
     await expect(page).toHaveURL(baseUrl)
   })
 })
