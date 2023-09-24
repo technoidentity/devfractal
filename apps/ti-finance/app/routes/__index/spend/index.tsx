@@ -1,5 +1,5 @@
 import { Title } from '@mantine/core'
-import type { LoaderArgs } from '@remix-run/server-runtime'
+import type { LoaderFunctionArgs } from '@remix-run/server-runtime'
 import { sjson } from '@srtp/remix-node'
 import { useGet } from '@srtp/remix-react'
 import { SpendSearchSpec } from '~/common'
@@ -7,7 +7,7 @@ import { safeQuery } from '~/core'
 import { PeopleSpendList } from '~/features/spend'
 import { getPeopleSpend } from '~/models'
 
-export async function loader(args: LoaderArgs) {
+export async function loader(args: LoaderFunctionArgs) {
   const q = safeQuery(SpendSearchSpec, args.request)
   const { personCost } = await getPeopleSpend(q)
 

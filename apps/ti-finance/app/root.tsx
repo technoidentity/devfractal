@@ -7,7 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
-import type { LoaderArgs, MetaFunction } from '@remix-run/server-runtime'
+import type { LoaderFunctionArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 
 import { ModalsProvider } from '@mantine/modals'
@@ -15,13 +15,15 @@ import { StylesPlaceholder } from '@mantine/remix'
 import { theme } from '../theme'
 import { getUser } from './session.server'
 
-export const meta: MetaFunction = () => ({
-  charset: 'utf-8',
-  title: 'TI Finance',
-  viewport: 'width=device-width,initial-scale=1',
-})
+export function meta() {
+  return {
+    charset: 'utf-8',
+    title: 'TI Finance',
+    viewport: 'width=device-width,initial-scale=1',
+  }
+}
 
-export async function loader({ request }: LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
   return json({
     user: await getUser(request),
   })

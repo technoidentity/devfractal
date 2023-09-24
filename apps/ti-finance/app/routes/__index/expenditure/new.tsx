@@ -1,11 +1,11 @@
-import type { ActionArgs } from '@remix-run/server-runtime'
+import type { ActionFunctionArgs } from '@remix-run/server-runtime'
 import { onlyMethod } from '@srtp/remix-node'
 import { CreateExpenditureSpec } from '~/common'
 import { useServerErrors } from '~/core'
 import { CreateExpenditureForm } from '~/features/expenditure'
 import { createExpenditure } from '~/models'
 
-export const action = (args: ActionArgs) =>
+export const action = (args: ActionFunctionArgs) =>
   onlyMethod(args, CreateExpenditureSpec, createExpenditure, {
     redirectUrl: '/expenditure',
   })

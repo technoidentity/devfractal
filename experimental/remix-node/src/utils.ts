@@ -1,4 +1,4 @@
-import type { LoaderArgs } from '@remix-run/node'
+import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
 import type { FormErrors } from '@srtp/remix-core'
 import { formErrors } from '@srtp/remix-core'
@@ -7,7 +7,7 @@ import { cast, isFail, isUndefined } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
-type Request = LoaderArgs['request']
+type Request = LoaderFunctionArgs['request']
 
 export function badRequest<T extends object>(data: FormErrors<T>) {
   return json(data, { status: 400 })
@@ -48,7 +48,7 @@ export async function safeFormData<Output, Input>(
 
 export async function safeAction<Spec extends z.AnyZodObject, R>(
   formDataSpec: Spec,
-  { request }: LoaderArgs,
+  { request }: LoaderFunctionArgs,
   fn: (values: z.infer<typeof formDataSpec>) => R,
 ) {
   const result = await safeFormData(formDataSpec, request)
@@ -64,9 +64,9 @@ export async function safeActions<
   T extends Readonly<[U, ...U[]]>,
   Actions extends Record<
     z.infer<z.ZodEnum<z.Writeable<T>>>,
-    (args: LoaderArgs) => unknown
+    (args: LoaderFunctionArgs) => unknown
   >,
->(spec: z.ZodEnum<z.Writeable<T>>, args: LoaderArgs, actions: Actions) {
+>(spec: z.ZodEnum<z.Writeable<T>>, args: LoaderFunctionArgs, actions: Actions) {
   const formData = await args.request.clone().formData()
   const actionKey = cast(spec, formData.get('_action'))
   invariant(actionKey in actions, `${actionKey} not supported`)
@@ -78,8 +78,10 @@ const HTTPMethods = z.enum(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 type HTTPMethods = z.infer<typeof HTTPMethods>
 
 export async function methods<
-  Actions extends Partial<Record<HTTPMethods, (args: LoaderArgs) => unknown>>,
->(args: LoaderArgs, actions: Actions) {
+  Actions extends Partial<
+    Record<HTTPMethods, (args: LoaderFunctionArgs) => unknown>
+  >,
+>(args: LoaderFunctionArgs, actions: Actions) {
   const method = cast(HTTPMethods, args.request.method)
   const fn = actions[method]
   invariant(fn !== undefined, `${method} not supported`)
@@ -89,13 +91,13 @@ export async function methods<
 
 export function safeParams<Spec extends z.ZodTypeAny>(
   spec: Spec,
-  params: LoaderArgs['params'],
+  params: LoaderFunctionArgs['params'],
 ) {
   return cast(spec, params)
 }
 
 export function onlyMethod<Spec extends z.AnyZodObject, R>(
-  args: LoaderArgs,
+  args: LoaderFunctionArgs,
   spec: Spec,
   fn: (values: z.infer<typeof spec>) => Promise<Result<string, R>>,
   options?: { redirectUrl: string },
@@ -109,5 +111,5 @@ export function method<Spec extends z.AnyZodObject, R>(
   spec: Spec,
   fn: (values: z.infer<Spec>) => Promise<Result<string, R>>,
 ) {
-  return (args: LoaderArgs) => onlyMethod(args, spec, fn)
+  return (args: LoaderFunctionArgs) => onlyMethod(args, spec, fn)
 }

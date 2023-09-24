@@ -1,6 +1,7 @@
 import { useMatches } from '@remix-run/react'
-import type { Nullish } from '@srtp/core'
+import { cast, type Nullish } from '@srtp/core'
 import { useMemo } from 'react'
+import { z } from 'zod'
 
 import type { User } from '~/models/user.server'
 
@@ -38,11 +39,13 @@ export function useMatchesData(
   id: string,
 ): Record<string, unknown> | undefined {
   const matchingRoutes = useMatches()
+
   const route = useMemo(
     () => matchingRoutes.find(route => route.id === id),
     [matchingRoutes, id],
   )
-  return route?.data
+
+  return cast(z.record(z.string()), route?.data)
 }
 
 function isUser(user: any): user is User {

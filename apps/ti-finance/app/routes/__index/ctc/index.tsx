@@ -1,5 +1,5 @@
 import { Title } from '@mantine/core'
-import type { ActionArgs } from '@remix-run/server-runtime'
+import type { LoaderFunctionArgs } from '@remix-run/server-runtime'
 import { method, methods, sjson } from '@srtp/remix-node'
 import { useGet } from '@srtp/remix-react'
 import { CtcSpec, IntId } from '~/common'
@@ -13,7 +13,7 @@ export async function loader() {
   return sjson(ctcList)
 }
 
-export const action = (args: ActionArgs) =>
+export const action = (args: LoaderFunctionArgs) =>
   methods(args, {
     PUT: method(CtcSpec, updateCtc),
     DELETE: method(IntId, ({ id }) => deleteCtc(id)),

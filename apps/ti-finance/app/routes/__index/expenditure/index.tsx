@@ -1,5 +1,8 @@
 import { Title } from '@mantine/core'
-import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
+import type {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+} from '@remix-run/server-runtime'
 import { method, methods, sjson } from '@srtp/remix-node'
 import { useGet } from '@srtp/remix-react'
 import { ExpenditureSearchSpec, ExpenditureSpec, IntId } from '~/common'
@@ -11,14 +14,14 @@ import {
   updateExpenditure,
 } from '~/models'
 
-export async function loader(args: LoaderArgs) {
+export async function loader(args: LoaderFunctionArgs) {
   const q = safeQuery(ExpenditureSearchSpec, args.request)
   const expenditures = await getDepartmentExpenditures(q)
 
   return sjson({ expenditures })
 }
 
-export const action = (args: ActionArgs) => {
+export const action = (args: ActionFunctionArgs) => {
   return methods(args, {
     PUT: method(ExpenditureSpec, updateExpenditure),
     DELETE: method(IntId, ({ id }) => deleteExpenditure(id)),

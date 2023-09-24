@@ -1,5 +1,5 @@
 import { Group, Title } from '@mantine/core'
-import type { LoaderArgs } from '@remix-run/server-runtime'
+import type { LoaderFunctionArgs } from '@remix-run/server-runtime'
 import { sjson } from '@srtp/remix-node'
 import { useGet } from '@srtp/remix-react'
 import type { Column } from '@srtp/mantine'
@@ -16,7 +16,7 @@ const columns: Column<BudgetAllocation>[] = [
   { accessor: 'financialYear', label: 'Financial_year' },
 ]
 
-export async function loader(args: LoaderArgs) {
+export async function loader(args: LoaderFunctionArgs) {
   const q = safeQuery(BudgetSearchSpec, args.request)
 
   const budgets = await getBudgetAllocations(q)

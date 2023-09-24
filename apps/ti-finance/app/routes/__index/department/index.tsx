@@ -1,5 +1,8 @@
 import { Button, Group, Title } from '@mantine/core'
-import type { ActionArgs, LoaderArgs } from '@remix-run/server-runtime'
+import type {
+  ActionFunctionArgs,
+  LoaderFunctionArgs,
+} from '@remix-run/server-runtime'
 import { method, methods, sjson } from '@srtp/remix-node'
 import { useGet } from '@srtp/remix-react'
 import { IntId, MappingSearchSpec, MappingSpec } from '~/common'
@@ -11,14 +14,14 @@ import {
   updateDepartmentMapping,
 } from '~/models'
 
-export async function loader(args: LoaderArgs) {
+export async function loader(args: LoaderFunctionArgs) {
   const where = safeQuery(MappingSearchSpec, args.request)
   const mappings = await getDepartmentMappingsList(where)
 
   return sjson({ mappings })
 }
 
-export const action = (args: ActionArgs) =>
+export const action = (args: ActionFunctionArgs) =>
   methods(args, {
     PUT: method(MappingSpec, updateDepartmentMapping),
     DELETE: method(IntId, ({ id }) => deleteDepartmentMapping(id)),

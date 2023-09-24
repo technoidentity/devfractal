@@ -29,7 +29,7 @@
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/web": "workspace:*",
-    "@tabler/icons-react": "2.34.0",
+    "@tabler/icons-react": "2.35.0",
     "immer": "10.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -38,21 +38,21 @@
     "tslib": "2.6.2",
     "type-fest": "4.3.1",
     "use-immer": "0.9.0",
-    "uuid": "9.0.0",
+    "uuid": "9.0.1",
     "zod": "3.22.2"
   },
   "devDependencies": {
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.5.9",
-    "@types/react": "18.2.21",
+    "@types/node": "20.6.4",
+    "@types/react": "18.2.22",
     "@types/react-dom": "18.2.7",
     "cross-env": "7.0.3",
-    "eslint": "8.48.0",
+    "eslint": "8.50.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.3",
     "rimraf": "5.0.1",
     "tsup": "7.2.0",
     "typescript": "5.2.2",
-    "vitest": "0.34.3"
+    "vitest": "0.34.5"
   }
 }
