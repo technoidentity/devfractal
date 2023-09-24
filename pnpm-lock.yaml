@@ -1609,6 +1609,9 @@ importers:
       '@faker-js/faker':
         specifier: 8.0.2
         version: 8.0.2
+      '@playwright/test':
+        specifier: 1.37.1
+        version: 1.37.1
       '@srtp/tsconfig':
         specifier: workspace:*
         version: link:../../libs/tsconfig

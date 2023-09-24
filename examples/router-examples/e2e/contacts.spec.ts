@@ -81,7 +81,7 @@ test.describe('contacts router example', () => {
   })
 
   test('Display Contact', async ({ page }) => {
-    const contact = await page.getByRole('listitem').filter({
+    const contact = page.getByRole('listitem').filter({
       has: page.getByRole('link').filter({ hasText: 'Ervin Howell' }),
     })
 
