@@ -2,37 +2,9 @@
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 /* eslint-disable no-underscore-dangle */
 import { faker } from '@faker-js/faker'
-import { each, map, omit$, pipe, range, toArray } from '@srtp/fn'
+import { toInt } from '@srtp/core'
+import { each, map, omap, omit$, pipe, range, toArray } from '@srtp/fn'
 import { z } from 'zod'
-
-export const SupportedTypes = z.enum([
-  'ZodBoolean',
-  'ZodNumber',
-  'ZodString',
-  'ZodDate',
-  'ZodLiteral',
-  'ZodEnum',
-  'ZodArray',
-  'ZodObject',
-  'ZodTuple',
-  'ZodUnion',
-  'ZodIntersection',
-  'ZodMap',
-  'ZodRecord',
-  'ZodSet',
-  'ZodPromise',
-  'ZodUndefined',
-  'ZodNull',
-  'ZodAny',
-  'ZodUnknown',
-  'ZodMap',
-  'ZodSet',
-  'ZodOptional',
-  'ZodNullable',
-  'unknown',
-  'any',
-  'ZodEffects',
-])
 
 const StringKind = z.enum([
   'sentence',
@@ -76,9 +48,9 @@ export type SupportedTypes = z.infer<typeof SupportedTypes>
 function fakeNumber(
   spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
-): any {
+) {
   const opts = omit$(options.ZodNumber!, ['kind'])
-  const kind = options.ZodNumber?.kind || spec._def.checks[0]?.kind
+  const kind = options.ZodNumber?.kind ?? spec._def.checks[0]?.kind
   switch (kind) {
     case 'int':
       return faker.number.int(opts)
@@ -90,7 +62,7 @@ function fakeNumber(
 function fakeString(
   spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
-): any {
+) {
   const opts = omit$(options.ZodString!, ['kind'])
   const kind = spec._def.checks[0]?.kind || options.ZodString?.kind
 
@@ -116,39 +88,42 @@ function fakeString(
   }
 }
 
-export function fake(
-  spec: z.ZodTypeAny,
-  options: Partial<FakeOptions> = defaultOptions,
-): any {
-  const type: string = spec._def.typeName
-
-  if (type === 'ZodString') {
+function fakePrimitive(spec: z.ZodTypeAny, options: Partial<FakeOptions>) {
+  if (spec instanceof z.ZodString) {
     return fakeString(spec, options)
   }
 
-  if (type === 'ZodNumber') {
+  if (spec instanceof z.ZodNumber) {
     return fakeNumber(spec, options)
   }
 
-  if (type === 'ZodBoolean') {
+  if (spec instanceof z.ZodBoolean) {
     return faker.datatype.boolean(options.ZodBoolean)
   }
 
-  if (type === 'ZodDate') {
+  if (spec instanceof z.ZodDate) {
     return options.ZodDate
       ? faker.date.anytime(options.ZodDate)
       : faker.date.anytime()
   }
 
-  if (type === 'ZodLiteral') {
+  if (spec instanceof z.ZodLiteral) {
     return spec._def.value
   }
 
-  if (type === 'ZodEnum') {
+  if (spec instanceof z.ZodEnum) {
     return faker.helpers.arrayElement(Object.values(spec._def.values))
   }
 
-  if (type === 'ZodArray') {
+  if (spec instanceof z.ZodNativeEnum) {
+    return toInt(faker.helpers.arrayElement(Object.keys(spec._def.values)))
+  }
+
+  return undefined
+}
+
+function fakeCollection(spec: z.ZodTypeAny, options: Partial<FakeOptions>) {
+  if (spec instanceof z.ZodArray) {
     const n = faker.number.int({
       min: options.ZodArray?.min ?? 0,
       max: 10,
@@ -161,19 +136,18 @@ export function fake(
     )
   }
 
-  if (type === 'ZodTuple') {
+  if (spec instanceof z.ZodTuple) {
     return spec._def.items.map((s: z.ZodTypeAny) => fake(s, options))
   }
 
-  if (type === 'ZodObject') {
-    const shape = spec._def.shape()
-    return Object.entries(shape).reduce((acc: any, [key, spec]: any) => {
-      acc[key] = fake(spec, options)
-      return acc
-    }, {})
+  if (spec instanceof z.ZodObject) {
+    return pipe(
+      spec._def.shape(),
+      omap(spec => fake(spec, options)),
+    )
   }
 
-  if (type === 'ZodRecord') {
+  if (spec instanceof z.ZodRecord) {
     const n = faker.number.int({
       min: 0,
       max: options.ZodArray?.max ?? 10,
@@ -193,7 +167,7 @@ export function fake(
     return rec
   }
 
-  if (type === 'ZodMap') {
+  if (spec instanceof z.ZodMap) {
     const n = faker.number.int({
       min: 1,
       max: 10,
@@ -213,7 +187,7 @@ export function fake(
     return map
   }
 
-  if (type === 'ZodSet') {
+  if (spec instanceof z.ZodSet) {
     const n = faker.number.int({
       min: 0,
       max: 10,
@@ -228,32 +202,70 @@ export function fake(
     return set
   }
 
-  if (type === 'ZodUnion') {
+  return undefined
+}
+
+function fakeWrapper(spec: z.ZodTypeAny, options: Partial<FakeOptions>) {
+  if (spec instanceof z.ZodOptional || spec instanceof z.ZodNullable) {
+    return fake(spec._def.innerType, options)
+  }
+
+  if (spec instanceof z.ZodEffects) {
+    return fake(spec._def.schema, options)
+  }
+
+  if (spec instanceof z.ZodDefault) {
+    return fake(spec._def.innerType, options)
+  }
+
+  if (spec instanceof z.ZodPromise) {
+    return Promise.resolve(fake(spec._def.type, options))
+  }
+
+  if (spec instanceof z.ZodPipeline) {
+    return fake(spec._def.in, options)
+  }
+
+  return undefined
+}
+
+function fakeComposite(spec: z.ZodTypeAny, options: Partial<FakeOptions>) {
+  if (spec instanceof z.ZodUnion) {
     const types = spec._def.options
     const one = faker.number.int({ min: 0, max: types.length - 1 })
 
     return fake(types[one], options)
   }
-  if (type === 'ZodIntersection') {
+  if (spec instanceof z.ZodIntersection) {
     return {
       ...fake(spec._def.left, options),
       ...fake(spec._def.right, options),
     }
   }
 
-  if (type === 'ZodOptional' || type === 'ZodNullable') {
-    return fake(spec._def.innerType, options)
+  if (spec instanceof z.ZodDiscriminatedUnion) {
+    const types = spec._def.options
+    const one = faker.number.int({ min: 0, max: types.length - 1 })
+
+    return fake(types[one], options)
   }
 
-  if (type === 'ZodUndefined') {
+  return undefined
+}
+
+export function fake(
+  spec: z.ZodTypeAny,
+  options: Partial<FakeOptions> = defaultOptions,
+): z.infer<typeof spec> {
+  if (spec instanceof z.ZodUndefined) {
     return undefined
   }
 
-  if (type === 'ZodNull') {
+  if (spec instanceof z.ZodNull) {
     return null
   }
 
-  if (type === 'ZodAny' || type === 'ZodUnknown') {
+  if (spec instanceof z.ZodAny || spec instanceof z.ZodUnknown) {
     return fake(
       z.union([
         z.string(),
@@ -266,10 +278,15 @@ export function fake(
     )
   }
 
-  // @TODO: untested
-  if (type === 'ZodEffects') {
-    return fake(spec._def.schema, options)
+  const result =
+    fakePrimitive(spec, options) ??
+    fakeCollection(spec, options) ??
+    fakeWrapper(spec, options) ??
+    fakeComposite(spec, options)
+
+  if (result === undefined) {
+    console.warn(`Unsupported type: ${spec._def.typeName}`)
   }
 
-  console.warn(`Unsupported type: ${type}`)
+  return result
 }
