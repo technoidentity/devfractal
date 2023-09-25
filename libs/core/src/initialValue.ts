@@ -2,7 +2,7 @@ import { omap, pipe } from '@srtp/fn'
 import { z } from 'zod'
 import { toInt } from './spec'
 
-function emptyPrimitive(spec: z.ZodTypeAny) {
+function initialValuePrimitive(spec: z.ZodTypeAny) {
   if (spec instanceof z.ZodString) {
     return ''
   }
@@ -34,19 +34,19 @@ function emptyPrimitive(spec: z.ZodTypeAny) {
   return undefined
 }
 
-function emptyCollection(spec: z.ZodTypeAny) {
+function initialValueCollection(spec: z.ZodTypeAny) {
   if (spec instanceof z.ZodArray) {
     return []
   }
 
   if (spec instanceof z.ZodTuple) {
-    return spec._def.items.map(empty)
+    return spec._def.items.map(initialValue)
   }
 
   if (spec instanceof z.ZodObject) {
     return pipe(
       spec._def.shape(),
-      omap(spec => empty(spec)),
+      omap(spec => initialValue(spec)),
     )
   }
 
@@ -65,13 +65,13 @@ function emptyCollection(spec: z.ZodTypeAny) {
   return undefined
 }
 
-function emptyWrapper(spec: z.ZodTypeAny) {
+function initialValueWrapper(spec: z.ZodTypeAny) {
   if (spec instanceof z.ZodOptional || spec instanceof z.ZodNullable) {
-    return empty(spec._def.innerType)
+    return initialValue(spec._def.innerType)
   }
 
   if (spec instanceof z.ZodEffects) {
-    return empty(spec._def.schema)
+    return initialValue(spec._def.schema)
   }
 
   if (spec instanceof z.ZodDefault) {
@@ -79,41 +79,39 @@ function emptyWrapper(spec: z.ZodTypeAny) {
   }
 
   if (spec instanceof z.ZodPromise) {
-    return Promise.resolve(empty(spec._def.type))
+    return Promise.resolve(initialValue(spec._def.type))
   }
 
   if (spec instanceof z.ZodPipeline) {
-    return empty(spec._def.in)
+    return initialValue(spec._def.in)
   }
 
   return undefined
 }
 
-function emptyComposite(spec: z.ZodTypeAny) {
+function initialValueComposite(spec: z.ZodTypeAny) {
   if (spec instanceof z.ZodUnion) {
     const types = spec._def.options
 
-    return empty(types[0])
+    return initialValue(types[0])
   }
   if (spec instanceof z.ZodIntersection) {
     return {
-      ...empty(spec._def.left),
-      ...empty(spec._def.right),
+      ...initialValue(spec._def.left),
+      ...initialValue(spec._def.right),
     }
   }
 
   if (spec instanceof z.ZodDiscriminatedUnion) {
     const types = spec._def.options
 
-    console.log(types[0]._def.typeName)
-
-    return empty(types[0])
+    return initialValue(types[0])
   }
 
   return undefined
 }
 
-export function empty(spec: z.ZodTypeAny): z.infer<typeof spec> {
+export function initialValue(spec: z.ZodTypeAny): z.infer<typeof spec> {
   if (spec instanceof z.ZodUndefined) {
     return undefined
   }
@@ -123,7 +121,7 @@ export function empty(spec: z.ZodTypeAny): z.infer<typeof spec> {
   }
 
   if (spec instanceof z.ZodAny || spec instanceof z.ZodUnknown) {
-    return empty(
+    return initialValue(
       z.union([
         z.string(),
         z.number(),
@@ -135,10 +133,10 @@ export function empty(spec: z.ZodTypeAny): z.infer<typeof spec> {
   }
 
   const result =
-    emptyPrimitive(spec) ??
-    emptyCollection(spec) ??
-    emptyWrapper(spec) ??
-    emptyComposite(spec)
+    initialValuePrimitive(spec) ??
+    initialValueCollection(spec) ??
+    initialValueWrapper(spec) ??
+    initialValueComposite(spec)
 
   if (result === undefined) {
     console.warn(`Unsupported type: ${spec._def.typeName}`)

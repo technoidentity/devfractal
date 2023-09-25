@@ -2,7 +2,7 @@
 import { describe, expect, test } from 'vitest'
 import { z } from 'zod'
 
-import { empty } from './empty'
+import { initialValue } from './initialValue'
 const Gender = z.enum(['male', 'female'])
 
 enum ColorEnum {
@@ -64,10 +64,10 @@ const schema = z.object({
   p: z.tuple([z.string(), z.number()]),
 })
 
-describe('empty', () => {
+describe('initialValue', () => {
   test('object', () => {
-    const p = empty(person)
-    const s = empty(schema)
+    const p = initialValue(person)
+    const s = initialValue(schema)
 
     expect(p).toMatchInlineSnapshot(`
       {
