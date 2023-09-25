@@ -2026,64 +2026,6 @@ importers:
         specifier: 0.34.5
         version: 0.34.5(@vitest/ui@0.34.5)(jsdom@22.1.0)
 
-  experimental/fake:
-    dependencies:
-      '@faker-js/faker':
-        specifier: 8.1.0
-        version: 8.1.0
-      '@srtp/core':
-        specifier: workspace:*
-        version: link:../../libs/core
-      '@srtp/fn':
-        specifier: workspace:*
-        version: link:../../libs/fn
-      immer:
-        specifier: 10.0.2
-        version: 10.0.2
-      tiny-invariant:
-        specifier: 1.3.1
-        version: 1.3.1
-      tiny-warning:
-        specifier: 1.0.3
-        version: 1.0.3
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
-      zod:
-        specifier: 3.22.2
-        version: 3.22.2
-    devDependencies:
-      '@srtp/tsconfig':
-        specifier: workspace:*
-        version: link:../../libs/tsconfig
-      '@types/node':
-        specifier: 20.6.4
-        version: 20.6.4
-      cross-env:
-        specifier: 7.0.3
-        version: 7.0.3
-      eslint:
-        specifier: 8.50.0
-        version: 8.50.0
-      eslint-config-srtp:
-        specifier: workspace:*
-        version: link:../../libs/eslint-config-srtp
-      prettier:
-        specifier: 3.0.3
-        version: 3.0.3
-      rimraf:
-        specifier: 5.0.1
-        version: 5.0.1
-      tsup:
-        specifier: 7.2.0
-        version: 7.2.0(postcss@8.4.30)(typescript@5.2.2)
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: 0.34.5
-        version: 0.34.5(@vitest/ui@0.34.5)(jsdom@22.1.0)
-
   experimental/mantine:
     dependencies:
       '@emotion/react':
@@ -2670,6 +2612,64 @@ importers:
       eslint-plugin-import:
         specifier: 2.28.1
         version: 2.28.1(@typescript-eslint/parser@6.7.2)(eslint@8.50.0)
+
+  libs/fake:
+    dependencies:
+      '@faker-js/faker':
+        specifier: 8.1.0
+        version: 8.1.0
+      '@srtp/core':
+        specifier: workspace:*
+        version: link:../core
+      '@srtp/fn':
+        specifier: workspace:*
+        version: link:../fn
+      immer:
+        specifier: 10.0.2
+        version: 10.0.2
+      tiny-invariant:
+        specifier: 1.3.1
+        version: 1.3.1
+      tiny-warning:
+        specifier: 1.0.3
+        version: 1.0.3
+      tslib:
+        specifier: 2.6.2
+        version: 2.6.2
+      zod:
+        specifier: 3.22.2
+        version: 3.22.2
+    devDependencies:
+      '@srtp/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: 20.6.4
+        version: 20.6.4
+      cross-env:
+        specifier: 7.0.3
+        version: 7.0.3
+      eslint:
+        specifier: 8.50.0
+        version: 8.50.0
+      eslint-config-srtp:
+        specifier: workspace:*
+        version: link:../eslint-config-srtp
+      prettier:
+        specifier: 3.0.3
+        version: 3.0.3
+      rimraf:
+        specifier: 5.0.1
+        version: 5.0.1
+      tsup:
+        specifier: 7.2.0
+        version: 7.2.0(postcss@8.4.30)(typescript@5.2.2)
+      typescript:
+        specifier: 5.2.2
+        version: 5.2.2
+      vitest:
+        specifier: 0.34.5
+        version: 0.34.5(@vitest/ui@0.34.5)(jsdom@22.1.0)
 
   libs/fn:
     dependencies:
@@ -13365,7 +13365,7 @@ packages:
     resolution: {integrity: sha512-c0hrgAOVYr21EX8J0jBMXGLMgJqVf/v6yxi0dLaJboW9aQPh16Id+z6w2Tx1hm+piJOLv8xPfVKZCLfjPw/IMQ==}
     dependencies:
       '@types/jsonfile': 6.1.2
-      '@types/node': 18.17.19
+      '@types/node': 20.6.4
     dev: true
 
   /@types/glob@7.2.0:
@@ -13424,7 +13424,7 @@ packages:
   /@types/jsonfile@6.1.2:
     resolution: {integrity: sha512-8t92P+oeW4d/CRQfJaSqEwXujrhH4OEeHRjGU3v1Q8mUS8GPF3yiX26sw4svv6faL2HfBtGTe2xWIoVgN3dy9w==}
     dependencies:
-      '@types/node': 18.17.19
+      '@types/node': 20.6.4
     dev: true
 
   /@types/keyv@3.1.4:

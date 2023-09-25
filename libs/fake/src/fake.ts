@@ -43,8 +43,6 @@ const defaultOptions: Partial<FakeOptions> = {
   ZodBoolean: 0.6,
 }
 
-export type SupportedTypes = z.infer<typeof SupportedTypes>
-
 function fakeNumber(
   spec: z.ZodTypeAny,
   options: Partial<FakeOptions> = defaultOptions,
