@@ -1,11 +1,12 @@
 import { searchState } from 'devfractal'
 import { z } from 'zod'
+import type { ServerPaginationProps, ServerPaginationResult } from './types'
 
 const useSearchState = searchState(z.object({ page: z.number() }), {
   next(state) {
     state.page += 1
   },
-  prev(state) {
+  previous(state) {
     state.page -= 1
   },
   setPage(state, page: number) {
@@ -13,7 +14,9 @@ const useSearchState = searchState(z.object({ page: z.number() }), {
   },
 })
 
-export const useServerPagination = (totalPages: number) => {
+export const useServerPagination = ({
+  totalPages,
+}: ServerPaginationProps): ServerPaginationResult => {
   const [state, actions] = useSearchState()
 
   return {
