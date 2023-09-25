@@ -1,8 +1,7 @@
-import { searchState } from 'devfractal'
-import { z } from 'zod'
+import { number, searchState, spec } from 'devfractal'
 import type { ServerPaginationProps, ServerPaginationResult } from './types'
 
-const useSearchState = searchState(z.object({ page: z.number() }), {
+const useSearchState = searchState(spec({ page: number() }), {
   next(state) {
     state.page += 1
   },
