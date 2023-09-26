@@ -24,13 +24,8 @@ export type NavigateResult<Path extends PathBase> = IfFnArg<
 export type EpPathResult<Path extends PathBase> = {
   path: string
   useNavigate: NavigateResult<Path>
-} & Iff<
-  IsNonEmptyObject<Params<Path>>,
-  {
-    link: (params: Params<Path>) => string
-    useParams: () => Params<Path>
-  }
->
+  link: (params: Params<Path>) => string
+} & Iff<IsNonEmptyObject<Params<Path>>, { useParams: () => Params<Path> }>
 
 export function routerPath<Path extends PathBase>(
   pathDef: Path,
