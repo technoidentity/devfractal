@@ -50,12 +50,16 @@ export function actionResult<T>(
     : redirect(options.redirectUrl)
 }
 
-export async function formData<Output, Input>(
-  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
+export async function formDataResult<Spec extends z.ZodTypeAny>(
+  spec: Spec,
   request: Request,
 ) {
   const values = Object.fromEntries(await request.clone().formData())
   return spec.safeParse(values)
+}
+
+export async function formData(request: Request) {
+  return Object.fromEntries(await request.clone().formData())
 }
 
 export async function safeFormData<Output, Input>(
