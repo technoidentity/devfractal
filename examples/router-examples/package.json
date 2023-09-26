@@ -16,7 +16,7 @@
     "clean": "rimraf .turbo node_modules dist",
     "deploy": "vercel deploy dist --team=turborepo --confirm",
     "db": "json-server --port 8080 --watch ./db.js",
-    "e2e": "pnpm e2e:dev --silent",
+    "e2e": "pnpm playwright test --quiet",
     "e2e:dev": "pnpm playwright test --ui",
     "e2e:run": "cross-env CI=true playwright test"
   },
