@@ -13,9 +13,9 @@
   "license": "MIT",
   "devDependencies": {
     "@playwright/test": "1.38.1",
-    "@types/node": "20.6.4",
+    "@types/node": "20.7.0",
     "cross-env": "7.0.3",
     "prettier": "3.0.3",
-    "rimraf": "5.0.1"
+    "rimraf": "5.0.5"
   }
 }

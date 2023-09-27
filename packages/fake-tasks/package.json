@@ -26,7 +26,7 @@
   "dependencies": {
     "@srtp/core": "workspace:*",
     "@srtp/fn": "workspace:*",
-    "@types/node": "20.6.4",
+    "@types/node": "20.7.0",
     "tiny-invariant": "1.3.1",
     "tiny-warning": "1.0.3",
     "tslib": "2.6.2",
@@ -39,7 +39,7 @@
     "eslint": "8.50.0",
     "eslint-config-srtp": "workspace:*",
     "prettier": "3.0.3",
-    "rimraf": "5.0.1",
+    "rimraf": "5.0.5",
     "tsup": "7.2.0",
     "typescript": "5.2.2",
     "vitest": "0.34.5"
