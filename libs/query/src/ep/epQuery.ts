@@ -5,12 +5,12 @@ import type {
   GetRequestArg,
 } from '@srtp/core'
 import { cast, isNilSpec, keysfn, linkfn } from '@srtp/core'
-import { useEvent } from '@srtp/react'
 import { axios, joinPaths, urlcat } from '@srtp/web'
 import {
   useMutation,
   useQueryClient,
   type MutationFunction,
+  type QueryFunction,
   type QueryKey,
   type UseMutationOptions,
   type UseMutationResult,
@@ -54,9 +54,11 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       [paths, query],
     )
 
-    const queryFn = useEvent(
-      () => defaultApi.get$(url) as Promise<TQueryFnData>,
-    )
+    const queryFn: QueryFunction<any> = async () => {
+      // @TODO: must use the axiosFn from options
+      const [data] = await defaultApi.get$(url)
+      return data
+    }
 
     invariant(ep.response, 'endpoint must have a response schema')
 

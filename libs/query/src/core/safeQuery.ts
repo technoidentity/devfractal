@@ -26,6 +26,7 @@ export function useSafeQuery<
   const result = useQuery(options)
 
   const data = React.useMemo(() => cast(spec, result.data), [result.data, spec])
+
   return [data, result] as const
 }
 

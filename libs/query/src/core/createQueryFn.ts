@@ -19,11 +19,13 @@ export type ToUrl = ReturnType<typeof createToUrl>
  * @param axiosFn - An axios function to use for the request
  * @returns - A query function that can be used with react-query
  */
-export const createQueryFn =
-  (basePathOrToUrl: ToUrl | string, axiosFn: AxiosFn = axios) =>
-  <TQueryKey extends QueryKey = QueryKey | [...Paths, Record<string, any>]>({
-    queryKey,
-  }: QueryFunctionContext<TQueryKey>): Promise<unknown> => {
+export function createQueryFn(
+  basePathOrToUrl: ToUrl | string,
+  axiosFn: AxiosFn = axios,
+) {
+  async function qfn<
+    TQueryKey extends QueryKey = QueryKey | [...Paths, Record<string, any>],
+  >({ queryKey }: QueryFunctionContext<TQueryKey>): Promise<unknown> {
     const toUrl =
       typeof basePathOrToUrl === 'string'
         ? createToUrl(basePathOrToUrl)
@@ -40,8 +42,13 @@ export const createQueryFn =
     const rest = qs ? queryKey.slice(0, -1) : queryKey
     const paths = cast(Paths, rest)
 
-    return axiosFn({ url: toUrl(paths, qs), method: 'GET' })
+    const [data] = await axiosFn({ url: toUrl(paths, qs), method: 'GET' })
+
+    return data
   }
+
+  return qfn
+}
 
 /**
  *
