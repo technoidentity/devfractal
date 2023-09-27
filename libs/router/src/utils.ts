@@ -1,7 +1,7 @@
 // copied from our own remix libraries
 
 import type { Result } from '@srtp/core'
-import { cast, isFail, isUndefined } from '@srtp/core'
+import { cast, isFail, isUndefined, resultFromZod } from '@srtp/core'
 import { fromSearchParams } from '@srtp/web'
 import { json, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 import invariant from 'tiny-invariant'
@@ -55,18 +55,19 @@ export async function formDataResult<Spec extends z.ZodTypeAny>(
   request: Request,
 ) {
   const values = Object.fromEntries(await request.clone().formData())
-  return spec.safeParse(values)
+
+  return resultFromZod(spec.safeParse(values))
 }
 
-export async function formData(request: Request) {
+export async function formData(request: Request): Promise<unknown> {
   return Object.fromEntries(await request.clone().formData())
 }
 
-export async function safeFormData<Output, Input>(
-  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
+export async function safeFormData<Spec extends z.ZodTypeAny>(
+  spec: Spec,
   request: Request,
-) {
-  const values = Object.fromEntries(await request.clone().formData())
+): Promise<z.infer<Spec>> {
+  const values = await formData(request)
   return cast(spec, values)
 }
 
