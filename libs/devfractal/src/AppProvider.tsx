@@ -25,7 +25,11 @@ export function AppProvider({
         ErrorFallback={ErrorFallback}
         suspenseFallback={suspenseFallback}
       >
-        <QueryProvider {...props}>
+        <QueryProvider
+          ErrorFallback={ErrorFallback}
+          suspenseFallback={suspenseFallback}
+          {...props}
+        >
           {router && <RouterProvider router={router} />}
           {children}
         </QueryProvider>

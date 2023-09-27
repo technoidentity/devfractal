@@ -17,7 +17,7 @@ export const RouterProvider = ({
   suspenseFallback,
   ...props
 }: RouterProviderProps) => {
-  const router = React.useMemo(() => createBrowserRouter(routes), [])
+  const router = React.useMemo(() => createBrowserRouter(routes), [routes])
 
   return (
     <Boundary ErrorFallback={ErrorFallback} suspenseFallback={suspenseFallback}>
