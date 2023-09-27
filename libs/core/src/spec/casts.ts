@@ -18,6 +18,10 @@ export class CastError extends Error {
 
     this.name = 'CastError'
   }
+
+  get errors() {
+    return formatErrors(this.zodError)
+  }
 }
 
 export function cast<Spec extends z.ZodTypeAny>(
