@@ -2,10 +2,14 @@ import type {
   EndpointBase,
   EndpointRecordBase,
   GetEpResponse,
+  Iff,
+  IsNonEmptyObject,
+  Params,
 } from '@srtp/core'
 import { cast, paramsSpec, route } from '@srtp/core'
 
 import invariant from 'tiny-invariant'
+import type { z } from 'zod'
 import {
   createFetch,
   fetch$,
@@ -14,13 +18,14 @@ import {
 } from './fetch$'
 import { toPath } from './url'
 
-export type EpHttpArgs = {
+// @TODO: can this be safer?
+export type EpHttpArgsBase = {
   options?: BaseFetchOptions
   params?: unknown
   request?: unknown
 }
 
-export type ApiCallsArgs<Ep extends EndpointBase> = EpHttpArgs & {
+export type ApiCallsArgs<Ep extends EndpointBase> = EpHttpArgsBase & {
   ep: Ep
   baseUrlOrFetch?: BaseUrlOrFetch
 }
@@ -36,13 +41,19 @@ export async function epAxios<Ep extends EndpointBase>({
   const path = route(ep.path)
 
   const url = params ? toPath(path, cast(paramsSpec(ep.path), params)) : path
-  const reqBody = ep.request ? cast(ep.request, request) : request
+
+  const reqBody = ep.request
+    ? { body: cast(ep.request, request) }
+    : request
+    ? { body: request }
+    : {}
+
   const method = ep.method
 
   const [resBody, response] = await fetch(url, {
     ...options,
     method,
-    body: reqBody,
+    ...reqBody,
   })
 
   const responseData = ep.response ? cast(ep.response, resBody) : resBody
@@ -50,9 +61,14 @@ export async function epAxios<Ep extends EndpointBase>({
   return [responseData, response] as const
 }
 
+export type EpHttpArgs<Ep extends EndpointBase> = {
+  options?: BaseFetchOptions
+} & Iff<IsNonEmptyObject<Params<Ep['path']>>, { params: unknown }> &
+  Iff<IsNonEmptyObject<z.infer<Ep['request']>>, { request: unknown }>
+
 export type EpHttpResult<Eps extends EndpointRecordBase> = {
   [K in keyof Eps]: (
-    args: EpHttpArgs,
+    args: EpHttpArgs<Eps[K]>,
   ) => Promise<readonly [GetEpResponse<Eps[K]>, Response]>
 }
 
@@ -63,7 +79,7 @@ export function createEpHttp<Eps extends EndpointRecordBase>(
   const api = {} as any
 
   for (const [key, ep] of Object.entries(eps)) {
-    api[key] = (args: EpHttpArgs) => {
+    api[key] = (args: EpHttpArgsBase) => {
       return epAxios({ ...args, ep, baseUrlOrFetch } as ApiCallsArgs<any>)
     }
   }
@@ -79,7 +95,7 @@ export type EpsGetAllResult<Eps extends EndpointRecordBase> = [
 // no scheduling here, just a simple Promise.all
 export async function epsGetAll<Eps extends EndpointRecordBase>(
   eps: Eps,
-  args: EpHttpArgs, // same args for all calls, both params and request
+  args: EpHttpArgsBase, // same args for all calls, both params and request
   baseUrlOrFetch: BaseUrlOrFetch = fetch$,
 ): Promise<EpsGetAllResult<Eps>> {
   const api = {} as any
