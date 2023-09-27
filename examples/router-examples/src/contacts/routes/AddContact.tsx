@@ -1,4 +1,4 @@
-import { safeFormData } from '@srtp/router'
+import { formData } from '@srtp/router'
 import {
   Button,
   Card,
@@ -14,19 +14,17 @@ import {
 import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 
 import { api } from '../api'
-import { Contact } from '../types'
+import { rootLink } from '../routes'
 
 export const addContact = async ({
   request,
 }: LoaderFunctionArgs): Promise<Response> => {
-  const newContact = await safeFormData(Contact.omit({ id: true }), request)
+  await api.createContact({ request: await formData(request) })
 
-  await api.post(Contact.omit({ id: true }), 'users', newContact)
-
-  return redirect('/')
+  return redirect(rootLink)
 }
 
-export function AddContact(): JSX.Element {
+export function AddContact() {
   return (
     <Card
       className="bg-gray-100 m-auto w-[80%] text-lg text-black"
@@ -95,7 +93,7 @@ export function AddContact(): JSX.Element {
                 Save
               </Button>
               <Link
-                to="/"
+                to={rootLink}
                 className="rounded-full px-8 py-2 text-sm bg-red-500 text-white"
               >
                 Cancel

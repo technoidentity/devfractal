@@ -1,3 +1,4 @@
+import { cast } from '@srtp/core'
 import {
   Button,
   Card,
@@ -11,17 +12,24 @@ import {
 import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 
 import { api } from '../api'
-import { useContact, useIdParams } from './hooks'
+import { ContactID } from '../specs'
+import { useContact } from './hooks'
+import { contactRoutes } from './routes'
 
 export const deleteContactAction = async ({ params }: LoaderFunctionArgs) => {
-  await api.del$(`users/${params['id']}`)
+  const id = cast(ContactID, params['id'])
 
-  return redirect(`/contacts/${params['id']}/destroy`)
+  await api.removeContact({ params: { id } })
+
+  // @TODO: why this needs explicit type?
+  const path: string = contactRoutes.removeContact.link({ id })
+
+  return redirect(path)
 }
 
-export function Contacts(): JSX.Element {
+export function ViewContact() {
   const contact = useContact()
-  const { id } = useIdParams()
+  const { id } = contactRoutes.getContact.useParams()
 
   return (
     <Card className="m-auto space-y-4 p-8 bg-gray-100 border-2 shadow-md">
@@ -37,7 +45,7 @@ export function Contacts(): JSX.Element {
         <Form method="delete">
           <HStack className="justify-evenly items-center gap-x-10">
             <Link
-              to={`/contacts/${Number(id)}/edit`}
+              to={contactRoutes.updateContact.link({ id })}
               className="rounded-full border bg-white px-4 py-2 text-sm"
             >
               Edit

@@ -1,8 +1,53 @@
-import { Box, HStack, Input, Label } from '@srtp/ui'
-import { Link, Outlet, useSubmit } from 'react-router-dom'
+import { getSearchParams } from '@srtp/router'
+import { Box, HStack, Input, Label, Text } from '@srtp/ui'
+import {
+  Link,
+  Outlet,
+  useSubmit,
+  type LoaderFunctionArgs,
+} from 'react-router-dom'
 
-import { ContactList } from './ContactList'
+import { api } from '../api'
+import { Search, type ContactList as ContactListSpec } from '../specs'
+import { type ContactList as Contacts } from '../specs'
 import { useContactList } from './hooks'
+import { contactRoutes } from './routes'
+
+function ListContacts({ contacts }: { contacts: Contacts }) {
+  return (
+    <Box
+      as="ul"
+      className="h-[80vh] overflow-y-auto bg-gray-100 rounded-t-lg space-y-2 py-2 px-1"
+    >
+      {contacts.map(contact => {
+        return (
+          <li
+            key={contact.id}
+            className="border hover:bg-blue-500 hover:text-white shadow-md p-2 rounded-lg border-2"
+          >
+            <Link to={contactRoutes.getContact.link({ id: contact.id })}>
+              <Text className="font-sans">{contact.name}</Text>
+            </Link>
+          </li>
+        )
+      })}
+    </Box>
+  )
+}
+
+export const getUsers = async ({
+  request,
+}: LoaderFunctionArgs): Promise<ContactListSpec> => {
+  const [contacts] = await api.getContactList({})
+
+  const { search } = getSearchParams(Search, request)
+
+  return search
+    ? contacts.filter(contact =>
+        contact.name.toLowerCase().includes(search.toLowerCase()),
+      )
+    : contacts
+}
 
 export function RootLayout(): JSX.Element {
   const contacts = useContactList()
@@ -27,14 +72,14 @@ export function RootLayout(): JSX.Element {
             />
           </Label>
           <Link
-            to="/contacts/add"
+            to={contactRoutes.addContact.link({})}
             className="rounded-lg border bg-white px-4 py-1 hover:bg-blue-400 hover:text-white"
           >
             New
           </Link>
         </HStack>
 
-        <ContactList contacts={contacts} />
+        <ListContacts contacts={contacts} />
       </Box>
       <Outlet />
     </Box>

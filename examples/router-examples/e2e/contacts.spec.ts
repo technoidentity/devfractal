@@ -102,14 +102,14 @@ test.describe('contacts router example', () => {
     await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}`)
 
     await page.getByRole('link', { name: 'Edit' }).click()
-    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}/edit`)
+    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}/update`)
 
     await expect(
       page.getByRole('heading', { name: 'Edit Contact' }),
     ).toBeVisible()
 
     await page.getByRole('button', { name: 'Save' }).click()
-    await expect(page).toHaveURL(baseUrl)
+    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}`)
   })
 
   test('Delete Contact', async ({ page }) => {
@@ -118,7 +118,7 @@ test.describe('contacts router example', () => {
     await contact.click()
 
     await page.getByRole('button', { name: 'Delete' }).click()
-    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}/destroy`)
+    await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}/deleted`)
 
     await expect(page.getByText('Contact deleted!')).toBeVisible()
     await expect(page.getByRole('listitem')).toHaveCount(9)

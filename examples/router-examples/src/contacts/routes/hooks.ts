@@ -1,9 +1,7 @@
-import { safeLoaderData, safeParams } from '@srtp/router'
+import { safeLoaderData } from '@srtp/router'
 
-import { Contact, ContactList, IDParams } from '../types'
+import { Contact, ContactList } from '../specs'
 
 export const useContact = safeLoaderData(Contact)
 
 export const useContactList = safeLoaderData(ContactList)
-
-export const useIdParams = safeParams(IDParams)

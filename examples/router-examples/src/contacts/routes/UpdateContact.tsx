@@ -1,4 +1,4 @@
-import { safeFormData } from '@srtp/router'
+import { formData } from '@srtp/router'
 import {
   Button,
   Card,
@@ -14,22 +14,24 @@ import {
 import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 
 import { api } from '../api'
-import { Contact } from '../types'
-import { useContact, useIdParams } from './hooks'
+import { useContact } from './hooks'
+import { contactRoutes } from './routes'
 
-export const editContact = async ({
+export const updateContact = async ({
   request,
+  params,
 }: LoaderFunctionArgs): Promise<Response> => {
-  const contact = await safeFormData(Contact.partial(), request)
+  const [contact] = await api.updateContact({
+    params,
+    request: await formData(request),
+  })
 
-  await api.patch(Contact, `users/${contact.id}`, contact)
-
-  return redirect('/')
+  return redirect(contactRoutes.getContact.link({ id: contact.id }))
 }
 
-export function EditContact(): JSX.Element {
+export function UpdateContact(): JSX.Element {
   const contact = useContact()
-  const { id } = useIdParams()
+  const { id } = contactRoutes.updateContact.useParams()
 
   return (
     <Card className="my-auto bg-gray-100 w-[80%] text-lg">
@@ -100,7 +102,7 @@ export function EditContact(): JSX.Element {
                 Save
               </Button>
               <Link
-                to={`/contacts/${id}`}
+                to={contactRoutes.getContact.link({ id })}
                 className="rounded-full bg-red-500 text-white px-8 py-2 text-sm"
               >
                 Cancel

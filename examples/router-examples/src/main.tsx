@@ -1,8 +1,5 @@
 import { createRoot } from '@srtp/react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-
-import { contactsRouter } from '@/contacts'
-import './global.css'
+import { App } from '@/App'
 
 if (import.meta.env.DEV) {
   const { worker } = await import('./mocks/browser')
@@ -11,10 +8,4 @@ if (import.meta.env.DEV) {
 
 const root = createRoot('root')
 
-const router = createBrowserRouter(contactsRouter)
-
-function ContactsApp(): JSX.Element {
-  return <RouterProvider router={router} />
-}
-
-root.render(<ContactsApp />)
+root.render(<App />)
