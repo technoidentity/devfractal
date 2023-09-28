@@ -1,4 +1,11 @@
-import { debug, isArray, isKey, toStr, type Primitive } from '@srtp/core'
+import {
+  debug,
+  isArray,
+  isEmptyString,
+  isKey,
+  toStr,
+  type Primitive,
+} from '@srtp/core'
 import invariant from 'tiny-invariant'
 
 // type SearchObj = Record<string, Primitive | Primitive[]>
@@ -61,9 +68,12 @@ export function toPath(
 }
 
 export function toURL(origin: string, path: string, search?: SearchObj): URL {
-  const qs = toSearch(search ?? {})
   const url = new URL(path, origin)
-  url.search = qs
+
+  const qs = toSearch(search ?? {})
+  if (!isEmptyString(qs)) {
+    url.search = qs
+  }
 
   return url
 }
@@ -71,6 +81,7 @@ export function toURL(origin: string, path: string, search?: SearchObj): URL {
 export function urlcat(base: string, path: string, search?: SearchObj): string {
   if (base.startsWith('http')) {
     const url = new URL(base)
+
     return toURL(url.origin, join(url.pathname, path), search).href
   }
 
