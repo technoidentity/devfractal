@@ -32,7 +32,7 @@ export type EpQueries<Ep extends EndpointRecordBase> = {
 
 export type EpMutationFn<Ep extends EndpointBase> = <TContext>(
   options: ApiMutationArgs<Ep, TContext>,
-) => UseMutationResult<Ep, TApiVariables<Ep>, TContext>
+) => UseMutationResult<TApiData<Ep>, Error, TApiVariables<Ep>, TContext>
 
 export type EpMutations<Ep extends EndpointRecordBase> = {
   readonly [K in keyof Ep as Ep[K]['method'] extends 'get'
