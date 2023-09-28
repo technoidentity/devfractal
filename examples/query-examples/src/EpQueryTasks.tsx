@@ -9,7 +9,7 @@ const api = createEpApi(taskEndpoints, baseUrl)
 
 export const QueryTaskApp = () => {
   const [taskList, invalidateKey] = api.useGetTasks({
-    request: { limit: 100, page: 2 },
+    request: { limit: 100, page: 1 },
   })
 
   const toggleTask = api.useUpdateTask({ invalidateKey })
