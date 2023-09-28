@@ -5,7 +5,7 @@ import type {
   GetRequestArg,
 } from '@srtp/core'
 import { cast, isNilSpec, keysfn, linkfn } from '@srtp/core'
-import { axios, joinPaths, urlcat } from '@srtp/web'
+import { joinPaths, urlcat } from '@srtp/web'
 import {
   useMutation,
   useQueryClient,
@@ -19,8 +19,7 @@ import {
 import React from 'react'
 import invariant from 'tiny-invariant'
 
-import { defaultApi } from '../api'
-import { useSimpleQuery, type UseSimpleQueryResult } from '../core/safeQuery'
+import { useAxios, useSimpleQuery, type UseSimpleQueryResult } from '../core'
 
 // ---------------
 // epQuery
@@ -43,6 +42,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
   return function useEpQuery<TQueryFnData>(
     options: EpQueryArgs<Ep, TQueryFnData>,
   ): UseEpQueryResult<Ep> {
+    const { axios } = useAxios()
     const paths = keysfn<Ep['path']>(ep.path, options.params)
 
     const query = ep.request
@@ -56,7 +56,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
 
     const queryFn: QueryFunction<any> = async () => {
       // @TODO: must use the axiosFn from options
-      const [data] = await defaultApi.get$(url)
+      const [data] = await axios({ url, method: 'get' })
       return data
     }
 
@@ -95,7 +95,7 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
     options: EpMutationArgs<Ep, TVariables, TContext>,
   ): UseMutationResult<TApiData<Ep>, Error, TVariables, TContext> {
     const qc = useQueryClient()
-
+    const { axios } = useAxios()
     const mutationFn: MutationFunction<
       TApiData<Ep>,
       TVariables
