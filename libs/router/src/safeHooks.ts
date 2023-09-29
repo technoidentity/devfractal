@@ -17,10 +17,11 @@ import type { z } from 'zod'
 
 export function safeNavigate<Path extends PathBase>(
   path: Path,
-): (values: Params<Path>) => void {
+): (params: Params<Path>) => void {
   return function useSafeNavigate() {
     const navigate = useNavigate()
 
+    // @TODO: do we need to cast values here?
     return useEvent((values: Params<Path>) => navigate(linkfn(path)(values)))
   }
 }
@@ -74,19 +75,24 @@ export function safeParams<Spec extends z.ZodTypeAny>(
 export function useSafeParams<Spec extends z.ZodTypeAny>(spec: Spec) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const useParams = React.useMemo(() => safeParams(spec), [])
+
   return useParams()
 }
 
 export function safeLoaderData<Spec extends z.ZodTypeAny>(
   spec: Spec,
 ): () => z.infer<Spec> {
-  return () => cast(spec, useLoaderData())
+  return function useSafeLoaderData() {
+    return cast(spec, useLoaderData())
+  }
 }
 
 export function safeActionData<Spec extends z.ZodTypeAny>(
   spec: Spec,
 ): () => z.infer<Spec> {
-  return () => cast(spec, useActionData())
+  return function useSafeActionData() {
+    return cast(spec, useActionData())
+  }
 }
 
 export function useSafeLoaderData<Spec extends z.ZodTypeAny>(spec: Spec) {

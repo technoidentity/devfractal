@@ -4,7 +4,7 @@ import type { Handlers } from '@srtp/react'
 import React from 'react'
 import type { z } from 'zod'
 
-import { safeSearch } from './hooks'
+import { safeSearch } from './safeHooks'
 
 export type SearchActions<
   Spec extends z.ZodTypeAny,

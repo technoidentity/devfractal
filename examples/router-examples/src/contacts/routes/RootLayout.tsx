@@ -1,4 +1,4 @@
-import { getSearchParams } from '@srtp/router'
+import { castSearch } from '@srtp/router'
 import { Box, HStack, Input, Label, Text } from '@srtp/ui'
 import {
   Link,
@@ -40,7 +40,7 @@ export const getUsers = async ({
 }: LoaderFunctionArgs): Promise<ContactListSpec> => {
   const [contacts] = await api.getContactList({})
 
-  const { search } = getSearchParams(Search, request)
+  const { search } = castSearch(Search, request)
 
   return search
     ? contacts.filter(contact =>

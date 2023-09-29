@@ -1,7 +1,8 @@
 import { AppShell, Header, Navbar } from '@mantine/core'
 import { Outlet } from '@remix-run/react'
 import { useOptionalUser } from '~/utils'
-import { AppHeader, AppNavbar } from '.'
+import { AppNavbar } from './AppNavbar'
+import { AppHeader } from './AppHeader'
 
 export const HomePage = () => {
   const user = useOptionalUser()
