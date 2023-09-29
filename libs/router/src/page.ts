@@ -4,15 +4,15 @@ import { type EndpointBase } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
 import type { RouteObject } from 'react-router-dom'
 
-import { safeSearch, type UseSearchResult } from './hooks'
-import { routerPath, type EpPathResult } from './routerPath'
+import { routerPath, type RouterPathResult } from './paths'
+import { safeSearch, type UseSearchResult } from './safeHooks'
 
 export type PageBase = Omit<RouteObject, 'path'> &
   Pick<EndpointBase, 'path'> &
   Partial<Pick<EndpointBase, 'request'>>
 
 export type PageResult<Page extends PageBase> = { route: RouteObject } & (Omit<
-  EpPathResult<Page['path']>,
+  RouterPathResult<Page['path']>,
   'path'
 > &
   Iff<
