@@ -80,8 +80,8 @@ export type MakeUndefinedOptional<T> = Prettify<
 
 export type IsEmptyObject<T> = keyof T extends never ? true : false
 export type IsNonEmptyObject<T> = keyof T extends never ? false : true
-export type IsUndefined<T> = T extends undefined ? true : false
-export type IsDefined<T> = T extends undefined ? false : true
+export type IsUndefined<T> = undefined extends T ? true : false
+export type IsDefined<T> = undefined extends T ? false : true
 export type IsNever<T> = [T] extends [never] ? true : false
 export type IsNullish<T> = T extends null | undefined ? true : false
 
