@@ -138,3 +138,13 @@ export function createFetch(
     ? (url, options) => fetch$(urlcat(baseUrlOrFetch, url), options)
     : baseUrlOrFetch
 }
+
+export type BaseUrlOrAxios = string | typeof axios
+
+export function createAxios(
+  baseUrlOrAxios: BaseUrlOrAxios = axios,
+): typeof axios {
+  return isStr(baseUrlOrAxios)
+    ? options => axios({ ...options, url: urlcat(baseUrlOrAxios, options.url) })
+    : baseUrlOrAxios
+}
