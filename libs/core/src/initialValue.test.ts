@@ -3,6 +3,7 @@ import { describe, expect, test } from 'vitest'
 import { z } from 'zod'
 
 import { initialValue } from './initialValue'
+import { cast } from './spec'
 const Gender = z.enum(['male', 'female'])
 
 enum ColorEnum {
@@ -114,7 +115,7 @@ describe('initialValue', () => {
       }
     `)
 
-    expect(() => person.parse(p)).not.toThrow()
-    expect(() => schema.parse(s)).not.toThrow()
+    expect(() => cast(person, p)).not.toThrow()
+    expect(() => cast(schema, s)).not.toThrow()
   })
 })

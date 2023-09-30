@@ -132,12 +132,16 @@ export function method<Spec extends z.AnyZodObject, R>(
   return (args: LoaderFunctionArgs) => onlyMethod(args, spec, fn)
 }
 
+export function getSearch(request: Request) {
+  return new URL(request.url).searchParams
+}
+
 export function castSearch<Spec extends z.ZodTypeAny>(
   spec: Spec,
   search: URLSearchParams | Request,
 ): z.infer<Spec> {
   if (!(search instanceof URLSearchParams)) {
-    search = new URL(search.url).searchParams
+    search = getSearch(search)
   }
 
   return cast(spec, fromSearchParams(search))

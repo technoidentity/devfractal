@@ -4,8 +4,11 @@ import { type EndpointBase } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
 import type { RouteObject } from 'react-router-dom'
 
-import { routerPath, type RouterPathResult } from './paths'
+import { routerPath, type RouterPathResult } from './routes'
 import { safeSearch, type UseSearchResult } from './safeHooks'
+
+/**  @deprecated this should be avoided, use routes or epRoutes instead.
+ */
 
 export type PageBase = Omit<RouteObject, 'path'> &
   Pick<EndpointBase, 'path'> &

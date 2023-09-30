@@ -6,7 +6,7 @@ import type {
   IsNonEmptyObject,
   Params,
 } from '@srtp/core'
-import { cast, paramsSpec, route } from '@srtp/core'
+import { cast, isNotNilSpec, paramsSpec, route } from '@srtp/core'
 
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
@@ -42,7 +42,7 @@ export async function epAxios<Ep extends EndpointBase>({
 
   const url = params ? toPath(path, cast(paramsSpec(ep.path), params)) : path
 
-  const reqBody = ep.request
+  const reqBody = isNotNilSpec(ep.request)
     ? { body: cast(ep.request, request) }
     : request
     ? { body: request }
