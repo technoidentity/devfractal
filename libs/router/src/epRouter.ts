@@ -1,7 +1,7 @@
 import type {
   EndpointBase,
   EndpointRecordBase,
-  Iff,
+  If,
   IsDefined,
   PathBase,
 } from '@srtp/core'
@@ -37,8 +37,8 @@ type EpRouteResult<
   ActionEp extends EndpointBase | undefined,
 > = RouterPathResult<Path> &
   SearchFns<Search> &
-  Iff<IsDefined<LoaderEps>, EpsLoaderResult<NonNullable<LoaderEps>>> &
-  Iff<IsDefined<ActionEp>, EpActionResult<NonNullable<ActionEp>>>
+  If<IsDefined<LoaderEps>, EpsLoaderResult<NonNullable<LoaderEps>>, object> &
+  If<IsDefined<ActionEp>, EpActionResult<NonNullable<ActionEp>>, object>
 
 export function epRouteUtils<
   const Path extends PathBase,

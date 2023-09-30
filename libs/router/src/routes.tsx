@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import type {
   If,
-  Iff,
   IsDefined,
   IsNonEmptyObject,
   Params,
@@ -45,12 +44,13 @@ type RouterPathLinkProps<Path extends PathBase> = Omit<LinkProps, 'to'> &
 type RouterPathNavLinkProps<Path extends PathBase> = Omit<NavLinkProps, 'to'> &
   ParamsFn<Path>
 
-type ParamsFns<Path extends PathBase> = Iff<
+type ParamsFns<Path extends PathBase> = If<
   IsNonEmptyObject<Params<Path>>,
   {
     params: (args: LoaderFunctionArgs) => Params<Path>
     useParams: () => Params<Path>
-  }
+  },
+  object
 >
 export type RouterPathResult<Path extends PathBase> = {
   path: string
@@ -94,12 +94,13 @@ export function routerPath<const Path extends PathBase>(
   return result as any
 }
 
-export type SearchFns<Search extends z.ZodTypeAny | undefined> = Iff<
+export type SearchFns<Search extends z.ZodTypeAny | undefined> = If<
   IsDefined<Search>,
   {
     search: (args: LoaderFunctionArgs) => z.infer<NonNullable<Search>>
     useSearch: () => UseSearchResult<NonNullable<Search>>
-  }
+  },
+  object
 >
 
 export type SearchPathResult<

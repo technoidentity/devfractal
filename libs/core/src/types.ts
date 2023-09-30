@@ -85,11 +85,11 @@ export type IsDefined<T> = undefined extends T ? false : true
 export type IsNever<T> = [T] extends [never] ? true : false
 export type IsNullish<T> = T extends null | undefined ? true : false
 
-export type If<Cond extends boolean, Then, Else = object> = true extends Cond
+export type If<Cond extends boolean, Then, Else> = true extends Cond
   ? Then
   : Else
 
-export type Ifdef<T, Then, Else = object> = If<IsDefined<T>, Then, Else>
+export type Ifdef<T, Then, Else> = If<IsDefined<T>, Then, Else>
 
 export type IfFnArg<Cond extends boolean, Arg, R> = Cond extends true
   ? (arg: Arg) => R

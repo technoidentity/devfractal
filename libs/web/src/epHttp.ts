@@ -2,7 +2,7 @@ import type {
   EndpointBase,
   EndpointRecordBase,
   GetEpResponse,
-  Iff,
+  If,
   IsNonEmptyObject,
   Params,
 } from '@srtp/core'
@@ -63,8 +63,8 @@ export async function epAxios<Ep extends EndpointBase>({
 
 export type EpHttpArgs<Ep extends EndpointBase> = {
   options?: BaseFetchOptions
-} & Iff<IsNonEmptyObject<Params<Ep['path']>>, { params: unknown }> &
-  Iff<IsNonEmptyObject<z.infer<Ep['request']>>, { request: unknown }>
+} & If<IsNonEmptyObject<Params<Ep['path']>>, { params: unknown }, object> &
+  If<IsNonEmptyObject<z.infer<Ep['request']>>, { request: unknown }, object>
 
 export type EpHttpResult<Eps extends EndpointRecordBase> = {
   [K in keyof Eps]: (
