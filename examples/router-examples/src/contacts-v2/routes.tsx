@@ -14,7 +14,7 @@ import { remove, one, update, list } from './dataRouter'
 import { contactPaths, rootPath } from './paths'
 
 const contactRoutes = searchRoutes(contactPaths, {
-  list: {
+  one: {
     element: <ViewContact />,
     loader: one,
     action: remove,

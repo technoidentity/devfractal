@@ -11,11 +11,10 @@ import {
 import { Form, Link } from 'react-router-dom'
 
 import { contactPaths } from '../paths'
-import { useContact } from './hooks'
 
 export function ViewContact() {
-  const contact = useContact()
-  const { id } = contactPaths.list.useParams()
+  const { contact } = contactPaths.contact.useLoaderData()
+  const { id } = contactPaths.contact.useParams()
 
   return (
     <Card className="m-auto space-y-4 p-8 bg-gray-100 border-2 shadow-md">

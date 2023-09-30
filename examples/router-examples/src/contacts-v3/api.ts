@@ -9,8 +9,8 @@ const userPath = ['api', 'users'] as const
 const idPath = [...userPath, idPathSegment] as const
 
 export const endpoints = eps({
-  list: epGet(userPath, ContactList),
-  one: epGet(idPath, Contact),
+  contacts: epGet(userPath, ContactList),
+  contact: epGet(idPath, Contact),
   add: epPost(userPath, Contact.omit({ id: true }), Contact),
   update: epPatch(idPath, Contact.partial(), Contact),
   remove: epDelete(idPath),

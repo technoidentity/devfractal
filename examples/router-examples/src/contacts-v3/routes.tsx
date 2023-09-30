@@ -1,4 +1,4 @@
-import { epRoutes } from '@srtp/router'
+import { epReactRoutes } from '@srtp/router'
 
 import {
   AddContact,
@@ -11,8 +11,8 @@ import {
 
 import { contactPaths, rootPath } from './paths'
 
-const contactRoutes = epRoutes(contactPaths, {
-  list: {
+const contactRoutes = epReactRoutes(contactPaths, {
+  contact: {
     element: <ViewContact />,
     errorElement: <ErrorPage />,
   },
@@ -30,8 +30,8 @@ const contactRoutes = epRoutes(contactPaths, {
   },
 })
 
-const rootRoutes = epRoutes(rootPath, {
-  root: {
+const rootRoutes = epReactRoutes(rootPath, {
+  contacts: {
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: contactRoutes,

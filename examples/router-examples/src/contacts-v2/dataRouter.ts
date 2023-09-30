@@ -10,7 +10,7 @@ import { ContactID } from './specs'
 export const list = async (args: LoaderFunctionArgs): Promise<ContactList> => {
   const [contacts] = await api.list({})
 
-  const { search } = contactPaths.list.search(args)
+  const { search } = contactPaths.one.search(args)
 
   return search
     ? contacts.filter(contact =>
@@ -42,7 +42,7 @@ export const update = async ({
     request: await formData(request),
   })
 
-  return redirect(contactPaths.list.link({ id: contact.id }))
+  return redirect(contactPaths.one.link({ id: contact.id }))
 }
 
 export const remove = async ({ params }: LoaderFunctionArgs) => {

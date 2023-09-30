@@ -1,4 +1,3 @@
-import { formData } from '@srtp/router'
 import {
   Button,
   Card,
@@ -11,18 +10,9 @@ import {
   Label,
   VStack,
 } from '@srtp/ui'
-import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
+import { Form, Link } from 'react-router-dom'
 
-import { api } from '../api'
 import { rootLink } from '../paths'
-
-export const addContact = async ({
-  request,
-}: LoaderFunctionArgs): Promise<Response> => {
-  await api.add({ request: await formData(request) })
-
-  return redirect(rootLink)
-}
 
 export function AddContact() {
   return (

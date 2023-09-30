@@ -13,10 +13,9 @@ import {
 import { Form, Link } from 'react-router-dom'
 
 import { contactPaths } from '../paths'
-import { useContact } from './hooks'
 
 export function UpdateContact(): JSX.Element {
-  const contact = useContact()
+  const { contact } = contactPaths.update.useLoaderData()
   const { id } = contactPaths.update.useParams()
 
   return (
@@ -30,7 +29,7 @@ export function UpdateContact(): JSX.Element {
       <CardContent>
         <Form method="post" className="rounded-2xl">
           <VStack className="gap-y-4">
-            <Input type="hidden" name="id" defaultValue={contact.id} />
+            <Input type="hidden" name="id" value={id} />
 
             <VStack className="gap-y-2">
               <Label htmlFor="name" className="block text-left px-2">
@@ -88,7 +87,7 @@ export function UpdateContact(): JSX.Element {
                 Save
               </Button>
               <Link
-                to={contactPaths.list.link({ id })}
+                to={contactPaths.contact.link({ id })}
                 className="rounded-full bg-red-500 text-white px-8 py-2 text-sm"
               >
                 Cancel

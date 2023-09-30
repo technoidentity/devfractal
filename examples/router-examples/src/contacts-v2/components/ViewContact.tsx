@@ -15,7 +15,7 @@ import { useContact } from './hooks'
 
 export function ViewContact() {
   const contact = useContact()
-  const { id } = contactPaths.list.useParams()
+  const { id } = contactPaths.one.useParams()
 
   return (
     <Card className="m-auto space-y-4 p-8 bg-gray-100 border-2 shadow-md">

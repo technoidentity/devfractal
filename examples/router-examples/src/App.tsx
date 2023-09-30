@@ -1,7 +1,7 @@
 import React from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { routes } from './contacts-v2'
+import { routes } from './contacts-v3'
 import './global.css'
 
 export function App(): JSX.Element {

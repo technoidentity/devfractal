@@ -17,7 +17,7 @@ function ListContacts({ contacts }: { contacts: Contacts }) {
             key={contact.id}
             className="border hover:bg-blue-500 hover:text-white shadow-md p-2 rounded-lg border-2"
           >
-            <Link to={contactPaths.list.link({ id: contact.id })}>
+            <Link to={contactPaths.one.link({ id: contact.id })}>
               <Text className="font-sans">{contact.name}</Text>
             </Link>
           </li>

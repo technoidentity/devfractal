@@ -1,9 +1,8 @@
 import { Box, HStack, Input, Label, Text } from '@srtp/ui'
 import { Link, Outlet, useSubmit } from 'react-router-dom'
 
-import { contactPaths } from '../paths'
+import { contactPaths, rootPath } from '../paths'
 import { type ContactList as Contacts } from '../specs'
-import { useContactList } from './hooks'
 
 function ListContacts({ contacts }: { contacts: Contacts }) {
   return (
@@ -17,7 +16,7 @@ function ListContacts({ contacts }: { contacts: Contacts }) {
             key={contact.id}
             className="border hover:bg-blue-500 hover:text-white shadow-md p-2 rounded-lg border-2"
           >
-            <Link to={contactPaths.list.link({ id: contact.id })}>
+            <Link to={contactPaths.contact.link({ id: contact.id })}>
               <Text className="font-sans">{contact.name}</Text>
             </Link>
           </li>
@@ -28,7 +27,7 @@ function ListContacts({ contacts }: { contacts: Contacts }) {
 }
 
 export function RootLayout(): JSX.Element {
-  const contacts = useContactList()
+  const { contacts } = rootPath.contacts.useLoaderData()
   const submit = useSubmit()
 
   return (

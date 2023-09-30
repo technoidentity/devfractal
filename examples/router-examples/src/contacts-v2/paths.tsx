@@ -5,7 +5,7 @@ import { ContactID, Search } from './specs'
 export const idPathSegment = { id: ContactID }
 
 const paths = {
-  list: { path: ['contacts', idPathSegment], search: Search },
+  one: { path: ['contacts', idPathSegment], search: Search },
   update: { path: ['contacts', idPathSegment, 'update'] },
   remove: { path: ['contacts', idPathSegment, 'deleted'] },
   add: { path: ['contacts', 'add'] },
