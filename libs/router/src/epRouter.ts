@@ -10,9 +10,9 @@ import { type BaseUrlOrFetch } from '@srtp/web'
 import { type LoaderFunctionArgs, type RouteObject } from 'react-router-dom'
 import type { z } from 'zod'
 
-import { epAction, type EpActionResult } from './action'
+import { epAction, type EpActionArgs, type EpActionResult } from './action'
 import { epsLoader, type EpsLoaderResult } from './loader'
-import { routerPath, type RouterPathResult, type SearchFns } from './paths'
+import { routerPath, type RouterPathResult, type SearchFns } from './routes'
 import { safeSearch } from './safeHooks'
 import { castSearch } from './utils'
 
@@ -25,7 +25,7 @@ type EpRouteArgs<
   path: Path
   search?: Search
   loader?: LoaderEps
-  action?: ActionEp
+  action?: EpActionArgs<NonNullable<ActionEp>>
 }>
 
 type EpRouteBase = EpRouteArgs<any, any, any, any>
@@ -54,8 +54,8 @@ export function epRouteUtils<
   const routerUtils = routerPath(path)
 
   const loaderUtils = loader ? epsLoader(loader, baseUrlOrFetch) : undefined
-  const actionUtils = action ? epAction(action, baseUrlOrFetch) : undefined
 
+  const actionUtils = action ? epAction(action) : undefined
   const searchUtils = search
     ? {
         useSearch: safeSearch(search),
@@ -78,11 +78,11 @@ export type EpRouterResult<Eps extends EpRouterRecordBase> = {
     Eps[K]['path'],
     Eps[K]['search'],
     Eps[K]['loader'],
-    Eps[K]['action']
+    NonNullable<Eps[K]['action']>['endpoint']
   >
 }
 
-export function epRouter<EpRoutes extends EpRouterRecordBase>(
+export function epRoutes<EpRoutes extends EpRouterRecordBase>(
   eps: EpRoutes,
   baseUrlOrFetch?: BaseUrlOrFetch,
 ): EpRouterResult<EpRoutes> {
@@ -93,7 +93,7 @@ export type RouteObjects<Eps extends EpRouterRecordBase> = {
   [K in keyof Eps]: Omit<RouteObject, 'path' | 'loader' | 'action'>
 }
 
-export function epRoutes<const Eps extends EpRouterRecordBase>(
+export function epReactRoutes<const Eps extends EpRouterRecordBase>(
   args: EpRouterResult<Eps>,
   routes: RouteObjects<Eps>,
 ): RouteObject[] {
