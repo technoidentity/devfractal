@@ -27,9 +27,9 @@
   "devDependencies": {
     "@faker-js/faker": "8.1.0",
     "@srtp/tsconfig": "workspace:*",
-    "@types/node": "20.7.0",
+    "@types/node": "20.8.0",
     "@vitejs/plugin-react-swc": "3.4.0",
-    "@vitest/coverage-v8": "0.34.5",
+    "@vitest/coverage-v8": "0.34.6",
     "cross-env": "7.0.3",
     "eslint": "8.50.0",
     "eslint-config-srtp": "workspace:*",
@@ -37,6 +37,6 @@
     "rimraf": "5.0.5",
     "typescript": "5.2.2",
     "vite": "4.4.9",
-    "vitest": "0.34.5"
+    "vitest": "0.34.6"
   }
 }
