@@ -1,9 +1,12 @@
 // src/mocks/handlers.js
 import { delay, randInt } from 'devfractal'
 import { rest } from 'msw'
+import { dataHandlers } from './data-table/dataHandlers'
 // import { delay } from 'devfractal'
 
 export const handlers = [
+  ...dataHandlers,
+
   rest.all('*', async req => {
     await delay(randInt(100, 2000))
     return req.passthrough()
