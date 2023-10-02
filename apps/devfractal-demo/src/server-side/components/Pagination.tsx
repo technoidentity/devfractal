@@ -10,16 +10,30 @@ import {
   Text,
 } from 'devfractal'
 
-export function Pagination(): JSX.Element {
+export function Pagination({
+  currentPage,
+  totalPages,
+  limit,
+  onSetLimit,
+  onNext,
+  onPrev,
+  onFirst,
+  onLast,
+}: {
+  currentPage: number
+  totalPages: number
+  limit: number
+  onSetLimit: (value: string) => void
+  onNext: () => void
+  onPrev: () => void
+  onFirst: () => void
+  onLast: (last: number) => void
+}) {
   return (
     <HStack className="justify-between items-center gap-x-8">
-      <Select
-        onValueChange={() => {
-          return
-        }}
-      >
+      <Select onValueChange={onSetLimit}>
         <SelectTrigger>
-          <SelectValue defaultValue="10" />
+          <SelectValue defaultValue={limit} placeholder={10} />
         </SelectTrigger>
 
         <SelectContent>
@@ -32,13 +46,26 @@ export function Pagination(): JSX.Element {
         </SelectContent>
       </Select>
 
-      <Text className="whitespace-nowrap block">1 of 10</Text>
+      <Text className="whitespace-nowrap block">
+        {currentPage} of {totalPages}
+      </Text>
 
       <HStack className="items-center justify-center gap-x-2">
-        <Button>First</Button>
-        <Button>Prev</Button>
-        <Button>Next</Button>
-        <Button>Last</Button>
+        <Button onClick={onFirst} disabled={currentPage === 1}>
+          First
+        </Button>
+        <Button onClick={onPrev} disabled={currentPage <= 1}>
+          Prev
+        </Button>
+        <Button onClick={onNext} disabled={currentPage >= totalPages}>
+          Next
+        </Button>
+        <Button
+          onClick={() => onLast(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          Last
+        </Button>
       </HStack>
     </HStack>
   )
