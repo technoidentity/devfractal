@@ -1,6 +1,9 @@
-import type { Products } from './products'
+import type { ProductsResponse } from '@/mocks/data-table/operations'
 
-export const fetchProducts = async () => {
-  const data = await (await fetch('/api/data/products')).json()
-  return data as Products
+export const fetchProducts = async (page: number, limit: number) => {
+  const data: ProductsResponse = await (
+    await fetch(`/api/data/products/?page=${page}&limit=${limit}`)
+  ).json()
+
+  return data
 }
