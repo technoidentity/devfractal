@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { boolean, email, string } from '@srtp/core'
+import { boolean, string } from '@srtp/core'
 import {
   Button,
   CheckBoxField,
@@ -23,7 +23,7 @@ const Signin = z.object({
   username: string(),
   password: string(),
   mobileSettings: boolean(),
-  email: email(),
+  email: z.string().email(),
   marketingEmails: z.boolean().default(false).optional(),
   securityEmails: z.boolean(),
   bio: z

@@ -831,9 +831,6 @@ importers:
       '@srtp/react':
         specifier: workspace:*
         version: link:../../libs/react
-      '@srtp/remix-core':
-        specifier: workspace:*
-        version: link:../../experimental/remix-core
       '@srtp/remix-node':
         specifier: workspace:*
         version: link:../../experimental/remix-node
@@ -1560,6 +1557,9 @@ importers:
       '@srtp/fn':
         specifier: workspace:*
         version: link:../../libs/fn
+      '@srtp/query':
+        specifier: workspace:*
+        version: link:../../libs/query
       '@srtp/react':
         specifier: workspace:*
         version: link:../../libs/react
@@ -2199,70 +2199,6 @@ importers:
         specifier: 0.34.6
         version: 0.34.6(@vitest/ui@0.34.6)(jsdom@22.1.0)
 
-  experimental/remix-core:
-    dependencies:
-      '@srtp/core':
-        specifier: workspace:*
-        version: link:../../libs/core
-      immer:
-        specifier: 10.0.2
-        version: 10.0.2
-      react:
-        specifier: 18.2.0
-        version: 18.2.0
-      tiny-invariant:
-        specifier: 1.3.1
-        version: 1.3.1
-      tiny-warning:
-        specifier: 1.0.3
-        version: 1.0.3
-      tslib:
-        specifier: 2.6.2
-        version: 2.6.2
-      zod:
-        specifier: 3.22.2
-        version: 3.22.2
-    devDependencies:
-      '@remix-run/eslint-config':
-        specifier: 2.0.1
-        version: 2.0.1(eslint@8.50.0)(react@18.2.0)(typescript@5.2.2)
-      '@srtp/tsconfig':
-        specifier: workspace:*
-        version: link:../../libs/tsconfig
-      '@types/node':
-        specifier: 20.8.0
-        version: 20.8.0
-      '@types/react':
-        specifier: 18.2.24
-        version: 18.2.24
-      cross-env:
-        specifier: 7.0.3
-        version: 7.0.3
-      eslint:
-        specifier: 8.50.0
-        version: 8.50.0
-      prettier:
-        specifier: 3.0.3
-        version: 3.0.3
-      rimraf:
-        specifier: 5.0.5
-        version: 5.0.5
-      tsup:
-        specifier: 7.2.0
-        version: 7.2.0(postcss@8.4.31)(typescript@5.2.2)
-      turbo:
-        specifier: 1.10.14
-        version: 1.10.14
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
-      vite:
-        specifier: 4.4.9
-        version: 4.4.9(@types/node@20.8.0)
-      vitest:
-        specifier: 0.34.6
-        version: 0.34.6(@vitest/ui@0.34.6)(jsdom@22.1.0)
-
   experimental/remix-node:
     dependencies:
       '@remix-run/node':
@@ -2271,9 +2207,6 @@ importers:
       '@srtp/core':
         specifier: workspace:*
         version: link:../../libs/core
-      '@srtp/remix-core':
-        specifier: workspace:*
-        version: link:../remix-core
       immer:
         specifier: 10.0.2
         version: 10.0.2
@@ -2359,9 +2292,6 @@ importers:
       '@srtp/react':
         specifier: workspace:*
         version: link:../../libs/react
-      '@srtp/remix-core':
-        specifier: workspace:*
-        version: link:../remix-core
       superjson:
         specifier: 1.13.3
         version: 1.13.3
@@ -2426,12 +2356,12 @@ importers:
       '@total-typescript/ts-reset':
         specifier: 0.5.1
         version: 0.5.1
-      exhaustive:
-        specifier: 1.1.1
-        version: 1.1.1
       immer:
         specifier: 10.0.2
         version: 10.0.2
+      string-ts:
+        specifier: 1.0.0
+        version: 1.0.0
       tiny-invariant:
         specifier: 1.3.1
         version: 1.3.1
@@ -25735,6 +25665,10 @@ packages:
     dependencies:
       strip-ansi: 7.1.0
     dev: true
+
+  /string-ts@1.0.0:
+    resolution: {integrity: sha512-eb4Pfocg74WuvAc0GIgyk3wtS4vFR+EfE54qimaqsdXqjzTz5D6iWyW86EWMUPd4YC3t6BJ2YJE3Js7lkVkxxA==}
+    dev: false
 
   /string-width@2.1.1:
     resolution: {integrity: sha512-nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw==}

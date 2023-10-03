@@ -2,7 +2,7 @@ import { orderedKeys, orderedEntries } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
-import { assert, cast, isObject } from '../spec'
+import { devInvariant, cast, isObject } from '../spec'
 
 import type { Params, PathBase } from './endpoint'
 
@@ -14,7 +14,7 @@ export function route<Path extends PathBase>(path: Path): string {
 
   if (process.env.NODE_ENV === 'development') {
     for (const segment of segments) {
-      assert(!segment.includes('/'), `segment ${segment} contains /`)
+      devInvariant(!segment.includes('/'), `segment ${segment} contains /`)
     }
   }
 

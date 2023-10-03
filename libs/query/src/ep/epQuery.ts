@@ -4,7 +4,7 @@ import type {
   GetParamsArg,
   GetRequestArg,
 } from '@srtp/core'
-import { cast, isNilSpec, keysfn, linkfn } from '@srtp/core'
+import { cast, isNilSpec, keysfn, linkfn, toStr } from '@srtp/core'
 import { joinPaths, urlcat } from '@srtp/web'
 import {
   useMutation,
@@ -50,7 +50,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
       : options.request
 
     const url = React.useMemo(
-      () => urlcat(baseUrl, joinPaths(paths), query),
+      () => urlcat(baseUrl, joinPaths(paths.map(toStr)), query),
       [paths, query],
     )
 
