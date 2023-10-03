@@ -1,4 +1,5 @@
-import { formData } from '@srtp/router'
+import { pcast } from '@srtp/core'
+import { pipe } from '@srtp/fn'
 import {
   Button,
   Card,
@@ -11,20 +12,34 @@ import {
   Label,
   VStack,
 } from '@srtp/ui'
-import { Form, Link, redirect, type LoaderFunctionArgs } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import { api } from '../api'
-import { rootLink } from '../paths'
+import { contactsApi, listInvalidateKey } from '../api'
+import { rootLink, rootPath } from '../paths'
+import { CreateContact } from '../specs'
 
-export const addContact = async ({
-  request,
-}: LoaderFunctionArgs): Promise<Response> => {
-  await api.add({ request: await formData(request) })
+function useAddContact() {
+  const add = contactsApi.useAdd({ invalidateKey: listInvalidateKey })
+  const navigate = rootPath.list.useNavigate()
 
-  return redirect(rootLink)
+  const onAdd = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const contact = pipe(
+      new FormData(event.currentTarget),
+      Object.fromEntries,
+      pcast(CreateContact),
+    )
+
+    add.mutate(contact, { onSettled: () => navigate() })
+  }
+
+  return { onAdd }
 }
 
 export function AddContact() {
+  const { onAdd } = useAddContact()
+
   return (
     <Card
       className="bg-gray-100 m-auto w-[80%] text-lg text-black"
@@ -35,7 +50,7 @@ export function AddContact() {
         <CardDescription>Please fill out the details! </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form method="post" className="rounded-2xl">
+        <form onSubmit={onAdd} className="rounded-2xl">
           <VStack className="gap-y-4 ">
             <VStack className="gap-y-2">
               <Label htmlFor="name" className="block text-left px-2">
@@ -100,7 +115,7 @@ export function AddContact() {
               </Link>
             </HStack>
           </VStack>
-        </Form>
+        </form>
       </CardContent>
     </Card>
   )

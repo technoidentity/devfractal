@@ -2,7 +2,7 @@ import { Text, VStack } from '@srtp/ui'
 import { Link } from 'react-router-dom'
 import { rootLink } from '../paths'
 
-export function ContactDeletedMessage() {
+export function ContactDeleted() {
   return (
     <VStack className="gap-y-8 justify-center px-8">
       <Text className="rounded-2xl border bg-red-400 text-white p-4 text-xl">

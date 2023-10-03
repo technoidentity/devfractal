@@ -26,6 +26,7 @@
     "@srtp/fn": "workspace:*",
     "@srtp/react": "workspace:*",
     "@srtp/router": "workspace:*",
+    "@srtp/query": "workspace:*",
     "@srtp/ui": "workspace:*",
     "@srtp/web": "workspace:*",
     "@tanstack/react-query": "4.35.7",

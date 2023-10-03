@@ -8,14 +8,30 @@ import {
   HStack,
   Text,
 } from '@srtp/ui'
-import { Form, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import { contactPaths } from '../paths'
-import { useContact } from './hooks'
+import { contactsApi, listInvalidateKey } from '../api'
+import { contactsPaths } from '../paths'
+
+function useViewContact() {
+  const { id } = contactsPaths.one.useParams()
+  const [contact] = contactsApi.useOne({ params: { id } })
+  const remove = contactsApi.useRemove({ invalidateKey: listInvalidateKey })
+  const navigate = contactsPaths.remove.useNavigate()
+
+  const onDelete = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    remove.mutate(id, { onSettled: () => navigate({ id }) })
+  }
+
+  const updateLink = contactsPaths.update.link({ id })
+
+  return { contact, onDelete, updateLink }
+}
 
 export function ViewContact() {
-  const contact = useContact()
-  const { id } = contactPaths.one.useParams()
+  const { contact, onDelete, updateLink } = useViewContact()
 
   return (
     <Card className="m-auto space-y-4 p-8 bg-gray-100 border-2 shadow-md">
@@ -28,10 +44,10 @@ export function ViewContact() {
         <Text>{contact.website}</Text>
       </CardContent>
       <CardFooter>
-        <Form method="delete">
+        <form onSubmit={onDelete}>
           <HStack className="justify-evenly items-center gap-x-10">
             <Link
-              to={contactPaths.update.link({ id })}
+              to={updateLink}
               className="rounded-full border bg-white px-4 py-2 text-sm"
             >
               Edit
@@ -44,7 +60,7 @@ export function ViewContact() {
               Delete
             </Button>
           </HStack>
-        </Form>
+        </form>
       </CardFooter>
     </Card>
   )

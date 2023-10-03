@@ -1,4 +1,4 @@
-import { searchPaths } from '@srtp/router'
+import { epRoutes } from '@srtp/router'
 
 import { ContactID, Search } from './specs'
 
@@ -11,8 +11,8 @@ const paths = {
   add: { path: ['contacts', 'add'] },
 } as const
 
-export const contactPaths = searchPaths(paths)
+export const contactsPaths = epRoutes(paths)
 
-export const rootPath = searchPaths({ root: { path: [''] } })
+export const rootPath = epRoutes({ list: { path: [''] } })
 
-export const rootLink = rootPath.root.link({})
+export const rootLink = rootPath.list.link({})

@@ -1,3 +1,5 @@
+import { pcast } from '@srtp/core'
+import { pipe } from '@srtp/fn'
 import {
   Button,
   Card,
@@ -10,14 +12,36 @@ import {
   Label,
   VStack,
 } from '@srtp/ui'
-import { Form, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import { contactPaths } from '../paths'
-import { useContact } from './hooks'
+import { contactsApi } from '../api'
+import { contactsPaths } from '../paths'
+import { UpdateContact as UpdateContactSpec } from '../specs'
 
+function useUpdateContact() {
+  const { id } = contactsPaths.update.useParams()
+  const [contact, invalidateKey] = contactsApi.useOne({ params: { id } })
+  const update = contactsApi.useUpdate({ invalidateKey })
+  const navigate = contactsPaths.one.useNavigate()
+
+  const onUpdate = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const contact = pipe(
+      new FormData(event.currentTarget),
+      Object.fromEntries,
+      pcast(UpdateContactSpec),
+    )
+
+    update.mutate(contact, { onSettled: () => navigate({ id }) })
+  }
+
+  const cancelLink = contactsPaths.one.link({ id })
+
+  return { contact, onUpdate, cancelLink }
+}
 export function UpdateContact(): JSX.Element {
-  const contact = useContact()
-  const { id } = contactPaths.update.useParams()
+  const { contact, onUpdate: handleUpdate, cancelLink } = useUpdateContact()
 
   return (
     <Card className="my-auto bg-gray-100 w-[80%] text-lg">
@@ -28,7 +52,7 @@ export function UpdateContact(): JSX.Element {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Form method="post" className="rounded-2xl">
+        <form onSubmit={handleUpdate} className="rounded-2xl">
           <VStack className="gap-y-4">
             <Input type="hidden" name="id" defaultValue={contact.id} />
 
@@ -88,14 +112,14 @@ export function UpdateContact(): JSX.Element {
                 Save
               </Button>
               <Link
-                to={contactPaths.one.link({ id })}
+                to={cancelLink}
                 className="rounded-full bg-red-500 text-white px-8 py-2 text-sm"
               >
                 Cancel
               </Link>
             </HStack>
           </VStack>
-        </Form>
+        </form>
       </CardContent>
     </Card>
   )

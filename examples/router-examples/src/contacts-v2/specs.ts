@@ -10,10 +10,21 @@ export const Contact = z.object({
   phone: z.string(),
   website: z.string(),
 })
-
 export type Contact = z.infer<typeof Contact>
+
+export const CreateContact = Contact.omit({ id: true })
+export type CreateContact = z.infer<typeof CreateContact>
+
+export const UpdateContact = Contact.pick({ id: true }).merge(
+  Contact.omit({ id: true }).partial(),
+)
+export type UpdateContact = z.infer<typeof UpdateContact>
 
 export const ContactList = z.array(Contact)
 export type ContactList = z.infer<typeof ContactList>
 
-export const Search = z.object({ search: z.string().optional() })
+export function searchSpec<RawSpec extends z.ZodRawShape>(spec: RawSpec) {
+  return z.object(spec).passthrough().optional()
+}
+
+export const Search = searchSpec({ search: z.string().optional() })
