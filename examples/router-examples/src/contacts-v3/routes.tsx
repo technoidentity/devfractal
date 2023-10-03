@@ -2,7 +2,7 @@ import { epReactRoutes } from '@srtp/router'
 
 import {
   AddContact,
-  ContactDeletedMessage,
+  ContactDeleted,
   ErrorPage,
   RootLayout,
   UpdateContact,
@@ -22,7 +22,7 @@ const contactRoutes = epReactRoutes(contactPaths, {
   },
 
   remove: {
-    element: <ContactDeletedMessage />,
+    element: <ContactDeleted />,
   },
 
   add: {
