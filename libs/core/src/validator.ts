@@ -3,66 +3,38 @@
 import invariant from 'tiny-invariant'
 import type { ZodEnum, ZodNativeEnum } from 'zod'
 import { z } from 'zod'
+import type { errorUtil } from 'zod/lib/helpers/errorUtil'
 
 import type { Try } from './result'
+import type { BoolLike, DateLike, IsoDateLike, NumLike } from './spec'
 import { tryFromZod } from './utils'
 
 const Num = z.coerce.number()
-const Str = z.coerce.string()
 
-export const number = (defaultValue?: number) =>
-  defaultValue ? Num.default(defaultValue) : Num
+export const number = (defaultValue = 0) => Num.default(defaultValue)
 
-const Int = Num.int()
+export const int = (defaultValue = 0, message?: errorUtil.ErrMessage) =>
+  Num.int(message).default(defaultValue)
 
-export const int = (defaultValue?: number) =>
-  defaultValue ? Int.default(defaultValue) : Int
+export const positive = (defaultValue = 0, message?: errorUtil.ErrMessage) =>
+  Num.positive(message).default(defaultValue)
 
-const Positive = Num.positive()
-export const positive = (defaultValue?: number) =>
-  defaultValue ? Positive.default(defaultValue) : Positive
+export const nonnegative = (defaultValue = 0, message?: errorUtil.ErrMessage) =>
+  Num.nonnegative(message).default(defaultValue)
 
-const Nonnegative = Num.nonnegative()
-export const nonnegative = (defaultValue?: number) =>
-  defaultValue ? Nonnegative.default(defaultValue) : Nonnegative
+export const negative = (defaultValue = 0, message?: errorUtil.ErrMessage) =>
+  Num.negative(message).default(defaultValue)
 
-const Negative = Num.negative()
+export const nonpositive = (defaultValue = 0, message?: errorUtil.ErrMessage) =>
+  Num.nonpositive(message).default(defaultValue)
 
-export const negative = (defaultValue: number) =>
-  defaultValue ? Negative.default(defaultValue) : Negative
+export const string = (defaultValue = '') =>
+  z.coerce.string().default(defaultValue)
 
-const Nonpositive = Num.nonpositive()
-export const nonpositive = (defaultValue: number) =>
-  defaultValue ? Nonpositive.default(defaultValue) : Nonpositive
+export const boolean = (defaultValue = false) =>
+  z.boolean().default(defaultValue)
 
-export const string = (defaultValue?: string) =>
-  defaultValue ? Str.default(defaultValue) : Str
-
-const Email = Str.email()
-export const email = (defaultValue?: string) =>
-  defaultValue ? Email.default(defaultValue) : Email
-
-const Uuid = Str.uuid()
-export const uuid = (defaultValue?: string) =>
-  defaultValue ? Uuid.default(defaultValue) : Uuid
-
-const Cuid = Str.cuid()
-export const cuid = (defaultValue?: string) =>
-  defaultValue ? Cuid.default(defaultValue) : Cuid
-
-const DateTime = Str.datetime()
-export const datetime = (defaultValue?: string) =>
-  defaultValue ? DateTime.default(defaultValue) : DateTime
-
-const Bool = z.boolean()
-
-export const boolean = (defaultValue?: boolean) =>
-  defaultValue ? Bool.default(defaultValue) : Bool
-
-const CDate = z.coerce.date()
-
-export const date = (defaultValue?: Date) =>
-  defaultValue ? CDate.default(defaultValue) : CDate
+export const date = z.coerce.date
 
 export const DateRange = z.array(date()).max(2).brand<'DateRange'>()
 export type ZodDateRange = typeof DateRange
@@ -87,6 +59,10 @@ export type ZodValidatorPrimitive =
   | z.ZodLiteral<any>
   | z.ZodEnum<any>
   | z.ZodNativeEnum<any>
+  | typeof NumLike
+  | typeof BoolLike
+  | typeof DateLike
+  | typeof IsoDateLike
 
 export type FieldSpec =
   | z.ZodOptional<z.ZodDefault<ZodValidatorPrimitive>>
