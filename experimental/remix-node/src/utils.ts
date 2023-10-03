@@ -1,9 +1,7 @@
 import type { LoaderFunctionArgs } from '@remix-run/node'
 import { json, redirect } from '@remix-run/node'
-import type { FormErrors } from '@srtp/remix-core'
-import { formErrors } from '@srtp/remix-core'
-import type { Result } from '@srtp/core'
-import { cast, isFail, isUndefined } from '@srtp/core'
+import type { FormErrors, Result } from '@srtp/core'
+import { cast, formatErrors, isFail, isUndefined } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
@@ -53,7 +51,7 @@ export async function safeAction<Spec extends z.AnyZodObject, R>(
 ) {
   const result = await safeFormData(formDataSpec, request)
   if (!result.success) {
-    return badRequest({ fieldErrors: formErrors(result.error) })
+    return badRequest({ fieldErrors: formatErrors(result.error) })
   }
 
   return fn(result.data)

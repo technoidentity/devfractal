@@ -1,6 +1,6 @@
 import { useActionData, useLoaderData, useSearchParams } from '@remix-run/react'
-import { isEmpty, cast } from '@srtp/core'
-import type { FormErrors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/core'
+import { cast, isEmpty } from '@srtp/core'
 import qs from 'query-string'
 import React from 'react'
 import type { z } from 'zod'

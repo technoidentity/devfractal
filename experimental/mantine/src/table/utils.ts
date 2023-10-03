@@ -1,6 +1,6 @@
 import {
   Primitive,
-  debugCast,
+  devCast,
   isBool,
   isDate,
   isNil,
@@ -53,7 +53,7 @@ export function searchRows<Row extends RowBase>(
 
   return rows.filter(row =>
     searchKeys.some(key =>
-      primitiveSearch(search, row[key] && debugCast(Primitive, row[key])),
+      primitiveSearch(search, row[key] && devCast(Primitive, row[key])),
     ),
   )
 }

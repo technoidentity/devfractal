@@ -1,5 +1,5 @@
 import type { UseFormReturnType } from '@mantine/form'
-import type { FormErrors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/core'
 
 // @TODO: to .client.ts?
 export function getFieldError<T extends object>(

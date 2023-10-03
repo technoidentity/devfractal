@@ -1,7 +1,7 @@
 import invariant from 'tiny-invariant'
 import { describe, expect, it } from 'vitest'
 import * as z from 'zod'
-import { formatErrors } from './formatError'
+import { formatErrors } from './formatErrors'
 
 describe('formatErrors', () => {
   it('should format a simple error', () => {

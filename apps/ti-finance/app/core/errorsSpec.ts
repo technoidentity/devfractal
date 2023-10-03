@@ -1,4 +1,4 @@
-import type { FormErrors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/core'
 import { z } from 'zod'
 
 export function createErrorsSpec<Spec extends z.AnyZodObject>(

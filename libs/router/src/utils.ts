@@ -1,29 +1,17 @@
 // copied from our own remix libraries
 
-import type { Result } from '@srtp/core'
-import { cast, isFail, isUndefined, resultFromZod } from '@srtp/core'
+import type { FormErrors, Result } from '@srtp/core'
+import {
+  cast,
+  formatErrors,
+  isFail,
+  isUndefined,
+  resultFromZod,
+} from '@srtp/core'
 import { fromSearchParams } from '@srtp/web'
 import { json, redirect, type LoaderFunctionArgs } from 'react-router-dom'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
-
-// @TODO: `keyof T` means only works with shallow objects.
-export type FieldErrors<T extends object> = Record<keyof T, string>
-
-export type FormErrors<T extends object> = Readonly<{
-  fieldErrors?: FieldErrors<T>
-  formError?: string
-}>
-
-export const formErrors = <T extends object>(
-  error: z.ZodError<T>,
-): FieldErrors<T> => {
-  const results: any = {}
-  for (const e of error.errors) {
-    results[e.path.join('.')] = e.message
-  }
-  return results
-}
 
 type Request = LoaderFunctionArgs['request']
 
@@ -78,7 +66,7 @@ export async function safeAction<Spec extends z.AnyZodObject, R>(
 ) {
   const result = await safeFormData(formDataSpec, request)
   if (!result.success) {
-    return badRequest({ fieldErrors: formErrors(result.error) })
+    return badRequest({ fieldErrors: formatErrors(result.error) })
   }
 
   return fn(result.data)

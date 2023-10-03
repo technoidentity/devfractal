@@ -1,4 +1,4 @@
-import type { FormErrors } from '@srtp/remix-core'
+import type { FormErrors } from '@srtp/core'
 
 export type CreateProps<T extends object> = FormErrors<T>
 

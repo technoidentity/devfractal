@@ -62,7 +62,6 @@
     "@srtp/mantine": "workspace:*",
     "@srtp/query": "workspace:*",
     "@srtp/react": "workspace:*",
-    "@srtp/remix-core": "workspace:*",
     "@srtp/remix-node": "workspace:*",
     "@srtp/remix-react": "workspace:*",
     "@tabler/icons-react": "2.38.0",
