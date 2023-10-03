@@ -1,12 +1,15 @@
 import {
-  debug,
+  devWarn,
   isArray,
   isEmptyString,
   isKey,
   toStr,
   type Primitive,
+  isNullish,
+  cast,
 } from '@srtp/core'
 import invariant from 'tiny-invariant'
+import { z } from 'zod'
 
 // type SearchObj = Record<string, Primitive | Primitive[]>
 export type SearchObj = object
@@ -33,22 +36,25 @@ export function toSearch(obj: SearchObj): string {
   return toSearchParams(obj).toString()
 }
 
-export function fromSearchParams(urlSearchParams: URLSearchParams): object {
+export function fromSearchParams<Spec extends z.AnyZodObject>(
+  urlSearchParams: URLSearchParams,
+  spec?: Spec,
+): z.infer<Spec> {
   const obj = {} as any
 
   for (const [key, value] of urlSearchParams.entries()) {
     if (isKey(obj, key)) {
       if (isArray(obj[key])) {
         obj[key].push(value)
-      } else {
+      } else if (!isNullish(value)) {
         obj[key] = [obj[key], value]
       }
-    } else {
+    } else if (!isNullish(value)) {
       obj[key] = value
     }
   }
 
-  return obj
+  return cast(obj, spec ?? z.record(z.unknown()))
 }
 
 export function toPath(
@@ -93,8 +99,8 @@ function join(path1: string, path2: string): string {
   const p1 = path1.endsWith('/') ? path1.slice(0, -1) : path1
   const p2 = path2.startsWith('/') ? path2.slice(1) : path2
 
-  debug(!p1.endsWith('/'), `${path1} ends with mutiple /`)
-  debug(!p2.startsWith('/'), `${path1} starts with mutiple /`)
+  devWarn(!p1.endsWith('/'), `${path1} ends with mutiple /`)
+  devWarn(!p2.startsWith('/'), `${path1} starts with mutiple /`)
 
   const result = p1 === '' || p2 === '' ? p1 + p2 : `${p1}/${p2}`
   return result.endsWith('/') ? result.slice(0, -1) : result
@@ -128,8 +134,15 @@ export function formDataToSearch(formData: FormData): URLSearchParams {
   const search = new URLSearchParams()
 
   for (const [key, value] of formData.entries()) {
-    search.append(key, value.toString())
+    search.append(key, toStr(value))
   }
 
   return search
+}
+
+export function formFormData<Spec extends z.AnyZodObject>(
+  form: HTMLFormElement,
+  spec?: Spec,
+): z.infer<Spec> {
+  return cast(spec ?? z.record(z.unknown()), Object.entries(new FormData(form)))
 }
