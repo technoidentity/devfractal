@@ -15,10 +15,8 @@ import {
 } from 'react-router-dom'
 import type { z } from 'zod'
 
-export function safeNavigate<Path extends PathBase>(
-  path: Path,
-): (params: Params<Path>) => void {
-  return function useSafeNavigate() {
+export function safeNavigate<Path extends PathBase>(path: Path) {
+  return function useSafeNavigate(): (params: Params<Path>) => void {
     const navigate = useNavigate()
 
     // @TODO: do we need to cast values here?

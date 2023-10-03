@@ -28,8 +28,8 @@ import { castSearch } from './utils'
 
 type NavigateResult<Path extends PathBase> = If<
   IsNonEmptyObject<Params<Path>>,
-  (values: Params<Path>) => void,
-  () => void
+  () => (values: Params<Path>) => void,
+  () => () => void
 >
 
 type ParamsFn<Path extends PathBase> = If<
