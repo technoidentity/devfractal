@@ -1,6 +1,6 @@
 import type { z } from 'zod'
 
-import { formatErrors } from './formatError'
+import { formatErrors } from './formatErrors'
 import { jstr } from './typeCasts'
 
 export class CastError extends Error {
@@ -40,6 +40,27 @@ export function cast<Spec extends z.ZodTypeAny>(
   return spec.parse(v)
 }
 
+export function parse<Output, Input>(
+  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
+  v: unknown,
+): z.SafeParseReturnType<Input, Output> {
+  return spec.safeParse(v)
+}
+
+export function pcast<Spec extends z.ZodTypeAny>(spec: Spec) {
+  return function castFn(v: unknown): z.infer<Spec> {
+    return cast(spec, v)
+  }
+}
+
+export function pparse<Output, Input>(
+  spec: z.ZodType<Output, z.ZodTypeDef, Input>,
+) {
+  return function pparseFn(v: unknown): z.SafeParseReturnType<Input, Output> {
+    return parse(spec, v)
+  }
+}
+
 export function ensure<Spec extends z.ZodTypeAny>(
   spec: Spec,
   v: unknown,
@@ -47,7 +68,7 @@ export function ensure<Spec extends z.ZodTypeAny>(
   cast(spec, v)
 }
 
-export function debugCast<Spec extends z.ZodTypeAny>(
+export function devCast<Spec extends z.ZodTypeAny>(
   spec: Spec,
   v: unknown,
 ): z.infer<Spec> {
