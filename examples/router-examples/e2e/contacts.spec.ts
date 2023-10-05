@@ -26,6 +26,27 @@ test.describe('contacts router example', () => {
     await expect(page).toHaveURL(`${baseUrl}/contacts/add`)
   })
 
+  test('Search Contacts', async ({ page }) => {
+    const searchBar = page.getByRole('searchbox')
+
+    await searchBar.fill('test_text')
+    await expect(searchBar).toHaveValue('test_text')
+
+    await searchBar.press('Enter')
+    await expect(page.getByRole('listitem')).toHaveCount(0)
+
+    await searchBar.clear()
+
+    await searchBar.fill('Le')
+    await searchBar.press('Enter')
+
+    const expectedCount = mockContacts.filter(name =>
+      name.toLowerCase().includes('le'),
+    ).length
+
+    await expect(page.getByRole('listitem')).toHaveCount(expectedCount)
+  })
+
   test('Add contacts', async ({ page }) => {
     await page.getByRole('link', { name: 'New' }).click()
 
