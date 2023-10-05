@@ -1,4 +1,4 @@
-import { toInt } from '@srtp/core'
+import { isNotNull, toInt } from '@srtp/core'
 import { rest } from 'msw'
 import {
   addContact,
@@ -6,10 +6,17 @@ import {
   editContactDetails,
   getContactById,
   getContacts,
+  searchContact,
 } from './contacts'
 
 export const handlers = [
-  rest.get('/api/users', (_req, res, ctx) => {
+  rest.get('/api/users', (req, res, ctx) => {
+    const searchText = req.url.searchParams.get('search')
+
+    if (isNotNull(searchText) && searchText) {
+      return res(ctx.json(searchContact(searchText)))
+    }
+
     return res(ctx.json(getContacts()))
   }),
 
