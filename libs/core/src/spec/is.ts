@@ -72,3 +72,6 @@ export const isNilSpec = (s: unknown): boolean =>
   (s instanceof z.ZodNullable && isNilSpec(s._def.innerType))
 
 export const isNotNilSpec = (s: unknown): boolean => !isNilSpec(s)
+
+export const isPromise = <T>(s: unknown): s is Promise<T> =>
+  s instanceof Promise

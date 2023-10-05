@@ -91,4 +91,10 @@ describe('is', () => {
     expect(isInt(1.1)).toBe(false)
     expect(isInt('1')).toBe(false)
   })
+
+  test('isPromise', () => {
+    expect(Promise.resolve(100)).toBe(true)
+    expect(Promise.reject(100)).toBe(true)
+    expect({ then: () => {}, catch: () => {} }).toBe(false)
+  })
 })

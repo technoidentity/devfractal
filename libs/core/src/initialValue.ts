@@ -79,7 +79,7 @@ function initialValueWrapper(spec: z.ZodTypeAny) {
   }
 
   if (spec instanceof z.ZodPromise) {
-    return Promise.resolve(initialValue(spec._def.type))
+    return Promise.resolve(initialValue(spec.unwrap()))
   }
 
   if (spec instanceof z.ZodPipeline) {
