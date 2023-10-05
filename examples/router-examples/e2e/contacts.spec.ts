@@ -61,6 +61,8 @@ test.describe('contacts router example', () => {
     await page.getByRole('button', { name: 'Save' }).click()
     await expect(page.getByRole('listitem')).toHaveCount(11)
 
+    await expect(page.getByRole('link', { name: 'test-name' })).toBeVisible()
+
     await expect(page).toHaveURL(baseUrl)
   })
 
@@ -108,7 +110,19 @@ test.describe('contacts router example', () => {
       page.getByRole('heading', { name: 'Edit Contact' }),
     ).toBeVisible()
 
+    const nameInput = page.getByRole('textbox').first()
+    const emailInput = page.getByRole('textbox').nth(2)
+
+    await nameInput.clear()
+    await nameInput.fill('new-name')
+
+    await emailInput.clear()
+    await emailInput.fill('test@email.com')
+
     await page.getByRole('button', { name: 'Save' }).click()
+
+    await expect(page.getByRole('heading', { name: 'new-name' })).toBeVisible()
+
     await expect(page).toHaveURL(`${baseUrl}/contacts/${index + 1}`)
   })
 

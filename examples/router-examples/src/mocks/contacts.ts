@@ -82,7 +82,9 @@ export const getContacts = () => {
 }
 
 export const getContactById = (id: number) => {
-  return contacts.find(contact => contact.id === id)
+  const targetContact = contacts.findIndex(contact => contact.id === id)
+
+  return contacts[targetContact]
 }
 
 export const searchContact = (text: string) => {
@@ -126,9 +128,9 @@ export const addContact = ({
   phone,
   website,
 }: Omit<(typeof contacts)[number], 'id'>) => {
-  const newContact = { id: idIndex, name, email, phone, website }
+  const newContact = { id: idIndex++, name, email, phone, website }
   contacts.push(newContact)
-  idIndex += 1
+
   return newContact
 }
 
@@ -138,6 +140,7 @@ export const deleteContact = (id: number) => {
   if (contactIndex !== -1) {
     const deleted = contacts[contactIndex]
     contacts.splice(contactIndex, 1)
+
     return deleted
   }
 
