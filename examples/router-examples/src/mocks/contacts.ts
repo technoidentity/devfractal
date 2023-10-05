@@ -85,6 +85,12 @@ export const getContactById = (id: number) => {
   return contacts.find(contact => contact.id === id)
 }
 
+export const searchContact = (text: string) => {
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(text.toLowerCase()),
+  )
+}
+
 export const editContactDetails = (
   id: number,
   update: Omit<(typeof contacts)[number], 'id'>,
