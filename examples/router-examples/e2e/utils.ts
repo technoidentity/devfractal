@@ -15,3 +15,8 @@ export const getAnyContactLocator = (
 
   return [contact, randomIndex] as const
 }
+
+export const getContactList = async (page: Page): Promise<Array<string>> => {
+  const contactNames = await page.locator('a > div').allInnerTexts()
+  return contactNames
+}
