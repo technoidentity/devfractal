@@ -1,36 +1,61 @@
 import { useQuery } from '@tanstack/react-query'
-import { Table, VStack, Text, HStack, toInt } from 'devfractal'
-import React from 'react'
+import {
+  Table,
+  VStack,
+  Text,
+  HStack,
+  toInt,
+  chain,
+  map,
+  cast,
+  toSearch,
+} from 'devfractal'
+import { useSearchParams } from 'react-router-dom'
+import { z } from 'zod'
+
 import { DataBody } from './components/DataBody'
 import { DataHeader } from './components/DataHeaders'
 import { Pagination } from './components/Pagination'
 import { fetchProducts } from './query'
 
 export function DataTable(): JSX.Element {
-  const [state, setState] = React.useState({ page: 1, limit: 10 }) // URL state
+  const [state, setState] = useSearchParams()
+
+  const queryParams = cast(
+    z.object({ page: z.number(), limit: z.number() }),
+    Object.fromEntries(
+      chain(
+        state.entries(),
+        map(([key, value]) => [key, toInt(value)] as const),
+      ),
+    ),
+  ) // @TODO: clean up
+
   const { isLoading, isSuccess, data } = useQuery({
-    queryKey: ['products', state.page, state.limit],
-    queryFn: () => fetchProducts(state.page, state.limit),
+    queryKey: ['products', queryParams.page, queryParams.limit],
+    queryFn: () => fetchProducts(queryParams.page, queryParams.limit),
+    // @TODO: Better way?
   })
 
   function handleLimit(value: string) {
-    setState(state => ({ ...state, limit: toInt(value) }))
+    setState(toSearch({ page: queryParams.page, limit: value }))
   }
 
   function handleNext() {
-    setState(state => ({ ...state, page: state.page + 1 }))
+    const nextState = { page: queryParams.page + 1, limit: queryParams.limit }
+    setState(toSearch(nextState))
   }
 
   function handlePrev() {
-    setState(state => ({ ...state, page: state.page - 1 }))
+    setState(toSearch({ page: queryParams.page - 1, limit: queryParams.limit }))
   }
 
   function handleFirst() {
-    setState(state => ({ ...state, page: 1 }))
+    setState(toSearch({ ...queryParams, page: 1 }))
   }
 
   function handleLast(last: number) {
-    setState(state => ({ ...state, page: last }))
+    setState(toSearch({ ...queryParams, page: last }))
   }
 
   return (
@@ -44,9 +69,10 @@ export function DataTable(): JSX.Element {
             <DataBody data={data.products} />
           </Table>
 
+          {/* @TODO: CLean up prop passing */}
           <Pagination
-            currentPage={state.page}
-            limit={state.limit}
+            currentPage={queryParams.page}
+            limit={queryParams.limit}
             totalPages={data.totalPages}
             onFirst={handleFirst}
             onLast={handleLast}
