@@ -10,6 +10,7 @@ import {
   Text,
 } from 'devfractal'
 
+// @TODO: Add prop types
 export function Pagination({
   currentPage,
   totalPages,
@@ -33,7 +34,7 @@ export function Pagination({
     <HStack className="justify-between items-center gap-x-8">
       <Select onValueChange={onSetLimit}>
         <SelectTrigger>
-          <SelectValue defaultValue={limit} placeholder={10} />
+          <SelectValue defaultValue={limit} placeholder={limit} />
         </SelectTrigger>
 
         <SelectContent>
