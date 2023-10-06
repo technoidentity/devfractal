@@ -14,14 +14,15 @@ import {
 } from '@srtp/ui'
 import { Link } from 'react-router-dom'
 
-import { contactsApi } from '../api'
+import { contactsApi, listInvalidateKey } from '../api'
 import { contactsPaths } from '../paths'
 import { UpdateContact as UpdateContactSpec } from '../specs'
 
 function useUpdateContact() {
   const { id } = contactsPaths.update.useParams()
-  const [contact, invalidateKey] = contactsApi.useOne({ params: { id } })
-  const update = contactsApi.useUpdate({ invalidateKey })
+  const [contact] = contactsApi.useOne({ params: { id } })
+  const update = contactsApi.useUpdate({ invalidateKey: listInvalidateKey })
+
   const navigate = contactsPaths.one.useNavigate()
 
   const onUpdate = (event: React.FormEvent<HTMLFormElement>) => {
