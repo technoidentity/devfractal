@@ -6,7 +6,7 @@ import {
   paramsSpec,
   type Params,
 } from '@srtp/core'
-import { epAxios, fetch$, type BaseUrlOrFetch } from '@srtp/web'
+import { axios, epAxios, type BaseUrlOrAxios } from '@srtp/web'
 import {
   redirect as redirectFn,
   type ActionFunction,
@@ -46,7 +46,7 @@ export type ErrorRedirectFn<Ep extends EndpointBase> = (
 
 export type EpActionArgs<Ep extends EndpointBase> = Readonly<{
   endpoint: Ep
-  baseUrlOrFetch?: BaseUrlOrFetch
+  baseUrlOrAxios?: BaseUrlOrAxios
   // similar to ActionFunction
   actionHandler?: EpActionHandlerFn<Ep>
   redirect?: RedirectFn<Ep>
@@ -56,7 +56,7 @@ export function epAction<const Ep extends EndpointBase>(
   args: EpActionArgs<Ep>,
 ): EpActionResult<Ep> {
   const { endpoint } = args
-  const baseUrlOrFetch = args.baseUrlOrFetch ?? fetch$
+  const baseUrlOrAxios = args.baseUrlOrAxios ?? axios
 
   const useActionData = safeActionData(endpoint.response ?? z.undefined())
 
@@ -66,9 +66,9 @@ export function epAction<const Ep extends EndpointBase>(
       ? { body: cast(endpoint.request, actionArgs.request) }
       : actionArgs.request
 
-    const [result] = await epAxios({
+    const { data } = await epAxios({
       ep: endpoint,
-      baseUrlOrFetch,
+      baseUrlOrAxios,
       request: await formData(actionArgs.request),
       params: actionArgs.params,
     })
@@ -78,14 +78,14 @@ export function epAction<const Ep extends EndpointBase>(
         ? args.redirect({
             params,
             request,
-            response: result,
+            response: data,
           })
         : args.redirect
 
       return redirectFn(redirectUrl)
     }
 
-    return result
+    return data
   }
 
   return { useActionData, action }

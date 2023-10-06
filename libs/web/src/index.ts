@@ -1,5 +1,5 @@
 export * from './shttp'
-export * from './fetch$'
+export * from './axios'
 export * from './defaultSearchSpec'
 export * from './epHttp'
 export * from './http'

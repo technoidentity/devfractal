@@ -54,7 +54,7 @@ export function fromSearchParams<Spec extends z.AnyZodObject>(
     }
   }
 
-  return cast(obj, spec ?? z.record(z.unknown()))
+  return cast(spec ?? z.unknown(), obj)
 }
 
 export function toPath(

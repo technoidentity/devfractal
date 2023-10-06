@@ -1,6 +1,11 @@
 import type z from 'zod'
 
-import { fetch$, type AxiosOptions, type BaseFetchOptions } from './fetch$'
+import {
+  fetch$,
+  type AxiosOptions,
+  type BaseFetchOptions,
+  type FetchResult,
+} from './axios'
 
 export class SafeFetchError extends Error {
   constructor(message: string, cause: z.ZodError) {
@@ -11,12 +16,14 @@ export class SafeFetchError extends Error {
 export async function safeAxios<Spec extends z.ZodTypeAny>(
   spec: Spec,
   options: AxiosOptions,
-): Promise<readonly [z.infer<Spec>, Response]> {
-  const [data, response] = await fetch$(options.url, options)
+): FetchResult<z.infer<Spec>> {
+  const { data, response } = await fetch$(options.url, options)
   const result = spec.safeParse(data)
+
   if (result.success) {
-    return [result.data, response] as const
+    return { data: result.data, response }
   }
+
   throw new SafeFetchError(
     `Invalid response data: ${result.error.message}`,
     result.error,
@@ -27,12 +34,14 @@ export async function safeFetch<Spec extends z.ZodTypeAny>(
   spec: Spec,
   url: string,
   options?: BaseFetchOptions,
-): Promise<readonly [z.infer<Spec>, Response]> {
-  const [data, response] = await fetch$(url, options)
+): FetchResult<z.infer<Spec>> {
+  const { data, response } = await fetch$(url, options)
   const result = spec.safeParse(data)
+
   if (result.success) {
-    return [result.data, response] as const
+    return { data: result.data, response }
   }
+
   throw new SafeFetchError(
     `Invalid response data: ${result.error.message}`,
     result.error,

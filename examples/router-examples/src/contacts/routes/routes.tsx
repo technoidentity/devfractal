@@ -16,7 +16,7 @@ const idPathSegment = { id: ContactID }
 export const loadRequest = async ({
   params,
 }: LoaderFunctionArgs): Promise<Contact> => {
-  const [contact] = await api.getContact({ params })
+  const { data: contact } = await api.getContact({ params })
 
   return contact
 }

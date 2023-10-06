@@ -38,7 +38,7 @@ function ListContacts({ contacts }: { contacts: Contacts }) {
 export const getUsers = async ({
   request,
 }: LoaderFunctionArgs): Promise<ContactListSpec> => {
-  const [contacts] = await api.getContactList({})
+  const { data: contacts } = await api.getContactList({})
 
   const { search } = castSearch(Search, request)
 

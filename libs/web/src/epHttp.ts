@@ -11,11 +11,12 @@ import { cast, isNotNilSpec, paramsSpec, route } from '@srtp/core'
 import invariant from 'tiny-invariant'
 import type { z } from 'zod'
 import {
-  createFetch,
-  fetch$,
+  axios,
+  createAxios,
   type BaseFetchOptions,
-  type BaseUrlOrFetch,
-} from './fetch$'
+  type BaseUrlOrAxios,
+  type FetchResult,
+} from './axios'
 import { toPath } from './url'
 
 // @TODO: can this be safer?
@@ -27,17 +28,17 @@ export type EpHttpArgsBase = {
 
 export type ApiCallsArgs<Ep extends EndpointBase> = EpHttpArgsBase & {
   ep: Ep
-  baseUrlOrFetch?: BaseUrlOrFetch
+  baseUrlOrAxios?: BaseUrlOrAxios
 }
 
 export async function epAxios<Ep extends EndpointBase>({
   ep,
-  baseUrlOrFetch,
+  baseUrlOrAxios,
   params,
   request,
   options,
-}: ApiCallsArgs<Ep>): Promise<readonly [GetEpResponse<Ep>, Response]> {
-  const fetch = createFetch(baseUrlOrFetch)
+}: ApiCallsArgs<Ep>): FetchResult<GetEpResponse<Ep>> {
+  const fetch = createAxios(baseUrlOrAxios)
   const path = route(ep.path)
 
   const url = params ? toPath(path, cast(paramsSpec(ep.path), params)) : path
@@ -50,15 +51,16 @@ export async function epAxios<Ep extends EndpointBase>({
 
   const method = ep.method
 
-  const [resBody, response] = await fetch(url, {
+  const { data: resBody, response } = await fetch({
+    url,
     ...options,
     method,
     ...reqBody,
   })
 
-  const responseData = ep.response ? cast(ep.response, resBody) : resBody
+  const data = ep.response ? cast(ep.response, resBody) : resBody
 
-  return [responseData, response] as const
+  return { data, response } as const
 }
 
 export type EpHttpArgs<Ep extends EndpointBase> = {
@@ -69,53 +71,53 @@ export type EpHttpArgs<Ep extends EndpointBase> = {
 export type EpHttpResult<Eps extends EndpointRecordBase> = {
   [K in keyof Eps]: (
     args: EpHttpArgs<Eps[K]>,
-  ) => Promise<readonly [GetEpResponse<Eps[K]>, Response]>
+  ) => FetchResult<GetEpResponse<Eps[K]>>
 }
 
 export function createEpHttp<Eps extends EndpointRecordBase>(
   eps: Eps,
-  baseUrlOrFetch: BaseUrlOrFetch = fetch$,
+  baseUrlOrAxios: BaseUrlOrAxios = axios,
 ): EpHttpResult<Eps> {
   const api = {} as any
 
   for (const [key, ep] of Object.entries(eps)) {
     api[key] = (args: EpHttpArgsBase) => {
-      return epAxios({ ...args, ep, baseUrlOrFetch } as ApiCallsArgs<any>)
+      return epAxios({ ...args, ep, baseUrlOrAxios } as ApiCallsArgs<any>)
     }
   }
 
   return api
 }
 
-export type EpsGetAllResult<Eps extends EndpointRecordBase> = [
-  { [K in keyof Eps]: GetEpResponse<Eps[K]> },
-  { [K in keyof Eps]: Response },
-]
+export type EpsGetAllResult<Eps extends EndpointRecordBase> = {
+  data: { [K in keyof Eps]: GetEpResponse<Eps[K]> }
+  response: { [K in keyof Eps]: Response }
+}
 
 // no scheduling here, just a simple Promise.all
 export async function epsGetAll<Eps extends EndpointRecordBase>(
   eps: Eps,
   args: EpHttpArgsBase, // same args for all calls, both params and request
-  baseUrlOrFetch: BaseUrlOrFetch = fetch$,
+  baseUrlOrAxios: BaseUrlOrAxios = axios,
 ): Promise<EpsGetAllResult<Eps>> {
   const api = {} as any
 
-  const fetch = createFetch(baseUrlOrFetch)
+  const fetch = createAxios(baseUrlOrAxios)
 
   for (const [key, ep] of Object.entries(eps)) {
     invariant(ep.method === 'get', 'epsGetAll only supports GET endpoints')
-    api[key] = epAxios({ ...args, ep, baseUrlOrFetch: fetch })
+    api[key] = epAxios({ ...args, ep, baseUrlOrAxios: fetch })
   }
 
   const all = await Promise.all(Object.values(api))
 
   const data = Object.fromEntries(
-    Object.keys(eps).map((key, i) => [key, (all as any)[i][0]]),
+    Object.keys(eps).map((key, i) => [key, (all as any)[i].data]),
   )
 
   const responses = Object.fromEntries(
-    Object.keys(eps).map((key, i) => [key, (all as any)[i][1]]),
+    Object.keys(eps).map((key, i) => [key, (all as any)[i].response]),
   )
 
-  return [data, responses] as any
+  return { data, responses } as any
 }

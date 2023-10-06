@@ -6,7 +6,7 @@ import type {
   PathBase,
 } from '@srtp/core'
 import { omap$ } from '@srtp/fn'
-import { type BaseUrlOrFetch } from '@srtp/web'
+import { type BaseUrlOrAxios } from '@srtp/web'
 import { type LoaderFunctionArgs, type RouteObject } from 'react-router-dom'
 import type { z } from 'zod'
 
@@ -47,13 +47,13 @@ export function epRouteUtils<
   const ActionEp extends EndpointBase,
 >(
   args: EpRouteArgs<Path, SearchSpec, LoaderEps, ActionEp>,
-  baseUrlOrFetch?: BaseUrlOrFetch,
+  baseUrlOrAxios?: BaseUrlOrAxios,
 ): EpRouteResult<Path, SearchSpec, LoaderEps, ActionEp> {
   const { path, search, loader, action } = args
 
   const routerUtils = routerPath(path)
 
-  const loaderUtils = loader ? epsLoader(loader, baseUrlOrFetch) : undefined
+  const loaderUtils = loader ? epsLoader(loader, baseUrlOrAxios) : undefined
 
   const actionUtils = action ? epAction(action) : undefined
   const searchUtils = search
@@ -84,9 +84,9 @@ export type EpRouterResult<Eps extends EpRouterRecordBase> = {
 
 export function epRoutes<EpRoutes extends EpRouterRecordBase>(
   eps: EpRoutes,
-  baseUrlOrFetch?: BaseUrlOrFetch,
+  baseUrlOrAxios?: BaseUrlOrAxios,
 ): EpRouterResult<EpRoutes> {
-  return omap$(eps, value => epRouteUtils(value, baseUrlOrFetch)) as any
+  return omap$(eps, value => epRouteUtils(value, baseUrlOrAxios)) as any
 }
 
 export type RouteObjects<Eps extends EpRouterRecordBase> = {

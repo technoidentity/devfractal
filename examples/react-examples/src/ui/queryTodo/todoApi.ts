@@ -26,7 +26,7 @@ const delay = () => {
 export const todoApi = {
   async getAll() {
     await delay()
-    const [data] = await axios({
+    const { data } = await axios({
       method: 'get',
       url: urlcat(BASE_URL, '/todos'),
     })
@@ -42,7 +42,7 @@ export const todoApi = {
         url: urlcat(BASE_URL, '/todos'),
         body: todo,
       })
-    )[0] as Todo
+    ).data as Todo
   },
 
   async put(todo: Todo): Promise<Todo> {
@@ -53,7 +53,7 @@ export const todoApi = {
         url: urlcat(BASE_URL, `todos/${todo.id}`),
         body: todo,
       })
-    )[0] as Todo
+    ).data as Todo
   },
 
   async patch(todo: Update<Todo>): Promise<Todo> {
@@ -64,7 +64,7 @@ export const todoApi = {
         url: urlcat(BASE_URL, `/todos/${todo.id}`),
         body: todo,
       })
-    )[0] as Todo
+    ).data as Todo
 
     return result
   },

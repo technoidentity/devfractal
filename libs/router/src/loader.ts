@@ -6,10 +6,10 @@ import type {
 import { cast, isEmpty } from '@srtp/core'
 import { keys, omap$ } from '@srtp/fn'
 import {
+  axios,
   epAxios,
-  fetch$,
-  type BaseUrlOrFetch,
   fromSearchParams,
+  type BaseUrlOrAxios,
 } from '@srtp/web'
 import {
   useLoaderData as useRRLoaderData,
@@ -27,7 +27,7 @@ export type EpLoaderResult<Ep extends EndpointBase> = {
 
 export function epLoader<Ep extends EndpointBase>(
   ep: Ep,
-  baseUrlOrFetch: BaseUrlOrFetch = fetch$,
+  baseUrlOrAxios: BaseUrlOrAxios = axios,
 ): EpLoaderResult<Ep> {
   invariant(ep.response !== undefined, 'epLoader: ep.response required')
 
@@ -35,14 +35,14 @@ export function epLoader<Ep extends EndpointBase>(
     const search = fromSearchParams(getSearch(args.request))
     const request = isEmpty(search) ? undefined : search
 
-    const [result] = await epAxios({
+    const { data } = await epAxios({
       ep,
-      baseUrlOrFetch,
+      baseUrlOrAxios,
       params: args.params,
       request,
     })
 
-    return result
+    return data
   }
 
   return {
@@ -58,7 +58,7 @@ export type EpsLoaderResult<Eps extends EndpointRecordBase> = {
 
 export function epsLoader<const Eps extends EndpointRecordBase>(
   eps: Eps,
-  baseUrlOrFetch: BaseUrlOrFetch = fetch$,
+  baseUrlOrAxios: BaseUrlOrAxios = axios,
 ): EpsLoaderResult<Eps> {
   const loader: LoaderFunction = async args => {
     const requests: any[] = await Promise.all(
@@ -66,14 +66,14 @@ export function epsLoader<const Eps extends EndpointRecordBase>(
         const search = fromSearchParams(getSearch(args.request))
         const request = isEmpty(search) ? undefined : search
 
-        const [result] = await epAxios({
+        const { data } = await epAxios({
           ep,
-          baseUrlOrFetch,
+          baseUrlOrAxios,
           params: args.params,
           request,
         })
 
-        return result
+        return data
       }),
     )
 

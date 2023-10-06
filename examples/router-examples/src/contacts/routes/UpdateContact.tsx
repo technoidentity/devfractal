@@ -21,7 +21,7 @@ export const updateContact = async ({
   request,
   params,
 }: LoaderFunctionArgs): Promise<Response> => {
-  const [contact] = await api.updateContact({
+  const { data: contact } = await api.updateContact({
     params,
     request: await formData(request),
   })

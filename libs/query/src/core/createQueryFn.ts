@@ -42,7 +42,7 @@ export function createQueryFn(
     const rest = qs ? queryKey.slice(0, -1) : queryKey
     const paths = cast(Paths, rest)
 
-    const [data] = await axiosFn({ url: toUrl(paths, qs), method: 'GET' })
+    const { data } = await axiosFn({ url: toUrl(paths, qs), method: 'GET' })
 
     return data
   }

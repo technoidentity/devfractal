@@ -56,7 +56,7 @@ export function epQuery<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
 
     const queryFn: QueryFunction<any> = async () => {
       // @TODO: must use the axiosFn from options
-      const [data] = await axios({ url, method: 'get' })
+      const { data } = await axios({ url, method: 'get' })
       return data
     }
 
@@ -104,7 +104,7 @@ export function epMutation<Ep extends EndpointBase>(ep: Ep, baseUrl: string) {
 
       const key = linkfn<Ep['path']>(ep.path)(params)
       const url = urlcat(baseUrl, key)
-      const [data] = await axios({ method: ep.method, url, body: request })
+      const { data } = await axios({ method: ep.method, url, body: request })
 
       return ep.response && isNilSpec(ep.response)
         ? cast(ep.response, data)

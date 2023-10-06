@@ -99,10 +99,14 @@ export async function getResponseBody(response: Response): Promise<unknown> {
   return response.body
 }
 
+export type FetchResult<T = unknown> = Promise<
+  Readonly<{ data: T; response: Response }>
+>
+
 export async function fetch$(
   url: string,
   options?: BaseFetchOptions,
-): Promise<readonly [unknown, Response]> {
+): FetchResult {
   const config = getDefaultFetchConfig(options)
 
   const response = await fetch(url, config as FetchOptions)
@@ -113,7 +117,7 @@ export async function fetch$(
 
   if (response.ok) {
     const body = await getResponseBody(response)
-    return [body, response] as const
+    return { data: body, response } as const
   }
 
   const error = await getResponseBody(response)
@@ -122,9 +126,7 @@ export async function fetch$(
 
 export type AxiosOptions = BaseFetchOptions & { url: string }
 
-export type AxiosFn = (
-  options: AxiosOptions,
-) => Promise<readonly [unknown, Response]>
+export type AxiosFn = (options: AxiosOptions) => FetchResult
 
 export const axios: AxiosFn = ({ url, ...options }: AxiosOptions) =>
   fetch$(url, options)

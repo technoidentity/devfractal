@@ -11,5 +11,5 @@ export const rqGet = async <Key extends readonly unknown[]>(
       method: 'get',
       url: urlcat('/api', joinPaths(keys)),
     })
-  )[0]
+  ).data
 }

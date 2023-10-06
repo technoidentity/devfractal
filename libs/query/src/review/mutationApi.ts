@@ -45,7 +45,7 @@ export const ApiDescriptions = {
 
 function createDefaultMutation(axiosFn: AxiosFn = axios) {
   return async function defaultMutation<T>(mut: MutationDescription<T>) {
-    const [data] = await axiosFn({
+    const { data } = await axiosFn({
       url: mut.path,
       method: mut.method,
       body: mut.request,

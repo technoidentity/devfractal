@@ -35,7 +35,7 @@ export function useFetch(url: string): FetchState {
 
     delay(5000)
       .then(async () => axios({ method: 'get', url }))
-      .then(([data]) => {
+      .then(({ data }) => {
         if (!cancelled) {
           actions.success(data)
         }

@@ -229,3 +229,10 @@
 
 13. Use `ui` library for at least form controls, date picker, Card, Dialog etc,
     wherever accessibility is important.
+
+### playwright
+
+1. Follow
+   [playwright best practices](https://playwright.dev/docs/best-practices).
+
+2. Use locator.fill instead of locator.type.

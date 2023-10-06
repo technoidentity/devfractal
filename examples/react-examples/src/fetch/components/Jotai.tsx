@@ -18,12 +18,12 @@ const [resAtom] = atomsWithQuery(get => ({
   queryFn: async ({ queryKey: [, page, limit, filter] }) => {
     const completed = filter === 'All' ? undefined : filter === 'Completed'
 
-    const [data, res] = await axios({
+    const { data, response } = await axios({
       method: 'get',
       url: urlcat('api/todos', '', { _limit: limit, _page: page, completed }),
     })
 
-    const ic = itemCount(res)
+    const ic = itemCount(response)
     return { data, itemCount: ic, pageCount: pageCount(ic, Number(limit)) }
   },
 }))

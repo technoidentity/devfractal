@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest'
 
-import type { ResponseError } from './fetch$'
-import { fetch$ } from './fetch$'
+import type { ResponseError } from './axios'
+import { fetch$ } from './axios'
 
 describe('baseFetch', () => {
   test('should handle successful requests correctly', async () => {
-    const [data, response] = await fetch$(
+    const { data, response } = await fetch$(
       'https://jsonplaceholder.typicode.com/todos/1',
     )
     expect(data).toBeDefined()
@@ -45,7 +45,7 @@ describe('baseFetch', () => {
   })
 
   test('should handle empty responses correctly', async () => {
-    const [data, response] = await fetch$(
+    const { data, response } = await fetch$(
       'https://jsonplaceholder.typicode.com/posts/1',
       { method: 'DELETE' },
     )

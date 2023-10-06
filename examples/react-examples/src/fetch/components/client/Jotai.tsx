@@ -28,7 +28,8 @@ const [todosAtom] = atomsWithQuery(() => {
   return {
     queryKey: ['todos'],
     queryFn: async () =>
-      (await axios({ method: 'get', url: `/api/todos` }))[0] as readonly Task[],
+      (await axios({ method: 'get', url: `/api/todos` }))
+        .data as readonly Task[],
   }
 })
 

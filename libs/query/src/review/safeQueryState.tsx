@@ -47,7 +47,7 @@ async function apiMethod<T>(
   { method: type, path, request: payload }: MutationDescription<T>,
   spec: Schema<T>,
 ): Promise<T> {
-  const [data] = await axios({ method: type, url: path, body: payload })
+  const { data } = await axios({ method: type, url: path, body: payload })
 
   return cast(spec, data)
 }

@@ -9,7 +9,7 @@ import { rqGet } from '../get'
 export const getPagedTodos = async ({
   queryKey,
 }: QueryFunctionContext<[string, number, number?]>) => {
-  const [data, res] = await axios({
+  const { data, response } = await axios({
     method: 'get',
     url: urlcat(`api/todos?`, '', {
       _page: queryKey[1],
@@ -17,7 +17,7 @@ export const getPagedTodos = async ({
     }),
   })
 
-  const ic = itemCount(res)
+  const ic = itemCount(response)
 
   return {
     page: data as Task[],
@@ -27,12 +27,12 @@ export const getPagedTodos = async ({
 }
 
 const getInfiniteTodos = async ({ pageParam = 1 }) => {
-  const [data, res] = await axios({
+  const { data, response } = await axios({
     method: 'get',
     url: urlcat(`api/todos`, '', { _limit: limit, _page: pageParam }),
   })
 
-  const ic = itemCount(res)
+  const ic = itemCount(response)
   return {
     data: data as Task[],
     itemCount: ic,

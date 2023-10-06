@@ -10,7 +10,7 @@ const todo = z.object({
 
 const api = http
 
-const [todos] = await api.get(z.array(todo), '/api/todos?_limit=5')
+const { data: todos } = await api.get(z.array(todo), '/api/todos?_limit=5')
 console.table(todos)
 
 await api
