@@ -1,5 +1,4 @@
-import { pcast } from '@srtp/core'
-import { pipe } from '@srtp/fn'
+import { useClientForm } from '@srtp/react'
 import {
   Button,
   Card,
@@ -22,23 +21,15 @@ function useAddContact() {
   const add = contactsApi.useAdd({ invalidateKey: listInvalidateKey })
   const navigate = rootPath.list.useNavigate()
 
-  const onAdd = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    const contact = pipe(
-      new FormData(event.currentTarget),
-      Object.fromEntries,
-      pcast(CreateContact),
-    )
-
+  const { onSubmit } = useClientForm(CreateContact, contact => {
     add.mutate(contact, { onSettled: () => navigate() })
-  }
+  })
 
-  return { onAdd }
+  return { onSubmit }
 }
 
 export function AddContact() {
-  const { onAdd } = useAddContact()
+  const { onSubmit } = useAddContact()
 
   return (
     <Card
@@ -50,7 +41,7 @@ export function AddContact() {
         <CardDescription>Please fill out the details! </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={onAdd} className="rounded-2xl">
+        <form onSubmit={onSubmit} className="rounded-2xl">
           <VStack className="gap-y-4 ">
             <VStack className="gap-y-2">
               <Label htmlFor="name" className="block text-left px-2">
