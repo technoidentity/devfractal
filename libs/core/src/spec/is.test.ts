@@ -1,4 +1,4 @@
-import { isDate } from 'util/types'
+import { isDate, isPromise } from 'util/types'
 
 import { describe, expect, test } from 'vitest'
 import { z } from 'zod'
@@ -93,8 +93,15 @@ describe('is', () => {
   })
 
   test('isPromise', () => {
-    expect(Promise.resolve(100)).toBe(true)
-    expect(Promise.reject(100)).toBe(true)
-    expect({ then: () => {}, catch: () => {} }).toBe(false)
+    expect.assertions(4)
+    expect(isPromise(Promise.resolve(100))).toBe(true)
+    expect(
+      isPromise(
+        Promise.reject(100).catch(err => {
+          expect(err).toBe(100)
+        }),
+      ),
+    ).toBe(true)
+    expect(isPromise({ then: () => {}, catch: () => {} })).toBe(false)
   })
 })
