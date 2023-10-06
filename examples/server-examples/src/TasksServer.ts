@@ -6,7 +6,7 @@ import {
   updateTask,
   type Task,
 } from '@srtp/fake-tasks'
-import { epRouter, throwBadRequest, type SEpsHandlers } from '@srtp/server'
+import { epRouter, throwBadRequest, type SEpsHandlers } from '@srtp/hono'
 import type {} from 'hono'
 
 const taskHandlers = {

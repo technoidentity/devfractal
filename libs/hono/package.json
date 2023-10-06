@@ -1,7 +1,7 @@
 {
-  "name": "@srtp/server",
+  "name": "@srtp/hono",
   "version": "0.0.1",
-  "description": "server from endpoint specifications similar to trpc",
+  "description": "server(hono) from endpoint specifications similar to trpc",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

@@ -48,7 +48,7 @@
     "@srtp/core": "workspace:*",
     "@srtp/fake-tasks": "workspace:*",
     "@srtp/react": "workspace:*",
-    "@srtp/server": "workspace:*",
+    "@srtp/hono": "workspace:*",
     "@tanstack/react-query": "4.35.7",
     "@tanstack/react-table": "8.10.3",
     "class-variance-authority": "0.7.0",

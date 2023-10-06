@@ -1,6 +1,6 @@
 import { epGet } from '@srtp/core'
 import { User, usersList } from '@srtp/fake-tasks'
-import { epRouter, type SEpsHandlers } from '@srtp/server'
+import { epRouter, type SEpsHandlers } from '@srtp/hono'
 import { z } from 'zod'
 
 const userEndpoints = {

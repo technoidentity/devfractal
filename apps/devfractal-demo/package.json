@@ -51,7 +51,7 @@
     "@radix-ui/react-toggle": "1.0.3",
     "@radix-ui/react-tooltip": "1.0.7",
     "@srtp/fake-tasks": "workspace:*",
-    "@srtp/server": "workspace:*",
+    "@srtp/hono": "workspace:*",
     "@tanstack/react-query": "4.35.7",
     "@tanstack/react-table": "8.10.3",
     "class-variance-authority": "0.7.0",
