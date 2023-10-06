@@ -1,26 +1,34 @@
 import { cast } from '@srtp/core'
-import { HTTPException } from 'hono/http-exception'
 import { StatusCodes } from 'http-status-codes'
 import { ZodError } from 'zod'
 
+export class MockHTTPException extends Error {
+  constructor(
+    public readonly status: StatusCodes,
+    { message }: { message?: string },
+  ) {
+    super(message)
+  }
+}
+
 export function throwNotFound(message?: string): never {
-  throw new HTTPException(StatusCodes.NOT_FOUND, { message })
+  throw new MockHTTPException(StatusCodes.NOT_FOUND, { message })
 }
 
 export function throwBadRequest(message?: string): never {
-  throw new HTTPException(StatusCodes.BAD_REQUEST, { message })
+  throw new MockHTTPException(StatusCodes.BAD_REQUEST, { message })
 }
 
 export function throwUnauthorized(message?: string): never {
-  throw new HTTPException(StatusCodes.UNAUTHORIZED, { message })
+  throw new MockHTTPException(StatusCodes.UNAUTHORIZED, { message })
 }
 
 export function throwForbidden(message?: string): never {
-  throw new HTTPException(StatusCodes.FORBIDDEN, { message })
+  throw new MockHTTPException(StatusCodes.FORBIDDEN, { message })
 }
 
 export function throwInternalServerError(message?: string): never {
-  throw new HTTPException(StatusCodes.INTERNAL_SERVER_ERROR, { message })
+  throw new MockHTTPException(StatusCodes.INTERNAL_SERVER_ERROR, { message })
 }
 
 export const throwCast: typeof cast = (spec, value) => {
@@ -35,13 +43,13 @@ export const throwCast: typeof cast = (spec, value) => {
 }
 
 export function throwRequestTimeout(message?: string): never {
-  throw new HTTPException(StatusCodes.REQUEST_TIMEOUT, { message })
+  throw new MockHTTPException(StatusCodes.REQUEST_TIMEOUT, { message })
 }
 
 export function throwServiceUnavailable(message?: string): never {
-  throw new HTTPException(StatusCodes.SERVICE_UNAVAILABLE, { message })
+  throw new MockHTTPException(StatusCodes.SERVICE_UNAVAILABLE, { message })
 }
 
 export function throwNotImplemented(message?: string): never {
-  throw new HTTPException(StatusCodes.NOT_IMPLEMENTED, { message })
+  throw new MockHTTPException(StatusCodes.NOT_IMPLEMENTED, { message })
 }

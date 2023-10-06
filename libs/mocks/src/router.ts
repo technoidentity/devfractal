@@ -14,10 +14,9 @@ import {
 } from '@srtp/core'
 import { fromSearchParams } from '@srtp/web'
 import { StatusCodes } from 'http-status-codes'
-import type { MockedRequest, RestHandler } from 'msw'
+import type { RestHandler } from 'msw'
 import {
   rest,
-  type DefaultBodyType,
   type ResponseComposition,
   type RestContext,
   type RestRequest,
@@ -85,8 +84,8 @@ function epHandler<Ep extends EndpointBase>(ep: Ep, fn: MockEpHandler<Ep>) {
 export function epRouter<Eps extends EndpointRecordBase>(
   eps: Eps,
   handlers: MockEpsHandlers<Eps>,
-): RestHandler<MockedRequest<DefaultBodyType>>[] {
-  const result: RestHandler<MockedRequest<DefaultBodyType>>[] = []
+): RestHandler[] {
+  const result: RestHandler[] = []
 
   for (const [name, ep] of Object.entries(eps)) {
     const path = route(ep.path)

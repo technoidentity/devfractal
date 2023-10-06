@@ -1,7 +1,16 @@
 import { cast } from '@srtp/core'
-import { HTTPException } from 'hono/http-exception'
+
 import { StatusCodes } from 'http-status-codes'
 import { ZodError } from 'zod'
+
+export class HTTPException extends Error {
+  constructor(
+    public readonly status: StatusCodes,
+    { message }: { message?: string },
+  ) {
+    super(message)
+  }
+}
 
 export function throwNotFound(message?: string): never {
   throw new HTTPException(StatusCodes.NOT_FOUND, { message })
