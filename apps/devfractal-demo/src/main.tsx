@@ -1,8 +1,8 @@
 import { AppProvider, createRoot } from 'devfractal'
-
-import { App } from './App'
-import { queryClient } from '@/queryClient'
 import './global.css'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { DataTable } from './server-side/DataTable'
+import { queryClient } from '@/queryClient'
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = await import('./mocks/browser')
@@ -11,12 +11,19 @@ if (process.env.NODE_ENV === 'development') {
 
 const root = createRoot('root')
 
+const router = createBrowserRouter([
+  {
+    path: '*',
+    element: <DataTable />,
+  },
+])
+
 root.render(
   <AppProvider
     ErrorFallback={_ => <div>Error</div>}
     suspenseFallback={<div>Loading...</div>}
     queryClient={queryClient}
   >
-    <App />
+    <RouterProvider router={router} />
   </AppProvider>,
 )
