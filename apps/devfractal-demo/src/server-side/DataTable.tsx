@@ -1,17 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import {
-  Table,
-  VStack,
-  Text,
-  HStack,
-  toInt,
-  chain,
-  map,
-  cast,
-  toSearch,
-} from 'devfractal'
+import { Table, VStack, Text, HStack, toInt, toSearch, pipe } from 'devfractal'
 import { useSearchParams } from 'react-router-dom'
-import { z } from 'zod'
 
 import { DataBody } from './components/DataBody'
 import { DataHeader } from './components/DataHeaders'
@@ -19,35 +8,54 @@ import { Pagination } from './components/Pagination'
 import { fetchProducts } from './query'
 
 export function DataTable(): JSX.Element {
-  const [state, setState] = useSearchParams()
+  const [state, setState] = useSearchParams(
+    toSearch({ page: 1, limit: 10, key: 'title', order: 'asc' }),
+  )
 
-  const queryParams = cast(
-    z.object({ page: z.number(), limit: z.number() }),
-    Object.fromEntries(
-      chain(
-        state.entries(),
-        map(([key, value]) => [key, toInt(value)] as const),
-      ),
-    ),
-  ) // @TODO: clean up
+  const queryParams = pipe(state.entries(), Object.fromEntries)
+  // @TODO: Need validation
 
   const { isLoading, isSuccess, data } = useQuery({
-    queryKey: ['products', queryParams.page, queryParams.limit],
-    queryFn: () => fetchProducts(queryParams.page, queryParams.limit),
-    // @TODO: Better way?
+    queryKey: [
+      'products',
+      queryParams.page,
+      queryParams.limit,
+      queryParams.key,
+      queryParams.order,
+    ],
+    queryFn: () =>
+      fetchProducts(
+        toInt(queryParams.page),
+        toInt(queryParams.limit),
+        queryParams.key,
+        queryParams.order,
+      ),
   })
 
+  // @TODO: Error in current change on changing limit
   function handleLimit(value: string) {
-    setState(toSearch({ page: queryParams.page, limit: value }))
+    setState(
+      toSearch({ ...queryParams, page: toInt(queryParams.page), limit: value }),
+    )
   }
 
   function handleNext() {
-    const nextState = { page: queryParams.page + 1, limit: queryParams.limit }
+    const nextState = {
+      ...queryParams,
+      page: toInt(queryParams.page) + 1,
+      limit: toInt(queryParams.limit),
+    }
     setState(toSearch(nextState))
   }
 
   function handlePrev() {
-    setState(toSearch({ page: queryParams.page - 1, limit: queryParams.limit }))
+    setState(
+      toSearch({
+        ...queryParams,
+        page: toInt(queryParams.page) - 1,
+        limit: toInt(queryParams.limit),
+      }),
+    )
   }
 
   function handleFirst() {
@@ -58,6 +66,10 @@ export function DataTable(): JSX.Element {
     setState(toSearch({ ...queryParams, page: last }))
   }
 
+  function handleOrder(value: { key: string; order: 'asc' | 'desc' }) {
+    setState(toSearch({ ...queryParams, ...value }))
+  }
+
   return (
     <VStack className="justify-center items-center h-screen overflow-y-auto p-2 border rounded-md">
       {isLoading ? (
@@ -65,7 +77,7 @@ export function DataTable(): JSX.Element {
       ) : isSuccess ? (
         <>
           <Table className="text-center">
-            <DataHeader />
+            <DataHeader onOrder={handleOrder} />
             <DataBody data={data.products} />
           </Table>
 
