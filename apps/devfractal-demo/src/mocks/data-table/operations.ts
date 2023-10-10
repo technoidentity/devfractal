@@ -1,48 +1,79 @@
-import { products, type Products } from '@/server-side/products'
+import { data, type Product, type Products } from '@/server-side/products'
 import { iorderBy } from '@/server-side/utils'
 
-export type ProductsResponse = ReturnType<typeof getProducts>
+export type ProductsResponse = {
+  products: Products
+  currentPage: number
+  totalPages: number
+  totalItems: number
+}
 
-// @TODO: Clean up
+const products: Products = []
 
-const getAllProducts = () => products
+// Load data
+const intializeProducts = (): void => {
+  products.push(...data)
+}
 
-const getSlicedProducts = (page: number, limit: number) => {
+intializeProducts()
+
+// Operations
+
+export const getSlicedProducts = (
+  page: number,
+  limit: number,
+): ProductsResponse => {
   const endIndex = page * limit
   const startIndex = endIndex - limit
 
-  return getAllProducts().slice(startIndex, endIndex)
-}
-
-const getOrderedProducts = (
-  products: Products,
-  key: keyof Products[number],
-  order: 'asc' | 'desc',
-) => {
-  return iorderBy(products, key, order)
-}
-
-export const getProducts = (
-  page: number,
-  limit: number,
-  sortKey: keyof Products[number],
-  sortOrder: 'asc' | 'desc',
-) => {
-  if (!sortKey || !sortOrder) {
-    return {
-      products: getSlicedProducts(page, limit),
-      currentPage: page,
-      totalPages: Math.ceil(getAllProducts().length / limit),
-    }
-  }
+  const totalPages = Math.ceil(products.length / limit)
 
   return {
-    products: getOrderedProducts(
-      getSlicedProducts(page, limit),
-      sortKey,
-      sortOrder,
-    ),
+    products: products.slice(startIndex, endIndex),
     currentPage: page,
-    totalPages: Math.ceil(getAllProducts().length / limit),
+    totalPages,
+    totalItems: products.length,
+  }
+}
+
+export const getSortedProducts = (
+  page: number,
+  limit: number,
+  sortKey: keyof Product,
+  order: 'asc' | 'desc',
+): ProductsResponse => {
+  const slicedResult = getSlicedProducts(page, limit)
+
+  return {
+    ...slicedResult,
+    products: iorderBy(slicedResult.products, sortKey, order),
+  }
+}
+
+// @TODO: Function overloading?
+
+export const getSearchedProducts = (
+  page: number,
+  limit: number,
+  searchBy: keyof Product,
+  search: string,
+  sortKey?: keyof Product,
+  order?: 'asc' | 'desc',
+): ProductsResponse => {
+  const result =
+    sortKey && order
+      ? getSortedProducts(page, limit, sortKey, order)
+      : getSlicedProducts(page, limit)
+
+  const products = result.products.filter(product =>
+    product[searchBy].toString().toLowerCase().includes(search.toLowerCase()),
+  )
+
+  const totalPages = Math.ceil(products.length / limit)
+
+  return {
+    ...result,
+    products,
+    totalPages,
   }
 }

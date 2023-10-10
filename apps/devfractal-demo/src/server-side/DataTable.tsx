@@ -8,9 +8,7 @@ import { Pagination } from './components/Pagination'
 import { fetchProducts } from './query'
 
 export function DataTable(): JSX.Element {
-  const [state, setState] = useSearchParams(
-    toSearch({ page: 1, limit: 10, key: 'title', order: 'asc' }),
-  )
+  const [state, setState] = useSearchParams()
 
   const queryParams = pipe(state.entries(), Object.fromEntries)
   // @TODO: Need validation
@@ -20,23 +18,25 @@ export function DataTable(): JSX.Element {
       'products',
       queryParams.page,
       queryParams.limit,
-      queryParams.key,
+      queryParams.sortBy,
       queryParams.order,
+      queryParams.searchKey,
+      queryParams.search,
     ],
     queryFn: () =>
       fetchProducts(
         toInt(queryParams.page),
         toInt(queryParams.limit),
-        queryParams.key,
+        queryParams.sortBy,
         queryParams.order,
+        queryParams.searchKey,
+        queryParams.search,
       ),
   })
 
-  // @TODO: Error in current change on changing limit
+  // @TODO: Error in current page on changing limit -> redirect to first page
   function handleLimit(value: string) {
-    setState(
-      toSearch({ ...queryParams, page: toInt(queryParams.page), limit: value }),
-    )
+    setState(toSearch({ ...queryParams, page: 1, limit: value }))
   }
 
   function handleNext() {
@@ -66,7 +66,11 @@ export function DataTable(): JSX.Element {
     setState(toSearch({ ...queryParams, page: last }))
   }
 
-  function handleOrder(value: { key: string; order: 'asc' | 'desc' }) {
+  function handleOrder(value: { sortBy: string; order: 'asc' | 'desc' }) {
+    setState(toSearch({ ...queryParams, ...value }))
+  }
+
+  function handleSearch(value: { searchBy: string; search: string }) {
     setState(toSearch({ ...queryParams, ...value }))
   }
 
@@ -77,13 +81,13 @@ export function DataTable(): JSX.Element {
       ) : isSuccess ? (
         <>
           <Table className="text-center">
-            <DataHeader onOrder={handleOrder} />
+            <DataHeader onOrder={handleOrder} onSearch={handleSearch} />
             <DataBody data={data.products} />
           </Table>
 
           {/* @TODO: CLean up prop passing */}
           <Pagination
-            currentPage={queryParams.page}
+            currentPage={data.currentPage}
             limit={queryParams.limit}
             totalPages={data.totalPages}
             onFirst={handleFirst}

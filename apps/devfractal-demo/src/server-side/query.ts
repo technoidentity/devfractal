@@ -1,14 +1,19 @@
 import type { ProductsResponse } from '@/mocks/data-table/operations'
-// @TODO: make fn to append query parameters to base url
+
+// @TODO: Clean up -> make fn to append query parameters to base url based on conditions
 export const fetchProducts = async (
   page: number,
   limit: number,
-  key: string,
-  order: 'asc' | 'desc',
+  sortBy?: string,
+  order?: 'asc' | 'desc',
+  searchBy?: string,
+  search?: string,
 ) => {
   const data: ProductsResponse = await (
     await fetch(
-      `/api/data/products/?page=${page}&limit=${limit}&key=${key}&order=${order}`,
+      `/api/data/products/?page=${page}&limit=${limit}${
+        sortBy && order ? `&sortBy=${sortBy}&order=${order}` : ``
+      }${searchBy && search ? `&searchBy=${searchBy}&search=${search}` : ``}`,
     )
   ).json()
 
