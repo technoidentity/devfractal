@@ -1,8 +1,9 @@
 // Data from dummyjson
 
-export type Products = typeof products
+export type Products = typeof data
+export type Product = (typeof data)[number]
 
-export const products = [
+export const data = [
   {
     id: 1,
     title: 'iPhone 9',
