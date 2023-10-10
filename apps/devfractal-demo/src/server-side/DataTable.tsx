@@ -20,7 +20,7 @@ export function DataTable(): JSX.Element {
       queryParams.limit,
       queryParams.sortBy,
       queryParams.order,
-      queryParams.searchKey,
+      queryParams.searchBy,
       queryParams.search,
     ],
     queryFn: () =>
@@ -29,7 +29,7 @@ export function DataTable(): JSX.Element {
         toInt(queryParams.limit),
         queryParams.sortBy,
         queryParams.order,
-        queryParams.searchKey,
+        queryParams.searchBy,
         queryParams.search,
       ),
   })
