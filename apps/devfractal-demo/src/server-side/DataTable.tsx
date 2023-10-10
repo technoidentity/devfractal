@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { DataBody } from './components/DataBody'
 import { DataHeader } from './components/DataHeaders'
+import { Header } from './components/Header'
 import { Pagination } from './components/Pagination'
 import { fetchProducts } from './query'
 
@@ -75,31 +76,34 @@ export function DataTable(): JSX.Element {
   }
 
   return (
-    <VStack className="justify-center items-center h-screen overflow-y-auto p-2 border rounded-md">
-      {isLoading ? (
-        <HStack>Loading....</HStack>
-      ) : isSuccess ? (
-        <>
-          <Table className="text-center">
-            <DataHeader onOrder={handleOrder} onSearch={handleSearch} />
-            <DataBody data={data.products} />
-          </Table>
+    <VStack className="justify-center items-center h-screen overflow-y-auto p-2 border rounded-md gap-y-2">
+      <Header onSearch={handleSearch} />
+      <>
+        {isLoading ? (
+          <HStack>Loading....</HStack>
+        ) : isSuccess ? (
+          <>
+            <Table className="text-center">
+              <DataHeader onOrder={handleOrder} onSearch={handleSearch} />
+              <DataBody data={data.products} />
+            </Table>
 
-          {/* @TODO: CLean up prop passing */}
-          <Pagination
-            currentPage={data.currentPage}
-            limit={queryParams.limit}
-            totalPages={data.totalPages}
-            onFirst={handleFirst}
-            onLast={handleLast}
-            onNext={handleNext}
-            onPrev={handlePrev}
-            onSetLimit={handleLimit}
-          />
-        </>
-      ) : (
-        <Text>No data found!</Text>
-      )}
+            {/* @TODO: CLean up prop passing */}
+            <Pagination
+              currentPage={data.currentPage}
+              limit={queryParams.limit}
+              totalPages={data.totalPages}
+              onFirst={handleFirst}
+              onLast={handleLast}
+              onNext={handleNext}
+              onPrev={handlePrev}
+              onSetLimit={handleLimit}
+            />
+          </>
+        ) : (
+          <Text>No data found!</Text>
+        )}
+      </>
     </VStack>
   )
 }

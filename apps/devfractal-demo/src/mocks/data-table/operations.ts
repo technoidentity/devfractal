@@ -55,7 +55,7 @@ export const getSortedProducts = (
 export const getSearchedProducts = (
   page: number,
   limit: number,
-  searchBy: keyof Product,
+  searchBy: keyof Product | 'all',
   search: string,
   sortKey?: keyof Product,
   order?: 'asc' | 'desc',
@@ -65,9 +65,19 @@ export const getSearchedProducts = (
       ? getSortedProducts(page, limit, sortKey, order)
       : getSlicedProducts(page, limit)
 
-  const products = result.products.filter(product =>
-    product[searchBy].toString().toLowerCase().includes(search.toLowerCase()),
-  )
+  const products =
+    searchBy !== 'all'
+      ? result.products.filter(product =>
+          product[searchBy]
+            .toString()
+            .toLowerCase()
+            .includes(search.toLowerCase()),
+        )
+      : result.products.filter(product =>
+          Object.values(product).some(value =>
+            value.toString().toLowerCase().includes(search.toLowerCase()),
+          ),
+        )
 
   const totalPages = Math.ceil(products.length / limit)
 
