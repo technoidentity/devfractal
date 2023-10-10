@@ -6,8 +6,6 @@ import {
   getSortedProducts,
 } from './operations'
 
-import type { Product } from '@/server-side/products'
-
 export const dataHandlers = [
   rest.get('/api/data/products', (req, res, ctx) => {
     const queryParams = pipe(req.url.searchParams.entries(), Object.fromEntries)
@@ -36,7 +34,7 @@ export const dataHandlers = [
           getSortedProducts(
             toInt(queryParams.page),
             toInt(queryParams.limit),
-            queryParams.sortBy as keyof Product,
+            queryParams.sortBy,
             queryParams.order,
           ),
         ),
