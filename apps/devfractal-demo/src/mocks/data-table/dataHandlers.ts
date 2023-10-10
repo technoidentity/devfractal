@@ -8,7 +8,6 @@ import {
 
 import type { Product } from '@/server-side/products'
 
-// @TODO: omit redundant conditional
 export const dataHandlers = [
   rest.get('/api/data/products', (req, res, ctx) => {
     const queryParams = pipe(req.url.searchParams.entries(), Object.fromEntries)
