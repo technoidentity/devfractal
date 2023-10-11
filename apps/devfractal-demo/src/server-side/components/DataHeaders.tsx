@@ -14,14 +14,27 @@ import React from 'react'
 export function DataHeader({
   onOrder,
   onSearch,
+  headers,
 }: {
+  headers: string[]
   onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
   onSearch: (value: { searchBy: string; search: string }) => void
 }): JSX.Element {
   return (
     <TableHeader className="bg-gray-900 sticky top-0">
       <TableRow>
-        <TableHead className="text-center">
+        {headers.map(header => {
+          return (
+            <TableHead key={header} className="text-center">
+              <HeaderWrapper
+                onOrder={onOrder}
+                onSearch={onSearch}
+                header={header}
+              />
+            </TableHead>
+          )
+        })}
+        {/* <TableHead className="text-center">
           <HeaderWrapper onOrder={onOrder} onSearch={onSearch} header="title" />
         </TableHead>
         <TableHead className="text-center">
@@ -36,7 +49,7 @@ export function DataHeader({
             onSearch={onSearch}
             header="category"
           />
-        </TableHead>
+        </TableHead> */}
       </TableRow>
     </TableHeader>
   )

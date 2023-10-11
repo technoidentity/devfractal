@@ -31,21 +31,23 @@ export function Pagination({
   onLast: (last: number) => void
 }) {
   return (
-    <HStack className="justify-between items-center gap-x-8">
-      <Select onValueChange={onSetLimit}>
-        <SelectTrigger>
-          <SelectValue defaultValue={limit} placeholder={limit} />
-        </SelectTrigger>
-
-        <SelectContent>
-          <SelectGroup>
-            <SelectItem value="5">5</SelectItem>
-            <SelectItem value="10">10</SelectItem>
-            <SelectItem value="15">15</SelectItem>
-            <SelectItem value="20">20</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+    <HStack className="justify-between items-center w-full">
+      <HStack className="items-center justify-start gap-x-2">
+        <Select onValueChange={onSetLimit}>
+          <SelectTrigger>
+            <SelectValue defaultValue={limit} placeholder={limit} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="5">5</SelectItem>
+              <SelectItem value="10">10</SelectItem>
+              <SelectItem value="15">15</SelectItem>
+              <SelectItem value="20">20</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        <Text className="whitespace-nowrap block">per page</Text>
+      </HStack>
 
       <Text className="whitespace-nowrap block">
         {currentPage} of {totalPages}

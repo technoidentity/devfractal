@@ -1,17 +1,20 @@
 import { TableBody, TableCell, TableRow } from 'devfractal'
-import { type Products } from '../products'
 
-export function DataBody({ data }: { data: Products }): JSX.Element {
+// @TODO: Improve generics
+export function DataBody<
+  T extends { id: number; [k: string]: number | string },
+>({ data }: { data: readonly T[] }): JSX.Element {
   return (
     <TableBody>
       {data.length > 0 ? (
         data.map(product => {
           return (
             <TableRow key={product.id}>
-              <TableCell>{product.title}</TableCell>
-              <TableCell>{product.price}</TableCell>
-              <TableCell>{product.brand}</TableCell>
-              <TableCell>{product.category}</TableCell>
+              {Object.keys(product)
+                .filter(key => key !== 'id')
+                .map(item => {
+                  return <TableCell key={item}>{product[item]}</TableCell>
+                })}
             </TableRow>
           )
         })

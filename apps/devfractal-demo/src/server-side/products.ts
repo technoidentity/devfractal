@@ -3,7 +3,7 @@
 export type Products = typeof data
 export type Product = (typeof data)[number]
 
-export const headers = ['id', 'title', 'price', 'brand', 'category']
+export const headers = ['title', 'price', 'brand', 'category']
 
 export const data = [
   {

@@ -1,46 +1,64 @@
 import {
-  Box,
+  Command,
+  CommandGroup,
   HStack,
   Input,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
+  Text,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  CommandItem,
+  cn,
 } from 'devfractal'
+import { Check, ChevronDown } from 'lucide-react'
 import React from 'react'
 import { headers } from '../products'
 
 export function Header({
+  columns,
   onSearch,
+  onSelect,
 }: {
+  columns: string[]
   onSearch: (value: { searchBy: string; search: string }) => void
+  onSelect: (header: string) => void
 }): JSX.Element {
   const [search, setSearch] = React.useState('')
 
   return (
     <HStack className="justify-between items-center w-full">
       {/* @TODO: shad-cn does not seem to support multiple selections */}
-      <Box className="w-1/4">
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Select columns to display" />
-          </SelectTrigger>
 
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Columns</SelectLabel>
-              {headers.map(header => (
-                <SelectItem value={header} key={header}>
-                  {header}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </Box>
+      <Popover>
+        <PopoverTrigger>
+          <HStack className="justify-between items-center gap-x-4">
+            <Text>Select columns for display</Text>
+            <ChevronDown />
+          </HStack>
+        </PopoverTrigger>
+
+        <PopoverContent>
+          <Command>
+            <CommandGroup>
+              {headers.map(header => {
+                return (
+                  <CommandItem key={header} onSelect={onSelect}>
+                    <HStack className="justify-between items-center w-full">
+                      <Text>{header}</Text>
+                      <Check
+                        className={cn(
+                          '',
+                          columns.includes(header) ? '' : 'hidden',
+                        )}
+                      />
+                    </HStack>
+                  </CommandItem>
+                )
+              })}
+            </CommandGroup>
+          </Command>
+        </PopoverContent>
+      </Popover>
 
       <Input
         type="search"
