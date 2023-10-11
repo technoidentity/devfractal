@@ -23,6 +23,7 @@ export const getSlicedProducts = (
   page: number,
   limit: number,
 ): ProductsResponse => {
+  // @TODO: use paged from array methods
   const endIndex = page * limit
   const startIndex = endIndex - limit
 

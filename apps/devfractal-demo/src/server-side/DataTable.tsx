@@ -1,15 +1,32 @@
 import { useQuery } from '@tanstack/react-query'
-import { Table, VStack, Text, HStack, toInt, toSearch, pipe } from 'devfractal'
+import {
+  Table,
+  VStack,
+  Text,
+  HStack,
+  toInt,
+  toSearch,
+  pipe,
+  remove$,
+  insert$,
+} from 'devfractal'
+import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { DataBody } from './components/DataBody'
 import { DataHeader } from './components/DataHeaders'
 import { Header } from './components/Header'
 import { Pagination } from './components/Pagination'
+import { headers } from './products'
 import { fetchProducts } from './query'
+import { getProductsByColumns } from './utils'
+
+// @TODO: Row operations: https://ui.shadcn.com/docs/components/combobox#dropdown-menu
+// https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
 
 export function DataTable(): JSX.Element {
   const [state, setState] = useSearchParams()
+  const [columns, setColumns] = React.useState<Array<string>>(headers)
 
   const queryParams = pipe(state.entries(), Object.fromEntries)
   // @TODO: Need validation
@@ -23,16 +40,17 @@ export function DataTable(): JSX.Element {
       queryParams.order,
       queryParams.searchBy,
       queryParams.search,
+      columns,
     ],
     queryFn: () =>
-      fetchProducts(
-        toInt(queryParams.page),
-        toInt(queryParams.limit),
-        queryParams.sortBy,
-        queryParams.order,
-        queryParams.searchBy,
-        queryParams.search,
-      ),
+      fetchProducts({
+        page: toInt(queryParams.page),
+        limit: toInt(queryParams.limit),
+        sortBy: queryParams.sortBy,
+        order: queryParams.order,
+        searchBy: queryParams.searchBy,
+        search: queryParams.search,
+      }),
   })
 
   // @TODO: Error in current page on changing limit -> redirect to first page
@@ -75,17 +93,36 @@ export function DataTable(): JSX.Element {
     setState(toSearch({ ...queryParams, ...value }))
   }
 
+  // @TODO: Improve - add generics may be
+  function handleColumns(header: string) {
+    const index = headers.indexOf(header)
+    // @TODO: Maintain order
+    setColumns(columns => {
+      return columns.includes(header)
+        ? (remove$(columns, columns.indexOf(header)) as string[])
+        : insert$(columns, index, header)
+    })
+  }
+
   return (
     <VStack className="justify-center items-center h-screen overflow-y-auto p-2 border rounded-md gap-y-2">
-      <Header onSearch={handleSearch} />
+      <Header
+        onSearch={handleSearch}
+        onSelect={handleColumns}
+        columns={columns}
+      />
       <>
         {isLoading ? (
           <HStack>Loading....</HStack>
         ) : isSuccess ? (
           <>
             <Table className="text-center">
-              <DataHeader onOrder={handleOrder} onSearch={handleSearch} />
-              <DataBody data={data.products} />
+              <DataHeader
+                onOrder={handleOrder}
+                onSearch={handleSearch}
+                headers={columns}
+              />
+              <DataBody data={getProductsByColumns(data.products, columns)} />
             </Table>
 
             {/* @TODO: CLean up prop passing */}
