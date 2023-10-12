@@ -8,13 +8,14 @@ import {
   TableHeader,
   TableRow,
   VStack,
+  isArray,
 } from 'devfractal'
 import React from 'react'
 
 export function DataHeader({
+  headers,
   onOrder,
   onSearch,
-  headers,
 }: {
   headers: string[]
   onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
@@ -23,33 +24,27 @@ export function DataHeader({
   return (
     <TableHeader className="bg-gray-900 sticky top-0">
       <TableRow>
-        {headers.map(header => {
-          return (
-            <TableHead key={header} className="text-center">
-              <HeaderWrapper
-                onOrder={onOrder}
-                onSearch={onSearch}
-                header={header}
-              />
-            </TableHead>
-          )
-        })}
-        {/* <TableHead className="text-center">
-          <HeaderWrapper onOrder={onOrder} onSearch={onSearch} header="title" />
-        </TableHead>
-        <TableHead className="text-center">
-          <HeaderWrapper onOrder={onOrder} onSearch={onSearch} header="price" />
-        </TableHead>
-        <TableHead className="text-center">
-          <HeaderWrapper onOrder={onOrder} onSearch={onSearch} header="brand" />
-        </TableHead>
-        <TableHead className="text-center">
-          <HeaderWrapper
-            onOrder={onOrder}
-            onSearch={onSearch}
-            header="category"
-          />
-        </TableHead> */}
+        {isArray(headers) ? (
+          headers.map(header => {
+            return (
+              <TableHead key={header} className="text-center">
+                <HeaderWrapper
+                  onOrder={onOrder}
+                  onSearch={onSearch}
+                  header={header}
+                />
+              </TableHead>
+            )
+          })
+        ) : (
+          <TableHead className="text-center">
+            <HeaderWrapper
+              onOrder={onOrder}
+              onSearch={onSearch}
+              header={headers}
+            />
+          </TableHead>
+        )}
       </TableRow>
     </TableHeader>
   )

@@ -6,11 +6,10 @@ import {
   HStack,
   toInt,
   toSearch,
-  pipe,
   remove$,
   insert$,
+  fromSearchParams,
 } from 'devfractal'
-import React from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { DataBody } from './components/DataBody'
@@ -19,16 +18,20 @@ import { Header } from './components/Header'
 import { Pagination } from './components/Pagination'
 import { headers } from './products'
 import { fetchProducts } from './query'
-import { getProductsByColumns } from './utils'
 
 // @TODO: Row operations: https://ui.shadcn.com/docs/components/combobox#dropdown-menu
 // https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
 
 export function DataTable(): JSX.Element {
-  const [state, setState] = useSearchParams()
-  const [columns, setColumns] = React.useState<Array<string>>(headers)
+  const [state, setState] = useSearchParams(
+    toSearch({
+      page: 1,
+      limit: 10,
+      column: ['title', 'price', 'brand', 'category'],
+    }),
+  )
 
-  const queryParams = pipe(state.entries(), Object.fromEntries)
+  const queryParams = fromSearchParams(state)
   // @TODO: Need validation
 
   const { isLoading, isSuccess, data } = useQuery({
@@ -36,16 +39,17 @@ export function DataTable(): JSX.Element {
       'products',
       queryParams.page,
       queryParams.limit,
+      queryParams.column,
       queryParams.sortBy,
       queryParams.order,
       queryParams.searchBy,
       queryParams.search,
-      columns,
     ],
     queryFn: () =>
       fetchProducts({
         page: toInt(queryParams.page),
         limit: toInt(queryParams.limit),
+        column: queryParams.column,
         sortBy: queryParams.sortBy,
         order: queryParams.order,
         searchBy: queryParams.searchBy,
@@ -53,7 +57,6 @@ export function DataTable(): JSX.Element {
       }),
   })
 
-  // @TODO: Error in current page on changing limit -> redirect to first page
   function handleLimit(value: string) {
     setState(toSearch({ ...queryParams, page: 1, limit: value }))
   }
@@ -96,33 +99,35 @@ export function DataTable(): JSX.Element {
   // @TODO: Improve - add generics may be
   function handleColumns(header: string) {
     const index = headers.indexOf(header)
-    // @TODO: Maintain order
-    setColumns(columns => {
-      return columns.includes(header)
-        ? (remove$(columns, columns.indexOf(header)) as string[])
-        : insert$(columns, index, header)
-    })
+    const column = queryParams.column.includes(header)
+      ? (remove$(
+          queryParams.column,
+          queryParams.column.indexOf(header),
+        ) as string[])
+      : insert$(queryParams.column, index, header)
+
+    setState(toSearch({ ...queryParams, column }))
   }
 
   return (
     <VStack className="justify-center items-center h-screen overflow-y-auto p-2 border rounded-md gap-y-2">
-      <Header
-        onSearch={handleSearch}
-        onSelect={handleColumns}
-        columns={columns}
-      />
       <>
         {isLoading ? (
           <HStack>Loading....</HStack>
         ) : isSuccess ? (
           <>
+            <Header
+              onSearch={handleSearch}
+              onSelect={handleColumns}
+              columns={data.columns}
+            />
             <Table className="text-center">
               <DataHeader
                 onOrder={handleOrder}
                 onSearch={handleSearch}
-                headers={columns}
+                headers={data.columns}
               />
-              <DataBody data={getProductsByColumns(data.products, columns)} />
+              <DataBody data={data.products} />
             </Table>
 
             {/* @TODO: CLean up prop passing */}

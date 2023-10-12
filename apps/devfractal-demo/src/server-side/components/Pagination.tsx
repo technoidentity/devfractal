@@ -29,7 +29,7 @@ export function Pagination({
   onPrev: () => void
   onFirst: () => void
   onLast: (last: number) => void
-}) {
+}): JSX.Element {
   return (
     <HStack className="justify-between items-center w-full">
       <HStack className="items-center justify-start gap-x-2">

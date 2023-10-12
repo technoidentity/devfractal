@@ -1,4 +1,4 @@
-import { isNotNullish, pipe, toInt } from 'devfractal'
+import { fromSearchParams, isArray, isNotNullish, toInt } from 'devfractal'
 import { rest } from 'msw'
 import {
   getSearchedProducts,
@@ -8,7 +8,7 @@ import {
 
 export const dataHandlers = [
   rest.get('/api/data/products', (req, res, ctx) => {
-    const queryParams = pipe(req.url.searchParams.entries(), Object.fromEntries)
+    const queryParams = fromSearchParams(req.url.searchParams)
 
     if (
       isNotNullish(queryParams.searchBy) &&
@@ -19,6 +19,9 @@ export const dataHandlers = [
           getSearchedProducts(
             toInt(queryParams.page),
             toInt(queryParams.limit),
+            isArray(queryParams.column)
+              ? queryParams.column
+              : [queryParams.column],
             queryParams.searchBy,
             queryParams.search,
             queryParams.sortBy,
@@ -34,6 +37,9 @@ export const dataHandlers = [
           getSortedProducts(
             toInt(queryParams.page),
             toInt(queryParams.limit),
+            isArray(queryParams.column)
+              ? queryParams.column
+              : [queryParams.column],
             queryParams.sortBy,
             queryParams.order,
           ),
@@ -43,7 +49,13 @@ export const dataHandlers = [
 
     return res(
       ctx.json(
-        getSlicedProducts(toInt(queryParams.page), toInt(queryParams.limit)),
+        getSlicedProducts(
+          toInt(queryParams.page),
+          toInt(queryParams.limit),
+          isArray(queryParams.column)
+            ? queryParams.column
+            : [queryParams.column],
+        ),
       ),
     )
   }),
