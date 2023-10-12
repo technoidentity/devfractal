@@ -76,8 +76,8 @@ export function replace<T>(index: number, value: T) {
   }
 }
 
-export function remove(index: number) {
-  return <T>(arr: readonly T[]): T[] => {
+export function remove<T>(index: number) {
+  return (arr: readonly T[]): T[] => {
     invariant(index >= 0 && index < arr.length, 'index out of bounds')
     return pipe([], pushTo(arr, 0, index), pushTo(arr, index + 1))
   }
