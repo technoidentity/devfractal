@@ -1,6 +1,6 @@
 import {
-  arrayEqual,
   aget,
+  arrayEqual,
   insert,
   paged,
   push,
@@ -13,7 +13,6 @@ import {
 import {
   all,
   any,
-  iterChain,
   cons,
   filter,
   findIndex,
@@ -21,6 +20,7 @@ import {
   fmax,
   fmin,
   groupBy,
+  iterChain,
   iterEqual,
   iterSlice,
   map,
@@ -37,7 +37,7 @@ import {
   zipLongest,
   zipWith,
 } from './iter'
-import { omap, merge, omit, omitBy, pick, pickBy, pluck } from './object'
+import { merge, omap, omit, omitBy, pick, pickBy, pluck } from './object'
 import { pipe } from './pipe'
 
 export function unpipe<Args extends any[], Src, R>(
@@ -59,8 +59,6 @@ export const filter$ = unpipe(filter)
 export const iterEqual$ = unpipe(iterEqual)
 export const groupBy$ = unpipe(groupBy)
 export const flatMap$ = unpipe(flatMap)
-export const zip$ = unpipe(zip)
-export const zipLongest$ = unpipe(zipLongest)
 export const maxBy$ = unpipe(maxBy)
 export const minBy$ = unpipe(minBy)
 export const maxByProp$ = unpipe(maxByProp)
@@ -69,17 +67,16 @@ export const iterSlice$ = unpipe(iterSlice)
 export const iterChain$ = unpipe(iterChain)
 export const takeWhile$ = unpipe(takeWhile)
 export const skipWhile$ = unpipe(skipWhile)
-
-export const at$ = unpipe(aget)
 export const take$ = unpipe(take)
 export const skip$ = unpipe(skip)
+
+export const unshift$ = unpipe(unshift)
 export const insert$ = unpipe(insert)
 export const replace$ = unpipe(replace)
-export const remove$ = unpipe(remove)
-export const paged$ = unpipe(paged)
 export const splitAt$ = unpipe(splitAt)
 export const push$ = unpipe(push)
-export const unshift$ = unpipe(unshift)
+
+export const zipLongest$ = unpipe(zipLongest)
 export const sorted$ = unpipe(sorted)
 export const arrayEqual$ = unpipe(arrayEqual)
 export const zipWith$ = unpipe(zipWith)
@@ -98,3 +95,22 @@ export const merge$ = unpipe(merge)
 export const omap$ = unpipe(omap)
 export const pickBy$ = unpipe(pickBy)
 export const omitBy$ = unpipe(omitBy)
+
+export function zip$<T, U>(
+  second: Iterable<U>,
+  first: Iterable<T>,
+): Generator<readonly [T, U]> {
+  return zip(second)(first)
+}
+
+export function at$<T>(arr: readonly T[], index: number): T {
+  return aget(index)(arr)
+}
+
+export function remove$<T>(arr: readonly T[], index: number): T[] {
+  return remove(index)(arr)
+}
+
+export function paged$<T>(arr: readonly T[], page: number, limit: number): T[] {
+  return paged(page, limit)(arr)
+}
