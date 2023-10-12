@@ -1,6 +1,7 @@
 import {
   Button,
   HStack,
+  Input,
   Select,
   SelectContent,
   SelectGroup,
@@ -14,6 +15,7 @@ import {
 export function Pagination({
   currentPage,
   totalPages,
+  totalItems,
   limit,
   onSetLimit,
   onNext,
@@ -24,6 +26,7 @@ export function Pagination({
   currentPage: number
   totalPages: number
   limit: number
+  totalItems: number
   onSetLimit: (value: string) => void
   onNext: () => void
   onPrev: () => void
@@ -46,7 +49,13 @@ export function Pagination({
             </SelectGroup>
           </SelectContent>
         </Select>
+
         <Text className="whitespace-nowrap block">per page</Text>
+
+        <HStack className="justify-between items-center gap-x-2">
+          <Input type="checkbox" />
+          <Text className="whitespace-nowrap">Show all {totalItems}</Text>
+        </HStack>
       </HStack>
 
       <Text className="whitespace-nowrap block">
