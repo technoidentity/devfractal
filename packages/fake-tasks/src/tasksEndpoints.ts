@@ -1,9 +1,10 @@
 import { epDelete, epGet, epPatch, epPost, eps } from '@srtp/core'
 import { z } from 'zod'
-import { Search, Task } from './specs'
+
+import { TaskSearch, Task, User } from './specs'
 
 export const taskEndpoints = eps({
-  getTasks: epGet(['tasks'], z.array(Task), Search),
+  getTasks: epGet(['tasks'], z.array(Task), TaskSearch),
 
   removeTask: epDelete(['tasks', { id: z.coerce.number() }]),
 
@@ -13,5 +14,19 @@ export const taskEndpoints = eps({
     ['tasks', { id: z.coerce.number() }],
     Task.partial(),
     Task,
+  ),
+})
+
+export const userEndpoints = eps({
+  getUsers: epGet(['users'], z.array(User), TaskSearch),
+
+  removeUser: epDelete(['users', { id: z.coerce.number() }]),
+
+  addUser: epPost(['users'], User.omit({ id: true }), User),
+
+  updateUser: epPatch(
+    ['users', { id: z.coerce.number() }],
+    User.partial(),
+    User,
   ),
 })

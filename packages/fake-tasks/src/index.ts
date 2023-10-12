@@ -1,5 +1,5 @@
 export * from './specs'
 export * from './tasksDb'
 export * from './usersDb'
-export * from './utils'
 export * from './tasksEndpoints'
+export * from './db'

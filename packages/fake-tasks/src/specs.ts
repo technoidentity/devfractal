@@ -1,10 +1,19 @@
 import { boolean, number, string } from '@srtp/core'
 import { z } from 'zod'
 
+export const User = z.object({
+  id: number(),
+  name: string(),
+  email: string(),
+  job: string(),
+})
+export type User = z.infer<typeof User>
+
 export const Task = z.object({
   id: number(),
   title: string(),
   completed: boolean(),
+  userId: number().optional(),
 })
 export type Task = z.infer<typeof Task>
 
@@ -21,15 +30,14 @@ export const Search = z.object({
   page: number().default(1),
   limit: number().default(10),
   search: string().optional(),
+})
+
+export const TaskSearch = Search.extend({
   completed: boolean().optional(),
 })
+export type TaskSearch = z.infer<typeof TaskSearch>
 
-export type Search = z.infer<typeof Search>
-
-export const User = z.object({
-  id: number(),
-  name: string(),
-  email: string(),
-  job: string(),
+export const UserSearch = Search.extend({
+  job: string().optional(),
 })
-export type User = z.infer<typeof User>
+export type UserSearch = z.infer<typeof UserSearch>
