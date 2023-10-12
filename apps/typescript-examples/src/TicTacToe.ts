@@ -8,7 +8,7 @@ import {
   getElement,
   getSelector,
 } from './domUtils'
-import './ticTacToeStyles.css'
+import './styles.css'
 
 type Player = 'X' | 'O'
 

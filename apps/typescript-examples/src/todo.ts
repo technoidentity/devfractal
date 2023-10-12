@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 import { computed, signal } from '@preact/signals-core'
 import { ensure, toInt } from '@srtp/core'
 import {
+  chain,
   entries,
   filter,
   flatten,
@@ -13,7 +14,6 @@ import {
   pipe,
   range,
   take,
-  toArray,
 } from '@srtp/fn'
 import { produce } from 'immer'
 import { z } from 'zod'
@@ -42,7 +42,7 @@ function createUser(): User {
 }
 
 function createUsers(n: number) {
-  return pipe(range(n), map(createUser), toArray)
+  return chain(range(n), map(createUser))
 }
 
 let nextTaskID = 1000
@@ -59,19 +59,17 @@ function createTask(userId: number): Task {
 function createTasksFor(userId: number, maxTasksPerUser: number) {
   const taskCount = faker.datatype.number({ min: 2, max: maxTasksPerUser })
 
-  return pipe(
+  return chain(
     range(taskCount),
     map(_ => createTask(userId)),
-    toArray,
   )
 }
 
 export function createTasks(users: Iterable<User>, maxTasksPerUser: number) {
-  return pipe(
+  return chain(
     users,
     map(u => createTasksFor(u.id, maxTasksPerUser)),
     flatten,
-    toArray,
   )
 }
 

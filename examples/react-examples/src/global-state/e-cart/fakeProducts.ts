@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { map, pipe, range, toArray } from '@srtp/fn'
+import { chain, map, range } from '@srtp/fn'
 import { v4 as uuidv4 } from 'uuid'
 
 import type { Product } from './ProductList'
@@ -18,8 +18,7 @@ export const createProduct = (): Product => {
 }
 
 export const fakeProductList = (n: number): Product[] =>
-  pipe(
+  chain(
     range(0, n),
     map(_ => createProduct()),
-    toArray,
   )

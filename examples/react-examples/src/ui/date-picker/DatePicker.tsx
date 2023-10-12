@@ -1,24 +1,21 @@
 import { HStack, Select } from '@chakra-ui/react'
 import { toInt } from '@srtp/core'
-import { map, pipe, range, toArray } from '@srtp/fn'
+import { chain, map, range } from '@srtp/fn'
 import { useUpdate } from '@srtp/react'
 
-const dates = pipe(
+const dates = chain(
   range(1, 30),
   map(v => v),
-  toArray,
 )
 
-const months = pipe(
+const months = chain(
   range(1, 12),
   map(v => v),
-  toArray,
 )
 
-const years = pipe(
+const years = chain(
   range(2000, 2030),
   map(v => v),
-  toArray,
 )
 
 const currentDate = new Date()

@@ -1,5 +1,6 @@
 import invariant from 'tiny-invariant'
 
+import { chain } from './chain'
 import { pipe } from './pipe'
 
 export function isIterable(x: unknown): x is Iterable<any> {
@@ -515,11 +516,10 @@ export function* reverseIterable<T>(arr: readonly T[]): IterableIterator<T> {
 
 export function zipWith<T, U, T3>(snd: Iterable<U>, fn: (v1: T, v2: U) => T3) {
   return (fst: Iterable<T>): T3[] => {
-    const result = pipe(
+    const result = chain(
       fst,
       zip(snd),
       map(([v1, v2]) => fn(v1, v2)),
-      toArray,
     )
 
     return result

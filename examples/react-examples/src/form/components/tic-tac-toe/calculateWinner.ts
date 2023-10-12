@@ -1,5 +1,5 @@
 import { isUndefined } from '@srtp/core'
-import { map, pipe, range, toArray } from '@srtp/fn'
+import { chain, map, pipe, range } from '@srtp/fn'
 
 import type { Player } from './Square'
 
@@ -8,10 +8,9 @@ const getRow = <T>(
   row: number,
   squares: readonly T[],
 ): readonly T[] =>
-  pipe(
+  chain(
     range(n),
     map(i => squares[row * n + i]),
-    toArray,
   )
 
 const getColumn = <T>(
@@ -19,30 +18,26 @@ const getColumn = <T>(
   col: number,
   squares: readonly T[],
 ): readonly T[] =>
-  pipe(
+  chain(
     range(n),
     map(i => squares[col + i * n]),
-    toArray,
   )
 
-export const squares = pipe(
+export const squares = chain(
   range(9),
   map(i => i.toString()),
-  toArray,
 )
 
 const getLeftDiagonal = <T>(n: number, squares: readonly T[]): readonly T[] =>
-  pipe(
+  chain(
     range(n),
     map(i => squares[(n + 1) * i]),
-    toArray,
   )
 
 const getRightDiagonal = <T>(n: number, squares: readonly T[]): readonly T[] =>
-  pipe(
+  chain(
     range(n),
     map(i => squares[n * i + (n - 1 - i)]),
-    toArray,
   )
 
 const getAllTriplets = <T>(

@@ -10,6 +10,7 @@ import {
 import { cast, isNotNilSpec, isUndefined } from '@srtp/core'
 import { Hono, type Context } from 'hono'
 import { logger } from 'hono/logger'
+import { prettyJSON } from 'hono/pretty-json'
 import { StatusCodes } from 'http-status-codes'
 
 type EpsHandlerArgs<Ep extends EndpointBase> = GetParamsArg<Ep> &
@@ -59,6 +60,9 @@ export function epRouter<Eps extends EndpointRecordBase>(
   const app = new Hono()
   app.use('*', logger())
 
+  if (process.env.NODE_ENV === 'development') {
+    app.use('*', prettyJSON())
+  }
   for (const [name, ep] of Object.entries(eps)) {
     const path = route(ep.path)
     const method = app[ep.method] as any

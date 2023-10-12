@@ -1,5 +1,5 @@
 import { checked, Nat } from '@srtp/core'
-import { all, filter, map, pipe, plus, range, reduce, toArray } from '@srtp/fn'
+import { all, chain, filter, map, pipe, plus, range, reduce } from '@srtp/fn'
 import invariant from 'tiny-invariant'
 import { z } from 'zod'
 
@@ -50,10 +50,9 @@ export function max<T extends Comparable>(first: T, ...rest: T[]): T {
 export function zip<T>(...args: T[][]) {
   const len = minBy(args, 'length').length
 
-  return pipe(
+  return chain(
     range(len),
     map(i => args.map(arr => arr[i])),
-    toArray,
   )
 }
 

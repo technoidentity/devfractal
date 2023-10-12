@@ -3,7 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 import { faker } from '@faker-js/faker'
 import { toInt } from '@srtp/core'
-import { each, map, omap, omit$, pipe, range, toArray } from '@srtp/fn'
+import { chain, each, map, omap, omit$, pipe, range } from '@srtp/fn'
 import { z } from 'zod'
 
 const StringKind = z.enum([
@@ -127,10 +127,9 @@ function fakeCollection(spec: z.ZodTypeAny, options: Partial<FakeOptions>) {
       max: 10,
     })
 
-    return pipe(
+    return chain(
       range(0, n),
       map(() => fake(spec._def.type, options)),
-      toArray,
     )
   }
 

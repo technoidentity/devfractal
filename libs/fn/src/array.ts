@@ -1,6 +1,7 @@
 import invariant from 'tiny-invariant'
 
-import { all, map, minByProp, range, toArray } from './iter'
+import { chain } from './chain'
+import { all, map, minByProp, range } from './iter'
 import { pipe } from './pipe'
 
 export function first<T>(arr: readonly T[]): T {
@@ -130,10 +131,9 @@ export function zipAll<T>(...args: T[][]): T[][] {
   }
   const len = pipe(args, minByProp('length')).length
 
-  return pipe(
+  return chain(
     range(len),
     map(i => args.map(arr => arr[i])),
-    toArray,
   )
 }
 

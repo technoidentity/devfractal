@@ -1,4 +1,4 @@
-import { pipe, map, range, toArray } from '@srtp/fn'
+import { chain, map, range } from '@srtp/fn'
 
 export function t<T>(arr: T[], index: number, element: T): T[] {
   const result = []
@@ -70,10 +70,9 @@ export function subArray(start: number, count: number): number[] {
 }
 
 export function subArray2(start: number, count: number): number[] {
-  return pipe(
+  return chain(
     range(0, count),
     map(i => start + i),
-    toArray,
   )
 }
 
