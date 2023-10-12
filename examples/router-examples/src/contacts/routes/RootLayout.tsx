@@ -10,6 +10,7 @@ import {
 import { api } from '../api'
 import { Search, type ContactList as ContactListSpec } from '../specs'
 import { type ContactList as Contacts } from '../specs'
+
 import { useContactList } from './hooks'
 import { contactRoutes } from './routes'
 

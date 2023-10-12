@@ -1,5 +1,6 @@
 import { isNotNull, toInt } from '@srtp/core'
 import { rest } from 'msw'
+
 import {
   addContact,
   deleteContact,

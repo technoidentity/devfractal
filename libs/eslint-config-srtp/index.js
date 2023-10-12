@@ -34,7 +34,7 @@ module.exports = {
   ],
   settings: {
     react: { version: 'detect' },
-    // 'import/resolver': { typescript: true },
+    'import/resolver': { typescript: true },
   },
   rules: {
     'no-only-tests/no-only-tests': 'warn',
@@ -194,6 +194,7 @@ module.exports = {
     'import/no-default-export': 'warn',
     'import/no-deprecated': 'warn',
     'import/no-webpack-loader-syntax': 'warn',
+    'import/no-unresolved': 'error',
 
     'jsx-a11y/accessible-emoji': 'warn',
     'jsx-a11y/alt-text': 'warn',
@@ -275,7 +276,7 @@ module.exports = {
           'sibling',
           'index',
         ],
-        'newlines-between': 'ignore',
+        'newlines-between': 'always',
         alphabetize: {
           order: 'asc',
           caseInsensitive: true,

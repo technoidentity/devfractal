@@ -6,8 +6,9 @@ import type { RouteObject } from 'react-router-dom'
 import { NavLink, Outlet } from 'react-router-dom'
 import { z } from 'zod'
 
-import { api } from '../core'
 import { queryClient } from '@/queryClient'
+
+import { api } from '../core'
 
 const AuthorsSpec = z.array(
   z.object({

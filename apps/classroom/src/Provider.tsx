@@ -1,4 +1,5 @@
 import { AppProvider } from 'devfractal'
+
 import { ErrorFallback, Loading, queryClient } from '@/config'
 
 export const Provider = ({ children }: React.PropsWithChildren) => (

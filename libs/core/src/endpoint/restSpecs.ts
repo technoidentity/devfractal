@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 import type { ZodPrimitive } from '../spec'
 
 export function restSpecs<Spec extends z.ZodRawShape & { id: ZodPrimitive }>(

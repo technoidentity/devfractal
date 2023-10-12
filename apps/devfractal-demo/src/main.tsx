@@ -1,9 +1,10 @@
 import { AppProvider, createRoot } from 'devfractal'
-
-import './global.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { DataTable } from './server-side/DataTable'
+
 import { queryClient } from '@/queryClient'
+
+import { DataTable } from './server-side/DataTable'
+import './global.css'
 
 if (process.env.NODE_ENV === 'development') {
   const { worker } = await import('./mocks/browser')

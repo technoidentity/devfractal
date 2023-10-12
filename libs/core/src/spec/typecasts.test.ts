@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { sstr, snum, sint, sbool, notNil } from './typeCasts'
 
 describe('typeCasts', () => {

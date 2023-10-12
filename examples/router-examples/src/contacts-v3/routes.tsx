@@ -8,7 +8,6 @@ import {
   UpdateContact,
   ViewContact,
 } from './components'
-
 import { contactPaths, rootPath } from './paths'
 
 const contactRoutes = epReactRoutes(contactPaths, {

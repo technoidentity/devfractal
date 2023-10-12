@@ -1,6 +1,6 @@
 import { expect, expectTypeOf, test } from 'vitest'
-
 import { string, z } from 'zod'
+
 import { checked } from './checked'
 import { Nat } from './commonSpecs'
 

@@ -1,5 +1,6 @@
 import { omap, pipe } from '@srtp/fn'
 import { z } from 'zod'
+
 import { toInt } from './spec'
 
 function initialValuePrimitive(spec: z.ZodTypeAny) {

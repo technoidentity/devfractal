@@ -1,5 +1,6 @@
 import { fromSearchParams, isArray, isNotNullish, toInt } from 'devfractal'
 import { rest } from 'msw'
+
 import {
   getSearchedProducts,
   getSlicedProducts,

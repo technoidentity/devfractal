@@ -10,6 +10,7 @@ import {
 import type { Schema, z } from 'zod'
 
 import { useSimpleQuery, type UseSimpleQueryArgs } from '../core'
+
 import { ApiDescriptions, type MutationDescription } from './mutationApi'
 
 export type MutationHandler = (

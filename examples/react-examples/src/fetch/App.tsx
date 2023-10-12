@@ -7,8 +7,9 @@ import {
 import { Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
-import { TodoApp } from './components'
 import { queryClient } from '@/queryClient'
+
+import { TodoApp } from './components'
 
 const Fallback = ({ error, resetErrorBoundary }: any) => {
   return (

@@ -12,7 +12,7 @@ import {
 import { state, useEvent, useInputState, useString } from '@srtp/react'
 import type { KeyboardEvent } from 'react'
 
-import './index.css'
+import '../index.css'
 
 type Todo = Readonly<{
   id: number

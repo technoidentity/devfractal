@@ -1,5 +1,6 @@
 import type { MutationFunction } from '@tanstack/react-query'
 import type { z } from 'zod'
+
 import { useSafeMutation, type UseOptimisticMutationOptions } from '../core'
 
 export function useOnePatch<

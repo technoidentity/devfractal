@@ -1,4 +1,5 @@
 import { createRoot } from '@srtp/react'
+
 import { App } from '@/App'
 
 if (import.meta.env.DEV) {

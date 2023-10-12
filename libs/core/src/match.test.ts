@@ -1,4 +1,5 @@
 import { expect, expectTypeOf, test } from 'vitest'
+
 import { matchTag } from './match'
 
 test('matchTag', () => {

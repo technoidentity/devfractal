@@ -1,7 +1,8 @@
 import { createRoot } from 'devfractal'
 
-import { App } from './App'
 import { Provider } from '@/Provider'
+
+import { App } from './App'
 import './global.css'
 
 const root = createRoot('root')

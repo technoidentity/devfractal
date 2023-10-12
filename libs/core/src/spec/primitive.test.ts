@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { Primitive } from './primitive'
 
 describe('Primitive', () => {

@@ -1,5 +1,6 @@
 import { expect, test, describe, expectTypeOf } from 'vitest'
 import { z } from 'zod'
+
 import { restSpecs, type RestTypes } from './restSpecs'
 
 describe('restSpecs', () => {

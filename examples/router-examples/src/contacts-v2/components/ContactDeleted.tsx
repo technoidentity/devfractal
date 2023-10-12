@@ -1,5 +1,6 @@
 import { Text, VStack } from '@srtp/ui'
 import { Link } from 'react-router-dom'
+
 import { rootLink } from '../paths'
 
 export function ContactDeleted() {

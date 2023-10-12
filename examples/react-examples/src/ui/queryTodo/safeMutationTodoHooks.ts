@@ -2,8 +2,8 @@ import { useSafeMutation } from '@srtp/query'
 import { useQuery } from '@tanstack/react-query'
 import { type Draft } from 'immer'
 import invariant from 'tiny-invariant'
-
 import { z } from 'zod'
+
 import { Todo } from './todo'
 import { todoApi } from './todoApi'
 
