@@ -21,6 +21,20 @@ const intializeProducts = (): void => {
 intializeProducts()
 
 // Operations
+export const getSelectedColumns = (
+  products: Products,
+  columns: string[],
+): ProductsResponse => {
+  return {
+    products: data.map(product =>
+      pick$(product, ['id', ...(columns as (keyof Product)[])]),
+    ),
+    columns,
+    currentPage: 0,
+    totalItems: products.length,
+    totalPages: 0,
+  }
+}
 
 export const getSlicedProducts = (
   page: number,
@@ -34,11 +48,7 @@ export const getSlicedProducts = (
   const totalPages = Math.ceil(products.length / limit)
 
   return {
-    products: products
-      .slice(startIndex, endIndex)
-      .map(product =>
-        pick$(product, ['id', ...(columns as (keyof Product)[])]),
-      ),
+    products: products.slice(startIndex, endIndex),
     currentPage: page,
     totalPages,
     totalItems: products.length,
@@ -47,13 +57,17 @@ export const getSlicedProducts = (
 }
 
 export const getSortedProducts = (
+  show: 'all' | 'paged',
   page: number,
   limit: number,
   columns: string[],
   sortKey: keyof Product,
   order: 'asc' | 'desc',
 ): ProductsResponse => {
-  const slicedResult = getSlicedProducts(page, limit, columns)
+  const slicedResult =
+    show === 'all'
+      ? getSelectedColumns(products, columns)
+      : getSlicedProducts(page, limit, columns)
 
   return {
     ...slicedResult,
@@ -64,6 +78,7 @@ export const getSortedProducts = (
 // @TODO: Function overloading?
 
 export const getSearchedProducts = (
+  show: 'all' | 'paged',
   page: number,
   limit: number,
   columns: string[],
@@ -74,10 +89,10 @@ export const getSearchedProducts = (
 ): ProductsResponse => {
   const result =
     sortKey && order
-      ? getSortedProducts(page, limit, columns, sortKey, order)
+      ? getSortedProducts(show, page, limit, columns, sortKey, order)
       : getSlicedProducts(page, limit, columns)
 
-  const products =
+  const searchResult =
     searchBy !== 'all'
       ? result.products.filter(product =>
           product[searchBy]
@@ -95,7 +110,7 @@ export const getSearchedProducts = (
 
   return {
     ...result,
-    products,
+    products: searchResult,
     totalPages,
   }
 }

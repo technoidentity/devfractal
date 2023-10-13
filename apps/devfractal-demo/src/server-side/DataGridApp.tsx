@@ -11,17 +11,14 @@ import {
   fromSearchParams,
   isEmptyString,
   omit$,
-  TableBody,
-  TableRow,
-  TableCell,
 } from 'devfractal'
 import { useSearchParams } from 'react-router-dom'
-import { TableVirtuoso } from 'react-virtuoso'
 
 import { DataBody } from './components/DataBody'
 import { DataHeader } from './components/DataHeaders'
 import { Header } from './components/Header'
 import { Pagination } from './components/Pagination'
+import { VirtualDataTable } from './components/VirtualDataTable'
 import { headers } from './products'
 import { fetchProducts } from './query'
 
@@ -32,6 +29,7 @@ import { fetchProducts } from './query'
 export function DataGridApp(): JSX.Element {
   const [state, setState] = useSearchParams(
     toSearch({
+      show: 'paged',
       page: 1,
       limit: 10,
       column: ['title', 'price', 'brand', 'category'],
@@ -44,6 +42,7 @@ export function DataGridApp(): JSX.Element {
   const { isLoading, isSuccess, data } = useQuery({
     queryKey: [
       'products',
+      queryParams.show,
       queryParams.page,
       queryParams.limit,
       queryParams.column,
@@ -54,8 +53,9 @@ export function DataGridApp(): JSX.Element {
     ],
     queryFn: () =>
       fetchProducts({
-        page: toInt(queryParams.page),
-        limit: toInt(queryParams.limit),
+        show: queryParams.show,
+        page: queryParams.page ? toInt(queryParams.page) : undefined,
+        limit: queryParams.limit ? toInt(queryParams.limit) : undefined,
         column: queryParams.column,
         sortBy: queryParams.sortBy,
         order: queryParams.order,
@@ -107,11 +107,19 @@ export function DataGridApp(): JSX.Element {
     setState(toSearch(nextSearchState))
   }
 
+  function handleInfinite() {
+    const show = queryParams.show === 'all' ? 'paged' : 'all'
+
+    setState(toSearch({ ...queryParams, show }))
+  }
+
+  // @TODO: Fix spreading of string when the column is not an array
   function handleColumns(header: string) {
     const index = headers.indexOf(header)
-    const column = queryParams.column.includes(header)
-      ? remove$(queryParams.column, queryParams.column.indexOf(header))
-      : insert$(queryParams.column, index, header)
+    const column =
+      queryParams.column.indexOf(header) !== -1
+        ? remove$(queryParams.column, queryParams.column.indexOf(header))
+        : insert$(queryParams.column, index, header.toString())
 
     setState(toSearch({ ...queryParams, column }))
   }
@@ -129,14 +137,24 @@ export function DataGridApp(): JSX.Element {
               columns={data.columns}
             />
 
-            <DataTable
-              headers={data.columns}
-              data={data.products}
-              onOrder={handleOrder}
-              onSearch={handleSearch}
-            />
+            {queryParams.show === 'paged' ? (
+              <DataTable
+                data={data.products}
+                headers={data.columns}
+                onOrder={handleOrder}
+                onSearch={handleSearch}
+              />
+            ) : (
+              <VirtualDataTable
+                headers={data.columns}
+                data={data.products}
+                onOrder={handleOrder}
+                onSearch={handleSearch}
+              />
+            )}
 
             <Pagination
+              show={queryParams.show}
               currentPage={data.currentPage}
               limit={queryParams.limit}
               totalPages={data.totalPages}
@@ -146,6 +164,7 @@ export function DataGridApp(): JSX.Element {
               onNext={handleNext}
               onPrev={handlePrev}
               onSetLimit={handleLimit}
+              onCheck={handleInfinite}
             />
           </>
         ) : (
@@ -171,60 +190,3 @@ function DataTable<
     </Table>
   )
 }
-
-export function VirtualDataTable<
-  T extends { id: number; [k: string]: string | number },
->(props: {
-  data: T[]
-  headers: string[]
-  onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
-  onSearch: (value: { searchBy: string; search: string }) => void
-}): JSX.Element {
-  return (
-    <Table className="text-center">
-      <DataHeader {...props} />
-      <TableBody>
-        {props.data.length > 0 ? (
-          <TableVirtuoso
-            data={props.data}
-            itemContent={(_index, data) => {
-              return (
-                <TableRow key={data.id}>
-                  {Object.keys(data)
-                    .filter(key => key !== 'id')
-                    .map(item => {
-                      return <TableCell key={item}>{data[item]}</TableCell>
-                    })}
-                </TableRow>
-              )
-            }}
-          />
-        ) : (
-          <TableRow>
-            <TableCell colSpan={4}>No data!</TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
-  )
-}
-
-// {
-//   data.length > 0 ? (
-//     data.map(product => {
-//       return (
-//         <TableRow key={product.id}>
-//           {Object.keys(product)
-//             .filter(key => key !== 'id')
-//             .map(item => {
-//               return <TableCell key={item}>{product[item]}</TableCell>
-//             })}
-//         </TableRow>
-//       )
-//     })
-//   ) : (
-//     <TableRow>
-//       <TableCell colSpan={4}>No data!</TableCell>
-//     </TableRow>
-//   )
-// }
