@@ -6,7 +6,7 @@
     "build": "vite build",
     "build-storybook": "storybook build",
     "clean": "rimraf .turbo node_modules dist",
-    "dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
+    "dev": "vite --force --host 0.0.0.0 --port 3000 --clearScreen false",
     "db:dev": "json-server --port 8080 --watch db.json",
     "coverage": "vitest run --coverage",
     "deploy": "vercel deploy dist --team=turborepo --confirm",

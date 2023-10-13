@@ -50,7 +50,7 @@ export function DataHeader({
   )
 }
 
-function HeaderWrapper({
+export function HeaderWrapper({
   header,
   onOrder,
   onSearch,
