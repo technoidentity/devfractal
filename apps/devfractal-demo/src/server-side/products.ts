@@ -2,6 +2,10 @@
 
 export type Products = typeof data
 export type Product = (typeof data)[number]
+export type ProductWithoutTitle = Omit<Product, 'title'>
+export type ProductWithoutPrice = Omit<Product, 'price'>
+export type ProductWithoutBrand = Omit<Product, 'brand'>
+export type ProductWithoutCategory = Omit<Product, 'category'>
 
 export const headers = ['title', 'price', 'brand', 'category']
 

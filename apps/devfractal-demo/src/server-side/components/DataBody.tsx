@@ -1,16 +1,15 @@
-import { TableBody, TableCell, TableRow } from 'devfractal'
+import { faker } from '@faker-js/faker'
+import { TableBody, TableCell, TableRow, keys } from 'devfractal'
 
 // @TODO: Improve generics
-export function DataBody<
-  T extends { id: number; [k: string]: number | string },
->({ data }: { data: readonly T[] }): JSX.Element {
+export function DataBody({ data }: { data: Array<object> }): JSX.Element {
   return (
     <TableBody>
       {data.length > 0 ? (
         data.map(product => {
           return (
-            <TableRow key={product.id}>
-              {Object.keys(product)
+            <TableRow key={faker.string.uuid()}>
+              {keys(product)
                 .filter(key => key !== 'id')
                 .map(item => {
                   return <TableCell key={item}>{product[item]}</TableCell>

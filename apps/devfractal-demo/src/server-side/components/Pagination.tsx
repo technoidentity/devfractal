@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
   Text,
+  toInt,
 } from 'devfractal'
 
 // @TODO: Add prop types
@@ -74,18 +75,21 @@ export function Pagination({
 
       {show === 'paged' && (
         <HStack className="items-center justify-center gap-x-2">
-          <Button onClick={onFirst} disabled={currentPage === 1}>
+          <Button onClick={onFirst} disabled={toInt(currentPage) === 1}>
             First
           </Button>
-          <Button onClick={onPrev} disabled={currentPage <= 1}>
+          <Button onClick={onPrev} disabled={toInt(currentPage) <= 1}>
             Prev
           </Button>
-          <Button onClick={onNext} disabled={currentPage >= totalPages}>
+          <Button
+            onClick={onNext}
+            disabled={toInt(currentPage) >= toInt(totalPages)}
+          >
             Next
           </Button>
           <Button
             onClick={() => onLast(totalPages)}
-            disabled={currentPage === totalPages}
+            disabled={toInt(currentPage) === totalPages}
           >
             Last
           </Button>

@@ -109,8 +109,10 @@ export function DataGridApp(): JSX.Element {
 
   function handleInfinite() {
     const show = queryParams.show === 'all' ? 'paged' : 'all'
+    const params =
+      show === 'all' ? omit$(queryParams, ['page', 'limit']) : queryParams
 
-    setState(toSearch({ ...queryParams, show }))
+    setState(toSearch({ ...params, show }))
   }
 
   // @TODO: Fix spreading of string when the column is not an array
@@ -175,10 +177,8 @@ export function DataGridApp(): JSX.Element {
   )
 }
 
-function DataTable<
-  T extends { id: number; [k: string]: string | number },
->(props: {
-  data: T[]
+function DataTable(props: {
+  data: Array<object>
   headers: string[]
   onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
   onSearch: (value: { searchBy: string; search: string }) => void

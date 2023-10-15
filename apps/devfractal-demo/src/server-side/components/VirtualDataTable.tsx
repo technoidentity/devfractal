@@ -1,20 +1,18 @@
-import { Box, isArray } from 'devfractal'
+import { Box, isArray, keys } from 'devfractal'
 import { TableVirtuoso } from 'react-virtuoso'
 
 import { HeaderWrapper } from './DataHeaders'
 
 // @TODO: Type mismatch with shadcn and div-table as components
 
-export function VirtualDataTable<
-  T extends { id: number; [k: string]: number | string },
->({
+export function VirtualDataTable({
   data,
   headers,
   onOrder,
   onSearch,
 }: {
   headers: string[]
-  data: readonly T[]
+  data: Array<object>
   onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
   onSearch: (value: { searchBy: string; search: string }) => void
 }): JSX.Element {
@@ -49,7 +47,7 @@ export function VirtualDataTable<
         )}
         itemContent={(_index, product) => (
           <>
-            {Object.keys(product)
+            {keys(product)
               .filter(key => key !== 'id')
               .map(item => {
                 return (

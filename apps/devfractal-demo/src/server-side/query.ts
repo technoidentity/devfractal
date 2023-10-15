@@ -1,6 +1,6 @@
 import { isDefined, keys, pick$, urlcat } from 'devfractal'
 
-import type { ProductsResponse } from '@/mocks/data-table/operations'
+import type { ProductsResponse } from '@/mocks/data-table/database'
 
 export async function fetchProducts(params: {
   show: 'all' | 'paged'
