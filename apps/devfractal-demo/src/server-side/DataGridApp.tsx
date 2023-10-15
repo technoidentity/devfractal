@@ -25,6 +25,7 @@ import { fetchProducts } from './query'
 // @TODO: Row operations: https://ui.shadcn.com/docs/components/combobox#dropdown-menu
 // https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
 // @TODO: Too many rerenders?
+// @TODO: Too many rerenders?
 
 export function DataGridApp(): JSX.Element {
   const [state, setState] = useSearchParams(
@@ -42,6 +43,7 @@ export function DataGridApp(): JSX.Element {
   const { isLoading, isSuccess, data } = useQuery({
     queryKey: [
       'products',
+      queryParams.show,
       queryParams.show,
       queryParams.page,
       queryParams.limit,
@@ -115,6 +117,7 @@ export function DataGridApp(): JSX.Element {
     setState(toSearch({ ...params, show }))
   }
 
+  // @TODO: Fix spreading of string when the column is not an array
   // @TODO: Fix spreading of string when the column is not an array
   function handleColumns(header: string) {
     const index = headers.indexOf(header)

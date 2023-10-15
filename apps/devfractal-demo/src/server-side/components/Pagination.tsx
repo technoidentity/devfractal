@@ -65,8 +65,37 @@ export function Pagination({
           <Input type="checkbox" onChange={onCheck} />
           <Text className="whitespace-nowrap">Show all {totalItems}</Text>
         </HStack>
+        {show === 'paged' && (
+          <Select onValueChange={onSetLimit}>
+            <SelectTrigger>
+              <SelectValue defaultValue={limit} placeholder={limit} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="5">5</SelectItem>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="15">15</SelectItem>
+                <SelectItem value="20">20</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
+
+        {show === 'paged' && (
+          <Text className="whitespace-nowrap block">per page</Text>
+        )}
+
+        <HStack className="justify-between items-center gap-x-2">
+          <Input type="checkbox" onChange={onCheck} />
+          <Text className="whitespace-nowrap">Show all {totalItems}</Text>
+        </HStack>
       </HStack>
 
+      {show === 'paged' && (
+        <Text className="whitespace-nowrap block">
+          {currentPage} of {totalPages}
+        </Text>
+      )}
       {show === 'paged' && (
         <Text className="whitespace-nowrap block">
           {currentPage} of {totalPages}
