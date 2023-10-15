@@ -459,6 +459,9 @@ importers:
       react-router-dom:
         specifier: 6.16.0
         version: 6.16.0(react-dom@18.2.0)(react@18.2.0)
+      react-virtuoso:
+        specifier: 4.6.1
+        version: 4.6.1(react-dom@18.2.0)(react@18.2.0)
       sort-by:
         specifier: 1.2.0
         version: 1.2.0
@@ -24631,6 +24634,17 @@ packages:
     peerDependencies:
       react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
       react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-virtuoso@4.6.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-dQq0yOdRjdWIYaiTvUbudqmTodGSdWGt5lVYz3mM07TTEV91yv7eL5Fn3FPEJOA36whScxPWg0GiYBIOZYEIEA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16 || >=17 || >= 18'
+      react-dom: '>=16 || >=17 || >= 18'
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
