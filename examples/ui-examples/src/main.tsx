@@ -1,5 +1,4 @@
 import { createRoot } from '@srtp/react'
-
 import './global.css'
 import { H1 } from '@srtp/ui'
 
