@@ -1,54 +1,12 @@
-import { PopoverContent } from '@radix-ui/react-popover'
 import {
   Button,
   Input,
   Popover,
+  PopoverContent,
   PopoverTrigger,
-  TableHead,
-  TableHeader,
-  TableRow,
   VStack,
-  isArray,
 } from 'devfractal'
 import React from 'react'
-
-export function DataHeader({
-  headers,
-  onOrder,
-  onSearch,
-}: {
-  headers: string[]
-  onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
-  onSearch: (value: { searchBy: string; search: string }) => void
-}): JSX.Element {
-  return (
-    <TableHeader className="bg-gray-900 sticky top-0">
-      <TableRow>
-        {isArray(headers) ? (
-          headers.map(header => {
-            return (
-              <TableHead key={header} className="text-center">
-                <HeaderWrapper
-                  onOrder={onOrder}
-                  onSearch={onSearch}
-                  header={header}
-                />
-              </TableHead>
-            )
-          })
-        ) : (
-          <TableHead className="text-center">
-            <HeaderWrapper
-              onOrder={onOrder}
-              onSearch={onSearch}
-              header={headers}
-            />
-          </TableHead>
-        )}
-      </TableRow>
-    </TableHeader>
-  )
-}
 
 export function HeaderWrapper({
   header,

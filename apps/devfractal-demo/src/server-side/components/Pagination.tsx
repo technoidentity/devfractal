@@ -62,7 +62,11 @@ export function Pagination({
         )}
 
         <HStack className="justify-between items-center gap-x-2">
-          <Input type="checkbox" onChange={onCheck} />
+          <Input
+            type="checkbox"
+            onChange={onCheck}
+            defaultChecked={show === 'all'}
+          />
           <Text className="whitespace-nowrap">Show all {totalItems}</Text>
         </HStack>
       </HStack>

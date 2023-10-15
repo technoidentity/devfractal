@@ -1,10 +1,11 @@
 import { Box, isArray, keys } from 'devfractal'
 import { TableVirtuoso } from 'react-virtuoso'
 
-import { HeaderWrapper } from './DataHeaders'
+import { HeaderWrapper } from './HeaderWrapper'
 
-// @TODO: Type mismatch with shadcn and div-table as components
-
+// @TODO: Type mismatch with shad-cn and div-table as components -> Cannot be merged due to inconsistent html semantics
+// @TODO: Need to check if only the table body can use virtual table
+// @TODO: Fix styling for virtual table
 export function VirtualDataTable({
   data,
   headers,

@@ -4,10 +4,8 @@ import {
   filter,
   isArray,
   isDefined,
-  isUndefined,
   omit$,
   paged,
-  pick$,
   pipe,
 } from 'devfractal'
 
@@ -33,17 +31,74 @@ export function getDataFromTable(params: {
   searchBy?: keyof Product | 'all'
   search?: string
 }): ProductsResponse {
+  const selected = isArray(params.column) ? params.column : [params.column]
+
   if (
     params.show === 'all' &&
-    isUndefined(params.page) &&
-    isUndefined(params.limit)
+    isDefined(params.sortBy) &&
+    isDefined(params.order) &&
+    isDefined(params.searchBy) &&
+    isDefined(params.search)
   ) {
-    const selected = isArray(params.column) ? params.column : [params.column]
+    const searchKey = params.searchBy
+    const searchStr = params.search
 
     return {
-      products: data.map(product =>
-        pick$(product, [...selected] as (keyof Product)[]),
+      products: chain(
+        data,
+        orderBy(params.sortBy as keyof Product, params.order),
+        filter(product => hasSearchString(product, searchKey, searchStr)),
+        picked([...selected] as (keyof Product)[]),
       ),
+      columns: selected,
+      currentPage: 0,
+      totalItems: data.length,
+      totalPages: 0,
+    }
+  }
+
+  if (
+    params.show === 'all' &&
+    isDefined(params.sortBy) &&
+    isDefined(params.order)
+  ) {
+    return {
+      products: chain(
+        data,
+        orderBy(params.sortBy as keyof Product, params.order),
+        picked([...selected] as (keyof Product)[]),
+      ),
+      columns: selected,
+      currentPage: 0,
+      totalItems: data.length,
+      totalPages: 0,
+    }
+  }
+
+  if (
+    params.show === 'all' &&
+    isDefined(params.searchBy) &&
+    isDefined(params.search)
+  ) {
+    const searchKey = params.searchBy
+    const searchStr = params.search
+
+    return {
+      products: chain(
+        data,
+        filter(product => hasSearchString(product, searchKey, searchStr)),
+        picked([...selected] as (keyof Product)[]),
+      ),
+      columns: selected,
+      currentPage: 0,
+      totalItems: data.length,
+      totalPages: 0,
+    }
+  }
+
+  if (params.show === 'all') {
+    return {
+      products: chain(data, picked([...selected] as (keyof Product)[])),
       columns: selected,
       currentPage: 0,
       totalItems: data.length,
@@ -102,6 +157,29 @@ function getPaginatedProducts(params: {
         data,
         paged(params.page, params.limit),
         orderBy(params.sortBy as keyof Product, params.order),
+        picked([...selected] as (keyof Product)[]),
+      ),
+      columns: selected,
+      currentPage: params.page,
+      totalItems: data.length,
+      totalPages: Math.ceil(data.length / params.limit),
+    }
+  }
+
+  if (
+    isDefined(params.page) &&
+    isDefined(params.limit) &&
+    isDefined(params.searchBy) &&
+    isDefined(params.search)
+  ) {
+    const searchKey = params.searchBy
+    const searchStr = params.search
+
+    return {
+      products: chain(
+        data,
+        paged(params.page, params.limit),
+        filter(product => hasSearchString(product, searchKey, searchStr)),
         picked([...selected] as (keyof Product)[]),
       ),
       columns: selected,
