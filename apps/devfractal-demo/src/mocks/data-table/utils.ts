@@ -52,7 +52,5 @@ export function picked<T extends object, K extends keyof T>(keys: K[]) {
 }
 
 export function insertAt<T>(src: readonly T[], index: number, value: T) {
-  const ans = [...src.slice(0, index), value, ...src.slice(index)]
-  console.log(ans)
-  return ans
+  return [...src.slice(0, index), value, ...src.slice(index)]
 }
