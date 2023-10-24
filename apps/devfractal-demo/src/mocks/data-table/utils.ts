@@ -50,3 +50,7 @@ export function picked<T extends object, K extends keyof T>(keys: K[]) {
     )
   }
 }
+
+export function insertAt<T>(src: readonly T[], index: number, value: T) {
+  return [...src.slice(0, index), value, ...src.slice(index)]
+}

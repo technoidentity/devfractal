@@ -1,21 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
 import {
-  Table,
   VStack,
   Text,
   HStack,
   toInt,
   toSearch,
   remove$,
-  insert$,
   fromSearchParams,
   isEmptyString,
   omit$,
+  isArray,
 } from 'devfractal'
 import { useSearchParams } from 'react-router-dom'
 
-import { DataBody } from './components/DataBody'
-import { DataHeader } from './components/DataHeaders'
+import { insertAt } from '@/mocks/data-table/utils'
+
+import { DataTable } from './components/DataTable'
 import { Header } from './components/Header'
 import { Pagination } from './components/Pagination'
 import { VirtualDataTable } from './components/VirtualDataTable'
@@ -24,7 +24,6 @@ import { fetchProducts } from './query'
 
 // @TODO: Row operations: https://ui.shadcn.com/docs/components/combobox#dropdown-menu
 // https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
-// @TODO: Too many rerenders?
 
 export function DataGridApp(): JSX.Element {
   const [state, setState] = useSearchParams(
@@ -42,6 +41,7 @@ export function DataGridApp(): JSX.Element {
   const { isLoading, isSuccess, data } = useQuery({
     queryKey: [
       'products',
+      queryParams.show,
       queryParams.show,
       queryParams.page,
       queryParams.limit,
@@ -115,13 +115,18 @@ export function DataGridApp(): JSX.Element {
     setState(toSearch({ ...params, show }))
   }
 
-  // @TODO: Fix spreading of string when the column is not an array
   function handleColumns(header: string) {
+    const selected = isArray(queryParams.column)
+      ? queryParams.column
+      : [queryParams.column]
+
     const index = headers.indexOf(header)
-    const column =
-      queryParams.column.indexOf(header) !== -1
-        ? remove$(queryParams.column, queryParams.column.indexOf(header))
-        : insert$(queryParams.column, index, header.toString())
+
+    const column = selected.includes(header)
+      ? selected.length > 1
+        ? remove$(selected, selected.indexOf(header))
+        : selected
+      : insertAt(selected, index, header)
 
     setState(toSearch({ ...queryParams, column }))
   }
@@ -174,19 +179,5 @@ export function DataGridApp(): JSX.Element {
         )}
       </>
     </VStack>
-  )
-}
-
-function DataTable(props: {
-  data: Array<object>
-  headers: string[]
-  onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
-  onSearch: (value: { searchBy: string; search: string }) => void
-}): JSX.Element {
-  return (
-    <Table className="text-center">
-      <DataHeader {...props} />
-      <DataBody data={props.data} />
-    </Table>
   )
 }
