@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
 import { expect, expectTypeOf, test, describe } from 'vitest'
+
 import {
   usePagination,
   type PaginationResult,

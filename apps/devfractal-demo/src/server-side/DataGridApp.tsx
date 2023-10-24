@@ -1,30 +1,34 @@
 import { useQuery } from '@tanstack/react-query'
 import {
-  Table,
   VStack,
   Text,
   HStack,
   toInt,
   toSearch,
   remove$,
-  insert$,
   fromSearchParams,
+  isEmptyString,
+  omit$,
+  isArray,
 } from 'devfractal'
 import { useSearchParams } from 'react-router-dom'
 
-import { DataBody } from './components/DataBody'
-import { DataHeader } from './components/DataHeaders'
+import { insertAt } from '@/mocks/data-table/utils'
+
+import { DataTable } from './components/DataTable'
 import { Header } from './components/Header'
 import { Pagination } from './components/Pagination'
+import { VirtualDataTable } from './components/VirtualDataTable'
 import { headers } from './products'
 import { fetchProducts } from './query'
 
 // @TODO: Row operations: https://ui.shadcn.com/docs/components/combobox#dropdown-menu
 // https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
 
-export function DataTable(): JSX.Element {
+export function DataGridApp(): JSX.Element {
   const [state, setState] = useSearchParams(
     toSearch({
+      show: 'paged',
       page: 1,
       limit: 10,
       column: ['title', 'price', 'brand', 'category'],
@@ -37,6 +41,8 @@ export function DataTable(): JSX.Element {
   const { isLoading, isSuccess, data } = useQuery({
     queryKey: [
       'products',
+      queryParams.show,
+      queryParams.show,
       queryParams.page,
       queryParams.limit,
       queryParams.column,
@@ -47,8 +53,9 @@ export function DataTable(): JSX.Element {
     ],
     queryFn: () =>
       fetchProducts({
-        page: toInt(queryParams.page),
-        limit: toInt(queryParams.limit),
+        show: queryParams.show,
+        page: queryParams.page ? toInt(queryParams.page) : undefined,
+        limit: queryParams.limit ? toInt(queryParams.limit) : undefined,
         column: queryParams.column,
         sortBy: queryParams.sortBy,
         order: queryParams.order,
@@ -93,18 +100,33 @@ export function DataTable(): JSX.Element {
   }
 
   function handleSearch(value: { searchBy: string; search: string }) {
-    setState(toSearch({ ...queryParams, ...value }))
+    const nextSearchState = isEmptyString(value.search)
+      ? omit$(queryParams, ['searchBy', 'search'])
+      : { ...queryParams, ...value }
+
+    setState(toSearch(nextSearchState))
   }
 
-  // @TODO: Improve - add generics may be
+  function handleInfinite() {
+    const show = queryParams.show === 'all' ? 'paged' : 'all'
+    const params =
+      show === 'all' ? omit$(queryParams, ['page', 'limit']) : queryParams
+
+    setState(toSearch({ ...params, show }))
+  }
+
   function handleColumns(header: string) {
+    const selected = isArray(queryParams.column)
+      ? queryParams.column
+      : [queryParams.column]
+
     const index = headers.indexOf(header)
-    const column = queryParams.column.includes(header)
-      ? (remove$(
-          queryParams.column,
-          queryParams.column.indexOf(header),
-        ) as string[])
-      : insert$(queryParams.column, index, header)
+
+    const column = selected.includes(header)
+      ? selected.length > 1
+        ? remove$(selected, selected.indexOf(header))
+        : selected
+      : insertAt(selected, index, header)
 
     setState(toSearch({ ...queryParams, column }))
   }
@@ -121,25 +143,35 @@ export function DataTable(): JSX.Element {
               onSelect={handleColumns}
               columns={data.columns}
             />
-            <Table className="text-center">
-              <DataHeader
+
+            {queryParams.show === 'paged' ? (
+              <DataTable
+                data={data.products}
+                headers={data.columns}
                 onOrder={handleOrder}
                 onSearch={handleSearch}
-                headers={data.columns}
               />
-              <DataBody data={data.products} />
-            </Table>
+            ) : (
+              <VirtualDataTable
+                headers={data.columns}
+                data={data.products}
+                onOrder={handleOrder}
+                onSearch={handleSearch}
+              />
+            )}
 
-            {/* @TODO: CLean up prop passing */}
             <Pagination
+              show={queryParams.show}
               currentPage={data.currentPage}
               limit={queryParams.limit}
               totalPages={data.totalPages}
+              totalItems={data.totalItems}
               onFirst={handleFirst}
               onLast={handleLast}
               onNext={handleNext}
               onPrev={handlePrev}
               onSetLimit={handleLimit}
+              onCheck={handleInfinite}
             />
           </>
         ) : (
