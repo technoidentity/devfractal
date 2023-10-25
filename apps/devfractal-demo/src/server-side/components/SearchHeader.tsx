@@ -28,8 +28,6 @@ export function Header({
 
   return (
     <HStack className="justify-between items-center w-full">
-      {/* @TODO: shad-cn does not seem to support multiple selections */}
-
       <Popover>
         <PopoverTrigger>
           <HStack className="justify-between items-center gap-x-4">

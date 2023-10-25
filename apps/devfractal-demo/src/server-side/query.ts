@@ -1,10 +1,11 @@
 import { isDefined, keys, pick$, urlcat } from 'devfractal'
 
-import type { ProductsResponse } from '@/mocks/data-table/operations'
+import type { ProductsResponse } from '@/mocks/data-table/database'
 
 export async function fetchProducts(params: {
-  page: number
-  limit: number
+  show: 'all' | 'paged'
+  page?: number
+  limit?: number
   column: string[]
   sortBy?: string
   order?: 'asc' | 'desc'

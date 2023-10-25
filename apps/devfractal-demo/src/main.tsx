@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import { queryClient } from '@/queryClient'
 
-import { DataTable } from './server-side/DataTable'
+import { DataGridApp } from './server-side/DataGridApp'
 import './global.css'
 
 if (process.env.NODE_ENV === 'development') {
@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'development') {
 const router = createBrowserRouter([
   {
     path: '*',
-    element: <DataTable />,
+    element: <DataGridApp />,
   },
 ])
 
