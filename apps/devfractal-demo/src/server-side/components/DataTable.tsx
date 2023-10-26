@@ -21,15 +21,16 @@ import { MoreHorizontal } from 'lucide-react'
 import { HeaderWrapper } from './HeaderWrapper'
 
 export function DataTable(props: {
-  data: Array<object>
+  data: Array<object & { id: number }>
   headers: string[]
   onOrder: (value: { sortBy: string; order: 'asc' | 'desc' }) => void
   onSearch: (value: { searchBy: string; search: string }) => void
+  onDelete: (id: number) => void
 }): JSX.Element {
   return (
     <Table className="text-center">
       <DataHeader {...props} />
-      <DataBody data={props.data} />
+      <DataBody data={props.data} onDelete={props.onDelete} />
     </Table>
   )
 }
@@ -74,7 +75,13 @@ export function DataHeader({
 }
 
 // @TODO: Improve generics
-export function DataBody({ data }: { data: Array<object> }): JSX.Element {
+export function DataBody({
+  data,
+  onDelete,
+}: {
+  data: Array<object & { id: number }>
+  onDelete: (id: number) => void
+}): JSX.Element {
   return (
     <TableBody>
       {data.length > 0 ? (
@@ -87,7 +94,7 @@ export function DataBody({ data }: { data: Array<object> }): JSX.Element {
                   return <TableCell key={item}>{product[item]}</TableCell>
                 })}
               <TableCell className="invisible group-hover/row:visible">
-                <ActionsMenu />
+                <ActionsMenu onDelete={onDelete} id={product['id']} />
               </TableCell>
             </TableRow>
           )
@@ -103,7 +110,13 @@ export function DataBody({ data }: { data: Array<object> }): JSX.Element {
 
 // @TODO: Should take the actions and the corresponding handlers from parent
 // Assuming row operations.. editing fields to be sent as PUT or PATCH?
-function ActionsMenu(): JSX.Element {
+function ActionsMenu({
+  onDelete,
+  id,
+}: {
+  id: number
+  onDelete: (id: number) => void
+}): JSX.Element {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -115,7 +128,9 @@ function ActionsMenu(): JSX.Element {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="text-blue-300">Edit</DropdownMenuItem>
-        <DropdownMenuItem className="text-red-500">Delete</DropdownMenuItem>
+        <DropdownMenuItem className="text-red-500" onClick={() => onDelete(id)}>
+          Delete
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

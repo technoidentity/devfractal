@@ -9,7 +9,7 @@ import {
   pipe,
 } from 'devfractal'
 
-import { data, type Product } from '@/server-side'
+import { data, type Product, type Products } from '@/server-side'
 
 import { orderBy, picked } from './utils'
 
@@ -19,6 +19,24 @@ export type ProductsResponse = {
   totalPages: number
   totalItems: number
   columns: string[]
+}
+
+const products: Products = []
+
+export const initializeProducts = (): void => {
+  products.push(...data)
+}
+
+initializeProducts()
+
+export function deleteRowFromTable(id: number) {
+  const targetIndex = products.findIndex(product => product.id === id)
+
+  if (targetIndex === -1) {
+    return
+  }
+
+  return products.splice(targetIndex, 1)
 }
 
 export function getDataFromTable(params: {
@@ -45,14 +63,14 @@ export function getDataFromTable(params: {
 
     return {
       products: chain(
-        data,
+        products,
         orderBy(params.sortBy as keyof Product, params.order),
         filter(product => hasSearchString(product, searchKey, searchStr)),
-        picked([...selected] as (keyof Product)[]),
+        picked([...selected, 'id'] as (keyof Product)[]),
       ),
       columns: selected,
       currentPage: 0,
-      totalItems: data.length,
+      totalItems: products.length,
       totalPages: 0,
     }
   }
@@ -64,13 +82,13 @@ export function getDataFromTable(params: {
   ) {
     return {
       products: chain(
-        data,
+        products,
         orderBy(params.sortBy as keyof Product, params.order),
-        picked([...selected] as (keyof Product)[]),
+        picked([...selected, 'id'] as (keyof Product)[]),
       ),
       columns: selected,
       currentPage: 0,
-      totalItems: data.length,
+      totalItems: products.length,
       totalPages: 0,
     }
   }
@@ -85,23 +103,26 @@ export function getDataFromTable(params: {
 
     return {
       products: chain(
-        data,
+        products,
         filter(product => hasSearchString(product, searchKey, searchStr)),
-        picked([...selected] as (keyof Product)[]),
+        picked([...selected, 'id'] as (keyof Product)[]),
       ),
       columns: selected,
       currentPage: 0,
-      totalItems: data.length,
+      totalItems: products.length,
       totalPages: 0,
     }
   }
 
   if (params.show === 'all') {
     return {
-      products: chain(data, picked([...selected] as (keyof Product)[])),
+      products: chain(
+        products,
+        picked([...selected, 'id'] as (keyof Product)[]),
+      ),
       columns: selected,
       currentPage: 0,
-      totalItems: data.length,
+      totalItems: products.length,
       totalPages: 0,
     }
   }
@@ -133,16 +154,16 @@ function getPaginatedProducts(params: {
 
     return {
       products: chain(
-        data,
+        products,
         paged(params.page, params.limit),
         orderBy(params.sortBy as keyof Product, params.order),
         filter(product => hasSearchString(product, searchKey, searchStr)),
-        picked([...selected] as (keyof Product)[]),
+        picked([...selected, 'id'] as (keyof Product)[]),
       ),
       columns: selected,
       currentPage: params.page,
-      totalItems: data.length,
-      totalPages: Math.ceil(data.length / params.limit),
+      totalItems: products.length,
+      totalPages: Math.ceil(products.length / params.limit),
     }
   }
 
@@ -154,15 +175,15 @@ function getPaginatedProducts(params: {
   ) {
     return {
       products: chain(
-        data,
+        products,
         paged(params.page, params.limit),
         orderBy(params.sortBy as keyof Product, params.order),
-        picked([...selected] as (keyof Product)[]),
+        picked([...selected, 'id'] as (keyof Product)[]),
       ),
       columns: selected,
       currentPage: params.page,
-      totalItems: data.length,
-      totalPages: Math.ceil(data.length / params.limit),
+      totalItems: products.length,
+      totalPages: Math.ceil(products.length / params.limit),
     }
   }
 
@@ -177,42 +198,42 @@ function getPaginatedProducts(params: {
 
     return {
       products: chain(
-        data,
+        products,
         paged(params.page, params.limit),
         filter(product => hasSearchString(product, searchKey, searchStr)),
-        picked([...selected] as (keyof Product)[]),
+        picked([...selected, 'id'] as (keyof Product)[]),
       ),
       columns: selected,
       currentPage: params.page,
-      totalItems: data.length,
-      totalPages: Math.ceil(data.length / params.limit),
+      totalItems: products.length,
+      totalPages: Math.ceil(products.length / params.limit),
     }
   }
 
   if (isDefined(params.page) && isDefined(params.limit)) {
     return {
       products: chain(
-        data,
+        products,
         paged(params.page, params.limit),
-        picked([...selected] as (keyof Product)[]),
+        picked([...selected, 'id'] as (keyof Product)[]),
       ),
       columns: selected,
       currentPage: params.page,
-      totalItems: data.length,
-      totalPages: Math.ceil(data.length / params.limit),
+      totalItems: products.length,
+      totalPages: Math.ceil(products.length / params.limit),
     }
   }
 
   return {
     products: chain(
-      data,
+      products,
       paged(1, 10),
-      picked([...selected] as (keyof Product)[]),
+      picked([...selected, 'id'] as (keyof Product)[]),
     ),
     columns: selected,
     currentPage: 1,
-    totalItems: data.length,
-    totalPages: Math.ceil(data.length / 10),
+    totalItems: products.length,
+    totalPages: Math.ceil(products.length / 10),
   }
 }
 

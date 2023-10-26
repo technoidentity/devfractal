@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   VStack,
   Text,
@@ -16,14 +16,11 @@ import { useSearchParams } from 'react-router-dom'
 import { insertAt } from '@/mocks/data-table/utils'
 
 import { DataTable } from './components/DataTable'
-import { Header } from './components/SearchHeader'
 import { Pagination } from './components/Pagination'
+import { Header } from './components/SearchHeader'
 import { VirtualDataTable } from './components/VirtualDataTable'
 import { headers } from './products'
-import { fetchProducts } from './query'
-
-// @TODO: Row operations: https://ui.shadcn.com/docs/components/combobox#dropdown-menu
-// https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
+import { deleteProduct, fetchProducts } from './query'
 
 export function DataGridApp(): JSX.Element {
   const [state, setState] = useSearchParams(
@@ -62,6 +59,15 @@ export function DataGridApp(): JSX.Element {
         searchBy: queryParams.searchBy,
         search: queryParams.search,
       }),
+  })
+
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['products'] })
+    },
   })
 
   function handleLimit(value: string) {
@@ -131,6 +137,10 @@ export function DataGridApp(): JSX.Element {
     setState(toSearch({ ...queryParams, column }))
   }
 
+  function handleDelete(id: number) {
+    mutation.mutate(id)
+  }
+
   return (
     <VStack className="justify-center items-center h-screen overflow-y-auto p-2 border rounded-md gap-y-2">
       <>
@@ -150,6 +160,7 @@ export function DataGridApp(): JSX.Element {
                 headers={data.columns}
                 onOrder={handleOrder}
                 onSearch={handleSearch}
+                onDelete={handleDelete}
               />
             ) : (
               <VirtualDataTable
