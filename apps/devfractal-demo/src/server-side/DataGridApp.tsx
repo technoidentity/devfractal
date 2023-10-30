@@ -118,7 +118,11 @@ export function DataGridApp(): JSX.Element {
     const params =
       show === 'all' ? omit$(queryParams, ['page', 'limit']) : queryParams
 
-    setState(toSearch({ ...params, show }))
+    setState(
+      toSearch(
+        show === 'all' ? { ...params, show } : { ...params, show, limit: 10 },
+      ),
+    )
   }
 
   function handleColumns(header: string) {

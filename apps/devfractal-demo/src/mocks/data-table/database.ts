@@ -39,6 +39,7 @@ export function deleteRowFromTable(id: number) {
   return products.splice(targetIndex, 1)
 }
 
+// @TODO: May need to return return as a response
 export function getDataFromTable(params: {
   show: 'all' | 'paged'
   column: string | string[]
